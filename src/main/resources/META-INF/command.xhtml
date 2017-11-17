@@ -1,0 +1,27 @@
+<ui:composition
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:mm="http://minutenwerk.org/mimic4j"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  <c:set var="mimic" value="${mm.toJsf}" />
+  <c:set var="jsfTag" value="${mimic.jsfTag}" />
+  <c:choose>
+    <ui:remove>tag type button is rendered as h:commandButton</ui:remove>
+    <c:when test="${jsfTag == 'CommandButton'}">
+      <h:commandButton
+        id         = "${mimic.evalId(id)}"
+        action     = "${mimic.action}"
+        disabled   = "${mimic.disabled}"
+        rendered   = "${mimic.rendered}"
+        styleClass = "${styleClass} ${mimic.styleClass}"
+        title      = "${mimic.title}"
+        value      = "${mimic.value}" />
+    </c:when>
+    <ui:remove>tag type link is delegated to mm:link</ui:remove>
+    <c:when test = "${jsfTag == 'Link'}">
+      <mm:link />
+    </c:when>
+  </c:choose>
+</ui:composition>

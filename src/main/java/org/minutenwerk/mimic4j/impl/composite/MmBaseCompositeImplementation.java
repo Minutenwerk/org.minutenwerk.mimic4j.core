@@ -1,0 +1,26 @@
+package org.minutenwerk.mimic4j.impl.composite;
+
+import org.minutenwerk.mimic4j.api.MmCompositeMimic;
+import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
+import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
+
+/**
+ * MmBaseCompositeImplementation is the abstract base class for the implementation part of all composite mimic classes.
+ *
+ * @author  Olaf Kossak
+ * @see     $HeadURL: $$maven.project.version$
+ */
+public abstract class MmBaseCompositeImplementation<CALLBACK extends MmCompositeCallback, CONFIGURATION extends MmBaseConfiguration>
+  extends MmBaseImplementation<MmBaseCompositeDeclaration<?>, CONFIGURATION> implements MmCompositeMimic {
+
+  /**
+   * Creates a new MmBaseCompositeImplementation instance.
+   *
+   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   */
+  public MmBaseCompositeImplementation(MmDeclarationMimic pParent) {
+    super(pParent);
+  }
+
+}

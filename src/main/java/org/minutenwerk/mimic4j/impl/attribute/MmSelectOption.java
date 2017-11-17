@@ -1,0 +1,164 @@
+package org.minutenwerk.mimic4j.impl.attribute;
+
+/**
+ * An option for an attribute value.
+ *
+ * @author  Olaf Kossak
+ * @see     $HeadURL: $$maven.project.version$
+ */
+public class MmSelectOption<OPTION_VALUE_TYPE> {
+
+  /** The id. */
+  protected final String            id;
+
+  /** The short description. */
+  protected final String            shortDescription;
+
+  /** The long description. */
+  protected final String            longDescription;
+
+  /** The value. */
+  protected final OPTION_VALUE_TYPE value;
+
+  /** True, if the select option is enabled to be selected. */
+  protected boolean                 enabled;
+
+  /**
+   * Creates a new MmOptionImpl instance.
+   *
+   * @param  pId                The id.
+   * @param  pShortDescription  The short description.
+   * @param  pLongDescription   The long description.
+   * @param  pValue             The value.
+   */
+  public MmSelectOption(String pId, String pShortDescription, String pLongDescription, OPTION_VALUE_TYPE pValue) {
+    this.id               = pId;
+    this.shortDescription = pShortDescription;
+    this.longDescription  = pLongDescription;
+    this.value            = pValue;
+    this.enabled          = true;
+  }
+
+  /**
+   * Returns true, if this and the specified other object are equal in technical sense.
+   *
+   * @param   pThat  The other object to be compared.
+   *
+   * @return  True, if both objects are the same.
+   *
+   * @since   $maven.project.version$
+   */
+  @Override public boolean equals(Object pThat) {
+    if (this == pThat) {
+      return true;
+    } else if ((pThat == null) || !(pThat instanceof MmSelectOption<?>)) {
+      return false;
+    } else if ((this.id != null) && this.id.equals(((MmSelectOption<?>)pThat).getDisplayId())) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Returns the display id of this select option.
+   *
+   * @return  The display id of this select option.
+   *
+   * @since   $maven.project.version$
+   */
+  public String getDisplayId() {
+    return this.id;
+  }
+
+  /**
+   * Returns the long description of this select option.
+   *
+   * @return  The long description of this select option.
+   *
+   * @since   $maven.project.version$
+   */
+  public String getLongDescription() {
+    return this.longDescription;
+  }
+
+  /**
+   * Returns the short description of this select option.
+   *
+   * @return  The short description of this select option.
+   *
+   * @since   $maven.project.version$
+   */
+  public String getShortDescription() {
+    return this.shortDescription;
+  }
+
+  /**
+   * Returns the value of this select option, will be synchronized with mimic viewside value.
+   *
+   * @return  The value of this select option.
+   *
+   * @since   $maven.project.version$
+   */
+  public OPTION_VALUE_TYPE getValue() {
+    return value;
+  }
+
+  /**
+   * Returns a hash code value for the object. This method is supported for the benefit of hashtables such as those provided by <code>
+   * java.util.Hashtable</code>.
+   *
+   * @return  The hash value of this Java object.
+   *
+   * @since   $maven.project.version$
+   */
+  @Override public int hashCode() {
+    return (id != null) ? id.hashCode() : super.hashCode();
+  }
+
+  /**
+   * Returns true, if this select option is enabled to be selected.
+   *
+   * @return  True, if this select option can be selected.
+   *
+   * @since   $maven.project.version$
+   */
+  public boolean isEnabled() {
+    return this.enabled;
+  }
+
+  /**
+   * Sets state of this select option to be or to be not selectable.
+   *
+   * @param  pEnabled  The specified select state.
+   *
+   * @since  $maven.project.version$
+   */
+  public void setEnabled(boolean pEnabled) {
+    this.enabled = pEnabled;
+  }
+
+  /**
+   * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change
+   * at any time.
+   *
+   * @return  Some information about this object for development purposes like debugging and logging.
+   *
+   * @since   $maven.project.version$
+   */
+  @Override public String toString() {
+    StringBuilder snippet = new StringBuilder();
+    snippet.append("id=");
+    snippet.append(this.id);
+    snippet.append(", short=");
+    snippet.append(this.shortDescription);
+    snippet.append(", long=");
+    snippet.append(this.longDescription);
+    snippet.append(", enabled=");
+    snippet.append(this.enabled);
+    snippet.append(", value=");
+    snippet.append(this.value);
+    return snippet.toString();
+  }
+
+}

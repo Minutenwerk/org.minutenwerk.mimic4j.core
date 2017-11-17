@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd"
+    version="2.2">
+  <namespace>http://minutenwerk.org/mimic4j</namespace>
+
+  <tag><tag-name>attribute</tag-name>                  <source>attribute.xhtml</source></tag>
+  <tag><tag-name>command</tag-name>                    <source>command.xhtml</source></tag>
+  <tag><tag-name>div</tag-name>                        <source>div.xhtml</source></tag>
+  <tag><tag-name>form</tag-name>                       <source>form.xhtml</source></tag>
+  <tag><tag-name>formGroupAttribute</tag-name>         <source>formGroupAttribute.xhtml</source></tag>
+  <tag><tag-name>formGroupLink</tag-name>              <source>formGroupLink.xhtml</source></tag>
+  <tag><tag-name>leporello</tag-name>                  <source>leporello.xhtml</source></tag>
+  <tag><tag-name>leporelloPanel</tag-name>             <source>leporelloPanel.xhtml</source></tag>
+  <tag><tag-name>leporelloTab</tag-name>               <source>leporelloTab.xhtml</source></tag>
+  <tag><tag-name>link</tag-name>                       <source>link.xhtml</source></tag>
+  <tag><tag-name>outputIcon</tag-name>                 <source>outputIcon.xhtml</source></tag>
+  <tag><tag-name>tab</tag-name>                        <source>tab.xhtml</source></tag>
+  <tag><tag-name>table</tag-name>                      <source>table.xhtml</source></tag>
+  <tag><tag-name>tableColumn</tag-name>                <source>tableColumn.xhtml</source></tag>
+  <tag><tag-name>tableCellBoolean</tag-name>           <source>tableCellBoolean.xhtml</source></tag>
+  <tag><tag-name>tableCellCommandDelete</tag-name>     <source>tableCellCommandDelete.xhtml</source></tag>
+  <tag><tag-name>tableCellCommandSave</tag-name>       <source>tableCellCommandSave.xhtml</source></tag>
+  <tag><tag-name>tableCellLink</tag-name>              <source>tableCellLink.xhtml</source></tag>
+  <tag><tag-name>tableCellText</tag-name>              <source>tableCellText.xhtml</source></tag>
+
+  <function>
+    <function-name>conditionalValue</function-name>
+    <function-class>org.minutenwerk.mimic4j.impl.view.MmJsfBridge</function-class>
+    <function-signature>java.lang.Object conditionalValue(boolean, java.lang.Object, java.lang.Object)</function-signature>
+  </function>
+
+</facelet-taglib>

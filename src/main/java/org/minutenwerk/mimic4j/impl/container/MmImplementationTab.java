@@ -1,0 +1,61 @@
+package org.minutenwerk.mimic4j.impl.container;
+
+import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.container.MmTab;
+import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
+import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
+import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
+import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTab;
+
+/**
+ * MmImplementationTab is the specific class for the implementation part of tab mimics.
+ *
+ * @author  Olaf Kossak
+ * @see     $HeadURL: $$maven.project.version$
+ */
+public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<MmTab<MODEL>, MODEL, MmConfigurationTab> {
+
+  /** The parent tab set this tab belongs to. */
+  protected MmImplementationLeporelloTab parentTabSet;
+
+  /**
+   * Creates a new MmImplementationTab instance.
+   *
+   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   */
+  public MmImplementationTab(MmDeclarationMimic pParent) {
+    super(pParent);
+  }
+
+  /**
+   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
+   *
+   * @return  A new MmJsfBridge for this mimic.
+   *
+   * @since   $maven.project.version$
+   */
+  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+    return new MmJsfBridgeTab<MODEL>(this);
+  }
+
+  /**
+   * Initialize this mimic after constructor phase.
+   *
+   * @since  $maven.project.version$
+   */
+  @Override protected void initializeConfiguration() {
+    // evaluate annotation
+    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmTabAnnotation.class);
+
+    MmTabAnnotation annotation = this.findAnnotation(this.declaration, MmTabAnnotation.class);
+
+    if (annotation == null) {
+
+      // if there is no annotation, set default configuration
+      this.configuration = new MmConfigurationTab();
+    } else {
+      this.configuration = new MmConfigurationTab(annotation);
+    }
+  }
+
+}

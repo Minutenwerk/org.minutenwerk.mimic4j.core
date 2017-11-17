@@ -1,0 +1,145 @@
+<ui:composition
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:mm="http://minutenwerk.org/mimic4j"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  <c:set var="jsfTag" value="${mm.toJsf.jsfTag}" />
+  <c:choose>
+    <c:when test="${jsfTag == 'TextField'}">
+      <h:inputText
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        maxlength  = "${mm.toJsf.maxlength}"
+        rendered   = "${mm.toJsf.rendered}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+      </h:inputText>
+    </c:when>
+    <c:when test="${jsfTag == 'TextOutput'}">
+      <h:outputText
+        id         = "${mm.toJsf.evalId(id)}"
+        rendered   = "${mm.toJsf.rendered}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+      </h:outputText>
+    </c:when>
+    <c:when test="${jsfTag == 'IconOutput'}">
+      <h:outputText
+        id         = "${mm.toJsf.evalId(id)}"
+        escape     = "false"
+        rendered   = "${mm.toJsf.rendered}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "&lt;i class='icon-ok' /&gt;">
+      </h:outputText>
+    </c:when>
+    <c:when test="${jsfTag == 'TextPlain'}">${mm.toJsf.value}</c:when>
+    <c:when test="${jsfTag == 'TextArea'}">
+      <h:inputTextarea
+        cols       = "${mm.toJsf.cols}"
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        maxlength  = "${mm.toJsf.maxlength}"
+        rendered   = "${mm.toJsf.rendered}"
+        rows       = "${mm.toJsf.rows}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+      </h:inputTextarea>
+    </c:when>
+    <c:when test="${jsfTag == 'TextSecret'}">
+      <h:inputSecret
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        maxlength  = "${mm.toJsf.maxlength}"
+        rendered   = "${mm.toJsf.rendered}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+      </h:inputSecret>
+    </c:when>
+    <c:when test="${jsfTag == 'TextHidden'}">
+      <h:inputHidden 
+        id         = "${mm.toJsf.evalId(id)}"
+        rendered   = "${mm.toJsf.rendered}"
+        value      = "${mm.toJsf.value}">
+      </h:inputHidden>
+    </c:when>
+    <c:when test="${jsfTag == 'SelectOneListbox'}">
+      <h:selectOneListbox
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        rendered   = "${mm.toJsf.rendered}"
+        size       = "${mm.toJsf.size}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+        <f:selectItems value = "${mm.toJsf.selectItems}" />
+      </h:selectOneListbox>
+    </c:when>
+    <c:when test="${jsfTag == 'SelectOneMenu'}">
+      <h:selectOneMenu
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        rendered   = "${mm.toJsf.rendered}"
+        size       = "${mm.toJsf.size}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+        <f:selectItems value = "${mm.toJsf.selectItems}" />
+      </h:selectOneMenu>
+    </c:when>
+    <c:when test="${jsfTag == 'SelectOneRadio'}">
+      <h:selectOneRadio
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        layout     = "${mm.toJsf.layout}"
+        rendered   = "${mm.toJsf.rendered}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+        <f:selectItems value = "${mm.toJsf.selectItems}" />
+      </h:selectOneRadio>
+    </c:when>
+    <c:when test="${jsfTag == 'SelectOneCheckbox'}">
+      <h:selectBooleanCheckbox
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        layout     = "${mm.toJsf.layout}"
+        rendered   = "${mm.toJsf.rendered}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+      </h:selectBooleanCheckbox>
+    </c:when>
+    <c:when test="${jsfTag == 'SelectManyListbox'}">
+      <h:selectManyListbox
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        rendered   = "${mm.toJsf.rendered}"
+        size       = "${mm.toJsf.size}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+        <f:selectItems value = "${mm.toJsf.selectItems}" />
+      </h:selectManyListbox>
+    </c:when>
+    <c:when test="${jsfTag == 'SelectManyCheckbox'}">
+      <h:selectManyCheckbox
+        id         = "${mm.toJsf.evalId(id)}"
+        disabled   = "${mm.toJsf.disabled}"
+        layout     = "${mm.toJsf.layout}"
+        rendered   = "${mm.toJsf.rendered}"
+        styleClass = "${styleClass} ${mm.toJsf.styleClass}"
+        title      = "${mm.toJsf.title}"
+        value      = "${mm.toJsf.value}">
+        <f:selectItems value = "${mm.toJsf.selectItems}" />
+      </h:selectManyCheckbox>
+    </c:when>
+    <c:otherwise>ERROR: unknown jsf tag ${jsfTag}, use TextField, TextArea, TextSecret, TextHidden, SelectOneListbox, SelectOneMenu, SelectOneRadio, SelectOneCheckbox, SelectManyListbox or SelectManyCheckbox</c:otherwise>
+  </c:choose>
+</ui:composition>

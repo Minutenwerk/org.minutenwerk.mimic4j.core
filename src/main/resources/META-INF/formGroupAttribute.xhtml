@@ -1,0 +1,225 @@
+<ui:composition
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:mm="http://minutenwerk.org/mimic4j"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+  <c:set var="jsEnabled"      value="${mm.toJsf.jsEnabled}" />
+  <c:set var="msgMaxSeverity" value="${mm.toJsf.msgMaxSeverity}" />
+  <c:set var="id"             value="${mm.toJsf.evalId(id)}" />
+  <c:set var="label"          value="${mm.toJsf.label}" />
+  <c:choose>
+    <c:when test="${jsEnabled}">
+      <c:choose>
+        <c:when test="${msgMaxSeverity == ''}">
+          <div class="form-group">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <mm:attribute
+                id         = "${id}"
+                styleClass = "form-control" />
+            </div>
+          </div>
+        </c:when>
+        <c:when test="${msgMaxSeverity == 'user_error'}">
+          <div class="form-group has-error">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <div class="input-group">
+                <mm:attribute
+                  id         = "${id}"
+                  styleClass = "form-control" />
+                <span class="input-group-btn">
+                  <button
+                    type           = "button"
+                    class          = "btn btnMsg btn-danger"
+                    data-container = "body"
+                    data-toggle    = "popover"
+                    data-placement = "auto right"
+                    title          = "${mm.toJsf.msgMaxTitle}"
+                    data-content   = "${mm.toJsf.msgListText}">
+                    <i class="fa fa-flash"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </c:when>
+        <c:when test="${msgMaxSeverity == 'warning'}">
+          <div class="form-group has-warning">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <div class="input-group">
+                <mm:attribute
+                  id         = "${id}"
+                  styleClass = "form-control" />
+                <span class="input-group-btn">
+                  <button
+                    type           = "button"
+                    class          = "btn btnMsg btn-warning"
+                    data-container = "body"
+                    data-toggle    = "popover"
+                    data-placement = "auto right"
+                    title          = "${mm.toJsf.msgMaxTitle}"
+                    data-content   = "${mm.toJsf.msgListText}">
+                    <i class="fa fa-exclamation"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </c:when>
+        <c:when test="${msgMaxSeverity == 'info'}">
+          <div class="form-group has-info">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <div class="input-group">
+                <mm:attribute
+                  id         = "${id}"
+                  styleClass = "form-control" />
+                <span class="input-group-btn">
+                  <button
+                    type           = "button"
+                    class          = "btn btnMsg btn-info"
+                    data-container = "body"
+                    data-toggle    = "popover"
+                    data-placement = "auto right"
+                    title          = "${mm.toJsf.msgMaxTitle}"
+                    data-content   = "${mm.toJsf.msgListText}">
+                    <i class="fa fa-info"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </c:when>
+        <c:when test="${msgMaxSeverity == 'success'}">
+          <div class="form-group has-success">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <div class="input-group">
+                <mm:attribute
+                  id         = "${id}"
+                  styleClass = "form-control" />
+                <span class="input-group-btn">
+                  <button
+                    type           = "button"
+                    class          = "btn btnMsg btn-success"
+                    data-container = "body"
+                    data-toggle    = "popover"
+                    data-placement = "auto right"
+                    title          = "${mm.toJsf.msgMaxTitle}"
+                    data-content   = "${mm.toJsf.msgListText}">
+                    <i class="fa fa-check"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </c:when>
+      </c:choose>
+    </c:when>
+    <c:otherwise> <!-- if javascript is disabled -->
+      <c:choose>
+        <c:when test="${msgMaxSeverity == ''}">
+          <div class="form-group">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <mm:attribute
+                id         = "${id}"
+                styleClass = "form-control" />
+            </div>
+          </div>
+        </c:when>
+        <c:when test="${msgMaxSeverity == 'user_error'}">
+          <div class="form-group has-error has-feedback">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <mm:attribute
+                id         = "${id}"
+                styleClass = "form-control" />
+              <span class="form-control-feedback"><span class="fa fa-flash"></span></span>
+            </div>
+          </div>
+          <ui:repeat value="${mm.toJsf.msgList}" var="message">
+            <div class="alert ${message.styleClass}">${message.text}</div>
+          </ui:repeat>
+        </c:when>
+        <c:when test="${msgMaxSeverity == 'warning'}">
+          <div class="form-group has-warning has-feedback">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <mm:attribute
+                id         = "${id}"
+                styleClass = "form-control" />
+              <span class="form-control-feedback"><span class="fa fa-exclamation"></span></span>
+            </div>
+          </div>
+          <ui:repeat value="${mm.toJsf.msgList}" var="message">
+            <div class="alert ${message.styleClass}">${message.text}</div>
+          </ui:repeat>
+        </c:when>
+        <c:when test="${msgMaxSeverity == 'info'}">
+          <div class="form-group has-feedback">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <mm:attribute
+                id         = "${id}"
+                styleClass = "form-control" />
+              <span class="form-control-feedback"><span class="fa fa-info"></span></span>
+            </div>
+          </div>
+          <ui:repeat value="${mm.toJsf.msgList}" var="message">
+            <div class="alert ${message.styleClass}">${message.text}</div>
+          </ui:repeat>
+        </c:when>
+        <c:when test="${msgMaxSeverity == 'success'}">
+          <div class="form-group has-success has-feedback">
+            <h:outputLabel
+              for        = "${id}"
+              value      = "${label}"
+              styleClass = "col-lg-2 control-label" />
+            <div class="col-lg-4">
+              <mm:attribute
+                id         = "${id}"
+                styleClass = "form-control" />
+              <span class="form-control-feedback"><span class="fa fa-check"></span></span>
+            </div>
+          </div>
+          <ui:repeat value="${mm.toJsf.msgList}" var="message">
+            <div class="alert ${message.styleClass}">${message.text}</div>
+          </ui:repeat>
+        </c:when>
+      </c:choose>
+    </c:otherwise>
+  </c:choose>
+</ui:composition>
