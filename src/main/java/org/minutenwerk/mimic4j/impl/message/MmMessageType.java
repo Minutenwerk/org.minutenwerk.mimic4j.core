@@ -4,7 +4,6 @@ package org.minutenwerk.mimic4j.impl.message;
  * MmMessageType is an enumeration of all types of messages in mimic4j.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public enum MmMessageType {
 

@@ -14,7 +14,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationString;
  * MmStringAnnotation annotates declarations of {@link MmString} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

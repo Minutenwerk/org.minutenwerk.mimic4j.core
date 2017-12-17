@@ -18,7 +18,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
  * @param   <ROW_MODEL>  The row model type.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationTable<ROW_MODEL>
   extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable> {
@@ -38,8 +37,6 @@ public class MmImplementationTable<ROW_MODEL>
 
   /**
    * Clears all table rows of this table.
-   *
-   * @since  $maven.project.version$
    */
   public void doMmClearTableRows() {
     this.ensureInitialization();
@@ -51,8 +48,6 @@ public class MmImplementationTable<ROW_MODEL>
    * Sets the values from model to modelside of mimic.
    *
    * @param         pRowModelList  The model to set.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-do
    */
@@ -91,8 +86,6 @@ public class MmImplementationTable<ROW_MODEL>
    * Returns the list of table column mimics of this table mimic.
    *
    * @return  The list of table column mimics.
-   *
-   * @since   $maven.project.version$
    */
   public List<MmTableColumn> getMmTableColumns() {
     this.ensureInitialization();
@@ -111,8 +104,6 @@ public class MmImplementationTable<ROW_MODEL>
    * Returns the list of table row mimics.
    *
    * @return  The list of table row mimics.
-   *
-   * @since   $maven.project.version$
    */
   public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
     this.ensureInitialization();
@@ -132,8 +123,6 @@ public class MmImplementationTable<ROW_MODEL>
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeTable<ROW_MODEL>(this);
@@ -141,8 +130,6 @@ public class MmImplementationTable<ROW_MODEL>
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

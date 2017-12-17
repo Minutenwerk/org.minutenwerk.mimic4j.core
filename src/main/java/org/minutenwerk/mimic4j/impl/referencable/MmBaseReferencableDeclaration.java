@@ -15,7 +15,6 @@ import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
  * @param   <IMPLEMENTATION>  The type of the corresponding class implementing this declaration api.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmBaseReferencableDeclaration<MODEL extends MmReferencableModel,
   IMPLEMENTATION extends MmBaseReferencableImplementation<?, MODEL, ?>> extends MmBaseContainerDeclaration<MODEL, IMPLEMENTATION>
@@ -37,8 +36,6 @@ public abstract class MmBaseReferencableDeclaration<MODEL extends MmReferencable
    * @param   pModel             The model data, which may control the query string.
    *
    * @return  The list of query parameters of the URL.
-   *
-   * @since   $maven.project.version$
    */
   @Override public List<MmNameValue> callbackMmGetReferenceParams(List<MmNameValue> pPassThroughValue, MODEL pModel) {
     return pPassThroughValue;

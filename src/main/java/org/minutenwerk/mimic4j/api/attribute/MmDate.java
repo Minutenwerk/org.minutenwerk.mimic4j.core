@@ -29,8 +29,6 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
    * @author   Olaf Kossak
-   * @version  $Revision: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $
-   * @see      $HeadURL:http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/main/java/org/minutenwerk/mimic4j/api/attribute/MmDate.java\$
    */
   public enum MmDateJsfDisabled {
 
@@ -45,8 +43,6 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
    * @author   Olaf Kossak
-   * @version  $Revision: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $
-   * @see      $HeadURL:http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/main/java/org/minutenwerk/mimic4j/api/attribute/MmDate.java\$
    */
   public enum MmDateJsfTag {
 
@@ -83,8 +79,6 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
    *
    * @throws        MmModelsideConverterException  In case of the conversion failed.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public String callbackMmConvertModelsideToViewsideValue(LocalDate pModelsideValue) throws MmModelsideConverterException {
@@ -110,8 +104,6 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
    * @return        The converted value of type MODELSIDE_VALUE.
    *
    * @throws        MmViewsideConverterException  In case of the conversion failed.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */
@@ -139,8 +131,6 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
    *
    * @return        The attribute's default value of type MODELSIDE_VALUE.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public LocalDate callbackMmGetDefaultValue(LocalDate pPassThroughValue) {
@@ -151,8 +141,6 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
    * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
    *
    * @return        A list of options.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */
@@ -167,8 +155,6 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
    *
    * @throws        MmValidatorException  In case of validation fails.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public void callbackMmValidateModelsideValue(LocalDate pModelsideValue) throws MmValidatorException {
@@ -178,8 +164,6 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
    * Returns the initialized date formatter of this mimic.
    *
    * @return  The initialized date formatter of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   protected DateTimeFormatter getMmDateTimeFormatter() {
     final String formatPattern = this.getMmFormatPattern();

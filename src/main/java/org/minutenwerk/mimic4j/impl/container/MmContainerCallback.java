@@ -9,7 +9,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
  * part.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmContainerCallback<MODEL> extends MmBaseCallback {
 
@@ -17,8 +16,6 @@ public interface MmContainerCallback<MODEL> extends MmBaseCallback {
    * Sets values from modelside of mimic into model.
    *
    * @param  pModel  The model to set values into.
-   *
-   * @since  $maven.project.version$
    */
   public void callbackMmSetModelFromModelside(MODEL pModel);
 
@@ -26,8 +23,6 @@ public interface MmContainerCallback<MODEL> extends MmBaseCallback {
    * Sets values from model into modelside of mimic.
    *
    * @param  pModel  The model containing the values to be set.
-   *
-   * @since  $maven.project.version$
    */
   public void callbackMmSetModelsideFromModel(MODEL pModel);
 
@@ -37,8 +32,6 @@ public interface MmContainerCallback<MODEL> extends MmBaseCallback {
    * @param   pModel  The model to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
-   *
-   * @since   $maven.project.version$
    */
   public void callbackMmValidateModel(MODEL pModel) throws MmValidatorException;
 

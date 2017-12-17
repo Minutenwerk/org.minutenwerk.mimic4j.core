@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTab;
  * MmJsfBridgeTab connects a tab mimic and a JSF tab view component.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeTab<MODEL> extends MmJsfBridge<MmImplementationTab<MODEL>, String, MODEL> {
 

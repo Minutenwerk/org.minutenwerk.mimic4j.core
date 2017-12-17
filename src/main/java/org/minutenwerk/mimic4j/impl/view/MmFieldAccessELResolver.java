@@ -23,7 +23,6 @@ import org.minutenwerk.mimic4j.api.MmMimic;
  * </pre>
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmFieldAccessELResolver extends ELResolver {
 
@@ -48,8 +47,6 @@ public class MmFieldAccessELResolver extends ELResolver {
    * @return  <code>null</code> if this <code>ELResolver</code> does not know how to handle the given <code>base</code> object; otherwise
    *          <code>Object.class</code> if any type of <code>property</code> is accepted; otherwise the most general <code>property</code>
    *          type accepted for the given <code>base</code>.
-   *
-   * @since   $maven.project.version$
    */
   @Override public Class<?> getCommonPropertyType(ELContext pContext, Object pBase) {
     if (pBase instanceof MmMimic) {
@@ -110,7 +107,6 @@ public class MmFieldAccessELResolver extends ELResolver {
    *          represent with this method
    *
    * @see     java.beans.FeatureDescriptor
-   * @since   $maven.project.version$
    */
   @Override public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext pContext, Object pBase) {
     return null;
@@ -134,8 +130,6 @@ public class MmFieldAccessELResolver extends ELResolver {
    *
    * @return  If the <code>propertyResolved</code> property of <code>ELContext</code> was set to <code>true</code>, then the most general
    *          acceptable type; otherwise undefined.
-   *
-   * @since   $maven.project.version$
    */
   @Override public Class<?> getType(ELContext pContext, Object pBase, Object pProperty) {
     if (pBase instanceof MmMimic) {
@@ -165,8 +159,6 @@ public class MmFieldAccessELResolver extends ELResolver {
    *
    * @return  If the <code>propertyResolved</code> property of <code>ELContext</code> was set to <code>true</code>, then the result of the
    *          variable or property resolution; otherwise undefined.
-   *
-   * @since   $maven.project.version$
    */
   @Override public Object getValue(ELContext pContext, Object pBase, Object pProperty) {
     if (pBase instanceof MmMimic) {
@@ -197,8 +189,6 @@ public class MmFieldAccessELResolver extends ELResolver {
    *
    * @return  If the <code>propertyResolved</code> property of <code>ELContext</code> was set to <code>true</code>, then <code>true</code>
    *          if the property is read-only or <code>false</code> if not; otherwise undefined.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isReadOnly(ELContext pContext, Object pBase, Object pProperty) {
     if (pBase instanceof MmMimic) {
@@ -226,8 +216,6 @@ public class MmFieldAccessELResolver extends ELResolver {
    * @param  pBase      The base object whose property value is to be set, or <code>null</code> to set a top-level variable.
    * @param  pProperty  The property or variable to be set.
    * @param  pValue     The value to set the property or variable to.
-   *
-   * @since  $maven.project.version$
    */
   @Override public void setValue(ELContext pContext, Object pBase, Object pProperty, Object pValue) {
     if (pBase instanceof MmMimic) {

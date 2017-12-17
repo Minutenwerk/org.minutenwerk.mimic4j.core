@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloPanel;
  * MmImplementationLeporelloPanel is the specific class for the implementation part of leporello mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationLeporelloPanel<MODEL>
   extends MmBaseContainerImplementation<MmLeporelloPanel<MODEL>, MODEL, MmConfigurationLeporelloPanel> {
@@ -33,8 +32,6 @@ public class MmImplementationLeporelloPanel<MODEL>
    * follower, e.g. for panel3 it will return "#panel1,#panel2,#panel5".
    *
    * @return  The CSS selector for data parents of leporello panel.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmDataParents() {
     String  returnString = "";
@@ -64,8 +61,6 @@ public class MmImplementationLeporelloPanel<MODEL>
    *
    * @return        A String containing space delimited <code>CSS</code> style classes.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public String getMmStyleClasses() {
@@ -84,8 +79,6 @@ public class MmImplementationLeporelloPanel<MODEL>
    * Returns the CSS style class for initial opening of leporello panel.
    *
    * @return  The CSS style class for initial opening of leporello panel.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmStyleInitiallyOpen() {
     this.ensureInitialization();
@@ -100,8 +93,6 @@ public class MmImplementationLeporelloPanel<MODEL>
    * Returns the leporello panel's viewside value of type String.
    *
    * @return  The leporello panel's viewside value of type String.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmViewsideValue() {
     // TODO MmImplementationLeporelloPanel.getMmViewsideValue()
@@ -112,8 +103,6 @@ public class MmImplementationLeporelloPanel<MODEL>
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeLeporelloPanel(this);
@@ -123,8 +112,6 @@ public class MmImplementationLeporelloPanel<MODEL>
    * TODOC.
    *
    * @return  TODOC
-   *
-   * @since   $maven.project.version$
    */
   protected MmImplementationLeporello<?, ?> getMmImplementationLeporello() {
     return (MmImplementationLeporello<?, ?>)this.implementationParent;
@@ -134,8 +121,6 @@ public class MmImplementationLeporelloPanel<MODEL>
    * Returns the reverse index of this panel, which means the last panel's index is 1, the first panel's index is the count of all panels.
    *
    * @return  The reverse index of this panel.
-   *
-   * @since   $maven.project.version$
    */
   protected int getReverseIndex() {
     final MmLeporelloTab      selectedTab   = this.getMmImplementationLeporello().getMmSelectedTab();
@@ -164,8 +149,6 @@ public class MmImplementationLeporelloPanel<MODEL>
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

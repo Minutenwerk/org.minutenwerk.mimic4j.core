@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporelloPanel;
  * MmJsfBridgeLeporello connects a leporello panel mimic and a JSF tabset view component. Corresponding tag is leporelloPanel.xhtml.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLeporelloPanel<?>, String, String> {
 
@@ -23,8 +22,6 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    * Returns CSS selector for data parents of leporello panel, like in (data-toggle="collapse" data-target="#target1,#target2,#target3").
    *
    * @return  The CSS selector for data parents of leporello panel.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getDataParents() {
     return this.implementation.getMmDataParents();
@@ -34,8 +31,6 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    * Returns the leporello id, which is used as data parent.
    *
    * @return  The leporello id.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getLeporelloId() {
     return this.implementation.getMmParent().getMmId();
@@ -45,8 +40,6 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    * Returns the CSS style class for initial opening of leporello panel.
    *
    * @return  The CSS style class for initial opening of leporello panel.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getStyleInitiallyOpen() {
     return this.implementation.getMmStyleInitiallyOpen();
@@ -56,8 +49,6 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    * Returns the value of this leporello panel.
    *
    * @return  The value of this leporello panel.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getValue() {
     return this.implementation.getMmViewsideValue();

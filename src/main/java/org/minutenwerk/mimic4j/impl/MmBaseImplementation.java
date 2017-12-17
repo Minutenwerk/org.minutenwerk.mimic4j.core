@@ -52,8 +52,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Enumeration of states during initialization phase.
    *
    * @author   Olaf Kossak
-   * @version  $Revision: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $
-   * @see      $HeadURL:http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/main/java/org/minutenwerk/mimic4j/impl/MmBaseImplementation.java\$
    */
   protected enum MmInitialState {
 
@@ -199,8 +197,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param         pMm           The specific mimic to log.
    * @param         pIndentation  Level of indentation in log.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-initialization
    */
   protected static void logSubtree(MmBaseImplementation<?, ?> pMm, String pIndentation) {
@@ -222,8 +218,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The implementation part of the specified declaration.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-helper
    */
   @SuppressWarnings("unchecked")
@@ -239,8 +233,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param   pParameterIndex  The parameter position index. Starts with One for the first parameter.
    *
    * @return  The found Java-Generics parameter. <code>null</code> if none was found.
-   *
-   * @since   $maven.project.version$
    */
   @SuppressWarnings("unchecked")
   public static <T extends Type> T findGenericsParameterType(Class<?> pClassToAnalyze, Class<?> pGenericRawType, int pParameterIndex) {
@@ -276,8 +268,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param   pIndentation  Level of indentation in log.
    *
    * @return  Debug information about a specified mimic and subtree of all its children and runtime children.
-   *
-   * @since   $maven.project.version$
    */
   public static String toStringSubtree(MmBaseImplementation<?, ?> pMm, String pIndentation) {
     StringWriter writer = new StringWriter();
@@ -300,8 +290,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param   pMmBaseImplementation  The specified mimic.
    *
    * @return  The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>.
-   *
-   * @since   $maven.project.version$
    */
   protected static List<MmBaseImplementation<?, ?>> getImplementationChildrenOf(MmBaseImplementation<?, ?> pMmBaseImplementation) {
     return pMmBaseImplementation.implementationChildren;
@@ -315,8 +303,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @throws        IllegalStateException     in case of state is not in {@link MmInitialState.IN_CONSTRUCTION}, or reference to declaration
    *                                          part is NOT null.
    * @throws        IllegalArgumentException  in case of parameter pDeclaration is null.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-construction
    */
@@ -352,8 +338,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @throws        IllegalStateException     in case of state is not in {@link MmInitialState.CONSTRUCTION_COMPLETE},
    *                                          {@link MmInitialState.IN_INITIALIZATION} or {@link MmInitialState.INITIALIZED}.
    * @throws        IllegalArgumentException  in case of parameter pName is null.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-naming
    */
@@ -391,8 +375,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *                                          {@link MmInitialState.INITIALIZED}.
    * @throws        IllegalArgumentException  in case of parameter pTypeOfFirstGenericParameter is null.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-naming
    */
   protected void setTypeOfFirstGenericParameter(Type pTypeOfFirstGenericParameter) {
@@ -421,8 +403,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *                                          {@link MmInitialState.IN_INITIALIZATION} or {@link MmInitialState.INITIALIZED}, or parameter
    *                                          pChild does not have an implementation part.
    * @throws        IllegalArgumentException  in case of parameter pChild is null.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-initialization
    */
@@ -483,8 +463,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @throws        IllegalArgumentException  in case othe annotation is not allowed for this type of mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-initialization
    */
   protected <ANNOTATION extends Annotation> void checkForIllegalAnnotationsOtherThan(MmBaseDeclaration<?, ?> pDeclaration,
@@ -530,8 +508,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Ensures that mimic will be initialized, if it is not initialized yet.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-initialization
    */
   protected void ensureInitialization() {
@@ -559,8 +535,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param         pAnnotationClass  The runtime class of the annotation.
    *
    * @return        The found annotation or <code>null</code>.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-initialization
    */
@@ -606,8 +580,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        All found fields.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-initialization
    */
   protected List<Field> findFields(Class<?> pClassToAnalyze) {
@@ -633,8 +605,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        An ancestor of this mimic of specified type, if exists, otherwise null.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-initialization
    */
   @SuppressWarnings("unchecked")
@@ -656,8 +626,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @throws        IllegalStateException  in case of initial state is not {@link MmInitialState.CONSTRUCTION_COMPLETE} or reference to
    *                                       declaration part of mimic is not defined.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-initialization
    */
@@ -706,8 +674,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Initialize this mimic after constructor phase.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-initialization
    */
   protected abstract void initializeConfiguration();
@@ -716,8 +682,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Add field to children, if field is public and not static and of type MmBaseDeclaration.
    *
    * @param         pField  The specific field to analyze.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-initialization
    */
@@ -764,8 +728,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        A list of all ancestor mimics of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   public List<MmMimic> getMmAncestors() {
@@ -786,8 +748,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        A direct child mimic of specified name, or <code>null</code> if it doesn't exist.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   public final MmMimic getMmChildByName(String pChildName) {
@@ -805,8 +765,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Returns a list of all direct child mimics of this mimic.
    *
    * @return        A list of all direct child mimics of this mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -827,8 +785,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param         pFullName  The full name of the mimic to search for.
    *
    * @return        A descendant mimic of specified full name, or <code>null</code> if it doesn't exist.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -854,8 +810,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        A list of all descendant mimics of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   public List<MmMimic> getMmDescendants() {
@@ -876,8 +830,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The full name of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public String getMmFullName() {
@@ -895,8 +847,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The id of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public String getMmId() {
@@ -911,8 +861,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * MmConfiguration.longDescription</code>.
    *
    * @return        A long description.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -933,8 +881,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The name of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public String getMmName() {
@@ -948,8 +894,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The parent mimic of this mimic, may be null.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   public MmMimic getMmParent() {
@@ -962,8 +906,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Returns the self reference of this object for the current data model, or the static part if there is no current data model.
    *
    * @return        The self reference of this object for the current data model, or the static part if there is no current data model.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -994,8 +936,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The self reference of this object for a specified data model.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public MmReference getMmReference(MmReferencableModel pModel) {
@@ -1023,8 +963,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The <code>MmRoot</code> of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   public MmRoot getMmRoot() {
@@ -1039,8 +977,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * MmConfiguration.shortDescription</code>.
    *
    * @return        A short description.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -1058,8 +994,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * {@link MmBaseCallback#callbackMmGetStyleClasses()}.
    *
    * @return        A String containing space delimited <code>CSS</code> style classes.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -1080,8 +1014,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        <code>True</code>, if the mimic is enabled.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public boolean isMmEnabled() {
@@ -1100,8 +1032,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        <code>True</code>, if the mimic is read only.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public boolean isMmReadOnly() {
@@ -1119,8 +1049,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        <code>True</code>, if the mimic has been created at runtime.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public boolean isMmRuntimeChild() {
@@ -1134,8 +1062,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * callbackMmIsVisible returns <code>true</code>.
    *
    * @return        <code>True</code>, if the mimic is visible.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -1154,8 +1080,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * at any time.
    *
    * @return        Some information about this object for development purposes like debugging and logging.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -1188,8 +1112,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Clears the list of runtime children of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-helper
    */
   public void clearRuntimeChildrenList() {
@@ -1202,8 +1124,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The configuration of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-helper
    */
   public CONFIGURATION getConfiguration() {
@@ -1214,8 +1134,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Returns the declaration part of this mimic.
    *
    * @return        The declaration part of this mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-helper
    */
@@ -1231,8 +1149,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The internationalized version of a specified message.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-helper
    */
   public String getMmI18nText(MmMessageType pMessageType, Object... pArguments) {
@@ -1244,8 +1160,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The Java type of configuration class of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-helper
    */
   protected Class<?> getConfigurationType() {
@@ -1256,8 +1170,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Returns the MmJsfBridge of this mimic, which connects it to a JSF view component..
    *
    * @return  The MmJsfBridge of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public final MmJsfBridge<?, ?, ?> getJsfBridge() {
     return this.mmJsfBridge;
@@ -1267,8 +1179,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Returns the current JSF tag of this mimic, dependent on enabled state and configuration.
    *
    * @return  The current JSF tag of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public String getJsfTag() {
     if ((this.isMmEnabled() && !this.isMmReadOnly()) || this.configuration.getJsfTagDisabled().equals("SameAsEnabled")) {
@@ -1282,8 +1192,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Returns true, if the user's browser has enabled Javascript language.
    *
    * @return  True, if the user's browser has enabled Javascript language.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmJsEnabled() {
     return this.root.isMmJsEnabled();
@@ -1293,8 +1201,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   protected abstract MmJsfBridge<?, ?, ?> createMmJsfBridge();
 

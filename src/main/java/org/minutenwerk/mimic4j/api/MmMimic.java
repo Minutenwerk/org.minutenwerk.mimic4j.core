@@ -8,7 +8,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  * methods valid for all mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmMimic {
 
@@ -18,8 +17,6 @@ public interface MmMimic {
    * name in its parent class.
    *
    * @return  The full name of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmFullName();
 
@@ -27,8 +24,6 @@ public interface MmMimic {
    * Returns id of this mimic. The id is unique within the subtree of a MmRoot.
    *
    * @return  The id of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmId();
 
@@ -40,7 +35,6 @@ public interface MmMimic {
    *
    * @see     {@link MmBaseCallback#callbackMmGetLongDescription()}
    * @see     {@link MmBaseConfiguration#longDescription()}
-   * @since   $maven.project.version$
    */
   public String getMmLongDescription();
 
@@ -49,8 +43,6 @@ public interface MmMimic {
    * derived from the field declaration name in its parent class.
    *
    * @return  The name of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmName();
 
@@ -58,8 +50,6 @@ public interface MmMimic {
    * Returns the self reference of this object for the current data model, or the static part if there is no current data model.
    *
    * @return  The self reference of this object for the current data model, or the static part if there is no current data model.
-   *
-   * @since   $maven.project.version$
    */
   public MmReference getMmReference();
 
@@ -69,8 +59,6 @@ public interface MmMimic {
    * @param   pModel  The specified instance of a data model, which is referencable by an URL.
    *
    * @return  The self reference of this object for a specified data model.
-   *
-   * @since   $maven.project.version$
    */
   public MmReference getMmReference(MmReferencableModel pModel);
 
@@ -83,7 +71,6 @@ public interface MmMimic {
    *
    * @see     {@link MmBaseCallback#callbackMmGetShortDescription()}
    * @see     {@link MmBaseConfiguration#shortDescription()}
-   * @since   $maven.project.version$
    */
   public String getMmShortDescription();
 
@@ -96,7 +83,6 @@ public interface MmMimic {
    *
    * @see     {@link MmBaseCallback#callbackMmGetStyleClasses()}
    * @see     {@link MmBaseConfiguration#styleClasses()}
-   * @since   $maven.project.version$
    */
   public String getMmStyleClasses();
 
@@ -113,7 +99,6 @@ public interface MmMimic {
    *
    * @see     {@link MmBaseCallback#callbackMmIsEnabled()}
    * @see     {@link MmBaseConfiguration#isEnabled()}
-   * @since   $maven.project.version$
    */
   public boolean isMmEnabled();
 
@@ -130,7 +115,6 @@ public interface MmMimic {
    *
    * @see     {@link MmBaseCallback#callbackMmIsReadOnly()}
    * @see     {@link MmBaseConfiguration#isReadOnly()}
-   * @since   $maven.project.version$
    */
   public boolean isMmReadOnly();
 
@@ -138,8 +122,6 @@ public interface MmMimic {
    * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
    *
    * @return  <code>True</code>, if the mimic has been created at runtime.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmRuntimeChild();
 
@@ -151,7 +133,6 @@ public interface MmMimic {
    *
    * @see     {@link MmBaseCallback#callbackMmIsVisible()}
    * @see     {@link MmBaseConfiguration#isVisible()}
-   * @since   $maven.project.version$
    */
   public boolean isMmVisible();
 

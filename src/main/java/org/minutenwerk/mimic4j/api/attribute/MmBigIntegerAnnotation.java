@@ -14,7 +14,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigInteger;
  * MmBigIntegerAnnotation annotates declarations of {@link MmBigInteger} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

@@ -9,7 +9,6 @@ import org.minutenwerk.mimic4j.api.MmReferencableModel;
  * MmReferencableModelChain is a referencable model, which chains the reference values of several models.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmReferencableModelChain implements MmReferencableModel {
 
@@ -33,8 +32,6 @@ public class MmReferencableModelChain implements MmReferencableModel {
    * Returns a list of query parameter values of the URL, like "123", "4711" in "person/wohnort/display.html#plz?id1=123&id2=4711".
    *
    * @return  A list of query parameter values of the URL.
-   *
-   * @since   $maven.project.version$
    */
   @Override public List<String> getMmReferenceValues() {
     return this.referenceValues;

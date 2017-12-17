@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
  * MmLinkAnnotation annotates declarations of {@link MmLink} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

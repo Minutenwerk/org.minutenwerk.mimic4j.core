@@ -9,7 +9,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
  * MmConfigurationString contains static configuration information for mimics of type {@link MmString}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationString extends MmBaseAttributeConfiguration<String> {
 
@@ -82,8 +81,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * Returns the configuration of number of columns for multi line input field.
    *
    * @return  The configuration of number of columns for multi line input field.
-   *
-   * @since   $maven.project.version$
    */
   public int getCols() {
     return cols;
@@ -93,8 +90,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * Returns the configuration of default value.
    *
    * @return  The configuration of default value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getDefaultValue() {
     return this.defaultValue;
@@ -104,8 +99,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * Returns the configuration of maximum length of formatted input string.
    *
    * @return  The configuration of maximum length of formatted input string.
-   *
-   * @since   $maven.project.version$
    */
   public int getFormatMaxLength() {
     return this.formatMaxLength;
@@ -115,8 +108,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
@@ -126,8 +117,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();
@@ -137,8 +126,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * Returns the configuration of number of rows for multi line input field.
    *
    * @return  The configuration of number of rows for multi line input field.
-   *
-   * @since   $maven.project.version$
    */
   public int getRows() {
     return rows;

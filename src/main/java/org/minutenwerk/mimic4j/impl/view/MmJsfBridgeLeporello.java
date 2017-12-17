@@ -7,7 +7,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporello;
  * leporello.xhtml.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeLeporello extends MmJsfBridge<MmImplementationLeporello<?, ?>, String, String> {
 

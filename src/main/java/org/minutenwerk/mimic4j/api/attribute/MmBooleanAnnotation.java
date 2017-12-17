@@ -15,7 +15,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBoolean;
  * MmBooleanAnnotation annotates declarations of {@link MmBoolean} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

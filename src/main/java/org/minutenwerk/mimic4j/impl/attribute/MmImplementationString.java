@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * MmImplementationString is the implementation part of a mimic for {@link String}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationString extends MmBaseAttributeImplementation<MmString, MmConfigurationString, String, String> {
 
@@ -27,8 +26,6 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    * Returns the attribute's number of columns in case it is displayed as multi line text field.
    *
    * @return  The attribute's number of columns.
-   *
-   * @since   $maven.project.version$
    */
   @Override public int getMmCols() {
     this.ensureInitialization();
@@ -40,8 +37,6 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
    *
    * @return  The attribute's number of rows.
-   *
-   * @since   $maven.project.version$
    */
   @Override public int getMmRows() {
     this.ensureInitialization();
@@ -53,8 +48,6 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    * Returns <code>true</code> if the viewside value of this mimic is empty.
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmEmpty() {
     this.ensureInitialization();
@@ -66,8 +59,6 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
@@ -75,8 +66,6 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

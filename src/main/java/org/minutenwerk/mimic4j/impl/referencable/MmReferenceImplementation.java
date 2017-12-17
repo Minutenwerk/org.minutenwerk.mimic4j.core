@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.api.MmReference;
  * Immutable implementation of a reference, consisting of parts for path, file, anchor and query parameters.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmReferenceImplementation implements MmReference {
 
@@ -225,8 +224,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns the anchor part of the URL including the #, like "#plz" in "person/wohnort/display.html#plz?rootId=1&subId=2".
    *
    * @return  The anchor part of the URL including the #.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmAnchor() {
     return this.anchor;
@@ -236,8 +233,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns the file part of the URL without slashes, like "display.html" in "person/wohnort/display.html#plz?rootId=1&subId=2".
    *
    * @return  The file part of the URL without slashes.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmFile() {
     return this.file;
@@ -247,8 +242,6 @@ public class MmReferenceImplementation implements MmReference {
    * If this reference has an outcome string like "gotoPageLogin", it returns the outcome, otherwise its URL path, file and anchor.
    *
    * @return  An outcome string like "gotoPageLogin", or its URL path, file and anchor.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmOutcome() {
     if (this.isMmJsfOutcome()) {
@@ -262,8 +255,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 1, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 1.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam1Name() {
     return this.paramName[0];
@@ -273,8 +264,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 1, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 1.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam1Value() {
     return this.paramValue[0];
@@ -284,8 +273,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 2, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 2.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam2Name() {
     return this.paramName[1];
@@ -295,8 +282,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 2, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 2.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam2Value() {
     return this.paramValue[1];
@@ -306,8 +291,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 3, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 3.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam3Name() {
     return this.paramName[2];
@@ -317,8 +300,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 3, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 3.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam3Value() {
     return this.paramValue[2];
@@ -328,8 +309,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 4, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 4.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam4Name() {
     return this.paramName[3];
@@ -339,8 +318,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 4, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 4.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam4Value() {
     return this.paramValue[3];
@@ -350,8 +327,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 5, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 5.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam5Name() {
     return this.paramName[4];
@@ -361,8 +336,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 5, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 5.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam5Value() {
     return this.paramValue[4];
@@ -372,8 +345,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 6, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 6.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam6Name() {
     return this.paramName[5];
@@ -383,8 +354,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 6, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 6.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam6Value() {
     return this.paramValue[5];
@@ -394,8 +363,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 7, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 7.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam7Name() {
     return this.paramName[6];
@@ -405,8 +372,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 7, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 7.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam7Value() {
     return this.paramValue[6];
@@ -416,8 +381,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 8, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 8.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam8Name() {
     return this.paramName[7];
@@ -427,8 +390,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 8, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 8.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam8Value() {
     return this.paramValue[7];
@@ -438,8 +399,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns name of reference parameter 9, if exists, empty string otherwise.
    *
    * @return  The name of reference parameter 9.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam9Name() {
     return this.paramName[8];
@@ -449,8 +408,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns value of reference parameter 9, if exists, empty string otherwise.
    *
    * @return  The value of reference parameter 9.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmParam9Value() {
     return this.paramValue[8];
@@ -460,8 +417,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns the list of query parameters of the URL, like "rootId 1", "subId 2" in "person/wohnort/display.html#plz?rootId=1&subId=2".
    *
    * @return  The list of query parameters of the URL.
-   *
-   * @since   $maven.project.version$
    */
   @Override public List<MmNameValue> getMmParams() {
     return this.params;
@@ -471,8 +426,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns the count of reference parameters having a name and value.
    *
    * @return  The count of reference parameters having a name and value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public int getMmParamsCount() {
     return this.paramsCount;
@@ -483,8 +436,6 @@ public class MmReferenceImplementation implements MmReference {
    * "person/wohnort/display.html#plz?rootId=1&subId=2".
    *
    * @return  The path part of the URL including trailing slash but without base part.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmPath() {
     return this.path;
@@ -495,8 +446,6 @@ public class MmReferenceImplementation implements MmReference {
    * "person/wohnort/display.html#plz?rootId=1&subId=2".
    *
    * @return  The concatenated URL parts of path, file and anchor.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmPathFileAnchor() {
     return this.pathFileAnchor;
@@ -506,8 +455,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns the concatenated URL parts of path, file, anchor and query string, like "person/wohnort/display.html#plz?rootId=1&subId=2".
    *
    * @return  The concatenated URL parts of path, file, anchor and query string.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmPathFileAnchorQuery() {
     return this.pathFileAnchorQuery;
@@ -517,8 +464,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns the query string part of the URL without the ?, like "rootId=1&subId=2" in "person/wohnort/display.html#plz?rootId=1&subId=2".
    *
    * @return  The query string part of the URL without the ?.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmQuery() {
     return this.query;
@@ -528,8 +473,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns true, if this reference returns an outcome string like "gotoPageLogin", and not a concrete URL.
    *
    * @return  True, if this reference returns an outcome string like "gotoPageLogin", and not a concrete URL.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmJsfOutcome() {
     return this.outcome != null;
@@ -539,8 +482,6 @@ public class MmReferenceImplementation implements MmReference {
    * Returns true, if this reference returns a concrete URL, and not an outcome string like "gotoPageLogin".
    *
    * @return  True, if this reference returns a concrete URL, and not an outcome string like "gotoPageLogin".
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmUrl() {
     return this.pathFileAnchor != null;
@@ -552,8 +493,6 @@ public class MmReferenceImplementation implements MmReference {
    * @param   pString  The specified string.
    *
    * @return  True, if specified string is null or empty.
-   *
-   * @since   $maven.project.version$
    */
   private boolean notNullOrEmpty(String pString) {
     return (pString != null) && !pString.isEmpty();
@@ -565,8 +504,6 @@ public class MmReferenceImplementation implements MmReference {
    * @param   pNameValue  The specified reference parameter.
    *
    * @return  True, if specified reference parameter's name and value are null or empty.
-   *
-   * @since   $maven.project.version$
    */
   private boolean notNullOrEmpty(MmNameValue pNameValue) {
     return notNullOrEmpty(pNameValue.getMmName()) && notNullOrEmpty(pNameValue.getMmValue());

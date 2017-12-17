@@ -8,7 +8,6 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  * MmJsfBridgeAttributeEnum connects an enum attribute mimic and a JSF attribute view component.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeAttributeEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmJsfBridgeAttribute<String> {
 
@@ -25,8 +24,6 @@ public class MmJsfBridgeAttributeEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends
    * Returns the value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
    *
    * @return  The value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getValue() {
     @SuppressWarnings("unchecked")

@@ -7,7 +7,6 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
  * MmJsfBridgeLink connects a link mimic and a JSF link view component.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, String> {
 
@@ -25,8 +24,6 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    * getMmTargetRefParams().
    *
    * @return  A reference to some target.
-   *
-   * @since   $maven.project.version$
    */
   @Override public MmReference getTargetReference() {
     return this.implementation.getMmTargetReference();
@@ -36,8 +33,6 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    * Returns the value of this link.
    *
    * @return  The value of this link.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getValue() {
     return this.implementation.getMmViewsideValue();
@@ -47,8 +42,6 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    * Returns true, if the HTML tag shall be displayed in disabled state.
    *
    * @return  True, if the HTML tag shall be displayed in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isDisabled() {
     return !this.implementation.isMmEnabled();

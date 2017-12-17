@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLink;
  * MmImplementationLink is the specific class for the implementation part of link mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationLink extends MmBaseLinkImplementation<MmLink, MmConfigurationLink> {
 
@@ -27,8 +26,6 @@ public class MmImplementationLink extends MmBaseLinkImplementation<MmLink, MmCon
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeLink(this);
@@ -36,8 +33,6 @@ public class MmImplementationLink extends MmBaseLinkImplementation<MmLink, MmCon
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

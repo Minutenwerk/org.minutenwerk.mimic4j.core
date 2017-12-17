@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.referencable.MmConfigurationPage;
  * MmPageAnnotation annotates declarations of {@link MmPage} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

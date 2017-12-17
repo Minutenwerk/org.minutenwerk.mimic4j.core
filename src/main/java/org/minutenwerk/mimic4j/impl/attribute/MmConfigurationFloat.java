@@ -9,7 +9,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmFloatAnnotation;
  * MmConfigurationFloat contains static configuration information for mimics of type {@link MmFloat}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
 
@@ -67,8 +66,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Returns the configuration of default value.
    *
    * @return  The configuration of default value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public Float getDefaultValue() {
     return this.defaultValue;
@@ -78,8 +75,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Returns the configuration of maximum length of formatted input string.
    *
    * @return  The configuration of maximum length of formatted input string.
-   *
-   * @since   $maven.project.version$
    */
   public int getFormatMaxLength() {
     return this.formatMaxLength;
@@ -89,8 +84,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
@@ -100,8 +93,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();
@@ -111,8 +102,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Sets the configuration of default value.
    *
    * @param  pDefaultValue  The specified configuration of default value.
-   *
-   * @since  $maven.project.version$
    */
   public void setDefaultValue(Float pDefaultValue) {
     this.defaultValue = pDefaultValue;
@@ -122,8 +111,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Sets the configuration of maximum length of formatted input string.
    *
    * @param  pFormatMaxLength  The specified configuration of maximum length of formatted input string.
-   *
-   * @since  $maven.project.version$
    */
   public void setFormatMaxLength(int pFormatMaxLength) {
     this.formatMaxLength = pFormatMaxLength;
@@ -133,8 +120,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Sets the configuration of JSF tag in enabled state.
    *
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
-   *
-   * @since  $maven.project.version$
    */
   public void setJsfTag(MmFloatJsfTag pJsfTag) {
     this.jsfTag = pJsfTag;

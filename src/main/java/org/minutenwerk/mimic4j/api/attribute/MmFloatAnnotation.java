@@ -14,7 +14,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationFloat;
  * MmFloatAnnotation annotates declarations of {@link MmFloat} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

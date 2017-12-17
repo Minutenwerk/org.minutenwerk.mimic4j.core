@@ -51,8 +51,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * MmEditableErrorState is an enumeration of values regarding an attribute's error state during conversion and validation.
    *
    * @author   Olaf Kossak
-   * @version  $Revision: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $
-   * @see      $HeadURL:http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/main/java/org/minutenwerk/mimic4j/impl/attribute/MmBaseAttributeImplementation.java\$
    */
   protected enum MmAttributeErrorState {
 
@@ -76,8 +74,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
      * at any time.
      *
      * @return  Some information about this object for development purposes like debugging and logging.
-     *
-     * @since   $maven.project.version$
      */
     @Override public String toString() {
       return this.name();
@@ -88,8 +84,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * MmEditableState is an enumeration of values regarding an attribute's value state.
    *
    * @author   Olaf Kossak
-   * @version  $Revision: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $
-   * @see      $HeadURL:http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/main/java/org/minutenwerk/mimic4j/impl/attribute/MmBaseAttributeImplementation.java\$
    */
   protected enum MmValueState {
 
@@ -122,8 +116,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
      * at any time.
      *
      * @return  Some information about this object for development purposes like debugging and logging.
-     *
-     * @since   $maven.project.version$
      */
     @Override public String toString() {
       return this.name();
@@ -173,8 +165,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
    * super.initialize()!
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-initialization
    */
   @Override protected void initialize() {
@@ -190,8 +180,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *   <li>resetState is {@link MmValueState.SET_FROM_DEFAULT_TO_MODELSIDE}</li>
    *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
    * </ul>
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-lifecycle
    */
@@ -226,8 +214,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *   <li>a {@link MmModelsideConverterException} is thrown</li>
    * </ul>
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-lifecycle
    */
   public void doPassModelsideToViewsideValue() {
@@ -255,8 +241,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * </ul>
    *
    * @throws        IllegalStateException  if reset action is not enabled.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-lifecycle
    */
@@ -293,8 +277,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEWSIDE_TO_MODELSIDE}</li>
    *   <li>an error message is produced and added to MmRoot</li>
    * </ul>
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-lifecycle
    */
@@ -347,8 +329,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *   <li>an error message is produced and added to MmRoot</li>
    * </ul>
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-lifecycle
    */
   public void doValidateModelsideValue() {
@@ -377,8 +357,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @return        <code>true</code> if the action {@link MmEditableMimic.doValidateModelsideValue()} is executable.
    *
    * @throws        IllegalStateException  in case of unconsidered value state
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-lifecycle
    */
@@ -437,8 +415,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @param         pModelsideValue  The specified value to be set.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-lifecycle
    */
   @Override public void setMmModelsideValue(MODELSIDE_VALUE pModelsideValue) {
@@ -465,8 +441,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * </ul>
    *
    * @param         pViewsideValue  The specified value to be set.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-lifecycle
    */
@@ -496,8 +470,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *   <li>passing converted value into viewside value</li>
    * </ol>
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void doMmReset() {
@@ -515,8 +487,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *   <li>converting modelside value to viewside type</li>
    *   <li>passing converted value into viewside value</li>
    * </ol>
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -537,8 +507,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *   <li>validating modelside value</li>
    * </ol>
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void doMmValidate() {
@@ -553,8 +521,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The attribute's number of columns.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public int getMmCols() {
@@ -567,8 +533,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns the attribute's default value of type MODELSIDE_VALUE.
    *
    * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -583,8 +547,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns the attribute's maximum number of characters for input in view.
    *
    * @return        The attribute's maximum number of characters for input.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -602,8 +564,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The attribute's format pattern for displaying viewside value.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public String getMmFormatPattern() {
@@ -620,8 +580,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The attribute's layout direction.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public MmBooleanLayout getMmLayout() {
@@ -634,8 +592,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns the attribute's type of modelside value (MODELSIDE_VALUE).
    *
    * @return        The attribute's type of modelside value.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -650,8 +606,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The modelside value of the mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public MODELSIDE_VALUE getMmModelsideValue() {
@@ -665,8 +619,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The attribute's reset value of type MODELSIDE_VALUE.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public MODELSIDE_VALUE getMmResetValue() {
@@ -679,8 +631,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
    *
    * @return        The attribute's number of rows.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -696,8 +646,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * MmConfiguration.shortDescription</code>.
    *
    * @return        A short description.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -716,8 +664,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The attribute's row size of option list.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public int getMmSize() {
@@ -730,8 +676,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns the attribute's type of viewside value (VIEWSIDE_VALUE).
    *
    * @return        The attribute's type of viewside value.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -746,8 +690,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The attribute's viewside value of type VIEWSIDE_VALUE.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public VIEWSIDE_VALUE getMmViewsideValue() {
@@ -760,8 +702,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns <code>true</code> if the viewside value of this mimic is empty.
    *
    * @return        <code>True</code> if the viewside value of this mimic is empty.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -776,8 +716,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        <code>True</code> if a value from view has to be set.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public boolean isMmRequired() {
@@ -790,8 +728,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.doMmReset} is executable.
    *
    * @return        <code>true</code> if the action {@link MmEditableMimic.doMmReset} is executable.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -807,8 +743,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        <code>True</code> if the mimic has been validated without any errors.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public boolean isMmValid() {
@@ -819,8 +753,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
 
   /**
    * Clears list of messages of this mimic.
-   *
-   * @since  $maven.project.version$
    */
   public void clearMmMessageList() {
     this.ensureInitialization();
@@ -832,8 +764,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns the highest severity of error message of this mimic, returns null in case of no messages.
    *
    * @return  The highest severity of error message of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public MmMessageSeverity getMmMaximumSeverity() {
     this.ensureInitialization();
@@ -845,8 +775,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns a list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
    *
    * @return  A list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public List<MmMessage> getMmMessages() {
     this.ensureInitialization();
@@ -858,8 +786,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
    *
    * @return  A list of options.
-   *
-   * @since   $maven.project.version$
    */
   public List<MmSelectOption<Object>> getMmSelectOptions() {
     this.ensureInitialization();
@@ -872,8 +798,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * are marked as being changed as well.
    *
    * @return  <code>True</code>, if mimic has been changed from viewside.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmChangedFromViewside() {
     this.ensureInitialization();
@@ -885,8 +809,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Logs the attribute's state before and after an action, if TRACE level is switched on.
    *
    * @param  pOriginalDebugState  The attribute's state before an action.
-   *
-   * @since  $maven.project.version$
    */
   protected void logDebugChange(String pOriginalDebugState) {
     if (LOGGER.isTraceEnabled()) {
@@ -900,8 +822,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns state information about this mimic.
    *
    * @return  State information about this mimic.
-   *
-   * @since   $maven.project.version$
    */
   protected String toStringState() {
     StringBuilder sb = new StringBuilder();
@@ -979,8 +899,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Returns a string representation of the attribute's state and value, doesn't have side effects, for debugging purposes only.
    *
    * @return  A string representation of the attribute's state and value.
-   *
-   * @since   $maven.project.version$
    */
   protected String toStringTraceState() {
     if (LOGGER.isTraceEnabled()) {

@@ -63,8 +63,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param   pModel  A referencable data model providing a list of reference values.
    *
    * @return  A list of name/ value parameters for a specified list of reference values, the names are rootId, subId1, subId2, ...
-   *
-   * @since   $maven.project.version$
    */
   public static List<MmNameValue> getMmModelParams(MmReferencableModel pModel) {
     final List<String> referenceValues = (pModel != null) ? pModel.getMmReferenceValues() : null;
@@ -90,8 +88,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @return        The data model.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public MmReferencableModel getMmModel() {
@@ -102,8 +98,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @return        A reference to some target.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -146,8 +140,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
@@ -160,8 +152,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -176,8 +166,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
@@ -190,8 +178,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -206,8 +192,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
@@ -220,8 +204,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -236,8 +218,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
@@ -250,8 +230,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -266,8 +244,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
@@ -280,8 +256,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -296,8 +270,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
@@ -311,8 +283,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param         pModelsideValue  The specified modelside values.
    * @param         pModel           The specified data model which defines query parameters.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
@@ -324,8 +294,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * Returns the format pattern for formatting modelside value to viewside value.
    *
    * @return        The format pattern for formatting modelside value to viewside value.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-i18n
    */
@@ -342,8 +310,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * MmConfiguration.longDescription</code>.
    *
    * @return        A long description.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-i18n
    */
@@ -366,8 +332,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * Returns the link's viewside value of type String.
    *
    * @return        The link's viewside value of type String.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-i18n
    */
@@ -431,8 +395,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @throws        MmModelsideConverterException  In case of conversion fails.
    * @throws        IllegalArgumentException       In case of conversion fails.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-i18n
    */
@@ -499,8 +461,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @return        The initialized date formatter of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-i18n
    */
   protected DateTimeFormatter getMmDateTimeFormatter() {
@@ -514,8 +474,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @param         pParseBigDecimal  True, if
    *
    * @return        The initialized number formatter of this mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-i18n
    */

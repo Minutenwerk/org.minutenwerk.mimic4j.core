@@ -4,7 +4,6 @@ package org.minutenwerk.mimic4j.impl.message;
  * MmMessageSeverity is an enumeration of possible severity levels of a MmMessage.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public enum MmMessageSeverity {
 

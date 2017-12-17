@@ -4,7 +4,6 @@ package org.minutenwerk.mimic4j.impl.attribute;
  * An option for an attribute value.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmSelectOption<OPTION_VALUE_TYPE> {
 
@@ -45,8 +44,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * @param   pThat  The other object to be compared.
    *
    * @return  True, if both objects are the same.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean equals(Object pThat) {
     if (this == pThat) {
@@ -64,8 +61,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * Returns the display id of this select option.
    *
    * @return  The display id of this select option.
-   *
-   * @since   $maven.project.version$
    */
   public String getDisplayId() {
     return this.id;
@@ -75,8 +70,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * Returns the long description of this select option.
    *
    * @return  The long description of this select option.
-   *
-   * @since   $maven.project.version$
    */
   public String getLongDescription() {
     return this.longDescription;
@@ -86,8 +79,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * Returns the short description of this select option.
    *
    * @return  The short description of this select option.
-   *
-   * @since   $maven.project.version$
    */
   public String getShortDescription() {
     return this.shortDescription;
@@ -97,8 +88,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * Returns the value of this select option, will be synchronized with mimic viewside value.
    *
    * @return  The value of this select option.
-   *
-   * @since   $maven.project.version$
    */
   public OPTION_VALUE_TYPE getValue() {
     return value;
@@ -109,8 +98,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * java.util.Hashtable</code>.
    *
    * @return  The hash value of this Java object.
-   *
-   * @since   $maven.project.version$
    */
   @Override public int hashCode() {
     return (id != null) ? id.hashCode() : super.hashCode();
@@ -120,8 +107,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * Returns true, if this select option is enabled to be selected.
    *
    * @return  True, if this select option can be selected.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isEnabled() {
     return this.enabled;
@@ -131,8 +116,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * Sets state of this select option to be or to be not selectable.
    *
    * @param  pEnabled  The specified select state.
-   *
-   * @since  $maven.project.version$
    */
   public void setEnabled(boolean pEnabled) {
     this.enabled = pEnabled;
@@ -143,8 +126,6 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * at any time.
    *
    * @return  Some information about this object for development purposes like debugging and logging.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String toString() {
     StringBuilder snippet = new StringBuilder();

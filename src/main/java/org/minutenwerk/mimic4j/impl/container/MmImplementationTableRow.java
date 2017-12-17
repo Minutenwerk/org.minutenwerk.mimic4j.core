@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
  * @param   <ROW_MODEL>  The row model type.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationTableRow<ROW_MODEL>
   extends MmBaseContainerImplementation<MmTableRow<ROW_MODEL>, ROW_MODEL, MmConfigurationTableRow> {
@@ -35,8 +34,6 @@ public class MmImplementationTableRow<ROW_MODEL>
    * Returns the table row index of this row.
    *
    * @return  The table row index of this row.
-   *
-   * @since   $maven.project.version$
    */
   public int getMmRowIndex() {
     return this.rowIndex;
@@ -46,8 +43,6 @@ public class MmImplementationTableRow<ROW_MODEL>
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return null;
@@ -55,8 +50,6 @@ public class MmImplementationTableRow<ROW_MODEL>
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

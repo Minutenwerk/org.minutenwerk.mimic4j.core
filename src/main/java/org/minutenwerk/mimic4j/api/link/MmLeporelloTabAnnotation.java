@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.link.MmConfigurationLeporelloTab;
  * MmLeporelloTabAnnotation annotates declarations of {@link MmLeporelloTab} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

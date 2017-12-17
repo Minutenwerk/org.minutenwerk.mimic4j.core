@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationForm;
  * MmJsfBridgeForm connects a form mimic and a JSF form view component.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeForm<MODEL> extends MmJsfBridge<MmImplementationForm<MODEL>, String, MODEL> {
 

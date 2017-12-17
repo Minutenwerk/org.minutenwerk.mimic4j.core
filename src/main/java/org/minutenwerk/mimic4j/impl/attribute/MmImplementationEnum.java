@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttributeEnum;
  * MmImplementationEnum is the implementation part of a mimic for enumerations.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   extends MmBaseAttributeImplementation<MmEnum<ENUM_TYPE>, MmConfigurationEnum<ENUM_TYPE>, ENUM_TYPE, String> {
@@ -29,8 +28,6 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @return        The Java type of the Java enumeration of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @SuppressWarnings("unchecked")
@@ -42,8 +39,6 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    * Returns <code>true</code> if the viewside value of this mimic is empty.
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmEmpty() {
     this.ensureInitialization();
@@ -55,8 +50,6 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttributeEnum<ENUM_TYPE>(this);
@@ -64,8 +57,6 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

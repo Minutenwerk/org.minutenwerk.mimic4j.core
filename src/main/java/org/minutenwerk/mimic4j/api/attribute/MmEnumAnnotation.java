@@ -14,7 +14,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationEnum;
  * MmEnumAnnotation annotates declarations of {@link MmEnum} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

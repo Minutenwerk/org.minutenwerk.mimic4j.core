@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTableColumn;
  * MmCompositeImplementationTableColumn is the specific class for the implementation part of table column mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationTableColumn extends MmBaseCompositeImplementation<MmTableColumn, MmConfigurationTableColumn> {
 
@@ -29,8 +28,6 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    * Returns a String of space delimited <code>CSS</code> style classes for the footer of this column.
    *
    * @return  A String of space delimited <code>CSS</code> style classes for the footer of this column.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmFooterClasses() {
     this.ensureInitialization();
@@ -42,8 +39,6 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    * Returns a String of space delimited <code>CSS</code> style classes for the header of this column.
    *
    * @return  A String of space delimited <code>CSS</code> style classes for the header of this column.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmHeaderClasses() {
     this.ensureInitialization();
@@ -57,8 +52,6 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    * classes are evaluated from configuration attribute {@link MmBaseConfiguration#styleClasses()}.
    *
    * @return        A String containing space delimited <code>CSS</code> style classes.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -80,8 +73,6 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    * Returns true, if this row is a table row header.
    *
    * @return  True, if this row is a table row header.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmRowHeader() {
     this.ensureInitialization();
@@ -93,8 +84,6 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeTableColumn(this);
@@ -102,8 +91,6 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

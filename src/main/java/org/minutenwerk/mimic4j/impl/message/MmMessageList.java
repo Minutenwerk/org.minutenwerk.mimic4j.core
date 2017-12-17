@@ -9,7 +9,6 @@ import java.util.List;
  * MmMessageList is a list of messages of type {@link MmMessage}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmMessageList {
 
@@ -33,8 +32,6 @@ public class MmMessageList {
    * @param   mmMessage  The message to be added.
    *
    * @return  The message list after adding the message.
-   *
-   * @since   $maven.project.version$
    */
   public MmMessageList addMessage(MmMessage mmMessage) {
     this.messages.add(mmMessage);
@@ -45,8 +42,6 @@ public class MmMessageList {
    * Clears the message list.
    *
    * @return  The empty message list.
-   *
-   * @since   $maven.project.version$
    */
   public MmMessageList clear() {
     this.messages.clear();
@@ -57,8 +52,6 @@ public class MmMessageList {
    * Returns the highest severity of error message of this mimic.
    *
    * @return  The highest severity of error message of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public MmMessageSeverity getMaximumSeverity() {
     MmMessageSeverity returnSeverity = null;
@@ -74,8 +67,6 @@ public class MmMessageList {
    * Returns the list of all messages of this mimic, sorted by severity.
    *
    * @return  The list of all messages of this mimic, sorted by severity.
-   *
-   * @since   $maven.project.version$
    */
   public List<MmMessage> getMessages() {
     Collections.sort(this.messages, this.comparator);

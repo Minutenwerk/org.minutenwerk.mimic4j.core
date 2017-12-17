@@ -8,7 +8,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationForm;
  * MmForm is a container mimic to represent a HTML form containing editable attributes.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmForm<MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationForm<MODEL>> {
 

@@ -14,7 +14,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigDecimal;
  * MmBigDecimalAnnotation annotates declarations of {@link MmBigDecimal} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

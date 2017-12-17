@@ -27,8 +27,6 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
    * @author   Olaf Kossak
-   * @version  $Revision: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $
-   * @see      $HeadURL:http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/main/java/org/minutenwerk/mimic4j/api/attribute/MmLong.java\$
    */
   public enum MmLongJsfDisabled {
 
@@ -43,8 +41,6 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
    * @author   Olaf Kossak
-   * @version  $Revision: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $
-   * @see      $HeadURL:http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/main/java/org/minutenwerk/mimic4j/api/attribute/MmLong.java\$
    */
   public enum MmLongJsfTag {
 
@@ -81,8 +77,6 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @throws        MmModelsideConverterException  In case of the conversion failed.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public String callbackMmConvertModelsideToViewsideValue(Long pModelsideValue) throws MmModelsideConverterException {
@@ -111,8 +105,6 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @throws        MmViewsideConverterException  In case of the conversion failed.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public Long callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
@@ -140,8 +132,6 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @return        The attribute's default value of type MODELSIDE_VALUE.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public Long callbackMmGetDefaultValue(Long pPassThroughValue) {
@@ -152,8 +142,6 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
    *
    * @return        A list of options.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */
@@ -167,8 +155,6 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    * @param         pModelsideValue  The modelside value to be validated.
    *
    * @throws        MmValidatorException  In case of validation fails.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */

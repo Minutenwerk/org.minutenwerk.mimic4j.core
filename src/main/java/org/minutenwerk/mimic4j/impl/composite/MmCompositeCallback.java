@@ -8,7 +8,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
  * part.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmCompositeCallback extends MmBaseCallback {
 }

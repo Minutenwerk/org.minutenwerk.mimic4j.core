@@ -42,8 +42,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        A long description.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public String callbackMmGetLongDescription(String pPassThroughValue, Object... pArguments) {
@@ -60,8 +58,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        A short description.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public String callbackMmGetShortDescription(String pPassThroughValue) {
@@ -74,8 +70,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
    * @return        A String of space delimited <code>CSS</code> style classes.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */
@@ -91,8 +85,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        <code>True</code>, if the mimic shall be enabled.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public boolean callbackMmIsEnabled(boolean pPassThroughValue) {
@@ -106,8 +98,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
    * @return        <code>True</code>, if the mimic shall be read only.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */
@@ -123,8 +113,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        <code>True</code>, if the mimic shall be visible.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public boolean callbackMmIsVisible(boolean pPassThroughValue) {
@@ -138,8 +126,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        The full name of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public final String getMmFullName() {
@@ -150,8 +136,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * Returns id of this mimic. The id is unique within the subtree of a MmRoot.
    *
    * @return        The id of this mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -166,8 +150,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        A long description.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public final String getMmLongDescription() {
@@ -180,8 +162,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        The name of this mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public final String getMmName() {
@@ -192,8 +172,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * Returns the self reference of this object for the current data model, or the static part if there is no current data model.
    *
    * @return        The self reference of this object for the current data model, or the static part if there is no current data model.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -208,8 +186,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        The self reference of this object for a specified data model.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public final MmReference getMmReference(MmReferencableModel pModel) {
@@ -222,8 +198,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * MmConfiguration.shortDescription</code>.
    *
    * @return        A short description.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -238,8 +212,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        A String containing space delimited <code>CSS</code> style classes.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public final String getMmStyleClasses() {
@@ -251,8 +223,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * callbackMmIsEnabled returns <code>true</code>.
    *
    * @return        <code>True</code>, if the mimic is enabled.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -266,8 +236,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        <code>True</code>, if the mimic is read only.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public final boolean isMmReadOnly() {
@@ -278,8 +246,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}.
    *
    * @return        <code>True</code>, if the mimic has been created at runtime.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -293,8 +259,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return        <code>True</code>, if the mimic is visible.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public final boolean isMmVisible() {
@@ -306,8 +270,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * at any time.
    *
    * @return        Some information about this object for development purposes like debugging and logging.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -332,8 +294,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  An array of message arguments for the long description.
-   *
-   * @since   $maven.project.version$
    */
   public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValue) {
     return pPassThroughValue;
@@ -347,8 +307,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * </pre>
    *
    * @return  The MmJsfBridge of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public final MmJsfBridge<?, ?, ?> getToJsf() {
     return this.implementation.getJsfBridge();
@@ -358,8 +316,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * Returns debug information about this mimic and subtree of all its children and runtime children.
    *
    * @return  Debug information about this mimic and subtree of all its children and runtime children.
-   *
-   * @since   $maven.project.version$
    */
   public final String toStringSubtree() {
     return MmBaseImplementation.toStringSubtree(this.implementation, "  ");

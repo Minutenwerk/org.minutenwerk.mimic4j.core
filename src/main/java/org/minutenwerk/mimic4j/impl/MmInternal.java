@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.api.MmMimic;
  * Methods for internal use only.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmInternal {
 
@@ -24,8 +23,6 @@ public class MmInternal {
    * @return  The implementation part of a specified mimic.
    *
    * @throws  IllegalArgumentException  In case of mimic is not of type MmBaseImplementation or MmBaseImplementation.
-   *
-   * @since   $maven.project.version$
    */
   public static MmBaseImplementation<?, ?> getMmImplementation(MmMimic pMimic) {
     if (pMimic instanceof MmBaseImplementation<?, ?>) {

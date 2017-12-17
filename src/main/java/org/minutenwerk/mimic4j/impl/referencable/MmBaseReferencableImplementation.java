@@ -46,8 +46,6 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    *
    * @param         pModel  The model to set.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-do
    */
   @Override public void doMmSetModelsideFromModel(MODEL pModel) {
@@ -60,8 +58,6 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * Returns the self reference of this object for the current data model, or the static part if there is no current data model.
    *
    * @return        The self reference of this object for the current data model, or the static part if there is no current data model.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -80,8 +76,6 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * @param         pModel  The specified instance of a data model, which is referencable by an URL.
    *
    * @return        The self reference of this object for a specified data model.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */
@@ -106,8 +100,6 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
 
   /**
    * Evaluates and caches the self reference of this mimic.
-   *
-   * @since  $maven.project.version$
    */
   protected void evaluateAndCacheReference() {
     final String            path           = this.getMmReferencePath();

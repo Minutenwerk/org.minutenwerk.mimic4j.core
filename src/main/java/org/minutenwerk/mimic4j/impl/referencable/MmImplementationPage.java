@@ -30,8 +30,6 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
   /**
    * Initialize this mimic after constructor phase.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-initialization
    */
   @Override protected void initializeConfiguration() {
@@ -54,8 +52,6 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    *
    * @return        The file part of the URL without slashes.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public String getMmReferenceFile() {
@@ -71,8 +67,6 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    *
    * @return        The path part of the URL including trailing slash but without base part.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public String getMmReferencePath() {
@@ -86,8 +80,6 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return        A new MmJsfBridge for this mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */

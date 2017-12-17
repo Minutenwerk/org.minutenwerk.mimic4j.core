@@ -8,7 +8,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  * MmConfigurationPage contains static configuration information for mimics of type {@link MmPage}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationPage extends MmBaseConfiguration {
 
@@ -51,8 +50,6 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return DEFAULT_JSF_TAG;
@@ -62,8 +59,6 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return DEFAULT_JSF_TAG;
@@ -73,8 +68,6 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    * Returns the file part of the URL without slashes.
    *
    * @return  The file part of the URL without slashes.
-   *
-   * @since   $maven.project.version$
    */
   public final String getReferenceFile() {
     return this.referenceFile;
@@ -84,8 +77,6 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    * Returns the path part of the URL including trailing slash but without base part.
    *
    * @return  The path part of the URL including trailing slash but without base part.
-   *
-   * @since   $maven.project.version$
    */
   public final String getReferencePath() {
     return this.referencePath;

@@ -38,8 +38,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * MmContainerErrorState is an enumeration of values regarding an container's error state during conversion and validation.
    *
    * @author   Olaf Kossak
-   * @version  $Revision: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $
-   * @see      $HeadURL:http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/main/java/org/minutenwerk/mimic4j/impl/container/MmBaseContainerImplementation.java\$
    */
   protected enum MmContainerErrorState {
 
@@ -79,8 +77,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *   <li>passing converted value into viewside value</li>
    * </ol>
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-do
    */
   @Override public void doMmReset() {
@@ -100,8 +96,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *   <li>passing converted value into viewside value</li>
    * </ol>
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-do
    */
   @Override public void doMmSetDefaults() {
@@ -114,8 +108,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
 
   /**
    * Sets the values from model into modelside of mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-do
    */
@@ -142,8 +134,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Sets the values from model to modelside of mimic.
    *
    * @param         pModel  The model to set.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-do
    */
@@ -172,8 +162,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @throws        MmValidatorException  in case of semantic validation of container or one of its children failed.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-do
    */
   @Override public void doMmValidate() throws MmValidatorException {
@@ -192,8 +180,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Passes default values to mimic's modelside for all children of specified mimic.
    *
    * @param         pMm  The specified mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-do
    */
@@ -226,8 +212,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @param         pMm  The specified mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-do
    */
   protected void doPassModelsideToViewside(MmBaseImplementation<?, ?> pMm) {
@@ -252,8 +236,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Passes values from mimic's modelside to mimic's viewside for all children of specified mimic.
    *
    * @param         pMm  The specified mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-do
    */
@@ -285,8 +267,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @param         pMm  The specified mimic.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-do
    */
   protected void doPassResetToModelsideRecursively(MmBaseImplementation<?, ?> pMm) {
@@ -316,8 +296,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Passes values from mimic's viewside to mimic's modelside for all children of specified mimic.
    *
    * @param         pMm  The specified mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-do
    */
@@ -352,8 +330,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * {@code callbackMmValidateModel} on container.
    *
    * @param         pMm  The specified mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-do
    */
@@ -406,8 +382,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        The message list of this container.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-get
    */
   public MmMessageList getMmMessageList() {
@@ -420,8 +394,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Returns the model.
    *
    * @return        The model.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-get
    */
@@ -436,8 +408,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        The Java type of the model.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-get
    */
   @Override public Class<MODEL> getMmModelType() {
@@ -451,8 +421,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @param         pModel  The model to set.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-get
    */
   @Override public void setMmModel(MODEL pModel) {
@@ -465,8 +433,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Clears message lists of specified mimic and all descendants of type attribute or container.
    *
    * @param         pMm  The specified mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-clear
    */
@@ -501,8 +467,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        <code>True</code>, if mimic has been changed from viewside.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-changed-front
    */
   @Override public boolean isMmChangedFromViewside() {
@@ -517,8 +481,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @param         pMm  The specified mimic.
    *
    * @return        True, if any child of specified mimic is changed from viewside.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-changed-front
    */
@@ -552,8 +514,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        <code>True</code> if a value from view has to be set.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-required
    */
   @Override public boolean isMmRequired() {
@@ -568,8 +528,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @param         pMm  The specified mimic.
    *
    * @return        True, if any child of specified mimic is required.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-required
    */
@@ -603,8 +561,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        <code>true</code> if the action {@link MmEditableMimic.doMmReset} is executable.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-is-reset
    */
   @Override public boolean isMmResetEnabled() {
@@ -619,8 +575,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @param         pMm  The specified mimic.
    *
    * @return        True, if for all children of specified mimic reset is enabled.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-is-reset
    */
@@ -654,8 +608,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        <code>True</code> if the mimic has been validated without any errors.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-valid
    */
   @Override public boolean isMmValid() {
@@ -670,8 +622,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @param         pMm  The specified mimic.
    *
    * @return        True, if all children of specified mimic are validated successfully.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-valid
    */
@@ -709,8 +659,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Returns state information about this mimic.
    *
    * @return  State information about this mimic.
-   *
-   * @since   $maven.project.version$
    */
   protected String toStringState() {
     StringBuilder sb = new StringBuilder();

@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
  * methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmReferencableCallback<MODEL extends MmReferencableModel> extends MmBaseCallback {
 
@@ -21,8 +20,6 @@ public interface MmReferencableCallback<MODEL extends MmReferencableModel> exten
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The file part of the URL without slashes.
-   *
-   * @since   $maven.project.version$
    */
   public String callbackMmGetReferenceFile(String pPassThroughValue);
 
@@ -33,8 +30,6 @@ public interface MmReferencableCallback<MODEL extends MmReferencableModel> exten
    * @param   pModel             The model data, which may control the query string.
    *
    * @return  The list of query parameters of the URL.
-   *
-   * @since   $maven.project.version$
    */
   public List<MmNameValue> callbackMmGetReferenceParams(List<MmNameValue> pPassThroughValue, MODEL pModel);
 
@@ -45,8 +40,6 @@ public interface MmReferencableCallback<MODEL extends MmReferencableModel> exten
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The path part of the URL including trailing slash but without base part.
-   *
-   * @since   $maven.project.version$
    */
   public String callbackMmGetReferencePath(String pPassThroughValue);
 

@@ -5,7 +5,6 @@ package org.minutenwerk.mimic4j.impl;
  * Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmBaseCallback {
 
@@ -19,8 +18,6 @@ public interface MmBaseCallback {
    * @param   pArguments         Optional list of message arguments.
    *
    * @return  A long description.
-   *
-   * @since   $maven.project.version$
    */
   public String callbackMmGetLongDescription(String pPassThroughValue, Object... pArguments);
 
@@ -30,8 +27,6 @@ public interface MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  An array of message arguments for the long description.
-   *
-   * @since   $maven.project.version$
    */
   public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValue);
 
@@ -44,8 +39,6 @@ public interface MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  A short description.
-   *
-   * @since   $maven.project.version$
    */
   public String callbackMmGetShortDescription(String pPassThroughValue);
 
@@ -56,8 +49,6 @@ public interface MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  A String of space delimited <code>CSS</code> style classes.
-   *
-   * @since   $maven.project.version$
    */
   public String callbackMmGetStyleClasses(String pPassThroughValue);
 
@@ -68,8 +59,6 @@ public interface MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  <code>True</code>, if the mimic shall be enabled.
-   *
-   * @since   $maven.project.version$
    */
   public boolean callbackMmIsEnabled(boolean pPassThroughValue);
 
@@ -80,8 +69,6 @@ public interface MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  <code>True</code>, if the mimic shall be read only.
-   *
-   * @since   $maven.project.version$
    */
   public boolean callbackMmIsReadOnly(boolean pPassThroughValue);
 
@@ -92,8 +79,6 @@ public interface MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  <code>True</code>, if the mimic shall be visible.
-   *
-   * @since   $maven.project.version$
    */
   public boolean callbackMmIsVisible(boolean pPassThroughValue);
 

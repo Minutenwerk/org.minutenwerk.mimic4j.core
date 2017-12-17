@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.container.MmConfigurationForm;
  * MmFormAnnotation annotates declarations of {@link MmForm} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
  * of mimics. Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmCommandCallback extends MmBaseCallback {
 
@@ -21,8 +20,6 @@ public interface MmCommandCallback extends MmBaseCallback {
    * Executes an action.
    *
    * @return  A control string, most times used as outcome string for JSF.
-   *
-   * @since   $maven.project.version$
    */
   public String callbackMmDoIt();
 
@@ -32,8 +29,6 @@ public interface MmCommandCallback extends MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The current JSF tag of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public MmCommandJsfTag callbackMmGetJsfTag(MmCommandJsfTag pPassThroughValue);
 
@@ -43,8 +38,6 @@ public interface MmCommandCallback extends MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  A mimic, which is the target reference of this link mimic.
-   *
-   * @since   $maven.project.version$
    */
   public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue);
 
@@ -54,8 +47,6 @@ public interface MmCommandCallback extends MmBaseCallback {
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  A string referencing a target, either an URL or an outcome
-   *
-   * @since   $maven.project.version$
    */
   public String callbackMmGetTargetOutcome(String pPassThroughValue);
 
@@ -66,8 +57,6 @@ public interface MmCommandCallback extends MmBaseCallback {
    * @param   pModel             A referencable data model providing a list of reference values.
    *
    * @return  A list of URL parameters to be concatenated to target reference.
-   *
-   * @since   $maven.project.version$
    */
   public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel);
 

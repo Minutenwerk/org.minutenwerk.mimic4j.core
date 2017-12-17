@@ -9,7 +9,6 @@ import java.lang.annotation.Target;
  * Marker annotation for all annotations of this framework.
  *
  * @author  okossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

@@ -9,7 +9,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
  * MmConfigurationEnum contains static configuration information for mimics of type {@link MmEnum}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBaseAttributeConfiguration<ENUM_TYPE> {
 
@@ -69,8 +68,6 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    * Returns the configuration of default value.
    *
    * @return  The configuration of default value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public ENUM_TYPE getDefaultValue() {
     return this.defaultValue;
@@ -80,8 +77,6 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
@@ -91,8 +86,6 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();
@@ -102,8 +95,6 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    * Sets the configuration of default value.
    *
    * @param  pDefaultValue  The specified configuration of default value.
-   *
-   * @since  $maven.project.version$
    */
   public void setDefaultValue(ENUM_TYPE pDefaultValue) {
     this.defaultValue = pDefaultValue;
@@ -113,8 +104,6 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    * Sets the configuration of JSF tag in enabled state.
    *
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
-   *
-   * @since  $maven.project.version$
    */
   public void setJsfTag(MmEnumJsfTag pJsfTag) {
     this.jsfTag = pJsfTag;

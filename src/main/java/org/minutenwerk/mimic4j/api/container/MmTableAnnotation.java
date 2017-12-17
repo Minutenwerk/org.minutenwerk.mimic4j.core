@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.container.MmConfigurationTable;
  * MmTableAnnotation annotates declarations of {@link MmTable} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmTimeAnnotation;
  * MmConfigurationTime contains static configuration information for mimics of type {@link MmTime}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationTime extends MmBaseAttributeConfiguration<LocalTime> {
 
@@ -73,8 +72,6 @@ public class MmConfigurationTime extends MmBaseAttributeConfiguration<LocalTime>
    * Returns the configuration of default value.
    *
    * @return  The configuration of default value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public LocalTime getDefaultValue() {
     return this.defaultValue;
@@ -84,8 +81,6 @@ public class MmConfigurationTime extends MmBaseAttributeConfiguration<LocalTime>
    * Returns the configuration of format pattern for parsing user input and formatting viewside value.
    *
    * @return  The configuration of format pattern for parsing user input and formatting viewside value.
-   *
-   * @since   $maven.project.version$
    */
   public String getFormatPattern() {
     return this.formatPattern;
@@ -95,8 +90,6 @@ public class MmConfigurationTime extends MmBaseAttributeConfiguration<LocalTime>
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
@@ -106,8 +99,6 @@ public class MmConfigurationTime extends MmBaseAttributeConfiguration<LocalTime>
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();
@@ -117,8 +108,6 @@ public class MmConfigurationTime extends MmBaseAttributeConfiguration<LocalTime>
    * Sets the configuration of default value.
    *
    * @param  pDefaultValue  The specified configuration of default value.
-   *
-   * @since  $maven.project.version$
    */
   public void setDefaultValue(LocalTime pDefaultValue) {
     this.defaultValue = pDefaultValue;
@@ -128,8 +117,6 @@ public class MmConfigurationTime extends MmBaseAttributeConfiguration<LocalTime>
    * Sets the configuration of format pattern for parsing user input and formatting viewside value.
    *
    * @param  pFormatPattern  The specified configuration of format pattern for parsing user input and formatting viewside value.
-   *
-   * @since  $maven.project.version$
    */
   public void setFormatPattern(String pFormatPattern) {
     this.formatPattern = pFormatPattern;
@@ -139,8 +126,6 @@ public class MmConfigurationTime extends MmBaseAttributeConfiguration<LocalTime>
    * Sets the configuration of JSF tag in enabled state.
    *
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
-   *
-   * @since  $maven.project.version$
    */
   public void setJsfTag(MmTimeJsfTag pJsfTag) {
     this.jsfTag = pJsfTag;

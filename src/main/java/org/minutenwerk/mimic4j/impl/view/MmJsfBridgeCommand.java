@@ -7,7 +7,6 @@ import org.minutenwerk.mimic4j.impl.command.MmImplementationCommand;
  * MmJsfBridgeCommand connects a command mimic and a JSF command view component.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, String, String> {
 
@@ -24,8 +23,6 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    * Returns an EL expression of type String, which triggers JSF to execute a Java method, usually invoked by a HTML button.
    *
    * @return  An EL expression of type String.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String action() {
     return this.implementation.doMmIt();
@@ -36,8 +33,6 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    * getMmTargetRefParams().
    *
    * @return  A reference to some target.
-   *
-   * @since   $maven.project.version$
    */
   @Override public MmReference getTargetReference() {
     return this.implementation.getMmTargetReference();
@@ -47,8 +42,6 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    * Returns the value of type String, which is the short description of mimic.
    *
    * @return  The value of type String, which is the short description of mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getValue() {
     return this.implementation.getMmShortDescription();

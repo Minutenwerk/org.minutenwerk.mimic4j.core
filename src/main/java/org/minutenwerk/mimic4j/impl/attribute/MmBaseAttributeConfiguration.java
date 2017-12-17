@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  * MmBaseAttributeConfiguration is the abstract base class for configuration of all attribute mimic classes.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmBaseAttributeConfiguration<MODELSIDE_VALUE> extends MmBaseConfiguration {
 
@@ -34,8 +33,6 @@ public abstract class MmBaseAttributeConfiguration<MODELSIDE_VALUE> extends MmBa
    * Returns the configuration of default value.
    *
    * @return  The configuration of default value.
-   *
-   * @since   $maven.project.version$
    */
   public abstract MODELSIDE_VALUE getDefaultValue();
 
@@ -43,8 +40,6 @@ public abstract class MmBaseAttributeConfiguration<MODELSIDE_VALUE> extends MmBa
    * Returns the configuration of input is required.
    *
    * @return  The configuration of input is required.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isRequired() {
     return this.required;

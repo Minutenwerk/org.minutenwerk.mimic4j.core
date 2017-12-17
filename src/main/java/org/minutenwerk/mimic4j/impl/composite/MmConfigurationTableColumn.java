@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  * MmConfigurationTableColumn contains static configuration information for mimics of type {@link MmTableColumn}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationTableColumn extends MmBaseConfiguration {
 
@@ -78,8 +77,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Adds a CSS style class for footer of this table column.
    *
    * @param  pFooterClass  The specified CSS style class to add.
-   *
-   * @since  $maven.project.version$
    */
   public void addFooterClass(String pFooterClass) {
     Set<String> tempFooterClasses = new HashSet<String>();
@@ -100,8 +97,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Adds a CSS style class for header of this table column.
    *
    * @param  pHeaderClass  The specified CSS style class to add.
-   *
-   * @since  $maven.project.version$
    */
   public void addHeaderClass(String pHeaderClass) {
     Set<String> tempHeaderClasses = new HashSet<String>();
@@ -120,8 +115,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
 
   /**
    * Delete all configured footer CSS style classes.
-   *
-   * @since  $maven.project.version$
    */
   public void clearFooterClasses() {
     this.footerClasses = "";
@@ -129,8 +122,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
 
   /**
    * Delete all configured header CSS style classes.
-   *
-   * @since  $maven.project.version$
    */
   public void clearHeaderClasses() {
     this.headerClasses = "";
@@ -140,8 +131,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Returns all configured footer CSS style classes.
    *
    * @return  All configured footer CSS style classes.
-   *
-   * @since   $maven.project.version$
    */
   public String getFooterClasses() {
     return this.footerClasses;
@@ -151,8 +140,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Returns all configured header CSS style classes.
    *
    * @return  All configured header CSS style classes.
-   *
-   * @since   $maven.project.version$
    */
   public String getHeaderClasses() {
     return this.headerClasses;
@@ -162,8 +149,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTag.name();
@@ -173,8 +158,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();
@@ -186,8 +169,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * classes are evaluated from configuration attribute {@link MmBaseConfiguration#styleClasses()}.
    *
    * @return  A String containing space delimited <code>CSS</code> style classes.
-   *
-   * @since   $maven.project.version$
    */
   public String getStyleClasses() {
     return this.styleClasses;
@@ -197,8 +178,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Returns true, if this row is a table row header.
    *
    * @return  True, if this row is a table row header.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isRowHeader() {
     return this.isRowHeader;
@@ -208,8 +187,6 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Sets the configuration whether this row is a table row header.
    *
    * @param  pIsRowHeader  The specified configuration whether this row is a table row header.
-   *
-   * @since  $maven.project.version$
    */
   public void setRowHeader(boolean pIsRowHeader) {
     this.isRowHeader = pIsRowHeader;

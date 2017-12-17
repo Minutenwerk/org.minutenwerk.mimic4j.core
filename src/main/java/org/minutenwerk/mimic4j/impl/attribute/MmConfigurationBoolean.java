@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
  * MmConfigurationBoolean contains static configuration information for mimics of type {@link MmBoolean}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean> {
 
@@ -70,8 +69,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Returns the configuration of default value.
    *
    * @return  The configuration of default value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public Boolean getDefaultValue() {
     return this.defaultValue;
@@ -81,8 +78,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
@@ -92,8 +87,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();
@@ -103,8 +96,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Returns the configuration of layout direction of JSF tag.
    *
    * @return  The configuration of layout direction of JSF tag.
-   *
-   * @since   $maven.project.version$
    */
   public MmBooleanLayout getLayout() {
     return this.layout;
@@ -114,8 +105,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Sets the configuration of default value.
    *
    * @param  pDefaultValue  The specified configuration of default value.
-   *
-   * @since  $maven.project.version$
    */
   public void setDefaultValue(boolean pDefaultValue) {
     this.defaultValue = pDefaultValue;
@@ -125,8 +114,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Sets the configuration of JSF tag in enabled state.
    *
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
-   *
-   * @since  $maven.project.version$
    */
   public void setJsfTag(MmBooleanJsfTag pJsfTag) {
     this.jsfTag = pJsfTag;
@@ -136,8 +123,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Sets the configuration of layout direction of JSF tag.
    *
    * @param  pLayout  The specified configuration of layout direction of JSF tag.
-   *
-   * @since  $maven.project.version$
    */
   public void setLayout(MmBooleanLayout pLayout) {
     this.layout = pLayout;

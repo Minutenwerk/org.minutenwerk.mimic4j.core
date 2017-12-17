@@ -5,7 +5,6 @@ package org.minutenwerk.mimic4j.api.container;
  * index.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmRowIdentifiable {
 
@@ -13,8 +12,6 @@ public interface MmRowIdentifiable {
    * Returns the database id of record.
    *
    * @return  The database id of record.
-   *
-   * @since   $maven.project.version$
    */
   public String getId();
 
@@ -22,8 +19,6 @@ public interface MmRowIdentifiable {
    * Returns the table row index.
    *
    * @return  The table row index.
-   *
-   * @since   $maven.project.version$
    */
   public int getRowIndex();
 
@@ -31,8 +26,6 @@ public interface MmRowIdentifiable {
    * Returns the database version of data record (for optimistic locking).
    *
    * @return  The database version of data record.
-   *
-   * @since   $maven.project.version$
    */
   public Long getVersion();
 

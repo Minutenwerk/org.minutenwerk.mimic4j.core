@@ -9,7 +9,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
  * MmBaseCompositeImplementation is the abstract base class for the implementation part of all composite mimic classes.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmBaseCompositeImplementation<CALLBACK extends MmCompositeCallback, CONFIGURATION extends MmBaseConfiguration>
   extends MmBaseImplementation<MmBaseCompositeDeclaration<?>, CONFIGURATION> implements MmCompositeMimic {

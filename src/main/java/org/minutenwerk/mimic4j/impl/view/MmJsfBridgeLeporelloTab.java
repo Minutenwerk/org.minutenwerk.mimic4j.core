@@ -7,7 +7,6 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
  * MmJsfBridgeLeporelloTab connects a leporello panel tab mimic and a JSF tab view component. Corresponding tag is leporelloTab.xhtml.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporelloTab, String, String> {
 
@@ -24,8 +23,6 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
    * Returns the CSS styleclass if this leporello tab is active.
    *
    * @return  The CSS styleclass if this leporello tab is active.
-   *
-   * @since   $maven.project.version$
    */
   public String getStyleClassActive() {
     return this.implementation.getMmStyleClassActive();
@@ -36,8 +33,6 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
    * getMmTargetRefParams().
    *
    * @return  A reference to some target.
-   *
-   * @since   $maven.project.version$
    */
   @Override public MmReference getTargetReference() {
     return this.implementation.getMmTargetReference();
@@ -47,8 +42,6 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
    * Returns the value of this leporello tab.
    *
    * @return  The value of this leporello tab.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getValue() {
     return this.implementation.getMmViewsideValue();
@@ -58,8 +51,6 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
    * Returns true, if the HTML tag shall be displayed in disabled state.
    *
    * @return  True, if the HTML tag shall be displayed in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isDisabled() {
     return !this.implementation.isMmEnabled();

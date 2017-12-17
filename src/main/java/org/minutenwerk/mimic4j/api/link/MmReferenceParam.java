@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.api.MmNameValue;
  * MmReferenceParam is an immutable helper class for a name/ value pair, which serves as a parameter of an URL query string.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmReferenceParam implements MmNameValue {
 
@@ -50,8 +49,6 @@ public class MmReferenceParam implements MmNameValue {
    * Returns the name of this query parameter.
    *
    * @return  The name of this query parameter.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmName() {
     return this.name;
@@ -61,8 +58,6 @@ public class MmReferenceParam implements MmNameValue {
    * Returns the value of this query parameter.
    *
    * @return  The value of this query parameter.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmValue() {
     return this.value;

@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  * MmBaseAttributeConfiguration is the abstract base class for configuration of all link mimic classes.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
 
@@ -47,8 +46,6 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * Returns a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @return  A string referencing a target, either an URL or an outcome
-   *
-   * @since   $maven.project.version$
    */
   public String getTargetOutcome() {
     return this.targetOutcome;
@@ -58,8 +55,6 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * Sets a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @param  pTargetOutcome  A string referencing a target.
-   *
-   * @since  $maven.project.version$
    */
   public void setTargetOutcome(String pTargetOutcome) {
     this.targetOutcome = pTargetOutcome;

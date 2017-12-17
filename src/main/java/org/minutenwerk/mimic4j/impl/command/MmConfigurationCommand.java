@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  * MmConfigurationCommand contains static configuration information for mimics of type {@link MmCommand}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationCommand extends MmBaseConfiguration {
 
@@ -58,8 +57,6 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
@@ -69,8 +66,6 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();
@@ -80,8 +75,6 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * Returns a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @return  A string referencing a target, either an URL or an outcome
-   *
-   * @since   $maven.project.version$
    */
   public String getTargetOutcome() {
     return this.targetOutcome;
@@ -91,8 +84,6 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * Sets the configuration of JSF tag in enabled state.
    *
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
-   *
-   * @since  $maven.project.version$
    */
   public void setJsfTag(MmCommandJsfTag pJsfTag) {
     this.jsfTag = pJsfTag;
@@ -102,8 +93,6 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * Sets a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @param  pTargetOutcome  A string referencing a target.
-   *
-   * @since  $maven.project.version$
    */
   public void setTargetOutcome(String pTargetOutcome) {
     this.targetOutcome = pTargetOutcome;

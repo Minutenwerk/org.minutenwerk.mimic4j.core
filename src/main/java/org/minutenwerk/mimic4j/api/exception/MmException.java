@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.api.MmMimic;
  * MmException is the base class for all checked exceptions in mimic4j.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmException extends Exception {
 
@@ -46,8 +45,6 @@ public class MmException extends Exception {
    * Returns the arguments to be inserted into message text, may be null.
    *
    * @return  The arguments to be inserted into message text, may be null.
-   *
-   * @since   $maven.project.version$
    */
   public final Object[] getArgs() {
     return this.args;
@@ -57,8 +54,6 @@ public class MmException extends Exception {
    * Returns the mimic this exception relates to.
    *
    * @return  The mimic this exception relates to.
-   *
-   * @since   $maven.project.version$
    */
   public MmMimic getMimic() {
     return this.mimic;
@@ -69,8 +64,6 @@ public class MmException extends Exception {
    * at any time.
    *
    * @return  Some information about this object for development purposes like debugging and logging.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String toString() {
     StringBuilder snippet = new StringBuilder();

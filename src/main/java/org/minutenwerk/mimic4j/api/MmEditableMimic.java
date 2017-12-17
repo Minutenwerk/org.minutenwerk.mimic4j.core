@@ -7,7 +7,6 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
  * MmEditableMimic can set to default value, can be validated and can be reset.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmEditableMimic extends MmMimic {
 
@@ -19,8 +18,6 @@ public interface MmEditableMimic extends MmMimic {
    *   <li>converting modelside value to viewside type</li>
    *   <li>passing converted value into viewside value</li>
    * </ol>
-   *
-   * @since  $maven.project.version$
    */
   public void doMmReset();
 
@@ -32,8 +29,6 @@ public interface MmEditableMimic extends MmMimic {
    *   <li>converting modelside value to viewside type</li>
    *   <li>passing converted value into viewside value</li>
    * </ol>
-   *
-   * @since  $maven.project.version$
    */
   public void doMmSetDefaults();
 
@@ -48,8 +43,6 @@ public interface MmEditableMimic extends MmMimic {
    * </ol>
    *
    * @throws  MmValidatorException  in case of semantic validation of container or one of its children failed.
-   *
-   * @since   $maven.project.version$
    */
   public void doMmValidate() throws MmValidatorException;
 
@@ -58,8 +51,6 @@ public interface MmEditableMimic extends MmMimic {
    * are marked as being changed as well.
    *
    * @return  <code>True</code>, if mimic has been changed from viewside.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmChangedFromViewside();
 
@@ -67,8 +58,6 @@ public interface MmEditableMimic extends MmMimic {
    * Returns <code>true</code> if a value from view has to be set for this mimic or one of its children.
    *
    * @return  <code>True</code> if a value from view has to be set.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmRequired();
 
@@ -76,8 +65,6 @@ public interface MmEditableMimic extends MmMimic {
    * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.doMmReset} is executable.
    *
    * @return  <code>true</code> if the action {@link MmEditableMimic.doMmReset} is executable.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmResetEnabled();
 
@@ -85,8 +72,6 @@ public interface MmEditableMimic extends MmMimic {
    * Returns <code>true</code> if the mimic has been validated without any errors.
    *
    * @return  <code>True</code> if the mimic has been validated without any errors.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmValid();
 

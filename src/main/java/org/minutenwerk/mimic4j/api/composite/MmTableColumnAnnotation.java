@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.composite.MmConfigurationTableColumn;
  * MmTableColumnAnnotation annotates declarations of {@link MmTableColumn} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

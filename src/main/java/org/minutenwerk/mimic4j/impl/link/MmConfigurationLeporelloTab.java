@@ -8,7 +8,6 @@ import org.minutenwerk.mimic4j.api.link.MmLeporelloTabAnnotation;
  * MmConfigurationLeporelloTab contains static configuration information for mimics of type {@link MmLeporelloTab}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
 
@@ -41,8 +40,6 @@ public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTag.name();
@@ -52,8 +49,6 @@ public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();

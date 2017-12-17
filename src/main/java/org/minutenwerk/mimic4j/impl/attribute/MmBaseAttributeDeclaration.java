@@ -45,8 +45,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return        The attribute's format pattern for displaying viewside value.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public String callbackMmGetFormatPattern(String pPassThroughValue) {
@@ -59,8 +57,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
    * @return        The configuration of maximum length of formatted input string.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */
@@ -75,8 +71,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return        <code>True</code> if a value from view has to be set.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public boolean callbackMmIsRequired(boolean pPassThroughValue) {
@@ -88,8 +82,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @param         pModelsideValue  The specified value to be set.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-lifecycle
    */
   @Override public final void setMmModelsideValue(MODELSIDE_VALUE pModelsideValue) {
@@ -100,8 +92,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Sets viewside value of mimic to specified value.
    *
    * @param         pViewsideValue  The specified value to be set.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-lifecycle
    */
@@ -117,8 +107,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *   <li>converting modelside value to viewside type</li>
    *   <li>passing converted value into viewside value</li>
    * </ol>
-   *
-   * @since  $maven.project.version$
    */
   @Override public final void doMmReset() {
     this.implementation.clearMmMessageList();
@@ -133,8 +121,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *   <li>converting modelside value to viewside type</li>
    *   <li>passing converted value into viewside value</li>
    * </ol>
-   *
-   * @since  $maven.project.version$
    */
   @Override public final void doMmSetDefaults() {
     this.implementation.clearMmMessageList();
@@ -150,8 +136,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *   <li>passing converted value into modelside value</li>
    *   <li>validating modelside value</li>
    * </ol>
-   *
-   * @since  $maven.project.version$
    */
   @Override public final void doMmValidate() {
     this.implementation.clearMmMessageList();
@@ -162,8 +146,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's number of columns in case it is displayed as multi line text field.
    *
    * @return  The attribute's number of columns.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final int getMmCols() {
     return this.implementation.getMmCols();
@@ -173,8 +155,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's default value of type MODELSIDE_VALUE.
    *
    * @return  The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final MODELSIDE_VALUE getMmDefaultValue() {
     return this.implementation.getMmDefaultValue();
@@ -184,8 +164,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's maximum number of characters for input in view.
    *
    * @return  The attribute's maximum number of characters for input.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final int getMmFormatMaxLength() {
     return this.implementation.getMmFormatMaxLength();
@@ -196,8 +174,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * value and vice versa. It is dependent on the user's locale.
    *
    * @return  The attribute's format pattern for displaying viewside value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final String getMmFormatPattern() {
     return this.implementation.getMmFormatPattern();
@@ -207,8 +183,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's layout direction in case the attribute is of subtype MmBoolean.
    *
    * @return  The attribute's layout direction.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final MmBooleanLayout getMmLayout() {
     return this.implementation.getMmLayout();
@@ -218,8 +192,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the type of modelside value of the mimic.
    *
    * @return  The type of modelside value of the mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final Class<MODELSIDE_VALUE> getMmModelsideType() {
     return this.implementation.getMmModelsideType();
@@ -229,8 +201,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
    *
    * @return  The modelside value of the mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final MODELSIDE_VALUE getMmModelsideValue() {
     return this.implementation.getMmModelsideValue();
@@ -240,8 +210,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's reset value of type MODELSIDE_VALUE.
    *
    * @return  The attribute's reset value of type MODELSIDE_VALUE.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final MODELSIDE_VALUE getMmResetValue() {
     return this.implementation.getMmResetValue();
@@ -251,8 +219,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
    *
    * @return  The attribute's number of rows.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final int getMmRows() {
     return this.implementation.getMmRows();
@@ -262,8 +228,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's row size of option list in view.
    *
    * @return  The attribute's row size of option list.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final int getMmSize() {
     return this.implementation.getMmSize();
@@ -273,8 +237,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's type of viewside value (VIEWSIDE_VALUE).
    *
    * @return  The attribute's type of viewside value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final Class<VIEWSIDE_VALUE> getMmViewsideType() {
     return this.implementation.getMmViewsideType();
@@ -284,8 +246,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the attribute's viewside value of type VIEWSIDE_VALUE.
    *
    * @return  The attribute's viewside value of type VIEWSIDE_VALUE.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final VIEWSIDE_VALUE getMmViewsideValue() {
     return this.implementation.getMmViewsideValue();
@@ -296,8 +256,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * are marked as being changed as well.
    *
    * @return  <code>True</code>, if mimic has been changed from viewside.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmChangedFromViewside() {
     return this.implementation.isMmChangedFromViewside();
@@ -307,8 +265,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns <code>true</code> if the viewside value of this mimic is empty.
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmEmpty() {
     return this.implementation.isMmEmpty();
@@ -318,8 +274,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns <code>true</code> if a value from view has to be set for this mimic or one of its children.
    *
    * @return  <code>True</code> if a value from view has to be set.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmRequired() {
     return this.implementation.isMmRequired();
@@ -329,8 +283,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.doMmReset} is executable.
    *
    * @return  <code>true</code> if the action {@link MmEditableMimic.doMmReset} is executable.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmResetEnabled() {
     return this.implementation.isMmResetEnabled();
@@ -340,8 +292,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns <code>true</code> if the mimic has been validated without any errors.
    *
    * @return  <code>True</code> if the mimic has been validated without any errors.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmValid() {
     return this.implementation.isMmValid();
@@ -351,8 +301,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the initialized number formatter of this mimic.
    *
    * @return  The initialized number formatter of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   protected NumberFormat getMmNumberFormatter() {
     final String formatPattern = this.getMmFormatPattern();

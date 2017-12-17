@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
  * message text can be i18ned.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmMessage {
 
@@ -94,8 +93,6 @@ public class MmMessage {
    * Returns an array of arguments to be inserted into message text.
    *
    * @return  An array of arguments to be inserted into message text.
-   *
-   * @since   $maven.project.version$
    */
   public Object[] getArgs() {
     return this.args;
@@ -106,8 +103,6 @@ public class MmMessage {
    * business logic.
    *
    * @return  The type of this message.
-   *
-   * @since   $maven.project.version$
    */
   public MmErrorMessageType getErrorMessageType() {
     return this.errorMessageType;
@@ -117,8 +112,6 @@ public class MmMessage {
    * Returns the bootstrap severity icon.
    *
    * @return  The bootstrap severity icon.
-   *
-   * @since   $maven.project.version$
    */
   public String getIcon() {
     switch (this.severity) {
@@ -143,8 +136,6 @@ public class MmMessage {
    * Returns the message type.
    *
    * @return  The message type.
-   *
-   * @since   $maven.project.version$
    */
   public MmMessageType getMessageType() {
     return this.messageType;
@@ -154,8 +145,6 @@ public class MmMessage {
    * Returns the the mimic which this message relates to.
    *
    * @return  The mimic which this message relates to.
-   *
-   * @since   $maven.project.version$
    */
   public MmMimic getOwnerMm() {
     return this.ownerMm;
@@ -165,8 +154,6 @@ public class MmMessage {
    * Returns the severity of this message, which indicates whether it is an information, a warning or an error message.
    *
    * @return  The severity of this message.
-   *
-   * @since   $maven.project.version$
    */
   public MmMessageSeverity getSeverity() {
     return this.severity;
@@ -176,8 +163,6 @@ public class MmMessage {
    * Returns the bootstrap alert style class.
    *
    * @return  The bootstrap alert style class.
-   *
-   * @since   $maven.project.version$
    */
   public String getStyleClass() {
     switch (this.severity) {
@@ -202,8 +187,6 @@ public class MmMessage {
    * Returns the message text.
    *
    * @return  The message text.
-   *
-   * @since   $maven.project.version$
    */
   public String getText() {
     MmRoot mmRoot        = MmRelationshipApi.getMmRoot(this.ownerMm);
@@ -227,8 +210,6 @@ public class MmMessage {
    * at any time.
    *
    * @return  Some information about this object for development purposes like debugging and logging.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String toString() {
     StringBuilder sb = new StringBuilder();

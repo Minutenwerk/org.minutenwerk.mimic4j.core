@@ -7,7 +7,6 @@ import org.minutenwerk.mimic4j.api.MmMimic;
  * failed.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmModelsideConverterException extends MmRuntimeException {
 

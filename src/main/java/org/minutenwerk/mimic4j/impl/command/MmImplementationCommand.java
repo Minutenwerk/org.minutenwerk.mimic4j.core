@@ -19,7 +19,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeCommand;
  * MmImplementationCommand is the specific class for the implementation part of command mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandDeclaration, MmConfigurationCommand>
   implements MmExecutableMimic {
@@ -37,8 +36,6 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    * Executes an action.
    *
    * @return  A control string, most times used as outcome string for JSF.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String doMmIt() {
     this.ensureInitialization();
@@ -50,8 +47,6 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    * Returns the current JSF tag of this mimic, dependent on enabled state and configuration.
    *
    * @return  The current JSF tag of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTag() {
     MmCommandJsfTag commandJsfTag = null;
@@ -70,8 +65,6 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @return  A reference to some target.
-   *
-   * @since   $maven.project.version$
    */
   @Override public MmReference getMmTargetReference() {
     this.ensureInitialization();
@@ -99,8 +92,6 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    * true</code>.
    *
    * @return  <code>True</code>, if the mimic is enabled.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmEnabled() {
     this.ensureInitialization();
@@ -112,8 +103,6 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeCommand(this);
@@ -121,8 +110,6 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

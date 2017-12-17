@@ -8,7 +8,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTab;
  * MmTab is a container mimic to represent a dialog tab.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmTab<MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationTab<MODEL>> {
 

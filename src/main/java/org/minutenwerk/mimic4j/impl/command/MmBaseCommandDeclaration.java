@@ -15,7 +15,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
  * MmBaseCommandDeclaration is an abstract base class for command mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecutableMimic, MmImplementationCommand>
   implements MmExecutableMimic, MmCommandCallback {
@@ -35,8 +34,6 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    * @return  A control string, most times used as outcome string for JSF.
    *
    * @throws  IllegalStateException  In case of mimic is not an instance of MmCommand.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String callbackMmDoIt() {
     throw new IllegalStateException("method callbackMmDoIt is not implemented on " + this.getClass().getSimpleName());
@@ -48,8 +45,6 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The current JSF tag of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public MmCommandJsfTag callbackMmGetJsfTag(MmCommandJsfTag pPassThroughValue) {
     return pPassThroughValue;
@@ -61,8 +56,6 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
    * @return        A mimic, which is the target reference of this link mimic.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */
@@ -76,8 +69,6 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
    * @return        A string referencing a target, either an URL or an outcome
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-callback
    */
@@ -93,8 +84,6 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @return        A list of URL parameters to be concatenated to target reference.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-callback
    */
   @Override public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel) {
@@ -105,8 +94,6 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    * Executes an action.
    *
    * @return  A control string, most times used as outcome string for JSF.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final String doMmIt() {
     return this.implementation.doMmIt();
@@ -116,8 +103,6 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @return        A reference to some target.
-   *
-   * @since         $maven.project.version$
    *
    * @jalopy.group  group-override
    */

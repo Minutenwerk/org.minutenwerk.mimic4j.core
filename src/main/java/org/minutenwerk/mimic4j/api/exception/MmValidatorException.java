@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.api.MmMimic;
  * MmValidatorException is a checked exception which occurs if the validation of a mimic failed.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmValidatorException extends MmException {
 

@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
  * part.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmBaseCallback {
 
@@ -25,8 +24,6 @@ public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends Mm
    * @return  The converted value of type VIEWSIDE_VALUE.
    *
    * @throws  MmModelsideConverterException  In case of the conversion failed.
-   *
-   * @since   $maven.project.version$
    */
   public VIEWSIDE_VALUE callbackMmConvertModelsideToViewsideValue(MODELSIDE_VALUE pModelsideValue) throws MmModelsideConverterException;
 
@@ -38,8 +35,6 @@ public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends Mm
    * @return  The converted value of type MODELSIDE_VALUE.
    *
    * @throws  MmViewsideConverterException  In case of the conversion failed.
-   *
-   * @since   $maven.project.version$
    */
   public MODELSIDE_VALUE callbackMmConvertViewsideToModelsideValue(VIEWSIDE_VALUE pViewsideValue) throws MmViewsideConverterException;
 
@@ -49,8 +44,6 @@ public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends Mm
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @since   $maven.project.version$
    */
   public MODELSIDE_VALUE callbackMmGetDefaultValue(MODELSIDE_VALUE pPassThroughValue);
 
@@ -61,8 +54,6 @@ public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends Mm
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The attribute's format pattern for displaying viewside value.
-   *
-   * @since   $maven.project.version$
    */
   public String callbackMmGetFormatPattern(String pPassThroughValue);
 
@@ -72,8 +63,6 @@ public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends Mm
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The configuration of maximum length of formatted input string.
-   *
-   * @since   $maven.project.version$
    */
   public int callbackMmGetMaxLength(int pPassThroughValue);
 
@@ -81,8 +70,6 @@ public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends Mm
    * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
    *
    * @return  A list of options.
-   *
-   * @since   $maven.project.version$
    */
   public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions();
 
@@ -92,8 +79,6 @@ public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends Mm
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  <code>True</code> if a value from view has to be set.
-   *
-   * @since   $maven.project.version$
    */
   public boolean callbackMmIsRequired(boolean pPassThroughValue);
 
@@ -103,8 +88,6 @@ public interface MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends Mm
    * @param   pModelsideValue  The modelside value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
-   *
-   * @since   $maven.project.version$
    */
   public void callbackMmValidateModelsideValue(MODELSIDE_VALUE pModelsideValue) throws MmValidatorException;
 

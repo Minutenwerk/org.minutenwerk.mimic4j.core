@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.container.MmConfigurationTableRow;
  * MmTableRowAnnotation annotates declarations of {@link MmTableRow} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

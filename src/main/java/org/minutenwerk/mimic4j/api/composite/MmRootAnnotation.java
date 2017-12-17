@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.composite.MmConfigurationRoot;
  * MmRootAnnotation annotates declarations of {@link MmRoot} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

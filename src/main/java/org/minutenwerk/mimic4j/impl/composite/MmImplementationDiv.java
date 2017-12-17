@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeComposite;
  * MmImplementationDiv is the specific class for the implementation part of div mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationDiv extends MmBaseCompositeImplementation<MmDiv, MmConfigurationDiv> {
 
@@ -27,8 +26,6 @@ public class MmImplementationDiv extends MmBaseCompositeImplementation<MmDiv, Mm
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeComposite(this);
@@ -36,8 +33,6 @@ public class MmImplementationDiv extends MmBaseCompositeImplementation<MmDiv, Mm
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

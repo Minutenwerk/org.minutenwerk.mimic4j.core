@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * MmImplementationDate is the implementation part of a mimic for {@link LocalDate}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationDate extends MmBaseAttributeImplementation<MmDate, MmConfigurationDate, LocalDate, String> {
 
@@ -31,8 +30,6 @@ public class MmImplementationDate extends MmBaseAttributeImplementation<MmDate, 
    * value and vice versa. It is dependent on the user's locale.
    *
    * @return  The attribute's format pattern for displaying viewside value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmFormatPattern() {
     this.ensureInitialization();
@@ -51,8 +48,6 @@ public class MmImplementationDate extends MmBaseAttributeImplementation<MmDate, 
    * Returns <code>true</code> if the viewside value of this mimic is empty.
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmEmpty() {
     this.ensureInitialization();
@@ -64,8 +59,6 @@ public class MmImplementationDate extends MmBaseAttributeImplementation<MmDate, 
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
@@ -73,8 +66,6 @@ public class MmImplementationDate extends MmBaseAttributeImplementation<MmDate, 
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

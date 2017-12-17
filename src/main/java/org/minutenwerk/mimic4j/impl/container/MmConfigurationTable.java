@@ -8,7 +8,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  * MmConfigurationTable contains static configuration information for mimics of type {@link MmTable}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationTable extends MmBaseConfiguration {
 
@@ -35,8 +34,6 @@ public class MmConfigurationTable extends MmBaseConfiguration {
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return DEFAULT_JSF_TAG;
@@ -46,8 +43,6 @@ public class MmConfigurationTable extends MmBaseConfiguration {
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return DEFAULT_JSF_TAG;

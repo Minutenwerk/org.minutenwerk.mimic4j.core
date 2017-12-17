@@ -9,7 +9,6 @@ import org.minutenwerk.mimic4j.impl.referencable.MmImplementationPage;
  * MmPage is a container mimic to represent a dialog tab.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmPage<MODEL extends MmReferencableModel> extends MmBaseReferencableDeclaration<MODEL, MmImplementationPage<MODEL>> {
 
@@ -28,8 +27,6 @@ public abstract class MmPage<MODEL extends MmReferencableModel> extends MmBaseRe
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The file part of the URL without slashes.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String callbackMmGetReferenceFile(String pPassThroughValue) {
     return pPassThroughValue;
@@ -42,8 +39,6 @@ public abstract class MmPage<MODEL extends MmReferencableModel> extends MmBaseRe
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
    * @return  The path part of the URL including trailing slash but without base part.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String callbackMmGetReferencePath(String pPassThroughValue) {
     return pPassThroughValue;

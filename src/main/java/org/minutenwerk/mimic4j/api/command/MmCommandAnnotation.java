@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.command.MmConfigurationCommand;
  * MmCommandAnnotation annotates declarations of {@link MmCommand} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

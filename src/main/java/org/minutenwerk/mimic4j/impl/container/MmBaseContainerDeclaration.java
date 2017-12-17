@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.message.MmMessage;
  * @param   <IMPLEMENTATION>  The type of the corresponding class implementing this declaration api.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends MmBaseContainerImplementation<?, MODEL, ?>>
   extends MmBaseDeclaration<MmContainerMimic<MODEL>, IMPLEMENTATION> implements MmContainerMimic<MODEL>, MmContainerCallback<MODEL> {
@@ -31,8 +30,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * Adds a message of type {@link MmMessage} to this root.
    *
    * @param  pMessage  The specified message to add.
-   *
-   * @since  $maven.project.version$
    */
   public void addMmMessage(MmMessage pMessage) {
     this.implementation.getMmMessageList().addMessage(pMessage);
@@ -44,8 +41,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * @param   pModel  The model to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
-   *
-   * @since   $maven.project.version$
    */
   @Override public void callbackMmValidateModel(MODEL pModel) throws MmValidatorException {
   }
@@ -58,8 +53,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *   <li>converting modelside value to viewside type</li>
    *   <li>passing converted value into viewside value</li>
    * </ol>
-   *
-   * @since  $maven.project.version$
    */
   @Override public final void doMmReset() {
     this.implementation.doMmReset();
@@ -73,8 +66,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *   <li>converting modelside value to viewside type</li>
    *   <li>passing converted value into viewside value</li>
    * </ol>
-   *
-   * @since  $maven.project.version$
    */
   @Override public final void doMmSetDefaults() {
     this.implementation.doMmSetDefaults();
@@ -82,8 +73,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
 
   /**
    * Sets the values from model into modelside of mimic.
-   *
-   * @since  $maven.project.version$
    */
   @Override public final void doMmSetModelFromModelside() {
     this.implementation.doMmSetModelFromModelside();
@@ -93,8 +82,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * Sets the values from model to modelside of mimic.
    *
    * @param  pModel  The model to set.
-   *
-   * @since  $maven.project.version$
    */
   @Override public final void doMmSetModelsideFromModel(MODEL pModel) {
     this.implementation.doMmSetModelsideFromModel(pModel);
@@ -111,8 +98,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * </ol>
    *
    * @throws  MmValidatorException  in case of semantic validation of container or one of its children failed.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final void doMmValidate() throws MmValidatorException {
     this.implementation.doMmValidate();
@@ -122,8 +107,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * Returns the model.
    *
    * @return  The model.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final MODEL getMmModel() {
     return this.implementation.getMmModel();
@@ -133,8 +116,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * Returns the Java type of the model.
    *
    * @return  The Java type of the model.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final Class<MODEL> getMmModelType() {
     return this.implementation.getMmModelType();
@@ -145,8 +126,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * are marked as being changed as well.
    *
    * @return  <code>True</code>, if mimic has been changed from viewside.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmChangedFromViewside() {
     return this.implementation.isMmChangedFromViewside();
@@ -156,8 +135,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * Returns <code>true</code> if a value from view has to be set for this mimic or one of its children.
    *
    * @return  <code>True</code> if a value from view has to be set.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmRequired() {
     return this.implementation.isMmRequired();
@@ -169,8 +146,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @return        <code>true</code> if the action {@link MmEditableMimic.doValidateModelsideValue()} is executable.
    *
-   * @since         $maven.project.version$
-   *
    * @jalopy.group  group-override
    */
   @Override public final boolean isMmResetEnabled() {
@@ -181,8 +156,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * Returns <code>true</code> if the mimic has been validated without any errors.
    *
    * @return  <code>True</code> if the mimic has been validated without any errors.
-   *
-   * @since   $maven.project.version$
    */
   @Override public final boolean isMmValid() {
     return this.implementation.isMmValid();
@@ -192,8 +165,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * Sets the model.
    *
    * @param  pModel  The model to set.
-   *
-   * @since  $maven.project.version$
    */
   @Override public final void setMmModel(MODEL pModel) {
     this.implementation.setMmModel(pModel);

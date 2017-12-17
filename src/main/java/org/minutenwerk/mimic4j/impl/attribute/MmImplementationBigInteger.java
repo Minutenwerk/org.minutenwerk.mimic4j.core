@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * MmImplementationBigInteger is the implementation part of a mimic for {@link BigInteger}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationBigInteger extends MmBaseAttributeImplementation<MmBigInteger, MmConfigurationBigInteger, BigInteger, String> {
 
@@ -29,8 +28,6 @@ public class MmImplementationBigInteger extends MmBaseAttributeImplementation<Mm
    * Returns <code>true</code> if the viewside value of this mimic is empty.
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmEmpty() {
     this.ensureInitialization();
@@ -42,8 +39,6 @@ public class MmImplementationBigInteger extends MmBaseAttributeImplementation<Mm
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
@@ -51,8 +46,6 @@ public class MmImplementationBigInteger extends MmBaseAttributeImplementation<Mm
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

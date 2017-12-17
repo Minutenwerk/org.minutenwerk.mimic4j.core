@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
  * MmRoot is a composite mimic for the root of a subtree of mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
 
@@ -31,8 +30,6 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * @param   pArguments    Optional list of message arguments.
    *
    * @return  The internationalized message.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
     return this.implementation.getMmI18nText(pMessageId, pMessageType, pArguments);
@@ -42,8 +39,6 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * Returns the {@link Locale} of this root.
    *
    * @return  The locale of this root.
-   *
-   * @since   $maven.project.version$
    */
   public Locale getMmLocale() {
     return this.implementation.getMmLocale();
@@ -53,8 +48,6 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * Returns true, if the user's browser has enabled Javascript language.
    *
    * @return  True, if the user's browser has enabled Javascript language.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmJsEnabled() {
     return this.implementation.isMmJsEnabled();
@@ -64,8 +57,6 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * Sets the {@link MmMessageSource} of this root, which provides internationalized messages.
    *
    * @param  pMessageSource  The message source to be set.
-   *
-   * @since  $maven.project.version$
    */
   public void setMessageSource(MmMessageSource pMessageSource) {
     this.implementation.setMessageSource(pMessageSource);
@@ -75,8 +66,6 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * Sets the {@link MmSessionContext} of this root, which provides information about the user's session.
    *
    * @param  pSessionContext  The session context to be set.
-   *
-   * @since  $maven.project.version$
    */
   public void setSessionContext(MmSessionContext pSessionContext) {
     this.implementation.setSessionContext(pSessionContext);

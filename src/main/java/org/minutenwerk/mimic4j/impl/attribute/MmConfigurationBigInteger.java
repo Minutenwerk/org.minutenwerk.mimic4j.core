@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmBigIntegerAnnotation;
  * MmConfigurationBigInteger contains static configuration information for mimics of type {@link MmBigInteger}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigInteger> {
 
@@ -72,8 +71,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * Returns the configuration of default value.
    *
    * @return  The configuration of default value.
-   *
-   * @since   $maven.project.version$
    */
   @Override public BigInteger getDefaultValue() {
     return this.defaultValue;
@@ -83,8 +80,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * Returns the configuration of maximum length of formatted input string.
    *
    * @return  The configuration of maximum length of formatted input string.
-   *
-   * @since   $maven.project.version$
    */
   public int getFormatMaxLength() {
     return this.formatMaxLength;
@@ -94,8 +89,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * Returns the configuration of JSF tag in disabled state.
    *
    * @return  The configuration of JSF tag in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
@@ -105,8 +98,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * Returns the configuration of JSF tag in enabled state.
    *
    * @return  The configuration of JSF tag in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getJsfTagEnabled() {
     return this.jsfTag.name();
@@ -116,8 +107,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * Sets the configuration of default value.
    *
    * @param  pDefaultValue  The specified configuration of default value.
-   *
-   * @since  $maven.project.version$
    */
   public void setDefaultValue(BigInteger pDefaultValue) {
     this.defaultValue = pDefaultValue;
@@ -127,8 +116,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * Sets the configuration of maximum length of formatted input string.
    *
    * @param  pFormatMaxLength  The specified configuration of maximum length of formatted input string.
-   *
-   * @since  $maven.project.version$
    */
   public void setFormatMaxLength(int pFormatMaxLength) {
     this.formatMaxLength = pFormatMaxLength;
@@ -138,8 +125,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * Sets the configuration of JSF tag in enabled state.
    *
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
-   *
-   * @since  $maven.project.version$
    */
   public void setJsfTag(MmBigIntegerJsfTag pJsfTag) {
     this.jsfTag = pJsfTag;

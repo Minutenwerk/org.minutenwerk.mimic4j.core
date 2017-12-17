@@ -10,7 +10,6 @@ import org.joda.time.LocalTime;
  * MmCompositeMimic defines mimics which can be nested following the composite design pattern.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public interface MmLinkMimic extends MmMimic {
 
@@ -18,8 +17,6 @@ public interface MmLinkMimic extends MmMimic {
    * Returns the data model.
    *
    * @return  The data model.
-   *
-   * @since   $maven.project.version$
    */
   public MmReferencableModel getMmModel();
 
@@ -27,8 +24,6 @@ public interface MmLinkMimic extends MmMimic {
    * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @return  A reference to some target.
-   *
-   * @since   $maven.project.version$
    */
   public MmReference getMmTargetReference();
 
@@ -36,8 +31,6 @@ public interface MmLinkMimic extends MmMimic {
    * Returns the link's viewside value of type String.
    *
    * @return  The link's viewside value of type String.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmViewsideValue();
 
@@ -46,8 +39,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel);
 
@@ -56,8 +47,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel);
 
@@ -66,8 +55,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel);
 
@@ -76,8 +63,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel);
 
@@ -86,8 +71,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel);
 
@@ -96,8 +79,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel);
 
@@ -106,8 +87,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel);
 
@@ -116,8 +95,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel);
 
@@ -126,8 +103,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel);
 
@@ -136,8 +111,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel);
 
@@ -146,8 +119,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel);
 
@@ -156,8 +127,6 @@ public interface MmLinkMimic extends MmMimic {
    *
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
-   *
-   * @since  $maven.project.version$
    */
   public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel);
 

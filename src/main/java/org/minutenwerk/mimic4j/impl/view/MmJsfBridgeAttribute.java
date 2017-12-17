@@ -15,7 +15,6 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  * MmJsfBridgeAttribute connects an attribute mimic and a JSF attribute view component.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
   extends MmJsfBridge<MmBaseAttributeImplementation<?, ?, ?, VIEWSIDE_VALUE>, VIEWSIDE_VALUE, String> {
@@ -33,8 +32,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns the number of columns of a multiline text field (attribute {@code}cols{@code}).
    *
    * @return  The number of columns of a multiline text field.
-   *
-   * @since   $maven.project.version$
    */
   @Override public int getCols() {
     return this.implementation.getMmCols();
@@ -44,8 +41,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns the attribute's layout direction in case the attribute is of subtype MmBoolean.
    *
    * @return  The attribute's layout direction.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getLayout() {
     return this.implementation.getMmLayout().getValue();
@@ -55,8 +50,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns the attribute's maximum number of characters for input in view.
    *
    * @return  The attribute's maximum number of characters for input.
-   *
-   * @since   $maven.project.version$
    */
   @Override public int getMaxlength() {
     return this.implementation.getMmFormatMaxLength();
@@ -66,8 +59,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns a list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
    *
    * @return  A list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public List<MmMessage> getMsgList() {
     return this.implementation.getMmMessages();
@@ -77,8 +68,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns one string containing all error, warning, info and success messages of this mimic.
    *
    * @return  One string containing all error, warning, info and success messages of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMsgListText() {
     String returnText = "";
@@ -92,8 +81,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns the highest severity of error message of this mimic, returns empty string in case of no messages.
    *
    * @return  The highest severity of error message of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMsgMaxSeverity() {
     MmMessageSeverity severity = this.implementation.getMmMaximumSeverity();
@@ -108,8 +95,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns the title of error message of highest severity of this mimic.
    *
    * @return  The title of error message of highest severity of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMsgMaxTitle() {
     String returnTitle = "";
@@ -124,8 +109,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns the number of rows of a multiline text field (attribute {@code}cols{@code}).
    *
    * @return  The number of rows of a multiline text field.
-   *
-   * @since   $maven.project.version$
    */
   @Override public int getRows() {
     return this.implementation.getMmRows();
@@ -144,8 +127,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * </ul>
    *
    * @return  A list of {@link SelectItem},
-   *
-   * @since   $maven.project.version$
    */
   @Override public List<SelectItem> getSelectItems() {
     List<SelectItem> returnList = new ArrayList<SelectItem>();
@@ -166,8 +147,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns the attribute's row size of option list in view.
    *
    * @return  The attribute's row size of option list.
-   *
-   * @since   $maven.project.version$
    */
   @Override public int getSize() {
     return this.implementation.getMmSize();
@@ -177,8 +156,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Returns the value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
    *
    * @return  The value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
-   *
-   * @since   $maven.project.version$
    */
   @Override public VIEWSIDE_VALUE getValue() {
     return this.implementation.getMmViewsideValue();
@@ -188,8 +165,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * Sets the value of type VIEWSIDE_VALUE into mimic, usually called by input HTML tags.
    *
    * @param  pValue  The value of type VIEWSIDE_VALUE to be set.
-   *
-   * @since  $maven.project.version$
    */
   @Override public void setValue(VIEWSIDE_VALUE pValue) {
     this.implementation.setMmViewsideValue(pValue);

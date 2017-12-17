@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
  * used like an interface.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?, ?>, VIEWSIDE_VALUE, MODEL> {
 
@@ -47,8 +46,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @param   pFalseReturn  The object to use in case the condition is false.
    *
    * @return  The object to use dependent on condition.
-   *
-   * @since   $maven.project.version$
    */
   public static final Object conditionalValue(boolean pCondition, Object pTrueReturn, Object pFalseReturn) {
     return pCondition ? pTrueReturn : pFalseReturn;
@@ -60,8 +57,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  An EL expression of type String.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String action() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag action");
@@ -82,8 +77,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @param   pExternalId  The declared XHTML id.
    *
    * @return  The evaluated XHTML id to use.
-   *
-   * @since   $maven.project.version$
    */
   public String evalId(String pExternalId) {
     final boolean externalIdMissing = ((pExternalId == null) || pExternalId.trim().isEmpty());
@@ -121,8 +114,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The value of JSF tag attribute border.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getBorder() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag border");
@@ -134,8 +125,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The caption text of a table.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getCaption() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag caption");
@@ -147,8 +136,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The number of columns of a multiline text field.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public int getCols() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag cols");
@@ -160,8 +147,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The CSS style classes of columns.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getColumnClasses() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag columnClasses");
@@ -173,8 +158,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The list of table column mimics.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public List<MmTableColumn> getColumnMms() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag columnMms");
@@ -186,8 +169,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The CSS selector for data parents of leporello panel.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getDataParents() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag dataParents");
@@ -199,8 +180,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The CSS style class of this column's footer.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getFooterClass() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag footerClass");
@@ -212,8 +191,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The CSS style class of this column's header.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getHeaderClass() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag headerClass");
@@ -225,8 +202,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The text of this column's header title.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getHeaderTitle() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag headerTitle");
@@ -238,8 +213,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The text of this column's header.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getHeaderValue() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag headerValue");
@@ -249,8 +222,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * Returns id of this mimic. The id is unique within the subtree of a MmRoot.
    *
    * @return  The id of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public String getId() {
     return this.implementation.getMmId();
@@ -261,8 +232,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * enabled state and a JSF tag for disabled state.
    *
    * @return  The name of JSF tag to be used by this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public String getJsfTag() {
     return this.implementation.getJsfTag();
@@ -272,8 +241,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * Returns the label of HTML tag, usually the short description of mimic.
    *
    * @return  The label of HTML tag.
-   *
-   * @since   $maven.project.version$
    */
   public String getLabel() {
     return this.implementation.getMmShortDescription();
@@ -285,8 +252,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The attribute's layout direction.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getLayout() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag layout");
@@ -298,8 +263,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The leporello id.
    *
    * @throws  UnsupportedOperationException  TODOC
-   *
-   * @since   $maven.project.version$
    */
   public String getLeporelloId() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag leporelloId");
@@ -311,8 +274,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The attribute's maximum number of characters for input.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public int getMaxlength() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag maxlength");
@@ -324,8 +285,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  A list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public List<MmMessage> getMsgList() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag msgList");
@@ -337,8 +296,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  One string containing all error, warning, info and success messages of this mimic.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getMsgListText() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag msgListText");
@@ -350,8 +307,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The highest severity of error message of this mimic.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getMsgMaxSeverity() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag msgMaxSeverity");
@@ -363,8 +318,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The title of error message of highest severity of this mimic.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public String getMsgMaxTitle() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag msgMaxTitle");
@@ -374,8 +327,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * Returns a self reference of this mimic, either an URL or an outcome, to be translated by FacesNavigator.
    *
    * @return  A self reference of this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public MmReference getReference() {
     return this.implementation.getMmReference();
@@ -387,8 +338,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The number of rows of a multiline text field.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public int getRows() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag rows");
@@ -409,8 +358,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  A list of {@link SelectItem},
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public List<SelectItem> getSelectItems() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag selectItems");
@@ -422,8 +369,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The attribute's row size of option list.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public int getSize() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag size");
@@ -434,8 +379,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * tag.
    *
    * @return  The style classes of HTML attribute.
-   *
-   * @since   $maven.project.version$
    */
   public String getStyleClass() {
     return this.implementation.getMmStyleClasses();
@@ -447,8 +390,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The CSS style class for initial opening of leporello panel.
    *
    * @throws  UnsupportedOperationException  Because operation is not supported for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public String getStyleInitiallyOpen() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag styleInitiallyOpen");
@@ -461,8 +402,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  A reference to some target.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public MmReference getTargetReference() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag targetReference");
@@ -472,8 +411,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * Returns the title attribute of HTML tag, usually the long description of mimic.
    *
    * @return  The title attribute of HTML tag.
-   *
-   * @since   $maven.project.version$
    */
   public String getTitle() {
     return this.implementation.getMmLongDescription();
@@ -485,8 +422,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public VIEWSIDE_VALUE getValue() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag value");
@@ -496,8 +431,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * Returns true, if the HTML tag shall be displayed in disabled state.
    *
    * @return  True, if the HTML tag shall be displayed in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isDisabled() {
     return !this.implementation.isMmEnabled() || this.implementation.isMmReadOnly();
@@ -507,8 +440,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * Returns true, if the user's browser has disabled Javascript language.
    *
    * @return  True, if the user's browser has disabled Javascript language.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isJsDisabled() {
     return !this.isJsEnabled();
@@ -518,8 +449,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * Returns true, if the user's browser has enabled Javascript language.
    *
    * @return  True, if the user's browser has enabled Javascript language.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isJsEnabled() {
     return this.implementation.isMmJsEnabled();
@@ -531,8 +460,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  True, if the leporello panel body shall be displayed.
    *
    * @throws  UnsupportedOperationException  Because operation is not supported for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isPanelBodyVisible() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag isPanelBodyVisible");
@@ -544,8 +471,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  True, if the leporello panel heading shall be displayed.
    *
    * @throws  UnsupportedOperationException  Because operation is not supported for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isPanelHeadingVisible() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag isPanelHeadingVisible");
@@ -555,8 +480,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * Returns true, if the HTML tag shall be displayed.
    *
    * @return  True, if the HTML tag shall be displayed.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isRendered() {
     return this.implementation.isMmVisible();
@@ -568,8 +491,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  True, if this column is a row header column of the table.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isRowHeader() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag rowHeader");
@@ -581,8 +502,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  True, if special characters in displayed text content shall by escaped.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isTextEscape() {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag textEscape");
@@ -594,8 +513,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @param   pValue  The value of type VIEWSIDE_VALUE to be set.
    *
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
-   *
-   * @since   $maven.project.version$
    */
   public void setValue(VIEWSIDE_VALUE pValue) {
     throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag setValue");

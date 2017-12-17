@@ -13,7 +13,6 @@ import org.minutenwerk.mimic4j.impl.container.MmConfigurationLeporello;
  * MmLeporelloAnnotation annotates declarations of {@link MmLeporello} by static configuration values.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)

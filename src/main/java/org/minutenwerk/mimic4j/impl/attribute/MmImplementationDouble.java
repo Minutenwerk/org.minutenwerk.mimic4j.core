@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * MmImplementationDouble is the implementation part of a mimic for {@link Double}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDouble, MmConfigurationDouble, Double, String> {
 
@@ -27,8 +26,6 @@ public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDoub
    * Returns <code>true</code> if the viewside value of this mimic is empty.
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmEmpty() {
     this.ensureInitialization();
@@ -40,8 +37,6 @@ public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDoub
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
@@ -49,8 +44,6 @@ public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDoub
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

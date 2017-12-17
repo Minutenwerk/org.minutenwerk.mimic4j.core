@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTableRow;
  * @param   <ROW_MODEL>  The row model type.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<ROW_MODEL, MmImplementationTableRow<ROW_MODEL>> {
 
@@ -30,8 +29,6 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    * redefined.
    *
    * @param  pModel  The specified model.
-   *
-   * @since  $maven.project.version$
    */
   @Override public void callbackMmSetModelFromModelside(ROW_MODEL pModel) {
   }
@@ -40,8 +37,6 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    * Returns the table row index of this row.
    *
    * @return  The table row index of this row.
-   *
-   * @since   $maven.project.version$
    */
   public final int getMmRowIndex() {
     return this.implementation.getMmRowIndex();

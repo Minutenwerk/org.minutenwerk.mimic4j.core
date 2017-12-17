@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
  * MmImplementationRoot is the specific class for the implementation part of root mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, MmConfigurationRoot> {
 
@@ -51,8 +50,6 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * @param   pArguments    Optional list of message arguments.
    *
    * @return  The internationalized message.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
     this.ensureInitialization();
@@ -78,8 +75,6 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * Returns the {@link Locale} of this root.
    *
    * @return  The locale of this root.
-   *
-   * @since   $maven.project.version$
    */
   public Locale getMmLocale() {
     this.ensureInitialization();
@@ -96,8 +91,6 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * Returns true, if the user's browser has enabled Javascript language.
    *
    * @return  True, if the user's browser has enabled Javascript language.
-   *
-   * @since   $maven.project.version$
    */
   @Override public boolean isMmJsEnabled() {
     this.ensureInitialization();
@@ -109,8 +102,6 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * Sets the {@link MmMessageSource} of this root, which provides internationalized messages.
    *
    * @param  pMessageSource  The message source to be set.
-   *
-   * @since  $maven.project.version$
    */
   public void setMessageSource(MmMessageSource pMessageSource) {
     this.messageSource = pMessageSource;
@@ -120,8 +111,6 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * Sets the {@link MmSessionContext} of this root, which provides information about the user's session.
    *
    * @param  pSessionContext  The session context to be set.
-   *
-   * @since  $maven.project.version$
    */
   public void setSessionContext(MmSessionContext pSessionContext) {
     this.sessionContext = pSessionContext;
@@ -131,8 +120,6 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeComposite(this);
@@ -140,8 +127,6 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

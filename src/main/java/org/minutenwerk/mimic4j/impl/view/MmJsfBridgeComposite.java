@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.impl.composite.MmBaseCompositeImplementation;
  * MmJsfBridgeComposite connects a composite mimic and a JSF composite view component.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeComposite extends MmJsfBridge<MmBaseCompositeImplementation<?, ?>, String, String> {
 

@@ -14,7 +14,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporello;
  * @param   SUB_MODEL  The sub model containing the values to be set, can be null.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationLeporello<MODEL, SUB_MODEL>
   extends MmBaseContainerImplementation<MmLeporello<MODEL, SUB_MODEL>, MODEL, MmConfigurationLeporello> {
@@ -33,8 +32,6 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
    *
    * @param  pModel     The model containing the values to be set, cannot be null.
    * @param  pSubModel  The sub model containing the values to be set, can be null.
-   *
-   * @since  $maven.project.version$
    */
   public void doMmSetModelsideFromModel(MODEL pModel, SUB_MODEL pSubModel) {
     this.ensureInitialization();
@@ -54,8 +51,6 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
    * Returns the currently selected leporello tab, may be null.
    *
    * @return  the currently selected leporello tab, may be null.
-   *
-   * @since   $maven.project.version$
    */
   public MmLeporelloTab getMmSelectedTab() {
     this.ensureInitialization();
@@ -67,8 +62,6 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeLeporello(this);
@@ -76,8 +69,6 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

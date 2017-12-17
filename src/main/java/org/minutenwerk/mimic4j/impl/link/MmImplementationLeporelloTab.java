@@ -21,7 +21,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloTab;
  * MmImplementationLeporelloTab is the specific class for the implementation part of tab set mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLeporelloTab, MmConfigurationLeporelloTab> {
 
@@ -55,8 +54,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * Returns the CSS styleclass if this leporello tab is active.
    *
    * @return  The CSS styleclass if this leporello tab is active.
-   *
-   * @since   $maven.project.version$
    */
   public String getMmStyleClassActive() {
     this.ensureInitialization();
@@ -74,8 +71,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * classes are evaluated from configuration attribute {@link MmBaseConfiguration#styleClasses()}.
    *
    * @return  A String containing space delimited <code>CSS</code> style classes.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmStyleClasses() {
     this.ensureInitialization();
@@ -91,8 +86,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * Returns the link's viewside value of type String.
    *
    * @return  The link's viewside value of type String.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getMmViewsideValue() {
     // if model is an array of objects
@@ -156,8 +149,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * Returns the view tab of this leporello panel tab.
    *
    * @return  The view tab of this leporello panel tab.
-   *
-   * @since   $maven.project.version$
    */
   public MmTab<?> getMmViewTab() {
     this.ensureInitialization();
@@ -170,8 +161,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * Returns <code>true</code>, if the tab is active.
    *
    * @return  <code>True</code>, if the tab is active.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmActive() {
     this.ensureInitialization();
@@ -201,8 +190,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * Returns <code>true</code>, if the tab is selected.
    *
    * @return  <code>True</code>, if the tab is selected.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isMmSelected() {
     this.ensureInitialization();
@@ -216,8 +203,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeLeporelloTab(this);
@@ -226,8 +211,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
   /**
    * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
    * super.initialize()!
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initialize() {
     super.initialize();
@@ -236,8 +219,6 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

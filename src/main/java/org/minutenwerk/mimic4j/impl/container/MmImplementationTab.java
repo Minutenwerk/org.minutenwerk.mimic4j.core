@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTab;
  * MmImplementationTab is the specific class for the implementation part of tab mimics.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<MmTab<MODEL>, MODEL, MmConfigurationTab> {
 
@@ -31,8 +30,6 @@ public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<Mm
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeTab<MODEL>(this);
@@ -40,8 +37,6 @@ public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<Mm
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

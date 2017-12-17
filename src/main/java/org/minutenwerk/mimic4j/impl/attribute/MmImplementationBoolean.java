@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * MmImplementationBoolean is the implementation part of a mimic for {@link Boolean}.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoolean, MmConfigurationBoolean, Boolean, Boolean> {
 
@@ -27,8 +26,6 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
    * Returns the attribute's layout direction in case the attribute is of subtype MmBoolean.
    *
    * @return  The attribute's layout direction.
-   *
-   * @since   $maven.project.version$
    */
   @Override public MmBooleanLayout getMmLayout() {
     this.ensureInitialization();
@@ -40,8 +37,6 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
-   *
-   * @since   $maven.project.version$
    */
   @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttribute<Boolean>(this);
@@ -49,8 +44,6 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
 
   /**
    * Initialize this mimic after constructor phase.
-   *
-   * @since  $maven.project.version$
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation

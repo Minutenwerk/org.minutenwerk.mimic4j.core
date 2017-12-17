@@ -4,7 +4,6 @@ package org.minutenwerk.mimic4j.impl;
  * MmBaseConfiguration is the abstract base class of all mimic configurations.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public abstract class MmBaseConfiguration {
 
@@ -51,8 +50,6 @@ public abstract class MmBaseConfiguration {
    * Returns the JSF view id of HTML tag.
    *
    * @return  The JSF view id of HTML tag.
-   *
-   * @since   $maven.project.version$
    */
   public String getId() {
     return this.id;
@@ -62,8 +59,6 @@ public abstract class MmBaseConfiguration {
    * Returns the JSF tag type for this mimic in disabled state.
    *
    * @return  The JSF tag type for this mimic in disabled state.
-   *
-   * @since   $maven.project.version$
    */
   public abstract String getJsfTagDisabled();
 
@@ -71,8 +66,6 @@ public abstract class MmBaseConfiguration {
    * Returns the JSF tag type for this mimic in enabled state.
    *
    * @return  The JSF tag type for this mimic in enabled state.
-   *
-   * @since   $maven.project.version$
    */
   public abstract String getJsfTagEnabled();
 
@@ -80,8 +73,6 @@ public abstract class MmBaseConfiguration {
    * Returns true, if HTML tag of mimic is rendered enabled.
    *
    * @return  True, if HTML tag of mimic is rendered enabled.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isEnabled() {
     return this.enabled;
@@ -91,8 +82,6 @@ public abstract class MmBaseConfiguration {
    * Returns true, if HTML tag of mimic is rendered readonly.
    *
    * @return  True, if HTML tag of mimic is rendered readonly.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isReadOnly() {
     return this.readOnly;
@@ -102,8 +91,6 @@ public abstract class MmBaseConfiguration {
    * Returns true, if HTML tag of mimic is rendered visible.
    *
    * @return  True, if HTML tag of mimic is rendered visible.
-   *
-   * @since   $maven.project.version$
    */
   public boolean isVisible() {
     return this.visible;
@@ -113,8 +100,6 @@ public abstract class MmBaseConfiguration {
    * Set configuration for mimic, whether HTML tag of mimic is rendered enabled.
    *
    * @param  pEnabled  True, if HTML tag of mimic is rendered enabled.
-   *
-   * @since  $maven.project.version$
    */
   public void setEnabled(boolean pEnabled) {
     this.enabled = pEnabled;
@@ -126,8 +111,6 @@ public abstract class MmBaseConfiguration {
    * @param   pId  The JSF view id to be set.
    *
    * @throws  IllegalArgumentException  In case of the view id has been set already.
-   *
-   * @since   $maven.project.version$
    */
   public void setId(String pId) {
     if (!this.id.equals(UNDEFINED_ID)) {
@@ -140,8 +123,6 @@ public abstract class MmBaseConfiguration {
    * Set configuration for mimic, whether HTML tag of mimic is rendered readonly.
    *
    * @param  pReadOnly  True, if HTML tag of mimic is rendered readonly.
-   *
-   * @since  $maven.project.version$
    */
   public void setReadOnly(boolean pReadOnly) {
     this.readOnly = pReadOnly;
@@ -151,8 +132,6 @@ public abstract class MmBaseConfiguration {
    * Set configuration for mimic, whether HTML tag of mimic is rendered visible.
    *
    * @param  pVisible  True, if HTML tag of mimic is rendered visible.
-   *
-   * @since  $maven.project.version$
    */
   public void setVisible(boolean pVisible) {
     this.visible = pVisible;

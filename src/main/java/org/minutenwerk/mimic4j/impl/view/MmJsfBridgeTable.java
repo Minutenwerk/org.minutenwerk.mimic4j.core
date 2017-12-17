@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTable;
  * @param   <ROW_MODEL>  The row model type is a kind of POJO.
  *
  * @author  Olaf Kossak
- * @see     $HeadURL: $$maven.project.version$
  */
 public class MmJsfBridgeTable<ROW_MODEL>
   extends MmJsfBridge<MmImplementationTable<ROW_MODEL>, List<MmTableRow<ROW_MODEL>>, List<ROW_MODEL>> {
@@ -30,8 +29,6 @@ public class MmJsfBridgeTable<ROW_MODEL>
    * Returns the caption text of a table (tag caption in tag h:dataTable).
    *
    * @return  The caption text of a table.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getCaption() {
     return this.implementation.getMmShortDescription();
@@ -41,8 +38,6 @@ public class MmJsfBridgeTable<ROW_MODEL>
    * Returns the CSS style classes of columns, one style class for each column, comma separated.
    *
    * @return  The CSS style classes of columns.
-   *
-   * @since   $maven.project.version$
    */
   @Override public String getColumnClasses() {
     String returnString = "";
@@ -60,8 +55,6 @@ public class MmJsfBridgeTable<ROW_MODEL>
    * Returns the list of table column mimics of this table mimic.
    *
    * @return  The list of table column mimics.
-   *
-   * @since   $maven.project.version$
    */
   @Override public List<MmTableColumn> getColumnMms() {
     return this.implementation.getMmTableColumns();
@@ -71,8 +64,6 @@ public class MmJsfBridgeTable<ROW_MODEL>
    * Returns the "value of a table mimic of type VIEWSIDE_VALUE", which is a list of table row mimics.
    *
    * @return  A list of table row mimics.
-   *
-   * @since   $maven.project.version$
    */
   @Override public List<MmTableRow<ROW_MODEL>> getValue() {
     return this.implementation.getMmTableRows();
