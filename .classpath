@@ -6,41 +6,13 @@
   <classpathentry kind="src" path="src/test/resources" output="target/test-classes" excluding="**/*.java"/>
   <classpathentry kind="output" path="target/classes"/>
   <classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1.1/activation-1.1.1.jar" sourcepath="M2_REPO/javax/activation/activation/1.1.1/activation-1.1.1-sources.jar"/>
-  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-  <classpathentry kind="var" path="M2_REPO/joda-time/joda-time/2.7/joda-time-2.7.jar" sourcepath="M2_REPO/joda-time/joda-time/2.7/joda-time-2.7-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/sdd/artifact-repository-local/joda-time/joda-time/2.7/joda-time-2.7-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/sdd/artifact-repository-local/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/com/sun/faces/jsf-api/2.2.10/jsf-api-2.2.10.jar" sourcepath="M2_REPO/com/sun/faces/jsf-api/2.2.10/jsf-api-2.2.10-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/sdd/artifact-repository-local/com/sun/faces/jsf-api/2.2.10/jsf-api-2.2.10-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3.jar" sourcepath="M2_REPO/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/sdd/artifact-repository-local/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/ch/qos/logback/logback-core/1.1.3/logback-core-1.1.3.jar" sourcepath="M2_REPO/ch/qos/logback/logback-core/1.1.3/logback-core-1.1.3-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/sdd/artifact-repository-local/ch/qos/logback/logback-core/1.1.3/logback-core-1.1.3-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/el-api/6.0.43/el-api-6.0.43.jar"/>
-  <classpathentry kind="var" path="M2_REPO/junit/junit/4.12/junit-4.12.jar" sourcepath="M2_REPO/junit/junit/4.12/junit-4.12-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/sdd/artifact-repository-local/junit/junit/4.12/junit-4.12-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar" sourcepath="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/C:/sdd/artifact-repository-local/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+  <classpathentry kind="var" path="M2_REPO/joda-time/joda-time/2.7/joda-time-2.7.jar" sourcepath="M2_REPO/joda-time/joda-time/2.7/joda-time-2.7-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/sun/faces/jsf-api/2.2.15/jsf-api-2.2.15.jar" sourcepath="M2_REPO/com/sun/faces/jsf-api/2.2.15/jsf-api-2.2.15-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/ch/qos/logback/logback-classic/1.1.7/logback-classic-1.1.7.jar" sourcepath="M2_REPO/ch/qos/logback/logback-classic/1.1.7/logback-classic-1.1.7-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/ch/qos/logback/logback-core/1.1.7/logback-core-1.1.7.jar" sourcepath="M2_REPO/ch/qos/logback/logback-core/1.1.7/logback-core-1.1.7-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/tomcat/el-api/6.0.53/el-api-6.0.53.jar"/>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/4.12/junit-4.12.jar" sourcepath="M2_REPO/junit/junit/4.12/junit-4.12-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar" sourcepath="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar"/>
 </classpath>
