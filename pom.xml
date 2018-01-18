@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- @author Olaf Kossak -->
-<!-- @version $Rev: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $ -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -11,6 +9,32 @@
 
   <name>Minutenwerk Mimic4j JSF framework</name>
   <description>GUI presentation model framework to fill the gap between JSF tags and service layer.</description>
+  <organization>
+    <name>Minutenwerk</name>
+    <url>http://www.minutenwerk.de/</url>
+  </organization>
+  <inceptionYear>2018</inceptionYear>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>olaf.kossak</id>
+      <name>Olaf Kossak</name>
+      <organization>Minutenwerk</organization>
+      <organizationUrl>http://www.minutenwerk.de/</organizationUrl>
+      <roles>
+        <role>Senior Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+      <url>http://www.minutenwerk.de/</url>
+    </developer>
+  </developers>
 
   <properties>
     <source.status>approval</source.status>
@@ -63,44 +87,44 @@
         </configuration>
       </plugin>
 
-        <!-- Bei jedem Durchlauf der process-sources-Phase werden die Java-Dateien mit Jalopy formatiert. Die Jalopy-Konfigurationen sind gesondert 
-          für jeden source.status in den Dateien jalopy.${source.status}.xml definiert. Sie werden im Projekt de.minutenwerk.tools.resources verwaltet. -->
-<!--       <plugin> -->
-<!--         <groupId>triemax</groupId> -->
-<!--         <artifactId>jalopy-maven</artifactId> -->
-<!--         <version>1.10-550</version> -->
-<!--         <configuration> -->
-<!--           <encoding>UTF-8</encoding> -->
-<!--           <logLevel>error</logLevel> -->
-<!--           <repository>false</repository> -->
-<!--           <force>true</force> -->
-<!--           <environment> -->
-<!--             <maven.project.version>${project.version}</maven.project.version> -->
-<!--           </environment> -->
-<!--         </configuration> -->
-<!--         <dependencies> -->
-<!--           <dependency> -->
-<!--             <groupId>de.minutenwerk.tools</groupId> -->
-<!--             <artifactId>de.minutenwerk.tools.resources</artifactId> -->
-<!--             <version>1.0-SNAPSHOT</version> -->
-<!--           </dependency> -->
-<!--         </dependencies> -->
-<!--         <executions> -->
-<!--           <execution> -->
-<!--             <id>format-sources</id> -->
-<!--             <configuration> -->
-<!--               <convention>classpath:jalopy/${source.status}/jalopy.${source.status}.xml</convention> -->
-<!--               <includes> -->
-<!--                 <include>**/java/**</include> -->
-<!--               </includes> -->
-<!--             </configuration> -->
-<!--             <phase>process-sources</phase> -->
-<!--             <goals> -->
-<!--               <goal>format</goal> -->
-<!--             </goals> -->
-<!--           </execution> -->
-<!--         </executions> -->
-<!--       </plugin> -->
+      <!-- Bei jedem Durchlauf der process-sources-Phase werden die Java-Dateien mit Jalopy formatiert. Die Jalopy-Konfigurationen sind gesondert 
+        für jeden source.status in den Dateien jalopy.${source.status}.xml definiert. Sie werden im Projekt de.minutenwerk.tools.resources verwaltet. -->
+      <!-- <plugin> -->
+      <!-- <groupId>triemax</groupId> -->
+      <!-- <artifactId>jalopy-maven</artifactId> -->
+      <!-- <version>1.10-550</version> -->
+      <!-- <configuration> -->
+      <!-- <encoding>UTF-8</encoding> -->
+      <!-- <logLevel>error</logLevel> -->
+      <!-- <repository>false</repository> -->
+      <!-- <force>true</force> -->
+      <!-- <environment> -->
+      <!-- <maven.project.version>${project.version}</maven.project.version> -->
+      <!-- </environment> -->
+      <!-- </configuration> -->
+      <!-- <dependencies> -->
+      <!-- <dependency> -->
+      <!-- <groupId>de.minutenwerk.tools</groupId> -->
+      <!-- <artifactId>de.minutenwerk.tools.resources</artifactId> -->
+      <!-- <version>1.0-SNAPSHOT</version> -->
+      <!-- </dependency> -->
+      <!-- </dependencies> -->
+      <!-- <executions> -->
+      <!-- <execution> -->
+      <!-- <id>format-sources</id> -->
+      <!-- <configuration> -->
+      <!-- <convention>classpath:jalopy/${source.status}/jalopy.${source.status}.xml</convention> -->
+      <!-- <includes> -->
+      <!-- <include>**/java/**</include> -->
+      <!-- </includes> -->
+      <!-- </configuration> -->
+      <!-- <phase>process-sources</phase> -->
+      <!-- <goals> -->
+      <!-- <goal>format</goal> -->
+      <!-- </goals> -->
+      <!-- </execution> -->
+      <!-- </executions> -->
+      <!-- </plugin> -->
 
     </plugins>
   </build>
