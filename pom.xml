@@ -20,12 +20,12 @@
   <distributionManagement>
     <repository>
       <id>repo-for-deployment-of-releases</id>
-      <url>http://localhost:8080/artifactory/repo-for-deployment-of-releases</url>
+      <url>http://mw-3-bs.jelastic.dogado.eu:8080/artifactory/repo-for-deployment-of-releases</url>
     </repository>
 
     <snapshotRepository>
       <id>repo-for-deployment-of-snapshots</id>
-      <url>http://localhost:8080/artifactory/repo-for-deployment-of-snapshots</url>
+      <url>http://mw-3-bs.jelastic.dogado.eu:8080/artifactory/repo-for-deployment-of-snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -63,44 +63,44 @@
         </configuration>
       </plugin>
 
-      <plugin>
         <!-- Bei jedem Durchlauf der process-sources-Phase werden die Java-Dateien mit Jalopy formatiert. Die Jalopy-Konfigurationen sind gesondert 
           für jeden source.status in den Dateien jalopy.${source.status}.xml definiert. Sie werden im Projekt de.minutenwerk.tools.resources verwaltet. -->
-        <groupId>triemax</groupId>
-        <artifactId>jalopy-maven</artifactId>
-        <version>1.10-550</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-          <logLevel>error</logLevel>
-          <repository>false</repository>
-          <force>true</force>
-          <environment>
-            <maven.project.version>${project.version}</maven.project.version>
-          </environment>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>de.minutenwerk.tools</groupId>
-            <artifactId>de.minutenwerk.tools.resources</artifactId>
-            <version>1.0-SNAPSHOT</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <id>format-sources</id>
-            <configuration>
-              <convention>classpath:jalopy/${source.status}/jalopy.${source.status}.xml</convention>
-              <includes>
-                <include>**/java/**</include>
-              </includes>
-            </configuration>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>format</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+<!--       <plugin> -->
+<!--         <groupId>triemax</groupId> -->
+<!--         <artifactId>jalopy-maven</artifactId> -->
+<!--         <version>1.10-550</version> -->
+<!--         <configuration> -->
+<!--           <encoding>UTF-8</encoding> -->
+<!--           <logLevel>error</logLevel> -->
+<!--           <repository>false</repository> -->
+<!--           <force>true</force> -->
+<!--           <environment> -->
+<!--             <maven.project.version>${project.version}</maven.project.version> -->
+<!--           </environment> -->
+<!--         </configuration> -->
+<!--         <dependencies> -->
+<!--           <dependency> -->
+<!--             <groupId>de.minutenwerk.tools</groupId> -->
+<!--             <artifactId>de.minutenwerk.tools.resources</artifactId> -->
+<!--             <version>1.0-SNAPSHOT</version> -->
+<!--           </dependency> -->
+<!--         </dependencies> -->
+<!--         <executions> -->
+<!--           <execution> -->
+<!--             <id>format-sources</id> -->
+<!--             <configuration> -->
+<!--               <convention>classpath:jalopy/${source.status}/jalopy.${source.status}.xml</convention> -->
+<!--               <includes> -->
+<!--                 <include>**/java/**</include> -->
+<!--               </includes> -->
+<!--             </configuration> -->
+<!--             <phase>process-sources</phase> -->
+<!--             <goals> -->
+<!--               <goal>format</goal> -->
+<!--             </goals> -->
+<!--           </execution> -->
+<!--         </executions> -->
+<!--       </plugin> -->
 
     </plugins>
   </build>
