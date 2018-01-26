@@ -18,37 +18,29 @@
     <!-- 3rd party loggers -->
 
     <Logger name="org.springframework.core" level="info">
-      <AppenderRef ref="RootConsoleAppender" />
     </Logger>
 
     <Logger name="org.springframework.beans" level="info">
-      <AppenderRef ref="RootConsoleAppender" />
     </Logger>
 
     <Logger name="org.springframework.context" level="info">
-      <AppenderRef ref="RootConsoleAppender" />
     </Logger>
 
     <Logger name="org.springframework.http" level="info">
-      <AppenderRef ref="RootConsoleAppender" />
     </Logger>
 
     <Logger name="org.springframework.binding" level="info">
-      <AppenderRef ref="RootConsoleAppender" />
     </Logger>
 
     <Logger name="org.springframework.web" level="info">
-      <AppenderRef ref="RootConsoleAppender" />
     </Logger>
 
     <Logger name="org.apache.myfaces.orchestra" level="info">
-      <AppenderRef ref="RootConsoleAppender" />
     </Logger>
 
     <!-- application logger -->
 
     <Logger name="org.minutenwerk.mimic4j" level="trace">
-      <AppenderRef ref="RootConsoleAppender" />
     </Logger>
   </Loggers>
 </Configuration>
