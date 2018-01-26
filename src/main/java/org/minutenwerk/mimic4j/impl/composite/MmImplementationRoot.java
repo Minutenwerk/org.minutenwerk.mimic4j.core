@@ -11,8 +11,8 @@ import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeComposite;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * MmImplementationRoot is the specific class for the implementation part of root mimics.
@@ -25,7 +25,7 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
   public static final Locale  NO_SESSION_CONTEXT_LOCALE = Locale.GERMAN;
 
   /** The logger of this class. */
-  private static final Logger LOGGER                    = LoggerFactory.getLogger(MmImplementationRoot.class);
+  private static final Logger LOGGER                    = LogManager.getLogger(MmImplementationRoot.class);
 
   /** The message source. */
   protected MmMessageSource   messageSource;

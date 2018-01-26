@@ -15,8 +15,8 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
 import org.minutenwerk.mimic4j.impl.message.MmMessageSeverity;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * MmBaseAttributeImplementation is the abstract base class for all mimics of editable attributes. This class implements the mimic of
@@ -45,7 +45,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   private static final int    GENERIC_PARAMETER_INDEX_VIEWSIDE_VALUE  = 4;
 
   /** The logger of this class. */
-  private static final Logger LOGGER                                  = LoggerFactory.getLogger(MmBaseAttributeImplementation.class);
+  private static final Logger LOGGER                                  = LogManager.getLogger(MmBaseAttributeImplementation.class);
 
   /**
    * MmEditableErrorState is an enumeration of values regarding an attribute's error state during conversion and validation.

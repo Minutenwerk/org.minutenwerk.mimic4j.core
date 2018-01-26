@@ -8,8 +8,8 @@ import org.minutenwerk.mimic4j.editable.TestModel.Gender;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class MmMimicModelTest {
 
@@ -21,7 +21,7 @@ public class MmMimicModelTest {
 
   public final TestModel testModel1 = new TestModel().setVorname("John").setNachname("Doe").setMember(true).setBirthday(LocalDate.parse("2013-09-18")).setGender(Gender.FEMALE);
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MmMimicModelTest.class);
+  private static final Logger LOGGER = LogManager.getLogger(MmMimicModelTest.class);
 
   @Test
   public void testVorname() {

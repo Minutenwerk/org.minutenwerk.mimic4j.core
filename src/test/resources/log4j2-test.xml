@@ -1,60 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- $HeadURL: http://saas1212sr.saas-secure.com/svn/saturn/org.minutenwerk.mimic4j.core/trunk/src/test/resources/logback-test.xml $ -->
-<!-- @author Saturn Application Generator -->
-<!-- @version $Rev: 1123 $, $Date: 2017-04-13 21:36:12 +0200 (Do, 13 Apr 2017) $ -->
-<configuration>
+<Configuration status="error" strict="true" name="log4j2-config">
+  <Filter type="ThresholdFilter" level="debug" />
 
-  <appender name="RootConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>trace</level>
-    </filter>
-    <encoder>
-      <pattern>%d{mm:ss} %-5.-5level (%file:%line\) %message%n</pattern>
-<!--       <pattern>%d{mm:ss} %-5.-5level %-40.-40logger{0} %message%n</pattern> -->
-    </encoder>
-  </appender>
+  <Appenders>
+    <Appender type="Console" name="RootConsoleAppender">
+      <Layout type="PatternLayout" pattern="%d{mm:ss} %-5.-5level (%file:%line\) %message%n" />
+    </Appender>
+  </Appenders>
 
-  <!-- root logger -->
+  <Loggers>
+    <!-- root logger -->
 
-  <root>
-    <level value="info" />
-    <appender-ref ref="RootConsoleAppender" />
-  </root>
+    <Root level="info">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Root>
 
-  <!-- 3rd party loggers -->
+    <!-- 3rd party loggers -->
 
-  <logger name="org.springframework.core">
-    <level value="info" />
-  </logger>
+    <Logger name="org.springframework.core" level="info">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Logger>
 
-  <logger name="org.springframework.beans">
-    <level value="info" />
-  </logger>
+    <Logger name="org.springframework.beans" level="info">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Logger>
 
-  <logger name="org.springframework.context">
-    <level value="info" />
-  </logger>
+    <Logger name="org.springframework.context" level="info">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Logger>
 
-  <logger name="org.springframework.http">
-    <level value="info" />
-  </logger>
+    <Logger name="org.springframework.http" level="info">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Logger>
 
-  <logger name="org.springframework.binding">
-    <level value="info" />
-  </logger>
+    <Logger name="org.springframework.binding" level="info">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Logger>
 
-  <logger name="org.springframework.web">
-    <level value="info" />
-  </logger>
+    <Logger name="org.springframework.web" level="info">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Logger>
 
-  <logger name="org.apache.myfaces.orchestra">
-    <level value="info" />
-  </logger>
+    <Logger name="org.apache.myfaces.orchestra" level="info">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Logger>
 
-  <!-- application logger -->
+    <!-- application logger -->
 
-  <logger name="org.minutenwerk.mimic4j">
-    <level value="trace" />
-  </logger>
-
-</configuration>
+    <Logger name="org.minutenwerk.mimic4j" level="trace">
+      <AppenderRef ref="RootConsoleAppender" />
+    </Logger>
+  </Loggers>
+</Configuration>

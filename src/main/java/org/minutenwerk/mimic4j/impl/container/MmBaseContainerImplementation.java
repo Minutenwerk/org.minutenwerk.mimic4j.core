@@ -10,8 +10,8 @@ import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 import org.minutenwerk.mimic4j.impl.message.MmMessageList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * MmBaseContainerImplementation is the abstract base class for the implementation part of all container mimic classes.
@@ -32,7 +32,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   public static final int     GENERIC_PARAMETER_INDEX_CONFIGURATION = 3;
 
   /** The logger of this class. */
-  private static final Logger LOGGER                                = LoggerFactory.getLogger(MmBaseContainerImplementation.class);
+  private static final Logger LOGGER                                = LogManager.getLogger(MmBaseContainerImplementation.class);
 
   /**
    * MmContainerErrorState is an enumeration of values regarding an container's error state during conversion and validation.
