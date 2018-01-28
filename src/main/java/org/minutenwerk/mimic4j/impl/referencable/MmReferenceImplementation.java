@@ -167,7 +167,7 @@ public class MmReferenceImplementation implements MmReference {
     // evaluate query, parameter list and parameter array
     int                     index        = 0;
     final StringBuilder     queryBuilder = new StringBuilder();
-    final List<MmNameValue> nameValues   = new ArrayList<MmNameValue>();
+    final List<MmNameValue> nameValues   = new ArrayList<>();
     for (MmNameValue nameValue : pParams) {
 
       // check each name value for null or empty

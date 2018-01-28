@@ -13,7 +13,7 @@ public class MmCommand extends MmBaseCommandDeclaration {
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmCommandJsfDisabled {
 
@@ -27,7 +27,7 @@ public class MmCommand extends MmBaseCommandDeclaration {
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmCommandJsfTag {
 

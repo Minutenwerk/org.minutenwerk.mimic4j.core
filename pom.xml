@@ -91,7 +91,7 @@
       <plugin>
         <groupId>triemax</groupId>
         <artifactId>jalopy-maven</artifactId>
-        <version>1.10-550</version>
+        <version>1.10-551</version>
         <configuration>
           <encoding>UTF-8</encoding>
           <logLevel>error</logLevel>

@@ -25,7 +25,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmEnumJsfDisabled {
 
@@ -41,7 +41,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmEnumJsfTag {
 
@@ -136,8 +136,9 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   @Override
   @SuppressWarnings("unchecked")
   public List<MmSelectOption<ENUM_TYPE>> callbackMmGetSelectOptions() {
-    final List<MmSelectOption<ENUM_TYPE>> returnList = new ArrayList<MmSelectOption<ENUM_TYPE>>();
-    final MmSelectOption<ENUM_TYPE>       nullOption = new MmSelectOption<ENUM_TYPE>("UNDEFINED", "", "", null);
+    final List<MmSelectOption<ENUM_TYPE>> returnList = new ArrayList<>();
+
+    final MmSelectOption<ENUM_TYPE>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
     final MmRoot     root     = MmRelationshipApi.getMmRoot(this);
@@ -146,8 +147,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
       final String                    messageId       = enumType.getSimpleName() + "." + enumInstance.name();
       final String                    enumLabel       = root.getMmI18nText(messageId, MmMessageType.SHORT);
       final String                    enumDescription = root.getMmI18nText(messageId, MmMessageType.LONG);
-      final MmSelectOption<ENUM_TYPE> option          = new MmSelectOption<ENUM_TYPE>(enumInstance.name(), enumLabel, enumDescription,
-          enumInstance);
+      final MmSelectOption<ENUM_TYPE> option          = new MmSelectOption<>(enumInstance.name(), enumLabel, enumDescription, enumInstance);
       returnList.add(option);
     }
     return returnList;

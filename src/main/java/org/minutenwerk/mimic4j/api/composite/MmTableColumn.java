@@ -14,7 +14,7 @@ public class MmTableColumn extends MmBaseCompositeDeclaration<MmImplementationTa
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmTableColumnJsfTag {
 

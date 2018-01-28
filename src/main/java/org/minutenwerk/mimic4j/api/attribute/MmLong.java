@@ -17,7 +17,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmLong is a mimic for an editable attribute of type {@link Long}.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback
  */
@@ -26,7 +25,7 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmLongJsfDisabled {
 
@@ -40,7 +39,7 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmLongJsfTag {
 

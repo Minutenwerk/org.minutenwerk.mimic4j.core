@@ -15,7 +15,6 @@ import org.minutenwerk.mimic4j.impl.link.MmBaseLinkImplementation;
  * MmBaseReferencableImplementation is the abstract base class for the implementation part of all container mimic classes.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-initialization, group-do, group-override
  */

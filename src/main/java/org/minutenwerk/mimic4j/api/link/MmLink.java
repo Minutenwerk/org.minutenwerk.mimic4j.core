@@ -14,7 +14,7 @@ public class MmLink extends MmBaseLinkDeclaration<MmImplementationLink> {
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmLinkJsfTag {
 

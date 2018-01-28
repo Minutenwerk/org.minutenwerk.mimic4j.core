@@ -14,7 +14,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
  * MmBaseEditable is an abstract base class for all editable attribute mimics.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback, group-lifecycle
  */

@@ -4,14 +4,14 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
-
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 /**
  * The abstract class MmJsfBridge and its descendant classes connect a mimic and a JSF view component. MmJsfBridge implements all methods

@@ -23,7 +23,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmBigDecimal is a mimic for an editable attribute of type {@link BigDecimal}.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback
  */
@@ -32,7 +31,7 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmBigDecimalJsfDisabled {
 
@@ -46,7 +45,7 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmBigDecimalJsfTag {
 

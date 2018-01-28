@@ -24,7 +24,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmBigInteger is a mimic for an editable attribute of type {@link BigInteger}.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback
  */
@@ -33,7 +32,7 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmBigIntegerJsfDisabled {
 
@@ -47,7 +46,7 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmBigIntegerJsfTag {
 

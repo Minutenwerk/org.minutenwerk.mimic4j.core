@@ -13,7 +13,7 @@ import org.minutenwerk.mimic4j.api.MmReferencableModel;
 public class MmReferencableModelChain implements MmReferencableModel {
 
   /** The chained list of reference values of all parameters. */
-  private final List<String> referenceValues = new ArrayList<String>();
+  private final List<String> referenceValues = new ArrayList<>();
 
   /**
    * Constructor for specified array of referencable models.

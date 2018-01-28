@@ -16,7 +16,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmListString is a mimic for an editable attribute of type {@link List} of type {@link String}.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback, group-getter
  */
@@ -25,7 +24,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmListStringJsfDisabled {
 
@@ -39,7 +38,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmListStringJsfTag {
 
@@ -70,7 +69,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
    */
   @Override public List<String> callbackMmConvertModelsideToViewsideValue(List<String> pModelsideValue)
     throws MmModelsideConverterException {
-    final List<String> returnList = new ArrayList<String>();
+    final List<String> returnList = new ArrayList<>();
     if (pModelsideValue == null) {
       returnList.add(ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE);
     } else {
@@ -97,7 +96,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
     if (this.isMmEmpty()) {
       returnList = (List<String>)Collections.EMPTY_LIST;
     } else {
-      returnList = new ArrayList<String>();
+      returnList = new ArrayList<>();
       Collections.copy(pViewsideValue, returnList);
     }
     return returnList;
@@ -126,14 +125,14 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   @Override
   @SuppressWarnings("unchecked")
   public List<MmSelectOption<String>> callbackMmGetSelectOptions() {
-    List<MmSelectOption<String>> returnList = new ArrayList<MmSelectOption<String>>();
-    MmSelectOption<String>       nullOption = new MmSelectOption<String>("UNDEFINED", "", "", null);
+    List<MmSelectOption<String>> returnList = new ArrayList<>();
+    MmSelectOption<String>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
     List<String> currentValues = this.getMmModelsideValue();
     if ((currentValues != null) && !currentValues.isEmpty()) {
       for (String currentValue : currentValues) {
-        MmSelectOption<String> valueOption = new MmSelectOption<String>("currentValue", "currentValue", "currentValue", currentValue);
+        MmSelectOption<String> valueOption = new MmSelectOption<>("currentValue", "currentValue", "currentValue", currentValue);
         returnList.add(valueOption);
       }
     }

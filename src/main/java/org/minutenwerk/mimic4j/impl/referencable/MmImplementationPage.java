@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgePage;
  * MmImplementationPage is the specific class for the implementation part of tab mimics.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-initialization, group-override
  */

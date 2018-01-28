@@ -11,7 +11,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
  * MmBaseDeclaration is the base class of the declaration part of all mimic classes.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback, group-override
  */
@@ -295,7 +294,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return  An array of message arguments for the long description.
    */
-  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValue) {
+  @Override public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValue) {
     return pPassThroughValue;
   }
 

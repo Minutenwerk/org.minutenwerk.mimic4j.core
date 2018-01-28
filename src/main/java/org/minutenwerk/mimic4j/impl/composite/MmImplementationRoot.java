@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.composite;
 
 import java.util.Locale;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.composite.MmRootAnnotation;
@@ -10,9 +13,6 @@ import org.minutenwerk.mimic4j.impl.provided.MmMessageSource;
 import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeComposite;
-
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 /**
  * MmImplementationRoot is the specific class for the implementation part of root mimics.

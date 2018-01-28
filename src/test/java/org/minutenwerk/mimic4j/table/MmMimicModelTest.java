@@ -16,7 +16,7 @@ public class MmMimicModelTest {
   private List<TestModel> testModelList;
   
   @Before public void before() {
-    testModelList = new ArrayList<TestModel>();
+    testModelList = new ArrayList<>();
     TestModel testModel1 = new TestModel().setVorname("John").setNachname("Doe").
         setGender(Gender.MALE).setMember(true).setBirthday(LocalDate.now());
     testModelList.add(testModel1);

@@ -22,7 +22,7 @@ public class MmMessageList {
    * Creates a new MmMessageList instance.
    */
   public MmMessageList() {
-    this.messages   = new ArrayList<MmMessage>();
+    this.messages   = new ArrayList<>();
     this.comparator = new MessageComparator();
   }
 

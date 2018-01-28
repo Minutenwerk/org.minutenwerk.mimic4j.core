@@ -19,7 +19,7 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmLeporelloPanelJsfTag {
 
@@ -59,7 +59,7 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
    * @return  A list of all leporello tabs inside this leporello panel.
    */
   public List<MmLeporelloTab> getMmLeporelloTabs() {
-    final List<MmLeporelloTab> tabs = new ArrayList<MmLeporelloTab>();
+    final List<MmLeporelloTab> tabs = new ArrayList<>();
     for (MmMimic child : MmRelationshipApi.getMmChildren(this)) {
       if (child instanceof MmLeporelloTab) {
         tabs.add((MmLeporelloTab)child);

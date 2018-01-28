@@ -35,7 +35,6 @@ import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
  * MmBaseLinkImplementation is the abstract base class for the implementation part of all link mimic classes.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-override, group-i18n
  */
@@ -69,7 +68,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
     if ((referenceValues == null) || referenceValues.isEmpty()) {
       return Collections.emptyList();
     } else {
-      final List<MmNameValue> modelReferenceValues = new ArrayList<MmNameValue>();
+      final List<MmNameValue> modelReferenceValues = new ArrayList<>();
       int                     index                = 0;
       for (String referenceValue : referenceValues) {
         if (index == 0) {

@@ -1,5 +1,8 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimic;
@@ -10,14 +13,10 @@ import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 import org.minutenwerk.mimic4j.impl.message.MmMessageList;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 /**
  * MmBaseContainerImplementation is the abstract base class for the implementation part of all container mimic classes.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-do, group-get, group-clear, group-changed-front, group-required, group-is-reset, group-valid
  */
@@ -37,7 +36,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   /**
    * MmContainerErrorState is an enumeration of values regarding an container's error state during conversion and validation.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   protected enum MmContainerErrorState {
 

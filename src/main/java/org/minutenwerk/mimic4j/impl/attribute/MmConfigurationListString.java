@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmListStringAnnotation;
 public class MmConfigurationListString extends MmBaseAttributeConfiguration<List<String>> {
 
   /** Constant for default value of default value. */
-  public static final List<String>            DEFAULT_DEFAULT_VALUE    = new ArrayList<String>();
+  public static final List<String>            DEFAULT_DEFAULT_VALUE    = new ArrayList<>();
 
   /** Constant for default value of number of rows for select box. */
   public static final int                     DEFAULT_SIZE             = 4;

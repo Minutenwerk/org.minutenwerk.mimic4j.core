@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
@@ -15,9 +18,6 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
 import org.minutenwerk.mimic4j.impl.message.MmMessageSeverity;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 /**
  * MmBaseAttributeImplementation is the abstract base class for all mimics of editable attributes. This class implements the mimic of
  * setting a value into an attribute either from modelside or from viewside, converting the value between modelside and viewside type and
@@ -29,7 +29,6 @@ import org.apache.logging.log4j.LogManager;
  * @param               <VIEWSIDE_VALUE>   Type of viewside value of attribute, passed to JSF tag.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-initialization, group-lifecycle, group-override
  */
@@ -50,7 +49,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /**
    * MmEditableErrorState is an enumeration of values regarding an attribute's error state during conversion and validation.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   protected enum MmAttributeErrorState {
 
@@ -83,7 +82,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /**
    * MmEditableState is an enumeration of values regarding an attribute's value state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   protected enum MmValueState {
 

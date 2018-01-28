@@ -17,7 +17,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmDouble is a mimic for an editable attribute of type {@link Double}.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback
  */
@@ -26,7 +25,7 @@ public class MmDouble extends MmBaseAttributeDeclaration<MmImplementationDouble,
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmDoubleJsfDisabled {
 
@@ -40,7 +39,7 @@ public class MmDouble extends MmBaseAttributeDeclaration<MmImplementationDouble,
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmDoubleJsfTag {
 

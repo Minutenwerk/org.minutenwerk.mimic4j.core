@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableMimic;
@@ -25,14 +28,10 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
 /**
  * MmBaseImplementation is the abstract base class for the implementation part of all mimic classes.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-construction, group-naming, group-initialization, group-override, group-helper
  */
@@ -51,7 +50,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Enumeration of states during initialization phase.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   protected enum MmInitialState {
 
@@ -178,10 +177,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
 
     // create lists for child mimics
-    this.implementationChildren        = new ArrayList<MmBaseImplementation<?, ?>>();
-    this.declarationChildren           = new ArrayList<MmMimic>();
-    this.runtimeImplementationChildren = new ArrayList<MmBaseImplementation<?, ?>>();
-    this.runtimeDeclarationChildren    = new ArrayList<MmMimic>();
+    this.implementationChildren        = new ArrayList<>();
+    this.declarationChildren           = new ArrayList<>();
+    this.runtimeImplementationChildren = new ArrayList<>();
+    this.runtimeDeclarationChildren    = new ArrayList<>();
 
     // create bridge for jsf tags
     this.mmJsfBridge                   = this.createMmJsfBridge();
@@ -583,8 +582,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-initialization
    */
   protected List<Field> findFields(Class<?> pClassToAnalyze) {
-    List<Field>    allFields = new ArrayList<Field>();
-    List<Class<?>> classes   = new ArrayList<Class<?>>();
+    List<Field>    allFields = new ArrayList<>();
+    List<Class<?>> classes   = new ArrayList<>();
     Class<?>       c         = pClassToAnalyze;
 
     while (c != null) {
@@ -733,7 +732,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public List<MmMimic> getMmAncestors() {
     this.ensureInitialization();
 
-    List<MmMimic> ancestors = new ArrayList<MmMimic>();
+    List<MmMimic> ancestors = new ArrayList<>();
     if ((this.implementationParent != null) && (this.implementationParent.declaration != null)) {
       ancestors.addAll(this.implementationParent.getMmAncestors());
       ancestors.add(this.implementationParent.declaration);
@@ -772,7 +771,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     this.ensureInitialization();
 
     final int     size       = this.declarationChildren.size() + this.runtimeDeclarationChildren.size();
-    List<MmMimic> returnList = new ArrayList<MmMimic>(size);
+    List<MmMimic> returnList = new ArrayList<>(size);
     returnList.addAll(this.declarationChildren);
     returnList.addAll(this.runtimeDeclarationChildren);
     return returnList;
@@ -815,7 +814,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public List<MmMimic> getMmDescendants() {
     this.ensureInitialization();
 
-    final List<MmMimic> descendants = new ArrayList<MmMimic>();
+    final List<MmMimic> descendants = new ArrayList<>();
     for (MmMimic child : this.getMmChildren()) {
       descendants.add(child);
       descendants.addAll(MmRelationshipApi.getMmDescendants(child));

@@ -32,7 +32,7 @@ public class MmImplementationTable<ROW_MODEL>
    */
   public MmImplementationTable(MmDeclarationMimic pParent) {
     super(pParent);
-    this.tableColumns = new ArrayList<MmTableColumn>();
+    this.tableColumns = new ArrayList<>();
   }
 
   /**
@@ -108,7 +108,7 @@ public class MmImplementationTable<ROW_MODEL>
   public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
     this.ensureInitialization();
 
-    List<T> returnList = new ArrayList<T>();
+    List<T> returnList = new ArrayList<>();
     for (MmMimic child : this.getMmChildren()) {
       if (child instanceof MmTableRow<?>) {
         @SuppressWarnings("unchecked")

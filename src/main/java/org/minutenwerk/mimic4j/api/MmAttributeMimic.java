@@ -11,7 +11,7 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
   /**
    * MmBooleanLayout is an enumeration of layout directions for JSF tags of type checkbox.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmBooleanLayout {
 

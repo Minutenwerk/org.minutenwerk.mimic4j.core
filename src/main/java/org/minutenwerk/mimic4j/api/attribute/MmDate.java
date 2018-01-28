@@ -19,7 +19,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmDate is a mimic for an editable attribute of type {@link Date}.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback
  */
@@ -28,7 +27,7 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmDateJsfDisabled {
 
@@ -42,7 +41,7 @@ public class MmDate extends MmBaseAttributeDeclaration<MmImplementationDate, Loc
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmDateJsfTag {
 

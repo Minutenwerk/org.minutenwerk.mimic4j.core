@@ -129,7 +129,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    * @return  A list of {@link SelectItem},
    */
   @Override public List<SelectItem> getSelectItems() {
-    List<SelectItem> returnList = new ArrayList<SelectItem>();
+    List<SelectItem> returnList = new ArrayList<>();
     for (MmSelectOption<Object> selectOption : this.implementation.getMmSelectOptions()) {
       String     value             = selectOption.getDisplayId();
       String     label             = selectOption.getShortDescription();

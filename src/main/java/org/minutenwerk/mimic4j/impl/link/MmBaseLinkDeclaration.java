@@ -19,7 +19,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
  * MmBaseLinkDeclaration is the base class for link mimics.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback, group-override
  */

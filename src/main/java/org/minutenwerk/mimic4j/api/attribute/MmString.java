@@ -15,7 +15,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmString is a mimic for an editable attribute of type {@link String}.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback, group-getter
  */
@@ -24,7 +23,7 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmStringJsfDisabled {
 
@@ -38,7 +37,7 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmStringJsfTag {
 
@@ -129,13 +128,14 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
   @Override
   @SuppressWarnings("unchecked")
   public List<MmSelectOption<String>> callbackMmGetSelectOptions() {
-    final List<MmSelectOption<String>> returnList = new ArrayList<MmSelectOption<String>>();
-    final MmSelectOption<String>       nullOption = new MmSelectOption<String>("UNDEFINED", "", "", null);
+    final List<MmSelectOption<String>> returnList = new ArrayList<>();
+
+    final MmSelectOption<String>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
     final String currentValue = this.getMmModelsideValue();
     if ((currentValue != null) && !currentValue.isEmpty()) {
-      final MmSelectOption<String> valueOption = new MmSelectOption<String>(currentValue, currentValue, currentValue, currentValue);
+      final MmSelectOption<String> valueOption = new MmSelectOption<>(currentValue, currentValue, currentValue, currentValue);
       returnList.add(valueOption);
     }
     return returnList;

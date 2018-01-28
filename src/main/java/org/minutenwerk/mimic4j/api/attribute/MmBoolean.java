@@ -15,7 +15,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmBoolean is a mimic for an editable attribute of type {@link Boolean}.
  *
  * @author              Olaf Kossak
- * @see                 $HeadURL: $$maven.project.version$
  *
  * @jalopy.group-order  group-callback, group-getter
  */
@@ -27,7 +26,7 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmBooleanJsfDisabled {
 
@@ -45,7 +44,7 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
    *
-   * @author   Olaf Kossak
+   * @author  Olaf Kossak
    */
   public enum MmBooleanJsfTag {
 
@@ -124,15 +123,15 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   @Override
   @SuppressWarnings("unchecked")
   public List<MmSelectOption<Boolean>> callbackMmGetSelectOptions() {
-    List<MmSelectOption<Boolean>> returnList = new ArrayList<MmSelectOption<Boolean>>();
+    List<MmSelectOption<Boolean>> returnList = new ArrayList<>();
 
-    MmSelectOption<Boolean>       nullOption = new MmSelectOption<Boolean>("UNDEFINED", "", "", null);
+    MmSelectOption<Boolean>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
-    MmSelectOption<Boolean> trueOption = new MmSelectOption<Boolean>("True", "true", "true", Boolean.TRUE);
+    MmSelectOption<Boolean> trueOption = new MmSelectOption<>("True", "true", "true", Boolean.TRUE);
     returnList.add(trueOption);
 
-    MmSelectOption<Boolean> falseOption = new MmSelectOption<Boolean>("False", "false", "false", Boolean.FALSE);
+    MmSelectOption<Boolean> falseOption = new MmSelectOption<>("False", "false", "false", Boolean.FALSE);
     returnList.add(falseOption);
 
     return returnList;
