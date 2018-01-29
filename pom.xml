@@ -85,48 +85,56 @@
           <testSourcesLast>true</testSourcesLast>
         </configuration>
       </plugin>
-
-      <!-- Bei jedem Durchlauf der process-sources-Phase werden die Java-Dateien mit Jalopy formatiert. Die Jalopy-Konfigurationen sind gesondert 
-        für jeden source.status in den Dateien jalopy.${source.status}.xml definiert. Sie werden im Projekt de.minutenwerk.tools.resources verwaltet. -->
-      <plugin>
-        <groupId>triemax</groupId>
-        <artifactId>jalopy-maven</artifactId>
-        <version>1.10-551</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-          <logLevel>error</logLevel>
-          <repository>false</repository>
-          <force>true</force>
-          <environment>
-            <maven.project.version>${project.version}</maven.project.version>
-          </environment>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>de.minutenwerk.tools</groupId>
-            <artifactId>de.minutenwerk.tools.resources</artifactId>
-            <version>1.0-SNAPSHOT</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <id>format-sources</id>
-            <configuration>
-              <convention>classpath:jalopy/${source.status}/jalopy.${source.status}.xml</convention>
-              <includes>
-                <include>**/java/**</include>
-              </includes>
-            </configuration>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>format</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>profile-jalopy</id>
+      <build>
+        <plugins>
+          <!-- Bei jedem Durchlauf der process-sources-Phase werden die Java-Dateien mit Jalopy formatiert. Die Jalopy-Konfigurationen sind gesondert 
+            für jeden source.status in den Dateien jalopy.${source.status}.xml definiert. Sie werden im Projekt de.minutenwerk.tools.resources verwaltet. -->
+          <plugin>
+            <groupId>triemax</groupId>
+            <artifactId>jalopy-maven</artifactId>
+            <version>1.10-551</version>
+            <configuration>
+              <encoding>UTF-8</encoding>
+              <logLevel>error</logLevel>
+              <repository>false</repository>
+              <force>true</force>
+              <environment>
+                <maven.project.version>${project.version}</maven.project.version>
+              </environment>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>de.minutenwerk.tools</groupId>
+                <artifactId>de.minutenwerk.tools.resources</artifactId>
+                <version>1.0-SNAPSHOT</version>
+              </dependency>
+            </dependencies>
+            <executions>
+              <execution>
+                <id>format-sources</id>
+                <configuration>
+                  <convention>classpath:jalopy/${source.status}/jalopy.${source.status}.xml</convention>
+                  <includes>
+                    <include>**/java/**</include>
+                  </includes>
+                </configuration>
+                <phase>process-sources</phase>
+                <goals>
+                  <goal>format</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <dependencies>
     <!-- compile dependencies -->
