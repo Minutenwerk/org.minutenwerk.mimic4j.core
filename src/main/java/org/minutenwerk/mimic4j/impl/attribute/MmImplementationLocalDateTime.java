@@ -1,27 +1,28 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.joda.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.attribute.MmDate;
-import org.minutenwerk.mimic4j.api.attribute.MmDateAnnotation;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTimeAnnotation;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
- * MmImplementationDate is the implementation part of a mimic for {@link LocalDate}.
+ * MmImplementationLocalDateTime is the implementation part of a mimic for {@link LocalDateTime}.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationDate extends MmBaseAttributeImplementation<MmDate, MmConfigurationDate, LocalDate, String> {
+public class MmImplementationLocalDateTime
+  extends MmBaseAttributeImplementation<MmLocalDateTime, MmConfigurationLocalDateTime, LocalDateTime, String> {
 
   /**
    * Creates a new MmImplementationDate instance.
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationDate(MmDeclarationMimic pParent) {
+  public MmImplementationLocalDateTime(MmDeclarationMimic pParent) {
     super(pParent);
   }
 
@@ -69,16 +70,16 @@ public class MmImplementationDate extends MmBaseAttributeImplementation<MmDate, 
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmDateAnnotation.class);
+    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLocalDateTimeAnnotation.class);
 
-    MmDateAnnotation annotation = this.findAnnotation(this.declaration, MmDateAnnotation.class);
+    MmLocalDateTimeAnnotation annotation = this.findAnnotation(this.declaration, MmLocalDateTimeAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationDate();
+      this.configuration = new MmConfigurationLocalDateTime();
     } else {
-      this.configuration = new MmConfigurationDate(annotation);
+      this.configuration = new MmConfigurationLocalDateTime(annotation);
     }
   }
 

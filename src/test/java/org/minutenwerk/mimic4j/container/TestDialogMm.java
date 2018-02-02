@@ -2,10 +2,10 @@ package org.minutenwerk.mimic4j.container;
 
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
-import org.minutenwerk.mimic4j.api.attribute.MmDate;
-import org.minutenwerk.mimic4j.api.attribute.MmDateAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTimeAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
@@ -21,8 +21,8 @@ public class TestDialogMm
   @MmStringAnnotation(id = "nn")
   public final MmString nachname = new MmString(this);
 
-  @MmDateAnnotation(id = "bd", formatPattern = "yyyy-MM-dd")
-  public final MmDate birthday = new MmDate(this);
+  @MmLocalDateTimeAnnotation(id = "bd")
+  public final MmLocalDateTime birthday = new MmLocalDateTime(this);
 
   @MmEnumAnnotation(id = "gd", defaultValue = "MALE")
   public final MmEnum<Gender> gender = new MmEnum<Gender>(this);

@@ -1,35 +1,35 @@
 package org.minutenwerk.mimic4j.api.attribute;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.Date;
 import java.util.List;
-
-import org.joda.time.LocalTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
-import org.minutenwerk.mimic4j.impl.attribute.MmImplementationTime;
+import org.minutenwerk.mimic4j.impl.attribute.MmImplementationLocalDateTime;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 
 /**
- * MmTime is a mimic for an editable attribute of type {@link Date}.
+ * MmDate is a mimic for an editable attribute of type {@link Date}.
  *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-callback
  */
-public class MmTime extends MmBaseAttributeDeclaration<MmImplementationTime, LocalTime, String> {
+public class MmLocalDateTime extends MmBaseAttributeDeclaration<MmImplementationLocalDateTime, LocalDateTime, String> {
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
    *
    * @author  Olaf Kossak
    */
-  public enum MmTimeJsfDisabled {
+  public enum MmDateJsfDisabled {
 
     TextOutput,
 
@@ -43,7 +43,7 @@ public class MmTime extends MmBaseAttributeDeclaration<MmImplementationTime, Loc
    *
    * @author  Olaf Kossak
    */
-  public enum MmTimeJsfTag {
+  public enum MmDateJsfTag {
 
     TextField,
 
@@ -61,12 +61,12 @@ public class MmTime extends MmBaseAttributeDeclaration<MmImplementationTime, Loc
   }
 
   /**
-   * Creates a new MmTime instance.
+   * Creates a new MmDate instance.
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmTime(MmDeclarationMimic pParent) {
-    super(new MmImplementationTime(pParent));
+  public MmLocalDateTime(MmDeclarationMimic pParent) {
+    super(new MmImplementationLocalDateTime(pParent));
   }
 
   /**
@@ -80,12 +80,12 @@ public class MmTime extends MmBaseAttributeDeclaration<MmImplementationTime, Loc
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(LocalTime pModelsideValue) throws MmModelsideConverterException {
+  @Override public String callbackMmConvertModelsideToViewsideValue(LocalDateTime pModelsideValue) throws MmModelsideConverterException {
     try {
       if (pModelsideValue == null) {
         return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
       } else {
-        String returnString = this.getMmDateTimeFormatter().print(pModelsideValue);
+        String returnString = pModelsideValue.format(this.getMmDateTimeFormatter());
         return returnString;
       }
     } catch (Exception e) {
@@ -106,21 +106,21 @@ public class MmTime extends MmBaseAttributeDeclaration<MmImplementationTime, Loc
    *
    * @jalopy.group  group-callback
    */
-  @Override public LocalTime callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
-    LocalTime returnTime;
+  @Override public LocalDateTime callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+    LocalDateTime returnDate;
     if (this.isMmEmpty()) {
-      returnTime = null;
+      returnDate = null;
     } else {
       try {
         DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
-        returnTime = dateTimeFormatter.parseLocalTime(pViewsideValue);
-      } catch (IllegalArgumentException e) {
+        returnDate = LocalDateTime.parse(pViewsideValue, dateTimeFormatter);
+      } catch (DateTimeParseException e) {
         throw new MmViewsideConverterException(this,
           "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue
           + " by pattern >" + this.getMmFormatPattern() + "<");
       }
     }
-    return returnTime;
+    return returnDate;
   }
 
   /**
@@ -132,7 +132,7 @@ public class MmTime extends MmBaseAttributeDeclaration<MmImplementationTime, Loc
    *
    * @jalopy.group  group-callback
    */
-  @Override public LocalTime callbackMmGetDefaultValue(LocalTime pPassThroughValue) {
+  @Override public LocalDateTime callbackMmGetDefaultValue(LocalDateTime pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -156,7 +156,7 @@ public class MmTime extends MmBaseAttributeDeclaration<MmImplementationTime, Loc
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(LocalTime pModelsideValue) throws MmValidatorException {
+  @Override public void callbackMmValidateModelsideValue(LocalDateTime pModelsideValue) throws MmValidatorException {
   }
 
   /**
@@ -168,7 +168,7 @@ public class MmTime extends MmBaseAttributeDeclaration<MmImplementationTime, Loc
     final String formatPattern = this.getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 
-    final DateTimeFormatter returnDateFormatter = DateTimeFormat.forPattern(formatPattern);
+    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(formatPattern);
     return returnDateFormatter;
   }
 

@@ -1,9 +1,9 @@
 package org.minutenwerk.mimic4j.editabledefault;
 
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
-import org.minutenwerk.mimic4j.editabledefault.TestModel.Gender;
 import org.junit.Assert;
 import org.junit.Test;
+import org.minutenwerk.mimic4j.api.composite.MmRoot;
+import org.minutenwerk.mimic4j.editabledefault.TestModel.Gender;
 
 public class MmMimicModelTest {
 

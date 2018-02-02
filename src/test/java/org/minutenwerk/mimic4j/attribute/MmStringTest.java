@@ -1,13 +1,13 @@
 package org.minutenwerk.mimic4j.attribute;
 
+import org.junit.Assert;
+import org.junit.Test;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class MmStringTest {
 

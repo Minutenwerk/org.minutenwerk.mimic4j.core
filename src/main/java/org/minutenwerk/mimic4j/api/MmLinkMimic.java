@@ -3,8 +3,8 @@ package org.minutenwerk.mimic4j.api;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * MmCompositeMimic defines mimics which can be nested following the composite design pattern.
@@ -64,7 +64,7 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel);
+  public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -120,7 +120,7 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel);
+  public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.

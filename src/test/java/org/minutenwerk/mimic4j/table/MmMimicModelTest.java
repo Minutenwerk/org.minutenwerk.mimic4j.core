@@ -1,13 +1,13 @@
 package org.minutenwerk.mimic4j.table;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
-import org.minutenwerk.mimic4j.table.TestModel.Gender;
-import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
+import org.minutenwerk.mimic4j.api.composite.MmRoot;
+import org.minutenwerk.mimic4j.table.TestModel.Gender;
 
 public class MmMimicModelTest {
 
@@ -18,10 +18,10 @@ public class MmMimicModelTest {
   @Before public void before() {
     testModelList = new ArrayList<>();
     TestModel testModel1 = new TestModel().setVorname("John").setNachname("Doe").
-        setGender(Gender.MALE).setMember(true).setBirthday(LocalDate.now());
+        setGender(Gender.MALE).setMember(true).setBirthday(LocalDateTime.now());
     testModelList.add(testModel1);
     TestModel testModel2 = new TestModel().setVorname("Jane").setNachname("Doe").
-        setGender(Gender.FEMALE).setMember(false).setBirthday(LocalDate.now());
+        setGender(Gender.FEMALE).setMember(false).setBirthday(LocalDateTime.now());
     testModelList.add(testModel2);
   }
 

@@ -1,18 +1,18 @@
 package org.minutenwerk.mimic4j.api.attribute;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.Date;
 import java.util.List;
-
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
-import org.minutenwerk.mimic4j.impl.attribute.MmImplementationDateTime;
+import org.minutenwerk.mimic4j.impl.attribute.MmImplementationZonedDateTime;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 
 /**
@@ -22,7 +22,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  *
  * @jalopy.group-order  group-callback
  */
-public class MmDateTime extends MmBaseAttributeDeclaration<MmImplementationDateTime, LocalDateTime, String> {
+public class MmZonedDateTime extends MmBaseAttributeDeclaration<MmImplementationZonedDateTime, ZonedDateTime, String> {
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
@@ -65,8 +65,8 @@ public class MmDateTime extends MmBaseAttributeDeclaration<MmImplementationDateT
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmDateTime(MmDeclarationMimic pParent) {
-    super(new MmImplementationDateTime(pParent));
+  public MmZonedDateTime(MmDeclarationMimic pParent) {
+    super(new MmImplementationZonedDateTime(pParent));
   }
 
   /**
@@ -80,12 +80,12 @@ public class MmDateTime extends MmBaseAttributeDeclaration<MmImplementationDateT
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(LocalDateTime pModelsideValue) throws MmModelsideConverterException {
+  @Override public String callbackMmConvertModelsideToViewsideValue(ZonedDateTime pModelsideValue) throws MmModelsideConverterException {
     try {
       if (pModelsideValue == null) {
         return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
       } else {
-        String returnString = this.getMmDateTimeFormatter().print(pModelsideValue);
+        String returnString = pModelsideValue.format(this.getMmDateTimeFormatter());
         return returnString;
       }
     } catch (Exception e) {
@@ -106,15 +106,15 @@ public class MmDateTime extends MmBaseAttributeDeclaration<MmImplementationDateT
    *
    * @jalopy.group  group-callback
    */
-  @Override public LocalDateTime callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
-    LocalDateTime returnDateTime;
+  @Override public ZonedDateTime callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+    ZonedDateTime returnDateTime;
     if (this.isMmEmpty()) {
       returnDateTime = null;
     } else {
       try {
         DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
-        returnDateTime = dateTimeFormatter.parseLocalDateTime(pViewsideValue);
-      } catch (IllegalArgumentException e) {
+        returnDateTime = ZonedDateTime.parse(pViewsideValue, dateTimeFormatter);
+      } catch (DateTimeParseException e) {
         throw new MmViewsideConverterException(this,
           "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue
           + " by pattern >" + this.getMmFormatPattern() + "<");
@@ -132,7 +132,7 @@ public class MmDateTime extends MmBaseAttributeDeclaration<MmImplementationDateT
    *
    * @jalopy.group  group-callback
    */
-  @Override public LocalDateTime callbackMmGetDefaultValue(LocalDateTime pPassThroughValue) {
+  @Override public ZonedDateTime callbackMmGetDefaultValue(ZonedDateTime pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -156,7 +156,7 @@ public class MmDateTime extends MmBaseAttributeDeclaration<MmImplementationDateT
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(LocalDateTime pModelsideValue) throws MmValidatorException {
+  @Override public void callbackMmValidateModelsideValue(ZonedDateTime pModelsideValue) throws MmValidatorException {
   }
 
   /**
@@ -168,7 +168,7 @@ public class MmDateTime extends MmBaseAttributeDeclaration<MmImplementationDateT
     final String formatPattern = this.getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 
-    final DateTimeFormatter returnDateFormatter = DateTimeFormat.forPattern(formatPattern);
+    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(formatPattern);
     return returnDateFormatter;
   }
 

@@ -1,27 +1,28 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.joda.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.attribute.MmDateTime;
-import org.minutenwerk.mimic4j.api.attribute.MmDateTimeAnnotation;
+import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
+import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
- * MmImplementationDateTime is the implementation part of a mimic for {@link LocalDateTime}.
+ * MmImplementationDateTime is the implementation part of a mimic for {@link ZonedDateTime}.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationDateTime extends MmBaseAttributeImplementation<MmDateTime, MmConfigurationDateTime, LocalDateTime, String> {
+public class MmImplementationZonedDateTime
+  extends MmBaseAttributeImplementation<MmZonedDateTime, MmConfigurationZonedDateTime, ZonedDateTime, String> {
 
   /**
    * Creates a new MmImplementationDateTime instance.
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationDateTime(MmDeclarationMimic pParent) {
+  public MmImplementationZonedDateTime(MmDeclarationMimic pParent) {
     super(pParent);
   }
 
@@ -69,16 +70,16 @@ public class MmImplementationDateTime extends MmBaseAttributeImplementation<MmDa
    */
   @Override protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmDateTimeAnnotation.class);
+    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmZonedDateTimeAnnotation.class);
 
-    MmDateTimeAnnotation annotation = this.findAnnotation(this.declaration, MmDateTimeAnnotation.class);
+    MmZonedDateTimeAnnotation annotation = this.findAnnotation(this.declaration, MmZonedDateTimeAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationDateTime();
+      this.configuration = new MmConfigurationZonedDateTime();
     } else {
-      this.configuration = new MmConfigurationDateTime(annotation);
+      this.configuration = new MmConfigurationZonedDateTime(annotation);
     }
   }
 

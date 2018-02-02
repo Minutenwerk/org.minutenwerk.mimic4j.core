@@ -6,16 +6,16 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
-import org.joda.time.ReadablePartial;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
@@ -180,7 +180,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
+  @Override public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -271,7 +271,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
+  @Override public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -425,11 +425,20 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
             + " by pattern >" + this.getMmFormatPattern() + "<");
         }
 
-      } else if ((pModelsideValue instanceof LocalDate) || (pModelsideValue instanceof LocalTime)) {
-        final ReadablePartial readablePartial = (ReadablePartial)pModelsideValue;
+      } else if (pModelsideValue instanceof LocalDateTime) {
         try {
           final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
-          formattedValue = dateTimeFormatter.print(readablePartial);
+          formattedValue = ((LocalDateTime)pModelsideValue).format(dateTimeFormatter);
+        } catch (IllegalArgumentException e) {
+          throw new MmModelsideConverterException(this,
+            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
+            + " by pattern >" + this.getMmFormatPattern() + "<");
+        }
+
+      } else if (pModelsideValue instanceof ZonedDateTime) {
+        try {
+          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          formattedValue = ((ZonedDateTime)pModelsideValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
             "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
@@ -463,7 +472,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @jalopy.group  group-i18n
    */
   protected DateTimeFormatter getMmDateTimeFormatter() {
-    final DateTimeFormatter returnDateFormatter = DateTimeFormat.forPattern(this.getMmFormatPattern());
+    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(this.getMmFormatPattern());
     return returnDateFormatter;
   }
 

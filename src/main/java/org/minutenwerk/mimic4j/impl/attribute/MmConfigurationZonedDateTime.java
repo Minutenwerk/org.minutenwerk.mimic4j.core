@@ -1,53 +1,53 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.joda.time.LocalDate;
+import java.time.ZonedDateTime;
 
-import org.minutenwerk.mimic4j.api.attribute.MmDate;
-import org.minutenwerk.mimic4j.api.attribute.MmDate.MmDateJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmDate.MmDateJsfTag;
-import org.minutenwerk.mimic4j.api.attribute.MmDateAnnotation;
+import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
+import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime.MmDateTimeJsfDisabled;
+import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime.MmDateTimeJsfTag;
+import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
 
 /**
- * MmConfigurationDate contains static configuration information for mimics of type {@link MmDate}.
+ * MmConfigurationZonedDateTime contains static configuration information for mimics of type {@link MmZonedDateTime}.
  *
  * @author  Olaf Kossak
  */
-public class MmConfigurationDate extends MmBaseAttributeConfiguration<LocalDate> {
+public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<ZonedDateTime> {
 
   /** Constant for default value of format pattern for parsing user input and formatting viewside value. */
-  public static final String            DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy";
+  public static final String                DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy HH:mm:ss";
 
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int               DEFAULT_FORMAT_MAX_LENGTH = 255;
+  public static final int                   DEFAULT_FORMAT_MAX_LENGTH = 255;
 
   /** Constant for default value of default value. */
-  public static final LocalDate         DEFAULT_DEFAULT_VALUE     = null;
+  public static final ZonedDateTime         DEFAULT_DEFAULT_VALUE     = null;
 
-  /** Redundant to {@link MmDateAnnotation.jsfTag()}. */
-  public static final MmDateJsfTag      DEFAULT_JSF_TAG           = MmDateJsfTag.TextField;
+  /** Redundant to {@link MmDateTimeAnnotation.jsfTag()}. */
+  public static final MmDateTimeJsfTag      DEFAULT_JSF_TAG           = MmDateTimeJsfTag.TextField;
 
-  /** Redundant to {@link MmDateAnnotation.jsfTagDisabled()}. */
-  public static final MmDateJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmDateJsfDisabled.SameAsEnabled;
+  /** Redundant to {@link MmDateTimeAnnotation.jsfTagDisabled()}. */
+  public static final MmDateTimeJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmDateTimeJsfDisabled.SameAsEnabled;
 
   /** Format pattern for parsing user input and formatting viewside value. */
-  protected String                      formatPattern;
+  protected String                          formatPattern;
 
   /** The default value. */
-  protected LocalDate                   defaultValue;
+  protected ZonedDateTime                   defaultValue;
 
   /** Maximum length of formatted input string. */
-  protected int                         formatMaxLength;
+  protected int                             formatMaxLength;
 
   /** The JSF tag in enabled state. */
-  protected MmDateJsfTag                jsfTag;
+  protected MmDateTimeJsfTag                jsfTag;
 
   /** The JSF tag in disabled state. */
-  protected MmDateJsfDisabled           jsfTagDisabled;
+  protected MmDateTimeJsfDisabled           jsfTagDisabled;
 
   /**
-   * Creates a new MmConfigurationDate instance of default values.
+   * Creates a new MmConfigurationDateTime instance of default values.
    */
-  public MmConfigurationDate() {
+  public MmConfigurationZonedDateTime() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
     this.formatPattern   = DEFAULT_FORMAT_PATTERN;
     this.defaultValue    = DEFAULT_DEFAULT_VALUE;
@@ -57,20 +57,20 @@ public class MmConfigurationDate extends MmBaseAttributeConfiguration<LocalDate>
   }
 
   /**
-   * Creates a new MmConfigurationDate instance from annotation.
+   * Creates a new MmConfigurationDateTime instance from annotation.
    *
-   * @param  pDateAnnotation  The annotation to create the configuration from.
+   * @param  pDateTimeAnnotation  The annotation to create the configuration from.
    */
-  public MmConfigurationDate(MmDateAnnotation pDateAnnotation) {
-    super(pDateAnnotation.id(), pDateAnnotation.visible(), pDateAnnotation.readOnly(), pDateAnnotation.enabled(),
-      pDateAnnotation.required());
-    this.formatPattern   = pDateAnnotation.formatPattern();
+  public MmConfigurationZonedDateTime(MmZonedDateTimeAnnotation pDateTimeAnnotation) {
+    super(pDateTimeAnnotation.id(), pDateTimeAnnotation.visible(), pDateTimeAnnotation.readOnly(), pDateTimeAnnotation.enabled(),
+      pDateTimeAnnotation.required());
+    this.formatPattern   = pDateTimeAnnotation.formatPattern();
 
     // there is no default value for date in annotation
     this.defaultValue    = DEFAULT_DEFAULT_VALUE;
-    this.formatMaxLength = pDateAnnotation.formatMaxLength();
-    this.jsfTag          = pDateAnnotation.jsfTag();
-    this.jsfTagDisabled  = pDateAnnotation.jsfTagDisabled();
+    this.formatMaxLength = pDateTimeAnnotation.formatMaxLength();
+    this.jsfTag          = pDateTimeAnnotation.jsfTag();
+    this.jsfTagDisabled  = pDateTimeAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -78,7 +78,7 @@ public class MmConfigurationDate extends MmBaseAttributeConfiguration<LocalDate>
    *
    * @return  The configuration of default value.
    */
-  @Override public LocalDate getDefaultValue() {
+  @Override public ZonedDateTime getDefaultValue() {
     return this.defaultValue;
   }
 
@@ -123,7 +123,7 @@ public class MmConfigurationDate extends MmBaseAttributeConfiguration<LocalDate>
    *
    * @param  pDefaultValue  The specified configuration of default value.
    */
-  public void setDefaultValue(LocalDate pDefaultValue) {
+  public void setDefaultValue(ZonedDateTime pDefaultValue) {
     this.defaultValue = pDefaultValue;
   }
 
@@ -150,7 +150,7 @@ public class MmConfigurationDate extends MmBaseAttributeConfiguration<LocalDate>
    *
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
-  public void setJsfTag(MmDateJsfTag pJsfTag) {
+  public void setJsfTag(MmDateTimeJsfTag pJsfTag) {
     this.jsfTag = pJsfTag;
   }
 

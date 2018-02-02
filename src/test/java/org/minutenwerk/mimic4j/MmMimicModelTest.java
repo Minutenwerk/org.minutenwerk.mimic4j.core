@@ -1,11 +1,11 @@
 package org.minutenwerk.mimic4j;
 
+import org.junit.Assert;
+import org.junit.Test;
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class MmMimicModelTest {
 

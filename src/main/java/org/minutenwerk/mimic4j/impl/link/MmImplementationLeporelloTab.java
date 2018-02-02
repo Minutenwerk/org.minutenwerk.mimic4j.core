@@ -1,9 +1,9 @@
 package org.minutenwerk.mimic4j.impl.link;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
+import java.util.Date;
 
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
 import org.minutenwerk.mimic4j.api.container.MmTab;
@@ -124,16 +124,16 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
         return i18nViewsideValue;
 
         // format date values
-      } else if (this.modelsideValue instanceof LocalDate) {
+      } else if (this.modelsideValue instanceof LocalDateTime) {
 
-        final Date   modelsideValueAsJavaUtilDate = ((LocalDate)this.modelsideValue).toDateTimeAtStartOfDay().toDate();
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)this.modelsideValue).toInstant());
         final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
         return formattedViewsideValue;
 
         // format time values
-      } else if (this.modelsideValue instanceof LocalTime) {
+      } else if (this.modelsideValue instanceof ZonedDateTime) {
 
-        final Date   modelsideValueAsJavaUtilDate = ((LocalTime)this.modelsideValue).toDateTimeToday().toDate();
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)this.modelsideValue).toInstant());
         final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
         return formattedViewsideValue;
 

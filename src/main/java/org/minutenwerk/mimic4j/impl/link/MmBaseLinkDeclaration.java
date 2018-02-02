@@ -3,10 +3,10 @@ package org.minutenwerk.mimic4j.impl.link;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
+import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
@@ -165,7 +165,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
+  @Override public final void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -249,7 +249,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
+  @Override public final void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 

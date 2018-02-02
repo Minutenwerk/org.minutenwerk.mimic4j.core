@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.table;
 
-import org.joda.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TestModel {
 
@@ -10,7 +10,7 @@ public class TestModel {
 
   private boolean isMember;
 
-  private LocalDate birthday;
+  private LocalDateTime birthday;
 
   private Gender gender;
   
@@ -46,11 +46,11 @@ public class TestModel {
     return this;
   }
 
-  public LocalDate getBirthday() {
+  public LocalDateTime getBirthday() {
     return this.birthday;
   }
 
-  public TestModel setBirthday(LocalDate birthday) {
+  public TestModel setBirthday(LocalDateTime birthday) {
     this.birthday = birthday;
     return this;
   }
