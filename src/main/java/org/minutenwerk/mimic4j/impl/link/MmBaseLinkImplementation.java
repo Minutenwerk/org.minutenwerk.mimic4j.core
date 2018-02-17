@@ -6,6 +6,8 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -180,6 +182,45 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
+  @Override public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
+    this.modelsideValue = pModelsideValue;
+    this.model          = pModel;
+  }
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param         pModelsideValue  The specified modelside values.
+   * @param         pModel           The specified data model which defines query parameters.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
+    this.modelsideValue = pModelsideValue;
+    this.model          = pModel;
+  }
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param         pModelsideValue  The specified modelside values.
+   * @param         pModel           The specified data model which defines query parameters.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
+    this.modelsideValue = pModelsideValue;
+    this.model          = pModel;
+  }
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param         pModelsideValue  The specified modelside values.
+   * @param         pModel           The specified data model which defines query parameters.
+   *
+   * @jalopy.group  group-override
+   */
   @Override public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
@@ -233,6 +274,19 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @jalopy.group  group-override
    */
   @Override public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
+    this.modelsideValue = pModelsideValue;
+    this.model          = pModel;
+  }
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param         pModelsideValue  The specified modelside values.
+   * @param         pModel           The specified data model which defines query parameters.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -419,6 +473,45 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
         try {
           final NumberFormat numberFormatter = this.getMmNumberFormatter(true);
           formattedValue = numberFormatter.format(pModelsideValue);
+        } catch (IllegalArgumentException e) {
+          throw new MmModelsideConverterException(this,
+            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
+            + " by pattern >" + this.getMmFormatPattern() + "<");
+        }
+
+      } else if (pModelsideValue instanceof Duration) {
+        try {
+          formattedValue = ((Duration)pModelsideValue).toString();
+        } catch (IllegalArgumentException e) {
+          throw new MmModelsideConverterException(this,
+            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
+            + " by pattern >" + this.getMmFormatPattern() + "<");
+        }
+
+      } else if (pModelsideValue instanceof Instant) {
+        try {
+          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          formattedValue = dateTimeFormatter.format((Instant)pModelsideValue);
+        } catch (IllegalArgumentException e) {
+          throw new MmModelsideConverterException(this,
+            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
+            + " by pattern >" + this.getMmFormatPattern() + "<");
+        }
+
+      } else if (pModelsideValue instanceof LocalTime) {
+        try {
+          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          formattedValue = ((LocalTime)pModelsideValue).format(dateTimeFormatter);
+        } catch (IllegalArgumentException e) {
+          throw new MmModelsideConverterException(this,
+            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
+            + " by pattern >" + this.getMmFormatPattern() + "<");
+        }
+
+      } else if (pModelsideValue instanceof LocalDate) {
+        try {
+          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          formattedValue = ((LocalDate)pModelsideValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
             "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue

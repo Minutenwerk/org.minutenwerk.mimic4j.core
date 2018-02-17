@@ -3,7 +3,11 @@ package org.minutenwerk.mimic4j.api;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 /**
@@ -64,6 +68,30 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
+  public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel);
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param  pModelsideValue  The specified modelside values.
+   * @param  pModel           The specified data model which defines query parameters.
+   */
+  public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel);
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param  pModelsideValue  The specified modelside values.
+   * @param  pModel           The specified data model which defines query parameters.
+   */
+  public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel);
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param  pModelsideValue  The specified modelside values.
+   * @param  pModel           The specified data model which defines query parameters.
+   */
   public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel);
 
   /**
@@ -97,6 +125,14 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModel           The specified data model which defines query parameters.
    */
   public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel);
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param  pModelsideValue  The specified modelside values.
+   * @param  pModel           The specified data model which defines query parameters.
+   */
+  public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.

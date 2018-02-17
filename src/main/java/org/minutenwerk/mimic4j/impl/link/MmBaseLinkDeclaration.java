@@ -3,7 +3,11 @@ package org.minutenwerk.mimic4j.impl.link;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 import java.util.List;
@@ -165,6 +169,42 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
+  @Override public final void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
+    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+  }
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param         pModelsideValue  The specified modelside values.
+   * @param         pModel           The specified data model which defines query parameters.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override public final void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
+    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+  }
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param         pModelsideValue  The specified modelside values.
+   * @param         pModel           The specified data model which defines query parameters.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override public final void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
+    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+  }
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param         pModelsideValue  The specified modelside values.
+   * @param         pModel           The specified data model which defines query parameters.
+   *
+   * @jalopy.group  group-override
+   */
   @Override public final void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
@@ -214,6 +254,18 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override public final void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
+    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+  }
+
+  /**
+   * Sets specified modelside values of the link for text, title and query parameters.
+   *
+   * @param         pModelsideValue  The specified modelside values.
+   * @param         pModel           The specified data model which defines query parameters.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override public final void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
