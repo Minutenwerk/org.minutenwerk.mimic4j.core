@@ -1,6 +1,10 @@
 package org.minutenwerk.mimic4j.impl.link;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import java.util.Date;
@@ -123,14 +127,28 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
         final String i18nViewsideValue = this.formatModelsideValue(this.modelsideValue);
         return i18nViewsideValue;
 
-        // format date values
-      } else if (this.modelsideValue instanceof LocalDateTime) {
+        // format Instant values
+      } else if (this.modelsideValue instanceof Instant) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)this.modelsideValue).toInstant());
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((Instant)this.modelsideValue));
         final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
         return formattedViewsideValue;
 
-        // format time values
+        // format LocalDate values
+      } else if (this.modelsideValue instanceof LocalDate) {
+
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDate)this.modelsideValue).atStartOfDay(ZoneId.of("UTC")).toInstant());
+        final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
+        return formattedViewsideValue;
+
+        // format LocalDateTime values
+      } else if (this.modelsideValue instanceof LocalDateTime) {
+
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDateTime)this.modelsideValue).toInstant(ZoneOffset.UTC));
+        final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
+        return formattedViewsideValue;
+
+        // format ZonedDateTime values
       } else if (this.modelsideValue instanceof ZonedDateTime) {
 
         final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)this.modelsideValue).toInstant());

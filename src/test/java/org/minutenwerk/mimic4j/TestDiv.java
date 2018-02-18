@@ -3,8 +3,8 @@ package org.minutenwerk.mimic4j;
 import org.minutenwerk.mimic4j.api.MmAttributeMimic.MmBooleanLayout;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTimeAnnotation;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDate;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.composite.MmDiv;
@@ -24,8 +24,8 @@ public class TestDiv extends MmDiv {
     @MmStringAnnotation(id = "nn", required = true)
     public final MmString nachname = new MmString(this);
 
-    @MmLocalDateTimeAnnotation(id = "bd", formatPattern = "dd.MM.yyyy")
-    public final MmLocalDateTime birthday = new MmLocalDateTime(this);
+    @MmLocalDateAnnotation(id = "bd", formatPattern = "dd.MM.yyyy")
+    public final MmLocalDate birthday = new MmLocalDate(this);
 
     @MmBooleanAnnotation(id = "mb", defaultValue = true, layout = MmBooleanLayout.LINE_DIRECTION)
     public final MmBoolean isMember = new MmBoolean(this);

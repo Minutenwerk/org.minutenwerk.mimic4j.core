@@ -4,8 +4,8 @@ import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTimeAnnotation;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDate;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
@@ -21,8 +21,8 @@ public class TestTableRowMm
   @MmStringAnnotation(id = "nn")
   public final MmString nachname = new MmString(this);
 
-  @MmLocalDateTimeAnnotation(id = "bd", formatPattern = "yyyy-MM-dd HH:mm:ssSSS")
-  public final MmLocalDateTime birthday = new MmLocalDateTime(this);
+  @MmLocalDateAnnotation(id = "bd", formatPattern = "yyyy-MM-dd")
+  public final MmLocalDate birthday = new MmLocalDate(this);
 
   @MmEnumAnnotation(id = "gd", defaultValue = "MALE")
   public final MmEnum<Gender> gender = new MmEnum<Gender>(this);

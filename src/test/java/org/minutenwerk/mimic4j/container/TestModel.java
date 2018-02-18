@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.container;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class TestModel {
 
@@ -10,7 +10,7 @@ public class TestModel {
 
   private boolean isMember;
 
-  private LocalDateTime birthday;
+  private LocalDate birthday;
 
   private Gender gender;
   
@@ -48,11 +48,11 @@ public class TestModel {
     return this;
   }
 
-  public LocalDateTime getBirthday() {
+  public LocalDate getBirthday() {
     return this.birthday;
   }
 
-  public TestModel setBirthday(LocalDateTime birthday) {
+  public TestModel setBirthday(LocalDate birthday) {
     this.birthday = birthday;
     return this;
   }

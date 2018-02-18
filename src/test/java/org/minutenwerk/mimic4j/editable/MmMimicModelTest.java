@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.editable;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +20,7 @@ public class MmMimicModelTest {
 
   public final TestCrudDialog testDialog = new TestCrudDialog(new TestRoot());
 
-  public final TestModel testModel1 = new TestModel().setVorname("John").setNachname("Doe").setMember(true).setBirthday(LocalDateTime.parse("2013-09-18T00:00:00")).setGender(Gender.FEMALE);
+  public final TestModel testModel1 = new TestModel().setVorname("John").setNachname("Doe").setMember(true).setBirthday(LocalDate.parse("2013-09-18")).setGender(Gender.FEMALE);
 
   private static final Logger LOGGER = LogManager.getLogger(MmMimicModelTest.class);
 
@@ -39,7 +39,7 @@ public class MmMimicModelTest {
   @Test
   public void testBirthday() {
     testDialog.doMmSetModelsideFromModel(testModel1);
-    Assert.assertEquals("Birthday must be 18.09.2013 00:00:00", "18.09.2013 00:00:00", this.testDialog.birthday.getMmViewsideValue());
+    Assert.assertEquals("Birthday must be 18.09.2013", "18.09.2013", this.testDialog.birthday.getMmViewsideValue());
   }
 
   @Test
@@ -61,9 +61,9 @@ public class MmMimicModelTest {
     testDialog.vorname.setMmViewsideValue("Susanne");
     testDialog.nachname.setMmViewsideValue("Mustermann");
     testDialog.isMember.setMmViewsideValue(false);
-    testDialog.birthday.setMmViewsideValue("03.02.2001 00:00:00");
+    testDialog.birthday.setMmViewsideValue("03.02.2001");
     testDialog.doMmValidate();
-    Assert.assertEquals("Birthday must be 2001-02-03T00:00", "2001-02-03T00:00", this.testDialog.birthday.getMmModelsideValue().toString());
+    Assert.assertEquals("Birthday must be 2001-02-03", "2001-02-03", this.testDialog.birthday.getMmModelsideValue().toString());
   }
   
   @Test

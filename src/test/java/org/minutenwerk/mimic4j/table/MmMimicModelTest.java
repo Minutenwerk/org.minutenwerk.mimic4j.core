@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.table;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +18,10 @@ public class MmMimicModelTest {
   @Before public void before() {
     testModelList = new ArrayList<>();
     TestModel testModel1 = new TestModel().setVorname("John").setNachname("Doe").
-        setGender(Gender.MALE).setMember(true).setBirthday(LocalDateTime.now());
+        setGender(Gender.MALE).setMember(true).setBirthday(LocalDate.now());
     testModelList.add(testModel1);
     TestModel testModel2 = new TestModel().setVorname("Jane").setNachname("Doe").
-        setGender(Gender.FEMALE).setMember(false).setBirthday(LocalDateTime.now());
+        setGender(Gender.FEMALE).setMember(false).setBirthday(LocalDate.now());
     testModelList.add(testModel2);
   }
 
