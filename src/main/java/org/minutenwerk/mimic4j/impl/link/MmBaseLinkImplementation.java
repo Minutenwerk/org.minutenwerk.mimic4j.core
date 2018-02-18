@@ -425,8 +425,10 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
         return i18nViewsideValue;
 
         // format number, date and time values
-      } else if ((this.modelsideValue instanceof Number) || (this.modelsideValue instanceof LocalDate)
-          || (this.modelsideValue instanceof LocalTime) || (this.modelsideValue instanceof Boolean)) {
+      } else if ((this.modelsideValue instanceof Number) || (this.modelsideValue instanceof Boolean)
+          || (this.modelsideValue instanceof Duration) || (this.modelsideValue instanceof Instant)
+          || (this.modelsideValue instanceof LocalTime) || (this.modelsideValue instanceof LocalDate)
+          || (this.modelsideValue instanceof LocalDateTime) || (this.modelsideValue instanceof ZonedDateTime)) {
 
         final String formattedViewsideValue = this.formatModelsideValue(this.modelsideValue);
         return formattedViewsideValue;
