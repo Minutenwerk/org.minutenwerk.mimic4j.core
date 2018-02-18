@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime.MmDateJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime.MmDateJsfTag;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime.MmLocalDateTimeJsfDisabled;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime.MmLocalDateTimeJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationLocalDateTime;
 
@@ -34,8 +34,8 @@ public @interface MmLocalDateTimeAnnotation {
 
   public int formatMaxLength() default MmConfigurationLocalDateTime.DEFAULT_FORMAT_MAX_LENGTH;
 
-  public MmDateJsfTag jsfTag() default MmDateJsfTag.TextField;
+  public MmLocalDateTimeJsfTag jsfTag() default MmLocalDateTimeJsfTag.TextField;
 
-  public MmDateJsfDisabled jsfTagDisabled() default MmDateJsfDisabled.SameAsEnabled;
+  public MmLocalDateTimeJsfDisabled jsfTagDisabled() default MmLocalDateTimeJsfDisabled.SameAsEnabled;
 
 }

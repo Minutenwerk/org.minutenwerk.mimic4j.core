@@ -5,6 +5,7 @@ import java.time.Instant;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmInstant;
 import org.minutenwerk.mimic4j.api.attribute.MmInstantAnnotation;
+import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
@@ -16,12 +17,31 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 public class MmImplementationInstant extends MmBaseAttributeImplementation<MmInstant, MmConfigurationInstant, Instant, String> {
 
   /**
-   * Creates a new MmImplementationInstant instance.
+   * Creates a new MmImplementationDate instance.
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
   public MmImplementationInstant(MmDeclarationMimic pParent) {
     super(pParent);
+  }
+
+  /**
+   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
+   * value and vice versa. It is dependent on the user's locale.
+   *
+   * @return  The attribute's format pattern for displaying viewside value.
+   */
+  @Override public String getMmFormatPattern() {
+    this.ensureInitialization();
+
+    String formatPattern = this.configuration.getFormatPattern();
+    if (formatPattern == null) {
+      formatPattern = this.getMmI18nText(MmMessageType.FORMAT);
+    }
+
+    final String returnString = this.declaration.callbackMmGetFormatPattern(formatPattern);
+    assert returnString != null : "callbackMmGetFormatPattern cannot return null";
+    return returnString;
   }
 
   /**

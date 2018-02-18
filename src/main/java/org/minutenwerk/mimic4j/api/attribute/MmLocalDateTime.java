@@ -29,7 +29,7 @@ public class MmLocalDateTime extends MmBaseAttributeDeclaration<MmImplementation
    *
    * @author  Olaf Kossak
    */
-  public enum MmDateJsfDisabled {
+  public enum MmLocalDateTimeJsfDisabled {
 
     TextOutput,
 
@@ -43,7 +43,7 @@ public class MmLocalDateTime extends MmBaseAttributeDeclaration<MmImplementation
    *
    * @author  Olaf Kossak
    */
-  public enum MmDateJsfTag {
+  public enum MmLocalDateTimeJsfTag {
 
     TextField,
 

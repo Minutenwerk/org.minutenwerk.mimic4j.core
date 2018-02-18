@@ -18,7 +18,7 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
   public static final String            DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy";
 
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int               DEFAULT_FORMAT_MAX_LENGTH = 255;
+  public static final int               DEFAULT_FORMAT_MAX_LENGTH = 10;
 
   /** Constant for default value of default value. */
   public static final LocalDate         DEFAULT_DEFAULT_VALUE     = null;

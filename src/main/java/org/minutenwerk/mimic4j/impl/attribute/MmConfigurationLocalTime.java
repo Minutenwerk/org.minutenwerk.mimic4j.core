@@ -18,7 +18,7 @@ public class MmConfigurationLocalTime extends MmBaseAttributeConfiguration<Local
   public static final String            DEFAULT_FORMAT_PATTERN    = "HH:mm:ss";
 
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int               DEFAULT_FORMAT_MAX_LENGTH = 255;
+  public static final int               DEFAULT_FORMAT_MAX_LENGTH = 8;
 
   /** Constant for default value of default value. */
   public static final LocalTime         DEFAULT_DEFAULT_VALUE     = null;

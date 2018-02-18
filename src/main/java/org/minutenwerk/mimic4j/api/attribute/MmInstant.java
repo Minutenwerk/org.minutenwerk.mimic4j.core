@@ -1,17 +1,17 @@
 package org.minutenwerk.mimic4j.api.attribute;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmRelationshipApi;
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
@@ -20,7 +20,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationInstant;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 
 /**
- * MmInstant is a mimic for an editable attribute of type {@link Instant}.
+ * MmDate is a mimic for an editable attribute of type {@link Date}.
  *
  * @author              Olaf Kossak
  *
@@ -65,7 +65,7 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
   }
 
   /**
-   * Creates a new MmInstant instance.
+   * Creates a new MmDate instance.
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
@@ -85,20 +85,19 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    * @jalopy.group  group-callback
    */
   @Override public String callbackMmConvertModelsideToViewsideValue(Instant pModelsideValue) throws MmModelsideConverterException {
-    String returnString;
-    if (pModelsideValue == null) {
-      returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
-    } else {
-      try {
-        NumberFormat numberFormatter = this.getMmNumberFormatter();
-        returnString = numberFormatter.format(pModelsideValue);
-      } catch (IllegalArgumentException e) {
-        throw new MmModelsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-          + " by pattern >" + this.getMmFormatPattern() + "<");
+    try {
+      if (pModelsideValue == null) {
+        return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
+      } else {
+        DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+        String            returnString      = dateTimeFormatter.format(pModelsideValue);
+        return returnString;
       }
+    } catch (Exception e) {
+      throw new MmModelsideConverterException(this,
+        "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
+        + " by pattern >" + this.getMmFormatPattern() + "<");
     }
-    return returnString;
   }
 
   /**
@@ -118,10 +117,12 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
       returnInstant = null;
     } else {
       try {
-        NumberFormat numberFormatter = this.getMmNumberFormatter();
-        Number       parsedNumber    = numberFormatter.parse(pViewsideValue);
-        returnInstant = Instant.ofEpochMilli(parsedNumber.longValue());
-      } catch (ParseException e) {
+        DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+        TemporalAccessor  temporalAccessor  = dateTimeFormatter.parse(pViewsideValue);
+        LocalDateTime     localDateTime     = LocalDateTime.from(temporalAccessor);
+        ZonedDateTime     zonedDateTime     = ZonedDateTime.of(localDateTime, ZoneId.of("UTC"));
+        returnInstant = Instant.from(zonedDateTime);
+      } catch (DateTimeParseException e) {
         throw new MmViewsideConverterException(this,
           "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue
           + " by pattern >" + this.getMmFormatPattern() + "<");
@@ -167,21 +168,16 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
   }
 
   /**
-   * Returns the initialized number formatter of this mimic.
+   * Returns the initialized date formatter of this mimic.
    *
-   * @return  The initialized number formatter of this mimic.
+   * @return  The initialized date formatter of this mimic.
    */
-  @Override protected NumberFormat getMmNumberFormatter() {
+  protected DateTimeFormatter getMmDateTimeFormatter() {
     final String formatPattern = this.getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 
-    final MmRoot        root                  = MmRelationshipApi.getMmRoot(this);
-    final Locale        locale                = root.getMmLocale();
-    final NumberFormat  numberFormat          = NumberFormat.getNumberInstance(locale);
-    final DecimalFormat returnNumberFormatter = (DecimalFormat)numberFormat;
-    returnNumberFormatter.setParseBigDecimal(true);
-    returnNumberFormatter.applyPattern(formatPattern);
-    return returnNumberFormatter;
+    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(formatPattern).withZone(ZoneId.of("UTC"));
+    return returnDateFormatter;
   }
 
 }

@@ -3,8 +3,8 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import java.time.LocalDateTime;
 
 import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime.MmDateJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime.MmDateJsfTag;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime.MmLocalDateTimeJsfDisabled;
+import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTime.MmLocalDateTimeJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTimeAnnotation;
 
 /**
@@ -15,34 +15,34 @@ import org.minutenwerk.mimic4j.api.attribute.MmLocalDateTimeAnnotation;
 public class MmConfigurationLocalDateTime extends MmBaseAttributeConfiguration<LocalDateTime> {
 
   /** Constant for default value of format pattern for parsing user input and formatting viewside value. */
-  public static final String            DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy HH:mm:ss";
+  public static final String                     DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy HH:mm:ss";
 
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int               DEFAULT_FORMAT_MAX_LENGTH = 255;
+  public static final int                        DEFAULT_FORMAT_MAX_LENGTH = 19;
 
   /** Constant for default value of default value. */
-  public static final LocalDateTime     DEFAULT_DEFAULT_VALUE     = null;
+  public static final LocalDateTime              DEFAULT_DEFAULT_VALUE     = null;
 
   /** Redundant to {@link MmDateAnnotation.jsfTag()}. */
-  public static final MmDateJsfTag      DEFAULT_JSF_TAG           = MmDateJsfTag.TextField;
+  public static final MmLocalDateTimeJsfTag      DEFAULT_JSF_TAG           = MmLocalDateTimeJsfTag.TextField;
 
   /** Redundant to {@link MmDateAnnotation.jsfTagDisabled()}. */
-  public static final MmDateJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmDateJsfDisabled.SameAsEnabled;
+  public static final MmLocalDateTimeJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmLocalDateTimeJsfDisabled.SameAsEnabled;
 
   /** Format pattern for parsing user input and formatting viewside value. */
-  protected String                      formatPattern;
+  protected String                               formatPattern;
 
   /** The default value. */
-  protected LocalDateTime               defaultValue;
+  protected LocalDateTime                        defaultValue;
 
   /** Maximum length of formatted input string. */
-  protected int                         formatMaxLength;
+  protected int                                  formatMaxLength;
 
   /** The JSF tag in enabled state. */
-  protected MmDateJsfTag                jsfTag;
+  protected MmLocalDateTimeJsfTag                jsfTag;
 
   /** The JSF tag in disabled state. */
-  protected MmDateJsfDisabled           jsfTagDisabled;
+  protected MmLocalDateTimeJsfDisabled           jsfTagDisabled;
 
   /**
    * Creates a new MmConfigurationDate instance of default values.
@@ -150,7 +150,7 @@ public class MmConfigurationLocalDateTime extends MmBaseAttributeConfiguration<L
    *
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
-  public void setJsfTag(MmDateJsfTag pJsfTag) {
+  public void setJsfTag(MmLocalDateTimeJsfTag pJsfTag) {
     this.jsfTag = pJsfTag;
   }
 

@@ -14,26 +14,29 @@ import org.minutenwerk.mimic4j.api.attribute.MmInstantAnnotation;
  */
 public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant> {
 
+  /** Constant for default value of format pattern for parsing user input and formatting viewside value. */
+  public static final String               DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy HH:mm:ss";
+
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int                  DEFAULT_FORMAT_MAX_LENGTH     = 255;
+  public static final int                  DEFAULT_FORMAT_MAX_LENGTH = 19;
 
   /** Constant for default value of default value. */
-  public static final Instant              DEFAULT_DEFAULT_VALUE         = null;
+  public static final Instant              DEFAULT_DEFAULT_VALUE     = null;
 
-  /** Constant for default value of default value of type long. */
-  public static final long                 DEFAULT_DEFAULT_VALUE_AS_LONG = 0L;
+  /** Redundant to {@link MmDateAnnotation.jsfTag()}. */
+  public static final MmInstantJsfTag      DEFAULT_JSF_TAG           = MmInstantJsfTag.TextField;
 
-  /** Redundant to {@link MmInstantAnnotation.jsfTag()}. */
-  public static final MmInstantJsfTag      DEFAULT_JSF_TAG               = MmInstantJsfTag.TextField;
+  /** Redundant to {@link MmDateAnnotation.jsfTagDisabled()}. */
+  public static final MmInstantJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmInstantJsfDisabled.SameAsEnabled;
 
-  /** Redundant to {@link MmInstantAnnotation.jsfTagDisabled()}. */
-  public static final MmInstantJsfDisabled DEFAULT_JSF_TAG_DISABLED      = MmInstantJsfDisabled.SameAsEnabled;
-
-  /** Maximum length of formatted input string. */
-  protected int                            formatMaxLength;
+  /** Format pattern for parsing user input and formatting viewside value. */
+  protected String                         formatPattern;
 
   /** The default value. */
   protected Instant                        defaultValue;
+
+  /** Maximum length of formatted input string. */
+  protected int                            formatMaxLength;
 
   /** The JSF tag in enabled state. */
   protected MmInstantJsfTag                jsfTag;
@@ -42,29 +45,32 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
   protected MmInstantJsfDisabled           jsfTagDisabled;
 
   /**
-   * Creates a new MmConfigurationInstant instance of default values.
+   * Creates a new MmConfigurationDate instance of default values.
    */
   public MmConfigurationInstant() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
+    this.formatPattern   = DEFAULT_FORMAT_PATTERN;
     this.defaultValue    = DEFAULT_DEFAULT_VALUE;
+    this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     this.jsfTag          = DEFAULT_JSF_TAG;
     this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
-   * Creates a new MmConfigurationInstant instance from annotation.
+   * Creates a new MmConfigurationDate instance from annotation.
    *
-   * @param  pInstantAnnotation  The annotation to create the configuration from.
+   * @param  pDateAnnotation  The annotation to create the configuration from.
    */
-  public MmConfigurationInstant(MmInstantAnnotation pInstantAnnotation) {
-    super(pInstantAnnotation.id(), pInstantAnnotation.visible(), pInstantAnnotation.readOnly(), pInstantAnnotation.enabled(),
-      pInstantAnnotation.required());
+  public MmConfigurationInstant(MmInstantAnnotation pDateAnnotation) {
+    super(pDateAnnotation.id(), pDateAnnotation.visible(), pDateAnnotation.readOnly(), pDateAnnotation.enabled(),
+      pDateAnnotation.required());
+    this.formatPattern   = pDateAnnotation.formatPattern();
 
-    this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.defaultValue    = Instant.ofEpochMilli(pInstantAnnotation.defaultValue());
-    this.jsfTag          = pInstantAnnotation.jsfTag();
-    this.jsfTagDisabled  = pInstantAnnotation.jsfTagDisabled();
+    // there is no default value for date in annotation
+    this.defaultValue    = DEFAULT_DEFAULT_VALUE;
+    this.formatMaxLength = pDateAnnotation.formatMaxLength();
+    this.jsfTag          = pDateAnnotation.jsfTag();
+    this.jsfTagDisabled  = pDateAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -83,6 +89,15 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    */
   public int getFormatMaxLength() {
     return this.formatMaxLength;
+  }
+
+  /**
+   * Returns the configuration of format pattern for parsing user input and formatting viewside value.
+   *
+   * @return  The configuration of format pattern for parsing user input and formatting viewside value.
+   */
+  public String getFormatPattern() {
+    return this.formatPattern;
   }
 
   /**
@@ -119,6 +134,15 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    */
   public void setFormatMaxLength(int pFormatMaxLength) {
     this.formatMaxLength = pFormatMaxLength;
+  }
+
+  /**
+   * Sets the configuration of format pattern for parsing user input and formatting viewside value.
+   *
+   * @param  pFormatPattern  The specified configuration of format pattern for parsing user input and formatting viewside value.
+   */
+  public void setFormatPattern(String pFormatPattern) {
+    this.formatPattern = pFormatPattern;
   }
 
   /**

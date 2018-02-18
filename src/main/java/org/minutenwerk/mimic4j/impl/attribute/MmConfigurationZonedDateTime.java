@@ -18,7 +18,7 @@ public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<Z
   public static final String                DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy HH:mm:ss";
 
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int                   DEFAULT_FORMAT_MAX_LENGTH = 255;
+  public static final int                   DEFAULT_FORMAT_MAX_LENGTH = 19;
 
   /** Constant for default value of default value. */
   public static final ZonedDateTime         DEFAULT_DEFAULT_VALUE     = null;

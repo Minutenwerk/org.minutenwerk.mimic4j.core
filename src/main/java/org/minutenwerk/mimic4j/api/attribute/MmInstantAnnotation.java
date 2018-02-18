@@ -28,9 +28,9 @@ public @interface MmInstantAnnotation {
 
   public boolean enabled() default MmConfigurationInstant.DEFAULT_IS_ENABLED;
 
-  public long defaultValue() default MmConfigurationInstant.DEFAULT_DEFAULT_VALUE_AS_LONG;
-
   public boolean required() default MmConfigurationInstant.DEFAULT_IS_REQUIRED;
+
+  public String formatPattern() default MmConfigurationInstant.DEFAULT_FORMAT_PATTERN;
 
   public int formatMaxLength() default MmConfigurationInstant.DEFAULT_FORMAT_MAX_LENGTH;
 

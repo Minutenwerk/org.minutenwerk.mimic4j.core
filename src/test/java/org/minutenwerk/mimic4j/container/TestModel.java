@@ -1,6 +1,10 @@
 package org.minutenwerk.mimic4j.container;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 
 public class TestModel {
 
@@ -11,6 +15,14 @@ public class TestModel {
   private boolean isMember;
 
   private LocalDate birthday;
+
+  private Instant instant;
+
+  private LocalTime localTime;
+
+  private LocalDateTime localDateTime;
+
+  private ZonedDateTime zonedDateTime;
 
   private Gender gender;
   
@@ -25,7 +37,7 @@ public class TestModel {
     return this.vorname;
   }
 
-  public TestModel setVorname(String vorname) {
+  public TestModel setVorname(final String vorname) {
     this.vorname = vorname;
     return this;
   }
@@ -34,7 +46,7 @@ public class TestModel {
     return this.nachname;
   }
 
-  public TestModel setNachname(String nachname) {
+  public TestModel setNachname(final String nachname) {
     this.nachname = nachname;
     return this;
   }
@@ -43,7 +55,7 @@ public class TestModel {
     return this.isMember;
   }
 
-  public TestModel setMember(boolean isMember) {
+  public TestModel setMember(final boolean isMember) {
     this.isMember = isMember;
     return this;
   }
@@ -52,7 +64,7 @@ public class TestModel {
     return this.birthday;
   }
 
-  public TestModel setBirthday(LocalDate birthday) {
+  public TestModel setBirthday(final LocalDate birthday) {
     this.birthday = birthday;
     return this;
   }
@@ -61,8 +73,8 @@ public class TestModel {
     return this.gender;
   }
 
-  public final TestModel setGender(Gender pGender) {
-    this.gender = pGender;
+  public final TestModel setGender(final Gender gender) {
+    this.gender = gender;
     return this;
   }
 
@@ -70,9 +82,41 @@ public class TestModel {
     return this.adresse;
   }
 
-  public TestModel setAdresse(TestAdresse pAdresse) {
-    this.adresse = pAdresse;
+  public TestModel setAdresse(final TestAdresse adresse) {
+    this.adresse = adresse;
     return this;
+  }
+
+  public Instant getInstant() {
+    return this.instant;
+  }
+
+  public void setInstant(final Instant instant) {
+    this.instant = instant;
+  }
+
+  public LocalTime getLocalTime() {
+    return this.localTime;
+  }
+
+  public void setLocalTime(final LocalTime localTime) {
+    this.localTime = localTime;
+  }
+
+  public LocalDateTime getLocalDateTime() {
+    return this.localDateTime;
+  }
+
+  public void setLocalDateTime(final LocalDateTime localDateTime) {
+    this.localDateTime = localDateTime;
+  }
+
+  public ZonedDateTime getZonedDateTime() {
+    return this.zonedDateTime;
+  }
+
+  public void setZonedDateTime(final ZonedDateTime zonedDateTime) {
+    this.zonedDateTime = zonedDateTime;
   }
 
 }
