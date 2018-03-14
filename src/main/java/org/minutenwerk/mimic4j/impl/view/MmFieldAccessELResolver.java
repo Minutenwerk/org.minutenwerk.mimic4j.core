@@ -18,7 +18,7 @@ import org.minutenwerk.mimic4j.api.MmMimic;
  *
  * <pre>
     <application>
-<!-- configuration of mimic4j -->
+      <!-- configuration of mimic4j -->
       <el-resolver>org.minutenwerk.mimic4j.impl.view.MmFieldAccessELResolver</el-resolver>
  * </pre>
  *
