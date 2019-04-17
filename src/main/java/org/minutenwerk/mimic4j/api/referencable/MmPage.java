@@ -28,7 +28,8 @@ public abstract class MmPage<MODEL extends MmReferencableModel> extends MmBaseRe
    *
    * @return  The file part of the URL without slashes.
    */
-  @Override public String callbackMmGetReferenceFile(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetReferenceFile(String pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -40,7 +41,8 @@ public abstract class MmPage<MODEL extends MmReferencableModel> extends MmBaseRe
    *
    * @return  The path part of the URL including trailing slash but without base part.
    */
-  @Override public String callbackMmGetReferencePath(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetReferencePath(String pPassThroughValue) {
     return pPassThroughValue;
   }
 

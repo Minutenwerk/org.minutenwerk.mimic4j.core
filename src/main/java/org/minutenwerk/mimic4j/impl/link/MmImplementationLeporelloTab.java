@@ -76,7 +76,8 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    *
    * @return  A String containing space delimited <code>CSS</code> style classes.
    */
-  @Override public String getMmStyleClasses() {
+  @Override
+  public String getMmStyleClasses() {
     this.ensureInitialization();
 
     String styleClasses = super.getMmStyleClasses();
@@ -91,7 +92,8 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    *
    * @return  The link's viewside value of type String.
    */
-  @Override public String getMmViewsideValue() {
+  @Override
+  public String getMmViewsideValue() {
     // if model is an array of objects
     if (this.modelsideValue instanceof Object[]) {
 
@@ -222,7 +224,8 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeLeporelloTab(this);
   }
 
@@ -230,7 +233,8 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
    * super.initialize()!
    */
-  @Override protected void initialize() {
+  @Override
+  protected void initialize() {
     super.initialize();
     this.parentLeporello = this.getImplementationAncestorOfType(MmImplementationLeporello.class);
   }
@@ -238,7 +242,8 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLeporelloTabAnnotation.class);
 

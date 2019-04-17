@@ -67,7 +67,8 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    *
    * @return  The configuration of default value.
    */
-  @Override public Float getDefaultValue() {
+  @Override
+  public Float getDefaultValue() {
     return this.defaultValue;
   }
 
@@ -85,7 +86,8 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    *
    * @return  The configuration of JSF tag in disabled state.
    */
-  @Override public String getJsfTagDisabled() {
+  @Override
+  public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
   }
 
@@ -94,7 +96,8 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    *
    * @return  The configuration of JSF tag in enabled state.
    */
-  @Override public String getJsfTagEnabled() {
+  @Override
+  public String getJsfTagEnabled() {
     return this.jsfTag.name();
   }
 

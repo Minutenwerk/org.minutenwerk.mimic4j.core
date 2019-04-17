@@ -84,7 +84,8 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(BigDecimal pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(BigDecimal pModelsideValue) throws MmModelsideConverterException {
     String returnString;
     if (pModelsideValue == null) {
       returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
@@ -112,7 +113,8 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public BigDecimal callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public BigDecimal callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     BigDecimal returnBigDecimal;
     if (this.isMmEmpty()) {
       returnBigDecimal = null;
@@ -140,7 +142,8 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public BigDecimal callbackMmGetDefaultValue(BigDecimal pPassThroughValue) {
+  @Override
+  public BigDecimal callbackMmGetDefaultValue(BigDecimal pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -151,7 +154,8 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
     return null;
   }
 
@@ -164,7 +168,8 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(BigDecimal pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(BigDecimal pModelsideValue) throws MmValidatorException {
   }
 
   /**
@@ -172,7 +177,8 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @return  The initialized number formatter of this mimic.
    */
-  @Override protected NumberFormat getMmNumberFormatter() {
+  @Override
+  protected NumberFormat getMmNumberFormatter() {
     final String formatPattern = this.getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 

@@ -35,7 +35,8 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @throws  IllegalStateException  In case of mimic is not an instance of MmCommand.
    */
-  @Override public String callbackMmDoIt() {
+  @Override
+  public String callbackMmDoIt() {
     throw new IllegalStateException("method callbackMmDoIt is not implemented on " + this.getClass().getSimpleName());
   }
 
@@ -46,7 +47,8 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @return  The current JSF tag of this mimic.
    */
-  @Override public MmCommandJsfTag callbackMmGetJsfTag(MmCommandJsfTag pPassThroughValue) {
+  @Override
+  public MmCommandJsfTag callbackMmGetJsfTag(MmCommandJsfTag pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -59,7 +61,8 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @jalopy.group  group-callback
    */
-  @Override public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue) {
+  @Override
+  public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -72,7 +75,8 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmGetTargetOutcome(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetTargetOutcome(String pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -86,7 +90,8 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @jalopy.group  group-callback
    */
-  @Override public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel) {
+  @Override
+  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel) {
     return pPassThroughValue;
   }
 
@@ -95,7 +100,8 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @return  A control string, most times used as outcome string for JSF.
    */
-  @Override public final String doMmIt() {
+  @Override
+  public final String doMmIt() {
     return this.implementation.doMmIt();
   }
 
@@ -106,7 +112,8 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @jalopy.group  group-override
    */
-  @Override public final MmReference getMmTargetReference() {
+  @Override
+  public final MmReference getMmTargetReference() {
     return this.implementation.getMmTargetReference();
   }
 

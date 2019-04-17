@@ -45,7 +45,8 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    *
    * @return  True, if both objects are the same.
    */
-  @Override public boolean equals(Object pThat) {
+  @Override
+  public boolean equals(Object pThat) {
     if (this == pThat) {
       return true;
     } else if ((pThat == null) || !(pThat instanceof MmSelectOption<?>)) {
@@ -99,7 +100,8 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    *
    * @return  The hash value of this Java object.
    */
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     return (id != null) ? id.hashCode() : super.hashCode();
   }
 
@@ -127,7 +129,8 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    *
    * @return  Some information about this object for development purposes like debugging and logging.
    */
-  @Override public String toString() {
+  @Override
+  public String toString() {
     StringBuilder snippet = new StringBuilder();
     snippet.append("id=");
     snippet.append(this.id);

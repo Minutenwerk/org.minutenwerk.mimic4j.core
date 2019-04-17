@@ -78,7 +78,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-do
    */
-  @Override public void doMmReset() {
+  @Override
+  public void doMmReset() {
     this.ensureInitialization();
 
     this.clearMessageListRecursively(this);
@@ -97,7 +98,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-do
    */
-  @Override public void doMmSetDefaults() {
+  @Override
+  public void doMmSetDefaults() {
     this.ensureInitialization();
 
     this.clearMessageListRecursively(this);
@@ -110,7 +112,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-do
    */
-  @Override public void doMmSetModelFromModelside() {
+  @Override
+  public void doMmSetModelFromModelside() {
     this.ensureInitialization();
 
     this.clearMessageListRecursively(this);
@@ -136,7 +139,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-do
    */
-  @Override public void doMmSetModelsideFromModel(MODEL pModel) {
+  @Override
+  public void doMmSetModelsideFromModel(MODEL pModel) {
     this.ensureInitialization();
 
     this.clearMessageListRecursively(this);
@@ -163,7 +167,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-do
    */
-  @Override public void doMmValidate() throws MmValidatorException {
+  @Override
+  public void doMmValidate() throws MmValidatorException {
     this.ensureInitialization();
 
     this.clearMessageListRecursively(this);
@@ -396,7 +401,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-get
    */
-  @Override public MODEL getMmModel() {
+  @Override
+  public MODEL getMmModel() {
     this.ensureInitialization();
 
     return this.model;
@@ -409,7 +415,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-get
    */
-  @Override public Class<MODEL> getMmModelType() {
+  @Override
+  public Class<MODEL> getMmModelType() {
     this.ensureInitialization();
 
     return findGenericsParameterType(this.getClass(), MmBaseContainerImplementation.class, GENERIC_PARAMETER_INDEX_MODEL);
@@ -422,7 +429,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-get
    */
-  @Override public void setMmModel(MODEL pModel) {
+  @Override
+  public void setMmModel(MODEL pModel) {
     this.ensureInitialization();
 
     this.model = pModel;
@@ -468,7 +476,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-changed-front
    */
-  @Override public boolean isMmChangedFromViewside() {
+  @Override
+  public boolean isMmChangedFromViewside() {
     this.ensureInitialization();
 
     return isChangedFromViewsideRecursively(this);
@@ -515,7 +524,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-required
    */
-  @Override public boolean isMmRequired() {
+  @Override
+  public boolean isMmRequired() {
     this.ensureInitialization();
 
     return isRequiredRecursively(this);
@@ -562,7 +572,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-is-reset
    */
-  @Override public boolean isMmResetEnabled() {
+  @Override
+  public boolean isMmResetEnabled() {
     this.ensureInitialization();
 
     return isResetEnabledRecursively(this);
@@ -609,7 +620,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-valid
    */
-  @Override public boolean isMmValid() {
+  @Override
+  public boolean isMmValid() {
     this.ensureInitialization();
 
     return isValidRecursively(this);

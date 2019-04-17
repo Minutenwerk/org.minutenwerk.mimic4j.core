@@ -79,7 +79,8 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(LocalDate pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(LocalDate pModelsideValue) throws MmModelsideConverterException {
     String formatPattern = null;
     try {
       if (pModelsideValue == null) {
@@ -110,7 +111,8 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
    *
    * @jalopy.group  group-callback
    */
-  @Override public LocalDate callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public LocalDate callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     LocalDate returnDate;
     String    formatPattern = null;
     if (this.isMmEmpty()) {
@@ -140,7 +142,8 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
    *
    * @jalopy.group  group-callback
    */
-  @Override public LocalDate callbackMmGetDefaultValue(LocalDate pPassThroughValue) {
+  @Override
+  public LocalDate callbackMmGetDefaultValue(LocalDate pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -151,7 +154,8 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
    *
    * @jalopy.group  group-callback
    */
-  @Override public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
     return null;
   }
 
@@ -164,7 +168,8 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(LocalDate pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(LocalDate pModelsideValue) throws MmValidatorException {
   }
 
 }

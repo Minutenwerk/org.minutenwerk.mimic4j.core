@@ -45,7 +45,8 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
    *
    * @param  pModel  The model to set values into.
    */
-  @Override public final void callbackMmSetModelFromModelside(MODEL pModel) {
+  @Override
+  public final void callbackMmSetModelFromModelside(MODEL pModel) {
     // do nothing. Because leporellos are read only, this method can never be called, therefore it is made final here
   }
 
@@ -55,7 +56,8 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
    * @param  pModel     The model containing the values to be set, cannot be null.
    * @param  pSubModel  The sub model containing the values to be set, can be null.
    */
-  @Override public void callbackMmSetModelsideFromModel(MODEL pModel, SUB_MODEL pSubModel) {
+  @Override
+  public void callbackMmSetModelsideFromModel(MODEL pModel, SUB_MODEL pSubModel) {
   }
 
   /**

@@ -27,7 +27,8 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    *
    * @return  The attribute's number of columns.
    */
-  @Override public int getMmCols() {
+  @Override
+  public int getMmCols() {
     this.ensureInitialization();
 
     return this.configuration.getCols();
@@ -38,7 +39,8 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    *
    * @return  The attribute's number of rows.
    */
-  @Override public int getMmRows() {
+  @Override
+  public int getMmRows() {
     this.ensureInitialization();
 
     return this.configuration.getRows();
@@ -49,7 +51,8 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
    */
-  @Override public boolean isMmEmpty() {
+  @Override
+  public boolean isMmEmpty() {
     this.ensureInitialization();
 
     return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
@@ -60,14 +63,16 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
   }
 
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmStringAnnotation.class);
 

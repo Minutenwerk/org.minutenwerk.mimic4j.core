@@ -66,7 +66,8 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    *
    * @return  The configuration of default value.
    */
-  @Override public Long getDefaultValue() {
+  @Override
+  public Long getDefaultValue() {
     return this.defaultValue;
   }
 
@@ -84,7 +85,8 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    *
    * @return  The configuration of JSF tag in disabled state.
    */
-  @Override public String getJsfTagDisabled() {
+  @Override
+  public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
   }
 
@@ -93,7 +95,8 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    *
    * @return  The configuration of JSF tag in enabled state.
    */
-  @Override public String getJsfTagEnabled() {
+  @Override
+  public String getJsfTagEnabled() {
     return this.jsfTag.name();
   }
 

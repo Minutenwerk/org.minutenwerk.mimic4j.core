@@ -40,7 +40,8 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
    *
    * @param  pModel  The model to set values into.
    */
-  @Override public final void callbackMmSetModelFromModelside(MODEL pModel) {
+  @Override
+  public final void callbackMmSetModelFromModelside(MODEL pModel) {
     // do nothing, because leporello panels are read only, this method can never be called, therefore it is overriden here and made final
   }
 

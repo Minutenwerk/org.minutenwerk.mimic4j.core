@@ -25,7 +25,8 @@ public class MmJsfBridgeAttributeEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends
    *
    * @return  The value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
    */
-  @Override public String getValue() {
+  @Override
+  public String getValue() {
     @SuppressWarnings("unchecked")
     MmImplementationEnum<ENUM_TYPE> implementationEnum = ((MmImplementationEnum<ENUM_TYPE>)this.implementation);
     if (implementationEnum.isMmReadOnly() || !implementationEnum.isMmEnabled()) {

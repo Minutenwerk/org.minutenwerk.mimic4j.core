@@ -33,7 +33,8 @@ public class MmReferencableModelChain implements MmReferencableModel {
    *
    * @return  A list of query parameter values of the URL.
    */
-  @Override public List<String> getMmReferenceValues() {
+  @Override
+  public List<String> getMmReferenceValues() {
     return this.referenceValues;
   }
 }

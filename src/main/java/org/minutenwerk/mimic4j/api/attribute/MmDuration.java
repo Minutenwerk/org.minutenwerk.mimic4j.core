@@ -84,7 +84,8 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(Duration pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(Duration pModelsideValue) throws MmModelsideConverterException {
     String returnString;
     if (pModelsideValue == null) {
       returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
@@ -112,7 +113,8 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    *
    * @jalopy.group  group-callback
    */
-  @Override public Duration callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public Duration callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     Duration returnDuration;
     if (this.isMmEmpty()) {
       returnDuration = null;
@@ -139,7 +141,8 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    *
    * @jalopy.group  group-callback
    */
-  @Override public Duration callbackMmGetDefaultValue(Duration pPassThroughValue) {
+  @Override
+  public Duration callbackMmGetDefaultValue(Duration pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -150,7 +153,8 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    *
    * @jalopy.group  group-callback
    */
-  @Override public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
     return null;
   }
 
@@ -163,7 +167,8 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(Duration pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(Duration pModelsideValue) throws MmValidatorException {
   }
 
   /**
@@ -171,7 +176,8 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    *
    * @return  The initialized number formatter of this mimic.
    */
-  @Override protected NumberFormat getMmNumberFormatter() {
+  @Override
+  protected NumberFormat getMmNumberFormatter() {
     final String formatPattern = this.getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 

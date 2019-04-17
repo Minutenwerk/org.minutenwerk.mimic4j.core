@@ -46,7 +46,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmGetFormatPattern(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetFormatPattern(String pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -59,7 +60,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @jalopy.group  group-callback
    */
-  @Override public int callbackMmGetMaxLength(int pPassThroughValue) {
+  @Override
+  public int callbackMmGetMaxLength(int pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -72,7 +74,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @jalopy.group  group-callback
    */
-  @Override public boolean callbackMmIsRequired(boolean pPassThroughValue) {
+  @Override
+  public boolean callbackMmIsRequired(boolean pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -83,7 +86,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @jalopy.group  group-lifecycle
    */
-  @Override public final void setMmModelsideValue(MODELSIDE_VALUE pModelsideValue) {
+  @Override
+  public final void setMmModelsideValue(MODELSIDE_VALUE pModelsideValue) {
     this.implementation.setMmModelsideValue(pModelsideValue);
   }
 
@@ -94,7 +98,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @jalopy.group  group-lifecycle
    */
-  @Override public final void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
+  @Override
+  public final void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
     this.implementation.setMmViewsideValue(pViewsideValue);
   }
 
@@ -107,7 +112,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *   <li>passing converted value into viewside value</li>
    * </ol>
    */
-  @Override public final void doMmReset() {
+  @Override
+  public final void doMmReset() {
     this.implementation.clearMmMessageList();
     this.implementation.doMmReset();
   }
@@ -121,7 +127,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *   <li>passing converted value into viewside value</li>
    * </ol>
    */
-  @Override public final void doMmSetDefaults() {
+  @Override
+  public final void doMmSetDefaults() {
     this.implementation.clearMmMessageList();
     this.implementation.doMmSetDefaults();
   }
@@ -136,7 +143,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *   <li>validating modelside value</li>
    * </ol>
    */
-  @Override public final void doMmValidate() {
+  @Override
+  public final void doMmValidate() {
     this.implementation.clearMmMessageList();
     this.implementation.doMmValidate();
   }
@@ -146,7 +154,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's number of columns.
    */
-  @Override public final int getMmCols() {
+  @Override
+  public final int getMmCols() {
     return this.implementation.getMmCols();
   }
 
@@ -155,7 +164,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's default value of type MODELSIDE_VALUE.
    */
-  @Override public final MODELSIDE_VALUE getMmDefaultValue() {
+  @Override
+  public final MODELSIDE_VALUE getMmDefaultValue() {
     return this.implementation.getMmDefaultValue();
   }
 
@@ -164,7 +174,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's maximum number of characters for input.
    */
-  @Override public final int getMmFormatMaxLength() {
+  @Override
+  public final int getMmFormatMaxLength() {
     return this.implementation.getMmFormatMaxLength();
   }
 
@@ -174,7 +185,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's format pattern for displaying viewside value.
    */
-  @Override public final String getMmFormatPattern() {
+  @Override
+  public final String getMmFormatPattern() {
     return this.implementation.getMmFormatPattern();
   }
 
@@ -183,7 +195,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's layout direction.
    */
-  @Override public final MmBooleanLayout getMmLayout() {
+  @Override
+  public final MmBooleanLayout getMmLayout() {
     return this.implementation.getMmLayout();
   }
 
@@ -192,7 +205,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The type of modelside value of the mimic.
    */
-  @Override public final Class<MODELSIDE_VALUE> getMmModelsideType() {
+  @Override
+  public final Class<MODELSIDE_VALUE> getMmModelsideType() {
     return this.implementation.getMmModelsideType();
   }
 
@@ -201,7 +215,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The modelside value of the mimic.
    */
-  @Override public final MODELSIDE_VALUE getMmModelsideValue() {
+  @Override
+  public final MODELSIDE_VALUE getMmModelsideValue() {
     return this.implementation.getMmModelsideValue();
   }
 
@@ -210,7 +225,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's reset value of type MODELSIDE_VALUE.
    */
-  @Override public final MODELSIDE_VALUE getMmResetValue() {
+  @Override
+  public final MODELSIDE_VALUE getMmResetValue() {
     return this.implementation.getMmResetValue();
   }
 
@@ -219,7 +235,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's number of rows.
    */
-  @Override public final int getMmRows() {
+  @Override
+  public final int getMmRows() {
     return this.implementation.getMmRows();
   }
 
@@ -228,7 +245,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's row size of option list.
    */
-  @Override public final int getMmSize() {
+  @Override
+  public final int getMmSize() {
     return this.implementation.getMmSize();
   }
 
@@ -237,7 +255,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's type of viewside value.
    */
-  @Override public final Class<VIEWSIDE_VALUE> getMmViewsideType() {
+  @Override
+  public final Class<VIEWSIDE_VALUE> getMmViewsideType() {
     return this.implementation.getMmViewsideType();
   }
 
@@ -246,7 +265,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  The attribute's viewside value of type VIEWSIDE_VALUE.
    */
-  @Override public final VIEWSIDE_VALUE getMmViewsideValue() {
+  @Override
+  public final VIEWSIDE_VALUE getMmViewsideValue() {
     return this.implementation.getMmViewsideValue();
   }
 
@@ -256,7 +276,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  <code>True</code>, if mimic has been changed from viewside.
    */
-  @Override public final boolean isMmChangedFromViewside() {
+  @Override
+  public final boolean isMmChangedFromViewside() {
     return this.implementation.isMmChangedFromViewside();
   }
 
@@ -265,7 +286,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
    */
-  @Override public final boolean isMmEmpty() {
+  @Override
+  public final boolean isMmEmpty() {
     return this.implementation.isMmEmpty();
   }
 
@@ -274,7 +296,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  <code>True</code> if a value from view has to be set.
    */
-  @Override public final boolean isMmRequired() {
+  @Override
+  public final boolean isMmRequired() {
     return this.implementation.isMmRequired();
   }
 
@@ -283,7 +306,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  <code>true</code> if the action {@link MmEditableMimic.doMmReset} is executable.
    */
-  @Override public final boolean isMmResetEnabled() {
+  @Override
+  public final boolean isMmResetEnabled() {
     return this.implementation.isMmResetEnabled();
   }
 
@@ -292,7 +316,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return  <code>True</code> if the mimic has been validated without any errors.
    */
-  @Override public final boolean isMmValid() {
+  @Override
+  public final boolean isMmValid() {
     return this.implementation.isMmValid();
   }
 

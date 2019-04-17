@@ -43,7 +43,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmGetLongDescription(String pPassThroughValue, Object... pArguments) {
+  @Override
+  public String callbackMmGetLongDescription(String pPassThroughValue, Object... pArguments) {
     return pPassThroughValue;
   }
 
@@ -59,7 +60,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmGetShortDescription(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetShortDescription(String pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -72,7 +74,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmGetStyleClasses(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetStyleClasses(String pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -86,7 +89,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-callback
    */
-  @Override public boolean callbackMmIsEnabled(boolean pPassThroughValue) {
+  @Override
+  public boolean callbackMmIsEnabled(boolean pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -100,7 +104,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-callback
    */
-  @Override public boolean callbackMmIsReadOnly(boolean pPassThroughValue) {
+  @Override
+  public boolean callbackMmIsReadOnly(boolean pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -114,7 +119,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-callback
    */
-  @Override public boolean callbackMmIsVisible(boolean pPassThroughValue) {
+  @Override
+  public boolean callbackMmIsVisible(boolean pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -127,7 +133,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final String getMmFullName() {
+  @Override
+  public final String getMmFullName() {
     return this.implementation.getMmFullName();
   }
 
@@ -138,7 +145,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final String getMmId() {
+  @Override
+  public final String getMmId() {
     return this.implementation.getMmId();
   }
 
@@ -151,7 +159,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final String getMmLongDescription() {
+  @Override
+  public final String getMmLongDescription() {
     return this.implementation.getMmLongDescription();
   }
 
@@ -163,7 +172,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final String getMmName() {
+  @Override
+  public final String getMmName() {
     return this.implementation.getMmName();
   }
 
@@ -174,7 +184,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final MmReference getMmReference() {
+  @Override
+  public final MmReference getMmReference() {
     return this.implementation.getMmReference();
   }
 
@@ -187,7 +198,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final MmReference getMmReference(MmReferencableModel pModel) {
+  @Override
+  public final MmReference getMmReference(MmReferencableModel pModel) {
     return this.implementation.getMmReference(pModel);
   }
 
@@ -200,7 +212,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final String getMmShortDescription() {
+  @Override
+  public final String getMmShortDescription() {
     return this.implementation.getMmShortDescription();
   }
 
@@ -213,7 +226,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final String getMmStyleClasses() {
+  @Override
+  public final String getMmStyleClasses() {
     return this.implementation.getMmStyleClasses();
   }
 
@@ -225,7 +239,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final boolean isMmEnabled() {
+  @Override
+  public final boolean isMmEnabled() {
     return this.implementation.isMmEnabled();
   }
 
@@ -237,7 +252,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final boolean isMmReadOnly() {
+  @Override
+  public final boolean isMmReadOnly() {
     return this.implementation.isMmReadOnly();
   }
 
@@ -248,7 +264,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final boolean isMmRuntimeChild() {
+  @Override
+  public final boolean isMmRuntimeChild() {
     return this.implementation.isMmRuntimeChild();
   }
 
@@ -260,7 +277,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public final boolean isMmVisible() {
+  @Override
+  public final boolean isMmVisible() {
     return this.implementation.isMmVisible();
   }
 
@@ -272,7 +290,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
-  @Override public String toString() {
+  @Override
+  public String toString() {
     StringBuilder sb = new StringBuilder();
     if (this.implementation == null) {
       Class<?> clazz = this.getClass();
@@ -294,7 +313,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @return  An array of message arguments for the long description.
    */
-  @Override public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValue) {
+  @Override
+  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValue) {
     return pPassThroughValue;
   }
 

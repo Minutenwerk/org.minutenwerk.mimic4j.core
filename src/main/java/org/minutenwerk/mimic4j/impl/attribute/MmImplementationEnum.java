@@ -40,7 +40,8 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
    */
-  @Override public boolean isMmEmpty() {
+  @Override
+  public boolean isMmEmpty() {
     this.ensureInitialization();
 
     return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty() || this.viewsideValue.equals("UNDEFINED"));
@@ -51,14 +52,16 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttributeEnum<ENUM_TYPE>(this);
   }
 
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmEnumAnnotation.class);
 

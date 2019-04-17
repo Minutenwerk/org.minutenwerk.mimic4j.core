@@ -27,7 +27,8 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
    *
    * @return  The attribute's layout direction.
    */
-  @Override public MmBooleanLayout getMmLayout() {
+  @Override
+  public MmBooleanLayout getMmLayout() {
     this.ensureInitialization();
 
     return this.getConfiguration().getLayout();
@@ -38,14 +39,16 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttribute<Boolean>(this);
   }
 
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmBooleanAnnotation.class);
 

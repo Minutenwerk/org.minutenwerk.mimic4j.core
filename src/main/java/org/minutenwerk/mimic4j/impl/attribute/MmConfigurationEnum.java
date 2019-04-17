@@ -69,7 +69,8 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    *
    * @return  The configuration of default value.
    */
-  @Override public ENUM_TYPE getDefaultValue() {
+  @Override
+  public ENUM_TYPE getDefaultValue() {
     return this.defaultValue;
   }
 
@@ -78,7 +79,8 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    *
    * @return  The configuration of JSF tag in disabled state.
    */
-  @Override public String getJsfTagDisabled() {
+  @Override
+  public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
   }
 
@@ -87,7 +89,8 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    *
    * @return  The configuration of JSF tag in enabled state.
    */
-  @Override public String getJsfTagEnabled() {
+  @Override
+  public String getJsfTagEnabled() {
     return this.jsfTag.name();
   }
 

@@ -37,7 +37,8 @@ public abstract class MmBaseReferencableDeclaration<MODEL extends MmReferencable
    *
    * @return  The list of query parameters of the URL.
    */
-  @Override public List<MmNameValue> callbackMmGetReferenceParams(List<MmNameValue> pPassThroughValue, MODEL pModel) {
+  @Override
+  public List<MmNameValue> callbackMmGetReferenceParams(List<MmNameValue> pPassThroughValue, MODEL pModel) {
     return pPassThroughValue;
   }
 

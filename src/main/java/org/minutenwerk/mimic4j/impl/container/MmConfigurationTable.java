@@ -35,7 +35,8 @@ public class MmConfigurationTable extends MmBaseConfiguration {
    *
    * @return  The configuration of JSF tag in disabled state.
    */
-  @Override public String getJsfTagDisabled() {
+  @Override
+  public String getJsfTagDisabled() {
     return DEFAULT_JSF_TAG;
   }
 
@@ -44,7 +45,8 @@ public class MmConfigurationTable extends MmBaseConfiguration {
    *
    * @return  The configuration of JSF tag in enabled state.
    */
-  @Override public String getJsfTagEnabled() {
+  @Override
+  public String getJsfTagEnabled() {
     return DEFAULT_JSF_TAG;
   }
 

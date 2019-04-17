@@ -67,8 +67,8 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
    *
    * @jalopy.group  group-callback
    */
-  @Override public List<String> callbackMmConvertModelsideToViewsideValue(List<String> pModelsideValue)
-    throws MmModelsideConverterException {
+  @Override
+  public List<String> callbackMmConvertModelsideToViewsideValue(List<String> pModelsideValue) throws MmModelsideConverterException {
     final List<String> returnList = new ArrayList<>();
     if (pModelsideValue == null) {
       returnList.add(ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE);
@@ -111,7 +111,8 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
    *
    * @jalopy.group  group-callback
    */
-  @Override public List<String> callbackMmGetDefaultValue(List<String> pPassThroughValue) {
+  @Override
+  public List<String> callbackMmGetDefaultValue(List<String> pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -148,7 +149,8 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(List<String> pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(List<String> pModelsideValue) throws MmValidatorException {
   }
 
 }

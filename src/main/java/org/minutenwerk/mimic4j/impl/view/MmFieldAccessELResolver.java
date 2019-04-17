@@ -18,7 +18,7 @@ import org.minutenwerk.mimic4j.api.MmMimic;
  *
  * <pre>
     <application>
-      <!-- configuration of mimic4j -->
+<!-- configuration of mimic4j -->
       <el-resolver>org.minutenwerk.mimic4j.impl.view.MmFieldAccessELResolver</el-resolver>
  * </pre>
  *
@@ -48,7 +48,8 @@ public class MmFieldAccessELResolver extends ELResolver {
    *          <code>Object.class</code> if any type of <code>property</code> is accepted; otherwise the most general <code>property</code>
    *          type accepted for the given <code>base</code>.
    */
-  @Override public Class<?> getCommonPropertyType(ELContext pContext, Object pBase) {
+  @Override
+  public Class<?> getCommonPropertyType(ELContext pContext, Object pBase) {
     if (pBase instanceof MmMimic) {
       try {
         pContext.setPropertyResolved(true);
@@ -108,7 +109,8 @@ public class MmFieldAccessELResolver extends ELResolver {
    *
    * @see     java.beans.FeatureDescriptor
    */
-  @Override public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext pContext, Object pBase) {
+  @Override
+  public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext pContext, Object pBase) {
     return null;
   }
 
@@ -131,7 +133,8 @@ public class MmFieldAccessELResolver extends ELResolver {
    * @return  If the <code>propertyResolved</code> property of <code>ELContext</code> was set to <code>true</code>, then the most general
    *          acceptable type; otherwise undefined.
    */
-  @Override public Class<?> getType(ELContext pContext, Object pBase, Object pProperty) {
+  @Override
+  public Class<?> getType(ELContext pContext, Object pBase, Object pProperty) {
     if (pBase instanceof MmMimic) {
       try {
         Field field = pBase.getClass().getField((String)pProperty);
@@ -160,7 +163,8 @@ public class MmFieldAccessELResolver extends ELResolver {
    * @return  If the <code>propertyResolved</code> property of <code>ELContext</code> was set to <code>true</code>, then the result of the
    *          variable or property resolution; otherwise undefined.
    */
-  @Override public Object getValue(ELContext pContext, Object pBase, Object pProperty) {
+  @Override
+  public Object getValue(ELContext pContext, Object pBase, Object pProperty) {
     if (pBase instanceof MmMimic) {
       try {
         Field field = pBase.getClass().getField((String)pProperty);
@@ -190,7 +194,8 @@ public class MmFieldAccessELResolver extends ELResolver {
    * @return  If the <code>propertyResolved</code> property of <code>ELContext</code> was set to <code>true</code>, then <code>true</code>
    *          if the property is read-only or <code>false</code> if not; otherwise undefined.
    */
-  @Override public boolean isReadOnly(ELContext pContext, Object pBase, Object pProperty) {
+  @Override
+  public boolean isReadOnly(ELContext pContext, Object pBase, Object pProperty) {
     if (pBase instanceof MmMimic) {
       try {
         Field field = pBase.getClass().getField((String)pProperty);
@@ -217,7 +222,8 @@ public class MmFieldAccessELResolver extends ELResolver {
    * @param  pProperty  The property or variable to be set.
    * @param  pValue     The value to set the property or variable to.
    */
-  @Override public void setValue(ELContext pContext, Object pBase, Object pProperty, Object pValue) {
+  @Override
+  public void setValue(ELContext pContext, Object pBase, Object pProperty, Object pValue) {
     if (pBase instanceof MmMimic) {
       try {
         Field field = pBase.getClass().getField((String)pProperty);

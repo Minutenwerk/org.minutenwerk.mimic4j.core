@@ -76,7 +76,8 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(String pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(String pModelsideValue) throws MmModelsideConverterException {
     if (pModelsideValue == null) {
       return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
     } else {
@@ -95,7 +96,8 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public String callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     String returnString;
     if (this.isMmEmpty()) {
       returnString = null;
@@ -114,7 +116,8 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmGetDefaultValue(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetDefaultValue(String pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -150,7 +153,8 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(String pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(String pModelsideValue) throws MmValidatorException {
   }
 
 }

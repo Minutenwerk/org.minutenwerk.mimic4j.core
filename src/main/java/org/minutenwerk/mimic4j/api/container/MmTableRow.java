@@ -30,7 +30,8 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    *
    * @param  pModel  The specified model.
    */
-  @Override public void callbackMmSetModelFromModelside(ROW_MODEL pModel) {
+  @Override
+  public void callbackMmSetModelFromModelside(ROW_MODEL pModel) {
   }
 
   /**

@@ -78,7 +78,8 @@ public class MmConfigurationLocalTime extends MmBaseAttributeConfiguration<Local
    *
    * @return  The configuration of default value.
    */
-  @Override public LocalTime getDefaultValue() {
+  @Override
+  public LocalTime getDefaultValue() {
     return this.defaultValue;
   }
 
@@ -105,7 +106,8 @@ public class MmConfigurationLocalTime extends MmBaseAttributeConfiguration<Local
    *
    * @return  The configuration of JSF tag in disabled state.
    */
-  @Override public String getJsfTagDisabled() {
+  @Override
+  public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
   }
 
@@ -114,7 +116,8 @@ public class MmConfigurationLocalTime extends MmBaseAttributeConfiguration<Local
    *
    * @return  The configuration of JSF tag in enabled state.
    */
-  @Override public String getJsfTagEnabled() {
+  @Override
+  public String getJsfTagEnabled() {
     return this.jsfTag.name();
   }
 

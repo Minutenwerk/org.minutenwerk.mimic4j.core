@@ -30,7 +30,8 @@ public class MmJsfBridgeTable<ROW_MODEL>
    *
    * @return  The caption text of a table.
    */
-  @Override public String getCaption() {
+  @Override
+  public String getCaption() {
     return this.implementation.getMmShortDescription();
   }
 
@@ -39,7 +40,8 @@ public class MmJsfBridgeTable<ROW_MODEL>
    *
    * @return  The CSS style classes of columns.
    */
-  @Override public String getColumnClasses() {
+  @Override
+  public String getColumnClasses() {
     String returnString = "";
     for (MmTableColumn column : this.implementation.getMmTableColumns()) {
       if (returnString.length() > 0) {
@@ -56,7 +58,8 @@ public class MmJsfBridgeTable<ROW_MODEL>
    *
    * @return  The list of table column mimics.
    */
-  @Override public List<MmTableColumn> getColumnMms() {
+  @Override
+  public List<MmTableColumn> getColumnMms() {
     return this.implementation.getMmTableColumns();
   }
 
@@ -65,7 +68,8 @@ public class MmJsfBridgeTable<ROW_MODEL>
    *
    * @return  A list of table row mimics.
    */
-  @Override public List<MmTableRow<ROW_MODEL>> getValue() {
+  @Override
+  public List<MmTableRow<ROW_MODEL>> getValue() {
     return this.implementation.getMmTableRows();
   }
 

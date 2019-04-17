@@ -31,14 +31,16 @@ public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<Mm
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeTab<MODEL>(this);
   }
 
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmTabAnnotation.class);
 

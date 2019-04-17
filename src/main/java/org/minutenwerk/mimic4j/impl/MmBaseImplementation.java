@@ -831,7 +831,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmFullName() {
+  @Override
+  public String getMmFullName() {
     this.ensureInitialization();
 
     if (this.parentPath.isEmpty()) {
@@ -848,7 +849,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmId() {
+  @Override
+  public String getMmId() {
     this.ensureInitialization();
 
     return this.getConfiguration().getId();
@@ -863,7 +865,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmLongDescription() {
+  @Override
+  public String getMmLongDescription() {
     this.ensureInitialization();
 
     final Object   initialParams         = null;
@@ -882,7 +885,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmName() {
+  @Override
+  public String getMmName() {
     this.ensureInitialization();
 
     return this.name;
@@ -908,7 +912,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public MmReference getMmReference() {
+  @Override
+  public MmReference getMmReference() {
     this.ensureInitialization();
 
     // if no referencable ancestor is available, no reference can be returned
@@ -937,7 +942,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public MmReference getMmReference(MmReferencableModel pModel) {
+  @Override
+  public MmReference getMmReference(MmReferencableModel pModel) {
     this.ensureInitialization();
 
     // if no referencable ancestor is available, no reference can be returned
@@ -979,7 +985,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmShortDescription() {
+  @Override
+  public String getMmShortDescription() {
     this.ensureInitialization();
 
     final String i18nShortDescription = this.getMmI18nText(MmMessageType.SHORT);
@@ -996,7 +1003,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmStyleClasses() {
+  @Override
+  public String getMmStyleClasses() {
     this.ensureInitialization();
 
     final String returnString = this.declaration.callbackMmGetStyleClasses("");
@@ -1015,7 +1023,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public boolean isMmEnabled() {
+  @Override
+  public boolean isMmEnabled() {
     this.ensureInitialization();
 
     if (this.implementationParent == null) {
@@ -1033,7 +1042,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public boolean isMmReadOnly() {
+  @Override
+  public boolean isMmReadOnly() {
     this.ensureInitialization();
 
     if (this.implementationParent == null) {
@@ -1050,7 +1060,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public boolean isMmRuntimeChild() {
+  @Override
+  public boolean isMmRuntimeChild() {
     this.ensureInitialization();
 
     return this.isRuntimeChild;
@@ -1064,7 +1075,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public boolean isMmVisible() {
+  @Override
+  public boolean isMmVisible() {
     this.ensureInitialization();
 
     if (this.implementationParent == null) {
@@ -1082,7 +1094,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override public String toString() {
+  @Override
+  public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("(");
 

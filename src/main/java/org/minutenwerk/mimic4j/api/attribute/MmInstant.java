@@ -84,7 +84,8 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(Instant pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(Instant pModelsideValue) throws MmModelsideConverterException {
     try {
       if (pModelsideValue == null) {
         return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
@@ -111,7 +112,8 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    *
    * @jalopy.group  group-callback
    */
-  @Override public Instant callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public Instant callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     Instant returnInstant;
     if (this.isMmEmpty()) {
       returnInstant = null;
@@ -140,7 +142,8 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    *
    * @jalopy.group  group-callback
    */
-  @Override public Instant callbackMmGetDefaultValue(Instant pPassThroughValue) {
+  @Override
+  public Instant callbackMmGetDefaultValue(Instant pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -151,7 +154,8 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    *
    * @jalopy.group  group-callback
    */
-  @Override public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
     return null;
   }
 
@@ -164,7 +168,8 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(Instant pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(Instant pModelsideValue) throws MmValidatorException {
   }
 
   /**

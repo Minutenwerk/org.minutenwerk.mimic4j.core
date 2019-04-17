@@ -41,7 +41,8 @@ public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
    *
    * @return  The configuration of JSF tag in disabled state.
    */
-  @Override public String getJsfTagDisabled() {
+  @Override
+  public String getJsfTagDisabled() {
     return this.jsfTag.name();
   }
 
@@ -50,7 +51,8 @@ public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
    *
    * @return  The configuration of JSF tag in enabled state.
    */
-  @Override public String getJsfTagEnabled() {
+  @Override
+  public String getJsfTagEnabled() {
     return this.jsfTag.name();
   }
 

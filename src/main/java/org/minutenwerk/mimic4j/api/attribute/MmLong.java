@@ -78,7 +78,8 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(Long pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(Long pModelsideValue) throws MmModelsideConverterException {
     String returnString;
     if (pModelsideValue == null) {
       returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
@@ -106,7 +107,8 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @jalopy.group  group-callback
    */
-  @Override public Long callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public Long callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     Long returnLong;
     if (this.isMmEmpty()) {
       returnLong = null;
@@ -133,7 +135,8 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @jalopy.group  group-callback
    */
-  @Override public Long callbackMmGetDefaultValue(Long pPassThroughValue) {
+  @Override
+  public Long callbackMmGetDefaultValue(Long pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -144,7 +147,8 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @jalopy.group  group-callback
    */
-  @Override public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
     return null;
   }
 
@@ -157,7 +161,8 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(Long pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(Long pModelsideValue) throws MmValidatorException {
   }
 
 }

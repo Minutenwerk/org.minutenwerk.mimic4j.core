@@ -78,7 +78,8 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(Float pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(Float pModelsideValue) throws MmModelsideConverterException {
     String returnString;
     if (pModelsideValue == null) {
       returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
@@ -106,7 +107,8 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
    *
    * @jalopy.group  group-callback
    */
-  @Override public Float callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public Float callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     Float returnFloat;
     if (this.isMmEmpty()) {
       returnFloat = null;
@@ -133,7 +135,8 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
    *
    * @jalopy.group  group-callback
    */
-  @Override public Float callbackMmGetDefaultValue(Float pPassThroughValue) {
+  @Override
+  public Float callbackMmGetDefaultValue(Float pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -144,7 +147,8 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
    *
    * @jalopy.group  group-callback
    */
-  @Override public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
     return null;
   }
 
@@ -157,7 +161,8 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(Float pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(Float pModelsideValue) throws MmValidatorException {
   }
 
 }

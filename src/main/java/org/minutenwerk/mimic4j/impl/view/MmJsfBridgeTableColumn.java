@@ -23,7 +23,8 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    *
    * @return  The CSS style class of this column's footer.
    */
-  @Override public String getFooterClass() {
+  @Override
+  public String getFooterClass() {
     return this.implementation.getMmFooterClasses();
   }
 
@@ -32,7 +33,8 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    *
    * @return  The CSS style class of this column's header.
    */
-  @Override public String getHeaderClass() {
+  @Override
+  public String getHeaderClass() {
     return this.implementation.getMmHeaderClasses();
   }
 
@@ -41,7 +43,8 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    *
    * @return  The text of this column's header title.
    */
-  @Override public String getHeaderTitle() {
+  @Override
+  public String getHeaderTitle() {
     return this.implementation.getMmLongDescription();
   }
 
@@ -50,7 +53,8 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    *
    * @return  The text of this column's header.
    */
-  @Override public String getHeaderValue() {
+  @Override
+  public String getHeaderValue() {
     return this.implementation.getMmShortDescription();
   }
 
@@ -59,7 +63,8 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    *
    * @return  True, if this column is a row header column of the table.
    */
-  @Override public boolean isRowHeader() {
+  @Override
+  public boolean isRowHeader() {
     return this.implementation.isMmRowHeader();
   }
 

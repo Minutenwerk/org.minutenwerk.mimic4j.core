@@ -33,7 +33,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  The number of columns of a multiline text field.
    */
-  @Override public int getCols() {
+  @Override
+  public int getCols() {
     return this.implementation.getMmCols();
   }
 
@@ -42,7 +43,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  The attribute's layout direction.
    */
-  @Override public String getLayout() {
+  @Override
+  public String getLayout() {
     return this.implementation.getMmLayout().getValue();
   }
 
@@ -51,7 +53,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  The attribute's maximum number of characters for input.
    */
-  @Override public int getMaxlength() {
+  @Override
+  public int getMaxlength() {
     return this.implementation.getMmFormatMaxLength();
   }
 
@@ -60,7 +63,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  A list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
    */
-  @Override public List<MmMessage> getMsgList() {
+  @Override
+  public List<MmMessage> getMsgList() {
     return this.implementation.getMmMessages();
   }
 
@@ -69,7 +73,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  One string containing all error, warning, info and success messages of this mimic.
    */
-  @Override public String getMsgListText() {
+  @Override
+  public String getMsgListText() {
     String returnText = "";
     for (MmMessage message : this.implementation.getMmMessages()) {
       returnText = returnText + message.getText() + " ";
@@ -82,7 +87,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  The highest severity of error message of this mimic.
    */
-  @Override public String getMsgMaxSeverity() {
+  @Override
+  public String getMsgMaxSeverity() {
     MmMessageSeverity severity = this.implementation.getMmMaximumSeverity();
     if (severity != null) {
       return severity.name().toLowerCase();
@@ -96,7 +102,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  The title of error message of highest severity of this mimic.
    */
-  @Override public String getMsgMaxTitle() {
+  @Override
+  public String getMsgMaxTitle() {
     String returnTitle = "";
     String maxSeverity = this.getMsgMaxSeverity();
     if (!maxSeverity.isEmpty()) {
@@ -110,7 +117,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  The number of rows of a multiline text field.
    */
-  @Override public int getRows() {
+  @Override
+  public int getRows() {
     return this.implementation.getMmRows();
   }
 
@@ -128,7 +136,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  A list of {@link SelectItem},
    */
-  @Override public List<SelectItem> getSelectItems() {
+  @Override
+  public List<SelectItem> getSelectItems() {
     List<SelectItem> returnList = new ArrayList<>();
     for (MmSelectOption<Object> selectOption : this.implementation.getMmSelectOptions()) {
       String     value             = selectOption.getDisplayId();
@@ -148,7 +157,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  The attribute's row size of option list.
    */
-  @Override public int getSize() {
+  @Override
+  public int getSize() {
     return this.implementation.getMmSize();
   }
 
@@ -157,7 +167,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @return  The value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
    */
-  @Override public VIEWSIDE_VALUE getValue() {
+  @Override
+  public VIEWSIDE_VALUE getValue() {
     return this.implementation.getMmViewsideValue();
   }
 
@@ -166,7 +177,8 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    *
    * @param  pValue  The value of type VIEWSIDE_VALUE to be set.
    */
-  @Override public void setValue(VIEWSIDE_VALUE pValue) {
+  @Override
+  public void setValue(VIEWSIDE_VALUE pValue) {
     this.implementation.setMmViewsideValue(pValue);
   }
 

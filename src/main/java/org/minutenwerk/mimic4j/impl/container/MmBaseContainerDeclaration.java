@@ -42,7 +42,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
-  @Override public void callbackMmValidateModel(MODEL pModel) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModel(MODEL pModel) throws MmValidatorException {
   }
 
   /**
@@ -54,7 +55,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *   <li>passing converted value into viewside value</li>
    * </ol>
    */
-  @Override public final void doMmReset() {
+  @Override
+  public final void doMmReset() {
     this.implementation.doMmReset();
   }
 
@@ -67,14 +69,16 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *   <li>passing converted value into viewside value</li>
    * </ol>
    */
-  @Override public final void doMmSetDefaults() {
+  @Override
+  public final void doMmSetDefaults() {
     this.implementation.doMmSetDefaults();
   }
 
   /**
    * Sets the values from model into modelside of mimic.
    */
-  @Override public final void doMmSetModelFromModelside() {
+  @Override
+  public final void doMmSetModelFromModelside() {
     this.implementation.doMmSetModelFromModelside();
   }
 
@@ -83,7 +87,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @param  pModel  The model to set.
    */
-  @Override public final void doMmSetModelsideFromModel(MODEL pModel) {
+  @Override
+  public final void doMmSetModelsideFromModel(MODEL pModel) {
     this.implementation.doMmSetModelsideFromModel(pModel);
   }
 
@@ -99,7 +104,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @throws  MmValidatorException  in case of semantic validation of container or one of its children failed.
    */
-  @Override public final void doMmValidate() throws MmValidatorException {
+  @Override
+  public final void doMmValidate() throws MmValidatorException {
     this.implementation.doMmValidate();
   }
 
@@ -108,7 +114,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @return  The model.
    */
-  @Override public final MODEL getMmModel() {
+  @Override
+  public final MODEL getMmModel() {
     return this.implementation.getMmModel();
   }
 
@@ -117,7 +124,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @return  The Java type of the model.
    */
-  @Override public final Class<MODEL> getMmModelType() {
+  @Override
+  public final Class<MODEL> getMmModelType() {
     return this.implementation.getMmModelType();
   }
 
@@ -127,7 +135,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @return  <code>True</code>, if mimic has been changed from viewside.
    */
-  @Override public final boolean isMmChangedFromViewside() {
+  @Override
+  public final boolean isMmChangedFromViewside() {
     return this.implementation.isMmChangedFromViewside();
   }
 
@@ -136,7 +145,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @return  <code>True</code> if a value from view has to be set.
    */
-  @Override public final boolean isMmRequired() {
+  @Override
+  public final boolean isMmRequired() {
     return this.implementation.isMmRequired();
   }
 
@@ -148,7 +158,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @jalopy.group  group-override
    */
-  @Override public final boolean isMmResetEnabled() {
+  @Override
+  public final boolean isMmResetEnabled() {
     return this.implementation.isMmResetEnabled();
   }
 
@@ -157,7 +168,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @return  <code>True</code> if the mimic has been validated without any errors.
    */
-  @Override public final boolean isMmValid() {
+  @Override
+  public final boolean isMmValid() {
     return this.implementation.isMmValid();
   }
 
@@ -166,7 +178,8 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @param  pModel  The model to set.
    */
-  @Override public final void setMmModel(MODEL pModel) {
+  @Override
+  public final void setMmModel(MODEL pModel) {
     this.implementation.setMmModel(pModel);
   }
 

@@ -31,7 +31,8 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    *
    * @jalopy.group  group-initialization
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmPageAnnotation.class);
 
@@ -53,7 +54,8 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmReferenceFile() {
+  @Override
+  public String getMmReferenceFile() {
     this.ensureInitialization();
 
     final String configurationReferenceFile = this.configuration.getReferenceFile();
@@ -68,7 +70,8 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmReferencePath() {
+  @Override
+  public String getMmReferencePath() {
     this.ensureInitialization();
 
     final String configurationReferencePath = this.configuration.getReferencePath();
@@ -82,7 +85,8 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    *
    * @jalopy.group  group-override
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgePage<MODEL>(this);
   }
 

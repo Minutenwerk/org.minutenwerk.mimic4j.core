@@ -25,7 +25,8 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    *
    * @return  A reference to some target.
    */
-  @Override public MmReference getTargetReference() {
+  @Override
+  public MmReference getTargetReference() {
     return this.implementation.getMmTargetReference();
   }
 
@@ -34,7 +35,8 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    *
    * @return  The value of this link.
    */
-  @Override public String getValue() {
+  @Override
+  public String getValue() {
     return this.implementation.getMmViewsideValue();
   }
 
@@ -43,7 +45,8 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    *
    * @return  True, if the HTML tag shall be displayed in disabled state.
    */
-  @Override public boolean isDisabled() {
+  @Override
+  public boolean isDisabled() {
     return !this.implementation.isMmEnabled();
   }
 

@@ -65,7 +65,8 @@ public class MmRuntimeException extends RuntimeException {
    *
    * @return  Some information about this object for development purposes like debugging and logging.
    */
-  @Override public String toString() {
+  @Override
+  public String toString() {
     StringBuilder snippet = new StringBuilder();
     if (this.getCause() != null) {
       snippet.append(this.getCause().getClass().getSimpleName());

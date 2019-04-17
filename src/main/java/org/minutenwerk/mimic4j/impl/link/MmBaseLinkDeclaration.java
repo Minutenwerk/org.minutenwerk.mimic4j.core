@@ -48,7 +48,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmGetFormatPattern(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetFormatPattern(String pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -61,7 +62,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-callback
    */
-  @Override public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue) {
+  @Override
+  public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -74,7 +76,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmGetTargetOutcome(String pPassThroughValue) {
+  @Override
+  public String callbackMmGetTargetOutcome(String pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -88,7 +91,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-callback
    */
-  @Override public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel) {
+  @Override
+  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel) {
     return pPassThroughValue;
   }
 
@@ -99,7 +103,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public MmReferencableModel getMmModel() {
+  @Override
+  public MmReferencableModel getMmModel() {
     return this.implementation.getMmModel();
   }
 
@@ -110,7 +115,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final MmReference getMmTargetReference() {
+  @Override
+  public final MmReference getMmTargetReference() {
     return this.implementation.getMmTargetReference();
   }
 
@@ -121,7 +127,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final String getMmViewsideValue() {
+  @Override
+  public final String getMmViewsideValue() {
     return this.implementation.getMmViewsideValue();
   }
 
@@ -133,7 +140,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -145,7 +153,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -157,7 +166,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -169,7 +179,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -181,7 +192,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -193,7 +205,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -205,7 +218,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -217,7 +231,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -229,7 +244,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -241,7 +257,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -253,7 +270,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -265,7 +283,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -277,7 +296,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -289,7 +309,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -301,7 +322,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
@@ -313,7 +335,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @jalopy.group  group-override
    */
-  @Override public final void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public final void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
     this.implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 }

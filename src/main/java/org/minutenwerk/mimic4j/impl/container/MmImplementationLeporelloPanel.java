@@ -63,7 +63,8 @@ public class MmImplementationLeporelloPanel<MODEL>
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmStyleClasses() {
+  @Override
+  public String getMmStyleClasses() {
     this.ensureInitialization();
 
     final int    reverseIndex = this.getReverseIndex();
@@ -104,7 +105,8 @@ public class MmImplementationLeporelloPanel<MODEL>
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeLeporelloPanel(this);
   }
 
@@ -150,7 +152,8 @@ public class MmImplementationLeporelloPanel<MODEL>
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLeporelloPanelAnnotation.class);
 

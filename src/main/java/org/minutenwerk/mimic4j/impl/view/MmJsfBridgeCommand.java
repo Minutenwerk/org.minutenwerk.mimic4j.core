@@ -24,7 +24,8 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    *
    * @return  An EL expression of type String.
    */
-  @Override public String action() {
+  @Override
+  public String action() {
     return this.implementation.doMmIt();
   }
 
@@ -34,7 +35,8 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    *
    * @return  A reference to some target.
    */
-  @Override public MmReference getTargetReference() {
+  @Override
+  public MmReference getTargetReference() {
     return this.implementation.getMmTargetReference();
   }
 
@@ -43,7 +45,8 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    *
    * @return  The value of type String, which is the short description of mimic.
    */
-  @Override public String getValue() {
+  @Override
+  public String getValue() {
     return this.implementation.getMmShortDescription();
   }
 

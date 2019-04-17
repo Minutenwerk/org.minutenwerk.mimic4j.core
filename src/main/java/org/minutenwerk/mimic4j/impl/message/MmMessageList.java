@@ -77,7 +77,8 @@ public class MmMessageList {
 
   public class MessageComparator implements Comparator<MmMessage> {
 
-    @Override public int compare(MmMessage pMessage1, MmMessage pMessage2) {
+    @Override
+    public int compare(MmMessage pMessage1, MmMessage pMessage2) {
       return pMessage1.severity.ordinal() - pMessage2.severity.ordinal();
     }
   }

@@ -31,7 +31,8 @@ public class MmImplementationInstant extends MmBaseAttributeImplementation<MmIns
    *
    * @return  The attribute's format pattern for displaying viewside value.
    */
-  @Override public String getMmFormatPattern() {
+  @Override
+  public String getMmFormatPattern() {
     this.ensureInitialization();
 
     String formatPattern = this.configuration.getFormatPattern();
@@ -49,7 +50,8 @@ public class MmImplementationInstant extends MmBaseAttributeImplementation<MmIns
    *
    * @return  <code>True</code> if the viewside value of this mimic is empty.
    */
-  @Override public boolean isMmEmpty() {
+  @Override
+  public boolean isMmEmpty() {
     this.ensureInitialization();
 
     return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
@@ -60,14 +62,16 @@ public class MmImplementationInstant extends MmBaseAttributeImplementation<MmIns
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
   }
 
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmInstantAnnotation.class);
 

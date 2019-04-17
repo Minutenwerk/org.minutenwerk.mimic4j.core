@@ -50,7 +50,8 @@ public class MmReferenceParam implements MmNameValue {
    *
    * @return  The name of this query parameter.
    */
-  @Override public String getMmName() {
+  @Override
+  public String getMmName() {
     return this.name;
   }
 
@@ -59,7 +60,8 @@ public class MmReferenceParam implements MmNameValue {
    *
    * @return  The value of this query parameter.
    */
-  @Override public String getMmValue() {
+  @Override
+  public String getMmValue() {
     return this.value;
   }
 

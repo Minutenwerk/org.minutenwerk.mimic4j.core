@@ -30,7 +30,8 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    *
    * @param  pRowModelList  The model to set values into.
    */
-  @Override public final void callbackMmSetModelFromModelside(List<ROW_MODEL> pRowModelList) {
+  @Override
+  public final void callbackMmSetModelFromModelside(List<ROW_MODEL> pRowModelList) {
   }
 
   /**
@@ -38,7 +39,8 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    *
    * @param  pRowModelList  The model containing the values to be set.
    */
-  @Override public final void callbackMmSetModelsideFromModel(List<ROW_MODEL> pRowModelList) {
+  @Override
+  public final void callbackMmSetModelsideFromModel(List<ROW_MODEL> pRowModelList) {
   }
 
   /**
@@ -48,7 +50,8 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
-  @Override public void callbackMmValidateModel(List<ROW_MODEL> pModel) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModel(List<ROW_MODEL> pModel) throws MmValidatorException {
   }
 
   /**
@@ -63,7 +66,8 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    *
    * @return  The list of table row mimics.
    */
-  @Override public final <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
+  @Override
+  public final <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
     return this.implementation.getMmTableRows();
   }
 

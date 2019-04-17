@@ -78,7 +78,8 @@ public class MmInteger extends MmBaseAttributeDeclaration<MmImplementationIntege
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(Integer pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(Integer pModelsideValue) throws MmModelsideConverterException {
     String returnString;
     if (pModelsideValue == null) {
       returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
@@ -106,7 +107,8 @@ public class MmInteger extends MmBaseAttributeDeclaration<MmImplementationIntege
    *
    * @jalopy.group  group-callback
    */
-  @Override public Integer callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public Integer callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     Integer returnInteger;
     if (this.isMmEmpty()) {
       returnInteger = null;
@@ -133,7 +135,8 @@ public class MmInteger extends MmBaseAttributeDeclaration<MmImplementationIntege
    *
    * @jalopy.group  group-callback
    */
-  @Override public Integer callbackMmGetDefaultValue(Integer pPassThroughValue) {
+  @Override
+  public Integer callbackMmGetDefaultValue(Integer pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -144,7 +147,8 @@ public class MmInteger extends MmBaseAttributeDeclaration<MmImplementationIntege
    *
    * @jalopy.group  group-callback
    */
-  @Override public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
     return null;
   }
 
@@ -157,7 +161,8 @@ public class MmInteger extends MmBaseAttributeDeclaration<MmImplementationIntege
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(Integer pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(Integer pModelsideValue) throws MmValidatorException {
   }
 
 }

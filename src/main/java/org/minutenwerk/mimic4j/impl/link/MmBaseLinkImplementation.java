@@ -91,7 +91,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public MmReferencableModel getMmModel() {
+  @Override
+  public MmReferencableModel getMmModel() {
     return this.model;
   }
 
@@ -102,7 +103,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public MmReference getMmTargetReference() {
+  @Override
+  public MmReference getMmTargetReference() {
     this.ensureInitialization();
 
     MmReference   targetReference = null;
@@ -143,7 +145,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -156,7 +159,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -169,7 +173,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -182,7 +187,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -195,7 +201,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -208,7 +215,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -221,7 +229,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -234,7 +243,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -247,7 +257,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -260,7 +271,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -273,7 +285,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -286,7 +299,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -299,7 +313,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -312,7 +327,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -325,7 +341,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -338,7 +355,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-override
    */
-  @Override public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
+  @Override
+  public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
     this.modelsideValue = pModelsideValue;
     this.model          = pModel;
   }
@@ -366,7 +384,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-i18n
    */
-  @Override public String getMmLongDescription() {
+  @Override
+  public String getMmLongDescription() {
     this.ensureInitialization();
 
     String returnString = null;
@@ -388,7 +407,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    *
    * @jalopy.group  group-i18n
    */
-  @Override public String getMmViewsideValue() {
+  @Override
+  public String getMmViewsideValue() {
     // if model is an array of objects
     if (this.modelsideValue instanceof Object[]) {
 

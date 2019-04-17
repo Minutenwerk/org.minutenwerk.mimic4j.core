@@ -37,7 +37,8 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    *
    * @return  A control string, most times used as outcome string for JSF.
    */
-  @Override public String doMmIt() {
+  @Override
+  public String doMmIt() {
     this.ensureInitialization();
 
     return this.declaration.callbackMmDoIt();
@@ -48,7 +49,8 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    *
    * @return  The current JSF tag of this mimic.
    */
-  @Override public String getJsfTag() {
+  @Override
+  public String getJsfTag() {
     MmCommandJsfTag commandJsfTag = null;
     if ((this.isMmEnabled() && !this.isMmReadOnly()) || this.getConfiguration().getJsfTagDisabled().equals("SameAsEnabled")) {
       commandJsfTag = MmCommandJsfTag.valueOf(this.getConfiguration().getJsfTagEnabled());
@@ -66,7 +68,8 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    *
    * @return  A reference to some target.
    */
-  @Override public MmReference getMmTargetReference() {
+  @Override
+  public MmReference getMmTargetReference() {
     this.ensureInitialization();
 
     MmReference   targetReference = null;
@@ -93,7 +96,8 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    *
    * @return  <code>True</code>, if the mimic is enabled.
    */
-  @Override public boolean isMmEnabled() {
+  @Override
+  public boolean isMmEnabled() {
     this.ensureInitialization();
 
     return this.declaration.callbackMmIsEnabled(this.configuration.isEnabled());
@@ -104,14 +108,16 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeCommand(this);
   }
 
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmCommandAnnotation.class);
 

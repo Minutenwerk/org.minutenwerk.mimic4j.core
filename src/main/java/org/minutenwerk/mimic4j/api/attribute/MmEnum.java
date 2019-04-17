@@ -72,7 +72,8 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(ENUM_TYPE pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(ENUM_TYPE pModelsideValue) throws MmModelsideConverterException {
     if (pModelsideValue == null) {
       return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
     } else {
@@ -99,7 +100,8 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @jalopy.group  group-callback
    */
-  @Override public ENUM_TYPE callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public ENUM_TYPE callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     ENUM_TYPE returnEnumType = null;
     if (!this.isMmEmpty()) {
       try {
@@ -122,7 +124,8 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @jalopy.group  group-callback
    */
-  @Override public ENUM_TYPE callbackMmGetDefaultValue(ENUM_TYPE pPassThroughValue) {
+  @Override
+  public ENUM_TYPE callbackMmGetDefaultValue(ENUM_TYPE pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -162,7 +165,8 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(ENUM_TYPE pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(ENUM_TYPE pModelsideValue) throws MmValidatorException {
   }
 
 }

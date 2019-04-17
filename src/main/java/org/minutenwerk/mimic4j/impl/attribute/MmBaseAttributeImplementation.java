@@ -74,7 +74,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
      *
      * @return  Some information about this object for development purposes like debugging and logging.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
       return this.name();
     }
   }
@@ -116,7 +117,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
      *
      * @return  Some information about this object for development purposes like debugging and logging.
      */
-    @Override public String toString() {
+    @Override
+    public String toString() {
       return this.name();
     }
   }
@@ -166,7 +168,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-initialization
    */
-  @Override protected void initialize() {
+  @Override
+  protected void initialize() {
     super.initialize();
     this.doMmSetDefaults();
   }
@@ -416,7 +419,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-lifecycle
    */
-  @Override public void setMmModelsideValue(MODELSIDE_VALUE pModelsideValue) {
+  @Override
+  public void setMmModelsideValue(MODELSIDE_VALUE pModelsideValue) {
     this.ensureInitialization();
 
     String originalDebugState = this.toStringTraceState();
@@ -443,7 +447,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-lifecycle
    */
-  @Override public void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
+  @Override
+  public void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
     this.ensureInitialization();
 
     String originalDebugState = this.toStringTraceState();
@@ -471,7 +476,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public void doMmReset() {
+  @Override
+  public void doMmReset() {
     this.ensureInitialization();
 
     this.doPassResetToModelsideValue();
@@ -489,7 +495,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public void doMmSetDefaults() {
+  @Override
+  public void doMmSetDefaults() {
     this.ensureInitialization();
 
     this.doPassDefaultToModelsideValue();
@@ -508,7 +515,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public void doMmValidate() {
+  @Override
+  public void doMmValidate() {
     this.ensureInitialization();
 
     this.doPassViewsideToModelsideValue();
@@ -522,7 +530,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public int getMmCols() {
+  @Override
+  public int getMmCols() {
     this.ensureInitialization();
 
     return 1;
@@ -535,7 +544,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public MODELSIDE_VALUE getMmDefaultValue() {
+  @Override
+  public MODELSIDE_VALUE getMmDefaultValue() {
     this.ensureInitialization();
 
     final MODELSIDE_VALUE defaultValue = this.configuration.getDefaultValue();
@@ -549,7 +559,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public int getMmFormatMaxLength() {
+  @Override
+  public int getMmFormatMaxLength() {
     this.ensureInitialization();
 
     final int returnInt = this.declaration.callbackMmGetMaxLength(MmBaseAttributeDeclaration.EDITABLE_DEFAULT_MAX_LENGTH);
@@ -565,7 +576,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmFormatPattern() {
+  @Override
+  public String getMmFormatPattern() {
     this.ensureInitialization();
 
     final String i18nFormatPattern = this.getMmI18nText(MmMessageType.FORMAT);
@@ -581,7 +593,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public MmBooleanLayout getMmLayout() {
+  @Override
+  public MmBooleanLayout getMmLayout() {
     this.ensureInitialization();
 
     return MmBooleanLayout.PAGE_DIRECTION;
@@ -594,7 +607,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public Class<MODELSIDE_VALUE> getMmModelsideType() {
+  @Override
+  public Class<MODELSIDE_VALUE> getMmModelsideType() {
     this.ensureInitialization();
 
     return findGenericsParameterType(this.getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_MODELSIDE_VALUE);
@@ -607,7 +621,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public MODELSIDE_VALUE getMmModelsideValue() {
+  @Override
+  public MODELSIDE_VALUE getMmModelsideValue() {
     this.ensureInitialization();
 
     return this.modelsideValue;
@@ -620,7 +635,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public MODELSIDE_VALUE getMmResetValue() {
+  @Override
+  public MODELSIDE_VALUE getMmResetValue() {
     this.ensureInitialization();
 
     return this.resetValue;
@@ -633,7 +649,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public int getMmRows() {
+  @Override
+  public int getMmRows() {
     this.ensureInitialization();
 
     return 1;
@@ -648,7 +665,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmShortDescription() {
+  @Override
+  public String getMmShortDescription() {
     this.ensureInitialization();
 
     String returnString = super.getMmShortDescription();
@@ -665,7 +683,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public int getMmSize() {
+  @Override
+  public int getMmSize() {
     this.ensureInitialization();
 
     return 3;
@@ -678,7 +697,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public Class<VIEWSIDE_VALUE> getMmViewsideType() {
+  @Override
+  public Class<VIEWSIDE_VALUE> getMmViewsideType() {
     this.ensureInitialization();
 
     return findGenericsParameterType(this.getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEWSIDE_VALUE);
@@ -691,7 +711,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public VIEWSIDE_VALUE getMmViewsideValue() {
+  @Override
+  public VIEWSIDE_VALUE getMmViewsideValue() {
     this.ensureInitialization();
 
     return this.viewsideValue;
@@ -704,7 +725,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public boolean isMmEmpty() {
+  @Override
+  public boolean isMmEmpty() {
     this.ensureInitialization();
 
     return this.viewsideValue == null;
@@ -717,7 +739,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public boolean isMmRequired() {
+  @Override
+  public boolean isMmRequired() {
     this.ensureInitialization();
 
     return this.declaration.callbackMmIsRequired(this.configuration.isRequired());
@@ -730,7 +753,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public boolean isMmResetEnabled() {
+  @Override
+  public boolean isMmResetEnabled() {
     this.ensureInitialization();
 
     return ((this.resetState == MmValueState.SET_FROM_MODEL_TO_MODELSIDE)
@@ -744,7 +768,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-override
    */
-  @Override public boolean isMmValid() {
+  @Override
+  public boolean isMmValid() {
     this.ensureInitialization();
 
     return this.valueState == MmValueState.VALID_VALUE_IN_MODELSIDE;
@@ -798,7 +823,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return  <code>True</code>, if mimic has been changed from viewside.
    */
-  @Override public final boolean isMmChangedFromViewside() {
+  @Override
+  public final boolean isMmChangedFromViewside() {
     this.ensureInitialization();
 
     return this.isChangedFromViewside;

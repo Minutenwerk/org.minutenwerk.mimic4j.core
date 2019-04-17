@@ -55,7 +55,8 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    *
    * @jalopy.group  group-override
    */
-  @Override public String getMmStyleClasses() {
+  @Override
+  public String getMmStyleClasses() {
     this.ensureInitialization();
 
     final String callbackValue      = this.declaration.callbackMmGetStyleClasses("");
@@ -85,14 +86,16 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeTableColumn(this);
   }
 
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmTableColumnAnnotation.class);
 

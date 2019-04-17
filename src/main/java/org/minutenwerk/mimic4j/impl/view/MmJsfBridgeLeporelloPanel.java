@@ -23,7 +23,8 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    *
    * @return  The CSS selector for data parents of leporello panel.
    */
-  @Override public String getDataParents() {
+  @Override
+  public String getDataParents() {
     return this.implementation.getMmDataParents();
   }
 
@@ -32,7 +33,8 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    *
    * @return  The leporello id.
    */
-  @Override public String getLeporelloId() {
+  @Override
+  public String getLeporelloId() {
     return this.implementation.getMmParent().getMmId();
   }
 
@@ -41,7 +43,8 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    *
    * @return  The CSS style class for initial opening of leporello panel.
    */
-  @Override public String getStyleInitiallyOpen() {
+  @Override
+  public String getStyleInitiallyOpen() {
     return this.implementation.getMmStyleInitiallyOpen();
   }
 
@@ -50,7 +53,8 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    *
    * @return  The value of this leporello panel.
    */
-  @Override public String getValue() {
+  @Override
+  public String getValue() {
     return this.implementation.getMmViewsideValue();
   }
 

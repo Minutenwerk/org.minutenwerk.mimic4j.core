@@ -47,7 +47,8 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    *
    * @jalopy.group  group-do
    */
-  @Override public void doMmSetModelsideFromModel(MODEL pModel) {
+  @Override
+  public void doMmSetModelsideFromModel(MODEL pModel) {
     // super method will ensure initialization
     super.doMmSetModelsideFromModel(pModel);
     this.evaluateAndCacheReference();
@@ -60,7 +61,8 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    *
    * @jalopy.group  group-override
    */
-  @Override public MmReference getMmReference() {
+  @Override
+  public MmReference getMmReference() {
     this.ensureInitialization();
 
     if (this.cachedReference == null) {
@@ -78,7 +80,8 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    *
    * @jalopy.group  group-override
    */
-  @Override public MmReference getMmReference(MmReferencableModel pModel) {
+  @Override
+  public MmReference getMmReference(MmReferencableModel pModel) {
     this.ensureInitialization();
 
     @SuppressWarnings("unchecked")

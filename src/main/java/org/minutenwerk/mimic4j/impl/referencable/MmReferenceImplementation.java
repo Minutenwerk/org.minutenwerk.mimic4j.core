@@ -225,7 +225,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The anchor part of the URL including the #.
    */
-  @Override public String getMmAnchor() {
+  @Override
+  public String getMmAnchor() {
     return this.anchor;
   }
 
@@ -234,7 +235,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The file part of the URL without slashes.
    */
-  @Override public String getMmFile() {
+  @Override
+  public String getMmFile() {
     return this.file;
   }
 
@@ -243,7 +245,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  An outcome string like "gotoPageLogin", or its URL path, file and anchor.
    */
-  @Override public String getMmOutcome() {
+  @Override
+  public String getMmOutcome() {
     if (this.isMmJsfOutcome()) {
       return this.outcome;
     } else {
@@ -256,7 +259,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 1.
    */
-  @Override public String getMmParam1Name() {
+  @Override
+  public String getMmParam1Name() {
     return this.paramName[0];
   }
 
@@ -265,7 +269,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 1.
    */
-  @Override public String getMmParam1Value() {
+  @Override
+  public String getMmParam1Value() {
     return this.paramValue[0];
   }
 
@@ -274,7 +279,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 2.
    */
-  @Override public String getMmParam2Name() {
+  @Override
+  public String getMmParam2Name() {
     return this.paramName[1];
   }
 
@@ -283,7 +289,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 2.
    */
-  @Override public String getMmParam2Value() {
+  @Override
+  public String getMmParam2Value() {
     return this.paramValue[1];
   }
 
@@ -292,7 +299,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 3.
    */
-  @Override public String getMmParam3Name() {
+  @Override
+  public String getMmParam3Name() {
     return this.paramName[2];
   }
 
@@ -301,7 +309,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 3.
    */
-  @Override public String getMmParam3Value() {
+  @Override
+  public String getMmParam3Value() {
     return this.paramValue[2];
   }
 
@@ -310,7 +319,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 4.
    */
-  @Override public String getMmParam4Name() {
+  @Override
+  public String getMmParam4Name() {
     return this.paramName[3];
   }
 
@@ -319,7 +329,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 4.
    */
-  @Override public String getMmParam4Value() {
+  @Override
+  public String getMmParam4Value() {
     return this.paramValue[3];
   }
 
@@ -328,7 +339,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 5.
    */
-  @Override public String getMmParam5Name() {
+  @Override
+  public String getMmParam5Name() {
     return this.paramName[4];
   }
 
@@ -337,7 +349,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 5.
    */
-  @Override public String getMmParam5Value() {
+  @Override
+  public String getMmParam5Value() {
     return this.paramValue[4];
   }
 
@@ -346,7 +359,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 6.
    */
-  @Override public String getMmParam6Name() {
+  @Override
+  public String getMmParam6Name() {
     return this.paramName[5];
   }
 
@@ -355,7 +369,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 6.
    */
-  @Override public String getMmParam6Value() {
+  @Override
+  public String getMmParam6Value() {
     return this.paramValue[5];
   }
 
@@ -364,7 +379,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 7.
    */
-  @Override public String getMmParam7Name() {
+  @Override
+  public String getMmParam7Name() {
     return this.paramName[6];
   }
 
@@ -373,7 +389,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 7.
    */
-  @Override public String getMmParam7Value() {
+  @Override
+  public String getMmParam7Value() {
     return this.paramValue[6];
   }
 
@@ -382,7 +399,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 8.
    */
-  @Override public String getMmParam8Name() {
+  @Override
+  public String getMmParam8Name() {
     return this.paramName[7];
   }
 
@@ -391,7 +409,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 8.
    */
-  @Override public String getMmParam8Value() {
+  @Override
+  public String getMmParam8Value() {
     return this.paramValue[7];
   }
 
@@ -400,7 +419,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The name of reference parameter 9.
    */
-  @Override public String getMmParam9Name() {
+  @Override
+  public String getMmParam9Name() {
     return this.paramName[8];
   }
 
@@ -409,7 +429,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The value of reference parameter 9.
    */
-  @Override public String getMmParam9Value() {
+  @Override
+  public String getMmParam9Value() {
     return this.paramValue[8];
   }
 
@@ -418,7 +439,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The list of query parameters of the URL.
    */
-  @Override public List<MmNameValue> getMmParams() {
+  @Override
+  public List<MmNameValue> getMmParams() {
     return this.params;
   }
 
@@ -427,7 +449,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The count of reference parameters having a name and value.
    */
-  @Override public int getMmParamsCount() {
+  @Override
+  public int getMmParamsCount() {
     return this.paramsCount;
   }
 
@@ -437,7 +460,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The path part of the URL including trailing slash but without base part.
    */
-  @Override public String getMmPath() {
+  @Override
+  public String getMmPath() {
     return this.path;
   }
 
@@ -447,7 +471,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The concatenated URL parts of path, file and anchor.
    */
-  @Override public String getMmPathFileAnchor() {
+  @Override
+  public String getMmPathFileAnchor() {
     return this.pathFileAnchor;
   }
 
@@ -456,7 +481,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The concatenated URL parts of path, file, anchor and query string.
    */
-  @Override public String getMmPathFileAnchorQuery() {
+  @Override
+  public String getMmPathFileAnchorQuery() {
     return this.pathFileAnchorQuery;
   }
 
@@ -465,7 +491,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  The query string part of the URL without the ?.
    */
-  @Override public String getMmQuery() {
+  @Override
+  public String getMmQuery() {
     return this.query;
   }
 
@@ -474,7 +501,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  True, if this reference returns an outcome string like "gotoPageLogin", and not a concrete URL.
    */
-  @Override public boolean isMmJsfOutcome() {
+  @Override
+  public boolean isMmJsfOutcome() {
     return this.outcome != null;
   }
 
@@ -483,7 +511,8 @@ public class MmReferenceImplementation implements MmReference {
    *
    * @return  True, if this reference returns a concrete URL, and not an outcome string like "gotoPageLogin".
    */
-  @Override public boolean isMmUrl() {
+  @Override
+  public boolean isMmUrl() {
     return this.pathFileAnchor != null;
   }
 

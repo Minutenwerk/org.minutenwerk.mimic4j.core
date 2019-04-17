@@ -85,7 +85,8 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public String callbackMmConvertModelsideToViewsideValue(BigInteger pModelsideValue) throws MmModelsideConverterException {
+  @Override
+  public String callbackMmConvertModelsideToViewsideValue(BigInteger pModelsideValue) throws MmModelsideConverterException {
     String returnString;
     if (pModelsideValue == null) {
       returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
@@ -113,7 +114,8 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public BigInteger callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  @Override
+  public BigInteger callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     BigInteger returnBigInteger;
     if (this.isMmEmpty()) {
       returnBigInteger = null;
@@ -142,7 +144,8 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public BigInteger callbackMmGetDefaultValue(BigInteger pPassThroughValue) {
+  @Override
+  public BigInteger callbackMmGetDefaultValue(BigInteger pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -153,7 +156,8 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
     return null;
   }
 
@@ -166,7 +170,8 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @jalopy.group  group-callback
    */
-  @Override public void callbackMmValidateModelsideValue(BigInteger pModelsideValue) throws MmValidatorException {
+  @Override
+  public void callbackMmValidateModelsideValue(BigInteger pModelsideValue) throws MmValidatorException {
   }
 
   /**
@@ -174,7 +179,8 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @return  The initialized number formatter of this mimic.
    */
-  @Override protected NumberFormat getMmNumberFormatter() {
+  @Override
+  protected NumberFormat getMmNumberFormatter() {
     final String formatPattern = this.getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 

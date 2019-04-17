@@ -92,7 +92,8 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    *
    * @return  True, if the user's browser has enabled Javascript language.
    */
-  @Override public boolean isMmJsEnabled() {
+  @Override
+  public boolean isMmJsEnabled() {
     this.ensureInitialization();
 
     return this.sessionContext.isMmJsEnabled();
@@ -121,14 +122,16 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    *
    * @return  A new MmJsfBridge for this mimic.
    */
-  @Override protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  @Override
+  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
     return new MmJsfBridgeComposite(this);
   }
 
   /**
    * Initialize this mimic after constructor phase.
    */
-  @Override protected void initializeConfiguration() {
+  @Override
+  protected void initializeConfiguration() {
     // evaluate annotation
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmRootAnnotation.class);
 

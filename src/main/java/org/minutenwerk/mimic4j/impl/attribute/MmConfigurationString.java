@@ -91,7 +91,8 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    *
    * @return  The configuration of default value.
    */
-  @Override public String getDefaultValue() {
+  @Override
+  public String getDefaultValue() {
     return this.defaultValue;
   }
 
@@ -109,7 +110,8 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    *
    * @return  The configuration of JSF tag in disabled state.
    */
-  @Override public String getJsfTagDisabled() {
+  @Override
+  public String getJsfTagDisabled() {
     return this.jsfTagDisabled.name();
   }
 
@@ -118,7 +120,8 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    *
    * @return  The configuration of JSF tag in enabled state.
    */
-  @Override public String getJsfTagEnabled() {
+  @Override
+  public String getJsfTagEnabled() {
     return this.jsfTag.name();
   }
 
