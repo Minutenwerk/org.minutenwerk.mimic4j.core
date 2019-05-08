@@ -4,7 +4,7 @@
 
   <groupId>org.minutenwerk.mimic4j</groupId>
   <artifactId>mimic4j-core</artifactId>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
 
   <name>Minutenwerk Mimic4j JSF framework</name>
   <description>GUI presentation model framework to fill the gap between JSF tags and service layer.</description>
@@ -50,13 +50,6 @@
       <url>http://mw-3-bs.jelastic.dogado.eu/artifactory/repo-for-deployment-of-snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-
-  <scm>
-    <url>https://github.com/Minutenwerk/org.minutenwerk.mimic4j.core</url>
-    <connection>scm:git:git://github.com/Minutenwerk/org.minutenwerk.mimic4j.core.git</connection>
-    <developerConnection>https://github.com/Minutenwerk/org.minutenwerk.mimic4j.core.git</developerConnection>
-    <tag>1.0</tag>
-  </scm>
 
   <build>
     <finalName>${project.artifactId}</finalName>
