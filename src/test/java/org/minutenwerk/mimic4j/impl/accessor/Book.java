@@ -19,23 +19,23 @@ public class Book {
     return title;
   }
 
-  public void setTitle(final String title) {
-    this.title = title;
+  public void setTitle(final String pTitle) {
+    this.title = pTitle;
   }
 
   public Author getAuthor() {
     return author;
   }
 
-  public void setAuthor(final Author author) {
-    this.author = author;
+  public void setAuthor(final Author pAuthor) {
+    this.author = pAuthor;
   }
 
   public List<Chapter> getChapters() {
     return chapters;
   }
 
-  public void setChapters(final List<Chapter> chapters) {
-    this.chapters = chapters;
+  public void setChapters(final List<Chapter> pChapters) {
+    this.chapters = pChapters;
   }
 }

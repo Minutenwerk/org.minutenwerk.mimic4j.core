@@ -148,16 +148,16 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
           + " must be instanceof MmBaseDeclaration<?,?>");
       }
 
-      final MmBaseDeclaration<?, ?> declarationParent = (MmBaseDeclaration<?, ?>)pDeclarationParent;
+      final MmBaseDeclaration<?, ?> baseDeclarationParent = (MmBaseDeclaration<?, ?>)pDeclarationParent;
 
       // set reference to declaration part of parent mimic
-      this.declarationParent = declarationParent;
+      this.declarationParent = baseDeclarationParent;
 
       // set reference to implementation part of parent
-      if (declarationParent.implementation == null) {
+      if (baseDeclarationParent.implementation == null) {
         throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must have an implementation");
       }
-      this.implementationParent = declarationParent.implementation;
+      this.implementationParent = baseDeclarationParent.implementation;
 
       // evaluate reference to root ancestor
       MmBaseImplementation<?, ?> temp = this.implementationParent;
@@ -699,16 +699,16 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         }
 
         try {
-          MmBaseDeclaration<?, ?> child                       = (MmBaseDeclaration<?, ?>)pField.get(this.declaration);
-          Type                    typeOfFirstGenericParameter = null;
+          MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(this.declaration);
+          Type                    typeOfFirstGenericParameterOfField = null;
           if (pField.getGenericType() instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType)pField.getGenericType();
             Type[]            typeArray         = parameterizedType.getActualTypeArguments();
             if (typeArray.length >= 1) {
-              typeOfFirstGenericParameter = typeArray[0];
+              typeOfFirstGenericParameterOfField = typeArray[0];
             }
           }
-          this.addChild(child, pField.getName(), typeOfFirstGenericParameter);
+          this.addChild(child, pField.getName(), typeOfFirstGenericParameterOfField);
 
           // check parent child relation
           if (child.implementation.implementationParent != this) {

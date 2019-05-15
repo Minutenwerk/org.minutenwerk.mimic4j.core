@@ -27,31 +27,31 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   /**
    * Constructor of this immutable class.
    *
-   * @param  parentAccessor   TODOC
-   * @param  componentGetter  TODOC
-   * @param  componentSetter  TODOC
+   * @param  parentAccessor    TODOC
+   * @param  pComponentGetter  TODOC
+   * @param  pComponentSetter  TODOC
    */
   public MmComponentAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
-    final Function<PARENT_MODEL, COMPONENT_MODEL> componentGetter, final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> componentSetter) {
+    final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
     super(parentAccessor);
     this.rootModel       = null;
-    this.componentGetter = componentGetter;
-    this.componentSetter = componentSetter;
+    this.componentGetter = pComponentGetter;
+    this.componentSetter = pComponentSetter;
   }
 
   /**
    * Constructor of this immutable class.
    *
-   * @param  rootModel        TODOC
-   * @param  componentGetter  TODOC
-   * @param  componentSetter  TODOC
+   * @param  pRootModel        TODOC
+   * @param  pComponentGetter  TODOC
+   * @param  pComponentSetter  TODOC
    */
-  public MmComponentAccessor(final PARENT_MODEL rootModel, final Function<PARENT_MODEL, COMPONENT_MODEL> componentGetter,
-    final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> componentSetter) {
+  public MmComponentAccessor(final PARENT_MODEL pRootModel, final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter,
+    final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
     super(null);
-    this.rootModel       = rootModel;
-    this.componentGetter = componentGetter;
-    this.componentSetter = componentSetter;
+    this.rootModel       = pRootModel;
+    this.componentGetter = pComponentGetter;
+    this.componentSetter = pComponentSetter;
   }
 
   /**

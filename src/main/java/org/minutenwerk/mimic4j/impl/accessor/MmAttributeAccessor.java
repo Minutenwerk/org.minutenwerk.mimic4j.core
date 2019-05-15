@@ -23,15 +23,15 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
   /**
    * Constructor of this immutable class.
    *
-   * @param  parentAccessor   TODOC
-   * @param  attributeGetter  TODOC
-   * @param  attributeSetter  TODOC
+   * @param  parentAccessor    TODOC
+   * @param  pAttributeGetter  TODOC
+   * @param  pAttributeSetter  TODOC
    */
   public MmAttributeAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
-    final Function<PARENT_MODEL, ATTRIBUTE_MODEL> attributeGetter, final BiConsumer<PARENT_MODEL, ATTRIBUTE_MODEL> attributeSetter) {
+    final Function<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeGetter, final BiConsumer<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeSetter) {
     super(parentAccessor);
-    this.attributeGetter = attributeGetter;
-    this.attributeSetter = attributeSetter;
+    this.attributeGetter = pAttributeGetter;
+    this.attributeSetter = pAttributeSetter;
   }
 
   /**

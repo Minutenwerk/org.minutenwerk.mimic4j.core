@@ -12,7 +12,7 @@ public class Chapter {
     return topic;
   }
 
-  public void setTopic(final String topic) {
-    this.topic = topic;
+  public void setTopic(final String pTopic) {
+    this.topic = pTopic;
   }
 }

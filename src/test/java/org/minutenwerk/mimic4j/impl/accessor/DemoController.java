@@ -8,8 +8,8 @@ public class DemoController {
     return selectedBook;
   }
 
-  public void setSelectedBook(final Book selectedBook) {
-    this.selectedBook = selectedBook;
+  public void setSelectedBook(final Book pSelectedBook) {
+    this.selectedBook = pSelectedBook;
   }
 
   public BookAccessor book() {

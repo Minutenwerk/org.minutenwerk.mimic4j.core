@@ -84,8 +84,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * MmValueState is an enumeration of values regarding the state of an attribute's value. If validation fails, the attribute state
-   * remains unchanged, but the error state will be changed.
+   * MmValueState is an enumeration of values regarding the state of an attribute's value. If validation fails, the attribute state remains
+   * unchanged, but the error state will be changed.
    *
    * @author  Olaf Kossak
    */

@@ -20,12 +20,12 @@ public class MmListEntryAccessor<LIST_MODEL extends List<ENTRY_MODEL>, ENTRY_MOD
   /**
    * Constructor of this immutable class.
    *
-   * @param  parentAccessor  TODOC
-   * @param  indexSupplier   TODOC
+   * @param  pParentAccessor  TODOC
+   * @param  pIndexSupplier   TODOC
    */
-  public MmListEntryAccessor(final MmListAccessor<?, LIST_MODEL, ENTRY_MODEL> parentAccessor, final Supplier<Integer> indexSupplier) {
-    super(parentAccessor, null, List<ENTRY_MODEL>::add);
-    this.indexSupplier = indexSupplier;
+  public MmListEntryAccessor(final MmListAccessor<?, LIST_MODEL, ENTRY_MODEL> pParentAccessor, final Supplier<Integer> pIndexSupplier) {
+    super(pParentAccessor, null, List<ENTRY_MODEL>::add);
+    this.indexSupplier = pIndexSupplier;
   }
 
   /**

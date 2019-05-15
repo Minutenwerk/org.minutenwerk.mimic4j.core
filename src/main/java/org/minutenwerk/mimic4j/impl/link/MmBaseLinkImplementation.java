@@ -25,8 +25,6 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmReference;
-import org.minutenwerk.mimic4j.api.MmRelationshipApi;
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.link.MmReferenceParam;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
@@ -561,7 +559,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
         }
 
       } else if (pModelsideValue instanceof Enum<?>) {
-        final MmRoot  root         = MmRelationshipApi.getMmRoot(this);
         final Enum<?> enumValue    = (Enum<?>)pModelsideValue;
         final String  enumTypeName = enumValue.getClass().getSimpleName();
         formattedValue = root.getMmI18nText(enumTypeName + "." + enumValue.name(), MmMessageType.SHORT);

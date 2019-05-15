@@ -16,10 +16,10 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
   /**
    * Constructor of this immutable class.
    *
-   * @param  parentAccessor  TODOC
+   * @param  pParentAccessor  TODOC
    */
-  public MmBaseModelAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor) {
-    this.parentAccessor = parentAccessor;
+  public MmBaseModelAccessor(final MmModelAccessor<?, PARENT_MODEL> pParentAccessor) {
+    this.parentAccessor = pParentAccessor;
   }
 
   /**
