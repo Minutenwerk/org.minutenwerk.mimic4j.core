@@ -22,7 +22,7 @@ public class MmImplementationLocalDateTime
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationLocalDateTime(MmDeclarationMimic pParent) {
+  public MmImplementationLocalDateTime(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

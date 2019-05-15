@@ -1,14 +1,12 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimic;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
+import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 import org.minutenwerk.mimic4j.impl.message.MmMessageList;
@@ -18,20 +16,17 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-do, group-get, group-clear, group-changed-front, group-required, group-is-reset, group-valid
+ * @jalopy.group-order  group-do, group-get, group-clear, group-changed-front, group-required, group-valid
  */
 public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseContainerDeclaration<MODEL, ?>,
   MODEL, CONFIGURATION extends MmBaseConfiguration> extends MmBaseImplementation<DECLARATION, CONFIGURATION>
   implements MmContainerMimic<MODEL> {
 
   /** Constant for index of generic type for model. */
-  public static final int     GENERIC_PARAMETER_INDEX_MODEL         = 2;
+  public static final int GENERIC_PARAMETER_INDEX_MODEL         = 2;
 
   /** Constant for index of generic type for configuration. */
-  public static final int     GENERIC_PARAMETER_INDEX_CONFIGURATION = 3;
-
-  /** The logger of this class. */
-  private static final Logger LOGGER                                = LogManager.getLogger(MmBaseContainerImplementation.class);
+  public static final int GENERIC_PARAMETER_INDEX_CONFIGURATION = 3;
 
   /**
    * MmContainerErrorState is an enumeration of values regarding an container's error state during conversion and validation.
@@ -48,13 +43,13 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /** The error state of this container. */
-  protected MmContainerErrorState errorstate;
+  protected MmContainerErrorState         errorstate;
 
   /** The list of messages. */
-  protected final MmMessageList   messageList;
+  protected final MmMessageList           messageList;
 
   /** The model of this mimic. */
-  protected MODEL                 model;
+  protected MmComponentAccessor<?, MODEL> modelAccessor;
 
   /**
    * Creates a new MmBaseContainerImplementation instance.
@@ -65,93 +60,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     super(pParent);
     this.messageList = new MmMessageList();
     this.errorstate  = MmContainerErrorState.SUCCESS;
-  }
-
-  /**
-   * Resets the attribute to its reset value, by:
-   *
-   * <ol>
-   *   <li>passing reset value into modelside value</li>
-   *   <li>converting modelside value to viewside type</li>
-   *   <li>passing converted value into viewside value</li>
-   * </ol>
-   *
-   * @jalopy.group  group-do
-   */
-  @Override
-  public void doMmReset() {
-    this.ensureInitialization();
-
-    this.clearMessageListRecursively(this);
-    this.doPassResetToModelsideRecursively(this);
-    this.doPassModelsideToViewsideRecursively(this);
-  }
-
-  /**
-   * Sets the attribute to its default value, by:
-   *
-   * <ol>
-   *   <li>passing default value into modelside value</li>
-   *   <li>converting modelside value to viewside type</li>
-   *   <li>passing converted value into viewside value</li>
-   * </ol>
-   *
-   * @jalopy.group  group-do
-   */
-  @Override
-  public void doMmSetDefaults() {
-    this.ensureInitialization();
-
-    this.clearMessageListRecursively(this);
-    this.doPassDefaultToModelsideRecursively(this);
-    this.doPassModelsideToViewsideRecursively(this);
-  }
-
-  /**
-   * Sets the values from model into modelside of mimic.
-   *
-   * @jalopy.group  group-do
-   */
-  @Override
-  public void doMmSetModelFromModelside() {
-    this.ensureInitialization();
-
-    this.clearMessageListRecursively(this);
-    this.declaration.callbackMmSetModelFromModelside(this.model);
-
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(this)) {
-
-      // if child is attribute, invoke attribute child
-      if (MmBaseContainerImplementation.class.isAssignableFrom(child.getClass())) {
-        MmBaseContainerImplementation<?, ?, ?> containerChild = (MmBaseContainerImplementation<?, ?, ?>)child;
-
-        // ask each container child, but do NOT iterate over child's children
-        containerChild.doMmSetModelFromModelside();
-      }
-    }
-  }
-
-  /**
-   * Sets the values from model to modelside of mimic.
-   *
-   * @param         pModel  The model to set.
-   *
-   * @jalopy.group  group-do
-   */
-  @Override
-  public void doMmSetModelsideFromModel(MODEL pModel) {
-    this.ensureInitialization();
-
-    this.clearMessageListRecursively(this);
-
-    // store modelside reference to model
-    this.model = pModel;
-
-    // invoke callback method to pass values from model to modelside value
-    this.declaration.callbackMmSetModelsideFromModel(this.model);
-
-    this.doPassModelsideToViewside(this);
   }
 
   /**
@@ -181,36 +89,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Passes default values to mimic's modelside for all children of specified mimic.
-   *
-   * @param         pMm  The specified mimic.
-   *
-   * @jalopy.group  group-do
-   */
-  protected void doPassDefaultToModelsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    if (LOGGER.isTraceEnabled()) {
-      LOGGER.trace("doPassDefaultToModelsideRecursively()");
-    }
-
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is attribute, invoke attribute child
-      if (MmBaseAttributeImplementation.class.isAssignableFrom(child.getClass())) {
-        MmBaseAttributeImplementation<?, ?, ?, ?> attributeChild = (MmBaseAttributeImplementation<?, ?, ?, ?>)child;
-
-        // ask each attribute child, but do NOT iterate over attribute's children
-        attributeChild.doPassDefaultToModelsideValue();
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        this.doPassDefaultToModelsideRecursively(child);
-      }
-    }
-  }
-
-  /**
    * Passes values from mimic's modelside to mimic's viewside just for attribute children of specified mimic, but NOT recursively for all
    * children.
    *
@@ -218,11 +96,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-do
    */
+  @Deprecated
   protected void doPassModelsideToViewside(MmBaseImplementation<?, ?> pMm) {
-    if (LOGGER.isTraceEnabled()) {
-      LOGGER.trace("doPassModelsideToViewside()");
-    }
-
     // iterate over mimic's children
     for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
 
@@ -243,11 +118,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-do
    */
+  @Deprecated
   protected void doPassModelsideToViewsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    if (LOGGER.isTraceEnabled()) {
-      LOGGER.trace("doPassModelsideToViewsideRecursively()");
-    }
-
     // iterate over mimic's children
     for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
 
@@ -267,47 +139,14 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Passes reset values to mimic's modelside for all children of specified mimic.
-   *
-   * @param         pMm  The specified mimic.
-   *
-   * @jalopy.group  group-do
-   */
-  protected void doPassResetToModelsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    if (LOGGER.isTraceEnabled()) {
-      LOGGER.trace("doPassResetToModelsideRecursively()");
-    }
-
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is attribute, invoke attribute child
-      if (MmBaseAttributeImplementation.class.isAssignableFrom(child.getClass())) {
-        MmBaseAttributeImplementation<?, ?, ?, ?> attributeChild = (MmBaseAttributeImplementation<?, ?, ?, ?>)child;
-
-        // ask each attribute child, but do NOT iterate over attribute's children
-        attributeChild.doPassResetToModelsideValue();
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        this.doPassResetToModelsideRecursively(child);
-      }
-    }
-  }
-
-  /**
    * Passes values from mimic's viewside to mimic's modelside for all children of specified mimic.
    *
    * @param         pMm  The specified mimic.
    *
    * @jalopy.group  group-do
    */
+  @Deprecated
   protected void doPassViewsideToModelsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    if (LOGGER.isTraceEnabled()) {
-      LOGGER.trace("doPassViewsideToModelsideRecursively()");
-    }
-
     // iterate over mimic's children
     for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
 
@@ -338,10 +177,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-do
    */
   protected void doValidateModelsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    if (LOGGER.isTraceEnabled()) {
-      LOGGER.trace("doValidateModelsideRecursively()");
-    }
-
     this.errorstate = MmContainerErrorState.SUCCESS;
 
     // iterate over container's children
@@ -370,7 +205,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       try {
 
         // invoke callback method for semantic validation on mimic's declaration part
-        this.declaration.callbackMmValidateModel(this.model);
+        this.declaration.callbackMmValidateModel(this.modelAccessor.get());
 
       } catch (MmValidatorException validatorException) {
         this.errorstate = MmContainerErrorState.ERROR_IN_SEMANTIC_VALIDATION;
@@ -405,7 +240,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   public MODEL getMmModel() {
     this.ensureInitialization();
 
-    return this.model;
+    return this.modelAccessor.get();
   }
 
   /**
@@ -433,7 +268,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   public void setMmModel(MODEL pModel) {
     this.ensureInitialization();
 
-    this.model = pModel;
+    this.modelAccessor.set(pModel);
   }
 
   /**
@@ -566,54 +401,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.doMmReset} is executable.
-   *
-   * @return        <code>true</code> if the action {@link MmEditableMimic.doMmReset} is executable.
-   *
-   * @jalopy.group  group-is-reset
-   */
-  @Override
-  public boolean isMmResetEnabled() {
-    this.ensureInitialization();
-
-    return isResetEnabledRecursively(this);
-  }
-
-  /**
-   * Returns true, if for all children of specified mimic reset is enabled.
-   *
-   * @param         pMm  The specified mimic.
-   *
-   * @return        True, if for all children of specified mimic reset is enabled.
-   *
-   * @jalopy.group  group-is-reset
-   */
-  protected boolean isResetEnabledRecursively(MmBaseImplementation<?, ?> pMm) {
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is editable, ask child
-      if (MmEditableMimic.class.isAssignableFrom(child.getClass())) {
-        MmEditableMimic editableChild = (MmEditableMimic)child;
-
-        // if child is editable attribute, this will NOT iterate over child's children
-        // if child is editable container, container is responsible for its children
-        if (!editableChild.isMmResetEnabled()) {
-          return false;
-        }
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        if (!isResetEnabledRecursively(child)) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  /**
    * Returns <code>true</code> if the mimic has been validated without any errors.
    *
    * @return        <code>True</code> if the mimic has been validated without any errors.
@@ -664,6 +451,20 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       }
     }
     return true;
+  }
+
+  /**
+   * Returns accessor of root component of model.
+   *
+   * @return  The accessor of root component of model.
+   */
+  public MmComponentAccessor<?, ?> getMmRootAccessor() {
+    MmContainerMimic<?> containerAncestor = getImplementationAncestorOfType(MmContainerMimic.class);
+    if (containerAncestor != null) {
+      return containerAncestor.getMmRootAccessor();
+    } else {
+      return modelAccessor;
+    }
   }
 
   /**

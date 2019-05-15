@@ -26,24 +26,6 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
   }
 
   /**
-   * Sets values from modelside of mimic into model.
-   *
-   * @param  pRowModelList  The model to set values into.
-   */
-  @Override
-  public final void callbackMmSetModelFromModelside(List<ROW_MODEL> pRowModelList) {
-  }
-
-  /**
-   * Sets values from model into modelside of mimic.
-   *
-   * @param  pRowModelList  The model containing the values to be set.
-   */
-  @Override
-  public final void callbackMmSetModelsideFromModel(List<ROW_MODEL> pRowModelList) {
-  }
-
-  /**
    * Semantic validation of model.
    *
    * @param   pModel  The model to be validated.

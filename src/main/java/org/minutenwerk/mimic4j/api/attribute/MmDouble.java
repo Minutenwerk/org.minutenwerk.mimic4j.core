@@ -63,7 +63,7 @@ public class MmDouble extends MmBaseAttributeDeclaration<MmImplementationDouble,
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmDouble(MmDeclarationMimic pParent) {
+  public MmDouble(final MmDeclarationMimic pParent) {
     super(new MmImplementationDouble(pParent));
   }
 
@@ -124,20 +124,6 @@ public class MmDouble extends MmBaseAttributeDeclaration<MmImplementationDouble,
       }
     }
     return returnDouble;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public Double callbackMmGetDefaultValue(Double pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

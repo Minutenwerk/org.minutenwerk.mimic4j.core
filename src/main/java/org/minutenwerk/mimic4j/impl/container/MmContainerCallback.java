@@ -2,6 +2,8 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
+import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
 
 /**
  * MmContainerCallback defines a set of override-able methods common to all container mimics. Callback methods are part of the declaration
@@ -13,18 +15,13 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 public interface MmContainerCallback<MODEL> extends MmBaseCallback {
 
   /**
-   * Sets values from modelside of mimic into model.
+   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified root component accessor.
    *
-   * @param  pModel  The model to set values into.
-   */
-  public void callbackMmSetModelFromModelside(MODEL pModel);
-
-  /**
-   * Sets values from model into modelside of mimic.
+   * @param   pRootAccessor  The specified root component accessor.
    *
-   * @param  pModel  The model containing the values to be set.
+   * @return  The container's accessor.
    */
-  public void callbackMmSetModelsideFromModel(MODEL pModel);
+  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pRootAccessor);
 
   /**
    * Semantic validation of model.

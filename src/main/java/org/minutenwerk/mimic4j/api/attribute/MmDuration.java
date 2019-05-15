@@ -69,7 +69,7 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmDuration(MmDeclarationMimic pParent) {
+  public MmDuration(final MmDeclarationMimic pParent) {
     super(new MmImplementationDuration(pParent));
   }
 
@@ -130,20 +130,6 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
       }
     }
     return returnDuration;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public Duration callbackMmGetDefaultValue(Duration pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

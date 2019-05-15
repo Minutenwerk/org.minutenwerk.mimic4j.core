@@ -36,16 +36,6 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
   }
 
   /**
-   * Sets values from modelside of mimic into model.
-   *
-   * @param  pModel  The model to set values into.
-   */
-  @Override
-  public final void callbackMmSetModelFromModelside(MODEL pModel) {
-    // do nothing, because leporello panels are read only, this method can never be called, therefore it is overriden here and made final
-  }
-
-  /**
    * Returns the parent leporello of this leporello panel.
    *
    * @return  The parent leporello of this leporello panel.

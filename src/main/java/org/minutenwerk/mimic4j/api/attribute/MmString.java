@@ -108,20 +108,6 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
   }
 
   /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public String callbackMmGetDefaultValue(String pPassThroughValue) {
-    return pPassThroughValue;
-  }
-
-  /**
    * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
    *
    * @return        A list of options.

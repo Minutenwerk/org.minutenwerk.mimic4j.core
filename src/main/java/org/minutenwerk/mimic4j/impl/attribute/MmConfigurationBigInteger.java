@@ -15,25 +15,16 @@ import org.minutenwerk.mimic4j.api.attribute.MmBigIntegerAnnotation;
 public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigInteger> {
 
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int                     DEFAULT_FORMAT_MAX_LENGTH     = 255;
-
-  /** Constant for default value of default value. */
-  public static final BigInteger              DEFAULT_DEFAULT_VALUE         = BigInteger.ZERO;
-
-  /** Constant for default value of default value of type long. */
-  public static final long                    DEFAULT_DEFAULT_VALUE_AS_LONG = 0L;
+  public static final int                     DEFAULT_FORMAT_MAX_LENGTH = 255;
 
   /** Redundant to {@link MmBigIntegerAnnotation.jsfTag()}. */
-  public static final MmBigIntegerJsfTag      DEFAULT_JSF_TAG               = MmBigIntegerJsfTag.TextField;
+  public static final MmBigIntegerJsfTag      DEFAULT_JSF_TAG           = MmBigIntegerJsfTag.TextField;
 
   /** Redundant to {@link MmBigIntegerAnnotation.jsfTagDisabled()}. */
-  public static final MmBigIntegerJsfDisabled DEFAULT_JSF_TAG_DISABLED      = MmBigIntegerJsfDisabled.SameAsEnabled;
+  public static final MmBigIntegerJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmBigIntegerJsfDisabled.SameAsEnabled;
 
   /** Maximum length of formatted input string. */
   protected int                               formatMaxLength;
-
-  /** The default value. */
-  protected BigInteger                        defaultValue;
 
   /** The JSF tag in enabled state. */
   protected MmBigIntegerJsfTag                jsfTag;
@@ -47,7 +38,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
   public MmConfigurationBigInteger() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.defaultValue    = DEFAULT_DEFAULT_VALUE;
     this.jsfTag          = DEFAULT_JSF_TAG;
     this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
@@ -62,19 +52,8 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
       pBigIntegerAnnotation.required());
 
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.defaultValue    = BigInteger.valueOf(pBigIntegerAnnotation.defaultValue());
     this.jsfTag          = pBigIntegerAnnotation.jsfTag();
     this.jsfTagDisabled  = pBigIntegerAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public BigInteger getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**
@@ -104,15 +83,6 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
   @Override
   public String getJsfTagEnabled() {
     return this.jsfTag.name();
-  }
-
-  /**
-   * Sets the configuration of default value.
-   *
-   * @param  pDefaultValue  The specified configuration of default value.
-   */
-  public void setDefaultValue(BigInteger pDefaultValue) {
-    this.defaultValue = pDefaultValue;
   }
 
   /**

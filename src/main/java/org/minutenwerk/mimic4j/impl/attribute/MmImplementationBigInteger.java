@@ -20,7 +20,7 @@ public class MmImplementationBigInteger extends MmBaseAttributeImplementation<Mm
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationBigInteger(MmDeclarationMimic pParent) {
+  public MmImplementationBigInteger(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

@@ -20,7 +20,7 @@ public class MmImplementationBigDecimal extends MmBaseAttributeImplementation<Mm
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationBigDecimal(MmDeclarationMimic pParent) {
+  public MmImplementationBigDecimal(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 
@@ -52,6 +52,7 @@ public class MmImplementationBigDecimal extends MmBaseAttributeImplementation<Mm
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
+    // TODO how to check this only for development?
     this.checkForIllegalAnnotationsOtherThan(this.declaration, MmBigDecimalAnnotation.class);
 
     MmBigDecimalAnnotation annotation = this.findAnnotation(this.declaration, MmBigDecimalAnnotation.class);

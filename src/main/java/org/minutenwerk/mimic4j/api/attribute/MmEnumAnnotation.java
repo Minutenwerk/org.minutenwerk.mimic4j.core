@@ -28,8 +28,6 @@ public @interface MmEnumAnnotation {
 
   public boolean enabled() default MmConfigurationEnum.DEFAULT_IS_ENABLED;
 
-  public String defaultValue() default MmConfigurationEnum.DEFAULT_DEFAULT_VALUE_AS_STRING;
-
   public boolean required() default MmConfigurationEnum.DEFAULT_IS_REQUIRED;
 
   public MmEnumJsfTag jsfTag() default MmEnumJsfTag.SelectOneMenu;

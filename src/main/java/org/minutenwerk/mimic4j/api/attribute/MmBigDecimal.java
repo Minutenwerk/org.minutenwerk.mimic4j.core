@@ -69,7 +69,7 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmBigDecimal(MmDeclarationMimic pParent) {
+  public MmBigDecimal(final MmDeclarationMimic pParent) {
     super(new MmImplementationBigDecimal(pParent));
   }
 
@@ -131,20 +131,6 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
       }
     }
     return returnBigDecimal;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public BigDecimal callbackMmGetDefaultValue(BigDecimal pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

@@ -28,8 +28,6 @@ public @interface MmDurationAnnotation {
 
   public boolean enabled() default MmConfigurationDuration.DEFAULT_IS_ENABLED;
 
-  public long defaultValue() default MmConfigurationDuration.DEFAULT_DEFAULT_VALUE_AS_LONG;
-
   public boolean required() default MmConfigurationDuration.DEFAULT_IS_REQUIRED;
 
   public int formatMaxLength() default MmConfigurationDuration.DEFAULT_FORMAT_MAX_LENGTH;

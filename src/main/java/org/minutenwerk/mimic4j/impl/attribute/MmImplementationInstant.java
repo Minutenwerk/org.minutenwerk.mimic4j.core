@@ -21,7 +21,7 @@ public class MmImplementationInstant extends MmBaseAttributeImplementation<MmIns
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationInstant(MmDeclarationMimic pParent) {
+  public MmImplementationInstant(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

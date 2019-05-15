@@ -51,14 +51,13 @@ public class MmImplementationTable<ROW_MODEL>
    *
    * @jalopy.group  group-do
    */
-  @Override
   public void doMmSetModelsideFromModel(List<ROW_MODEL> pRowModelList) {
     this.ensureInitialization();
 
     this.clearMessageListRecursively(this);
 
     // store modelside reference to model
-    this.model = pRowModelList;
+    // this.model = pRowModelList;
 
     // clear list of runtime children of table
     this.clearRuntimeChildrenList();
@@ -71,7 +70,7 @@ public class MmImplementationTable<ROW_MODEL>
       i++;
 
       MmTableRow<ROW_MODEL> tableRowMm = this.declaration.callbackMmCreateTableRow(i);
-      tableRowMm.doMmSetModelsideFromModel(rowModel);
+      // tableRowMm.doMmSetModelsideFromModel(rowModel);
 
       // add table row mimic to list of runtime children
       this.addChild(tableRowMm, null, this.typeOfFirstGenericParameter);

@@ -21,7 +21,7 @@ public class MmImplementationLocalDate extends MmBaseAttributeImplementation<MmL
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationLocalDate(MmDeclarationMimic pParent) {
+  public MmImplementationLocalDate(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

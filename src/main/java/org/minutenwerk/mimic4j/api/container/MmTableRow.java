@@ -25,16 +25,6 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
   }
 
   /**
-   * For read/write tables: Set values from modelside of table row into specified model. For read only tables this method doesn't need to be
-   * redefined.
-   *
-   * @param  pModel  The specified model.
-   */
-  @Override
-  public void callbackMmSetModelFromModelside(ROW_MODEL pModel) {
-  }
-
-  /**
    * Returns the table row index of this row.
    *
    * @return  The table row index of this row.

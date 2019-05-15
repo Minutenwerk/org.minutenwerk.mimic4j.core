@@ -20,9 +20,6 @@ public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<Z
   /** Constant for default value of maximum length of formatted input string. */
   public static final int                   DEFAULT_FORMAT_MAX_LENGTH = 19;
 
-  /** Constant for default value of default value. */
-  public static final ZonedDateTime         DEFAULT_DEFAULT_VALUE     = null;
-
   /** Redundant to {@link MmDateTimeAnnotation.jsfTag()}. */
   public static final MmDateTimeJsfTag      DEFAULT_JSF_TAG           = MmDateTimeJsfTag.TextField;
 
@@ -31,9 +28,6 @@ public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<Z
 
   /** Format pattern for parsing user input and formatting viewside value. */
   protected String                          formatPattern;
-
-  /** The default value. */
-  protected ZonedDateTime                   defaultValue;
 
   /** Maximum length of formatted input string. */
   protected int                             formatMaxLength;
@@ -50,7 +44,6 @@ public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<Z
   public MmConfigurationZonedDateTime() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
     this.formatPattern   = DEFAULT_FORMAT_PATTERN;
-    this.defaultValue    = DEFAULT_DEFAULT_VALUE;
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     this.jsfTag          = DEFAULT_JSF_TAG;
     this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
@@ -65,22 +58,9 @@ public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<Z
     super(pDateTimeAnnotation.id(), pDateTimeAnnotation.visible(), pDateTimeAnnotation.readOnly(), pDateTimeAnnotation.enabled(),
       pDateTimeAnnotation.required());
     this.formatPattern   = pDateTimeAnnotation.formatPattern();
-
-    // there is no default value for date in annotation
-    this.defaultValue    = DEFAULT_DEFAULT_VALUE;
     this.formatMaxLength = pDateTimeAnnotation.formatMaxLength();
     this.jsfTag          = pDateTimeAnnotation.jsfTag();
     this.jsfTagDisabled  = pDateTimeAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public ZonedDateTime getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**
@@ -119,15 +99,6 @@ public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<Z
   @Override
   public String getJsfTagEnabled() {
     return this.jsfTag.name();
-  }
-
-  /**
-   * Sets the configuration of default value.
-   *
-   * @param  pDefaultValue  The specified configuration of default value.
-   */
-  public void setDefaultValue(ZonedDateTime pDefaultValue) {
-    this.defaultValue = pDefaultValue;
   }
 
   /**

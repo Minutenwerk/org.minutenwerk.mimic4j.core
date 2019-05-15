@@ -89,20 +89,20 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
     final String  returnID          = internalIdExists ? internalId : (externalIdExists ? externalId : "undefinedIdInMmJsfBridge");
 
     if (externalIdMissing && internalIdMissing) {
-      LOGGER.error("missing id of mimic and of XHTML for: " + this.implementation.toString());
+      LOGGER.error("missing id of mimic and of XHTML for: {}", this.implementation.toString());
 
     } else if (externalIdMissing && internalIdExists) {
-      LOGGER.warn("missing id of XHTML for: " + this.implementation.toString());
+      LOGGER.warn("missing id of XHTML for: {}", this.implementation.toString());
 
     } else if (externalIdExists && internalIdMissing) {
 
       // ATTENTION: sets mimic id to value of XHTML id!
       this.implementation.getConfiguration().setId(externalId);
-      LOGGER.warn("missing id of mimic, set from XHTML for: " + this.implementation.toString());
+      LOGGER.warn("missing id of mimic, set from XHTML for: {}", this.implementation.toString());
 
     } else if (externalIdExists && internalIdExists) {
       if (!externalId.equals(internalId)) {
-        LOGGER.error("different id of mimic <" + internalId + "> and of XHTML <" + externalId + "> for: " + this.implementation.toString());
+        LOGGER.error("different id of mimic <{}> and of XHTML <{}> for: {}", internalId, externalId, this.implementation.toString());
       }
     }
     return returnID;

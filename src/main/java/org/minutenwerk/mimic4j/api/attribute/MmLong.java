@@ -63,7 +63,7 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmLong(MmDeclarationMimic pParent) {
+  public MmLong(final MmDeclarationMimic pParent) {
     super(new MmImplementationLong(pParent));
   }
 
@@ -124,20 +124,6 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
       }
     }
     return returnLong;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public Long callbackMmGetDefaultValue(Long pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

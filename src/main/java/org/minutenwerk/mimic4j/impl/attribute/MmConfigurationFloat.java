@@ -15,9 +15,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
   /** Constant for default value of maximum length of formatted input string. */
   public static final int                DEFAULT_FORMAT_MAX_LENGTH = 255;
 
-  /** Constant for default value of default value. */
-  public static final float              DEFAULT_DEFAULT_VALUE     = 0F;
-
   /** Redundant to {@link MmFloatAnnotation.jsfTag()}. */
   public static final MmFloatJsfTag      DEFAULT_JSF_TAG           = MmFloatJsfTag.TextField;
 
@@ -26,9 +23,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
 
   /** Maximum length of formatted input string. */
   protected int                          formatMaxLength;
-
-  /** The default value. */
-  protected Float                        defaultValue;
 
   /** The JSF tag in enabled state. */
   protected MmFloatJsfTag                jsfTag;
@@ -42,7 +36,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
   public MmConfigurationFloat() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.defaultValue    = DEFAULT_DEFAULT_VALUE;
     this.jsfTag          = DEFAULT_JSF_TAG;
     this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
@@ -57,19 +50,8 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
       pFloatAnnotation.required());
 
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.defaultValue    = pFloatAnnotation.defaultValue();
     this.jsfTag          = pFloatAnnotation.jsfTag();
     this.jsfTagDisabled  = pFloatAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public Float getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**
@@ -99,15 +81,6 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
   @Override
   public String getJsfTagEnabled() {
     return this.jsfTag.name();
-  }
-
-  /**
-   * Sets the configuration of default value.
-   *
-   * @param  pDefaultValue  The specified configuration of default value.
-   */
-  public void setDefaultValue(Float pDefaultValue) {
-    this.defaultValue = pDefaultValue;
   }
 
   /**

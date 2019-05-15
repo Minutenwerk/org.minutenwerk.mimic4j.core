@@ -5,10 +5,15 @@ import java.text.NumberFormat;
 
 import java.util.Locale;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
+import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
 
 /**
  * MmBaseEditable is an abstract base class for all editable attribute mimics.
@@ -17,15 +22,18 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
  *
  * @jalopy.group-order  group-callback, group-lifecycle
  */
-public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAttributeImplementation<?, ?, MODELSIDE_VALUE, VIEWSIDE_VALUE>,
-  MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmBaseDeclaration<MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE>, IMPLEMENTATION>
-  implements MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE>, MmAttributeCallback<MODELSIDE_VALUE, VIEWSIDE_VALUE> {
+public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAttributeImplementation<?, ?, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>,
+  ATTRIBUTE_MODEL, VIEWSIDE_VALUE> extends MmBaseDeclaration<MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, IMPLEMENTATION>
+  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> {
 
   /** Constant for value to be displayed in case of the viewside value is null. */
-  public static final String ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE = "";
+  public static final String  ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE = "";
 
   /** Constant for default value of maximum input length. */
-  public static final int    EDITABLE_DEFAULT_MAX_LENGTH          = 255;
+  public static final int     EDITABLE_DEFAULT_MAX_LENGTH          = 255;
+
+  /** The logger of this class. */
+  private static final Logger LOGGER                               = LogManager.getLogger(MmBaseAttributeDeclaration.class);
 
   /**
    * Creates a new MmBaseEditable instance.
@@ -34,6 +42,22 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   public MmBaseAttributeDeclaration(IMPLEMENTATION pImplementation) {
     super(pImplementation);
+  }
+
+  /**
+   * Returns the attribute's accessor to corresponding model field. The attribute accessor can be derived from specified root component
+   * accessor.
+   *
+   * @param         pRootAccessor  The specified root component accessor.
+   *
+   * @return        The attribute's accessor.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pRootAccessor) {
+    LOGGER.warn("no definition of callbackMmGetAccessor() for {}", this::getMmFullName);
+    return null;
   }
 
   /**
@@ -80,18 +104,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Sets modelside value of mimic to specified value. Sets reset value as well to specified value.
-   *
-   * @param         pModelsideValue  The specified value to be set.
-   *
-   * @jalopy.group  group-lifecycle
-   */
-  @Override
-  public final void setMmModelsideValue(MODELSIDE_VALUE pModelsideValue) {
-    this.implementation.setMmModelsideValue(pModelsideValue);
-  }
-
-  /**
    * Sets viewside value of mimic to specified value.
    *
    * @param         pViewsideValue  The specified value to be set.
@@ -101,36 +113,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
     this.implementation.setMmViewsideValue(pViewsideValue);
-  }
-
-  /**
-   * Resets the attribute to its reset value, by:
-   *
-   * <ol>
-   *   <li>passing reset value into modelside value</li>
-   *   <li>converting modelside value to viewside type</li>
-   *   <li>passing converted value into viewside value</li>
-   * </ol>
-   */
-  @Override
-  public final void doMmReset() {
-    this.implementation.clearMmMessageList();
-    this.implementation.doMmReset();
-  }
-
-  /**
-   * Sets the attribute to its default value, by:
-   *
-   * <ol>
-   *   <li>passing default value into modelside value</li>
-   *   <li>converting modelside value to viewside type</li>
-   *   <li>passing converted value into viewside value</li>
-   * </ol>
-   */
-  @Override
-  public final void doMmSetDefaults() {
-    this.implementation.clearMmMessageList();
-    this.implementation.doMmSetDefaults();
   }
 
   /**
@@ -157,16 +139,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final int getMmCols() {
     return this.implementation.getMmCols();
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @return  The attribute's default value of type MODELSIDE_VALUE.
-   */
-  @Override
-  public final MODELSIDE_VALUE getMmDefaultValue() {
-    return this.implementation.getMmDefaultValue();
   }
 
   /**
@@ -206,7 +178,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @return  The type of modelside value of the mimic.
    */
   @Override
-  public final Class<MODELSIDE_VALUE> getMmModelsideType() {
+  public final Class<ATTRIBUTE_MODEL> getMmModelsideType() {
     return this.implementation.getMmModelsideType();
   }
 
@@ -216,18 +188,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @return  The modelside value of the mimic.
    */
   @Override
-  public final MODELSIDE_VALUE getMmModelsideValue() {
+  public final ATTRIBUTE_MODEL getMmModelsideValue() {
     return this.implementation.getMmModelsideValue();
-  }
-
-  /**
-   * Returns the attribute's reset value of type MODELSIDE_VALUE.
-   *
-   * @return  The attribute's reset value of type MODELSIDE_VALUE.
-   */
-  @Override
-  public final MODELSIDE_VALUE getMmResetValue() {
-    return this.implementation.getMmResetValue();
   }
 
   /**
@@ -299,16 +261,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final boolean isMmRequired() {
     return this.implementation.isMmRequired();
-  }
-
-  /**
-   * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.doMmReset} is executable.
-   *
-   * @return  <code>true</code> if the action {@link MmEditableMimic.doMmReset} is executable.
-   */
-  @Override
-  public final boolean isMmResetEnabled() {
-    return this.implementation.isMmResetEnabled();
   }
 
   /**

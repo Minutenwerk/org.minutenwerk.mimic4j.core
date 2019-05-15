@@ -18,7 +18,7 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationBoolean(MmDeclarationMimic pParent) {
+  public MmImplementationBoolean(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

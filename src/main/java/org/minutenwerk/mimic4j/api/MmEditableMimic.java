@@ -4,33 +4,11 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 
 /**
  * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from modelside. Mimics of type
- * MmEditableMimic can set to default value, can be validated and can be reset.
+ * MmEditableMimic can be validated.
  *
  * @author  Olaf Kossak
  */
 public interface MmEditableMimic extends MmMimic {
-
-  /**
-   * Resets the attribute to its reset value, by:
-   *
-   * <ol>
-   *   <li>passing reset value into modelside value</li>
-   *   <li>converting modelside value to viewside type</li>
-   *   <li>passing converted value into viewside value</li>
-   * </ol>
-   */
-  public void doMmReset();
-
-  /**
-   * Sets the attribute to its default value, by:
-   *
-   * <ol>
-   *   <li>passing default value into modelside value</li>
-   *   <li>converting modelside value to viewside type</li>
-   *   <li>passing converted value into viewside value</li>
-   * </ol>
-   */
-  public void doMmSetDefaults();
 
   /**
    * Validates attribute, by:
@@ -60,13 +38,6 @@ public interface MmEditableMimic extends MmMimic {
    * @return  <code>True</code> if a value from view has to be set.
    */
   public boolean isMmRequired();
-
-  /**
-   * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.doMmReset} is executable.
-   *
-   * @return  <code>true</code> if the action {@link MmEditableMimic.doMmReset} is executable.
-   */
-  public boolean isMmResetEnabled();
 
   /**
    * Returns <code>true</code> if the mimic has been validated without any errors.

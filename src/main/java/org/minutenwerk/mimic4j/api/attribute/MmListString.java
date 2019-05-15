@@ -52,7 +52,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmListString(MmDeclarationMimic pParent) {
+  public MmListString(final MmDeclarationMimic pParent) {
     super(new MmImplementationListString(pParent));
   }
 
@@ -100,20 +100,6 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
       Collections.copy(pViewsideValue, returnList);
     }
     return returnList;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public List<String> callbackMmGetDefaultValue(List<String> pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

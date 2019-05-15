@@ -19,7 +19,7 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationEnum(MmDeclarationMimic pParent) {
+  public MmImplementationEnum(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

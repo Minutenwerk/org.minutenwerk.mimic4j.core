@@ -28,8 +28,6 @@ public @interface MmBigDecimalAnnotation {
 
   public boolean enabled() default MmConfigurationBigDecimal.DEFAULT_IS_ENABLED;
 
-  public double defaultValue() default MmConfigurationBigDecimal.DEFAULT_DEFAULT_VALUE_AS_DOUBLE;
-
   public boolean required() default MmConfigurationBigDecimal.DEFAULT_IS_REQUIRED;
 
   public int formatMaxLength() default MmConfigurationBigDecimal.DEFAULT_FORMAT_MAX_LENGTH;

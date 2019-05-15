@@ -12,9 +12,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
  */
 public class MmConfigurationString extends MmBaseAttributeConfiguration<String> {
 
-  /** Constant for default value of default value. */
-  public static final String              DEFAULT_DEFAULT_VALUE     = "";
-
   /** Constant for default value of maximum length of formatted input string. */
   public static final int                 DEFAULT_FORMAT_MAX_LENGTH = 255;
 
@@ -33,9 +30,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
   /** Maximum length of formatted input string. */
   protected int                           formatMaxLength;
 
-  /** The default value. */
-  protected String                        defaultValue;
-
   /** Columns of multi line text field. */
   protected int                           cols;
 
@@ -53,7 +47,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    */
   public MmConfigurationString() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.defaultValue    = DEFAULT_DEFAULT_VALUE;
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     this.cols            = DEFAULT_COLS;
     this.rows            = DEFAULT_ROWS;
@@ -69,7 +62,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
   public MmConfigurationString(MmStringAnnotation pStringAnnotation) {
     super(pStringAnnotation.id(), pStringAnnotation.visible(), pStringAnnotation.readOnly(), pStringAnnotation.enabled(),
       pStringAnnotation.required());
-    this.defaultValue    = pStringAnnotation.defaultValue();
     this.formatMaxLength = pStringAnnotation.formatMaxLength();
     this.cols            = pStringAnnotation.cols();
     this.rows            = pStringAnnotation.rows();
@@ -84,16 +76,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    */
   public int getCols() {
     return cols;
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public String getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**

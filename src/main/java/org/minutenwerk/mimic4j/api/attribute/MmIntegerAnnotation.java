@@ -28,8 +28,6 @@ public @interface MmIntegerAnnotation {
 
   public boolean enabled() default MmConfigurationInteger.DEFAULT_IS_ENABLED;
 
-  public int defaultValue() default MmConfigurationInteger.DEFAULT_DEFAULT_VALUE;
-
   public boolean required() default MmConfigurationInteger.DEFAULT_IS_REQUIRED;
 
   public int formatMaxLength() default MmConfigurationInteger.DEFAULT_FORMAT_MAX_LENGTH;

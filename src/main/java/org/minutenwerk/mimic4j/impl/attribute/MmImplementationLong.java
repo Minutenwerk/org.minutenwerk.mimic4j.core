@@ -18,7 +18,7 @@ public class MmImplementationLong extends MmBaseAttributeImplementation<MmLong, 
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationLong(MmDeclarationMimic pParent) {
+  public MmImplementationLong(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

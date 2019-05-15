@@ -15,9 +15,6 @@ public class MmConfigurationDouble extends MmBaseAttributeConfiguration<Double> 
   /** Constant for default value of maximum length of formatted input string. */
   public static final int                 DEFAULT_FORMAT_MAX_LENGTH = 255;
 
-  /** Constant for default value of default value. */
-  public static final double              DEFAULT_DEFAULT_VALUE     = 0D;
-
   /** Redundant to {@link MmDoubleAnnotation.jsfTag()}. */
   public static final MmDoubleJsfTag      DEFAULT_JSF_TAG           = MmDoubleJsfTag.TextField;
 
@@ -26,9 +23,6 @@ public class MmConfigurationDouble extends MmBaseAttributeConfiguration<Double> 
 
   /** Maximum length of formatted input string. */
   protected int                           formatMaxLength;
-
-  /** The default value. */
-  protected Double                        defaultValue;
 
   /** The JSF tag in enabled state. */
   protected MmDoubleJsfTag                jsfTag;
@@ -42,7 +36,6 @@ public class MmConfigurationDouble extends MmBaseAttributeConfiguration<Double> 
   public MmConfigurationDouble() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.defaultValue    = DEFAULT_DEFAULT_VALUE;
     this.jsfTag          = DEFAULT_JSF_TAG;
     this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
@@ -57,19 +50,8 @@ public class MmConfigurationDouble extends MmBaseAttributeConfiguration<Double> 
       pDoubleAnnotation.required());
 
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.defaultValue    = pDoubleAnnotation.defaultValue();
     this.jsfTag          = pDoubleAnnotation.jsfTag();
     this.jsfTagDisabled  = pDoubleAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public Double getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**
@@ -99,15 +81,6 @@ public class MmConfigurationDouble extends MmBaseAttributeConfiguration<Double> 
   @Override
   public String getJsfTagEnabled() {
     return this.jsfTag.name();
-  }
-
-  /**
-   * Sets the configuration of default value.
-   *
-   * @param  pDefaultValue  The specified configuration of default value.
-   */
-  public void setDefaultValue(Double pDefaultValue) {
-    this.defaultValue = pDefaultValue;
   }
 
   /**

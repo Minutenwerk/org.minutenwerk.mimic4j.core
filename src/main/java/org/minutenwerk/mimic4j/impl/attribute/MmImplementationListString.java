@@ -21,7 +21,7 @@ public class MmImplementationListString
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationListString(MmDeclarationMimic pParent) {
+  public MmImplementationListString(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

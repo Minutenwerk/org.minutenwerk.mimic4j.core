@@ -12,9 +12,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
  */
 public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBaseAttributeConfiguration<ENUM_TYPE> {
 
-  /** Constant for default value of default value. */
-  public static final String            DEFAULT_DEFAULT_VALUE_AS_STRING   = "";
-
   /** Redundant to {@link MmEnumAnnotation.jsfTag()}. */
   public static final MmEnumJsfTag      DEFAULT_JSF_TAG                   = MmEnumJsfTag.SelectOneMenu;
 
@@ -23,9 +20,6 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
 
   /** Index of generic type of enumeration type. */
   public static final int               GENERIC_PARAMETER_INDEX_ENUM_TYPE = 1;
-
-  /** The default value. */
-  protected ENUM_TYPE                   defaultValue;
 
   /** The JSF tag in enabled state. */
   protected MmEnumJsfTag                jsfTag;
@@ -38,7 +32,6 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    */
   public MmConfigurationEnum() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.defaultValue   = null;
     this.jsfTag         = DEFAULT_JSF_TAG;
     this.jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }
@@ -53,25 +46,8 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
     super(pEnumAnnotation.id(), pEnumAnnotation.visible(), pEnumAnnotation.readOnly(), pEnumAnnotation.enabled(),
       pEnumAnnotation.required());
 
-    final String defaultValueAsString = pEnumAnnotation.defaultValue();
-    if (defaultValueAsString.equals(DEFAULT_DEFAULT_VALUE_AS_STRING)) {
-      this.defaultValue = null;
-    } else {
-      ENUM_TYPE defaultValueAsEnum = Enum.valueOf(pEnumType, defaultValueAsString);
-      this.defaultValue = defaultValueAsEnum;
-    }
     this.jsfTag         = pEnumAnnotation.jsfTag();
     this.jsfTagDisabled = pEnumAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public ENUM_TYPE getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**
@@ -92,15 +68,6 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
   @Override
   public String getJsfTagEnabled() {
     return this.jsfTag.name();
-  }
-
-  /**
-   * Sets the configuration of default value.
-   *
-   * @param  pDefaultValue  The specified configuration of default value.
-   */
-  public void setDefaultValue(ENUM_TYPE pDefaultValue) {
-    this.defaultValue = pDefaultValue;
   }
 
   /**

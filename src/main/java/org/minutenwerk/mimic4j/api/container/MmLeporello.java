@@ -18,6 +18,7 @@ import org.minutenwerk.mimic4j.impl.container.MmLeporelloCallback;
  *
  * @author  Olaf Kossak
  */
+@Deprecated
 public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationLeporello<MODEL, SUB_MODEL>>
   implements MmLeporelloCallback<MODEL, SUB_MODEL> {
 
@@ -38,36 +39,6 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
    */
   public MmLeporello(MmDeclarationMimic pParent) {
     super(new MmImplementationLeporello<MODEL, SUB_MODEL>(pParent));
-  }
-
-  /**
-   * Sets values from modelside of mimic into model.
-   *
-   * @param  pModel  The model to set values into.
-   */
-  @Override
-  public final void callbackMmSetModelFromModelside(MODEL pModel) {
-    // do nothing. Because leporellos are read only, this method can never be called, therefore it is made final here
-  }
-
-  /**
-   * Sets values from model into modelside of mimic.
-   *
-   * @param  pModel     The model containing the values to be set, cannot be null.
-   * @param  pSubModel  The sub model containing the values to be set, can be null.
-   */
-  @Override
-  public void callbackMmSetModelsideFromModel(MODEL pModel, SUB_MODEL pSubModel) {
-  }
-
-  /**
-   * Sets the values from model to modelside of mimic.
-   *
-   * @param  pModel     The model containing the values to be set, cannot be null.
-   * @param  pSubModel  The sub model containing the values to be set, can be null.
-   */
-  public final void doMmSetModelsideFromModel(MODEL pModel, SUB_MODEL pSubModel) {
-    this.implementation.doMmSetModelsideFromModel(pModel, pSubModel);
   }
 
   /**

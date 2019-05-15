@@ -18,7 +18,7 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationString(MmDeclarationMimic pParent) {
+  public MmImplementationString(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

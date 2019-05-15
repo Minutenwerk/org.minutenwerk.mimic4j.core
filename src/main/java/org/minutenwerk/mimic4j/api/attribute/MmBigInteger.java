@@ -70,7 +70,7 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmBigInteger(MmDeclarationMimic pParent) {
+  public MmBigInteger(final MmDeclarationMimic pParent) {
     super(new MmImplementationBigInteger(pParent));
   }
 
@@ -133,20 +133,6 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
       }
     }
     return returnBigInteger;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public BigInteger callbackMmGetDefaultValue(BigInteger pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

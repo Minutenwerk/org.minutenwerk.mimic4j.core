@@ -36,15 +36,15 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * MmConfiguration.longDescription</code>. If <code>MmConfiguration.longDescription</code> returns the constant <code>
    * MmConfiguration.UNDEFINED</code>, the long description is set to value of name of mimic.
    *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   * @param         pArguments         Optional list of message arguments.
+   * @param         pPassThroughValue      By default this parameter value will be returned.
+   * @param         pPassThroughArguments  Optional list of message arguments.
    *
    * @return        A long description.
    *
    * @jalopy.group  group-callback
    */
   @Override
-  public String callbackMmGetLongDescription(String pPassThroughValue, Object... pArguments) {
+  public String callbackMmGetLongDescription(String pPassThroughValue, Object... pPassThroughArguments) {
     return pPassThroughValue;
   }
 
@@ -309,13 +309,13 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   /**
    * Returns an array of message arguments for the long description.
    *
-   * @param   pPassThroughValue  By default this parameter value will be returned.
+   * @param   pPassThroughValues  By default this parameter value will be returned.
    *
    * @return  An array of message arguments for the long description.
    */
   @Override
-  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValue) {
-    return pPassThroughValue;
+  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues) {
+    return pPassThroughValues;
   }
 
   /**

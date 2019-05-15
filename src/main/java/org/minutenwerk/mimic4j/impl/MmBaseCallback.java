@@ -14,21 +14,21 @@ public interface MmBaseCallback {
    * MmConfiguration.longDescription</code>. If <code>MmConfiguration.longDescription</code> returns the constant <code>
    * MmConfiguration.UNDEFINED</code>, the long description is set to value of name of mimic.
    *
-   * @param   pPassThroughValue  By default this parameter value will be returned.
-   * @param   pArguments         Optional list of message arguments.
+   * @param   pPassThroughValue      By default this parameter value will be returned.
+   * @param   pPassThroughArguments  Optional list of message arguments.
    *
    * @return  A long description.
    */
-  public String callbackMmGetLongDescription(String pPassThroughValue, Object... pArguments);
+  public String callbackMmGetLongDescription(String pPassThroughValue, Object... pPassThroughArguments);
 
   /**
    * Returns an array of message arguments for the long description.
    *
-   * @param   pPassThroughValue  By default this parameter value will be returned.
+   * @param   pPassThroughValues  By default this parameter value will be returned.
    *
    * @return  An array of message arguments for the long description.
    */
-  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValue);
+  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues);
 
   /**
    * Returns a short description. The short description is evaluated from callbackMm method <code>callbackMmGetShortDescription</code>. If

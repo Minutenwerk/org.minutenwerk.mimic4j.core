@@ -28,8 +28,6 @@ public @interface MmDoubleAnnotation {
 
   public boolean enabled() default MmConfigurationDouble.DEFAULT_IS_ENABLED;
 
-  public double defaultValue() default MmConfigurationDouble.DEFAULT_DEFAULT_VALUE;
-
   public boolean required() default MmConfigurationDouble.DEFAULT_IS_REQUIRED;
 
   public int formatMaxLength() default MmConfigurationDouble.DEFAULT_FORMAT_MAX_LENGTH;

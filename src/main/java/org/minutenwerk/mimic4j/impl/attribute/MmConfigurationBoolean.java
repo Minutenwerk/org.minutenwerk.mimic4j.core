@@ -13,23 +13,14 @@ import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
  */
 public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean> {
 
-  /** Constant for default value of default value. */
-  public static final Boolean              DEFAULT_DEFAULT_VALUE              = Boolean.FALSE;
-
-  /** Constant for default value of default value of type boolean. */
-  public static final boolean              DEFAULT_DEFAULT_VALUE_AS_PRIMITIVE = false;
-
   /** Constant for default value of layout direction of JSF tag. */
-  public static final MmBooleanLayout      DEFAULT_LAYOUT                     = MmBooleanLayout.PAGE_DIRECTION;
+  public static final MmBooleanLayout      DEFAULT_LAYOUT           = MmBooleanLayout.PAGE_DIRECTION;
 
   /** Redundant to {@link MmBooleanAnnotation.jsfTag()}. */
-  public static final MmBooleanJsfTag      DEFAULT_JSF_TAG                    = MmBooleanJsfTag.SelectOneCheckbox;
+  public static final MmBooleanJsfTag      DEFAULT_JSF_TAG          = MmBooleanJsfTag.SelectOneCheckbox;
 
   /** Redundant to {@link MmBooleanAnnotation.jsfTagDisabled()}. */
-  public static final MmBooleanJsfDisabled DEFAULT_JSF_TAG_DISABLED           = MmBooleanJsfDisabled.SameAsEnabled;
-
-  /** The default value. */
-  protected Boolean                        defaultValue;
+  public static final MmBooleanJsfDisabled DEFAULT_JSF_TAG_DISABLED = MmBooleanJsfDisabled.SameAsEnabled;
 
   /** Layout direction of JSF tag. */
   protected MmBooleanLayout                layout;
@@ -45,7 +36,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    */
   public MmConfigurationBoolean() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.defaultValue   = DEFAULT_DEFAULT_VALUE;
     this.layout         = DEFAULT_LAYOUT;
     this.jsfTag         = DEFAULT_JSF_TAG;
     this.jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
@@ -59,20 +49,9 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
   public MmConfigurationBoolean(MmBooleanAnnotation pBooleanAnnotation) {
     super(pBooleanAnnotation.id(), pBooleanAnnotation.visible(), pBooleanAnnotation.readOnly(), pBooleanAnnotation.enabled(),
       pBooleanAnnotation.required());
-    this.defaultValue   = pBooleanAnnotation.defaultValue();
     this.layout         = pBooleanAnnotation.layout();
     this.jsfTag         = pBooleanAnnotation.jsfTag();
     this.jsfTagDisabled = pBooleanAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public Boolean getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**
@@ -102,15 +81,6 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    */
   public MmBooleanLayout getLayout() {
     return this.layout;
-  }
-
-  /**
-   * Sets the configuration of default value.
-   *
-   * @param  pDefaultValue  The specified configuration of default value.
-   */
-  public void setDefaultValue(boolean pDefaultValue) {
-    this.defaultValue = pDefaultValue;
   }
 
   /**

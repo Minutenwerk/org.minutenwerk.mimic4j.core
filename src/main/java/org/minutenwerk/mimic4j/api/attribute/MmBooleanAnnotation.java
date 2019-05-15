@@ -29,8 +29,6 @@ public @interface MmBooleanAnnotation {
 
   public boolean enabled() default MmConfigurationBoolean.DEFAULT_IS_ENABLED;
 
-  public boolean defaultValue() default MmConfigurationBoolean.DEFAULT_DEFAULT_VALUE_AS_PRIMITIVE;
-
   public boolean required() default MmConfigurationBoolean.DEFAULT_IS_REQUIRED;
 
   public MmBooleanLayout layout() default MmBooleanLayout.PAGE_DIRECTION;

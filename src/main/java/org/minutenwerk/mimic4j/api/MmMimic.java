@@ -4,8 +4,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
 /**
- * A mimic manages all mimic between data layer and view output. MmMimic is the basic interface of all mimic classes in mimic4j. It defines
- * methods valid for all mimics.
+ * A mimic controls the data exchange between data layer and view output. MmMimic is the basic interface of all mimic classes in mimic4j.
  *
  * @author  Olaf Kossak
  */
@@ -47,19 +46,23 @@ public interface MmMimic {
   public String getMmName();
 
   /**
-   * Returns the self reference of this object for the current data model, or the static part if there is no current data model.
+   * Returns the self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
+   * current data model.
    *
-   * @return  The self reference of this object for the current data model, or the static part if there is no current data model.
+   * @return  The self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
+   *          current data model.
    */
   public MmReference getMmReference();
 
   /**
-   * Returns the self reference of this object for a specified data model.
+   * Returns the self reference (aka link) of this object for a specified data model.
    *
    * @param   pModel  The specified instance of a data model, which is referencable by an URL.
    *
-   * @return  The self reference of this object for a specified data model.
+   * @return  The self reference (aka link) of this object for a specified data model.
    */
+  @Deprecated
+  // TODO entfällt, wird aber derzeit noch von getMmReference() aufgerufen
   public MmReference getMmReference(MmReferencableModel pModel);
 
   /**

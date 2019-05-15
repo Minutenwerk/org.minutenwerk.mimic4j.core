@@ -15,9 +15,6 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
   /** Constant for default value of maximum length of formatted input string. */
   public static final int               DEFAULT_FORMAT_MAX_LENGTH = 255;
 
-  /** Constant for default value of default value. */
-  public static final long              DEFAULT_DEFAULT_VALUE     = 0L;
-
   /** Redundant to {@link MmLongAnnotation.jsfTag()}. */
   public static final MmLongJsfTag      DEFAULT_JSF_TAG           = MmLongJsfTag.TextField;
 
@@ -26,9 +23,6 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
 
   /** Maximum length of formatted input string. */
   protected int                         formatMaxLength;
-
-  /** The default value. */
-  protected Long                        defaultValue;
 
   /** The JSF tag in enabled state. */
   protected MmLongJsfTag                jsfTag;
@@ -42,7 +36,6 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
   public MmConfigurationLong() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
     this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.defaultValue    = DEFAULT_DEFAULT_VALUE;
     this.jsfTag          = DEFAULT_JSF_TAG;
     this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
@@ -56,19 +49,8 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
     super(pLongAnnotation.id(), pLongAnnotation.visible(), pLongAnnotation.readOnly(), pLongAnnotation.enabled(),
       pLongAnnotation.required());
     this.formatMaxLength = pLongAnnotation.formatMaxLength();
-    this.defaultValue    = pLongAnnotation.defaultValue();
     this.jsfTag          = pLongAnnotation.jsfTag();
     this.jsfTagDisabled  = pLongAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public Long getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**
@@ -98,15 +80,6 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
   @Override
   public String getJsfTagEnabled() {
     return this.jsfTag.name();
-  }
-
-  /**
-   * Sets the configuration of default value.
-   *
-   * @param  pDefaultValue  The specified configuration of default value.
-   */
-  public void setDefaultValue(Long pDefaultValue) {
-    this.defaultValue = pDefaultValue;
   }
 
   /**

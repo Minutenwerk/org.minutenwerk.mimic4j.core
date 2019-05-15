@@ -159,8 +159,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       }
       this.implementationParent = declarationParent.implementation;
 
-      // evaluate reference to root
-      // evaluate root ancestor
+      // evaluate reference to root ancestor
       MmBaseImplementation<?, ?> temp = this.implementationParent;
       while (temp.implementationParent != null) {
         temp = temp.implementationParent;
@@ -693,7 +692,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
         // if field is not final log warning
         if ((pField.getModifiers() & Modifier.FINAL) == 0) {
-          LOGGER.warn("Field: " + pField.getDeclaringClass() + "." + pField.getName() + " is not declared final!");
+          LOGGER.warn("Field: {}.{} is not declared final!", pField.getDeclaringClass(), pField.getName());
         }
         if (!pField.isAccessible()) {
           pField.setAccessible(true);

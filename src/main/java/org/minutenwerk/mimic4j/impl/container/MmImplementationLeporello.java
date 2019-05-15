@@ -28,26 +28,6 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
   }
 
   /**
-   * Sets the values from model to modelside of mimic.
-   *
-   * @param  pModel     The model containing the values to be set, cannot be null.
-   * @param  pSubModel  The sub model containing the values to be set, can be null.
-   */
-  public void doMmSetModelsideFromModel(MODEL pModel, SUB_MODEL pSubModel) {
-    this.ensureInitialization();
-
-    this.clearMessageListRecursively(this);
-
-    // store modelside reference to model
-    this.model = pModel;
-
-    // invoke callback method to pass values from model to modelside value
-    this.declaration.callbackMmSetModelsideFromModel(pModel, pSubModel);
-
-    this.doPassModelsideToViewside(this);
-  }
-
-  /**
    * Returns the currently selected leporello tab, may be null.
    *
    * @return  the currently selected leporello tab, may be null.

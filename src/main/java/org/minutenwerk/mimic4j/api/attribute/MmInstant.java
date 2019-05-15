@@ -69,7 +69,7 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmInstant(MmDeclarationMimic pParent) {
+  public MmInstant(final MmDeclarationMimic pParent) {
     super(new MmImplementationInstant(pParent));
   }
 
@@ -131,20 +131,6 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
       }
     }
     return returnInstant;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public Instant callbackMmGetDefaultValue(Instant pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

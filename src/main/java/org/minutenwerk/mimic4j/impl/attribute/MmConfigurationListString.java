@@ -1,6 +1,5 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.attribute.MmListString;
@@ -15,9 +14,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmListStringAnnotation;
  */
 public class MmConfigurationListString extends MmBaseAttributeConfiguration<List<String>> {
 
-  /** Constant for default value of default value. */
-  public static final List<String>            DEFAULT_DEFAULT_VALUE    = new ArrayList<>();
-
   /** Constant for default value of number of rows for select box. */
   public static final int                     DEFAULT_SIZE             = 4;
 
@@ -26,9 +22,6 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
 
   /** Redundant to {@link MmListStringAnnotation.jsfTagDisabled()}. */
   public static final MmListStringJsfDisabled DEFAULT_JSF_TAG_DISABLED = MmListStringJsfDisabled.SameAsEnabled;
-
-  /** The default value. */
-  protected List<String>                      defaultValue;
 
   /** Number of rows for select box. */
   protected int                               size;
@@ -44,7 +37,6 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    */
   public MmConfigurationListString() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.defaultValue   = DEFAULT_DEFAULT_VALUE;
     this.size           = DEFAULT_SIZE;
     this.jsfTag         = DEFAULT_JSF_TAG;
     this.jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
@@ -58,22 +50,9 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
   public MmConfigurationListString(MmListStringAnnotation pListStringAnnotation) {
     super(pListStringAnnotation.id(), pListStringAnnotation.visible(), pListStringAnnotation.readOnly(), pListStringAnnotation.enabled(),
       pListStringAnnotation.required());
-
-    // there is no default value for List<String> in annotation
-    this.defaultValue   = DEFAULT_DEFAULT_VALUE;
     this.size           = pListStringAnnotation.size();
     this.jsfTag         = pListStringAnnotation.jsfTag();
     this.jsfTagDisabled = pListStringAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  @Override
-  public List<String> getDefaultValue() {
-    return this.defaultValue;
   }
 
   /**
@@ -103,15 +82,6 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    */
   public int getSize() {
     return this.size;
-  }
-
-  /**
-   * Sets the configuration of default value.
-   *
-   * @param  pDefaultValue  The specified configuration of default value.
-   */
-  public void setDefaultValue(List<String> pDefaultValue) {
-    this.defaultValue = pDefaultValue;
   }
 
   /**

@@ -58,7 +58,7 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
     if (this.messageSource != null) {
       returnString = this.messageSource.getMmI18nText(this.getMmLocale(), pMessageId, pMessageType, pArguments);
     } else {
-      LOGGER.warn("getMmI18nText: " + pMessageId + ", " + pMessageType + ": no message source");
+      LOGGER.warn("getMmI18nText: {}, {}: no message source", pMessageId, pMessageType);
 
       // for unit tests this root returns last part of message id
       if (pMessageType.equals(MmMessageType.SHORT)) {

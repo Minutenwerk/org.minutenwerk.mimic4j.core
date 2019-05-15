@@ -22,7 +22,7 @@ public class MmImplementationZonedDateTime
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationZonedDateTime(MmDeclarationMimic pParent) {
+  public MmImplementationZonedDateTime(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

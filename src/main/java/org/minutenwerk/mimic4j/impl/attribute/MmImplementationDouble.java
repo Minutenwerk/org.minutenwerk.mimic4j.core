@@ -18,7 +18,7 @@ public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDoub
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationDouble(MmDeclarationMimic pParent) {
+  public MmImplementationDouble(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

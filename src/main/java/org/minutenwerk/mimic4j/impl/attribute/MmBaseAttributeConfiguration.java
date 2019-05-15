@@ -7,7 +7,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmBaseAttributeConfiguration<MODELSIDE_VALUE> extends MmBaseConfiguration {
+public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_MODEL> extends MmBaseConfiguration {
 
   /** Constant for default value of required. */
   public static final boolean DEFAULT_IS_REQUIRED = false;
@@ -28,13 +28,6 @@ public abstract class MmBaseAttributeConfiguration<MODELSIDE_VALUE> extends MmBa
     super(pId, pVisible, pReadOnly, pEnabled);
     this.required = pRequired;
   }
-
-  /**
-   * Returns the configuration of default value.
-   *
-   * @return  The configuration of default value.
-   */
-  public abstract MODELSIDE_VALUE getDefaultValue();
 
   /**
    * Returns the configuration of input is required.

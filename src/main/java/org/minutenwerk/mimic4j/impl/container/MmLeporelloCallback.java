@@ -8,6 +8,7 @@ import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
  *
  * @author  Olaf Kossak
  */
+@Deprecated
 public interface MmLeporelloCallback<MODEL, SUB_MODEL> extends MmContainerCallback<MODEL> {
 
   /**
@@ -16,13 +17,5 @@ public interface MmLeporelloCallback<MODEL, SUB_MODEL> extends MmContainerCallba
    * @return  The currently selected tab of the leporello.
    */
   public MmLeporelloTab callbackMmGetSelectedTab();
-
-  /**
-   * Sets values from model into modelside of mimic.
-   *
-   * @param  pModel     The model containing the values to be set, cannot be null.
-   * @param  pSubModel  The sub model containing the values to be set, can be null.
-   */
-  public void callbackMmSetModelsideFromModel(MODEL pModel, SUB_MODEL pSubModel);
 
 }

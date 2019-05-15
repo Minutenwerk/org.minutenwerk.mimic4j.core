@@ -64,7 +64,7 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmLocalDate(MmDeclarationMimic pParent) {
+  public MmLocalDate(final MmDeclarationMimic pParent) {
     super(new MmImplementationLocalDate(pParent));
   }
 
@@ -131,20 +131,6 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
       }
     }
     return returnDate;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public LocalDate callbackMmGetDefaultValue(LocalDate pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

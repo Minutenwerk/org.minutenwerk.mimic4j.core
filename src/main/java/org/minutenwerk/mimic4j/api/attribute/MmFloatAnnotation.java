@@ -28,8 +28,6 @@ public @interface MmFloatAnnotation {
 
   public boolean enabled() default MmConfigurationFloat.DEFAULT_IS_ENABLED;
 
-  public float defaultValue() default MmConfigurationFloat.DEFAULT_DEFAULT_VALUE;
-
   public boolean required() default MmConfigurationFloat.DEFAULT_IS_REQUIRED;
 
   public int formatMaxLength() default MmConfigurationFloat.DEFAULT_FORMAT_MAX_LENGTH;

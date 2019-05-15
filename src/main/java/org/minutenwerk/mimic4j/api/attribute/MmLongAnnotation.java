@@ -28,8 +28,6 @@ public @interface MmLongAnnotation {
 
   public boolean enabled() default MmConfigurationLong.DEFAULT_IS_ENABLED;
 
-  public long defaultValue() default MmConfigurationLong.DEFAULT_DEFAULT_VALUE;
-
   public boolean required() default MmConfigurationLong.DEFAULT_IS_REQUIRED;
 
   public int formatMaxLength() default MmConfigurationLong.DEFAULT_FORMAT_MAX_LENGTH;

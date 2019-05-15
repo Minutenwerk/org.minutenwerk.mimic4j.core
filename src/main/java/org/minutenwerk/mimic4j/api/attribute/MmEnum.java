@@ -57,7 +57,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmEnum(MmDeclarationMimic pParent) {
+  public MmEnum(final MmDeclarationMimic pParent) {
     super(new MmImplementationEnum<ENUM_TYPE>(pParent));
   }
 
@@ -113,20 +113,6 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
       }
     }
     return returnEnumType;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public ENUM_TYPE callbackMmGetDefaultValue(ENUM_TYPE pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

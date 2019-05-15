@@ -28,8 +28,6 @@ public @interface MmStringAnnotation {
 
   public boolean enabled() default MmConfigurationString.DEFAULT_IS_ENABLED;
 
-  public String defaultValue() default MmConfigurationString.DEFAULT_DEFAULT_VALUE;
-
   public boolean required() default MmConfigurationString.DEFAULT_IS_REQUIRED;
 
   public int formatMaxLength() default MmConfigurationString.DEFAULT_FORMAT_MAX_LENGTH;
@@ -41,5 +39,4 @@ public @interface MmStringAnnotation {
   public MmStringJsfTag jsfTag() default MmStringJsfTag.TextField;
 
   public MmStringJsfDisabled jsfTagDisabled() default MmStringJsfDisabled.SameAsEnabled;
-
 }

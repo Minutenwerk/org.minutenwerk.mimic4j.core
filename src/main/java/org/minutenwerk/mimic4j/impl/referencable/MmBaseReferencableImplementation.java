@@ -19,8 +19,9 @@ import org.minutenwerk.mimic4j.impl.link.MmBaseLinkImplementation;
  * @jalopy.group-order  group-initialization, group-do, group-override
  */
 public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBaseReferencableDeclaration<MODEL, ?>,
-  MODEL extends MmReferencableModel, CONFIGURATION extends MmBaseConfiguration>
-  extends MmBaseContainerImplementation<DECLARATION, MODEL, CONFIGURATION> implements MmReferencableMimic<MODEL> {
+  MODEL extends MmReferencableModel, //
+  CONFIGURATION extends MmBaseConfiguration> extends MmBaseContainerImplementation<DECLARATION, MODEL, CONFIGURATION>
+  implements MmReferencableMimic<MODEL> {
 
   /** Cached instance of self reference. */
   protected MmReference cachedReference;
@@ -43,14 +44,10 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
   /**
    * Sets the values from model to modelside of mimic.
    *
-   * @param         pModel  The model to set.
-   *
    * @jalopy.group  group-do
    */
-  @Override
-  public void doMmSetModelsideFromModel(MODEL pModel) {
-    // super method will ensure initialization
-    super.doMmSetModelsideFromModel(pModel);
+  public void toDo() {
+    // TODO when?
     this.evaluateAndCacheReference();
   }
 
@@ -91,7 +88,7 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
       final String            path            = this.getMmReferencePath();
       final String            file            = this.getMmReferenceFile();
       final List<MmNameValue> modelParams     = MmBaseLinkImplementation.getMmModelParams(castedModel);
-      final List<MmNameValue> callbackParams  = this.declaration.callbackMmGetReferenceParams(modelParams, this.model);
+      final List<MmNameValue> callbackParams  = this.declaration.callbackMmGetReferenceParams(modelParams, this.modelAccessor.get());
       final MmReference       returnReference = new MmReferenceImplementation(path, file, callbackParams);
 
       this.foreignModel     = castedModel;
@@ -106,8 +103,8 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
   protected void evaluateAndCacheReference() {
     final String            path           = this.getMmReferencePath();
     final String            file           = this.getMmReferenceFile();
-    final List<MmNameValue> modelParams    = MmBaseLinkImplementation.getMmModelParams(this.model);
-    final List<MmNameValue> callbackParams = this.declaration.callbackMmGetReferenceParams(modelParams, this.model);
+    final List<MmNameValue> modelParams    = MmBaseLinkImplementation.getMmModelParams(this.modelAccessor.get());
+    final List<MmNameValue> callbackParams = this.declaration.callbackMmGetReferenceParams(modelParams, this.modelAccessor.get());
 
     this.cachedReference = new MmReferenceImplementation(path, file, callbackParams);
   }

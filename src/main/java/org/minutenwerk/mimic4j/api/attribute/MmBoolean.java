@@ -62,7 +62,7 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmBoolean(MmDeclarationMimic pParent) {
+  public MmBoolean(final MmDeclarationMimic pParent) {
     super(new MmImplementationBoolean(pParent));
   }
 
@@ -100,20 +100,6 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   @Override
   public Boolean callbackMmConvertViewsideToModelsideValue(Boolean pViewsideValue) throws MmViewsideConverterException {
     return pViewsideValue;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public Boolean callbackMmGetDefaultValue(Boolean pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

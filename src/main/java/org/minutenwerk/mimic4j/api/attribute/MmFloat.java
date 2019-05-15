@@ -63,7 +63,7 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmFloat(MmDeclarationMimic pParent) {
+  public MmFloat(final MmDeclarationMimic pParent) {
     super(new MmImplementationFloat(pParent));
   }
 
@@ -124,20 +124,6 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
       }
     }
     return returnFloat;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public Float callbackMmGetDefaultValue(Float pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**

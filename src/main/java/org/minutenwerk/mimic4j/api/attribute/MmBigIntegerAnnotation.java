@@ -28,8 +28,6 @@ public @interface MmBigIntegerAnnotation {
 
   public boolean enabled() default MmConfigurationBigInteger.DEFAULT_IS_ENABLED;
 
-  public long defaultValue() default MmConfigurationBigInteger.DEFAULT_DEFAULT_VALUE_AS_LONG;
-
   public boolean required() default MmConfigurationBigInteger.DEFAULT_IS_REQUIRED;
 
   public int formatMaxLength() default MmConfigurationBigInteger.DEFAULT_FORMAT_MAX_LENGTH;

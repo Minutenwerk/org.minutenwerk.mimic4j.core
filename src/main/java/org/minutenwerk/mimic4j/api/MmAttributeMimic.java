@@ -51,13 +51,6 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
   public int getMmCols();
 
   /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @return  The attribute's default value of type MODELSIDE_VALUE.
-   */
-  public MODELSIDE_VALUE getMmDefaultValue();
-
-  /**
    * Returns the attribute's maximum number of characters for input in view.
    *
    * @return  The attribute's maximum number of characters for input.
@@ -94,13 +87,6 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
   public MODELSIDE_VALUE getMmModelsideValue();
 
   /**
-   * Returns the attribute's reset value of type MODELSIDE_VALUE.
-   *
-   * @return  The attribute's reset value of type MODELSIDE_VALUE.
-   */
-  public MODELSIDE_VALUE getMmResetValue();
-
-  /**
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
    *
    * @return  The attribute's number of rows.
@@ -134,13 +120,6 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
    * @return  <code>True</code> if the viewside value of this mimic is empty.
    */
   public boolean isMmEmpty();
-
-  /**
-   * Sets modelside value of mimic to specified value. Sets reset value as well to specified value.
-   *
-   * @param  pModelsideValue  The specified value to be set.
-   */
-  public void setMmModelsideValue(MODELSIDE_VALUE pModelsideValue);
 
   /**
    * Sets viewside value of mimic to specified value.

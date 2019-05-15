@@ -20,7 +20,7 @@ public class MmImplementationDuration extends MmBaseAttributeImplementation<MmDu
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmImplementationDuration(MmDeclarationMimic pParent) {
+  public MmImplementationDuration(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 

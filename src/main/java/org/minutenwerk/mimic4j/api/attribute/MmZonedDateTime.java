@@ -65,7 +65,7 @@ public class MmZonedDateTime extends MmBaseAttributeDeclaration<MmImplementation
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmZonedDateTime(MmDeclarationMimic pParent) {
+  public MmZonedDateTime(final MmDeclarationMimic pParent) {
     super(new MmImplementationZonedDateTime(pParent));
   }
 
@@ -123,20 +123,6 @@ public class MmZonedDateTime extends MmBaseAttributeDeclaration<MmImplementation
       }
     }
     return returnDateTime;
-  }
-
-  /**
-   * Returns the attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's default value of type MODELSIDE_VALUE.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public ZonedDateTime callbackMmGetDefaultValue(ZonedDateTime pPassThroughValue) {
-    return pPassThroughValue;
   }
 
   /**
