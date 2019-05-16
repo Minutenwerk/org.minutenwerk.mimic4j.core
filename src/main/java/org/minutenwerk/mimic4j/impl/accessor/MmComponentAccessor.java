@@ -27,12 +27,13 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   /**
    * Constructor of this immutable class.
    *
-   * @param  parentAccessor    TODOC
-   * @param  pComponentGetter  TODOC
-   * @param  pComponentSetter  TODOC
+   * @param  parentAccessor    The model accessor of the parent model.
+   * @param  pComponentGetter  The component model getter method.
+   * @param  pComponentSetter  The component model setter method.
    */
-  public MmComponentAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
-    final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
+  public MmComponentAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, //
+      final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, //
+      final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
     super(parentAccessor);
     rootModel       = null;
     componentGetter = pComponentGetter;
@@ -42,12 +43,13 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   /**
    * Constructor of this immutable class.
    *
-   * @param  pRootModel        TODOC
-   * @param  pComponentGetter  TODOC
-   * @param  pComponentSetter  TODOC
+   * @param  pRootModel        The reference to root model.
+   * @param  pComponentGetter  The component model getter method.
+   * @param  pComponentSetter  The component model setter method.
    */
-  public MmComponentAccessor(final PARENT_MODEL pRootModel, final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter,
-    final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
+  public MmComponentAccessor(final PARENT_MODEL pRootModel, //
+	  final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, //
+      final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
     super(null);
     rootModel       = pRootModel;
     componentGetter = pComponentGetter;
@@ -59,7 +61,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    *
    * @return  the model value.
    *
-   * @throws  NullPointerException  TODOC
+   * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
   public COMPONENT_MODEL get() throws NullPointerException {
@@ -90,9 +92,11 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    * Returns true, if value of the accessed model is present.
    *
    * @return  true, if value of the accessed model is present.
+   *
+   * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
-  public final boolean isPresent() {
+  public final boolean isPresent() throws NullPointerException{
     return getComponentOptional().isPresent();
   }
 

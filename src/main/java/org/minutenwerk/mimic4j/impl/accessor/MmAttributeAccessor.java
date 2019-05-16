@@ -23,9 +23,9 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
   /**
    * Constructor of this immutable class.
    *
-   * @param  parentAccessor    TODOC
-   * @param  pAttributeGetter  TODOC
-   * @param  pAttributeSetter  TODOC
+   * @param  parentAccessor    The model accessor of the parent model.
+   * @param  pAttributeGetter  The attribute model getter method.
+   * @param  pAttributeSetter  The attribute model setter method.
    */
   public MmAttributeAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
     final Function<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeGetter, final BiConsumer<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeSetter) {
@@ -38,9 +38,11 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    * Returns the attribute value. In case of the parent component supplier does not supply a component, this method returns null.
    *
    * @return  the attribute value.
+   *
+   * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
-  public final ATTRIBUTE_MODEL get() {
+  public final ATTRIBUTE_MODEL get() throws NullPointerException{
     return getParentOptional().map(attributeGetter).orElse(null);
   }
 
@@ -49,7 +51,7 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    *
    * @return  parent model of the accessed model.
    *
-   * @throws  NullPointerException  TODOC
+   * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
   public PARENT_MODEL getParent() throws NullPointerException {
@@ -73,9 +75,11 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    * Returns true, if value of the accessed model is present.
    *
    * @return  true, if value of the accessed model is present.
+   *
+   * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
-  public boolean isPresent() {
+  public boolean isPresent() throws NullPointerException{
     return getParentOptional().isPresent() && (get() != null);
   }
 
@@ -112,8 +116,10 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    * Returns {@link Optional} of parent component.
    *
    * @return  {@link Optional} of parent component.
+   *
+   * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
-  protected Optional<PARENT_MODEL> getParentOptional() {
+  protected Optional<PARENT_MODEL> getParentOptional() throws NullPointerException {
     return Optional.ofNullable(getParentAccessor().get());
   }
 }
