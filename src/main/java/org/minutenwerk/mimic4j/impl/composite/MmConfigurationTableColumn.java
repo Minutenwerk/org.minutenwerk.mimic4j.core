@@ -51,11 +51,11 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    */
   public MmConfigurationTableColumn() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    this.jsfTag        = DEFAULT_JSF_TAG;
-    this.isRowHeader   = DEFAULT_IS_ROW_HEADER;
-    this.styleClasses  = DEFAULT_STYLE_CLASSES;
-    this.headerClasses = DEFAULT_HEADER_CLASSES;
-    this.footerClasses = DEFAULT_FOOTER_CLASSES;
+    jsfTag        = DEFAULT_JSF_TAG;
+    isRowHeader   = DEFAULT_IS_ROW_HEADER;
+    styleClasses  = DEFAULT_STYLE_CLASSES;
+    headerClasses = DEFAULT_HEADER_CLASSES;
+    footerClasses = DEFAULT_FOOTER_CLASSES;
   }
 
   /**
@@ -66,11 +66,11 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
   public MmConfigurationTableColumn(MmTableColumnAnnotation pTableColumnAnnotation) {
     super(pTableColumnAnnotation.id(), pTableColumnAnnotation.visible(), pTableColumnAnnotation.readOnly(),
       pTableColumnAnnotation.enabled());
-    this.jsfTag        = pTableColumnAnnotation.jsfTag();
-    this.isRowHeader   = pTableColumnAnnotation.isRowHeader();
-    this.styleClasses  = pTableColumnAnnotation.styleClasses();
-    this.headerClasses = pTableColumnAnnotation.headerClasses();
-    this.footerClasses = pTableColumnAnnotation.footerClasses();
+    jsfTag        = pTableColumnAnnotation.jsfTag();
+    isRowHeader   = pTableColumnAnnotation.isRowHeader();
+    styleClasses  = pTableColumnAnnotation.styleClasses();
+    headerClasses = pTableColumnAnnotation.headerClasses();
+    footerClasses = pTableColumnAnnotation.footerClasses();
   }
 
   /**
@@ -80,7 +80,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    */
   public void addFooterClass(String pFooterClass) {
     Set<String> tempFooterClasses = new HashSet<String>();
-    for (String styleClass : this.footerClasses.split(" ")) {
+    for (String styleClass : footerClasses.split(" ")) {
       tempFooterClasses.add(styleClass);
     }
 
@@ -90,7 +90,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
     for (String styleClass : tempFooterClasses) {
       newFooterClasses = newFooterClasses + " " + styleClass;
     }
-    this.footerClasses = newFooterClasses;
+    footerClasses = newFooterClasses;
   }
 
   /**
@@ -100,7 +100,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    */
   public void addHeaderClass(String pHeaderClass) {
     Set<String> tempHeaderClasses = new HashSet<String>();
-    for (String styleClass : this.headerClasses.split(" ")) {
+    for (String styleClass : headerClasses.split(" ")) {
       tempHeaderClasses.add(styleClass);
     }
 
@@ -110,21 +110,21 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
     for (String styleClass : tempHeaderClasses) {
       newHeaderClasses = newHeaderClasses + " " + styleClass;
     }
-    this.headerClasses = newHeaderClasses;
+    headerClasses = newHeaderClasses;
   }
 
   /**
    * Delete all configured footer CSS style classes.
    */
   public void clearFooterClasses() {
-    this.footerClasses = "";
+    footerClasses = "";
   }
 
   /**
    * Delete all configured header CSS style classes.
    */
   public void clearHeaderClasses() {
-    this.headerClasses = "";
+    headerClasses = "";
   }
 
   /**
@@ -133,7 +133,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * @return  All configured footer CSS style classes.
    */
   public String getFooterClasses() {
-    return this.footerClasses;
+    return footerClasses;
   }
 
   /**
@@ -142,7 +142,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * @return  All configured header CSS style classes.
    */
   public String getHeaderClasses() {
-    return this.headerClasses;
+    return headerClasses;
   }
 
   /**
@@ -152,7 +152,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -162,7 +162,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -173,7 +173,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * @return  A String containing space delimited <code>CSS</code> style classes.
    */
   public String getStyleClasses() {
-    return this.styleClasses;
+    return styleClasses;
   }
 
   /**
@@ -182,7 +182,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * @return  True, if this row is a table row header.
    */
   public boolean isRowHeader() {
-    return this.isRowHeader;
+    return isRowHeader;
   }
 
   /**
@@ -191,7 +191,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * @param  pIsRowHeader  The specified configuration whether this row is a table row header.
    */
   public void setRowHeader(boolean pIsRowHeader) {
-    this.isRowHeader = pIsRowHeader;
+    isRowHeader = pIsRowHeader;
   }
 
 }

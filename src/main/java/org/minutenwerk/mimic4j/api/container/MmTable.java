@@ -40,7 +40,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    * Clears all rows of this table.
    */
   public final void doMmClearTableRows() {
-    this.implementation.doMmClearTableRows();
+    implementation.doMmClearTableRows();
   }
 
   /**
@@ -50,7 +50,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    */
   @Override
   public final <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
-    return this.implementation.getMmTableRows();
+    return implementation.getMmTableRows();
   }
 
 }

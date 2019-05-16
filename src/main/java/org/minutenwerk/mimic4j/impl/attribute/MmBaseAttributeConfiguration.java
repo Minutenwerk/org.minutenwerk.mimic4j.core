@@ -26,7 +26,7 @@ public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_MODEL> extends MmBa
    */
   public MmBaseAttributeConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, boolean pRequired) {
     super(pId, pVisible, pReadOnly, pEnabled);
-    this.required = pRequired;
+    required = pRequired;
   }
 
   /**
@@ -35,7 +35,7 @@ public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_MODEL> extends MmBa
    * @return  The configuration of input is required.
    */
   public boolean isRequired() {
-    return this.required;
+    return required;
   }
 
 }

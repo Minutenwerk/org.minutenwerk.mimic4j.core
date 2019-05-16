@@ -37,9 +37,9 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    */
   public MmConfigurationListString() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.size           = DEFAULT_SIZE;
-    this.jsfTag         = DEFAULT_JSF_TAG;
-    this.jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
+    size           = DEFAULT_SIZE;
+    jsfTag         = DEFAULT_JSF_TAG;
+    jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -50,9 +50,9 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
   public MmConfigurationListString(MmListStringAnnotation pListStringAnnotation) {
     super(pListStringAnnotation.id(), pListStringAnnotation.visible(), pListStringAnnotation.readOnly(), pListStringAnnotation.enabled(),
       pListStringAnnotation.required());
-    this.size           = pListStringAnnotation.size();
-    this.jsfTag         = pListStringAnnotation.jsfTag();
-    this.jsfTagDisabled = pListStringAnnotation.jsfTagDisabled();
+    size           = pListStringAnnotation.size();
+    jsfTag         = pListStringAnnotation.jsfTag();
+    jsfTagDisabled = pListStringAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -62,7 +62,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTagDisabled.name();
+    return jsfTagDisabled.name();
   }
 
   /**
@@ -72,7 +72,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -81,7 +81,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    * @return  The configuration of number of rows for select box.
    */
   public int getSize() {
-    return this.size;
+    return size;
   }
 
   /**
@@ -90,7 +90,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmListStringJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
   /**
@@ -99,7 +99,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    * @param  pSize  The specified configuration of number of rows for select box.
    */
   public void setSize(int pSize) {
-    this.size = pSize;
+    size = pSize;
   }
 
 }

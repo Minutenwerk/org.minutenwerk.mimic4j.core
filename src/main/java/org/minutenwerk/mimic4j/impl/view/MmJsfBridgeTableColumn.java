@@ -25,7 +25,7 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    */
   @Override
   public String getFooterClass() {
-    return this.implementation.getMmFooterClasses();
+    return implementation.getMmFooterClasses();
   }
 
   /**
@@ -35,7 +35,7 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    */
   @Override
   public String getHeaderClass() {
-    return this.implementation.getMmHeaderClasses();
+    return implementation.getMmHeaderClasses();
   }
 
   /**
@@ -45,7 +45,7 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    */
   @Override
   public String getHeaderTitle() {
-    return this.implementation.getMmLongDescription();
+    return implementation.getMmLongDescription();
   }
 
   /**
@@ -55,7 +55,7 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    */
   @Override
   public String getHeaderValue() {
-    return this.implementation.getMmShortDescription();
+    return implementation.getMmShortDescription();
   }
 
   /**
@@ -65,7 +65,7 @@ public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableCol
    */
   @Override
   public boolean isRowHeader() {
-    return this.implementation.isMmRowHeader();
+    return implementation.isMmRowHeader();
   }
 
 }

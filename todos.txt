@@ -1,20 +1,11 @@
 todos:
 
-* In MmBaseAttributeImplementation in Constructor übergeben
-* In MmBaseAttributeImplementation in Constructor setzen aus Parent mimics accessor
-  und zwei Parametern für attributeGetter und attributeSetter
-* resetValue, doMmReset, getMmResetValue, isMmResetEnabled, resetState, 
-  doPassResetToModelsideValue, doPassResetToModelsideRecursively, isResetEnabledRecursively entfernen
-* getDefaultValue, setDefaultValue, getMmDefaultValue, setMmDefaultValue, doMmSetDefaults, 
-  doPassDefaultToModelsideValue, doPassDefaultToModelsideValueRecursively, callbackMmGetDefaultValue entfernen
-* callbackMmSetModelsideFromModel entfernen
-* callbackMmSetModelFromModelside entfernen
 * In MmMimic   public MmReference getMmReference(MmReferencableModel pModel); entfernen
 * Für MmExecutableMimic Reference auf Java Function übergeben und speichern
 * 
 * alle Parameterpräfixe entfernen?
 * alle Parameter final machen?
-* alle unnötigen .this entfernen?
+* alle assert entfernen!
 
 * placeholder mit namespace passthrough in tags implementieren
 * in MmMimic getMmPlaceholder aufnehmen?

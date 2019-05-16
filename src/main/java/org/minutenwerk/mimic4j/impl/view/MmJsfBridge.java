@@ -35,7 +35,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @param  pImplementation  The implementation part of connected mimic.
    */
   public MmJsfBridge(IMPLEMENTATION pImplementation) {
-    this.implementation = pImplementation;
+    implementation = pImplementation;
   }
 
   /**
@@ -59,7 +59,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String action() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag action");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag action");
   }
 
   /**
@@ -83,26 +83,26 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
     final boolean externalIdExists  = !externalIdMissing;
     final String  externalId        = externalIdExists ? pExternalId.trim() : "";
 
-    final String  internalId        = this.implementation.getMmId().trim();
+    final String  internalId        = implementation.getMmId().trim();
     final boolean internalIdMissing = internalId.isEmpty() || internalId.equals(MmBaseConfiguration.UNDEFINED_ID);
     final boolean internalIdExists  = !internalIdMissing;
     final String  returnID          = internalIdExists ? internalId : (externalIdExists ? externalId : "undefinedIdInMmJsfBridge");
 
     if (externalIdMissing && internalIdMissing) {
-      LOGGER.error("missing id of mimic and of XHTML for: {}", this.implementation.toString());
+      LOGGER.error("missing id of mimic and of XHTML for: {}", implementation.toString());
 
     } else if (externalIdMissing && internalIdExists) {
-      LOGGER.warn("missing id of XHTML for: {}", this.implementation.toString());
+      LOGGER.warn("missing id of XHTML for: {}", implementation.toString());
 
     } else if (externalIdExists && internalIdMissing) {
 
       // ATTENTION: sets mimic id to value of XHTML id!
-      this.implementation.getConfiguration().setId(externalId);
-      LOGGER.warn("missing id of mimic, set from XHTML for: {}", this.implementation.toString());
+      implementation.getConfiguration().setId(externalId);
+      LOGGER.warn("missing id of mimic, set from XHTML for: {}", implementation.toString());
 
     } else if (externalIdExists && internalIdExists) {
       if (!externalId.equals(internalId)) {
-        LOGGER.error("different id of mimic <{}> and of XHTML <{}> for: {}", internalId, externalId, this.implementation.toString());
+        LOGGER.error("different id of mimic <{}> and of XHTML <{}> for: {}", internalId, externalId, implementation.toString());
       }
     }
     return returnID;
@@ -116,7 +116,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getBorder() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag border");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag border");
   }
 
   /**
@@ -127,7 +127,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getCaption() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag caption");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag caption");
   }
 
   /**
@@ -138,7 +138,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public int getCols() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag cols");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag cols");
   }
 
   /**
@@ -149,7 +149,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getColumnClasses() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag columnClasses");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag columnClasses");
   }
 
   /**
@@ -160,7 +160,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public List<MmTableColumn> getColumnMms() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag columnMms");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag columnMms");
   }
 
   /**
@@ -171,7 +171,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getDataParents() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag dataParents");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag dataParents");
   }
 
   /**
@@ -182,7 +182,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getFooterClass() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag footerClass");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag footerClass");
   }
 
   /**
@@ -193,7 +193,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getHeaderClass() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag headerClass");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag headerClass");
   }
 
   /**
@@ -204,7 +204,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getHeaderTitle() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag headerTitle");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag headerTitle");
   }
 
   /**
@@ -215,7 +215,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getHeaderValue() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag headerValue");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag headerValue");
   }
 
   /**
@@ -224,7 +224,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The id of this mimic.
    */
   public String getId() {
-    return this.implementation.getMmId();
+    return implementation.getMmId();
   }
 
   /**
@@ -234,7 +234,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The name of JSF tag to be used by this mimic.
    */
   public String getJsfTag() {
-    return this.implementation.getJsfTag();
+    return implementation.getJsfTag();
   }
 
   /**
@@ -243,7 +243,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The label of HTML tag.
    */
   public String getLabel() {
-    return this.implementation.getMmShortDescription();
+    return implementation.getMmShortDescription();
   }
 
   /**
@@ -254,7 +254,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getLayout() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag layout");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag layout");
   }
 
   /**
@@ -265,7 +265,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  TODOC
    */
   public String getLeporelloId() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag leporelloId");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag leporelloId");
   }
 
   /**
@@ -276,7 +276,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public int getMaxlength() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag maxlength");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag maxlength");
   }
 
   /**
@@ -287,7 +287,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public List<MmMessage> getMsgList() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag msgList");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag msgList");
   }
 
   /**
@@ -298,7 +298,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getMsgListText() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag msgListText");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag msgListText");
   }
 
   /**
@@ -309,7 +309,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getMsgMaxSeverity() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag msgMaxSeverity");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag msgMaxSeverity");
   }
 
   /**
@@ -320,7 +320,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public String getMsgMaxTitle() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag msgMaxTitle");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag msgMaxTitle");
   }
 
   /**
@@ -329,7 +329,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  A self reference of this mimic.
    */
   public MmReference getReference() {
-    return this.implementation.getMmReference();
+    return implementation.getMmReference();
   }
 
   /**
@@ -340,7 +340,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public int getRows() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag rows");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag rows");
   }
 
   /**
@@ -360,7 +360,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public List<SelectItem> getSelectItems() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag selectItems");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag selectItems");
   }
 
   /**
@@ -371,7 +371,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public int getSize() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag size");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag size");
   }
 
   /**
@@ -381,7 +381,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The style classes of HTML attribute.
    */
   public String getStyleClass() {
-    return this.implementation.getMmStyleClasses();
+    return implementation.getMmStyleClasses();
   }
 
   /**
@@ -392,7 +392,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  Because operation is not supported for this mimic.
    */
   public String getStyleInitiallyOpen() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag styleInitiallyOpen");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag styleInitiallyOpen");
   }
 
   /**
@@ -404,7 +404,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public MmReference getTargetReference() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag targetReference");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag targetReference");
   }
 
   /**
@@ -413,7 +413,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  The title attribute of HTML tag.
    */
   public String getTitle() {
-    return this.implementation.getMmLongDescription();
+    return implementation.getMmLongDescription();
   }
 
   /**
@@ -424,7 +424,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public VIEWSIDE_VALUE getValue() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag value");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag value");
   }
 
   /**
@@ -433,7 +433,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  True, if the HTML tag shall be displayed in disabled state.
    */
   public boolean isDisabled() {
-    return !this.implementation.isMmEnabled() || this.implementation.isMmReadOnly();
+    return !implementation.isMmEnabled() || implementation.isMmReadOnly();
   }
 
   /**
@@ -442,7 +442,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  True, if the user's browser has disabled Javascript language.
    */
   public boolean isJsDisabled() {
-    return !this.isJsEnabled();
+    return !isJsEnabled();
   }
 
   /**
@@ -451,7 +451,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  True, if the user's browser has enabled Javascript language.
    */
   public boolean isJsEnabled() {
-    return this.implementation.isMmJsEnabled();
+    return implementation.isMmJsEnabled();
   }
 
   /**
@@ -462,7 +462,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  Because operation is not supported for this mimic.
    */
   public boolean isPanelBodyVisible() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag isPanelBodyVisible");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag isPanelBodyVisible");
   }
 
   /**
@@ -473,7 +473,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  Because operation is not supported for this mimic.
    */
   public boolean isPanelHeadingVisible() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag isPanelHeadingVisible");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag isPanelHeadingVisible");
   }
 
   /**
@@ -482,7 +482,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  True, if the HTML tag shall be displayed.
    */
   public boolean isRendered() {
-    return this.implementation.isMmVisible();
+    return implementation.isMmVisible();
   }
 
   /**
@@ -493,7 +493,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public boolean isRowHeader() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag rowHeader");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag rowHeader");
   }
 
   /**
@@ -504,7 +504,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public boolean isTextEscape() {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag textEscape");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag textEscape");
   }
 
   /**
@@ -515,7 +515,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @throws  UnsupportedOperationException  in case the method is not supported by MmJsfBridge and its concrete subclass.
    */
   public void setValue(VIEWSIDE_VALUE pValue) {
-    throw new UnsupportedOperationException(this.getClass().getSimpleName() + " does not support JSF tag setValue");
+    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag setValue");
   }
 
 }

@@ -91,12 +91,12 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
       returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
     } else {
       try {
-        NumberFormat numberFormatter = this.getMmNumberFormatter();
+        NumberFormat numberFormatter = getMmNumberFormatter();
         returnString = numberFormatter.format(pModelsideValue);
       } catch (IllegalArgumentException e) {
         throw new MmModelsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-          + " by pattern >" + this.getMmFormatPattern() + "<");
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          + getMmFormatPattern() + "<");
       }
     }
     return returnString;
@@ -116,17 +116,17 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
   @Override
   public Duration callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     Duration returnDuration;
-    if (this.isMmEmpty()) {
+    if (isMmEmpty()) {
       returnDuration = null;
     } else {
       try {
-        NumberFormat numberFormatter = this.getMmNumberFormatter();
+        NumberFormat numberFormatter = getMmNumberFormatter();
         Number       parsedNumber    = numberFormatter.parse(pViewsideValue);
         returnDuration = Duration.ofMillis(parsedNumber.longValue());
       } catch (ParseException e) {
         throw new MmViewsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue
-          + " by pattern >" + this.getMmFormatPattern() + "<");
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue + " by pattern >"
+          + getMmFormatPattern() + "<");
       }
     }
     return returnDuration;
@@ -164,7 +164,7 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    */
   @Override
   protected NumberFormat getMmNumberFormatter() {
-    final String formatPattern = this.getMmFormatPattern();
+    final String formatPattern = getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 
     final MmRoot        root                  = MmRelationshipApi.getMmRoot(this);

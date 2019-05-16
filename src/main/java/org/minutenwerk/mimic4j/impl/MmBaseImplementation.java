@@ -124,22 +124,22 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *                                 subtree is not of type {@link MmImplementationRoot}.
    */
   public MmBaseImplementation(MmDeclarationMimic pDeclarationParent) {
-    assert this.initialState == MmInitialState.IN_CONSTRUCTION : "Initial state must be IN_CONSTRUCTION";
+    assert initialState == MmInitialState.IN_CONSTRUCTION : "Initial state must be IN_CONSTRUCTION";
 
-    this.name       = "";
-    this.parentPath = "";
+    name       = "";
+    parentPath = "";
 
     if (pDeclarationParent == null) {
       // if this is a MmRoot, there is no parent
 
       // set reference to declaration part of parent mimic to null
-      this.declarationParent    = null;
+      declarationParent    = null;
 
       // set reference to implementation part of parent mimic to null
-      this.implementationParent = null;
+      implementationParent = null;
 
       // set reference to root to null
-      this.root                 = null;
+      root                 = null;
 
     } else {
 
@@ -151,16 +151,16 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       final MmBaseDeclaration<?, ?> baseDeclarationParent = (MmBaseDeclaration<?, ?>)pDeclarationParent;
 
       // set reference to declaration part of parent mimic
-      this.declarationParent = baseDeclarationParent;
+      declarationParent = baseDeclarationParent;
 
       // set reference to implementation part of parent
       if (baseDeclarationParent.implementation == null) {
         throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must have an implementation");
       }
-      this.implementationParent = baseDeclarationParent.implementation;
+      implementationParent = baseDeclarationParent.implementation;
 
       // evaluate reference to root ancestor
-      MmBaseImplementation<?, ?> temp = this.implementationParent;
+      MmBaseImplementation<?, ?> temp = implementationParent;
       while (temp.implementationParent != null) {
         temp = temp.implementationParent;
       }
@@ -169,24 +169,24 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       if (MmImplementationRoot.class.isAssignableFrom(temp.getClass())) {
 
         // set reference to implementation part of MmRoot
-        this.root = (MmImplementationRoot)temp;
+        root = (MmImplementationRoot)temp;
       } else {
         throw new IllegalStateException("root ancestor of subtree must be of type MmImplementationRoot");
       }
     }
 
     // create lists for child mimics
-    this.implementationChildren        = new ArrayList<>();
-    this.declarationChildren           = new ArrayList<>();
-    this.runtimeImplementationChildren = new ArrayList<>();
-    this.runtimeDeclarationChildren    = new ArrayList<>();
+    implementationChildren        = new ArrayList<>();
+    declarationChildren           = new ArrayList<>();
+    runtimeImplementationChildren = new ArrayList<>();
+    runtimeDeclarationChildren    = new ArrayList<>();
 
     // create bridge for jsf tags
-    this.mmJsfBridge                   = this.createMmJsfBridge();
+    mmJsfBridge                   = createMmJsfBridge();
 
-    assert this.declaration == null : "Instance variable declaration must be still undefined";
-    assert this.name.isEmpty() : "Instance variable name must be still empty";
-    assert this.parentPath.isEmpty() : "Instance variable parentPath must be still empty";
+    assert declaration == null : "Instance variable declaration must be still undefined";
+    assert name.isEmpty() : "Instance variable name must be still empty";
+    assert parentPath.isEmpty() : "Instance variable parentPath must be still empty";
   }
 
   /**
@@ -306,25 +306,25 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @SuppressWarnings("unchecked")
   protected void setCallback(MmBaseDeclaration<?, ?> pDeclaration) {
-    if (this.initialState != MmInitialState.IN_CONSTRUCTION) {
+    if (initialState != MmInitialState.IN_CONSTRUCTION) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
     }
-    if (this.declaration != null) {
+    if (declaration != null) {
       throw new IllegalStateException("Reference to declaration part must be null");
     }
     if (pDeclaration == null) {
       throw new IllegalArgumentException("Parameter pDeclaration cannot be null");
     }
 
-    this.declaration  = (DECLARATION)pDeclaration;
-    this.initialState = MmInitialState.CONSTRUCTION_COMPLETE;
+    declaration  = (DECLARATION)pDeclaration;
+    initialState = MmInitialState.CONSTRUCTION_COMPLETE;
 
     // if there is a parent mimic, add this mimic as child of parent mimic
-    if (this.implementationParent != null) {
-      this.implementationParent.addChild(this.declaration, null, null);
+    if (implementationParent != null) {
+      implementationParent.addChild(declaration, null, null);
     }
 
-    assert this.parentPath.isEmpty() : "Instance variable parentPath must be still empty";
+    assert parentPath.isEmpty() : "Instance variable parentPath must be still empty";
   }
 
   /**
@@ -340,27 +340,27 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-naming
    */
   protected void setName(String pName) {
-    if ((this.initialState != MmInitialState.IN_CONSTRUCTION) && (this.initialState != MmInitialState.CONSTRUCTION_COMPLETE)
-        && (this.initialState != MmInitialState.INITIALIZED)) {
+    if ((initialState != MmInitialState.IN_CONSTRUCTION) && (initialState != MmInitialState.CONSTRUCTION_COMPLETE)
+        && (initialState != MmInitialState.INITIALIZED)) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION or CONSTRUCTION_COMPLETE or INITIALIZED, but is "
-        + this.initialState);
+        + initialState);
     }
-    assert ((this.implementationParent.initialState == MmInitialState.IN_INITIALIZATION)
-        || (this.implementationParent.initialState == MmInitialState.INITIALIZED)) : "Initial state of parent must be IN_INITIALIZATION or INITIALIZED";
+    assert ((implementationParent.initialState == MmInitialState.IN_INITIALIZATION)
+        || (implementationParent.initialState == MmInitialState.INITIALIZED)) : "Initial state of parent must be IN_INITIALIZATION or INITIALIZED";
     if (pName == null) {
       throw new IllegalArgumentException("Parameter pName cannot be null");
     }
-    assert this.name.isEmpty() : "Instance variable name " + this.name + " cannot be changed to " + pName;
-    assert this.parentPath.isEmpty() : "Instance variable parentPath " + this.parentPath + " cannot be set twice";
+    assert name.isEmpty() : "Instance variable name " + name + " cannot be changed to " + pName;
+    assert parentPath.isEmpty() : "Instance variable parentPath " + parentPath + " cannot be set twice";
 
-    this.name = pName.trim();
+    name = pName.trim();
 
-    if (this.implementationParent.name.isEmpty()) {
-      this.parentPath = "";
-    } else if (this.implementationParent.parentPath.isEmpty()) {
-      this.parentPath = this.implementationParent.name;
+    if (implementationParent.name.isEmpty()) {
+      parentPath = "";
+    } else if (implementationParent.parentPath.isEmpty()) {
+      parentPath = implementationParent.name;
     } else {
-      this.parentPath = this.implementationParent.parentPath + "." + this.implementationParent.name;
+      parentPath = implementationParent.parentPath + "." + implementationParent.name;
     }
   }
 
@@ -376,17 +376,17 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-naming
    */
   protected void setTypeOfFirstGenericParameter(Type pTypeOfFirstGenericParameter) {
-    if ((this.initialState != MmInitialState.CONSTRUCTION_COMPLETE) && (this.initialState != MmInitialState.INITIALIZED)) {
-      throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or INITIALIZED, but was " + this.initialState);
+    if ((initialState != MmInitialState.CONSTRUCTION_COMPLETE) && (initialState != MmInitialState.INITIALIZED)) {
+      throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or INITIALIZED, but was " + initialState);
     }
-    assert this.implementationParent.initialState == MmInitialState.IN_INITIALIZATION : "Initial state of parent must be IN_INITIALIZATION";
+    assert implementationParent.initialState == MmInitialState.IN_INITIALIZATION : "Initial state of parent must be IN_INITIALIZATION";
     if (pTypeOfFirstGenericParameter == null) {
       throw new IllegalArgumentException("Parameter pTypeOfFirstGenericParameter cannot be null");
     }
-    assert this.typeOfFirstGenericParameter == null : "Instance variable genericType " + this.typeOfFirstGenericParameter
-                                                      + " cannot be changed to " + pTypeOfFirstGenericParameter;
+    assert typeOfFirstGenericParameter == null : "Instance variable genericType " + typeOfFirstGenericParameter + " cannot be changed to "
+                                                 + pTypeOfFirstGenericParameter;
 
-    this.typeOfFirstGenericParameter = pTypeOfFirstGenericParameter;
+    typeOfFirstGenericParameter = pTypeOfFirstGenericParameter;
   }
 
   /**
@@ -405,8 +405,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-initialization
    */
   protected void addChild(MmBaseDeclaration<?, ?> pChild, String pNameOfChild, Type pTypeOfFirstGenericParameter) {
-    if ((this.initialState != MmInitialState.CONSTRUCTION_COMPLETE) && (this.initialState != MmInitialState.IN_INITIALIZATION)
-        && (this.initialState != MmInitialState.INITIALIZED)) {
+    if ((initialState != MmInitialState.CONSTRUCTION_COMPLETE) && (initialState != MmInitialState.IN_INITIALIZATION)
+        && (initialState != MmInitialState.INITIALIZED)) {
       throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or IN_INITIALIZATION or INITIALIZED");
     }
     if (pChild == null) {
@@ -429,13 +429,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
 
     // if parent mimic is not initialized yet, add child to compile time children
-    if (this.initialState != MmInitialState.INITIALIZED) {
+    if (initialState != MmInitialState.INITIALIZED) {
 
       // if child not in list yet, add child to list of
       // declarationChildren and list of implementationChildren
-      if (!this.declarationChildren.contains(pChild)) {
-        this.declarationChildren.add(pChild);
-        this.implementationChildren.add(childImplementation);
+      if (!declarationChildren.contains(pChild)) {
+        declarationChildren.add(pChild);
+        implementationChildren.add(childImplementation);
       }
 
       // if parent mimic is initialized, add child to runtime time children
@@ -443,12 +443,35 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // if child not in list yet, add child to list of
       // runtime declarationChildren and list of runtime implementationChildren
-      if (!this.runtimeDeclarationChildren.contains(pChild)) {
+      if (!runtimeDeclarationChildren.contains(pChild)) {
 
         // mark child as being a runtime child
         childImplementation.isRuntimeChild = true;
-        this.runtimeDeclarationChildren.add(pChild);
-        this.runtimeImplementationChildren.add(childImplementation);
+        runtimeDeclarationChildren.add(pChild);
+        runtimeImplementationChildren.add(childImplementation);
+      }
+    }
+  }
+
+  /**
+   * Assures that mimic will be initialized, if it is not initialized yet.
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected void assureInitialization() {
+    if (initialState != MmInitialState.INITIALIZED) {
+      if (root == null) {
+        initialize();
+        if (LOGGER.isDebugEnabled()) {
+          logSubtree(this, "");
+        }
+      } else if (root.initialState == MmInitialState.INITIALIZED) {
+        initialize();
+      } else {
+        root.initialize();
+        if (LOGGER.isDebugEnabled()) {
+          logSubtree(root, "");
+        }
       }
     }
   }
@@ -501,29 +524,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       }
       declarationClass = declarationClass.getSuperclass();
     } while ((declarationClass != null) && !declarationClass.equals(Object.class));
-  }
-
-  /**
-   * Ensures that mimic will be initialized, if it is not initialized yet.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected void ensureInitialization() {
-    if (this.initialState != MmInitialState.INITIALIZED) {
-      if (this.root == null) {
-        this.initialize();
-        if (LOGGER.isDebugEnabled()) {
-          logSubtree(this, "");
-        }
-      } else if (this.root.initialState == MmInitialState.INITIALIZED) {
-        this.initialize();
-      } else {
-        this.root.initialize();
-        if (LOGGER.isDebugEnabled()) {
-          logSubtree(this.root, "");
-        }
-      }
-    }
   }
 
   /**
@@ -607,11 +607,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @SuppressWarnings("unchecked")
   protected <T> T getImplementationAncestorOfType(Class<T> pType) {
-    if (this.implementationParent != null) {
-      if (pType.isAssignableFrom(this.implementationParent.getClass())) {
-        return (T)this.implementationParent;
+    if (implementationParent != null) {
+      if (pType.isAssignableFrom(implementationParent.getClass())) {
+        return (T)implementationParent;
       } else {
-        return this.implementationParent.getImplementationAncestorOfType(pType);
+        return implementationParent.getImplementationAncestorOfType(pType);
       }
     } else {
       return null;
@@ -628,43 +628,43 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-initialization
    */
   protected void initialize() {
-    if (this.initialState != MmInitialState.CONSTRUCTION_COMPLETE) {
+    if (initialState != MmInitialState.CONSTRUCTION_COMPLETE) {
       throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE");
     }
-    if (this.declaration == null) {
+    if (declaration == null) {
       throw new IllegalStateException("Reference to declaration part must be defined");
     }
 
     // set state to IN_INITIALIZATION
-    this.initialState         = MmInitialState.IN_INITIALIZATION;
+    initialState         = MmInitialState.IN_INITIALIZATION;
 
     // evaluate ancestor for reference path, file and params
-    this.referencableAncestor = this.getImplementationAncestorOfType(MmReferencableMimic.class);
+    referencableAncestor = getImplementationAncestorOfType(MmReferencableMimic.class);
 
     // evaluate children
-    for (Field field : this.findFields(this.declaration.getClass())) {
+    for (Field field : findFields(declaration.getClass())) {
 
       // add all public not static fields of type MmBaseDeclaration as children
-      this.addFieldOfTypeMmToChildren(field);
+      addFieldOfTypeMmToChildren(field);
     }
 
     // evaluate configuration
-    this.initializeConfiguration();
+    initializeConfiguration();
 
     // if id is not defined yet, set id to full name
-    if (this.configuration.getId().equals(MmBaseConfiguration.UNDEFINED_ID) && !this.name.isEmpty()) {
-      String newId = this.name;
-      if (!this.parentPath.isEmpty()) {
-        newId = this.parentPath.replaceAll("\\.", "-") + "-" + this.name;
+    if (configuration.getId().equals(MmBaseConfiguration.UNDEFINED_ID) && !name.isEmpty()) {
+      String newId = name;
+      if (!parentPath.isEmpty()) {
+        newId = parentPath.replaceAll("\\.", "-") + "-" + name;
       }
-      this.configuration.setId(newId);
+      configuration.setId(newId);
     }
 
     // set state to INITIALIZED
-    this.initialState = MmInitialState.INITIALIZED;
+    initialState = MmInitialState.INITIALIZED;
 
     // initialize children
-    for (MmBaseImplementation<?, ?> implementationChild : this.implementationChildren) {
+    for (MmBaseImplementation<?, ?> implementationChild : implementationChildren) {
       implementationChild.initialize();
     }
   }
@@ -699,7 +699,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         }
 
         try {
-          MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(this.declaration);
+          MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(declaration);
           Type                    typeOfFirstGenericParameterOfField = null;
           if (pField.getGenericType() instanceof ParameterizedType) {
             ParameterizedType parameterizedType = (ParameterizedType)pField.getGenericType();
@@ -708,7 +708,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
               typeOfFirstGenericParameterOfField = typeArray[0];
             }
           }
-          this.addChild(child, pField.getName(), typeOfFirstGenericParameterOfField);
+          addChild(child, pField.getName(), typeOfFirstGenericParameterOfField);
 
           // check parent child relation
           if (child.implementation.implementationParent != this) {
@@ -729,12 +729,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   public List<MmMimic> getMmAncestors() {
-    this.ensureInitialization();
+    assureInitialization();
 
     List<MmMimic> ancestors = new ArrayList<>();
-    if ((this.implementationParent != null) && (this.implementationParent.declaration != null)) {
-      ancestors.addAll(this.implementationParent.getMmAncestors());
-      ancestors.add(this.implementationParent.declaration);
+    if ((implementationParent != null) && (implementationParent.declaration != null)) {
+      ancestors.addAll(implementationParent.getMmAncestors());
+      ancestors.add(implementationParent.declaration);
     }
     return ancestors;
   }
@@ -749,9 +749,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   public final MmMimic getMmChildByName(String pChildName) {
-    this.ensureInitialization();
+    assureInitialization();
 
-    for (MmMimic child : this.getMmChildren()) {
+    for (MmMimic child : getMmChildren()) {
       if (child.getMmName().equals(pChildName)) {
         return child;
       }
@@ -767,12 +767,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   public List<MmMimic> getMmChildren() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final int     size       = this.declarationChildren.size() + this.runtimeDeclarationChildren.size();
+    final int     size       = declarationChildren.size() + runtimeDeclarationChildren.size();
     List<MmMimic> returnList = new ArrayList<>(size);
-    returnList.addAll(this.declarationChildren);
-    returnList.addAll(this.runtimeDeclarationChildren);
+    returnList.addAll(declarationChildren);
+    returnList.addAll(runtimeDeclarationChildren);
     return returnList;
   }
 
@@ -787,14 +787,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   public MmMimic getMmDescendantByFullName(String pFullName) {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final String fullName = this.getMmFullName();
+    final String fullName = getMmFullName();
     if (fullName.equals(pFullName)) {
       return this;
     }
 
-    for (MmMimic child : this.getMmChildren()) {
+    for (MmMimic child : getMmChildren()) {
       MmMimic found = MmRelationshipApi.getMmDescendantByFullName(child, pFullName);
       if (found != null) {
         return found;
@@ -811,10 +811,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   public List<MmMimic> getMmDescendants() {
-    this.ensureInitialization();
+    assureInitialization();
 
     final List<MmMimic> descendants = new ArrayList<>();
-    for (MmMimic child : this.getMmChildren()) {
+    for (MmMimic child : getMmChildren()) {
       descendants.add(child);
       descendants.addAll(MmRelationshipApi.getMmDescendants(child));
     }
@@ -832,12 +832,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmFullName() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    if (this.parentPath.isEmpty()) {
-      return this.name;
+    if (parentPath.isEmpty()) {
+      return name;
     } else {
-      return this.parentPath + "." + this.name;
+      return parentPath + "." + name;
     }
   }
 
@@ -850,9 +850,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmId() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.getConfiguration().getId();
+    return getConfiguration().getId();
   }
 
   /**
@@ -866,12 +866,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmLongDescription() {
-    this.ensureInitialization();
+    assureInitialization();
 
     final Object   initialParams         = null;
-    final Object[] longDescriptionParams = this.declaration.callbackMmGetLongDescriptionParams(initialParams);
-    final String   i18nLongDescription   = this.getMmI18nText(MmMessageType.LONG, longDescriptionParams);
-    final String   returnString          = this.declaration.callbackMmGetLongDescription(i18nLongDescription, longDescriptionParams);
+    final Object[] longDescriptionParams = declaration.callbackMmGetLongDescriptionParams(initialParams);
+    final String   i18nLongDescription   = getMmI18nText(MmMessageType.LONG, longDescriptionParams);
+    final String   returnString          = declaration.callbackMmGetLongDescription(i18nLongDescription, longDescriptionParams);
     assert returnString != null : "callbackMmGetLongDescription cannot return null";
     return returnString;
   }
@@ -886,9 +886,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmName() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.name;
+    return name;
   }
 
   /**
@@ -899,9 +899,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   public MmMimic getMmParent() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.implementationParent.declaration;
+    return implementationParent.declaration;
   }
 
   /**
@@ -913,19 +913,19 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public MmReference getMmReference() {
-    this.ensureInitialization();
+    assureInitialization();
 
     // if no referencable ancestor is available, no reference can be returned
-    if (this.referencableAncestor == null) {
+    if (referencableAncestor == null) {
       return null;
 
       // create an own reference from anchestor reference and own anchor
     } else {
-      final MmReference ancestorReference = this.referencableAncestor.getMmReference();
+      final MmReference ancestorReference = referencableAncestor.getMmReference();
       if (ancestorReference.isMmJsfOutcome()) {
         return ancestorReference;
       } else {
-        final String      anchor          = "#" + this.getMmId();
+        final String      anchor          = "#" + getMmId();
         final MmReference returnReference = new MmReferenceImplementation(ancestorReference, anchor);
         return returnReference;
       }
@@ -942,20 +942,21 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   @Override
+  @Deprecated
   public MmReference getMmReference(MmReferencableModel pModel) {
-    this.ensureInitialization();
+    assureInitialization();
 
     // if no referencable ancestor is available, no reference can be returned
-    if (this.referencableAncestor == null) {
+    if (referencableAncestor == null) {
       return null;
 
       // create an own reference from anchestor reference for specified model, and own anchor
     } else {
-      final MmReference ancestorReference = this.referencableAncestor.getMmReference(pModel);
+      final MmReference ancestorReference = referencableAncestor.getMmReference(pModel);
       if (ancestorReference.isMmJsfOutcome()) {
         return ancestorReference;
       } else {
-        final String      anchor          = "#" + this.getMmId();
+        final String      anchor          = "#" + getMmId();
         final MmReference returnReference = new MmReferenceImplementation(ancestorReference, anchor);
         return returnReference;
       }
@@ -970,9 +971,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   public MmRoot getMmRoot() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return (MmRoot)this.root.declaration;
+    return (MmRoot)root.declaration;
   }
 
   /**
@@ -986,10 +987,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmShortDescription() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final String i18nShortDescription = this.getMmI18nText(MmMessageType.SHORT);
-    final String returnString         = this.declaration.callbackMmGetShortDescription(i18nShortDescription);
+    final String i18nShortDescription = getMmI18nText(MmMessageType.SHORT);
+    final String returnString         = declaration.callbackMmGetShortDescription(i18nShortDescription);
     assert returnString != null : "callbackMmGetShortDescription cannot return null";
     return returnString;
   }
@@ -1004,9 +1005,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmStyleClasses() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final String returnString = this.declaration.callbackMmGetStyleClasses("");
+    final String returnString = declaration.callbackMmGetStyleClasses("");
     if (returnString == null) {
       return "";
     } else {
@@ -1024,12 +1025,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmEnabled() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    if (this.implementationParent == null) {
-      return this.declaration.callbackMmIsEnabled(this.configuration.isEnabled());
+    if (implementationParent == null) {
+      return declaration.callbackMmIsEnabled(configuration.isEnabled());
     } else {
-      return this.implementationParent.isMmEnabled() && this.declaration.callbackMmIsEnabled(this.configuration.isEnabled());
+      return implementationParent.isMmEnabled() && declaration.callbackMmIsEnabled(configuration.isEnabled());
     }
   }
 
@@ -1043,12 +1044,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmReadOnly() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    if (this.implementationParent == null) {
-      return this.declaration.callbackMmIsReadOnly(this.configuration.isReadOnly());
+    if (implementationParent == null) {
+      return declaration.callbackMmIsReadOnly(configuration.isReadOnly());
     } else {
-      return this.implementationParent.isMmReadOnly() || this.declaration.callbackMmIsReadOnly(this.configuration.isReadOnly());
+      return implementationParent.isMmReadOnly() || declaration.callbackMmIsReadOnly(configuration.isReadOnly());
     }
   }
 
@@ -1061,9 +1062,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmRuntimeChild() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.isRuntimeChild;
+    return isRuntimeChild;
   }
 
   /**
@@ -1076,12 +1077,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmVisible() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    if (this.implementationParent == null) {
-      return this.declaration.callbackMmIsVisible(this.configuration.isVisible());
+    if (implementationParent == null) {
+      return declaration.callbackMmIsVisible(configuration.isVisible());
     } else {
-      return this.implementationParent.isMmVisible() && this.declaration.callbackMmIsVisible(this.configuration.isVisible());
+      return implementationParent.isMmVisible() && declaration.callbackMmIsVisible(configuration.isVisible());
     }
   }
 
@@ -1098,23 +1099,23 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     StringBuilder sb = new StringBuilder();
     sb.append("(");
 
-    Class<?> clazz = this.declaration.getClass();
+    Class<?> clazz = declaration.getClass();
     while (clazz.getSimpleName().isEmpty()) {
       clazz = clazz.getSuperclass();
     }
     sb.append(clazz.getSimpleName());
-    if (!this.parentPath.isEmpty()) {
+    if (!parentPath.isEmpty()) {
       sb.append(" path=");
-      sb.append(this.parentPath);
+      sb.append(parentPath);
       sb.append(".");
-      sb.append(this.name);
-    } else if (!this.name.isEmpty()) {
+      sb.append(name);
+    } else if (!name.isEmpty()) {
       sb.append(" name=");
-      sb.append(this.name);
+      sb.append(name);
     }
-    if (this.getConfiguration() != null) {
+    if (getConfiguration() != null) {
       sb.append(" id=");
-      sb.append(this.configuration.id);
+      sb.append(configuration.id);
     }
     sb.append(")");
     return sb.toString();
@@ -1126,8 +1127,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public void clearRuntimeChildrenList() {
-    this.runtimeDeclarationChildren.clear();
-    this.runtimeImplementationChildren.clear();
+    runtimeDeclarationChildren.clear();
+    runtimeImplementationChildren.clear();
   }
 
   /**
@@ -1138,7 +1139,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public CONFIGURATION getConfiguration() {
-    return this.configuration;
+    return configuration;
   }
 
   /**
@@ -1149,7 +1150,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public DECLARATION getDeclaration() {
-    return this.declaration;
+    return declaration;
   }
 
   /**
@@ -1163,7 +1164,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public String getMmI18nText(MmMessageType pMessageType, Object... pArguments) {
-    return this.root.getMmI18nText(this.getMmId(), pMessageType, pArguments);
+    return root.getMmI18nText(getMmId(), pMessageType, pArguments);
   }
 
   /**
@@ -1174,7 +1175,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   protected Class<?> getConfigurationType() {
-    return findGenericsParameterType(this.getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
+    return findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
   }
 
   /**
@@ -1183,7 +1184,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @return  The MmJsfBridge of this mimic.
    */
   public final MmJsfBridge<?, ?, ?> getJsfBridge() {
-    return this.mmJsfBridge;
+    return mmJsfBridge;
   }
 
   /**
@@ -1192,10 +1193,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @return  The current JSF tag of this mimic.
    */
   public String getJsfTag() {
-    if ((this.isMmEnabled() && !this.isMmReadOnly()) || this.configuration.getJsfTagDisabled().equals("SameAsEnabled")) {
-      return this.configuration.getJsfTagEnabled();
+    if ((isMmEnabled() && !isMmReadOnly()) || configuration.getJsfTagDisabled().equals("SameAsEnabled")) {
+      return configuration.getJsfTagEnabled();
     } else {
-      return this.configuration.getJsfTagDisabled();
+      return configuration.getJsfTagDisabled();
     }
   }
 
@@ -1205,7 +1206,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @return  True, if the user's browser has enabled Javascript language.
    */
   public boolean isMmJsEnabled() {
-    return this.root.isMmJsEnabled();
+    return root.isMmJsEnabled();
   }
 
   /**

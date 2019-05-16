@@ -31,11 +31,11 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * @param  pValue             The value.
    */
   public MmSelectOption(String pId, String pShortDescription, String pLongDescription, OPTION_VALUE_TYPE pValue) {
-    this.id               = pId;
-    this.shortDescription = pShortDescription;
-    this.longDescription  = pLongDescription;
-    this.value            = pValue;
-    this.enabled          = true;
+    id               = pId;
+    shortDescription = pShortDescription;
+    longDescription  = pLongDescription;
+    value            = pValue;
+    enabled          = true;
   }
 
   /**
@@ -51,7 +51,7 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
       return true;
     } else if ((pThat == null) || !(pThat instanceof MmSelectOption<?>)) {
       return false;
-    } else if ((this.id != null) && this.id.equals(((MmSelectOption<?>)pThat).getDisplayId())) {
+    } else if ((id != null) && id.equals(((MmSelectOption<?>)pThat).getDisplayId())) {
       return true;
     } else {
       return false;
@@ -64,7 +64,7 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * @return  The display id of this select option.
    */
   public String getDisplayId() {
-    return this.id;
+    return id;
   }
 
   /**
@@ -73,7 +73,7 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * @return  The long description of this select option.
    */
   public String getLongDescription() {
-    return this.longDescription;
+    return longDescription;
   }
 
   /**
@@ -82,7 +82,7 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * @return  The short description of this select option.
    */
   public String getShortDescription() {
-    return this.shortDescription;
+    return shortDescription;
   }
 
   /**
@@ -111,7 +111,7 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * @return  True, if this select option can be selected.
    */
   public boolean isEnabled() {
-    return this.enabled;
+    return enabled;
   }
 
   /**
@@ -120,7 +120,7 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
    * @param  pEnabled  The specified select state.
    */
   public void setEnabled(boolean pEnabled) {
-    this.enabled = pEnabled;
+    enabled = pEnabled;
   }
 
   /**
@@ -133,15 +133,15 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
   public String toString() {
     StringBuilder snippet = new StringBuilder();
     snippet.append("id=");
-    snippet.append(this.id);
+    snippet.append(id);
     snippet.append(", short=");
-    snippet.append(this.shortDescription);
+    snippet.append(shortDescription);
     snippet.append(", long=");
-    snippet.append(this.longDescription);
+    snippet.append(longDescription);
     snippet.append(", enabled=");
-    snippet.append(this.enabled);
+    snippet.append(enabled);
     snippet.append(", value=");
-    snippet.append(this.value);
+    snippet.append(value);
     return snippet.toString();
   }
 

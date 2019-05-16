@@ -41,12 +41,12 @@ public class MmMessage {
    */
   public MmMessage(MmValidatorException pValidatorException) {
     assert pValidatorException != null : "pException must be defined";
-    this.errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
-    this.severity         = MmMessageSeverity.USER_ERROR;
-    this.ownerMm          = pValidatorException.getMimic();
-    this.messageId        = this.ownerMm.getMmId();
-    this.messageType      = MmMessageType.ERROR_VALIDATION;
-    this.args             = pValidatorException.getArgs();
+    errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
+    severity         = MmMessageSeverity.USER_ERROR;
+    ownerMm          = pValidatorException.getMimic();
+    messageId        = ownerMm.getMmId();
+    messageType      = MmMessageType.ERROR_VALIDATION;
+    args             = pValidatorException.getArgs();
   }
 
   /**
@@ -56,12 +56,12 @@ public class MmMessage {
    */
   public MmMessage(MmViewsideConverterException pViewsideConverterException) {
     assert pViewsideConverterException != null : "pException must be defined";
-    this.errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
-    this.severity         = MmMessageSeverity.USER_ERROR;
-    this.ownerMm          = pViewsideConverterException.getMimic();
-    this.messageId        = this.ownerMm.getMmId();
-    this.messageType      = MmMessageType.ERROR_CONVERSION_VIEW;
-    this.args             = pViewsideConverterException.getArgs();
+    errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
+    severity         = MmMessageSeverity.USER_ERROR;
+    ownerMm          = pViewsideConverterException.getMimic();
+    messageId        = ownerMm.getMmId();
+    messageType      = MmMessageType.ERROR_CONVERSION_VIEW;
+    args             = pViewsideConverterException.getArgs();
   }
 
   /**
@@ -81,12 +81,12 @@ public class MmMessage {
     assert pMessageId != null : "pMessageId must be defined";
     assert pOwnerMm != null : "pOwnerMm must be defined";
     assert MmRelationshipApi.getMmRoot(pOwnerMm) != null : "MmRelationshipApi.getMmRoot(pOwnerMm) must be defined";
-    this.errorMessageType = pType;
-    this.severity         = pSeverity;
-    this.ownerMm          = pOwnerMm;
-    this.messageId        = pMessageId;
-    this.messageType      = pMessageType;
-    this.args             = pArgs;
+    errorMessageType = pType;
+    severity         = pSeverity;
+    ownerMm          = pOwnerMm;
+    messageId        = pMessageId;
+    messageType      = pMessageType;
+    args             = pArgs;
   }
 
   /**
@@ -95,7 +95,7 @@ public class MmMessage {
    * @return  An array of arguments to be inserted into message text.
    */
   public Object[] getArgs() {
-    return this.args;
+    return args;
   }
 
   /**
@@ -105,7 +105,7 @@ public class MmMessage {
    * @return  The type of this message.
    */
   public MmErrorMessageType getErrorMessageType() {
-    return this.errorMessageType;
+    return errorMessageType;
   }
 
   /**
@@ -114,7 +114,7 @@ public class MmMessage {
    * @return  The bootstrap severity icon.
    */
   public String getIcon() {
-    switch (this.severity) {
+    switch (severity) {
       case USER_ERROR:
       case SYSTEM_ERROR: {
         return "fa fa-flash";
@@ -138,7 +138,7 @@ public class MmMessage {
    * @return  The message type.
    */
   public MmMessageType getMessageType() {
-    return this.messageType;
+    return messageType;
   }
 
   /**
@@ -147,7 +147,7 @@ public class MmMessage {
    * @return  The mimic which this message relates to.
    */
   public MmMimic getOwnerMm() {
-    return this.ownerMm;
+    return ownerMm;
   }
 
   /**
@@ -156,7 +156,7 @@ public class MmMessage {
    * @return  The severity of this message.
    */
   public MmMessageSeverity getSeverity() {
-    return this.severity;
+    return severity;
   }
 
   /**
@@ -165,7 +165,7 @@ public class MmMessage {
    * @return  The bootstrap alert style class.
    */
   public String getStyleClass() {
-    switch (this.severity) {
+    switch (severity) {
       case USER_ERROR:
       case SYSTEM_ERROR: {
         return "alert-danger";
@@ -189,16 +189,16 @@ public class MmMessage {
    * @return  The message text.
    */
   public String getText() {
-    MmRoot mmRoot        = MmRelationshipApi.getMmRoot(this.ownerMm);
+    MmRoot mmRoot        = MmRelationshipApi.getMmRoot(ownerMm);
     String returnMessage = mmRoot.getMmI18nText(messageId, messageType);
-    String label         = this.ownerMm.getMmShortDescription();
-    if (this.args == null) {
+    String label         = ownerMm.getMmShortDescription();
+    if (args == null) {
       returnMessage = MessageFormat.format(returnMessage, label);
     } else {
-      Object[] arguments = new Object[this.args.length + 1];
+      Object[] arguments = new Object[args.length + 1];
       arguments[0] = label;
-      for (int i = 0; i < this.args.length; i++) {
-        arguments[i + 1] = this.args[i];
+      for (int i = 0; i < args.length; i++) {
+        arguments[i + 1] = args[i];
       }
       returnMessage = MessageFormat.format(returnMessage, arguments);
     }
@@ -214,18 +214,18 @@ public class MmMessage {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append(this.errorMessageType.name());
+    sb.append(errorMessageType.name());
     sb.append("/ ");
-    sb.append(this.severity.name());
-    if (this.ownerMm != null) {
+    sb.append(severity.name());
+    if (ownerMm != null) {
       sb.append("/ ");
-      sb.append(this.ownerMm.getMmName());
+      sb.append(ownerMm.getMmName());
     }
     sb.append("/ ");
-    sb.append(this.messageId);
-    if ((this.args != null) && (this.args.length > 0)) {
+    sb.append(messageId);
+    if ((args != null) && (args.length > 0)) {
       sb.append("/ [ ");
-      for (Object object : this.args) {
+      for (Object object : args) {
         sb.append(object);
         sb.append(" / ");
       }

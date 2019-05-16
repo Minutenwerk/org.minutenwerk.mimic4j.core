@@ -43,10 +43,10 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    */
   public MmConfigurationInstant() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.formatPattern   = DEFAULT_FORMAT_PATTERN;
-    this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.jsfTag          = DEFAULT_JSF_TAG;
-    this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
+    formatPattern   = DEFAULT_FORMAT_PATTERN;
+    formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
+    jsfTag          = DEFAULT_JSF_TAG;
+    jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -57,10 +57,10 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
   public MmConfigurationInstant(MmInstantAnnotation pDateAnnotation) {
     super(pDateAnnotation.id(), pDateAnnotation.visible(), pDateAnnotation.readOnly(), pDateAnnotation.enabled(),
       pDateAnnotation.required());
-    this.formatPattern   = pDateAnnotation.formatPattern();
-    this.formatMaxLength = pDateAnnotation.formatMaxLength();
-    this.jsfTag          = pDateAnnotation.jsfTag();
-    this.jsfTagDisabled  = pDateAnnotation.jsfTagDisabled();
+    formatPattern   = pDateAnnotation.formatPattern();
+    formatMaxLength = pDateAnnotation.formatMaxLength();
+    jsfTag          = pDateAnnotation.jsfTag();
+    jsfTagDisabled  = pDateAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -69,7 +69,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    * @return  The configuration of maximum length of formatted input string.
    */
   public int getFormatMaxLength() {
-    return this.formatMaxLength;
+    return formatMaxLength;
   }
 
   /**
@@ -78,7 +78,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    * @return  The configuration of format pattern for parsing user input and formatting viewside value.
    */
   public String getFormatPattern() {
-    return this.formatPattern;
+    return formatPattern;
   }
 
   /**
@@ -88,7 +88,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTagDisabled.name();
+    return jsfTagDisabled.name();
   }
 
   /**
@@ -98,7 +98,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -107,7 +107,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    * @param  pFormatMaxLength  The specified configuration of maximum length of formatted input string.
    */
   public void setFormatMaxLength(int pFormatMaxLength) {
-    this.formatMaxLength = pFormatMaxLength;
+    formatMaxLength = pFormatMaxLength;
   }
 
   /**
@@ -116,7 +116,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    * @param  pFormatPattern  The specified configuration of format pattern for parsing user input and formatting viewside value.
    */
   public void setFormatPattern(String pFormatPattern) {
-    this.formatPattern = pFormatPattern;
+    formatPattern = pFormatPattern;
   }
 
   /**
@@ -125,7 +125,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmInstantJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
 }

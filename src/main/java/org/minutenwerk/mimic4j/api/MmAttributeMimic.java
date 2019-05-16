@@ -30,7 +30,7 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
      * @param  pValue  The text value of HTML attribute.
      */
     private MmBooleanLayout(String pValue) {
-      this.value = pValue;
+      value = pValue;
     }
 
     /**
@@ -39,7 +39,7 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
      * @return  The text value of HTML attribute.
      */
     public String getValue() {
-      return this.value;
+      return value;
     }
   }
 

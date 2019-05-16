@@ -26,8 +26,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @param  pImplementation  The implementation part of the mimic.
    */
   protected MmBaseDeclaration(IMPLEMENTATION pImplementation) {
-    this.implementation = pImplementation;
-    this.implementation.setCallback(this);
+    implementation = pImplementation;
+    implementation.setCallback(this);
   }
 
   /**
@@ -135,7 +135,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final String getMmFullName() {
-    return this.implementation.getMmFullName();
+    return implementation.getMmFullName();
   }
 
   /**
@@ -147,7 +147,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final String getMmId() {
-    return this.implementation.getMmId();
+    return implementation.getMmId();
   }
 
   /**
@@ -161,7 +161,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final String getMmLongDescription() {
-    return this.implementation.getMmLongDescription();
+    return implementation.getMmLongDescription();
   }
 
   /**
@@ -174,7 +174,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final String getMmName() {
-    return this.implementation.getMmName();
+    return implementation.getMmName();
   }
 
   /**
@@ -186,7 +186,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final MmReference getMmReference() {
-    return this.implementation.getMmReference();
+    return implementation.getMmReference();
   }
 
   /**
@@ -200,7 +200,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final MmReference getMmReference(MmReferencableModel pModel) {
-    return this.implementation.getMmReference(pModel);
+    return implementation.getMmReference(pModel);
   }
 
   /**
@@ -214,7 +214,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final String getMmShortDescription() {
-    return this.implementation.getMmShortDescription();
+    return implementation.getMmShortDescription();
   }
 
   /**
@@ -228,7 +228,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final String getMmStyleClasses() {
-    return this.implementation.getMmStyleClasses();
+    return implementation.getMmStyleClasses();
   }
 
   /**
@@ -241,7 +241,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final boolean isMmEnabled() {
-    return this.implementation.isMmEnabled();
+    return implementation.isMmEnabled();
   }
 
   /**
@@ -254,7 +254,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final boolean isMmReadOnly() {
-    return this.implementation.isMmReadOnly();
+    return implementation.isMmReadOnly();
   }
 
   /**
@@ -266,7 +266,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final boolean isMmRuntimeChild() {
-    return this.implementation.isMmRuntimeChild();
+    return implementation.isMmRuntimeChild();
   }
 
   /**
@@ -279,7 +279,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   @Override
   public final boolean isMmVisible() {
-    return this.implementation.isMmVisible();
+    return implementation.isMmVisible();
   }
 
   /**
@@ -293,15 +293,15 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    if (this.implementation == null) {
-      Class<?> clazz = this.getClass();
+    if (implementation == null) {
+      Class<?> clazz = getClass();
       while (clazz.getSimpleName().isEmpty()) {
         clazz = clazz.getSuperclass();
       }
       sb.append(clazz.getSimpleName());
       sb.append(" implementation = null");
     } else {
-      sb.append(this.implementation.toString());
+      sb.append(implementation.toString());
     }
     return sb.toString();
   }
@@ -328,7 +328,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @return  The MmJsfBridge of this mimic.
    */
   public final MmJsfBridge<?, ?, ?> getToJsf() {
-    return this.implementation.getJsfBridge();
+    return implementation.getJsfBridge();
   }
 
   /**
@@ -337,7 +337,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @return  Debug information about this mimic and subtree of all its children and runtime children.
    */
   public final String toStringSubtree() {
-    return MmBaseImplementation.toStringSubtree(this.implementation, "  ");
+    return MmBaseImplementation.toStringSubtree(implementation, "  ");
   }
 
 }

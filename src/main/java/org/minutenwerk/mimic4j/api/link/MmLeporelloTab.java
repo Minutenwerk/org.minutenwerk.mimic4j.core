@@ -56,7 +56,7 @@ public class MmLeporelloTab extends MmBaseLinkDeclaration<MmImplementationLepore
    * @return  True, if this leporello tab is selected or is a supertab of an active tab.
    */
   public final boolean isMmActive() {
-    return this.implementation.isMmActive();
+    return implementation.isMmActive();
   }
 
   /**
@@ -65,7 +65,7 @@ public class MmLeporelloTab extends MmBaseLinkDeclaration<MmImplementationLepore
    * @return  True, if this leporello tab is the selected one.
    */
   public final boolean isMmSelected() {
-    return this.implementation.isMmSelected();
+    return implementation.isMmSelected();
   }
 
 }

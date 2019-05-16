@@ -38,16 +38,16 @@ public class MmImplementationLink extends MmBaseLinkImplementation<MmLink, MmCon
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLinkAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmLinkAnnotation.class);
 
-    MmLinkAnnotation annotation = this.findAnnotation(this.declaration, MmLinkAnnotation.class);
+    MmLinkAnnotation annotation = findAnnotation(declaration, MmLinkAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationLink();
+      configuration = new MmConfigurationLink();
     } else {
-      this.configuration = new MmConfigurationLink(annotation);
+      configuration = new MmConfigurationLink(annotation);
     }
   }
 

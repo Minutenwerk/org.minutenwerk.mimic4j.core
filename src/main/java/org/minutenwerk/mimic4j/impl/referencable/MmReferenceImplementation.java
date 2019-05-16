@@ -64,49 +64,49 @@ public class MmReferenceImplementation implements MmReference {
     }
     if (pReference instanceof MmReferenceImplementation) {
       final MmReferenceImplementation pReferenceImpl = (MmReferenceImplementation)pReference;
-      this.path           = pReferenceImpl.path;
-      this.file           = pReferenceImpl.file;
-      this.anchor         = pAnchor;
-      this.pathFileAnchor = this.path + this.file + this.anchor;
-      this.outcome        = null;
-      this.params         = pReferenceImpl.params;
-      this.paramsCount    = pReferenceImpl.paramsCount;
+      path           = pReferenceImpl.path;
+      file           = pReferenceImpl.file;
+      anchor         = pAnchor;
+      pathFileAnchor = path + file + anchor;
+      outcome        = null;
+      params         = pReferenceImpl.params;
+      paramsCount    = pReferenceImpl.paramsCount;
       for (int i = 0; i < MAX_COUNT; i++) {
-        this.paramName[i]  = pReferenceImpl.paramName[i];
-        this.paramValue[i] = pReferenceImpl.paramValue[i];
+        paramName[i]  = pReferenceImpl.paramName[i];
+        paramValue[i] = pReferenceImpl.paramValue[i];
       }
-      this.query = pReferenceImpl.query;
-      if (this.query.isEmpty()) {
-        this.pathFileAnchorQuery = this.pathFileAnchor;
+      query = pReferenceImpl.query;
+      if (query.isEmpty()) {
+        pathFileAnchorQuery = pathFileAnchor;
       } else {
-        this.pathFileAnchorQuery = this.pathFileAnchor + "?" + this.query;
+        pathFileAnchorQuery = pathFileAnchor + "?" + query;
       }
 
     } else {
-      this.path           = pReference.getMmPath();
-      this.file           = pReference.getMmFile();
-      this.anchor         = pAnchor;
-      this.pathFileAnchor = this.path + this.file + this.anchor;
-      this.outcome        = null;
-      this.params         = pReference.getMmParams();
+      path           = pReference.getMmPath();
+      file           = pReference.getMmFile();
+      anchor         = pAnchor;
+      pathFileAnchor = path + file + anchor;
+      outcome        = null;
+      params         = pReference.getMmParams();
 
-      int index           = 0;
-      for (MmNameValue param : this.params) {
-        this.paramName[index]  = param.getMmName();
-        this.paramValue[index] = param.getMmValue();
+      int index      = 0;
+      for (MmNameValue param : params) {
+        paramName[index]  = param.getMmName();
+        paramValue[index] = param.getMmValue();
         index++;
       }
-      this.paramsCount = index;
+      paramsCount = index;
       for (; index < MAX_COUNT; index++) {
-        this.paramName[index]  = "";
-        this.paramValue[index] = "";
+        paramName[index]  = "";
+        paramValue[index] = "";
       }
 
-      this.query = pReference.getMmQuery();
-      if (this.query.isEmpty()) {
-        this.pathFileAnchorQuery = this.pathFileAnchor;
+      query = pReference.getMmQuery();
+      if (query.isEmpty()) {
+        pathFileAnchorQuery = pathFileAnchor;
       } else {
-        this.pathFileAnchorQuery = this.pathFileAnchor + "?" + this.query;
+        pathFileAnchorQuery = pathFileAnchor + "?" + query;
       }
     }
   }
@@ -149,19 +149,19 @@ public class MmReferenceImplementation implements MmReference {
       throw new IllegalArgumentException("count of pParams " + pParams.size() + " exceeds maximum of " + MAX_COUNT);
     }
     if (pPath != null) {
-      this.path           = pPath;
-      this.file           = pFile;
-      this.anchor         = null;
-      this.pathFileAnchor = this.path + this.file;
-      this.outcome        = null;
+      path           = pPath;
+      file           = pFile;
+      anchor         = null;
+      pathFileAnchor = path + file;
+      outcome        = null;
 
       // if pOutcome != null
     } else {
-      this.path           = null;
-      this.file           = null;
-      this.anchor         = null;
-      this.pathFileAnchor = null;
-      this.outcome        = pOutcome;
+      path           = null;
+      file           = null;
+      anchor         = null;
+      pathFileAnchor = null;
+      outcome        = pOutcome;
     }
 
     // evaluate query, parameter list and parameter array
@@ -185,38 +185,38 @@ public class MmReferenceImplementation implements MmReference {
         nameValues.add(nameValue);
 
         // build parameter array
-        this.paramName[index]  = nameValue.getMmName();
-        this.paramValue[index] = nameValue.getMmValue();
+        paramName[index]  = nameValue.getMmName();
+        paramValue[index] = nameValue.getMmValue();
         index++;
       }
     }
 
     // if there are no parameters
     if (index == 0) {
-      this.query  = "";
-      this.params = Collections.emptyList();
+      query  = "";
+      params = Collections.emptyList();
       if (pPath != null) {
-        this.pathFileAnchorQuery = this.pathFileAnchor;
+        pathFileAnchorQuery = pathFileAnchor;
       } else {
-        this.pathFileAnchorQuery = null;
+        pathFileAnchorQuery = null;
       }
 
       // if there are parameters
     } else {
-      this.query  = queryBuilder.toString();
-      this.params = Collections.unmodifiableList(nameValues);
+      query  = queryBuilder.toString();
+      params = Collections.unmodifiableList(nameValues);
       if (pPath != null) {
-        this.pathFileAnchorQuery = this.pathFileAnchor + "?" + this.query;
+        pathFileAnchorQuery = pathFileAnchor + "?" + query;
       } else {
-        this.pathFileAnchorQuery = null;
+        pathFileAnchorQuery = null;
       }
     }
 
     // set remaining parameter array to empty string
-    this.paramsCount = index;
+    paramsCount = index;
     for (; index < MAX_COUNT; index++) {
-      this.paramName[index]  = "";
-      this.paramValue[index] = "";
+      paramName[index]  = "";
+      paramValue[index] = "";
     }
   }
 
@@ -227,7 +227,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmAnchor() {
-    return this.anchor;
+    return anchor;
   }
 
   /**
@@ -237,7 +237,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmFile() {
-    return this.file;
+    return file;
   }
 
   /**
@@ -247,10 +247,10 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmOutcome() {
-    if (this.isMmJsfOutcome()) {
-      return this.outcome;
+    if (isMmJsfOutcome()) {
+      return outcome;
     } else {
-      return this.getMmPathFileAnchor();
+      return getMmPathFileAnchor();
     }
   }
 
@@ -261,7 +261,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam1Name() {
-    return this.paramName[0];
+    return paramName[0];
   }
 
   /**
@@ -271,7 +271,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam1Value() {
-    return this.paramValue[0];
+    return paramValue[0];
   }
 
   /**
@@ -281,7 +281,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam2Name() {
-    return this.paramName[1];
+    return paramName[1];
   }
 
   /**
@@ -291,7 +291,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam2Value() {
-    return this.paramValue[1];
+    return paramValue[1];
   }
 
   /**
@@ -301,7 +301,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam3Name() {
-    return this.paramName[2];
+    return paramName[2];
   }
 
   /**
@@ -311,7 +311,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam3Value() {
-    return this.paramValue[2];
+    return paramValue[2];
   }
 
   /**
@@ -321,7 +321,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam4Name() {
-    return this.paramName[3];
+    return paramName[3];
   }
 
   /**
@@ -331,7 +331,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam4Value() {
-    return this.paramValue[3];
+    return paramValue[3];
   }
 
   /**
@@ -341,7 +341,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam5Name() {
-    return this.paramName[4];
+    return paramName[4];
   }
 
   /**
@@ -351,7 +351,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam5Value() {
-    return this.paramValue[4];
+    return paramValue[4];
   }
 
   /**
@@ -361,7 +361,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam6Name() {
-    return this.paramName[5];
+    return paramName[5];
   }
 
   /**
@@ -371,7 +371,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam6Value() {
-    return this.paramValue[5];
+    return paramValue[5];
   }
 
   /**
@@ -381,7 +381,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam7Name() {
-    return this.paramName[6];
+    return paramName[6];
   }
 
   /**
@@ -391,7 +391,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam7Value() {
-    return this.paramValue[6];
+    return paramValue[6];
   }
 
   /**
@@ -401,7 +401,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam8Name() {
-    return this.paramName[7];
+    return paramName[7];
   }
 
   /**
@@ -411,7 +411,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam8Value() {
-    return this.paramValue[7];
+    return paramValue[7];
   }
 
   /**
@@ -421,7 +421,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam9Name() {
-    return this.paramName[8];
+    return paramName[8];
   }
 
   /**
@@ -431,7 +431,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmParam9Value() {
-    return this.paramValue[8];
+    return paramValue[8];
   }
 
   /**
@@ -441,7 +441,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public List<MmNameValue> getMmParams() {
-    return this.params;
+    return params;
   }
 
   /**
@@ -451,7 +451,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public int getMmParamsCount() {
-    return this.paramsCount;
+    return paramsCount;
   }
 
   /**
@@ -462,7 +462,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmPath() {
-    return this.path;
+    return path;
   }
 
   /**
@@ -473,7 +473,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmPathFileAnchor() {
-    return this.pathFileAnchor;
+    return pathFileAnchor;
   }
 
   /**
@@ -483,7 +483,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmPathFileAnchorQuery() {
-    return this.pathFileAnchorQuery;
+    return pathFileAnchorQuery;
   }
 
   /**
@@ -493,7 +493,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public String getMmQuery() {
-    return this.query;
+    return query;
   }
 
   /**
@@ -503,7 +503,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public boolean isMmJsfOutcome() {
-    return this.outcome != null;
+    return outcome != null;
   }
 
   /**
@@ -513,7 +513,7 @@ public class MmReferenceImplementation implements MmReference {
    */
   @Override
   public boolean isMmUrl() {
-    return this.pathFileAnchor != null;
+    return pathFileAnchor != null;
   }
 
   /**

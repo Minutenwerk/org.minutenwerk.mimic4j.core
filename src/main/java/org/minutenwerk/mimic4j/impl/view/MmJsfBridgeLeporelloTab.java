@@ -25,7 +25,7 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
    * @return  The CSS styleclass if this leporello tab is active.
    */
   public String getStyleClassActive() {
-    return this.implementation.getMmStyleClassActive();
+    return implementation.getMmStyleClassActive();
   }
 
   /**
@@ -36,7 +36,7 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
    */
   @Override
   public MmReference getTargetReference() {
-    return this.implementation.getMmTargetReference();
+    return implementation.getMmTargetReference();
   }
 
   /**
@@ -46,7 +46,7 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
    */
   @Override
   public String getValue() {
-    return this.implementation.getMmViewsideValue();
+    return implementation.getMmViewsideValue();
   }
 
   /**
@@ -56,7 +56,7 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
    */
   @Override
   public boolean isDisabled() {
-    return !this.implementation.isMmEnabled();
+    return !implementation.isMmEnabled();
   }
 
 }

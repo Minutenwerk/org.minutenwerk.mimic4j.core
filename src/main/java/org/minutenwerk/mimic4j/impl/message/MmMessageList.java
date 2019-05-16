@@ -22,8 +22,8 @@ public class MmMessageList {
    * Creates a new MmMessageList instance.
    */
   public MmMessageList() {
-    this.messages   = new ArrayList<>();
-    this.comparator = new MessageComparator();
+    messages   = new ArrayList<>();
+    comparator = new MessageComparator();
   }
 
   /**
@@ -34,7 +34,7 @@ public class MmMessageList {
    * @return  The message list after adding the message.
    */
   public MmMessageList addMessage(MmMessage mmMessage) {
-    this.messages.add(mmMessage);
+    messages.add(mmMessage);
     return this;
   }
 
@@ -44,7 +44,7 @@ public class MmMessageList {
    * @return  The empty message list.
    */
   public MmMessageList clear() {
-    this.messages.clear();
+    messages.clear();
     return this;
   }
 
@@ -55,7 +55,7 @@ public class MmMessageList {
    */
   public MmMessageSeverity getMaximumSeverity() {
     MmMessageSeverity returnSeverity = null;
-    for (MmMessage message : this.messages) {
+    for (MmMessage message : messages) {
       if ((returnSeverity == null) || (message.getSeverity().ordinal() > returnSeverity.ordinal())) {
         returnSeverity = message.getSeverity();
       }
@@ -69,9 +69,9 @@ public class MmMessageList {
    * @return  The list of all messages of this mimic, sorted by severity.
    */
   public List<MmMessage> getMessages() {
-    Collections.sort(this.messages, this.comparator);
+    Collections.sort(messages, comparator);
 
-    List<MmMessage> returnMessages = Collections.unmodifiableList(this.messages);
+    List<MmMessage> returnMessages = Collections.unmodifiableList(messages);
     return returnMessages;
   }
 

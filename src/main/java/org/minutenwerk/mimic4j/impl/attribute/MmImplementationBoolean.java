@@ -29,9 +29,9 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
    */
   @Override
   public MmBooleanLayout getMmLayout() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.getConfiguration().getLayout();
+    return getConfiguration().getLayout();
   }
 
   /**
@@ -50,16 +50,16 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmBooleanAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmBooleanAnnotation.class);
 
-    MmBooleanAnnotation annotation = this.findAnnotation(this.declaration, MmBooleanAnnotation.class);
+    MmBooleanAnnotation annotation = findAnnotation(declaration, MmBooleanAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationBoolean();
+      configuration = new MmConfigurationBoolean();
     } else {
-      this.configuration = new MmConfigurationBoolean(annotation);
+      configuration = new MmConfigurationBoolean(annotation);
     }
   }
 

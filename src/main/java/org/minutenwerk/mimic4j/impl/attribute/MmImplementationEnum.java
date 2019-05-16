@@ -32,7 +32,7 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    */
   @SuppressWarnings("unchecked")
   public Class<ENUM_TYPE> getMmEnumType() {
-    return (Class<ENUM_TYPE>)this.typeOfFirstGenericParameter;
+    return (Class<ENUM_TYPE>)typeOfFirstGenericParameter;
   }
 
   /**
@@ -42,9 +42,9 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty() || this.viewsideValue.equals("UNDEFINED"));
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty() || viewsideValue.equals("UNDEFINED"));
   }
 
   /**
@@ -63,16 +63,16 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmEnumAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmEnumAnnotation.class);
 
-    MmEnumAnnotation annotation = this.findAnnotation(this.declaration, MmEnumAnnotation.class);
+    MmEnumAnnotation annotation = findAnnotation(declaration, MmEnumAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationEnum<ENUM_TYPE>();
+      configuration = new MmConfigurationEnum<ENUM_TYPE>();
     } else {
-      this.configuration = new MmConfigurationEnum<ENUM_TYPE>(annotation, this.getMmEnumType());
+      configuration = new MmConfigurationEnum<ENUM_TYPE>(annotation, getMmEnumType());
     }
   }
 

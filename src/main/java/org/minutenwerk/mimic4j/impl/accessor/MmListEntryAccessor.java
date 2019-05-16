@@ -25,7 +25,7 @@ public class MmListEntryAccessor<LIST_MODEL extends List<ENTRY_MODEL>, ENTRY_MOD
    */
   public MmListEntryAccessor(final MmListAccessor<?, LIST_MODEL, ENTRY_MODEL> pParentAccessor, final Supplier<Integer> pIndexSupplier) {
     super(pParentAccessor, null, List<ENTRY_MODEL>::add);
-    this.indexSupplier = pIndexSupplier;
+    indexSupplier = pIndexSupplier;
   }
 
   /**
@@ -35,9 +35,9 @@ public class MmListEntryAccessor<LIST_MODEL extends List<ENTRY_MODEL>, ENTRY_MOD
    */
   @Override
   protected Optional<ENTRY_MODEL> getComponentOptional() {
-    LIST_MODEL parentList = this.getParent();
+    LIST_MODEL parentList = getParent();
     if (parentList != null) {
-      return Optional.ofNullable(parentList.get(this.indexSupplier.get()));
+      return Optional.ofNullable(parentList.get(indexSupplier.get()));
     } else {
       return Optional.empty();
     }

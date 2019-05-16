@@ -19,7 +19,7 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
    * @param  pParentAccessor  TODOC
    */
   public MmBaseModelAccessor(final MmModelAccessor<?, PARENT_MODEL> pParentAccessor) {
-    this.parentAccessor = pParentAccessor;
+    parentAccessor = pParentAccessor;
   }
 
   /**
@@ -59,7 +59,7 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
    */
   @Override
   public final boolean isNotPresent() {
-    return !this.isPresent();
+    return !isPresent();
   }
 
   /**
@@ -78,6 +78,6 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
    * @return  accessor of parent model.
    */
   protected final MmModelAccessor<?, PARENT_MODEL> getParentAccessor() {
-    return this.parentAccessor;
+    return parentAccessor;
   }
 }

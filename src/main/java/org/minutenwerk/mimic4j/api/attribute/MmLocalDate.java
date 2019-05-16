@@ -86,7 +86,7 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
       if (pModelsideValue == null) {
         return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
       } else {
-        formatPattern = this.getMmFormatPattern();
+        formatPattern = getMmFormatPattern();
         assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(formatPattern);
@@ -95,8 +95,8 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
       }
     } catch (IllegalArgumentException | DateTimeParseException e) {
       throw new MmModelsideConverterException(this,
-        "Cannot format " + this.getClass().getSimpleName() + ", modelside value: " + pModelsideValue + " by pattern >" + formatPattern
-        + "< " + e.getMessage());
+        "Cannot format " + getClass().getSimpleName() + ", modelside value: " + pModelsideValue + " by pattern >" + formatPattern + "< "
+        + e.getMessage());
     }
   }
 
@@ -115,19 +115,19 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   public LocalDate callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     LocalDate returnDate;
     String    formatPattern = null;
-    if (this.isMmEmpty()) {
+    if (isMmEmpty()) {
       returnDate = null;
     } else {
       try {
-        formatPattern = this.getMmFormatPattern();
+        formatPattern = getMmFormatPattern();
         assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(formatPattern);
         returnDate = LocalDate.parse(pViewsideValue, dateFormatter);
       } catch (DateTimeParseException e) {
         throw new MmViewsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue
-          + " by pattern >" + formatPattern + "< " + e.getMessage());
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue + " by pattern >"
+          + formatPattern + "< " + e.getMessage());
       }
     }
     return returnDate;

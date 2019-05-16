@@ -30,8 +30,8 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
   public MmAttributeAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
     final Function<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeGetter, final BiConsumer<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeSetter) {
     super(parentAccessor);
-    this.attributeGetter = pAttributeGetter;
-    this.attributeSetter = pAttributeSetter;
+    attributeGetter = pAttributeGetter;
+    attributeSetter = pAttributeSetter;
   }
 
   /**
@@ -114,6 +114,6 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    * @return  {@link Optional} of parent component.
    */
   protected Optional<PARENT_MODEL> getParentOptional() {
-    return Optional.ofNullable(this.getParentAccessor().get());
+    return Optional.ofNullable(getParentAccessor().get());
   }
 }

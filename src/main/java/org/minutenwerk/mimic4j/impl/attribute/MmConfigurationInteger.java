@@ -35,9 +35,9 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    */
   public MmConfigurationInteger() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.jsfTag          = DEFAULT_JSF_TAG;
-    this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
+    formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
+    jsfTag          = DEFAULT_JSF_TAG;
+    jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -48,9 +48,9 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
   public MmConfigurationInteger(MmIntegerAnnotation pIntegerAnnotation) {
     super(pIntegerAnnotation.id(), pIntegerAnnotation.visible(), pIntegerAnnotation.readOnly(), pIntegerAnnotation.enabled(),
       pIntegerAnnotation.required());
-    this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.jsfTag          = pIntegerAnnotation.jsfTag();
-    this.jsfTagDisabled  = pIntegerAnnotation.jsfTagDisabled();
+    formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
+    jsfTag          = pIntegerAnnotation.jsfTag();
+    jsfTagDisabled  = pIntegerAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -59,7 +59,7 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    * @return  The configuration of maximum length of formatted input string.
    */
   public int getFormatMaxLength() {
-    return this.formatMaxLength;
+    return formatMaxLength;
   }
 
   /**
@@ -69,7 +69,7 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTagDisabled.name();
+    return jsfTagDisabled.name();
   }
 
   /**
@@ -79,7 +79,7 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -88,7 +88,7 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    * @param  pFormatMaxLength  The specified configuration of maximum length of formatted input string.
    */
   public void setFormatMaxLength(int pFormatMaxLength) {
-    this.formatMaxLength = pFormatMaxLength;
+    formatMaxLength = pFormatMaxLength;
   }
 
   /**
@@ -97,7 +97,7 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmIntegerJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
 }

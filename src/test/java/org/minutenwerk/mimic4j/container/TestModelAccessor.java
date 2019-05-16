@@ -7,8 +7,8 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 import org.minutenwerk.mimic4j.container.TestModel.Gender;
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 
 public class TestModelAccessor extends MmComponentAccessor<MmMimicModelTest, TestModel> {
 

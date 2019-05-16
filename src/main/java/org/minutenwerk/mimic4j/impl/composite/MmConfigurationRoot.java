@@ -23,7 +23,7 @@ public class MmConfigurationRoot extends MmBaseConfiguration {
    */
   public MmConfigurationRoot() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    this.jsfTag = DEFAULT_JSF_TAG;
+    jsfTag = DEFAULT_JSF_TAG;
   }
 
   /**
@@ -33,7 +33,7 @@ public class MmConfigurationRoot extends MmBaseConfiguration {
    */
   public MmConfigurationRoot(MmRootAnnotation pRootAnnotation) {
     super(pRootAnnotation.id(), pRootAnnotation.visible(), pRootAnnotation.readOnly(), pRootAnnotation.enabled());
-    this.jsfTag = pRootAnnotation.jsfTag();
+    jsfTag = pRootAnnotation.jsfTag();
   }
 
   /**
@@ -43,7 +43,7 @@ public class MmConfigurationRoot extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -53,7 +53,7 @@ public class MmConfigurationRoot extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
 }

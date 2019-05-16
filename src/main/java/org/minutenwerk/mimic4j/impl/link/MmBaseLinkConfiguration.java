@@ -25,7 +25,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    */
   public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled) {
     super(pId, pVisible, pReadOnly, pEnabled);
-    this.targetOutcome = DEFAULT_TARGET_OUTCOME;
+    targetOutcome = DEFAULT_TARGET_OUTCOME;
   }
 
   /**
@@ -39,7 +39,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    */
   public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetOutcome) {
     super(pId, pVisible, pReadOnly, pEnabled);
-    this.targetOutcome = pTargetOutcome;
+    targetOutcome = pTargetOutcome;
   }
 
   /**
@@ -48,7 +48,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * @return  A string referencing a target, either an URL or an outcome
    */
   public String getTargetOutcome() {
-    return this.targetOutcome;
+    return targetOutcome;
   }
 
   /**
@@ -57,6 +57,6 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * @param  pTargetOutcome  A string referencing a target.
    */
   public void setTargetOutcome(String pTargetOutcome) {
-    this.targetOutcome = pTargetOutcome;
+    targetOutcome = pTargetOutcome;
   }
 }

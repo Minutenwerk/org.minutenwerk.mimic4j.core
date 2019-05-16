@@ -32,7 +32,7 @@ public class MmJsfBridgeTable<ROW_MODEL>
    */
   @Override
   public String getCaption() {
-    return this.implementation.getMmShortDescription();
+    return implementation.getMmShortDescription();
   }
 
   /**
@@ -43,7 +43,7 @@ public class MmJsfBridgeTable<ROW_MODEL>
   @Override
   public String getColumnClasses() {
     String returnString = "";
-    for (MmTableColumn column : this.implementation.getMmTableColumns()) {
+    for (MmTableColumn column : implementation.getMmTableColumns()) {
       if (returnString.length() > 0) {
         returnString += ",";
       }
@@ -60,7 +60,7 @@ public class MmJsfBridgeTable<ROW_MODEL>
    */
   @Override
   public List<MmTableColumn> getColumnMms() {
-    return this.implementation.getMmTableColumns();
+    return implementation.getMmTableColumns();
   }
 
   /**
@@ -70,7 +70,7 @@ public class MmJsfBridgeTable<ROW_MODEL>
    */
   @Override
   public List<MmTableRow<ROW_MODEL>> getValue() {
-    return this.implementation.getMmTableRows();
+    return implementation.getMmTableRows();
   }
 
 }

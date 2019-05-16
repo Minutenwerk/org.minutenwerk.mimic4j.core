@@ -33,9 +33,9 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
    * @return  the currently selected leporello tab, may be null.
    */
   public MmLeporelloTab getMmSelectedTab() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.declaration.callbackMmGetSelectedTab();
+    return declaration.callbackMmGetSelectedTab();
   }
 
   /**
@@ -54,16 +54,16 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLeporelloAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloAnnotation.class);
 
-    MmLeporelloAnnotation annotation = this.findAnnotation(this.declaration, MmLeporelloAnnotation.class);
+    MmLeporelloAnnotation annotation = findAnnotation(declaration, MmLeporelloAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationLeporello();
+      configuration = new MmConfigurationLeporello();
     } else {
-      this.configuration = new MmConfigurationLeporello(annotation);
+      configuration = new MmConfigurationLeporello(annotation);
     }
   }
 

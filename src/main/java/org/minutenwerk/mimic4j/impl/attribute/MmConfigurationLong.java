@@ -35,9 +35,9 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    */
   public MmConfigurationLong() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.jsfTag          = DEFAULT_JSF_TAG;
-    this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
+    formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
+    jsfTag          = DEFAULT_JSF_TAG;
+    jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -48,9 +48,9 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
   public MmConfigurationLong(MmLongAnnotation pLongAnnotation) {
     super(pLongAnnotation.id(), pLongAnnotation.visible(), pLongAnnotation.readOnly(), pLongAnnotation.enabled(),
       pLongAnnotation.required());
-    this.formatMaxLength = pLongAnnotation.formatMaxLength();
-    this.jsfTag          = pLongAnnotation.jsfTag();
-    this.jsfTagDisabled  = pLongAnnotation.jsfTagDisabled();
+    formatMaxLength = pLongAnnotation.formatMaxLength();
+    jsfTag          = pLongAnnotation.jsfTag();
+    jsfTagDisabled  = pLongAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -59,7 +59,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    * @return  The configuration of maximum length of formatted input string.
    */
   public int getFormatMaxLength() {
-    return this.formatMaxLength;
+    return formatMaxLength;
   }
 
   /**
@@ -69,7 +69,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTagDisabled.name();
+    return jsfTagDisabled.name();
   }
 
   /**
@@ -79,7 +79,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -88,7 +88,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    * @param  pFormatMaxLength  The specified configuration of maximum length of formatted input string.
    */
   public void setFormatMaxLength(int pFormatMaxLength) {
-    this.formatMaxLength = pFormatMaxLength;
+    formatMaxLength = pFormatMaxLength;
   }
 
   /**
@@ -97,7 +97,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmLongJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
 }

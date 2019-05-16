@@ -39,9 +39,9 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    */
   @Override
   public String doMmIt() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.declaration.callbackMmDoIt();
+    return declaration.callbackMmDoIt();
   }
 
   /**
@@ -52,13 +52,13 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
   @Override
   public String getJsfTag() {
     MmCommandJsfTag commandJsfTag = null;
-    if ((this.isMmEnabled() && !this.isMmReadOnly()) || this.getConfiguration().getJsfTagDisabled().equals("SameAsEnabled")) {
-      commandJsfTag = MmCommandJsfTag.valueOf(this.getConfiguration().getJsfTagEnabled());
+    if ((isMmEnabled() && !isMmReadOnly()) || getConfiguration().getJsfTagDisabled().equals("SameAsEnabled")) {
+      commandJsfTag = MmCommandJsfTag.valueOf(getConfiguration().getJsfTagEnabled());
     } else {
-      commandJsfTag = MmCommandJsfTag.valueOf(this.getConfiguration().getJsfTagDisabled());
+      commandJsfTag = MmCommandJsfTag.valueOf(getConfiguration().getJsfTagDisabled());
     }
 
-    final MmCommandJsfTag callbackJsfTag = this.declaration.callbackMmGetJsfTag(commandJsfTag);
+    final MmCommandJsfTag callbackJsfTag = declaration.callbackMmGetJsfTag(commandJsfTag);
     assert callbackJsfTag != null : "callbackMmGetJsfTag must return a value";
     return callbackJsfTag.name();
   }
@@ -70,10 +70,10 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    */
   @Override
   public MmReference getMmTargetReference() {
-    this.ensureInitialization();
+    assureInitialization();
 
     MmReference   targetReference = null;
-    final MmMimic targetMimic     = this.declaration.callbackMmGetTargetMimic(null);
+    final MmMimic targetMimic     = declaration.callbackMmGetTargetMimic(null);
 
     // if link references another mimic
     if (targetMimic != null) {
@@ -81,10 +81,10 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
 
       // if link references an URL
     } else {
-      final String            configurationOutcome  = this.configuration.getTargetOutcome();
-      final String            callbackOutcome       = this.declaration.callbackMmGetTargetOutcome(configurationOutcome);
+      final String            configurationOutcome  = configuration.getTargetOutcome();
+      final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
       final List<MmNameValue> emptyList             = Collections.emptyList();
-      final List<MmNameValue> targetReferenceParams = this.declaration.callbackMmGetTargetReferenceParams(emptyList, null);
+      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(emptyList, null);
       targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
     }
     return targetReference;
@@ -98,9 +98,9 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    */
   @Override
   public boolean isMmEnabled() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.declaration.callbackMmIsEnabled(this.configuration.isEnabled());
+    return declaration.callbackMmIsEnabled(configuration.isEnabled());
   }
 
   /**
@@ -119,16 +119,16 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmCommandAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmCommandAnnotation.class);
 
-    MmCommandAnnotation annotation = this.findAnnotation(this.declaration, MmCommandAnnotation.class);
+    MmCommandAnnotation annotation = findAnnotation(declaration, MmCommandAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationCommand();
+      configuration = new MmConfigurationCommand();
     } else {
-      this.configuration = new MmConfigurationCommand(annotation);
+      configuration = new MmConfigurationCommand(annotation);
     }
   }
 

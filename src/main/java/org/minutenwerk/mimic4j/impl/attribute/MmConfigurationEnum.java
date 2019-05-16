@@ -32,8 +32,8 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    */
   public MmConfigurationEnum() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.jsfTag         = DEFAULT_JSF_TAG;
-    this.jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
+    jsfTag         = DEFAULT_JSF_TAG;
+    jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -46,8 +46,8 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
     super(pEnumAnnotation.id(), pEnumAnnotation.visible(), pEnumAnnotation.readOnly(), pEnumAnnotation.enabled(),
       pEnumAnnotation.required());
 
-    this.jsfTag         = pEnumAnnotation.jsfTag();
-    this.jsfTagDisabled = pEnumAnnotation.jsfTagDisabled();
+    jsfTag         = pEnumAnnotation.jsfTag();
+    jsfTagDisabled = pEnumAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -57,7 +57,7 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTagDisabled.name();
+    return jsfTagDisabled.name();
   }
 
   /**
@@ -67,7 +67,7 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -76,7 +76,7 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmEnumJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
 }

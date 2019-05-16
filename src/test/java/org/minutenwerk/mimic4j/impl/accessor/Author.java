@@ -13,6 +13,6 @@ public class Author {
   }
 
   public void setName(final String pName) {
-    this.name = pName;
+    name = pName;
   }
 }

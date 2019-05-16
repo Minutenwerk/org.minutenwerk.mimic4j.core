@@ -29,9 +29,9 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    */
   @Override
   public int getMmCols() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.configuration.getCols();
+    return configuration.getCols();
   }
 
   /**
@@ -41,9 +41,9 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    */
   @Override
   public int getMmRows() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.configuration.getRows();
+    return configuration.getRows();
   }
 
   /**
@@ -53,9 +53,9 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -74,16 +74,16 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmStringAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmStringAnnotation.class);
 
-    MmStringAnnotation annotation = this.findAnnotation(this.declaration, MmStringAnnotation.class);
+    MmStringAnnotation annotation = findAnnotation(declaration, MmStringAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationString();
+      configuration = new MmConfigurationString();
     } else {
-      this.configuration = new MmConfigurationString(annotation);
+      configuration = new MmConfigurationString(annotation);
     }
   }
 

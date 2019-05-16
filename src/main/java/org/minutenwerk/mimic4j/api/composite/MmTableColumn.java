@@ -36,7 +36,7 @@ public class MmTableColumn extends MmBaseCompositeDeclaration<MmImplementationTa
    * @return  A String of space delimited <code>CSS</code> style classes for the footer of this column.
    */
   public final String getMmFooterClasses() {
-    return this.implementation.getMmFooterClasses();
+    return implementation.getMmFooterClasses();
   }
 
   /**
@@ -45,7 +45,7 @@ public class MmTableColumn extends MmBaseCompositeDeclaration<MmImplementationTa
    * @return  A String of space delimited <code>CSS</code> style classes for the header of this column.
    */
   public final String getMmHeaderClasses() {
-    return this.implementation.getMmHeaderClasses();
+    return implementation.getMmHeaderClasses();
   }
 
   /**
@@ -54,7 +54,7 @@ public class MmTableColumn extends MmBaseCompositeDeclaration<MmImplementationTa
    * @return  True, if this row is a table row header.
    */
   public final boolean isMmRowHeader() {
-    return this.implementation.isMmRowHeader();
+    return implementation.isMmRowHeader();
   }
 
 }

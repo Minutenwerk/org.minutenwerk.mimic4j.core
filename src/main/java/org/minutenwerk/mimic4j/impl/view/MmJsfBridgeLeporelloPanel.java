@@ -25,7 +25,7 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    */
   @Override
   public String getDataParents() {
-    return this.implementation.getMmDataParents();
+    return implementation.getMmDataParents();
   }
 
   /**
@@ -35,7 +35,7 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    */
   @Override
   public String getLeporelloId() {
-    return this.implementation.getMmParent().getMmId();
+    return implementation.getMmParent().getMmId();
   }
 
   /**
@@ -45,7 +45,7 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    */
   @Override
   public String getStyleInitiallyOpen() {
-    return this.implementation.getMmStyleInitiallyOpen();
+    return implementation.getMmStyleInitiallyOpen();
   }
 
   /**
@@ -55,7 +55,7 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    */
   @Override
   public String getValue() {
-    return this.implementation.getMmViewsideValue();
+    return implementation.getMmViewsideValue();
   }
 
 }

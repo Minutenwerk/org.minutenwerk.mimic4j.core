@@ -36,9 +36,9 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    */
   public MmConfigurationCommand() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    this.targetOutcome  = DEFAULT_TARGET_OUTCOME;
-    this.jsfTag         = DEFAULT_JSF_TAG;
-    this.jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
+    targetOutcome  = DEFAULT_TARGET_OUTCOME;
+    jsfTag         = DEFAULT_JSF_TAG;
+    jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -48,9 +48,9 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    */
   public MmConfigurationCommand(MmCommandAnnotation pCommandAnnotation) {
     super(pCommandAnnotation.id(), pCommandAnnotation.visible(), pCommandAnnotation.readOnly(), pCommandAnnotation.enabled());
-    this.targetOutcome  = pCommandAnnotation.targetOutcome();
-    this.jsfTag         = pCommandAnnotation.jsfTag();
-    this.jsfTagDisabled = pCommandAnnotation.jsfTagDisabled();
+    targetOutcome  = pCommandAnnotation.targetOutcome();
+    jsfTag         = pCommandAnnotation.jsfTag();
+    jsfTagDisabled = pCommandAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -60,7 +60,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTagDisabled.name();
+    return jsfTagDisabled.name();
   }
 
   /**
@@ -70,7 +70,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -79,7 +79,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * @return  A string referencing a target, either an URL or an outcome
    */
   public String getTargetOutcome() {
-    return this.targetOutcome;
+    return targetOutcome;
   }
 
   /**
@@ -88,7 +88,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmCommandJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
   /**
@@ -97,7 +97,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * @param  pTargetOutcome  A string referencing a target.
    */
   public void setTargetOutcome(String pTargetOutcome) {
-    this.targetOutcome = pTargetOutcome;
+    targetOutcome = pTargetOutcome;
   }
 
 }

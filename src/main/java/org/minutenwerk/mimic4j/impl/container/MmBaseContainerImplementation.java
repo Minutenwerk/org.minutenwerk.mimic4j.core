@@ -48,7 +48,15 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   /** The list of messages. */
   protected final MmMessageList           messageList;
 
-  /** The model of this mimic. */
+  /**
+   * This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a model accessor.
+   */
+  protected MmComponentAccessor<?, ?>     rootAccessor;
+
+  /**
+   * This component has a model of type MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
+   * undefined.
+   */
   protected MmComponentAccessor<?, MODEL> modelAccessor;
 
   /**
@@ -58,8 +66,29 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   public MmBaseContainerImplementation(MmDeclarationMimic pParent) {
     super(pParent);
-    this.messageList = new MmMessageList();
-    this.errorstate  = MmContainerErrorState.SUCCESS;
+    messageList = new MmMessageList();
+    errorstate  = MmContainerErrorState.SUCCESS;
+  }
+
+  /**
+   * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
+   * super.initialize()!
+   *
+   * @throws        IllegalStateException  In case of root accessor or model accessor is not defined.
+   *
+   * @jalopy.group  group-initialization
+   */
+  @Override
+  protected void initialize() {
+    super.initialize();
+    rootAccessor = getMmRootAccessor();
+    if (rootAccessor == null) {
+      throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
+    }
+    modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
+    if (modelAccessor == null) {
+      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
+    }
   }
 
   /**
@@ -77,13 +106,13 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public void doMmValidate() throws MmValidatorException {
-    this.ensureInitialization();
+    assureInitialization();
 
-    this.clearMessageListRecursively(this);
-    this.doPassViewsideToModelsideRecursively(this);
-    this.doValidateModelsideRecursively(this);
+    clearMessageListRecursively(this);
+    doPassViewsideToModelsideRecursively(this);
+    doValidateModelsideRecursively(this);
     logSubtree(this, "");
-    if (!this.isMmValid()) {
+    if (!isMmValid()) {
       throw new MmValidatorException(this);
     }
   }
@@ -133,7 +162,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       } else {
 
         // in any other case iterate recursively over child's children
-        this.doPassModelsideToViewsideRecursively(child);
+        doPassModelsideToViewsideRecursively(child);
       }
     }
   }
@@ -160,7 +189,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       } else {
 
         // in any other case iterate recursively over child's children
-        this.doPassViewsideToModelsideRecursively(child);
+        doPassViewsideToModelsideRecursively(child);
       }
     }
   }
@@ -177,7 +206,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-do
    */
   protected void doValidateModelsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    this.errorstate = MmContainerErrorState.SUCCESS;
+    errorstate = MmContainerErrorState.SUCCESS;
 
     // iterate over container's children
     for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
@@ -196,22 +225,22 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       } else {
 
         // in any other case iterate recursively over child's children
-        this.doValidateModelsideRecursively(child);
+        doValidateModelsideRecursively(child);
       }
     }
 
     // if validation of children succeeded, validate container
-    if (this.isMmValid()) {
+    if (isMmValid()) {
       try {
 
         // invoke callback method for semantic validation on mimic's declaration part
-        this.declaration.callbackMmValidateModel(this.modelAccessor.get());
+        declaration.callbackMmValidateModel(modelAccessor.get());
 
       } catch (MmValidatorException validatorException) {
-        this.errorstate = MmContainerErrorState.ERROR_IN_SEMANTIC_VALIDATION;
+        errorstate = MmContainerErrorState.ERROR_IN_SEMANTIC_VALIDATION;
 
         MmMessage message = new MmMessage(validatorException);
-        this.getMmMessageList().addMessage(message);
+        getMmMessageList().addMessage(message);
       }
     }
   }
@@ -224,9 +253,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-get
    */
   public MmMessageList getMmMessageList() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.messageList;
+    return messageList;
   }
 
   /**
@@ -238,9 +267,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public MODEL getMmModel() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.modelAccessor.get();
+    return modelAccessor.get();
   }
 
   /**
@@ -252,9 +281,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public Class<MODEL> getMmModelType() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return findGenericsParameterType(this.getClass(), MmBaseContainerImplementation.class, GENERIC_PARAMETER_INDEX_MODEL);
+    return findGenericsParameterType(getClass(), MmBaseContainerImplementation.class, GENERIC_PARAMETER_INDEX_MODEL);
   }
 
   /**
@@ -266,9 +295,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public void setMmModel(MODEL pModel) {
-    this.ensureInitialization();
+    assureInitialization();
 
-    this.modelAccessor.set(pModel);
+    modelAccessor.set(pModel);
   }
 
   /**
@@ -298,7 +327,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       } else {
 
         // in any other case iterate recursively over child's children
-        this.clearMessageListRecursively(child);
+        clearMessageListRecursively(child);
       }
     }
   }
@@ -313,7 +342,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public boolean isMmChangedFromViewside() {
-    this.ensureInitialization();
+    assureInitialization();
 
     return isChangedFromViewsideRecursively(this);
   }
@@ -361,7 +390,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public boolean isMmRequired() {
-    this.ensureInitialization();
+    assureInitialization();
 
     return isRequiredRecursively(this);
   }
@@ -409,7 +438,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public boolean isMmValid() {
-    this.ensureInitialization();
+    assureInitialization();
 
     return isValidRecursively(this);
   }
@@ -425,7 +454,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   protected boolean isValidRecursively(MmBaseImplementation<?, ?> pMm) {
     // if this container is invalid, return immediately
-    if (this.errorstate != MmContainerErrorState.SUCCESS) {
+    if (errorstate != MmContainerErrorState.SUCCESS) {
       return false;
     }
 
@@ -457,14 +486,22 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Returns accessor of root component of model.
    *
    * @return  The accessor of root component of model.
+   *
+   * @throws  IllegalStateException  In case of root accessor is not defined.
    */
   public MmComponentAccessor<?, ?> getMmRootAccessor() {
-    MmContainerMimic<?> containerAncestor = getImplementationAncestorOfType(MmContainerMimic.class);
-    if (containerAncestor != null) {
-      return containerAncestor.getMmRootAccessor();
-    } else {
-      return modelAccessor;
+    if (rootAccessor == null) {
+      MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
+      if (containerAncestor == null) {
+        rootAccessor = modelAccessor;
+      } else {
+        rootAccessor = containerAncestor.getMmRootAccessor();
+        if (rootAccessor == null) {
+          throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
+        }
+      }
     }
+    return rootAccessor;
   }
 
   /**
@@ -474,7 +511,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   protected String toStringState() {
     StringBuilder sb = new StringBuilder();
-    switch (this.errorstate) {
+    switch (errorstate) {
       case SUCCESS: {
         sb.append("        ");
         break;

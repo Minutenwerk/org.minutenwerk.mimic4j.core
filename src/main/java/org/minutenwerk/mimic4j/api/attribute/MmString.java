@@ -99,7 +99,7 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
   @Override
   public String callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     String returnString;
-    if (this.isMmEmpty()) {
+    if (isMmEmpty()) {
       returnString = null;
     } else {
       returnString = pViewsideValue;
@@ -122,7 +122,7 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
     final MmSelectOption<String>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
-    final String currentValue = this.getMmModelsideValue();
+    final String currentValue = getMmModelsideValue();
     if ((currentValue != null) && !currentValue.isEmpty()) {
       final MmSelectOption<String> valueOption = new MmSelectOption<>(currentValue, currentValue, currentValue, currentValue);
       returnList.add(valueOption);

@@ -30,7 +30,7 @@ private static final LocalDate BIRTHDAY = LocalDate.parse("2018-02-02");
 
   @Test
   public void test1() {
-    testDialog.doMmSetModelsideFromModel(testModel);
+    // TODO testDialog.doMmSetModel(testModel);
     Assert.assertEquals("vorname must be John", "John", testDialog.vorname.getMmViewsideValue());
     Assert.assertEquals("nachname must be Doe", "Doe", testDialog.nachname.getMmViewsideValue());
     Assert.assertEquals("gender must be MALE", "MALE", testDialog.gender.getMmViewsideValue());
@@ -42,7 +42,7 @@ private static final LocalDate BIRTHDAY = LocalDate.parse("2018-02-02");
 
   @Test
   public void test2() throws MmException {
-    testDialog.doMmSetModelsideFromModel(testModel);
+    // TODO testDialog.doMmSetModel(testModel);
     testDialog.vorname.setMmViewsideValue("Jane");
     testDialog.nachname.setMmViewsideValue("Austen");
     testDialog.gender.setMmViewsideValue("FEMALE");
@@ -50,7 +50,7 @@ private static final LocalDate BIRTHDAY = LocalDate.parse("2018-02-02");
     testDialog.adresse.street.setMmViewsideValue("Mansfield Park");
     testDialog.adresse.city.setMmViewsideValue("Steventon");
     testDialog.doMmValidate();
-    testDialog.doMmSetModelFromModelside();
+    // TODO testDialog.doMmSetModel();
     Assert.assertEquals("vorname must be Jane", "Jane", testModel.getVorname());
     Assert.assertEquals("nachname must be Austen", "Austen", testModel.getNachname());
     Assert.assertEquals("gender must be FEMALE", Gender.FEMALE, testModel.getGender());

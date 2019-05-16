@@ -28,7 +28,7 @@ public class MmJsfBridgeAttributeEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends
   @Override
   public String getValue() {
     @SuppressWarnings("unchecked")
-    MmImplementationEnum<ENUM_TYPE> implementationEnum = ((MmImplementationEnum<ENUM_TYPE>)this.implementation);
+    MmImplementationEnum<ENUM_TYPE> implementationEnum = ((MmImplementationEnum<ENUM_TYPE>)implementation);
     if (implementationEnum.isMmReadOnly() || !implementationEnum.isMmEnabled()) {
 
       // if mimic is readOnly or disabled, show localized value in textfield

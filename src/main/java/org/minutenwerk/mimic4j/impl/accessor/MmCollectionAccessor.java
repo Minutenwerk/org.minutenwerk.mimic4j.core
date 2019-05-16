@@ -34,7 +34,7 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @param  value  TODOC
    */
   public void add(final VALUE_MODEL value) {
-    this.get().add(value);
+    get().add(value);
   }
 
   /**
@@ -45,7 +45,7 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @return  TODOC
    */
   public boolean contains(final VALUE_MODEL value) {
-    return this.get().contains(value);
+    return get().contains(value);
   }
 
   /**
@@ -64,7 +64,7 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @return  TODOC
    */
   public boolean isEmpty() {
-    return this.get().isEmpty();
+    return get().isEmpty();
   }
 
   /**
@@ -73,7 +73,7 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @param  value  TODOC
    */
   public void remove(final VALUE_MODEL value) {
-    this.get().remove(value);
+    get().remove(value);
   }
 
   /**
@@ -82,7 +82,7 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @return  TODOC
    */
   public int size() {
-    return this.get().size();
+    return get().size();
   }
 
 }

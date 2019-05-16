@@ -30,9 +30,9 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    * @return  A String of space delimited <code>CSS</code> style classes for the footer of this column.
    */
   public String getMmFooterClasses() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.configuration.getFooterClasses();
+    return configuration.getFooterClasses();
   }
 
   /**
@@ -41,9 +41,9 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    * @return  A String of space delimited <code>CSS</code> style classes for the header of this column.
    */
   public String getMmHeaderClasses() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.configuration.getHeaderClasses();
+    return configuration.getHeaderClasses();
   }
 
   /**
@@ -57,10 +57,10 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    */
   @Override
   public String getMmStyleClasses() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final String callbackValue      = this.declaration.callbackMmGetStyleClasses("");
-    final String configurationValue = this.configuration.getStyleClasses();
+    final String callbackValue      = declaration.callbackMmGetStyleClasses("");
+    final String configurationValue = configuration.getStyleClasses();
     if (callbackValue.isEmpty()) {
       return configurationValue;
     } else if (configurationValue.isEmpty()) {
@@ -76,9 +76,9 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
    * @return  True, if this row is a table row header.
    */
   public boolean isMmRowHeader() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.configuration.isRowHeader();
+    return configuration.isRowHeader();
   }
 
   /**
@@ -97,16 +97,16 @@ public class MmImplementationTableColumn extends MmBaseCompositeImplementation<M
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmTableColumnAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmTableColumnAnnotation.class);
 
-    MmTableColumnAnnotation annotation = this.findAnnotation(this.declaration, MmTableColumnAnnotation.class);
+    MmTableColumnAnnotation annotation = findAnnotation(declaration, MmTableColumnAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationTableColumn();
+      configuration = new MmConfigurationTableColumn();
     } else {
-      this.configuration = new MmConfigurationTableColumn(annotation);
+      configuration = new MmConfigurationTableColumn(annotation);
     }
   }
 

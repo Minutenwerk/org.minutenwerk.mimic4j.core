@@ -38,16 +38,16 @@ public class MmImplementationDiv extends MmBaseCompositeImplementation<MmDiv, Mm
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmDivAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmDivAnnotation.class);
 
-    MmDivAnnotation annotation = this.findAnnotation(this.declaration, MmDivAnnotation.class);
+    MmDivAnnotation annotation = findAnnotation(declaration, MmDivAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationDiv();
+      configuration = new MmConfigurationDiv();
     } else {
-      this.configuration = new MmConfigurationDiv(annotation);
+      configuration = new MmConfigurationDiv(annotation);
     }
   }
 

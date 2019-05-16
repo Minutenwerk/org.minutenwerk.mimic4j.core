@@ -23,7 +23,7 @@ public class MmConfigurationLeporelloPanel extends MmBaseConfiguration {
    */
   public MmConfigurationLeporelloPanel() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    this.jsfTag = DEFAULT_JSF_TAG;
+    jsfTag = DEFAULT_JSF_TAG;
   }
 
   /**
@@ -34,7 +34,7 @@ public class MmConfigurationLeporelloPanel extends MmBaseConfiguration {
   public MmConfigurationLeporelloPanel(MmLeporelloPanelAnnotation pLeporelloPanelAnnotation) {
     super(pLeporelloPanelAnnotation.id(), pLeporelloPanelAnnotation.visible(), pLeporelloPanelAnnotation.readOnly(),
       pLeporelloPanelAnnotation.enabled());
-    this.jsfTag = pLeporelloPanelAnnotation.jsfTag();
+    jsfTag = pLeporelloPanelAnnotation.jsfTag();
   }
 
   /**
@@ -44,7 +44,7 @@ public class MmConfigurationLeporelloPanel extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -54,7 +54,7 @@ public class MmConfigurationLeporelloPanel extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
 }

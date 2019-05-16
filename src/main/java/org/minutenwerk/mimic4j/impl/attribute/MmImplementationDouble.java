@@ -29,9 +29,9 @@ public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDoub
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -50,16 +50,16 @@ public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDoub
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmDoubleAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmDoubleAnnotation.class);
 
-    MmDoubleAnnotation annotation = this.findAnnotation(this.declaration, MmDoubleAnnotation.class);
+    MmDoubleAnnotation annotation = findAnnotation(declaration, MmDoubleAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationDouble();
+      configuration = new MmConfigurationDouble();
     } else {
-      this.configuration = new MmConfigurationDouble(annotation);
+      configuration = new MmConfigurationDouble(annotation);
     }
   }
 

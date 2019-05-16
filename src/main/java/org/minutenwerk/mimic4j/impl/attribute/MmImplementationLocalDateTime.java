@@ -34,14 +34,14 @@ public class MmImplementationLocalDateTime
    */
   @Override
   public String getMmFormatPattern() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    String formatPattern = this.configuration.getFormatPattern();
+    String formatPattern = configuration.getFormatPattern();
     if (formatPattern == null) {
-      formatPattern = this.getMmI18nText(MmMessageType.FORMAT);
+      formatPattern = getMmI18nText(MmMessageType.FORMAT);
     }
 
-    final String returnString = this.declaration.callbackMmGetFormatPattern(formatPattern);
+    final String returnString = declaration.callbackMmGetFormatPattern(formatPattern);
     assert returnString != null : "callbackMmGetFormatPattern cannot return null";
     return returnString;
   }
@@ -53,9 +53,9 @@ public class MmImplementationLocalDateTime
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -74,16 +74,16 @@ public class MmImplementationLocalDateTime
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLocalDateTimeAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmLocalDateTimeAnnotation.class);
 
-    MmLocalDateTimeAnnotation annotation = this.findAnnotation(this.declaration, MmLocalDateTimeAnnotation.class);
+    MmLocalDateTimeAnnotation annotation = findAnnotation(declaration, MmLocalDateTimeAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationLocalDateTime();
+      configuration = new MmConfigurationLocalDateTime();
     } else {
-      this.configuration = new MmConfigurationLocalDateTime(annotation);
+      configuration = new MmConfigurationLocalDateTime(annotation);
     }
   }
 

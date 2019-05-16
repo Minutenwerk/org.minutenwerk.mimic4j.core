@@ -32,7 +32,7 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * @return  The internationalized message.
    */
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
-    return this.implementation.getMmI18nText(pMessageId, pMessageType, pArguments);
+    return implementation.getMmI18nText(pMessageId, pMessageType, pArguments);
   }
 
   /**
@@ -41,7 +41,7 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * @return  The locale of this root.
    */
   public Locale getMmLocale() {
-    return this.implementation.getMmLocale();
+    return implementation.getMmLocale();
   }
 
   /**
@@ -50,7 +50,7 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * @return  True, if the user's browser has enabled Javascript language.
    */
   public boolean isMmJsEnabled() {
-    return this.implementation.isMmJsEnabled();
+    return implementation.isMmJsEnabled();
   }
 
   /**
@@ -59,7 +59,7 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * @param  pMessageSource  The message source to be set.
    */
   public void setMessageSource(MmMessageSource pMessageSource) {
-    this.implementation.setMessageSource(pMessageSource);
+    implementation.setMessageSource(pMessageSource);
   }
 
   /**
@@ -68,7 +68,7 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    * @param  pSessionContext  The session context to be set.
    */
   public void setSessionContext(MmSessionContext pSessionContext) {
-    this.implementation.setSessionContext(pSessionContext);
+    implementation.setSessionContext(pSessionContext);
   }
 
 }

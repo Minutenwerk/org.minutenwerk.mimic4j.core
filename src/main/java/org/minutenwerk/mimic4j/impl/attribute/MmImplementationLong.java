@@ -29,9 +29,9 @@ public class MmImplementationLong extends MmBaseAttributeImplementation<MmLong, 
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -50,16 +50,16 @@ public class MmImplementationLong extends MmBaseAttributeImplementation<MmLong, 
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLongAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmLongAnnotation.class);
 
-    MmLongAnnotation annotation = this.findAnnotation(this.declaration, MmLongAnnotation.class);
+    MmLongAnnotation annotation = findAnnotation(declaration, MmLongAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationLong();
+      configuration = new MmConfigurationLong();
     } else {
-      this.configuration = new MmConfigurationLong(annotation);
+      configuration = new MmConfigurationLong(annotation);
     }
   }
 

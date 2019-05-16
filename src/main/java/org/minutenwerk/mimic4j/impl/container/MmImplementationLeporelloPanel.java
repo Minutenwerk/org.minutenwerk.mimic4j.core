@@ -36,12 +36,12 @@ public class MmImplementationLeporelloPanel<MODEL>
   public String getMmDataParents() {
     String  returnString = "";
     boolean skipNext     = false;
-    for (MmMimic child : this.getMmImplementationLeporello().getMmChildren()) {
+    for (MmMimic child : getMmImplementationLeporello().getMmChildren()) {
       if (child instanceof MmLeporelloPanel) {
         final MmLeporelloPanel<?> panel = (MmLeporelloPanel<?>)child;
         if (skipNext) {
           skipNext = false;
-        } else if (panel == this.declaration) {
+        } else if (panel == declaration) {
           skipNext = true;
         } else {
           if (returnString.isEmpty()) {
@@ -65,10 +65,10 @@ public class MmImplementationLeporelloPanel<MODEL>
    */
   @Override
   public String getMmStyleClasses() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final int    reverseIndex = this.getReverseIndex();
-    final String returnString = this.declaration.callbackMmGetStyleClasses("leporello-panel-" + reverseIndex);
+    final int    reverseIndex = getReverseIndex();
+    final String returnString = declaration.callbackMmGetStyleClasses("leporello-panel-" + reverseIndex);
     if (returnString == null) {
       return "";
     } else {
@@ -82,8 +82,8 @@ public class MmImplementationLeporelloPanel<MODEL>
    * @return  The CSS style class for initial opening of leporello panel.
    */
   public String getMmStyleInitiallyOpen() {
-    this.ensureInitialization();
-    if (this.getReverseIndex() <= 2) {
+    assureInitialization();
+    if (getReverseIndex() <= 2) {
       return "in";
     } else {
       return "";
@@ -97,7 +97,7 @@ public class MmImplementationLeporelloPanel<MODEL>
    */
   public String getMmViewsideValue() {
     // TODO MmImplementationLeporelloPanel.getMmViewsideValue()
-    return this.getMmShortDescription();
+    return getMmShortDescription();
   }
 
   /**
@@ -116,7 +116,7 @@ public class MmImplementationLeporelloPanel<MODEL>
    * @return  TODOC
    */
   protected MmImplementationLeporello<?, ?> getMmImplementationLeporello() {
-    return (MmImplementationLeporello<?, ?>)this.implementationParent;
+    return (MmImplementationLeporello<?, ?>)implementationParent;
   }
 
   /**
@@ -125,15 +125,15 @@ public class MmImplementationLeporelloPanel<MODEL>
    * @return  The reverse index of this panel.
    */
   protected int getReverseIndex() {
-    final MmLeporelloTab      selectedTab   = this.getMmImplementationLeporello().getMmSelectedTab();
+    final MmLeporelloTab      selectedTab   = getMmImplementationLeporello().getMmSelectedTab();
     final MmLeporelloPanel<?> selectedPanel = selectedTab.getMmLeporelloPanel();
     int                       index         = 0;
     int                       count         = 0;
     boolean                   found         = false;
-    for (MmMimic mimic : this.getMmImplementationLeporello().getMmChildren()) {
+    for (MmMimic mimic : getMmImplementationLeporello().getMmChildren()) {
       if (mimic instanceof MmLeporelloPanel<?>) {
         count++;
-        if (mimic == this.declaration) {
+        if (mimic == declaration) {
           index++;
           found = true;
         }
@@ -155,16 +155,16 @@ public class MmImplementationLeporelloPanel<MODEL>
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLeporelloPanelAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloPanelAnnotation.class);
 
-    MmLeporelloPanelAnnotation annotation = this.findAnnotation(this.declaration, MmLeporelloPanelAnnotation.class);
+    MmLeporelloPanelAnnotation annotation = findAnnotation(declaration, MmLeporelloPanelAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationLeporelloPanel();
+      configuration = new MmConfigurationLeporelloPanel();
     } else {
-      this.configuration = new MmConfigurationLeporelloPanel(annotation);
+      configuration = new MmConfigurationLeporelloPanel(annotation);
     }
   }
 

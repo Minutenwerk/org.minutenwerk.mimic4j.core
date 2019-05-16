@@ -34,16 +34,16 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmPageAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmPageAnnotation.class);
 
-    MmPageAnnotation annotation = this.findAnnotation(this.declaration, MmPageAnnotation.class);
+    MmPageAnnotation annotation = findAnnotation(declaration, MmPageAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationPage();
+      configuration = new MmConfigurationPage();
     } else {
-      this.configuration = new MmConfigurationPage(annotation);
+      configuration = new MmConfigurationPage(annotation);
     }
   }
 
@@ -56,10 +56,10 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    */
   @Override
   public String getMmReferenceFile() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final String configurationReferenceFile = this.configuration.getReferenceFile();
-    return this.declaration.callbackMmGetReferenceFile(configurationReferenceFile);
+    final String configurationReferenceFile = configuration.getReferenceFile();
+    return declaration.callbackMmGetReferenceFile(configurationReferenceFile);
   }
 
   /**
@@ -72,10 +72,10 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    */
   @Override
   public String getMmReferencePath() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final String configurationReferencePath = this.configuration.getReferencePath();
-    return this.declaration.callbackMmGetReferencePath(configurationReferencePath);
+    final String configurationReferencePath = configuration.getReferencePath();
+    return declaration.callbackMmGetReferencePath(configurationReferencePath);
   }
 
   /**

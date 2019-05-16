@@ -77,11 +77,11 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
     if (pModelsideValue == null) {
       return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
     } else {
-      if (this.isMmEnabled()) {
+      if (isMmEnabled()) {
         return pModelsideValue.name();
       } else {
         MmRoot           root         = MmRelationshipApi.getMmRoot(this);
-        Class<ENUM_TYPE> enumType     = this.implementation.getMmEnumType();
+        Class<ENUM_TYPE> enumType     = implementation.getMmEnumType();
         String           enumTypeName = enumType.getSimpleName();
         String           enumLabel    = root.getMmI18nText(enumTypeName + "." + pModelsideValue.name(), MmMessageType.SHORT);
         return enumLabel;
@@ -103,13 +103,13 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   @Override
   public ENUM_TYPE callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     ENUM_TYPE returnEnumType = null;
-    if (!this.isMmEmpty()) {
+    if (!isMmEmpty()) {
       try {
-        Class<ENUM_TYPE> enumType = this.implementation.getMmEnumType();
+        Class<ENUM_TYPE> enumType = implementation.getMmEnumType();
         returnEnumType = Enum.valueOf(enumType, pViewsideValue);
       } catch (IllegalArgumentException e) {
         throw new MmViewsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue);
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue);
       }
     }
     return returnEnumType;
@@ -131,7 +131,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
     returnList.add(nullOption);
 
     final MmRoot     root     = MmRelationshipApi.getMmRoot(this);
-    Class<ENUM_TYPE> enumType = this.implementation.getMmEnumType();
+    Class<ENUM_TYPE> enumType = implementation.getMmEnumType();
     for (ENUM_TYPE enumInstance : enumType.getEnumConstants()) {
       final String                    messageId       = enumType.getSimpleName() + "." + enumInstance.name();
       final String                    enumLabel       = root.getMmI18nText(messageId, MmMessageType.SHORT);

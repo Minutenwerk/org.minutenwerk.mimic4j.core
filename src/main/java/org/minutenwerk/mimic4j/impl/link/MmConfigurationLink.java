@@ -22,7 +22,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
    */
   public MmConfigurationLink() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    this.jsfTag = DEFAULT_JSF_TAG;
+    jsfTag = DEFAULT_JSF_TAG;
   }
 
   /**
@@ -33,7 +33,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
   public MmConfigurationLink(MmLinkAnnotation pLinkAnnotation) {
     super(pLinkAnnotation.id(), pLinkAnnotation.visible(), pLinkAnnotation.readOnly(), pLinkAnnotation.enabled(),
       pLinkAnnotation.targetOutcome());
-    this.jsfTag = pLinkAnnotation.jsfTag();
+    jsfTag = pLinkAnnotation.jsfTag();
   }
 
   /**
@@ -43,7 +43,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -53,7 +53,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
 }

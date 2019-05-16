@@ -23,7 +23,7 @@ public class MmReferencableModelChain implements MmReferencableModel {
   public MmReferencableModelChain(MmReferencableModel... pModels) {
     for (MmReferencableModel model : pModels) {
       if (model != null) {
-        this.referenceValues.addAll(model.getMmReferenceValues());
+        referenceValues.addAll(model.getMmReferenceValues());
       }
     }
   }
@@ -35,6 +35,6 @@ public class MmReferencableModelChain implements MmReferencableModel {
    */
   @Override
   public List<String> getMmReferenceValues() {
-    return this.referenceValues;
+    return referenceValues;
   }
 }

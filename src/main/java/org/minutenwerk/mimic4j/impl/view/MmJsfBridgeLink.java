@@ -27,7 +27,7 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    */
   @Override
   public MmReference getTargetReference() {
-    return this.implementation.getMmTargetReference();
+    return implementation.getMmTargetReference();
   }
 
   /**
@@ -37,7 +37,7 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    */
   @Override
   public String getValue() {
-    return this.implementation.getMmViewsideValue();
+    return implementation.getMmViewsideValue();
   }
 
   /**
@@ -47,7 +47,7 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, S
    */
   @Override
   public boolean isDisabled() {
-    return !this.implementation.isMmEnabled();
+    return !implementation.isMmEnabled();
   }
 
 }

@@ -85,13 +85,13 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
       if (pModelsideValue == null) {
         return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
       } else {
-        String returnString = pModelsideValue.format(this.getMmTimeTimeFormatter());
+        String returnString = pModelsideValue.format(getMmTimeTimeFormatter());
         return returnString;
       }
     } catch (Exception e) {
       throw new MmModelsideConverterException(this,
-        "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-        + " by pattern >" + this.getMmFormatPattern() + "<");
+        "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+        + getMmFormatPattern() + "<");
     }
   }
 
@@ -109,16 +109,16 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
   @Override
   public LocalTime callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     LocalTime returnDate;
-    if (this.isMmEmpty()) {
+    if (isMmEmpty()) {
       returnDate = null;
     } else {
       try {
-        DateTimeFormatter dateTimeFormatter = this.getMmTimeTimeFormatter();
+        DateTimeFormatter dateTimeFormatter = getMmTimeTimeFormatter();
         returnDate = LocalTime.parse(pViewsideValue, dateTimeFormatter);
       } catch (DateTimeParseException e) {
         throw new MmViewsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue
-          + " by pattern >" + this.getMmFormatPattern() + "<");
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue + " by pattern >"
+          + getMmFormatPattern() + "<");
       }
     }
     return returnDate;
@@ -155,7 +155,7 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
    * @return  The initialized date formatter of this mimic.
    */
   protected DateTimeFormatter getMmTimeTimeFormatter() {
-    final String formatPattern = this.getMmFormatPattern();
+    final String formatPattern = getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 
     final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(formatPattern);

@@ -22,11 +22,11 @@ public class MmReferenceParam implements MmNameValue {
    * @param  pValue  The initial value of this link parameter.
    */
   public MmReferenceParam(String pName, Number pValue) {
-    this.name = pName;
+    name = pName;
     if (pValue == null) {
-      this.value = "";
+      value = "";
     } else {
-      this.value = "" + pValue;
+      value = "" + pValue;
     }
   }
 
@@ -37,11 +37,11 @@ public class MmReferenceParam implements MmNameValue {
    * @param  pValue  The initial value of this link parameter.
    */
   public MmReferenceParam(String pName, String pValue) {
-    this.name = pName;
+    name = pName;
     if (pValue == null) {
-      this.value = "";
+      value = "";
     } else {
-      this.value = pValue;
+      value = pValue;
     }
   }
 
@@ -52,7 +52,7 @@ public class MmReferenceParam implements MmNameValue {
    */
   @Override
   public String getMmName() {
-    return this.name;
+    return name;
   }
 
   /**
@@ -62,7 +62,7 @@ public class MmReferenceParam implements MmNameValue {
    */
   @Override
   public String getMmValue() {
-    return this.value;
+    return value;
   }
 
 }

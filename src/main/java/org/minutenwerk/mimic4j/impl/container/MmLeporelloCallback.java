@@ -9,6 +9,7 @@ import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
  * @author  Olaf Kossak
  */
 @Deprecated
+// SUB_MODEL ist wahrscheinlich nicht mehr notwendig
 public interface MmLeporelloCallback<MODEL, SUB_MODEL> extends MmContainerCallback<MODEL> {
 
   /**

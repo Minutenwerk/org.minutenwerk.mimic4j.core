@@ -36,9 +36,9 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    */
   public MmConfigurationBoolean() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.layout         = DEFAULT_LAYOUT;
-    this.jsfTag         = DEFAULT_JSF_TAG;
-    this.jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
+    layout         = DEFAULT_LAYOUT;
+    jsfTag         = DEFAULT_JSF_TAG;
+    jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -49,9 +49,9 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
   public MmConfigurationBoolean(MmBooleanAnnotation pBooleanAnnotation) {
     super(pBooleanAnnotation.id(), pBooleanAnnotation.visible(), pBooleanAnnotation.readOnly(), pBooleanAnnotation.enabled(),
       pBooleanAnnotation.required());
-    this.layout         = pBooleanAnnotation.layout();
-    this.jsfTag         = pBooleanAnnotation.jsfTag();
-    this.jsfTagDisabled = pBooleanAnnotation.jsfTagDisabled();
+    layout         = pBooleanAnnotation.layout();
+    jsfTag         = pBooleanAnnotation.jsfTag();
+    jsfTagDisabled = pBooleanAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -61,7 +61,7 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTagDisabled.name();
+    return jsfTagDisabled.name();
   }
 
   /**
@@ -71,7 +71,7 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -80,7 +80,7 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * @return  The configuration of layout direction of JSF tag.
    */
   public MmBooleanLayout getLayout() {
-    return this.layout;
+    return layout;
   }
 
   /**
@@ -89,7 +89,7 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmBooleanJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
   /**
@@ -98,7 +98,7 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * @param  pLayout  The specified configuration of layout direction of JSF tag.
    */
   public void setLayout(MmBooleanLayout pLayout) {
-    this.layout = pLayout;
+    layout = pLayout;
   }
 
 }

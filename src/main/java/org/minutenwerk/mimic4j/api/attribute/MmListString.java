@@ -93,7 +93,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   @SuppressWarnings("unchecked")
   public List<String> callbackMmConvertViewsideToModelsideValue(List<String> pViewsideValue) throws MmViewsideConverterException {
     List<String> returnList;
-    if (this.isMmEmpty()) {
+    if (isMmEmpty()) {
       returnList = (List<String>)Collections.EMPTY_LIST;
     } else {
       returnList = new ArrayList<>();
@@ -116,7 +116,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
     MmSelectOption<String>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
-    List<String> currentValues = this.getMmModelsideValue();
+    List<String> currentValues = getMmModelsideValue();
     if ((currentValues != null) && !currentValues.isEmpty()) {
       for (String currentValue : currentValues) {
         MmSelectOption<String> valueOption = new MmSelectOption<>("currentValue", "currentValue", "currentValue", currentValue);

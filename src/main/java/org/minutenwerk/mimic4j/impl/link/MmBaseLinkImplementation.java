@@ -91,7 +91,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public MmReferencableModel getMmModel() {
-    return this.model;
+    return model;
   }
 
   /**
@@ -103,33 +103,33 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public MmReference getMmTargetReference() {
-    this.ensureInitialization();
+    assureInitialization();
 
     MmReference   targetReference = null;
-    final MmMimic targetMimic     = this.declaration.callbackMmGetTargetMimic(null);
+    final MmMimic targetMimic     = declaration.callbackMmGetTargetMimic(null);
 
     // if link references another mimic without a specified data model
-    if ((targetMimic != null) && (this.model == null)) {
+    if ((targetMimic != null) && (model == null)) {
       targetReference = targetMimic.getMmReference();
 
       // if link references another mimic for a specified data model
-    } else if ((targetMimic != null) && (this.model != null)) {
-      targetReference = targetMimic.getMmReference(this.model);
+    } else if ((targetMimic != null) && (model != null)) {
+      targetReference = targetMimic.getMmReference(model);
 
       // if link references an URL without a specified data model
-    } else if ((targetMimic == null) && (this.model == null)) {
-      final String            configurationOutcome  = this.configuration.getTargetOutcome();
-      final String            callbackOutcome       = this.declaration.callbackMmGetTargetOutcome(configurationOutcome);
+    } else if ((targetMimic == null) && (model == null)) {
+      final String            configurationOutcome  = configuration.getTargetOutcome();
+      final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
       final List<MmNameValue> emptyList             = Collections.emptyList();
-      final List<MmNameValue> targetReferenceParams = this.declaration.callbackMmGetTargetReferenceParams(emptyList, null);
+      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(emptyList, null);
       targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
 
       // if link references an URL for a specified data model
-    } else if ((targetMimic == null) && (this.model != null)) {
-      final String            configurationOutcome  = this.configuration.getTargetOutcome();
-      final String            callbackOutcome       = this.declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<MmNameValue> modelReferenceParams  = getMmModelParams(this.model);
-      final List<MmNameValue> targetReferenceParams = this.declaration.callbackMmGetTargetReferenceParams(modelReferenceParams, this.model);
+    } else if ((targetMimic == null) && (model != null)) {
+      final String            configurationOutcome  = configuration.getTargetOutcome();
+      final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
+      final List<MmNameValue> modelReferenceParams  = getMmModelParams(model);
+      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(modelReferenceParams, model);
       targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
     }
     return targetReference;
@@ -145,8 +145,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -159,8 +159,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -173,8 +173,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -187,8 +187,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -201,8 +201,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -215,8 +215,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -229,8 +229,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -243,8 +243,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -257,8 +257,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -271,8 +271,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -285,8 +285,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -299,8 +299,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -313,8 +313,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -327,8 +327,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -341,8 +341,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -355,8 +355,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
-    this.modelsideValue = pModelsideValue;
-    this.model          = pModel;
+    modelsideValue = pModelsideValue;
+    model          = pModel;
   }
 
   /**
@@ -367,8 +367,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @jalopy.group  group-i18n
    */
   public String getMmFormatPattern() {
-    final String i18nFormatPattern     = this.getMmI18nText(MmMessageType.FORMAT);
-    final String callbackFormatPattern = this.declaration.callbackMmGetFormatPattern(i18nFormatPattern);
+    final String i18nFormatPattern     = getMmI18nText(MmMessageType.FORMAT);
+    final String callbackFormatPattern = declaration.callbackMmGetFormatPattern(i18nFormatPattern);
     assert callbackFormatPattern != null : "callbackMmGetFormatPattern() must return valid format pattern";
     return callbackFormatPattern;
   }
@@ -384,15 +384,15 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    */
   @Override
   public String getMmLongDescription() {
-    this.ensureInitialization();
+    assureInitialization();
 
     String returnString = null;
-    if (this.model == null) {
-      final String i18nLongDescription = this.getMmI18nText(MmMessageType.LONG, this.modelsideValue);
-      returnString = this.declaration.callbackMmGetLongDescription(i18nLongDescription, this.modelsideValue);
+    if (model == null) {
+      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue);
+      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue);
     } else {
-      final String i18nLongDescription = this.getMmI18nText(MmMessageType.LONG, this.modelsideValue, this.model);
-      returnString = this.declaration.callbackMmGetLongDescription(i18nLongDescription, this.modelsideValue, this.model);
+      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue, model);
+      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue, model);
     }
     assert returnString != null : "callbackMmGetLongDescription cannot return null";
     return returnString;
@@ -408,52 +408,51 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
   @Override
   public String getMmViewsideValue() {
     // if model is an array of objects
-    if (this.modelsideValue instanceof Object[]) {
+    if (modelsideValue instanceof Object[]) {
 
       // translate enum values to i18n strings before, because MessageFormat shall not do this
-      for (int index = 0; index < ((Object[])this.modelsideValue).length; index++) {
-        final Object modelsideObject = ((Object[])this.modelsideValue)[index];
+      for (int index = 0; index < ((Object[])modelsideValue).length; index++) {
+        final Object modelsideObject = ((Object[])modelsideValue)[index];
         if (modelsideObject instanceof Enum<?>) {
-          final String i18nEnumValue = this.formatModelsideValue(modelsideObject);
-          ((Object[])this.modelsideValue)[index] = i18nEnumValue;
+          final String i18nEnumValue = formatModelsideValue(modelsideObject);
+          ((Object[])modelsideValue)[index] = i18nEnumValue;
         }
       }
 
-      // this.modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
+      // modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
       // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-      final String i18nViewsideValue = this.getMmI18nText(MmMessageType.SHORT, (Object[])this.modelsideValue);
+      final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, (Object[])modelsideValue);
       return i18nViewsideValue;
 
       // if model is a single object
     } else {
 
       // return empty String for null value
-      if (this.modelsideValue == null) {
+      if (modelsideValue == null) {
         return "";
 
         // pass through Strings
-      } else if (this.modelsideValue instanceof String) {
-        return (String)this.modelsideValue;
+      } else if (modelsideValue instanceof String) {
+        return (String)modelsideValue;
 
         // i18n single enums
-      } else if (this.modelsideValue instanceof Enum<?>) {
+      } else if (modelsideValue instanceof Enum<?>) {
 
         // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewsideValue = this.formatModelsideValue(this.modelsideValue);
+        final String i18nViewsideValue = formatModelsideValue(modelsideValue);
         return i18nViewsideValue;
 
         // format number, date and time values
-      } else if ((this.modelsideValue instanceof Number) || (this.modelsideValue instanceof Boolean)
-          || (this.modelsideValue instanceof Duration) || (this.modelsideValue instanceof Instant)
-          || (this.modelsideValue instanceof LocalTime) || (this.modelsideValue instanceof LocalDate)
-          || (this.modelsideValue instanceof LocalDateTime) || (this.modelsideValue instanceof ZonedDateTime)) {
+      } else if ((modelsideValue instanceof Number) || (modelsideValue instanceof Boolean) || (modelsideValue instanceof Duration)
+          || (modelsideValue instanceof Instant) || (modelsideValue instanceof LocalTime) || (modelsideValue instanceof LocalDate)
+          || (modelsideValue instanceof LocalDateTime) || (modelsideValue instanceof ZonedDateTime)) {
 
-        final String formattedViewsideValue = this.formatModelsideValue(this.modelsideValue);
+        final String formattedViewsideValue = formatModelsideValue(modelsideValue);
         return formattedViewsideValue;
 
         // all other single objects translate to i18n
       } else {
-        final String i18nViewsideValue = this.getMmI18nText(MmMessageType.SHORT, this.modelsideValue);
+        final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, modelsideValue);
         return i18nViewsideValue;
       }
     }
@@ -481,22 +480,22 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
       } else if ((pModelsideValue instanceof Integer) || (pModelsideValue instanceof Long) || (pModelsideValue instanceof Float)
           || (pModelsideValue instanceof Double)) {
         try {
-          final NumberFormat numberFormatter = this.getMmNumberFormatter(false);
+          final NumberFormat numberFormatter = getMmNumberFormatter(false);
           formattedValue = numberFormatter.format(pModelsideValue);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
-            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-            + " by pattern >" + this.getMmFormatPattern() + "<");
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+            + getMmFormatPattern() + "<");
         }
 
       } else if ((pModelsideValue instanceof BigDecimal) || (pModelsideValue instanceof BigInteger)) {
         try {
-          final NumberFormat numberFormatter = this.getMmNumberFormatter(true);
+          final NumberFormat numberFormatter = getMmNumberFormatter(true);
           formattedValue = numberFormatter.format(pModelsideValue);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
-            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-            + " by pattern >" + this.getMmFormatPattern() + "<");
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+            + getMmFormatPattern() + "<");
         }
 
       } else if (pModelsideValue instanceof Duration) {
@@ -504,58 +503,58 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
           formattedValue = ((Duration)pModelsideValue).toString();
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
-            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-            + " by pattern >" + this.getMmFormatPattern() + "<");
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+            + getMmFormatPattern() + "<");
         }
 
       } else if (pModelsideValue instanceof Instant) {
         try {
-          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
           formattedValue = dateTimeFormatter.format((Instant)pModelsideValue);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
-            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-            + " by pattern >" + this.getMmFormatPattern() + "<");
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+            + getMmFormatPattern() + "<");
         }
 
       } else if (pModelsideValue instanceof LocalTime) {
         try {
-          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
           formattedValue = ((LocalTime)pModelsideValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
-            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-            + " by pattern >" + this.getMmFormatPattern() + "<");
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+            + getMmFormatPattern() + "<");
         }
 
       } else if (pModelsideValue instanceof LocalDate) {
         try {
-          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
           formattedValue = ((LocalDate)pModelsideValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
-            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-            + " by pattern >" + this.getMmFormatPattern() + "<");
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+            + getMmFormatPattern() + "<");
         }
 
       } else if (pModelsideValue instanceof LocalDateTime) {
         try {
-          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
           formattedValue = ((LocalDateTime)pModelsideValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
-            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-            + " by pattern >" + this.getMmFormatPattern() + "<");
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+            + getMmFormatPattern() + "<");
         }
 
       } else if (pModelsideValue instanceof ZonedDateTime) {
         try {
-          final DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
           formattedValue = ((ZonedDateTime)pModelsideValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmModelsideConverterException(this,
-            "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-            + " by pattern >" + this.getMmFormatPattern() + "<");
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+            + getMmFormatPattern() + "<");
         }
 
       } else if (pModelsideValue instanceof Enum<?>) {
@@ -565,9 +564,9 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
 
       } else if (pModelsideValue instanceof Boolean) {
         if ((Boolean)pModelsideValue) {
-          formattedValue = root.getMmI18nText(this.getMmId() + ".true", MmMessageType.SHORT);
+          formattedValue = root.getMmI18nText(getMmId() + ".true", MmMessageType.SHORT);
         } else {
-          formattedValue = root.getMmI18nText(this.getMmId() + ".false", MmMessageType.SHORT);
+          formattedValue = root.getMmI18nText(getMmId() + ".false", MmMessageType.SHORT);
         }
       } else {
         throw new IllegalArgumentException("unknown modelside value type cannot be formatted " + pModelsideValue);
@@ -584,7 +583,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
    * @jalopy.group  group-i18n
    */
   protected DateTimeFormatter getMmDateTimeFormatter() {
-    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(this.getMmFormatPattern());
+    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(getMmFormatPattern());
     return returnDateFormatter;
   }
 
@@ -602,7 +601,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, 
     final NumberFormat  numberFormat          = NumberFormat.getNumberInstance(locale);
     final DecimalFormat returnNumberFormatter = (DecimalFormat)numberFormat;
     returnNumberFormatter.setParseBigDecimal(pParseBigDecimal);
-    returnNumberFormatter.applyPattern(this.getMmFormatPattern());
+    returnNumberFormatter.applyPattern(getMmFormatPattern());
     return returnNumberFormatter;
   }
 

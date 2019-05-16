@@ -37,9 +37,9 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    */
   public MmConfigurationBigDecimal() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
-    this.formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    this.jsfTag          = DEFAULT_JSF_TAG;
-    this.jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
+    formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
+    jsfTag          = DEFAULT_JSF_TAG;
+    jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -51,9 +51,9 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
     super(pBigDecimalAnnotation.id(), pBigDecimalAnnotation.visible(), pBigDecimalAnnotation.readOnly(), pBigDecimalAnnotation.enabled(),
       pBigDecimalAnnotation.required());
 
-    this.formatMaxLength = pBigDecimalAnnotation.formatMaxLength();
-    this.jsfTag          = pBigDecimalAnnotation.jsfTag();
-    this.jsfTagDisabled  = pBigDecimalAnnotation.jsfTagDisabled();
+    formatMaxLength = pBigDecimalAnnotation.formatMaxLength();
+    jsfTag          = pBigDecimalAnnotation.jsfTag();
+    jsfTagDisabled  = pBigDecimalAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -62,7 +62,7 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    * @return  The configuration of maximum length of formatted input string.
    */
   public int getFormatMaxLength() {
-    return this.formatMaxLength;
+    return formatMaxLength;
   }
 
   /**
@@ -72,7 +72,7 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTagDisabled.name();
+    return jsfTagDisabled.name();
   }
 
   /**
@@ -82,7 +82,7 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -91,7 +91,7 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    * @param  pFormatMaxLength  The specified configuration of maximum length of formatted input string.
    */
   public void setFormatMaxLength(int pFormatMaxLength) {
-    this.formatMaxLength = pFormatMaxLength;
+    formatMaxLength = pFormatMaxLength;
   }
 
   /**
@@ -100,7 +100,7 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmBigDecimalJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
 }

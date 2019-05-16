@@ -1,8 +1,12 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
+import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 
 /**
@@ -16,6 +20,9 @@ import org.minutenwerk.mimic4j.impl.message.MmMessage;
  */
 public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends MmBaseContainerImplementation<?, MODEL, ?>>
   extends MmBaseDeclaration<MmContainerMimic<MODEL>, IMPLEMENTATION> implements MmContainerMimic<MODEL>, MmContainerCallback<MODEL> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmBaseContainerDeclaration.class);
 
   /**
    * Creates a new MmBaseContainerDeclaration instance.
@@ -32,7 +39,20 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * @param  pMessage  The specified message to add.
    */
   public void addMmMessage(MmMessage pMessage) {
-    this.implementation.getMmMessageList().addMessage(pMessage);
+    implementation.getMmMessageList().addMessage(pMessage);
+  }
+
+  /**
+   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified root component accessor.
+   *
+   * @param   pRootAccessor  The specified root component accessor.
+   *
+   * @return  The container's accessor.
+   */
+  @Override
+  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    LOGGER.warn("no definition of callbackMmGetAccessor() for {}", this::getMmFullName);
+    return null;
   }
 
   /**
@@ -60,7 +80,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    */
   @Override
   public final void doMmValidate() throws MmValidatorException {
-    this.implementation.doMmValidate();
+    implementation.doMmValidate();
   }
 
   /**
@@ -70,7 +90,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    */
   @Override
   public final MODEL getMmModel() {
-    return this.implementation.getMmModel();
+    return implementation.getMmModel();
   }
 
   /**
@@ -80,7 +100,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    */
   @Override
   public final Class<MODEL> getMmModelType() {
-    return this.implementation.getMmModelType();
+    return implementation.getMmModelType();
   }
 
   /**
@@ -91,7 +111,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    */
   @Override
   public final boolean isMmChangedFromViewside() {
-    return this.implementation.isMmChangedFromViewside();
+    return implementation.isMmChangedFromViewside();
   }
 
   /**
@@ -101,7 +121,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    */
   @Override
   public final boolean isMmRequired() {
-    return this.implementation.isMmRequired();
+    return implementation.isMmRequired();
   }
 
   /**
@@ -111,7 +131,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    */
   @Override
   public final boolean isMmValid() {
-    return this.implementation.isMmValid();
+    return implementation.isMmValid();
   }
 
   /**
@@ -121,7 +141,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    */
   @Override
   public final void setMmModel(MODEL pModel) {
-    this.implementation.setMmModel(pModel);
+    implementation.setMmModel(pModel);
   }
 
 }

@@ -13,6 +13,6 @@ public class Chapter {
   }
 
   public void setTopic(final String pTopic) {
-    this.topic = pTopic;
+    topic = pTopic;
   }
 }

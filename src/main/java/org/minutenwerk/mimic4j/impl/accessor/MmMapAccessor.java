@@ -37,7 +37,7 @@ public class MmMapAccessor<PARENT_MODEL, MAP_MODEL extends Map<KEY, VALUE_MODEL>
    * @return  TODOC
    */
   public boolean containsKey(final KEY key) {
-    return this.get().containsKey(key);
+    return get().containsKey(key);
   }
 
   /**
@@ -48,7 +48,7 @@ public class MmMapAccessor<PARENT_MODEL, MAP_MODEL extends Map<KEY, VALUE_MODEL>
    * @return  TODOC
    */
   public boolean containsValue(final VALUE_MODEL value) {
-    return this.get().containsValue(value);
+    return get().containsValue(value);
   }
 
   /**
@@ -59,7 +59,7 @@ public class MmMapAccessor<PARENT_MODEL, MAP_MODEL extends Map<KEY, VALUE_MODEL>
    * @return  TODOC
    */
   public VALUE_MODEL get(final KEY key) {
-    return this.get().get(key);
+    return get().get(key);
   }
 
   /**
@@ -78,7 +78,7 @@ public class MmMapAccessor<PARENT_MODEL, MAP_MODEL extends Map<KEY, VALUE_MODEL>
    * @return  TODOC
    */
   public boolean isEmpty() {
-    return this.get().isEmpty();
+    return get().isEmpty();
   }
 
   /**
@@ -88,7 +88,7 @@ public class MmMapAccessor<PARENT_MODEL, MAP_MODEL extends Map<KEY, VALUE_MODEL>
    * @param  value  TODOC
    */
   public void put(final KEY key, final VALUE_MODEL value) {
-    this.get().put(key, value);
+    get().put(key, value);
   }
 
   /**
@@ -97,7 +97,7 @@ public class MmMapAccessor<PARENT_MODEL, MAP_MODEL extends Map<KEY, VALUE_MODEL>
    * @param  key  TODOC
    */
   public void remove(final VALUE_MODEL key) {
-    this.get().remove(key);
+    get().remove(key);
   }
 
   /**
@@ -106,6 +106,6 @@ public class MmMapAccessor<PARENT_MODEL, MAP_MODEL extends Map<KEY, VALUE_MODEL>
    * @return  TODOC
    */
   public int size() {
-    return this.get().size();
+    return get().size();
   }
 }

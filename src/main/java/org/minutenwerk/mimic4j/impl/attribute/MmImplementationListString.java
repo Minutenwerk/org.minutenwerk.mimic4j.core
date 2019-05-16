@@ -32,9 +32,9 @@ public class MmImplementationListString
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.isEmpty());
+    return ((viewsideValue == null) || viewsideValue.isEmpty());
   }
 
   /**
@@ -53,16 +53,16 @@ public class MmImplementationListString
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmListStringAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmListStringAnnotation.class);
 
-    MmListStringAnnotation annotation = this.findAnnotation(this.declaration, MmListStringAnnotation.class);
+    MmListStringAnnotation annotation = findAnnotation(declaration, MmListStringAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationListString();
+      configuration = new MmConfigurationListString();
     } else {
-      this.configuration = new MmConfigurationListString(annotation);
+      configuration = new MmConfigurationListString(annotation);
     }
   }
 

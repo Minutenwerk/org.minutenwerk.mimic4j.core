@@ -20,7 +20,7 @@ public class Book {
   }
 
   public void setTitle(final String pTitle) {
-    this.title = pTitle;
+    title = pTitle;
   }
 
   public Author getAuthor() {
@@ -28,7 +28,7 @@ public class Book {
   }
 
   public void setAuthor(final Author pAuthor) {
-    this.author = pAuthor;
+    author = pAuthor;
   }
 
   public List<Chapter> getChapters() {
@@ -36,6 +36,6 @@ public class Book {
   }
 
   public void setChapters(final List<Chapter> pChapters) {
-    this.chapters = pChapters;
+    chapters = pChapters;
   }
 }

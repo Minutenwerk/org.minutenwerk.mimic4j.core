@@ -35,7 +35,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public int getCols() {
-    return this.implementation.getMmCols();
+    return implementation.getMmCols();
   }
 
   /**
@@ -45,7 +45,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public String getLayout() {
-    return this.implementation.getMmLayout().getValue();
+    return implementation.getMmLayout().getValue();
   }
 
   /**
@@ -55,7 +55,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public int getMaxlength() {
-    return this.implementation.getMmFormatMaxLength();
+    return implementation.getMmFormatMaxLength();
   }
 
   /**
@@ -65,7 +65,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public List<MmMessage> getMsgList() {
-    return this.implementation.getMmMessages();
+    return implementation.getMmMessages();
   }
 
   /**
@@ -76,7 +76,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
   @Override
   public String getMsgListText() {
     String returnText = "";
-    for (MmMessage message : this.implementation.getMmMessages()) {
+    for (MmMessage message : implementation.getMmMessages()) {
       returnText = returnText + message.getText() + " ";
     }
     return returnText;
@@ -89,7 +89,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public String getMsgMaxSeverity() {
-    MmMessageSeverity severity = this.implementation.getMmMaximumSeverity();
+    MmMessageSeverity severity = implementation.getMmMaximumSeverity();
     if (severity != null) {
       return severity.name().toLowerCase();
     } else {
@@ -105,9 +105,9 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
   @Override
   public String getMsgMaxTitle() {
     String returnTitle = "";
-    String maxSeverity = this.getMsgMaxSeverity();
+    String maxSeverity = getMsgMaxSeverity();
     if (!maxSeverity.isEmpty()) {
-      returnTitle = this.implementation.getMmRoot().getMmI18nText(maxSeverity, MmMessageType.SHORT);
+      returnTitle = implementation.getMmRoot().getMmI18nText(maxSeverity, MmMessageType.SHORT);
     }
     return returnTitle;
   }
@@ -119,7 +119,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public int getRows() {
-    return this.implementation.getMmRows();
+    return implementation.getMmRows();
   }
 
   /**
@@ -139,7 +139,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
   @Override
   public List<SelectItem> getSelectItems() {
     List<SelectItem> returnList = new ArrayList<>();
-    for (MmSelectOption<Object> selectOption : this.implementation.getMmSelectOptions()) {
+    for (MmSelectOption<Object> selectOption : implementation.getMmSelectOptions()) {
       String     value             = selectOption.getDisplayId();
       String     label             = selectOption.getShortDescription();
       String     description       = selectOption.getLongDescription();
@@ -159,7 +159,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public int getSize() {
-    return this.implementation.getMmSize();
+    return implementation.getMmSize();
   }
 
   /**
@@ -169,7 +169,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public VIEWSIDE_VALUE getValue() {
-    return this.implementation.getMmViewsideValue();
+    return implementation.getMmViewsideValue();
   }
 
   /**
@@ -179,7 +179,7 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
    */
   @Override
   public void setValue(VIEWSIDE_VALUE pValue) {
-    this.implementation.setMmViewsideValue(pValue);
+    implementation.setMmViewsideValue(pValue);
   }
 
 }

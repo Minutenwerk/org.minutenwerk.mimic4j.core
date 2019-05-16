@@ -40,10 +40,10 @@ public abstract class MmBaseConfiguration {
    * @param  pEnabled   True, if HTML tag of mimic is rendered enabled.
    */
   public MmBaseConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled) {
-    this.id       = pId;
-    this.visible  = pVisible;
-    this.readOnly = pReadOnly;
-    this.enabled  = pEnabled;
+    id       = pId;
+    visible  = pVisible;
+    readOnly = pReadOnly;
+    enabled  = pEnabled;
   }
 
   /**
@@ -52,7 +52,7 @@ public abstract class MmBaseConfiguration {
    * @return  The JSF view id of HTML tag.
    */
   public String getId() {
-    return this.id;
+    return id;
   }
 
   /**
@@ -75,7 +75,7 @@ public abstract class MmBaseConfiguration {
    * @return  True, if HTML tag of mimic is rendered enabled.
    */
   public boolean isEnabled() {
-    return this.enabled;
+    return enabled;
   }
 
   /**
@@ -84,7 +84,7 @@ public abstract class MmBaseConfiguration {
    * @return  True, if HTML tag of mimic is rendered readonly.
    */
   public boolean isReadOnly() {
-    return this.readOnly;
+    return readOnly;
   }
 
   /**
@@ -93,7 +93,7 @@ public abstract class MmBaseConfiguration {
    * @return  True, if HTML tag of mimic is rendered visible.
    */
   public boolean isVisible() {
-    return this.visible;
+    return visible;
   }
 
   /**
@@ -102,7 +102,7 @@ public abstract class MmBaseConfiguration {
    * @param  pEnabled  True, if HTML tag of mimic is rendered enabled.
    */
   public void setEnabled(boolean pEnabled) {
-    this.enabled = pEnabled;
+    enabled = pEnabled;
   }
 
   /**
@@ -113,10 +113,10 @@ public abstract class MmBaseConfiguration {
    * @throws  IllegalArgumentException  In case of the view id has been set already.
    */
   public void setId(String pId) {
-    if (!this.id.equals(UNDEFINED_ID)) {
-      throw new IllegalArgumentException("Id " + this.id + " cannot be set twice: " + pId);
+    if (!id.equals(UNDEFINED_ID)) {
+      throw new IllegalArgumentException("Id " + id + " cannot be set twice: " + pId);
     }
-    this.id = pId;
+    id = pId;
   }
 
   /**
@@ -125,7 +125,7 @@ public abstract class MmBaseConfiguration {
    * @param  pReadOnly  True, if HTML tag of mimic is rendered readonly.
    */
   public void setReadOnly(boolean pReadOnly) {
-    this.readOnly = pReadOnly;
+    readOnly = pReadOnly;
   }
 
   /**
@@ -134,7 +134,7 @@ public abstract class MmBaseConfiguration {
    * @param  pVisible  True, if HTML tag of mimic is rendered visible.
    */
   public void setVisible(boolean pVisible) {
-    this.visible = pVisible;
+    visible = pVisible;
   }
 
 }

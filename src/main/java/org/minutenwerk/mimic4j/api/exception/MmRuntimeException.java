@@ -37,8 +37,8 @@ public class MmRuntimeException extends RuntimeException {
    */
   public MmRuntimeException(MmMimic pMimic, Throwable pCause, Object... pArgs) {
     super(pMimic.getMmId(), pCause);
-    this.mimic = pMimic;
-    this.args  = pArgs;
+    mimic = pMimic;
+    args  = pArgs;
   }
 
   /**
@@ -47,7 +47,7 @@ public class MmRuntimeException extends RuntimeException {
    * @return  The arguments to be inserted into message text, may be null.
    */
   public final Object[] getArgs() {
-    return this.args;
+    return args;
   }
 
   /**
@@ -56,7 +56,7 @@ public class MmRuntimeException extends RuntimeException {
    * @return  The mimic this exception relates to.
    */
   public MmMimic getMimic() {
-    return this.mimic;
+    return mimic;
   }
 
   /**
@@ -68,16 +68,16 @@ public class MmRuntimeException extends RuntimeException {
   @Override
   public String toString() {
     StringBuilder snippet = new StringBuilder();
-    if (this.getCause() != null) {
-      snippet.append(this.getCause().getClass().getSimpleName());
+    if (getCause() != null) {
+      snippet.append(getCause().getClass().getSimpleName());
       snippet.append(": ");
     }
-    if (this.getMessage() != null) {
-      snippet.append(this.getMessage());
+    if (getMessage() != null) {
+      snippet.append(getMessage());
       snippet.append(": ");
     }
-    if (this.mimic != null) {
-      snippet.append(this.mimic.toString());
+    if (mimic != null) {
+      snippet.append(mimic.toString());
     }
     return snippet.toString();
   }

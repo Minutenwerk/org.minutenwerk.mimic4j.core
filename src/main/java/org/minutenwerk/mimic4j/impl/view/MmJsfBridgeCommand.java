@@ -26,7 +26,7 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    */
   @Override
   public String action() {
-    return this.implementation.doMmIt();
+    return implementation.doMmIt();
   }
 
   /**
@@ -37,7 +37,7 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    */
   @Override
   public MmReference getTargetReference() {
-    return this.implementation.getMmTargetReference();
+    return implementation.getMmTargetReference();
   }
 
   /**
@@ -47,7 +47,7 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    */
   @Override
   public String getValue() {
-    return this.implementation.getMmShortDescription();
+    return implementation.getMmShortDescription();
   }
 
 }

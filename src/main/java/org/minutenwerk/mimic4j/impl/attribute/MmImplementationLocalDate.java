@@ -33,14 +33,14 @@ public class MmImplementationLocalDate extends MmBaseAttributeImplementation<MmL
    */
   @Override
   public String getMmFormatPattern() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    String formatPattern = this.configuration.getFormatPattern();
+    String formatPattern = configuration.getFormatPattern();
     if (formatPattern == null) {
-      formatPattern = this.getMmI18nText(MmMessageType.FORMAT);
+      formatPattern = getMmI18nText(MmMessageType.FORMAT);
     }
 
-    final String returnString = this.declaration.callbackMmGetFormatPattern(formatPattern);
+    final String returnString = declaration.callbackMmGetFormatPattern(formatPattern);
     assert returnString != null : "callbackMmGetFormatPattern cannot return null";
     return returnString;
   }
@@ -52,9 +52,9 @@ public class MmImplementationLocalDate extends MmBaseAttributeImplementation<MmL
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -73,16 +73,16 @@ public class MmImplementationLocalDate extends MmBaseAttributeImplementation<MmL
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLocalDateAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmLocalDateAnnotation.class);
 
-    MmLocalDateAnnotation annotation = this.findAnnotation(this.declaration, MmLocalDateAnnotation.class);
+    MmLocalDateAnnotation annotation = findAnnotation(declaration, MmLocalDateAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationLocalDate();
+      configuration = new MmConfigurationLocalDate();
     } else {
-      this.configuration = new MmConfigurationLocalDate(annotation);
+      configuration = new MmConfigurationLocalDate(annotation);
     }
   }
 

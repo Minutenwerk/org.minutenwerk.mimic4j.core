@@ -36,6 +36,6 @@ public class MmListAccessor<PARENT_MODEL, LIST_MODEL extends List<VALUE_MODEL>, 
    * @return  TODOC
    */
   public VALUE_MODEL get(final int index) {
-    return this.get().get(index);
+    return get().get(index);
   }
 }

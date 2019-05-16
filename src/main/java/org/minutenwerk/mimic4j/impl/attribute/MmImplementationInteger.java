@@ -29,9 +29,9 @@ public class MmImplementationInteger extends MmBaseAttributeImplementation<MmInt
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -50,16 +50,16 @@ public class MmImplementationInteger extends MmBaseAttributeImplementation<MmInt
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmIntegerAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmIntegerAnnotation.class);
 
-    MmIntegerAnnotation annotation = this.findAnnotation(this.declaration, MmIntegerAnnotation.class);
+    MmIntegerAnnotation annotation = findAnnotation(declaration, MmIntegerAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationInteger();
+      configuration = new MmConfigurationInteger();
     } else {
-      this.configuration = new MmConfigurationInteger(annotation);
+      configuration = new MmConfigurationInteger(annotation);
     }
   }
 

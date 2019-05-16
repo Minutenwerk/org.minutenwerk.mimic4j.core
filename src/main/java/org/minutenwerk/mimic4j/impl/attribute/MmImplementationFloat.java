@@ -29,9 +29,9 @@ public class MmImplementationFloat extends MmBaseAttributeImplementation<MmFloat
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -50,16 +50,16 @@ public class MmImplementationFloat extends MmBaseAttributeImplementation<MmFloat
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmFloatAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmFloatAnnotation.class);
 
-    MmFloatAnnotation annotation = this.findAnnotation(this.declaration, MmFloatAnnotation.class);
+    MmFloatAnnotation annotation = findAnnotation(declaration, MmFloatAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationFloat();
+      configuration = new MmConfigurationFloat();
     } else {
-      this.configuration = new MmConfigurationFloat(annotation);
+      configuration = new MmConfigurationFloat(annotation);
     }
   }
 

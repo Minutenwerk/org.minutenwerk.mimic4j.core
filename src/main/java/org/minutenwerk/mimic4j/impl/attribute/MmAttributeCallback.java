@@ -7,7 +7,7 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 
 /**
  * MmAttributeCallback defines a set of override-able methods common to all attribute mimics. Callback methods are part of the declaration
@@ -48,7 +48,7 @@ public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> extends Mm
    *
    * @return  The attribute's accessor.
    */
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pRootAccessor);
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor);
 
   /**
    * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside

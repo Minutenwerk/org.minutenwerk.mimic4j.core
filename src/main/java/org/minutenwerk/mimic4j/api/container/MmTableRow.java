@@ -30,7 +30,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    * @return  The table row index of this row.
    */
   public final int getMmRowIndex() {
-    return this.implementation.getMmRowIndex();
+    return implementation.getMmRowIndex();
   }
 
 }

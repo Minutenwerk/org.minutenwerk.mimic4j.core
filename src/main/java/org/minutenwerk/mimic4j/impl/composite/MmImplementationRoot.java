@@ -52,11 +52,11 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * @return  The internationalized message.
    */
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
-    this.ensureInitialization();
+    assureInitialization();
 
     String returnString = "";
-    if (this.messageSource != null) {
-      returnString = this.messageSource.getMmI18nText(this.getMmLocale(), pMessageId, pMessageType, pArguments);
+    if (messageSource != null) {
+      returnString = messageSource.getMmI18nText(getMmLocale(), pMessageId, pMessageType, pArguments);
     } else {
       LOGGER.warn("getMmI18nText: {}, {}: no message source", pMessageId, pMessageType);
 
@@ -77,10 +77,10 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * @return  The locale of this root.
    */
   public Locale getMmLocale() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    if (this.sessionContext != null) {
-      return this.sessionContext.getMmLocale();
+    if (sessionContext != null) {
+      return sessionContext.getMmLocale();
     } else {
       LOGGER.warn("getMmLocale: no session context");
       return NO_SESSION_CONTEXT_LOCALE;
@@ -94,9 +94,9 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    */
   @Override
   public boolean isMmJsEnabled() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.sessionContext.isMmJsEnabled();
+    return sessionContext.isMmJsEnabled();
   }
 
   /**
@@ -105,7 +105,7 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * @param  pMessageSource  The message source to be set.
    */
   public void setMessageSource(MmMessageSource pMessageSource) {
-    this.messageSource = pMessageSource;
+    messageSource = pMessageSource;
   }
 
   /**
@@ -114,7 +114,7 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    * @param  pSessionContext  The session context to be set.
    */
   public void setSessionContext(MmSessionContext pSessionContext) {
-    this.sessionContext = pSessionContext;
+    sessionContext = pSessionContext;
   }
 
   /**
@@ -133,16 +133,16 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmRootAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmRootAnnotation.class);
 
-    MmRootAnnotation annotation = this.findAnnotation(this.declaration, MmRootAnnotation.class);
+    MmRootAnnotation annotation = findAnnotation(declaration, MmRootAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationRoot();
+      configuration = new MmConfigurationRoot();
     } else {
-      this.configuration = new MmConfigurationRoot(annotation);
+      configuration = new MmConfigurationRoot(annotation);
     }
   }
 

@@ -37,7 +37,7 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    */
   @Override
   public String callbackMmDoIt() {
-    throw new IllegalStateException("method callbackMmDoIt is not implemented on " + this.getClass().getSimpleName());
+    throw new IllegalStateException("method callbackMmDoIt is not implemented on " + getClass().getSimpleName());
   }
 
   /**
@@ -102,7 +102,7 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    */
   @Override
   public final String doMmIt() {
-    return this.implementation.doMmIt();
+    return implementation.doMmIt();
   }
 
   /**
@@ -114,7 +114,7 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    */
   @Override
   public final MmReference getMmTargetReference() {
-    return this.implementation.getMmTargetReference();
+    return implementation.getMmTargetReference();
   }
 
 }

@@ -51,7 +51,7 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    */
   public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel, MmLeporelloTab pSuperTab) {
     super(pParentPanel);
-    this.superTab = pSuperTab;
+    superTab = pSuperTab;
   }
 
   /**
@@ -60,9 +60,9 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * @return  The CSS styleclass if this leporello tab is active.
    */
   public String getMmStyleClassActive() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    if (this.isMmActive()) {
+    if (isMmActive()) {
       return "active";
     } else {
       return "";
@@ -78,10 +78,10 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    */
   @Override
   public String getMmStyleClasses() {
-    this.ensureInitialization();
+    assureInitialization();
 
     String styleClasses = super.getMmStyleClasses();
-    if (!this.isMmEnabled()) {
+    if (!isMmEnabled()) {
       return "disabled " + styleClasses;
     }
     return styleClasses;
@@ -95,71 +95,71 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
   @Override
   public String getMmViewsideValue() {
     // if model is an array of objects
-    if (this.modelsideValue instanceof Object[]) {
+    if (modelsideValue instanceof Object[]) {
 
       // translate enum values to i18n strings before, because MessageFormat shall not do this
-      for (int index = 0; index < ((Object[])this.modelsideValue).length; index++) {
-        final Object modelsideObject = ((Object[])this.modelsideValue)[index];
+      for (int index = 0; index < ((Object[])modelsideValue).length; index++) {
+        final Object modelsideObject = ((Object[])modelsideValue)[index];
         if (modelsideObject instanceof Enum<?>) {
-          final String i18nEnumValue = this.formatModelsideValue(modelsideObject);
-          ((Object[])this.modelsideValue)[index] = i18nEnumValue;
+          final String i18nEnumValue = formatModelsideValue(modelsideObject);
+          ((Object[])modelsideValue)[index] = i18nEnumValue;
         }
       }
 
-      // this.modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
+      // modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
       // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-      final String i18nViewsideValue = this.getMmI18nText(MmMessageType.SHORT, (Object[])this.modelsideValue);
+      final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, (Object[])modelsideValue);
       return i18nViewsideValue;
 
       // if model is a single object
     } else {
 
       // return empty String for null value
-      if (this.modelsideValue == null) {
+      if (modelsideValue == null) {
         return "";
 
         // pass through Strings
-      } else if (this.modelsideValue instanceof String) {
-        return (String)this.modelsideValue;
+      } else if (modelsideValue instanceof String) {
+        return (String)modelsideValue;
 
         // i18n single enums
-      } else if (this.modelsideValue instanceof Enum<?>) {
+      } else if (modelsideValue instanceof Enum<?>) {
 
         // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewsideValue = this.formatModelsideValue(this.modelsideValue);
+        final String i18nViewsideValue = formatModelsideValue(modelsideValue);
         return i18nViewsideValue;
 
         // format Instant values
-      } else if (this.modelsideValue instanceof Instant) {
+      } else if (modelsideValue instanceof Instant) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((Instant)this.modelsideValue));
-        final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((Instant)modelsideValue));
+        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
         return formattedViewsideValue;
 
         // format LocalDate values
-      } else if (this.modelsideValue instanceof LocalDate) {
+      } else if (modelsideValue instanceof LocalDate) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDate)this.modelsideValue).atStartOfDay(ZoneId.of("UTC")).toInstant());
-        final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDate)modelsideValue).atStartOfDay(ZoneId.of("UTC")).toInstant());
+        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
         return formattedViewsideValue;
 
         // format LocalDateTime values
-      } else if (this.modelsideValue instanceof LocalDateTime) {
+      } else if (modelsideValue instanceof LocalDateTime) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDateTime)this.modelsideValue).toInstant(ZoneOffset.UTC));
-        final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDateTime)modelsideValue).toInstant(ZoneOffset.UTC));
+        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
         return formattedViewsideValue;
 
         // format ZonedDateTime values
-      } else if (this.modelsideValue instanceof ZonedDateTime) {
+      } else if (modelsideValue instanceof ZonedDateTime) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)this.modelsideValue).toInstant());
-        final String formattedViewsideValue       = this.formatModelsideValue(modelsideValueAsJavaUtilDate);
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)modelsideValue).toInstant());
+        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
         return formattedViewsideValue;
 
         // all other single objects translate to i18n
       } else {
-        final String i18nViewsideValue = this.getMmI18nText(MmMessageType.SHORT, this.modelsideValue);
+        final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, modelsideValue);
         return i18nViewsideValue;
       }
     }
@@ -171,7 +171,7 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * @return  The view tab of this leporello panel tab.
    */
   public MmTab<?> getMmViewTab() {
-    this.ensureInitialization();
+    assureInitialization();
 
     // TODO MmImplementationLeporelloTab getMmViewTab
     return null;
@@ -183,10 +183,10 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * @return  <code>True</code>, if the tab is active.
    */
   public boolean isMmActive() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final MmLeporelloTab thisDeclaration = (MmLeporelloTab)this.declaration;
-    final MmLeporelloTab selectedTab     = this.parentLeporello.getMmSelectedTab();
+    final MmLeporelloTab thisDeclaration = (MmLeporelloTab)declaration;
+    final MmLeporelloTab selectedTab     = parentLeporello.getMmSelectedTab();
     if (selectedTab == null) {
       return false;
     } else if (selectedTab == thisDeclaration) {
@@ -212,10 +212,10 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
    * @return  <code>True</code>, if the tab is selected.
    */
   public boolean isMmSelected() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final MmLeporelloTab thisDeclaration = (MmLeporelloTab)this.declaration;
-    final MmLeporelloTab selectedTab     = this.parentLeporello.getMmSelectedTab();
+    final MmLeporelloTab thisDeclaration = (MmLeporelloTab)declaration;
+    final MmLeporelloTab selectedTab     = parentLeporello.getMmSelectedTab();
     return (thisDeclaration == selectedTab);
   }
 
@@ -236,7 +236,7 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
   @Override
   protected void initialize() {
     super.initialize();
-    this.parentLeporello = this.getImplementationAncestorOfType(MmImplementationLeporello.class);
+    parentLeporello = getImplementationAncestorOfType(MmImplementationLeporello.class);
   }
 
   /**
@@ -245,16 +245,16 @@ public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLep
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmLeporelloTabAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloTabAnnotation.class);
 
-    MmLeporelloTabAnnotation annotation = this.findAnnotation(this.declaration, MmLeporelloTabAnnotation.class);
+    MmLeporelloTabAnnotation annotation = findAnnotation(declaration, MmLeporelloTabAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationLeporelloTab();
+      configuration = new MmConfigurationLeporelloTab();
     } else {
-      this.configuration = new MmConfigurationLeporelloTab(annotation);
+      configuration = new MmConfigurationLeporelloTab(annotation);
     }
   }
 

@@ -1,7 +1,7 @@
 package org.minutenwerk.mimic4j.container;
 
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 
 public class TestAdresseAccessor extends MmComponentAccessor<TestModel, TestAdresse> {
 

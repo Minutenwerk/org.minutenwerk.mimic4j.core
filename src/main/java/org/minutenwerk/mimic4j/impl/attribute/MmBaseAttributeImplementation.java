@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
-import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
@@ -15,6 +14,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmErrorMessageType;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 import org.minutenwerk.mimic4j.impl.message.MmMessageList;
@@ -79,7 +79,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
      */
     @Override
     public String toString() {
-      return this.name();
+      return name();
     }
   }
 
@@ -114,7 +114,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
      */
     @Override
     public String toString() {
-      return this.name();
+      return name();
     }
   }
 
@@ -128,7 +128,13 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   protected MmAttributeErrorState                   errorState;
 
   /**
-   * The attribute's accessor on a model attribute of type ATTRIBUTE_MODEL. Its first generic, the type of the parent model, is undefined.
+   * This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a model accessor.
+   */
+  protected MmComponentAccessor<?, ?>               rootAccessor;
+
+  /**
+   * This attribute has a model of type ATTRIBUTE_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
+   * undefined.
    */
   protected MmAttributeAccessor<?, ATTRIBUTE_MODEL> modelAccessor;
 
@@ -145,21 +151,27 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   public MmBaseAttributeImplementation(final MmDeclarationMimic parent) {
     super(parent);
-    this.messageList = new MmMessageList();
-    this.valueState  = MmValueState.UNDEFINED;
-    this.errorState  = MmAttributeErrorState.SUCCESS;
+    messageList = new MmMessageList();
+    valueState  = MmValueState.UNDEFINED;
+    errorState  = MmAttributeErrorState.SUCCESS;
   }
 
   /**
    * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
    * super.initialize()!
    *
+   * @throws        IllegalStateException  In case of root accessor or model accessor is not defined.
+   *
    * @jalopy.group  group-initialization
    */
   @Override
   protected void initialize() {
     super.initialize();
-    modelAccessor = declaration.callbackMmGetAccessor(getMmRootAccessor());
+    rootAccessor  = getMmRootAccessor();
+    modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
+    if (modelAccessor == null) {
+      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
+    }
   }
 
   /**
@@ -181,21 +193,21 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-lifecycle
    */
   public void doPassModelsideToViewsideValue() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    String originalDebugState = this.toStringTraceState();
+    String originalDebugState = toStringTraceState();
 
     try {
-      ATTRIBUTE_MODEL modelsideVALUE = this.modelAccessor.get();
-      this.viewsideValue = this.declaration.callbackMmConvertModelsideToViewsideValue(modelsideVALUE);
-      this.valueState    = MmValueState.CONVERTED_MODELSIDE_TO_VIEWSIDE;
-      this.errorState    = MmAttributeErrorState.SUCCESS;
+      ATTRIBUTE_MODEL modelsideVALUE = modelAccessor.get();
+      viewsideValue = declaration.callbackMmConvertModelsideToViewsideValue(modelsideVALUE);
+      valueState    = MmValueState.CONVERTED_MODELSIDE_TO_VIEWSIDE;
+      errorState    = MmAttributeErrorState.SUCCESS;
     } catch (MmModelsideConverterException converterException) {
-      this.errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_MODELSIDE_TO_VIEWSIDE;
+      errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_MODELSIDE_TO_VIEWSIDE;
       throw converterException;
     }
 
-    this.logDebugChange(originalDebugState);
+    logDebugChange(originalDebugState);
   }
 
   /**
@@ -218,37 +230,37 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-lifecycle
    */
   public void doPassViewsideToModelsideValue() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    String originalDebugState = this.toStringTraceState();
+    String originalDebugState = toStringTraceState();
 
     // syntactic validation of viewside
-    if (this.isMmRequired() && this.isMmEmpty()) {
-      this.errorState = MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEWSIDE;
+    if (isMmRequired() && isMmEmpty()) {
+      errorState = MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEWSIDE;
 
-      MmMessage message = new MmMessage(MmErrorMessageType.BUSINESS_LOGIC_ERROR, MmMessageSeverity.USER_ERROR, this, this.getMmId(),
+      MmMessage message = new MmMessage(MmErrorMessageType.BUSINESS_LOGIC_ERROR, MmMessageSeverity.USER_ERROR, this, getMmId(),
           MmMessageType.ERROR_REQUIRED);
-      this.messageList.addMessage(message);
+      messageList.addMessage(message);
 
     } else {
 
       // conversion to modelside
       try {
-        if (this.isChangedFromViewside) {
-          ATTRIBUTE_MODEL modelsideValue = this.declaration.callbackMmConvertViewsideToModelsideValue(this.viewsideValue);
-          this.modelAccessor.set(modelsideValue);
+        if (isChangedFromViewside) {
+          ATTRIBUTE_MODEL modelsideValue = declaration.callbackMmConvertViewsideToModelsideValue(viewsideValue);
+          modelAccessor.set(modelsideValue);
         }
-        this.valueState = MmValueState.CONVERTED_VIEWSIDE_TO_MODELSIDE;
-        this.errorState = MmAttributeErrorState.SUCCESS;
+        valueState = MmValueState.CONVERTED_VIEWSIDE_TO_MODELSIDE;
+        errorState = MmAttributeErrorState.SUCCESS;
       } catch (MmViewsideConverterException converterException) {
-        this.errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEWSIDE_TO_MODELSIDE;
+        errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEWSIDE_TO_MODELSIDE;
 
         MmMessage message = new MmMessage(converterException);
-        this.messageList.addMessage(message);
+        messageList.addMessage(message);
       }
     }
 
-    this.logDebugChange(originalDebugState);
+    logDebugChange(originalDebugState);
   }
 
   /**
@@ -270,22 +282,22 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-lifecycle
    */
   public void doValidateModelsideValue() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    String originalDebugState = this.toStringTraceState();
+    String originalDebugState = toStringTraceState();
 
     try {
-      this.declaration.callbackMmValidateModelsideValue(this.modelAccessor.get());
-      this.valueState = MmValueState.VALID_VALUE_IN_MODELSIDE;
-      this.errorState = MmAttributeErrorState.SUCCESS;
+      declaration.callbackMmValidateModelsideValue(modelAccessor.get());
+      valueState = MmValueState.VALID_VALUE_IN_MODELSIDE;
+      errorState = MmAttributeErrorState.SUCCESS;
     } catch (MmValidatorException validatorException) {
-      this.errorState = MmAttributeErrorState.ERROR_INVALID_VALUE_IN_MODELSIDE;
+      errorState = MmAttributeErrorState.ERROR_INVALID_VALUE_IN_MODELSIDE;
 
       MmMessage message = new MmMessage(validatorException);
-      this.messageList.addMessage(message);
+      messageList.addMessage(message);
     }
 
-    this.logDebugChange(originalDebugState);
+    logDebugChange(originalDebugState);
   }
 
   /**
@@ -299,9 +311,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-lifecycle
    */
   public boolean isDoValidateModelsideValueEnabled() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    switch (this.valueState) {
+    switch (valueState) {
       case UNDEFINED: {
         return false;
       }
@@ -313,12 +325,12 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
 
       // if converted to viewside, validate
       case CONVERTED_MODELSIDE_TO_VIEWSIDE: {
-        return (this.errorState == MmAttributeErrorState.SUCCESS);
+        return (errorState == MmAttributeErrorState.SUCCESS);
       }
 
       // or converted from viewside, validate
       case CONVERTED_VIEWSIDE_TO_MODELSIDE: {
-        return (this.errorState == MmAttributeErrorState.SUCCESS);
+        return (errorState == MmAttributeErrorState.SUCCESS);
       }
 
       // or valid already, validate again
@@ -327,7 +339,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
       }
 
       default: {
-        throw new IllegalStateException("illegal value state " + this.valueState);
+        throw new IllegalStateException("illegal value state " + valueState);
       }
     }
   }
@@ -345,15 +357,15 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   // TODO entfällt
   public void setMmModelsideValue(ATTRIBUTE_MODEL pModelsideValue) {
-    this.ensureInitialization();
+    assureInitialization();
 
-    String originalDebugState = this.toStringTraceState();
+    String originalDebugState = toStringTraceState();
 
-    this.modelAccessor.set(pModelsideValue);
-    this.errorState            = MmAttributeErrorState.SUCCESS;
-    this.isChangedFromViewside = false;
+    modelAccessor.set(pModelsideValue);
+    errorState            = MmAttributeErrorState.SUCCESS;
+    isChangedFromViewside = false;
 
-    this.logDebugChange(originalDebugState);
+    logDebugChange(originalDebugState);
   }
 
   /**
@@ -370,20 +382,20 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
-    this.ensureInitialization();
+    assureInitialization();
 
-    String originalDebugState = this.toStringTraceState();
+    String originalDebugState = toStringTraceState();
 
     // set changed flag just in case it has changed
-    if ((this.viewsideValue != null) && (!this.viewsideValue.equals(pViewsideValue))) {
-      this.isChangedFromViewside = true;
+    if ((viewsideValue != null) && (!viewsideValue.equals(pViewsideValue))) {
+      isChangedFromViewside = true;
     }
 
-    this.viewsideValue = pViewsideValue;
-    this.valueState    = MmValueState.SET_FROM_VIEW_TO_VIEWSIDE;
-    this.errorState    = MmAttributeErrorState.SUCCESS;
+    viewsideValue = pViewsideValue;
+    valueState    = MmValueState.SET_FROM_VIEW_TO_VIEWSIDE;
+    errorState    = MmAttributeErrorState.SUCCESS;
 
-    this.logDebugChange(originalDebugState);
+    logDebugChange(originalDebugState);
   }
 
   /**
@@ -400,10 +412,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void doMmValidate() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    this.doPassViewsideToModelsideValue();
-    this.doValidateModelsideValue();
+    doPassViewsideToModelsideValue();
+    doValidateModelsideValue();
   }
 
   /**
@@ -415,7 +427,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public int getMmCols() {
-    this.ensureInitialization();
+    assureInitialization();
 
     return 1;
   }
@@ -429,9 +441,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public int getMmFormatMaxLength() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final int returnInt = this.declaration.callbackMmGetMaxLength(MmBaseAttributeDeclaration.EDITABLE_DEFAULT_MAX_LENGTH);
+    final int returnInt = declaration.callbackMmGetMaxLength(MmBaseAttributeDeclaration.EDITABLE_DEFAULT_MAX_LENGTH);
     assert returnInt != 0 : "callbackMmGetMaxLength cannot return 0";
     return returnInt;
   }
@@ -446,10 +458,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public String getMmFormatPattern() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    final String i18nFormatPattern = this.getMmI18nText(MmMessageType.FORMAT);
-    final String returnString      = this.declaration.callbackMmGetFormatPattern(i18nFormatPattern);
+    final String i18nFormatPattern = getMmI18nText(MmMessageType.FORMAT);
+    final String returnString      = declaration.callbackMmGetFormatPattern(i18nFormatPattern);
     assert returnString != null : "callbackMmGetFormatPattern cannot return null";
     return returnString;
   }
@@ -463,7 +475,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public MmBooleanLayout getMmLayout() {
-    this.ensureInitialization();
+    assureInitialization();
 
     return MmBooleanLayout.PAGE_DIRECTION;
   }
@@ -477,9 +489,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public Class<ATTRIBUTE_MODEL> getMmModelsideType() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return findGenericsParameterType(this.getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
+    return findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
   }
 
   /**
@@ -491,9 +503,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public ATTRIBUTE_MODEL getMmModelsideValue() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.modelAccessor.get();
+    return modelAccessor.get();
   }
 
   /**
@@ -505,7 +517,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public int getMmRows() {
-    this.ensureInitialization();
+    assureInitialization();
 
     return 1;
   }
@@ -521,10 +533,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public String getMmShortDescription() {
-    this.ensureInitialization();
+    assureInitialization();
 
     String returnString = super.getMmShortDescription();
-    if (this.isMmRequired()) {
+    if (isMmRequired()) {
       returnString = returnString + " *";
     }
     return returnString;
@@ -539,7 +551,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public int getMmSize() {
-    this.ensureInitialization();
+    assureInitialization();
 
     return 3;
   }
@@ -553,9 +565,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public Class<VIEWSIDE_VALUE> getMmViewsideType() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return findGenericsParameterType(this.getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEWSIDE_VALUE);
+    return findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEWSIDE_VALUE);
   }
 
   /**
@@ -567,9 +579,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public VIEWSIDE_VALUE getMmViewsideValue() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.viewsideValue;
+    return viewsideValue;
   }
 
   /**
@@ -581,9 +593,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.viewsideValue == null;
+    return viewsideValue == null;
   }
 
   /**
@@ -595,9 +607,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public boolean isMmRequired() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.declaration.callbackMmIsRequired(this.configuration.isRequired());
+    return declaration.callbackMmIsRequired(configuration.isRequired());
   }
 
   /**
@@ -609,18 +621,18 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public boolean isMmValid() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.valueState == MmValueState.VALID_VALUE_IN_MODELSIDE;
+    return valueState == MmValueState.VALID_VALUE_IN_MODELSIDE;
   }
 
   /**
    * Clears list of messages of this mimic.
    */
   public void clearMmMessageList() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    this.messageList.clear();
+    messageList.clear();
   }
 
   /**
@@ -629,9 +641,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @return  The highest severity of error message of this mimic.
    */
   public MmMessageSeverity getMmMaximumSeverity() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.messageList.getMaximumSeverity();
+    return messageList.getMaximumSeverity();
   }
 
   /**
@@ -640,9 +652,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @return  A list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
    */
   public List<MmMessage> getMmMessages() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.messageList.getMessages();
+    return messageList.getMessages();
   }
 
   /**
@@ -650,15 +662,21 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return  The accessor of root component of model.
    *
-   * @throws  IllegalStateException  TODOC
+   * @throws  IllegalStateException  In case of ancestor of type MmContainerMimic or root accessor is not defined.
    */
   public MmComponentAccessor<?, ?> getMmRootAccessor() {
-    MmContainerMimic<?> containerAncestor = getImplementationAncestorOfType(MmContainerMimic.class);
-    if (containerAncestor != null) {
-      return containerAncestor.getMmRootAccessor();
-    } else {
-      throw new IllegalStateException("attribute mimic must have at least one ancestor of type MmContainerMimic");
+    if (rootAccessor == null) {
+      MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
+      if (containerAncestor == null) {
+        throw new IllegalStateException("no ancestor of type MmContainerMimic for " + getMmFullName());
+      } else {
+        rootAccessor = containerAncestor.getMmRootAccessor();
+        if (rootAccessor == null) {
+          throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
+        }
+      }
     }
+    return rootAccessor;
   }
 
   /**
@@ -667,9 +685,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @return  A list of options.
    */
   public List<MmSelectOption<Object>> getMmSelectOptions() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.declaration.callbackMmGetSelectOptions();
+    return declaration.callbackMmGetSelectOptions();
   }
 
   /**
@@ -680,9 +698,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public final boolean isMmChangedFromViewside() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return this.isChangedFromViewside;
+    return isChangedFromViewside;
   }
 
   /**
@@ -692,9 +710,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   protected void logDebugChange(String pOriginalDebugState) {
     if (LOGGER.isTraceEnabled()) {
-      final String trimmedName = ("(" + this.name + "                              ").substring(0, 29) + ")";
+      final String trimmedName = ("(" + name + "                              ").substring(0, 29) + ")";
       LOGGER.trace(trimmedName + " was " + pOriginalDebugState);
-      LOGGER.trace(trimmedName + "  is " + this.toStringTraceState());
+      LOGGER.trace(trimmedName + "  is " + toStringTraceState());
     }
   }
 
@@ -705,7 +723,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   protected String toStringState() {
     StringBuilder sb = new StringBuilder();
-    switch (this.valueState) {
+    switch (valueState) {
       case UNDEFINED: {
         sb.append("U         ");
         break;
@@ -726,7 +744,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
         sb.append(" VAL<M    ");
       }
     }
-    switch (this.errorState) {
+    switch (errorState) {
       case SUCCESS: {
         sb.append("         ");
         break;
@@ -747,10 +765,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     }
     sb.append(" (");
 
-    if (this.modelAccessor == null) {
+    if (modelAccessor == null) {
       sb.append("NO AC");
-    } else if (this.modelAccessor.isPresent()) {
-      if (this.modelAccessor.get() == null) {
+    } else if (modelAccessor.isPresent()) {
+      if (modelAccessor.get() == null) {
         sb.append("NULL ");
       } else {
         sb.append("MODEL");
@@ -761,8 +779,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     sb.append("/");
 
     String viewsideValueAsString = "----                ";
-    if (this.viewsideValue != null) {
-      viewsideValueAsString = this.viewsideValue.toString();
+    if (viewsideValue != null) {
+      viewsideValueAsString = viewsideValue.toString();
       viewsideValueAsString += "                    ";
       viewsideValueAsString = viewsideValueAsString.substring(0, 20);
     }
@@ -778,7 +796,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   protected String toStringTraceState() {
     if (LOGGER.isTraceEnabled()) {
-      return this.toStringState();
+      return toStringState();
     } else {
       return "";
     }

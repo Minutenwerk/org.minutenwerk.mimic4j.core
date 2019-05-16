@@ -18,7 +18,6 @@ import org.minutenwerk.mimic4j.impl.container.MmLeporelloCallback;
  *
  * @author  Olaf Kossak
  */
-@Deprecated
 public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationLeporello<MODEL, SUB_MODEL>>
   implements MmLeporelloCallback<MODEL, SUB_MODEL> {
 

@@ -31,8 +31,8 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    */
   public MmConfigurationPage() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    this.referencePath = DEFAULT_REFERENCE_PATH;
-    this.referenceFile = DEFAULT_REFERENCE_FILE;
+    referencePath = DEFAULT_REFERENCE_PATH;
+    referenceFile = DEFAULT_REFERENCE_FILE;
   }
 
   /**
@@ -42,8 +42,8 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    */
   public MmConfigurationPage(MmPageAnnotation pPageAnnotation) {
     super(pPageAnnotation.id(), pPageAnnotation.visible(), pPageAnnotation.readOnly(), pPageAnnotation.enabled());
-    this.referencePath = pPageAnnotation.referencePath();
-    this.referenceFile = pPageAnnotation.referenceFile();
+    referencePath = pPageAnnotation.referencePath();
+    referenceFile = pPageAnnotation.referenceFile();
   }
 
   /**
@@ -72,7 +72,7 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    * @return  The file part of the URL without slashes.
    */
   public final String getReferenceFile() {
-    return this.referenceFile;
+    return referenceFile;
   }
 
   /**
@@ -81,7 +81,7 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    * @return  The path part of the URL including trailing slash but without base part.
    */
   public final String getReferencePath() {
-    return this.referencePath;
+    return referencePath;
   }
 
 }

@@ -42,16 +42,16 @@ public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<Mm
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmTabAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmTabAnnotation.class);
 
-    MmTabAnnotation annotation = this.findAnnotation(this.declaration, MmTabAnnotation.class);
+    MmTabAnnotation annotation = findAnnotation(declaration, MmTabAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationTab();
+      configuration = new MmConfigurationTab();
     } else {
-      this.configuration = new MmConfigurationTab(annotation);
+      configuration = new MmConfigurationTab(annotation);
     }
   }
 

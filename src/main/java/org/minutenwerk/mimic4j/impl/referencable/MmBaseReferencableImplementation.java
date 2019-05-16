@@ -48,7 +48,7 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    */
   public void toDo() {
     // TODO when?
-    this.evaluateAndCacheReference();
+    evaluateAndCacheReference();
   }
 
   /**
@@ -60,12 +60,12 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    */
   @Override
   public MmReference getMmReference() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    if (this.cachedReference == null) {
-      this.evaluateAndCacheReference();
+    if (cachedReference == null) {
+      evaluateAndCacheReference();
     }
-    return this.cachedReference;
+    return cachedReference;
   }
 
   /**
@@ -78,21 +78,22 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * @jalopy.group  group-override
    */
   @Override
+  @Deprecated
   public MmReference getMmReference(MmReferencableModel pModel) {
-    this.ensureInitialization();
+    assureInitialization();
 
     @SuppressWarnings("unchecked")
     final MODEL castedModel = (MODEL)pModel;
 
-    if (!pModel.equals(this.foreignModel)) {
-      final String            path            = this.getMmReferencePath();
-      final String            file            = this.getMmReferenceFile();
+    if (!pModel.equals(foreignModel)) {
+      final String            path            = getMmReferencePath();
+      final String            file            = getMmReferenceFile();
       final List<MmNameValue> modelParams     = MmBaseLinkImplementation.getMmModelParams(castedModel);
-      final List<MmNameValue> callbackParams  = this.declaration.callbackMmGetReferenceParams(modelParams, this.modelAccessor.get());
+      final List<MmNameValue> callbackParams  = declaration.callbackMmGetReferenceParams(modelParams, modelAccessor.get());
       final MmReference       returnReference = new MmReferenceImplementation(path, file, callbackParams);
 
-      this.foreignModel     = castedModel;
-      this.foreignReference = returnReference;
+      foreignModel     = castedModel;
+      foreignReference = returnReference;
     }
     return foreignReference;
   }
@@ -101,12 +102,12 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * Evaluates and caches the self reference of this mimic.
    */
   protected void evaluateAndCacheReference() {
-    final String            path           = this.getMmReferencePath();
-    final String            file           = this.getMmReferenceFile();
-    final List<MmNameValue> modelParams    = MmBaseLinkImplementation.getMmModelParams(this.modelAccessor.get());
-    final List<MmNameValue> callbackParams = this.declaration.callbackMmGetReferenceParams(modelParams, this.modelAccessor.get());
+    final String            path           = getMmReferencePath();
+    final String            file           = getMmReferenceFile();
+    final List<MmNameValue> modelParams    = MmBaseLinkImplementation.getMmModelParams(modelAccessor.get());
+    final List<MmNameValue> callbackParams = declaration.callbackMmGetReferenceParams(modelParams, modelAccessor.get());
 
-    this.cachedReference = new MmReferenceImplementation(path, file, callbackParams);
+    cachedReference = new MmReferenceImplementation(path, file, callbackParams);
   }
 
 }

@@ -105,7 +105,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public MmReferencableModel getMmModel() {
-    return this.implementation.getMmModel();
+    return implementation.getMmModel();
   }
 
   /**
@@ -117,7 +117,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final MmReference getMmTargetReference() {
-    return this.implementation.getMmTargetReference();
+    return implementation.getMmTargetReference();
   }
 
   /**
@@ -129,7 +129,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final String getMmViewsideValue() {
-    return this.implementation.getMmViewsideValue();
+    return implementation.getMmViewsideValue();
   }
 
   /**
@@ -142,7 +142,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -155,7 +155,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -168,7 +168,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -181,7 +181,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -194,7 +194,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -207,7 +207,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -220,7 +220,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -233,7 +233,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -246,7 +246,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -259,7 +259,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -272,7 +272,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -285,7 +285,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -298,7 +298,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -311,7 +311,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -324,7 +324,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 
   /**
@@ -337,6 +337,6 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public final void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
-    this.implementation.setMmModelsideValue(pModelsideValue, pModel);
+    implementation.setMmModelsideValue(pModelsideValue, pModel);
   }
 }

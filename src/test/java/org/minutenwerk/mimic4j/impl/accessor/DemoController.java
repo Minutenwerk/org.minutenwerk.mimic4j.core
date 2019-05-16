@@ -9,7 +9,7 @@ public class DemoController {
   }
 
   public void setSelectedBook(final Book pSelectedBook) {
-    this.selectedBook = pSelectedBook;
+    selectedBook = pSelectedBook;
   }
 
   public BookAccessor book() {

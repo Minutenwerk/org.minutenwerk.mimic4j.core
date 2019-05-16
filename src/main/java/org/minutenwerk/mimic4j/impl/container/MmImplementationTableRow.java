@@ -26,8 +26,8 @@ public class MmImplementationTableRow<ROW_MODEL>
    */
   public MmImplementationTableRow(MmDeclarationMimic pParent, int pRowIndex) {
     super(pParent);
-    this.rowIndex = pRowIndex;
-    this.setName("row" + this.rowIndex);
+    rowIndex = pRowIndex;
+    setName("row" + rowIndex);
   }
 
   /**
@@ -36,7 +36,7 @@ public class MmImplementationTableRow<ROW_MODEL>
    * @return  The table row index of this row.
    */
   public int getMmRowIndex() {
-    return this.rowIndex;
+    return rowIndex;
   }
 
   /**
@@ -55,16 +55,16 @@ public class MmImplementationTableRow<ROW_MODEL>
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmTableRowAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmTableRowAnnotation.class);
 
-    MmTableRowAnnotation annotation = this.findAnnotation(this.declaration, MmTableRowAnnotation.class);
+    MmTableRowAnnotation annotation = findAnnotation(declaration, MmTableRowAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationTableRow();
+      configuration = new MmConfigurationTableRow();
     } else {
-      this.configuration = new MmConfigurationTableRow(annotation);
+      configuration = new MmConfigurationTableRow(annotation);
     }
   }
 

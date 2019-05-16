@@ -31,9 +31,9 @@ public class MmImplementationDuration extends MmBaseAttributeImplementation<MmDu
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -52,16 +52,16 @@ public class MmImplementationDuration extends MmBaseAttributeImplementation<MmDu
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmDurationAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmDurationAnnotation.class);
 
-    MmDurationAnnotation annotation = this.findAnnotation(this.declaration, MmDurationAnnotation.class);
+    MmDurationAnnotation annotation = findAnnotation(declaration, MmDurationAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationDuration();
+      configuration = new MmConfigurationDuration();
     } else {
-      this.configuration = new MmConfigurationDuration(annotation);
+      configuration = new MmConfigurationDuration(annotation);
     }
   }
 

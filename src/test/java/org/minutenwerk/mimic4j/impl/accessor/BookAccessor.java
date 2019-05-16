@@ -19,6 +19,6 @@ public class BookAccessor extends MmComponentAccessor<DemoController, Book> {
   }
 
   public ChapterAccessor chapters(final int index) {
-    return new ChapterAccessor(this.chapters(), () -> index);
+    return new ChapterAccessor(chapters(), () -> index);
   }
 }

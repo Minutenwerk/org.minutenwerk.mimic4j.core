@@ -90,14 +90,14 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
       if (pModelsideValue == null) {
         return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
       } else {
-        DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+        DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
         String            returnString      = dateTimeFormatter.format(pModelsideValue);
         return returnString;
       }
     } catch (Exception e) {
       throw new MmModelsideConverterException(this,
-        "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-        + " by pattern >" + this.getMmFormatPattern() + "<");
+        "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+        + getMmFormatPattern() + "<");
     }
   }
 
@@ -115,19 +115,19 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
   @Override
   public Instant callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     Instant returnInstant;
-    if (this.isMmEmpty()) {
+    if (isMmEmpty()) {
       returnInstant = null;
     } else {
       try {
-        DateTimeFormatter dateTimeFormatter = this.getMmDateTimeFormatter();
+        DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
         TemporalAccessor  temporalAccessor  = dateTimeFormatter.parse(pViewsideValue);
         LocalDateTime     localDateTime     = LocalDateTime.from(temporalAccessor);
         ZonedDateTime     zonedDateTime     = ZonedDateTime.of(localDateTime, ZoneId.of("UTC"));
         returnInstant = Instant.from(zonedDateTime);
       } catch (DateTimeParseException e) {
         throw new MmViewsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue
-          + " by pattern >" + this.getMmFormatPattern() + "<");
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue + " by pattern >"
+          + getMmFormatPattern() + "<");
       }
     }
     return returnInstant;
@@ -164,7 +164,7 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    * @return  The initialized date formatter of this mimic.
    */
   protected DateTimeFormatter getMmDateTimeFormatter() {
-    final String formatPattern = this.getMmFormatPattern();
+    final String formatPattern = getMmFormatPattern();
     assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
 
     final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(formatPattern).withZone(ZoneId.of("UTC"));

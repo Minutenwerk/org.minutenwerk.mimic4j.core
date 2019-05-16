@@ -13,7 +13,7 @@ import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 
 /**
  * MmBaseEditable is an abstract base class for all editable attribute mimics.
@@ -55,7 +55,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @jalopy.group  group-callback
    */
   @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pRootAccessor) {
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
     LOGGER.warn("no definition of callbackMmGetAccessor() for {}", this::getMmFullName);
     return null;
   }
@@ -112,7 +112,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
-    this.implementation.setMmViewsideValue(pViewsideValue);
+    implementation.setMmViewsideValue(pViewsideValue);
   }
 
   /**
@@ -127,8 +127,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final void doMmValidate() {
-    this.implementation.clearMmMessageList();
-    this.implementation.doMmValidate();
+    implementation.clearMmMessageList();
+    implementation.doMmValidate();
   }
 
   /**
@@ -138,7 +138,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final int getMmCols() {
-    return this.implementation.getMmCols();
+    return implementation.getMmCols();
   }
 
   /**
@@ -148,7 +148,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final int getMmFormatMaxLength() {
-    return this.implementation.getMmFormatMaxLength();
+    return implementation.getMmFormatMaxLength();
   }
 
   /**
@@ -159,7 +159,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final String getMmFormatPattern() {
-    return this.implementation.getMmFormatPattern();
+    return implementation.getMmFormatPattern();
   }
 
   /**
@@ -169,7 +169,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final MmBooleanLayout getMmLayout() {
-    return this.implementation.getMmLayout();
+    return implementation.getMmLayout();
   }
 
   /**
@@ -179,7 +179,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final Class<ATTRIBUTE_MODEL> getMmModelsideType() {
-    return this.implementation.getMmModelsideType();
+    return implementation.getMmModelsideType();
   }
 
   /**
@@ -189,7 +189,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final ATTRIBUTE_MODEL getMmModelsideValue() {
-    return this.implementation.getMmModelsideValue();
+    return implementation.getMmModelsideValue();
   }
 
   /**
@@ -199,7 +199,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final int getMmRows() {
-    return this.implementation.getMmRows();
+    return implementation.getMmRows();
   }
 
   /**
@@ -209,7 +209,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final int getMmSize() {
-    return this.implementation.getMmSize();
+    return implementation.getMmSize();
   }
 
   /**
@@ -219,7 +219,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final Class<VIEWSIDE_VALUE> getMmViewsideType() {
-    return this.implementation.getMmViewsideType();
+    return implementation.getMmViewsideType();
   }
 
   /**
@@ -229,7 +229,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final VIEWSIDE_VALUE getMmViewsideValue() {
-    return this.implementation.getMmViewsideValue();
+    return implementation.getMmViewsideValue();
   }
 
   /**
@@ -240,7 +240,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final boolean isMmChangedFromViewside() {
-    return this.implementation.isMmChangedFromViewside();
+    return implementation.isMmChangedFromViewside();
   }
 
   /**
@@ -250,7 +250,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final boolean isMmEmpty() {
-    return this.implementation.isMmEmpty();
+    return implementation.isMmEmpty();
   }
 
   /**
@@ -260,7 +260,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final boolean isMmRequired() {
-    return this.implementation.isMmRequired();
+    return implementation.isMmRequired();
   }
 
   /**
@@ -270,7 +270,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public final boolean isMmValid() {
-    return this.implementation.isMmValid();
+    return implementation.isMmValid();
   }
 
   /**
@@ -279,7 +279,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @return  The initialized number formatter of this mimic.
    */
   protected NumberFormat getMmNumberFormatter() {
-    final String formatPattern = this.getMmFormatPattern();
+    final String formatPattern = getMmFormatPattern();
     assert formatPattern != null : "callbackMmGetFormatPattern() must return valid format pattern";
 
     final MmRoot        root                  = MmRelationshipApi.getMmRoot(this);

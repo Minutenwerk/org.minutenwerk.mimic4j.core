@@ -38,16 +38,16 @@ public class MmImplementationForm<MODEL> extends MmBaseContainerImplementation<M
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmFormAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmFormAnnotation.class);
 
-    MmFormAnnotation annotation = this.findAnnotation(this.declaration, MmFormAnnotation.class);
+    MmFormAnnotation annotation = findAnnotation(declaration, MmFormAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationForm();
+      configuration = new MmConfigurationForm();
     } else {
-      this.configuration = new MmConfigurationForm(annotation);
+      configuration = new MmConfigurationForm(annotation);
     }
   }
 

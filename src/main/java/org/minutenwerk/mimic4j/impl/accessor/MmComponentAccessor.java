@@ -34,9 +34,9 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   public MmComponentAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
     final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
     super(parentAccessor);
-    this.rootModel       = null;
-    this.componentGetter = pComponentGetter;
-    this.componentSetter = pComponentSetter;
+    rootModel       = null;
+    componentGetter = pComponentGetter;
+    componentSetter = pComponentSetter;
   }
 
   /**
@@ -49,9 +49,9 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   public MmComponentAccessor(final PARENT_MODEL pRootModel, final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter,
     final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
     super(null);
-    this.rootModel       = pRootModel;
-    this.componentGetter = pComponentGetter;
-    this.componentSetter = pComponentSetter;
+    rootModel       = pRootModel;
+    componentGetter = pComponentGetter;
+    componentSetter = pComponentSetter;
   }
 
   /**
@@ -73,7 +73,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    */
   @Override
   public PARENT_MODEL getParent() {
-    return this.isRoot() ? this.rootModel : this.getParentAccessor().get();
+    return isRoot() ? rootModel : getParentAccessor().get();
   }
 
   /**
@@ -103,7 +103,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    */
   @Override
   public boolean isRoot() {
-    return (this.rootModel != null);
+    return (rootModel != null);
   }
 
   /**
@@ -125,7 +125,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    */
   @Override
   public PARENT_MODEL with(final COMPONENT_MODEL value) {
-    PARENT_MODEL withParent = this.getParent();
+    PARENT_MODEL withParent = getParent();
     componentSetter.accept(withParent, value);
     return withParent;
   }
@@ -150,9 +150,9 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    * @return  {@link Optional} of component.
    */
   protected Optional<COMPONENT_MODEL> getComponentOptional() {
-    PARENT_MODEL thisParent = this.getParent();
+    PARENT_MODEL thisParent = getParent();
     if (thisParent != null) {
-      return Optional.ofNullable(this.componentGetter.apply(thisParent));
+      return Optional.ofNullable(componentGetter.apply(thisParent));
     } else {
       return Optional.empty();
     }

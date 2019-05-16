@@ -85,12 +85,12 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
       returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
     } else {
       try {
-        NumberFormat numberFormatter = this.getMmNumberFormatter();
+        NumberFormat numberFormatter = getMmNumberFormatter();
         returnString = numberFormatter.format(pModelsideValue);
       } catch (IllegalArgumentException e) {
         throw new MmModelsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", modelside value: " + pModelsideValue
-          + " by pattern >" + this.getMmFormatPattern() + "<");
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          + getMmFormatPattern() + "<");
       }
     }
     return returnString;
@@ -110,17 +110,17 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
   @Override
   public Float callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
     Float returnFloat;
-    if (this.isMmEmpty()) {
+    if (isMmEmpty()) {
       returnFloat = null;
     } else {
       try {
-        NumberFormat numberFormatter = this.getMmNumberFormatter();
+        NumberFormat numberFormatter = getMmNumberFormatter();
         Number       parsedNumber    = numberFormatter.parse(pViewsideValue);
         returnFloat = parsedNumber.floatValue();
       } catch (ParseException e) {
         throw new MmViewsideConverterException(this,
-          "Cannot format " + this.getClass().getSimpleName() + " " + this.getMmId() + ", viewside value: " + pViewsideValue
-          + " by pattern >" + this.getMmFormatPattern() + "<");
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue + " by pattern >"
+          + getMmFormatPattern() + "<");
       }
     }
     return returnFloat;

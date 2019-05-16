@@ -31,9 +31,9 @@ public class MmImplementationBigDecimal extends MmBaseAttributeImplementation<Mm
    */
   @Override
   public boolean isMmEmpty() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    return ((this.viewsideValue == null) || this.viewsideValue.trim().isEmpty());
+    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
   }
 
   /**
@@ -53,16 +53,16 @@ public class MmImplementationBigDecimal extends MmBaseAttributeImplementation<Mm
   protected void initializeConfiguration() {
     // evaluate annotation
     // TODO how to check this only for development?
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmBigDecimalAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmBigDecimalAnnotation.class);
 
-    MmBigDecimalAnnotation annotation = this.findAnnotation(this.declaration, MmBigDecimalAnnotation.class);
+    MmBigDecimalAnnotation annotation = findAnnotation(declaration, MmBigDecimalAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationBigDecimal();
+      configuration = new MmConfigurationBigDecimal();
     } else {
-      this.configuration = new MmConfigurationBigDecimal(annotation);
+      configuration = new MmConfigurationBigDecimal(annotation);
     }
   }
 

@@ -32,16 +32,16 @@ public class MmImplementationTable<ROW_MODEL>
    */
   public MmImplementationTable(MmDeclarationMimic pParent) {
     super(pParent);
-    this.tableColumns = new ArrayList<>();
+    tableColumns = new ArrayList<>();
   }
 
   /**
    * Clears all table rows of this table.
    */
   public void doMmClearTableRows() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    this.clearRuntimeChildrenList();
+    clearRuntimeChildrenList();
   }
 
   /**
@@ -52,15 +52,15 @@ public class MmImplementationTable<ROW_MODEL>
    * @jalopy.group  group-do
    */
   public void doMmSetModelsideFromModel(List<ROW_MODEL> pRowModelList) {
-    this.ensureInitialization();
+    assureInitialization();
 
-    this.clearMessageListRecursively(this);
+    clearMessageListRecursively(this);
 
     // store modelside reference to model
-    // this.model = pRowModelList;
+    // model = pRowModelList;
 
     // clear list of runtime children of table
-    this.clearRuntimeChildrenList();
+    clearRuntimeChildrenList();
 
     // iterate over list of row models
     int i = 0;
@@ -69,15 +69,15 @@ public class MmImplementationTable<ROW_MODEL>
       // for each row model create a table row mimic and pass row model
       i++;
 
-      MmTableRow<ROW_MODEL> tableRowMm = this.declaration.callbackMmCreateTableRow(i);
+      MmTableRow<ROW_MODEL> tableRowMm = declaration.callbackMmCreateTableRow(i);
       // tableRowMm.doMmSetModelsideFromModel(rowModel);
 
       // add table row mimic to list of runtime children
-      this.addChild(tableRowMm, null, this.typeOfFirstGenericParameter);
+      addChild(tableRowMm, null, typeOfFirstGenericParameter);
     }
 
     // invoke callbackMm to pass values from model to modelside value is NOT necessary here
-    // this.declaration.callbackMmSetModelsideFromModel(this.model);
+    // declaration.callbackMmSetModelsideFromModel(model);
 
     doPassModelsideToViewsideRecursively(this);
   }
@@ -88,16 +88,16 @@ public class MmImplementationTable<ROW_MODEL>
    * @return  The list of table column mimics.
    */
   public List<MmTableColumn> getMmTableColumns() {
-    this.ensureInitialization();
+    assureInitialization();
 
-    if (this.tableColumns.isEmpty()) {
-      for (MmMimic child : this.getMmChildren()) {
+    if (tableColumns.isEmpty()) {
+      for (MmMimic child : getMmChildren()) {
         if (child instanceof MmTableColumn) {
-          this.tableColumns.add((MmTableColumn)child);
+          tableColumns.add((MmTableColumn)child);
         }
       }
     }
-    return this.tableColumns;
+    return tableColumns;
   }
 
   /**
@@ -106,10 +106,10 @@ public class MmImplementationTable<ROW_MODEL>
    * @return  The list of table row mimics.
    */
   public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
-    this.ensureInitialization();
+    assureInitialization();
 
     List<T> returnList = new ArrayList<>();
-    for (MmMimic child : this.getMmChildren()) {
+    for (MmMimic child : getMmChildren()) {
       if (child instanceof MmTableRow<?>) {
         @SuppressWarnings("unchecked")
         T tableRowMm = (T)child;
@@ -135,16 +135,16 @@ public class MmImplementationTable<ROW_MODEL>
   @Override
   protected void initializeConfiguration() {
     // evaluate annotation
-    this.checkForIllegalAnnotationsOtherThan(this.declaration, MmTableAnnotation.class);
+    checkForIllegalAnnotationsOtherThan(declaration, MmTableAnnotation.class);
 
-    MmTableAnnotation annotation = this.findAnnotation(this.declaration, MmTableAnnotation.class);
+    MmTableAnnotation annotation = findAnnotation(declaration, MmTableAnnotation.class);
 
     if (annotation == null) {
 
       // if there is no annotation, set default configuration
-      this.configuration = new MmConfigurationTable();
+      configuration = new MmConfigurationTable();
     } else {
-      this.configuration = new MmConfigurationTable(annotation);
+      configuration = new MmConfigurationTable(annotation);
     }
   }
 

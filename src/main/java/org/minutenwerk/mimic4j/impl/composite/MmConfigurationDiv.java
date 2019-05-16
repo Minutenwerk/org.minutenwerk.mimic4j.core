@@ -23,7 +23,7 @@ public class MmConfigurationDiv extends MmBaseConfiguration {
    */
   public MmConfigurationDiv() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    this.jsfTag = DEFAULT_JSF_TAG;
+    jsfTag = DEFAULT_JSF_TAG;
   }
 
   /**
@@ -33,7 +33,7 @@ public class MmConfigurationDiv extends MmBaseConfiguration {
    */
   public MmConfigurationDiv(MmDivAnnotation pDivAnnotation) {
     super(pDivAnnotation.id(), pDivAnnotation.visible(), pDivAnnotation.readOnly(), pDivAnnotation.enabled());
-    this.jsfTag = pDivAnnotation.jsfTag();
+    jsfTag = pDivAnnotation.jsfTag();
   }
 
   /**
@@ -43,7 +43,7 @@ public class MmConfigurationDiv extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagDisabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -53,7 +53,7 @@ public class MmConfigurationDiv extends MmBaseConfiguration {
    */
   @Override
   public String getJsfTagEnabled() {
-    return this.jsfTag.name();
+    return jsfTag.name();
   }
 
   /**
@@ -62,7 +62,7 @@ public class MmConfigurationDiv extends MmBaseConfiguration {
    * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
    */
   public void setJsfTag(MmDivJsfTag pJsfTag) {
-    this.jsfTag = pJsfTag;
+    jsfTag = pJsfTag;
   }
 
 }
