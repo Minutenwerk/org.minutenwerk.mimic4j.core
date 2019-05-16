@@ -167,7 +167,19 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   @Override
   protected void initialize() {
     super.initialize();
-    rootAccessor  = getMmRootAccessor();
+
+    // initialize rootAccessor
+    MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
+    if (containerAncestor == null) {
+      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + getMmFullName());
+    } else {
+      rootAccessor = containerAncestor.getMmRootAccessor();
+      if (rootAccessor == null) {
+        throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
+      }
+    }
+
+    // initialize modelAccessor
     modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
     if (modelAccessor == null) {
       throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
@@ -665,17 +677,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @throws  IllegalStateException  In case of ancestor of type MmContainerMimic or root accessor is not defined.
    */
   public MmComponentAccessor<?, ?> getMmRootAccessor() {
-    if (rootAccessor == null) {
-      MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
-      if (containerAncestor == null) {
-        throw new IllegalStateException("no ancestor of type MmContainerMimic for " + getMmFullName());
-      } else {
-        rootAccessor = containerAncestor.getMmRootAccessor();
-        if (rootAccessor == null) {
-          throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
-        }
-      }
-    }
     return rootAccessor;
   }
 

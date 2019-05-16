@@ -1,8 +1,5 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
@@ -20,9 +17,6 @@ import org.minutenwerk.mimic4j.impl.message.MmMessage;
  */
 public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends MmBaseContainerImplementation<?, MODEL, ?>>
   extends MmBaseDeclaration<MmContainerMimic<MODEL>, IMPLEMENTATION> implements MmContainerMimic<MODEL>, MmContainerCallback<MODEL> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmBaseContainerDeclaration.class);
 
   /**
    * Creates a new MmBaseContainerDeclaration instance.
@@ -48,11 +42,12 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * @param   pRootAccessor  The specified root component accessor.
    *
    * @return  The container's accessor.
+   *
+   * @throws        IllegalStateException  In case of model accessor is not defined.
    */
   @Override
   public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
-    LOGGER.warn("no definition of callbackMmGetAccessor() for {}", this::getMmFullName);
-    return null;
+    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 
   /**

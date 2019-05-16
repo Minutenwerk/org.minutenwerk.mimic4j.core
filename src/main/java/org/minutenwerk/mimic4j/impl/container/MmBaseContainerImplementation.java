@@ -81,11 +81,27 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   @Override
   protected void initialize() {
     super.initialize();
-    rootAccessor = getMmRootAccessor();
+
+    // initialize rootAccessor and modelAccessor
+    MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
+    MmBaseContainerImplementation<?, ?, ?> containerRootAncestor = null;
+    while(containerAncestor != null) {
+      containerRootAncestor = containerAncestor;      
+      containerAncestor = containerAncestor.getImplementationAncestorOfType(MmBaseContainerImplementation.class);
+    }
+    if (containerRootAncestor == null) {
+      // if there is no containerRootAncestor, this component is the rootAncestor
+      // then rootAccessor and modelAccessor are identical
+      // TODO how to get accessor for root component?
+      modelAccessor = declaration.callbackMmGetAccessor(null);
+      rootAccessor = modelAccessor;
+    } else {
+      rootAccessor = containerRootAncestor.modelAccessor;
+      modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
+    }
     if (rootAccessor == null) {
       throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
     }
-    modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
     if (modelAccessor == null) {
       throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
     }
@@ -490,17 +506,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @throws  IllegalStateException  In case of root accessor is not defined.
    */
   public MmComponentAccessor<?, ?> getMmRootAccessor() {
-    if (rootAccessor == null) {
-      MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
-      if (containerAncestor == null) {
-        rootAccessor = modelAccessor;
-      } else {
-        rootAccessor = containerAncestor.getMmRootAccessor();
-        if (rootAccessor == null) {
-          throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
-        }
-      }
-    }
     return rootAccessor;
   }
 

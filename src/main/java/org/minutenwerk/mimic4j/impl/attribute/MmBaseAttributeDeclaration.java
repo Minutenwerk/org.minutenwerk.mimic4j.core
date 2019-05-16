@@ -2,11 +2,7 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
 import java.util.Locale;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
@@ -32,9 +28,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   /** Constant for default value of maximum input length. */
   public static final int     EDITABLE_DEFAULT_MAX_LENGTH          = 255;
 
-  /** The logger of this class. */
-  private static final Logger LOGGER                               = LogManager.getLogger(MmBaseAttributeDeclaration.class);
-
   /**
    * Creates a new MmBaseEditable instance.
    *
@@ -52,12 +45,13 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return        The attribute's accessor.
    *
+   * @throws        IllegalStateException  In case of model accessor is not defined.
+   *
    * @jalopy.group  group-callback
    */
   @Override
   public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
-    LOGGER.warn("no definition of callbackMmGetAccessor() for {}", this::getMmFullName);
-    return null;
+    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 
   /**
