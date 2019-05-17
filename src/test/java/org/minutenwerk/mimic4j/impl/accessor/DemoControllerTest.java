@@ -26,52 +26,52 @@ public class DemoControllerTest {
 
     // let controller point to pojo
     // use accessors to set values and assert values
-    assertTrue(controller.book().isNotPresent());
-    controller.setSelectedBook(book);
-    assertTrue(controller.book().isPresent());
-    assertEquals(book, controller.book().get());
+    assertTrue(controller.selectedBook().isNotPresent());
+    controller.selectedBook().set(book);
+    assertTrue(controller.selectedBook().isPresent());
+    assertEquals(book, controller.selectedBook().get());
 
-    assertTrue(controller.book().title().isNotPresent());
-    controller.book().title().set("Some title");
-    assertTrue(controller.book().title().isPresent());
-    assertEquals("Some title", controller.book().title().get());
+    assertTrue(controller.selectedBook().title().isNotPresent());
+    controller.selectedBook().title().set("Some title");
+    assertTrue(controller.selectedBook().title().isPresent());
+    assertEquals("Some title", controller.selectedBook().title().get());
 
-    assertTrue(controller.book().author().isNotPresent());
-    controller.book().author().set(author);
-    assertTrue(controller.book().author().isPresent());
-    assertEquals(author, controller.book().author().get());
+    assertTrue(controller.selectedBook().author().isNotPresent());
+    controller.selectedBook().author().set(author);
+    assertTrue(controller.selectedBook().author().isPresent());
+    assertEquals(author, controller.selectedBook().author().get());
 
-    assertTrue(controller.book().author().name().isNotPresent());
-    controller.book().author().name().set("Some author name");
-    assertTrue(controller.book().author().name().isPresent());
-    assertEquals("Some author name", controller.book().author().name().get());
+    assertTrue(controller.selectedBook().author().name().isNotPresent());
+    controller.selectedBook().author().name().set("Some author name");
+    assertTrue(controller.selectedBook().author().name().isPresent());
+    assertEquals("Some author name", controller.selectedBook().author().name().get());
 
-    assertTrue(controller.book().chapters().isNotPresent());
-    controller.book().chapters().set(chapters);
-    assertTrue(controller.book().chapters().isPresent());
-    assertTrue(controller.book().chapters().isEmpty());
-    assertEquals(0, controller.book().chapters().size());
-    assertEquals(chapters, controller.book().chapters().get());
+    assertTrue(controller.selectedBook().chapters().isNotPresent());
+    controller.selectedBook().chapters().set(chapters);
+    assertTrue(controller.selectedBook().chapters().isPresent());
+    assertTrue(controller.selectedBook().chapters().isEmpty());
+    assertEquals(0, controller.selectedBook().chapters().size());
+    assertEquals(chapters, controller.selectedBook().chapters().get());
 
-    controller.book().chapters().add(chapter1);
-    assertEquals(1, controller.book().chapters().size());
-    assertTrue(controller.book().chapters().contains(chapter1));
-    assertEquals(chapter1, controller.book().chapters(0).get());
+    controller.selectedBook().chapters().add(chapter1);
+    assertEquals(1, controller.selectedBook().chapters().size());
+    assertTrue(controller.selectedBook().chapters().contains(chapter1));
+    assertEquals(chapter1, controller.selectedBook().chapters(0).get());
 
-    assertTrue(controller.book().chapters(0).topic().isNotPresent());
-    controller.book().chapters(0).topic().set("Some topic");
-    assertTrue(controller.book().chapters(0).topic().isPresent());
-    assertEquals("Some topic", controller.book().chapters(0).topic().get());
+    assertTrue(controller.selectedBook().chapters(0).topic().isNotPresent());
+    controller.selectedBook().chapters(0).topic().set("Some topic");
+    assertTrue(controller.selectedBook().chapters(0).topic().isPresent());
+    assertEquals("Some topic", controller.selectedBook().chapters(0).topic().get());
 
-    controller.book().chapters().add(chapter2);
-    assertEquals(2, controller.book().chapters().size());
-    assertTrue(controller.book().chapters().contains(chapter2));
+    controller.selectedBook().chapters().add(chapter2);
+    assertEquals(2, controller.selectedBook().chapters().size());
+    assertTrue(controller.selectedBook().chapters().contains(chapter2));
 
     // let controller point to null
-    controller.setSelectedBook(null);
-    assertTrue(controller.book().isNotPresent());
-    assertTrue(controller.book().title().isNotPresent());
-    assertTrue(controller.book().author().isNotPresent());
-    assertTrue(controller.book().author().name().isNotPresent());
+    controller.selectedBook().set(null);
+    assertTrue(controller.selectedBook().isNotPresent());
+    assertTrue(controller.selectedBook().title().isNotPresent());
+    assertTrue(controller.selectedBook().author().isNotPresent());
+    assertTrue(controller.selectedBook().author().name().isNotPresent());
   }
 }

@@ -8,13 +8,9 @@ import java.time.ZonedDateTime;
 
 import org.minutenwerk.mimic4j.container.TestModel.Gender;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
-public class TestModelAccessor extends MmComponentAccessor<MmMimicModelTest, TestModel> {
-
-	public TestModelAccessor(MmMimicModelTest mimicModelTest) {
-		super(mimicModelTest, MmMimicModelTest::getTestModel, null);
-	}
+public class TestModelAccessor extends MmRootAccessor<TestModel> {
 
 	public MmAttributeAccessor<TestModel, String> vorname() {
 	    return new MmAttributeAccessor<>(this, TestModel::getVorname, TestModel::setVorname);

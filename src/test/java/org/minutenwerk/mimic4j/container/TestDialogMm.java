@@ -23,17 +23,20 @@ import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
+import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
 import org.minutenwerk.mimic4j.container.TestModel.Gender;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
+@MmTabAnnotation(id="tab")
 public class TestDialogMm extends MmTab<TestModel> {
 
   @MmStringAnnotation(id = "vn")
   public final MmString vorname = new MmString(this) {
     @Override
-    public  MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public  MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).vorname();
     }
   };
@@ -41,7 +44,7 @@ public class TestDialogMm extends MmTab<TestModel> {
   @MmStringAnnotation(id = "nn")
   public final MmString nachname = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).nachname();
     }
   };
@@ -49,7 +52,7 @@ public class TestDialogMm extends MmTab<TestModel> {
   @MmLocalDateAnnotation(id = "bd")
   public final MmLocalDate birthday = new MmLocalDate(this) {
     @Override
-    public MmAttributeAccessor<?, LocalDate> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, LocalDate> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).birthday();
     }
   };
@@ -57,7 +60,7 @@ public class TestDialogMm extends MmTab<TestModel> {
   @MmInstantAnnotation(id = "in")
   public final MmInstant instant = new MmInstant(this) {
     @Override
-    public MmAttributeAccessor<?, Instant> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, Instant> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).instant();
     }
   };
@@ -65,7 +68,7 @@ public class TestDialogMm extends MmTab<TestModel> {
   @MmLocalTimeAnnotation(id = "lt")
   public final MmLocalTime localTime = new MmLocalTime(this) {
     @Override
-    public MmAttributeAccessor<?, LocalTime> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, LocalTime> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).localTime();
     }
   };
@@ -73,7 +76,7 @@ public class TestDialogMm extends MmTab<TestModel> {
   @MmLocalDateTimeAnnotation(id = "ldt")
   public final MmLocalDateTime localDateTime = new MmLocalDateTime(this) {
     @Override
-    public MmAttributeAccessor<?, LocalDateTime> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, LocalDateTime> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).localDateTime();
     }
   };
@@ -81,15 +84,16 @@ public class TestDialogMm extends MmTab<TestModel> {
   @MmZonedDateTimeAnnotation(id = "zdt")
   public final MmZonedDateTime zonedDateTime = new MmZonedDateTime(this) {
     @Override
-    public MmAttributeAccessor<?, ZonedDateTime> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, ZonedDateTime> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).zonedDateTime();
     }
   };
 
   @MmEnumAnnotation(id = "gd")
+  @SuppressWarnings("unchecked")
   public final MmEnum<Gender> gender = new MmEnum<Gender>(this) {
     @Override
-    public MmAttributeAccessor<?, Gender> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, Gender> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).gender();
     }
   };
@@ -97,19 +101,19 @@ public class TestDialogMm extends MmTab<TestModel> {
   @MmBooleanAnnotation(id = "mb")
   public final MmBoolean isMember = new MmBoolean(this) {
     @Override
-    public MmAttributeAccessor<?, Boolean> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, Boolean> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).isMember();
     }
   };
   
   public final MmTabAdresse adresse = new MmTabAdresse(this) {
     @Override
-    public MmComponentAccessor<?, TestAdresse> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmComponentAccessor<?, TestAdresse> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).adresse();
     }
   };
 
-  public TestDialogMm(MmBaseDeclaration<?,?> pParent) {
-    super(pParent);
+  public TestDialogMm(MmBaseDeclaration<?,?> pParent, MmRootAccessor<TestModel> pRootAccessor) {
+    super(pParent, pRootAccessor);
   }
 }

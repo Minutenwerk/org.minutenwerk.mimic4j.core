@@ -13,7 +13,7 @@ import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmErrorMessageType;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
@@ -127,10 +127,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /** The state regarding errors during conversion and validation. Initially the state is {@link MmErrorState.UNDEFINED}. */
   protected MmAttributeErrorState                   errorState;
 
-  /**
-   * This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a model accessor.
-   */
-  protected MmComponentAccessor<?, ?>               rootAccessor;
+  /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
+  protected MmRootAccessor<?>                       rootAccessor;
 
   /**
    * This attribute has a model of type ATTRIBUTE_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
@@ -667,17 +665,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     assureInitialization();
 
     return messageList.getMessages();
-  }
-
-  /**
-   * Returns accessor of root component of model.
-   *
-   * @return  The accessor of root component of model.
-   *
-   * @throws  IllegalStateException  In case of ancestor of type MmContainerMimic or root accessor is not defined.
-   */
-  public MmComponentAccessor<?, ?> getMmRootAccessor() {
-    return rootAccessor;
   }
 
   /**

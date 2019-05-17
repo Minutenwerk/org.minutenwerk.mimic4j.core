@@ -15,29 +15,6 @@
       <AppenderRef ref="RootConsoleAppender" />
     </Root>
 
-    <!-- 3rd party loggers -->
-
-    <Logger name="org.springframework.core" level="info">
-    </Logger>
-
-    <Logger name="org.springframework.beans" level="info">
-    </Logger>
-
-    <Logger name="org.springframework.context" level="info">
-    </Logger>
-
-    <Logger name="org.springframework.http" level="info">
-    </Logger>
-
-    <Logger name="org.springframework.binding" level="info">
-    </Logger>
-
-    <Logger name="org.springframework.web" level="info">
-    </Logger>
-
-    <Logger name="org.apache.myfaces.orchestra" level="info">
-    </Logger>
-
     <!-- application logger -->
 
     <Logger name="org.minutenwerk.mimic4j" level="trace">

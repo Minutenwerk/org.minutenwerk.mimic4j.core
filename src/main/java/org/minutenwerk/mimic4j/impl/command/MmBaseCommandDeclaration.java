@@ -24,7 +24,7 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmBaseCommandDeclaration(MmDeclarationMimic pParent) {
+  protected MmBaseCommandDeclaration(MmDeclarationMimic pParent) {
     super(new MmImplementationCommand(pParent));
   }
 

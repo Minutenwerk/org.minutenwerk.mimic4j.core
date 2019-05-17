@@ -1,10 +1,6 @@
 package org.minutenwerk.mimic4j.impl.accessor;
 
-public class BookAccessor extends MmComponentAccessor<DemoController, Book> {
-
-  public BookAccessor(final DemoController demoController) {
-    super(demoController, DemoController::getSelectedBook, DemoController::setSelectedBook);
-  }
+public class BookAccessor extends MmRootAccessor<Book> {
 
   public MmAttributeAccessor<Book, String> title() {
     return new MmAttributeAccessor<>(this, Book::getTitle, Book::setTitle);

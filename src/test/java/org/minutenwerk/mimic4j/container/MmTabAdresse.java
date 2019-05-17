@@ -5,14 +5,14 @@ import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
 public class MmTabAdresse extends MmTab<TestAdresse> {
 
   @MmStringAnnotation(id = "st")
   public final MmString street = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).adresse().street();
     }
   };
@@ -20,7 +20,7 @@ public class MmTabAdresse extends MmTab<TestAdresse> {
   @MmStringAnnotation(id = "ci")
   public final MmString city = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       return ((TestModelAccessor)pRootAccessor).adresse().city();
     }
   };

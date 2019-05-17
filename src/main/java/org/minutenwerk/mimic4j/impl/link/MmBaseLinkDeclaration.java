@@ -34,7 +34,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @param  pImplementation  The reference to the implementation part of the mimic.
    */
-  public MmBaseLinkDeclaration(IMPLEMENTATION pImplementation) {
+  protected MmBaseLinkDeclaration(IMPLEMENTATION pImplementation) {
     super(pImplementation);
   }
 

@@ -15,9 +15,6 @@ import java.util.function.Supplier;
  */
 public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseModelAccessor<PARENT_MODEL, COMPONENT_MODEL> {
 
-  /** Reference to root model. One of rootModel and parentSupplier must be set. */
-  private final PARENT_MODEL                              rootModel;
-
   /** Function which defines the component model getter method. */
   private final Function<PARENT_MODEL, COMPONENT_MODEL>   componentGetter;
 
@@ -32,26 +29,9 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    * @param  pComponentSetter  The component model setter method.
    */
   public MmComponentAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, //
-      final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, //
-      final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
+    final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, //
+    final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
     super(parentAccessor);
-    rootModel       = null;
-    componentGetter = pComponentGetter;
-    componentSetter = pComponentSetter;
-  }
-
-  /**
-   * Constructor of this immutable class.
-   *
-   * @param  pRootModel        The reference to root model.
-   * @param  pComponentGetter  The component model getter method.
-   * @param  pComponentSetter  The component model setter method.
-   */
-  public MmComponentAccessor(final PARENT_MODEL pRootModel, //
-	  final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, //
-      final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
-    super(null);
-    rootModel       = pRootModel;
     componentGetter = pComponentGetter;
     componentSetter = pComponentSetter;
   }
@@ -75,7 +55,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    */
   @Override
   public PARENT_MODEL getParent() {
-    return isRoot() ? rootModel : getParentAccessor().get();
+    return getParentAccessor().get();
   }
 
   /**
@@ -96,18 +76,8 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
-  public final boolean isPresent() throws NullPointerException{
+  public final boolean isPresent() throws NullPointerException {
     return getComponentOptional().isPresent();
-  }
-
-  /**
-   * Returns true, if the accessed model is the root of an aggregate.
-   *
-   * @return  true, if the accessed model is the root of an aggregate.
-   */
-  @Override
-  public boolean isRoot() {
-    return (rootModel != null);
   }
 
   /**

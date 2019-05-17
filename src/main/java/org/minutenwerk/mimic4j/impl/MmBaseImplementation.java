@@ -73,7 +73,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The name of this mimic is evaluated during initialization phase of its parent mimic. */
   protected String                                 name;
 
-  /** True, if this mimic is instantiated at runtime, false if it is declared at compile time. */
+  /** True, if this mimic is instantiated at runtime, false if it is declared at compile time, will be set in method addChild(). */
   protected boolean                                isRuntimeChild;
 
   /** The type of first optional generic parameter of this mimic is evaluated during initialization phase of its parent mimic. */
@@ -94,29 +94,71 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. */
   protected MmReferencableMimic<?>                 referencableAncestor;
 
-  /** The parent mimic is another instance of this class. */
+  /** The parent of this implementation part is itself of type <code>MmBaseImplementation</code>. */
   protected final MmBaseImplementation<?, ?>       implementationParent;
 
-  /** The parent mimic of the declaration is itself of type <code>MmBaseDeclaration</code>. */
+  /** The parent mimic of the declaration part is of type <code>MmBaseDeclaration</code>. */
   protected final MmBaseDeclaration<?, ?>          declarationParent;
 
-  /** All direct children are instances of this class <code>MmBaseImplementation</code>. */
+  /** All direct children are of type <code>MmBaseImplementation</code>. */
   protected final List<MmBaseImplementation<?, ?>> implementationChildren;
 
-  /** All direct children of the declaration are of type <code>MmBaseDeclaration</code>. */
+  /** All direct children of the declaration are of type <code>MmMimic</code>. */
   protected final List<MmMimic>                    declarationChildren;
 
-  /** All runtime children are instances of this class <code>MmBaseImplementation</code>. */
+  /** All runtime children are of type <code>MmBaseImplementation</code>. */
   protected final List<MmBaseImplementation<?, ?>> runtimeImplementationChildren;
 
-  /** All runtime declaration children are instances of this class <code>MmBaseDeclaration</code>. */
+  /** All runtime declaration children are of type <code>MmMimic</code>. */
   protected final List<MmMimic>                    runtimeDeclarationChildren;
 
   /** Tthe MmJsfBridge of this mimic, which connects it to a JSF view component. */
   protected final MmJsfBridge<?, ?, ?>             mmJsfBridge;
 
   /**
-   * Creates a new MmCompositeImplementation instance.
+   * Creates a new MmCompositeImplementation instance. After this constructor assigned values are:
+   *
+   * <ul>
+   *   <li>initialState is IN_CONSTRUCTION</li>
+   *   <li>root is assigned, except for root itself</li>
+   *   <li>implementationParent is assigned, except for root</li>
+   *   <li>declarationParent is assigned, except for root</li>
+   *   <li>isRuntimeChild is false, may be changed in method addChild()</li>
+   *   <li>mmJsfBridge is assigned</li>
+   * </ul>
+   *
+   * <p>This constructor has been called by constructor of declaration part. Declaration constructor calls method setCallback().</p>
+   *
+   * <ul>
+   *   <li>declaration is assigned</li>
+   *   <li>initialState is CONSTRUCTION_COMPLETE</li>
+   * </ul>
+   *
+   * <p>At first call of mimic method assureInitialization() calls method initialize(). After initialization:</p>
+   *
+   * <ul>
+   *   <li>referencableAncestor is assigned</li>
+   * </ul>
+   *
+   * <p>Method initialize() calls method addFieldOfTypeMmToChildren() calls method addChild(), which assigns:</p>
+   *
+   * <ul>
+   *   <li>name</li>
+   *   <li>parentPath</li>
+   *   <li>implementationChildren</li>
+   *   <li>declarationChildren</li>
+   *   <li>runtimeImplementationChildren</li>
+   *   <li>runtimeDeclarationChildren</li>
+   * </ul>
+   *
+   * <p>Method initialize() calls method initializeConfiguration():</p>
+   *
+   * <ul>
+   *   <li>configuration is assigned</li>
+   *   <li>initialState is INITIALIZED</li>
+   * </ul>
+   *
+   * <p>Method initialize() calls method initialize() for all children:</p>
    *
    * @param   pDeclarationParent  The declaration part of the parent mimic.
    *
@@ -124,8 +166,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *                                 subtree is not of type {@link MmImplementationRoot}.
    */
   public MmBaseImplementation(MmDeclarationMimic pDeclarationParent) {
-    assert initialState == MmInitialState.IN_CONSTRUCTION : "Initial state must be IN_CONSTRUCTION";
-
     name       = "";
     parentPath = "";
 
@@ -144,20 +184,17 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     } else {
 
       if (!(pDeclarationParent instanceof MmBaseDeclaration<?, ?>)) {
-        throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent
-          + " must be instanceof MmBaseDeclaration<?,?>");
+        throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must be of type MmBaseDeclaration<?,?>");
       }
-
-      final MmBaseDeclaration<?, ?> baseDeclarationParent = (MmBaseDeclaration<?, ?>)pDeclarationParent;
 
       // set reference to declaration part of parent mimic
-      declarationParent = baseDeclarationParent;
+      declarationParent = (MmBaseDeclaration<?, ?>)pDeclarationParent;
 
       // set reference to implementation part of parent
-      if (baseDeclarationParent.implementation == null) {
+      if (declarationParent.implementation == null) {
         throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must have an implementation");
       }
-      implementationParent = baseDeclarationParent.implementation;
+      implementationParent = declarationParent.implementation;
 
       // evaluate reference to root ancestor
       MmBaseImplementation<?, ?> temp = implementationParent;
@@ -183,10 +220,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // create bridge for jsf tags
     mmJsfBridge                   = createMmJsfBridge();
-
-    assert declaration == null : "Instance variable declaration must be still undefined";
-    assert name.isEmpty() : "Instance variable name must be still empty";
-    assert parentPath.isEmpty() : "Instance variable parentPath must be still empty";
   }
 
   /**
@@ -428,7 +461,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       childImplementation.setTypeOfFirstGenericParameter(pTypeOfFirstGenericParameter);
     }
 
-    // if parent mimic is not initialized yet, add child to compile time children
+    // if parent mimic is not initialized yet, add child to declaration children
     if (initialState != MmInitialState.INITIALIZED) {
 
       // if child not in list yet, add child to list of
@@ -941,8 +974,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Override
   @Deprecated
+  @Override
   public MmReference getMmReference(MmReferencableModel pModel) {
     assureInitialization();
 

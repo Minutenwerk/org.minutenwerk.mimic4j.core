@@ -16,7 +16,7 @@ public abstract class MmBaseCompositeDeclaration<IMPLEMENTATION extends MmBaseCo
    *
    * @param  pImplementation  The reference to the implementation part of the mimic.
    */
-  public MmBaseCompositeDeclaration(IMPLEMENTATION pImplementation) {
+  protected MmBaseCompositeDeclaration(IMPLEMENTATION pImplementation) {
     super(pImplementation);
   }
 

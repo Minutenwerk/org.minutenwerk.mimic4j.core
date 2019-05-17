@@ -3,6 +3,7 @@ package org.minutenwerk.mimic4j.impl.container;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTab;
@@ -24,6 +25,17 @@ public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<Mm
    */
   public MmImplementationTab(MmDeclarationMimic pParent) {
     super(pParent);
+  }
+
+  /**
+   * Creates a new MmImplementationTab instance.
+   *
+   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
+   *                        has a root accessor.
+   */
+  public MmImplementationTab(MmDeclarationMimic pParent, final MmRootAccessor<MODEL> pRootAccessor) {
+    super(pParent, pRootAccessor);
   }
 
   /**

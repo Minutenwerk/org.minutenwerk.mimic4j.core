@@ -2,6 +2,7 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+
 import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
@@ -9,7 +10,7 @@ import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
 /**
  * MmBaseEditable is an abstract base class for all editable attribute mimics.
@@ -23,17 +24,17 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> {
 
   /** Constant for value to be displayed in case of the viewside value is null. */
-  public static final String  ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE = "";
+  public static final String ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE = "";
 
   /** Constant for default value of maximum input length. */
-  public static final int     EDITABLE_DEFAULT_MAX_LENGTH          = 255;
+  public static final int    EDITABLE_DEFAULT_MAX_LENGTH          = 255;
 
   /**
    * Creates a new MmBaseEditable instance.
    *
    * @param  pImplementation  The implementation part of the mimic.
    */
-  public MmBaseAttributeDeclaration(IMPLEMENTATION pImplementation) {
+  protected MmBaseAttributeDeclaration(IMPLEMENTATION pImplementation) {
     super(pImplementation);
   }
 
@@ -50,7 +51,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @jalopy.group  group-callback
    */
   @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 

@@ -42,7 +42,7 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
-  public final ATTRIBUTE_MODEL get() throws NullPointerException{
+  public final ATTRIBUTE_MODEL get() throws NullPointerException {
     return getParentOptional().map(attributeGetter).orElse(null);
   }
 
@@ -79,7 +79,7 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
-  public boolean isPresent() throws NullPointerException{
+  public boolean isPresent() throws NullPointerException {
     return getParentOptional().isPresent() && (get() != null);
   }
 

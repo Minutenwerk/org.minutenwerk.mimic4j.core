@@ -4,6 +4,7 @@ import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 
 /**
@@ -43,10 +44,10 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @return  The container's accessor.
    *
-   * @throws        IllegalStateException  In case of model accessor is not defined.
+   * @throws  IllegalStateException  In case of model accessor is not defined.
    */
   @Override
-  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pRootAccessor) {
+  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 

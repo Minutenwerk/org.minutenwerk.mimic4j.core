@@ -198,6 +198,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-override
    */
+  @Deprecated
   @Override
   public final MmReference getMmReference(MmReferencableModel pModel) {
     return implementation.getMmReference(pModel);
