@@ -1,5 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
@@ -12,6 +15,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoolean, MmConfigurationBoolean, Boolean, Boolean> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationBoolean.class);
 
   /**
    * Creates a new MmImplementationBoolean instance.
@@ -49,17 +55,17 @@ public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoo
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmBooleanAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmBooleanAnnotation.class);
+    }
 
     MmBooleanAnnotation annotation = findAnnotation(declaration, MmBooleanAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationBoolean(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationBoolean();
-    } else {
-      configuration = new MmConfigurationBoolean(annotation);
     }
   }
 

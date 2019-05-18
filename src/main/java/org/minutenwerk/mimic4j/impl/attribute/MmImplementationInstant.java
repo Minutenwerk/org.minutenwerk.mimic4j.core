@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.Instant;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmInstant;
 import org.minutenwerk.mimic4j.api.attribute.MmInstantAnnotation;
@@ -15,6 +18,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationInstant extends MmBaseAttributeImplementation<MmInstant, MmConfigurationInstant, Instant, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationInstant.class);
 
   /**
    * Creates a new MmImplementationDate instance.
@@ -72,17 +78,17 @@ public class MmImplementationInstant extends MmBaseAttributeImplementation<MmIns
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmInstantAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmInstantAnnotation.class);
+    }
 
     MmInstantAnnotation annotation = findAnnotation(declaration, MmInstantAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationInstant(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationInstant();
-    } else {
-      configuration = new MmConfigurationInstant(annotation);
     }
   }
 

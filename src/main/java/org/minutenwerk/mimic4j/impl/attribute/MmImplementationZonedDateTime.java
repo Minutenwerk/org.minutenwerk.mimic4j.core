@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.ZonedDateTime;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
@@ -16,6 +19,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  */
 public class MmImplementationZonedDateTime
   extends MmBaseAttributeImplementation<MmZonedDateTime, MmConfigurationZonedDateTime, ZonedDateTime, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationZonedDateTime.class);
 
   /**
    * Creates a new MmImplementationDateTime instance.
@@ -73,17 +79,17 @@ public class MmImplementationZonedDateTime
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmZonedDateTimeAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmZonedDateTimeAnnotation.class);
+    }
 
     MmZonedDateTimeAnnotation annotation = findAnnotation(declaration, MmZonedDateTimeAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationZonedDateTime(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationZonedDateTime();
-    } else {
-      configuration = new MmConfigurationZonedDateTime(annotation);
     }
   }
 

@@ -1,5 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
@@ -13,6 +16,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttributeEnum;
  */
 public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   extends MmBaseAttributeImplementation<MmEnum<ENUM_TYPE>, MmConfigurationEnum<ENUM_TYPE>, ENUM_TYPE, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationEnum.class);
 
   /**
    * Creates a new MmImplementationEnum instance.
@@ -62,17 +68,17 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmEnumAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmEnumAnnotation.class);
+    }
 
     MmEnumAnnotation annotation = findAnnotation(declaration, MmEnumAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationEnum<ENUM_TYPE>(annotation, getMmEnumType());
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationEnum<ENUM_TYPE>();
-    } else {
-      configuration = new MmConfigurationEnum<ENUM_TYPE>(annotation, getMmEnumType());
     }
   }
 

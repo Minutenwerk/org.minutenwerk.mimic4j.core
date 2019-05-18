@@ -85,7 +85,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The configuration of fixed values. */
   protected CONFIGURATION                          configuration;
 
-  /** The <code>MmRoot</code> is a root element of a subtree. */
+  /** The root ancestor of this mimic, is set in constructor phase. */
   protected final MmImplementationRoot             root;
 
   /** The declaration part of this implementation is the declaration. */
@@ -94,10 +94,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. */
   protected MmReferencableMimic<?>                 referencableAncestor;
 
-  /** The parent of this implementation part is itself of type <code>MmBaseImplementation</code>. */
+  /** The implementation parent of this mimic, is set in constructor phase. */
   protected final MmBaseImplementation<?, ?>       implementationParent;
 
-  /** The parent mimic of the declaration part is of type <code>MmBaseDeclaration</code>. */
+  /** The declaration parent of this mimic, is set in constructor phase. */
   protected final MmBaseDeclaration<?, ?>          declarationParent;
 
   /** All direct children are of type <code>MmBaseImplementation</code>. */
@@ -112,7 +112,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** All runtime declaration children are of type <code>MmMimic</code>. */
   protected final List<MmMimic>                    runtimeDeclarationChildren;
 
-  /** Tthe MmJsfBridge of this mimic, which connects it to a JSF view component. */
+  /** The MmJsfBridge of this mimic, which connects it to a JSF view component, is set in constructor phase. */
   protected final MmJsfBridge<?, ?, ?>             mmJsfBridge;
 
   /**
@@ -243,27 +243,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the implementation part of the specified declaration.
-   *
-   * @param         pDeclaration  The specified declaration.
-   *
-   * @return        The implementation part of the specified declaration.
-   *
-   * @jalopy.group  group-helper
-   */
-  @SuppressWarnings("unchecked")
-  protected static <T extends MmBaseImplementation<?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
-    return (T)pDeclaration.implementation;
-  }
-
-  /**
    * Reads the Java-Generics parameter having the given index position (starting at ONE) from the given {@link Class}.
    *
-   * @param   pClassToAnalyze  The class to analyze.
-   * @param   pGenericRawType  The class containing the generic.
-   * @param   pParameterIndex  The parameter position index. Starts with One for the first parameter.
+   * @param         pClassToAnalyze  The class to analyze.
+   * @param         pGenericRawType  The class containing the generic.
+   * @param         pParameterIndex  The parameter position index. Starts with One for the first parameter.
    *
-   * @return  The found Java-Generics parameter. <code>null</code> if none was found.
+   * @return        The found Java-Generics parameter. <code>null</code> if none was found.
+   *
+   * @jalopy.group  group-helper
    */
   @SuppressWarnings("unchecked")
   public static <T extends Type> T findGenericsParameterType(Class<?> pClassToAnalyze, Class<?> pGenericRawType, int pParameterIndex) {
@@ -295,10 +283,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Returns debug information about a specified mimic and subtree of all its children and runtime children.
    *
-   * @param   pMm           The specific mimic to log.
-   * @param   pIndentation  Level of indentation in log.
+   * @param         pMm           The specific mimic to log.
+   * @param         pIndentation  Level of indentation in log.
    *
-   * @return  Debug information about a specified mimic and subtree of all its children and runtime children.
+   * @return        Debug information about a specified mimic and subtree of all its children and runtime children.
+   *
+   * @jalopy.group  group-helper
    */
   public static String toStringSubtree(MmBaseImplementation<?, ?> pMm, String pIndentation) {
     StringWriter writer = new StringWriter();
@@ -316,11 +306,27 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Returns the implementation part of the specified declaration.
+   *
+   * @param         pDeclaration  The specified declaration.
+   *
+   * @return        The implementation part of the specified declaration.
+   *
+   * @jalopy.group  group-helper
+   */
+  @SuppressWarnings("unchecked")
+  protected static <T extends MmBaseImplementation<?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
+    return (T)pDeclaration.implementation;
+  }
+
+  /**
    * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseImplementation</code>.
    *
-   * @param   pMmBaseImplementation  The specified mimic.
+   * @param         pMmBaseImplementation  The specified mimic.
    *
-   * @return  The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>.
+   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>.
+   *
+   * @jalopy.group  group-helper
    */
   protected static List<MmBaseImplementation<?, ?>> getImplementationChildrenOf(MmBaseImplementation<?, ?> pMmBaseImplementation) {
     return pMmBaseImplementation.implementationChildren;
@@ -494,13 +500,24 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected void assureInitialization() {
     if (initialState != MmInitialState.INITIALIZED) {
       if (root == null) {
+
+        // if this mimic is not initialized, and this mimic is the root
+        // then initialize this mimic, and log sub tree of this mimic
         initialize();
         if (LOGGER.isDebugEnabled()) {
           logSubtree(this, "");
         }
+
       } else if (root.initialState == MmInitialState.INITIALIZED) {
+
+        // if this mimic is not initialized, and is not the root, and the root is initialized
+        // then initialize this mimic
         initialize();
+
       } else {
+
+        // if this mimic is not initialized, and is not the root, and the root is not initialized
+        // then initialize the root, and log sub tree of root
         root.initialize();
         if (LOGGER.isDebugEnabled()) {
           logSubtree(root, "");
@@ -558,6 +575,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       declarationClass = declarationClass.getSuperclass();
     } while ((declarationClass != null) && !declarationClass.equals(Object.class));
   }
+
+  /**
+   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
+   *
+   * @return        A new MmJsfBridge for this mimic.
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected abstract MmJsfBridge<?, ?, ?> createMmJsfBridge();
 
   /**
    * Searches for an annotation within the inheritance tree of a class.
@@ -755,106 +781,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns a list of all ancestor mimics of this mimic. Top most ancestor will be first, direct parent will be last.
-   *
-   * @return        A list of all ancestor mimics of this mimic.
-   *
-   * @jalopy.group  group-override
-   */
-  public List<MmMimic> getMmAncestors() {
-    assureInitialization();
-
-    List<MmMimic> ancestors = new ArrayList<>();
-    if ((implementationParent != null) && (implementationParent.declaration != null)) {
-      ancestors.addAll(implementationParent.getMmAncestors());
-      ancestors.add(implementationParent.declaration);
-    }
-    return ancestors;
-  }
-
-  /**
-   * Returns a direct child mimic of specified name, or <code>null</code> if it doesn't exist.
-   *
-   * @param         pChildName  The name of the child to search for.
-   *
-   * @return        A direct child mimic of specified name, or <code>null</code> if it doesn't exist.
-   *
-   * @jalopy.group  group-override
-   */
-  public final MmMimic getMmChildByName(String pChildName) {
-    assureInitialization();
-
-    for (MmMimic child : getMmChildren()) {
-      if (child.getMmName().equals(pChildName)) {
-        return child;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns a list of all direct child mimics of this mimic.
-   *
-   * @return        A list of all direct child mimics of this mimic.
-   *
-   * @jalopy.group  group-override
-   */
-  public List<MmMimic> getMmChildren() {
-    assureInitialization();
-
-    final int     size       = declarationChildren.size() + runtimeDeclarationChildren.size();
-    List<MmMimic> returnList = new ArrayList<>(size);
-    returnList.addAll(declarationChildren);
-    returnList.addAll(runtimeDeclarationChildren);
-    return returnList;
-  }
-
-  /**
-   * Returns a descendant mimic of specified full name, or <code>null</code> if it doesn't exist. The name is a path of ancestors' names
-   * like <code>grandparent.parent.child</code>.
-   *
-   * @param         pFullName  The full name of the mimic to search for.
-   *
-   * @return        A descendant mimic of specified full name, or <code>null</code> if it doesn't exist.
-   *
-   * @jalopy.group  group-override
-   */
-  public MmMimic getMmDescendantByFullName(String pFullName) {
-    assureInitialization();
-
-    final String fullName = getMmFullName();
-    if (fullName.equals(pFullName)) {
-      return this;
-    }
-
-    for (MmMimic child : getMmChildren()) {
-      MmMimic found = MmRelationshipApi.getMmDescendantByFullName(child, pFullName);
-      if (found != null) {
-        return found;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Returns a list of all descendant mimics of this mimic. Each child is followed by own children, before followed by siblings.
-   *
-   * @return        A list of all descendant mimics of this mimic.
-   *
-   * @jalopy.group  group-override
-   */
-  public List<MmMimic> getMmDescendants() {
-    assureInitialization();
-
-    final List<MmMimic> descendants = new ArrayList<>();
-    for (MmMimic child : getMmChildren()) {
-      descendants.add(child);
-      descendants.addAll(MmRelationshipApi.getMmDescendants(child));
-    }
-    return descendants;
-  }
-
-  /**
    * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty
    * String if the full name is undefined. The full name is evaluated during initialization phase and derived from the field declaration
    * name in its parent class.
@@ -925,19 +851,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the parent mimic of this mimic, may be null in case of <code>MmRoot</code>.
-   *
-   * @return        The parent mimic of this mimic, may be null.
-   *
-   * @jalopy.group  group-override
-   */
-  public MmMimic getMmParent() {
-    assureInitialization();
-
-    return implementationParent.declaration;
-  }
-
-  /**
    * Returns the self reference of this object for the current data model, or the static part if there is no current data model.
    *
    * @return        The self reference of this object for the current data model, or the static part if there is no current data model.
@@ -994,19 +907,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         return returnReference;
       }
     }
-  }
-
-  /**
-   * Returns the <code>MmRoot</code> of this mimic. The <code>MmRoot</code> is a root element of a subtree.
-   *
-   * @return        The <code>MmRoot</code> of this mimic.
-   *
-   * @jalopy.group  group-override
-   */
-  public MmRoot getMmRoot() {
-    assureInitialization();
-
-    return (MmRoot)root.declaration;
   }
 
   /**
@@ -1187,6 +1087,132 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Returns the MmJsfBridge of this mimic, which connects it to a JSF view component..
+   *
+   * @return        The MmJsfBridge of this mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  public final MmJsfBridge<?, ?, ?> getJsfBridge() {
+    return mmJsfBridge;
+  }
+
+  /**
+   * Returns the current JSF tag of this mimic, dependent on enabled state and configuration.
+   *
+   * @return        The current JSF tag of this mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  public String getJsfTag() {
+    if ((isMmEnabled() && !isMmReadOnly()) || configuration.getJsfTagDisabled().equals("SameAsEnabled")) {
+      return configuration.getJsfTagEnabled();
+    } else {
+      return configuration.getJsfTagDisabled();
+    }
+  }
+
+  /**
+   * Returns a list of all ancestor mimics of this mimic. Top most ancestor will be first, direct parent will be last.
+   *
+   * @return        A list of all ancestor mimics of this mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  public List<MmMimic> getMmAncestors() {
+    assureInitialization();
+
+    List<MmMimic> ancestors = new ArrayList<>();
+    if ((implementationParent != null) && (implementationParent.declaration != null)) {
+      ancestors.addAll(implementationParent.getMmAncestors());
+      ancestors.add(implementationParent.declaration);
+    }
+    return ancestors;
+  }
+
+  /**
+   * Returns a direct child mimic of specified name, or <code>null</code> if it doesn't exist.
+   *
+   * @param         pChildName  The name of the child to search for.
+   *
+   * @return        A direct child mimic of specified name, or <code>null</code> if it doesn't exist.
+   *
+   * @jalopy.group  group-helper
+   */
+  public final MmMimic getMmChildByName(String pChildName) {
+    assureInitialization();
+
+    for (MmMimic child : getMmChildren()) {
+      if (child.getMmName().equals(pChildName)) {
+        return child;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns a list of all direct child mimics of this mimic.
+   *
+   * @return        A list of all direct child mimics of this mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  public List<MmMimic> getMmChildren() {
+    assureInitialization();
+
+    final int     size       = declarationChildren.size() + runtimeDeclarationChildren.size();
+    List<MmMimic> returnList = new ArrayList<>(size);
+    returnList.addAll(declarationChildren);
+    returnList.addAll(runtimeDeclarationChildren);
+    return returnList;
+  }
+
+  /**
+   * Returns a descendant mimic of specified full name, or <code>null</code> if it doesn't exist. The name is a path of ancestors' names
+   * like <code>grandparent.parent.child</code>.
+   *
+   * @param         pFullName  The full name of the mimic to search for.
+   *
+   * @return        A descendant mimic of specified full name, or <code>null</code> if it doesn't exist.
+   *
+   * @jalopy.group  group-helper
+   */
+  public MmMimic getMmDescendantByFullName(String pFullName) {
+    assureInitialization();
+
+    final String fullName = getMmFullName();
+    if (fullName.equals(pFullName)) {
+      return this;
+    }
+
+    for (MmMimic child : getMmChildren()) {
+      MmMimic found = MmRelationshipApi.getMmDescendantByFullName(child, pFullName);
+      if (found != null) {
+        return found;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns a list of all descendant mimics of this mimic. Each child is followed by own children, before followed by siblings.
+   *
+   * @return        A list of all descendant mimics of this mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  public List<MmMimic> getMmDescendants() {
+    assureInitialization();
+
+    final List<MmMimic> descendants = new ArrayList<>();
+    for (MmMimic child : getMmChildren()) {
+      descendants.add(child);
+      descendants.addAll(MmRelationshipApi.getMmDescendants(child));
+    }
+    return descendants;
+  }
+
+  /**
    * Returns an internationalized version of the message of this mimic for a specified message type.
    *
    * @param         pMessageType  The specified message type.
@@ -1201,6 +1227,43 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Returns the parent mimic of this mimic, may be null in case of <code>MmRoot</code>.
+   *
+   * @return        The parent mimic of this mimic, may be null.
+   *
+   * @jalopy.group  group-helper
+   */
+  public MmMimic getMmParent() {
+    assureInitialization();
+
+    return implementationParent.declaration;
+  }
+
+  /**
+   * Returns the <code>MmRoot</code> of this mimic. The <code>MmRoot</code> is a root element of a subtree.
+   *
+   * @return        The <code>MmRoot</code> of this mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  public MmRoot getMmRoot() {
+    assureInitialization();
+
+    return (MmRoot)root.declaration;
+  }
+
+  /**
+   * Returns true, if the user's browser has enabled Javascript language.
+   *
+   * @return        True, if the user's browser has enabled Javascript language.
+   *
+   * @jalopy.group  group-helper
+   */
+  public boolean isMmJsEnabled() {
+    return root.isMmJsEnabled();
+  }
+
+  /**
    * Returns the Java type of configuration class of this mimic.
    *
    * @return        The Java type of configuration class of this mimic.
@@ -1210,43 +1273,5 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected Class<?> getConfigurationType() {
     return findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
   }
-
-  /**
-   * Returns the MmJsfBridge of this mimic, which connects it to a JSF view component..
-   *
-   * @return  The MmJsfBridge of this mimic.
-   */
-  public final MmJsfBridge<?, ?, ?> getJsfBridge() {
-    return mmJsfBridge;
-  }
-
-  /**
-   * Returns the current JSF tag of this mimic, dependent on enabled state and configuration.
-   *
-   * @return  The current JSF tag of this mimic.
-   */
-  public String getJsfTag() {
-    if ((isMmEnabled() && !isMmReadOnly()) || configuration.getJsfTagDisabled().equals("SameAsEnabled")) {
-      return configuration.getJsfTagEnabled();
-    } else {
-      return configuration.getJsfTagDisabled();
-    }
-  }
-
-  /**
-   * Returns true, if the user's browser has enabled Javascript language.
-   *
-   * @return  True, if the user's browser has enabled Javascript language.
-   */
-  public boolean isMmJsEnabled() {
-    return root.isMmJsEnabled();
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  protected abstract MmJsfBridge<?, ?, ?> createMmJsfBridge();
 
 }

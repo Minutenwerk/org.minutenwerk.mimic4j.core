@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmListString;
 import org.minutenwerk.mimic4j.api.attribute.MmListStringAnnotation;
@@ -15,6 +18,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  */
 public class MmImplementationListString
   extends MmBaseAttributeImplementation<MmListString, MmConfigurationListString, List<String>, List<String>> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationListString.class);
 
   /**
    * Creates a new MmImplementationListString instance.
@@ -52,17 +58,17 @@ public class MmImplementationListString
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmListStringAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmListStringAnnotation.class);
+    }
 
     MmListStringAnnotation annotation = findAnnotation(declaration, MmListStringAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationListString(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationListString();
-    } else {
-      configuration = new MmConfigurationListString(annotation);
     }
   }
 

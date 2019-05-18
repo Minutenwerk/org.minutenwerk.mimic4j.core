@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.LocalTime;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalTime;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalTimeAnnotation;
@@ -15,6 +18,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationLocalTime extends MmBaseAttributeImplementation<MmLocalTime, MmConfigurationLocalTime, LocalTime, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLocalTime.class);
 
   /**
    * Creates a new MmImplementationDate instance.
@@ -72,17 +78,17 @@ public class MmImplementationLocalTime extends MmBaseAttributeImplementation<MmL
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmLocalTimeAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmLocalTimeAnnotation.class);
+    }
 
     MmLocalTimeAnnotation annotation = findAnnotation(declaration, MmLocalTimeAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationLocalTime(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationLocalTime();
-    } else {
-      configuration = new MmConfigurationLocalTime(annotation);
     }
   }
 

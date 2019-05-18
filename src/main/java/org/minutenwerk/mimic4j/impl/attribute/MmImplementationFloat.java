@@ -1,5 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmFloat;
 import org.minutenwerk.mimic4j.api.attribute.MmFloatAnnotation;
@@ -12,6 +15,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationFloat extends MmBaseAttributeImplementation<MmFloat, MmConfigurationFloat, Float, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationFloat.class);
 
   /**
    * Creates a new MmImplementationFloat instance.
@@ -49,17 +55,17 @@ public class MmImplementationFloat extends MmBaseAttributeImplementation<MmFloat
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmFloatAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmFloatAnnotation.class);
+    }
 
     MmFloatAnnotation annotation = findAnnotation(declaration, MmFloatAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationFloat(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationFloat();
-    } else {
-      configuration = new MmConfigurationFloat(annotation);
     }
   }
 

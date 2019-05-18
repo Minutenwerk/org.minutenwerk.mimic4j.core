@@ -1,7 +1,7 @@
 package org.minutenwerk.mimic4j.impl.accessor;
 
 /**
- * MmModelAccessor is a .
+ * TODOC.
  *
  * @param   <PARENT_MODEL>  Type of parent model.
  * @param   <MODEL>         Type of model.

@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.Duration;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmDuration;
 import org.minutenwerk.mimic4j.api.attribute.MmDurationAnnotation;
@@ -14,6 +17,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationDuration extends MmBaseAttributeImplementation<MmDuration, MmConfigurationDuration, Duration, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationDuration.class);
 
   /**
    * Creates a new MmImplementationDuration instance.
@@ -51,17 +57,17 @@ public class MmImplementationDuration extends MmBaseAttributeImplementation<MmDu
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmDurationAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmDurationAnnotation.class);
+    }
 
     MmDurationAnnotation annotation = findAnnotation(declaration, MmDurationAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationDuration(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationDuration();
-    } else {
-      configuration = new MmConfigurationDuration(annotation);
     }
   }
 

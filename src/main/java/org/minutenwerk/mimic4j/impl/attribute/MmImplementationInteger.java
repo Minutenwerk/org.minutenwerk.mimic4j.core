@@ -1,5 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmInteger;
 import org.minutenwerk.mimic4j.api.attribute.MmIntegerAnnotation;
@@ -12,6 +15,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationInteger extends MmBaseAttributeImplementation<MmInteger, MmConfigurationInteger, Integer, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationInteger.class);
 
   /**
    * Creates a new MmImplementationInteger instance.
@@ -49,17 +55,17 @@ public class MmImplementationInteger extends MmBaseAttributeImplementation<MmInt
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmIntegerAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmIntegerAnnotation.class);
+    }
 
     MmIntegerAnnotation annotation = findAnnotation(declaration, MmIntegerAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationInteger(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationInteger();
-    } else {
-      configuration = new MmConfigurationInteger(annotation);
     }
   }
 

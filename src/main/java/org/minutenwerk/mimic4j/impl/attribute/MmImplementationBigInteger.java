@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.math.BigInteger;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBigInteger;
 import org.minutenwerk.mimic4j.api.attribute.MmBigIntegerAnnotation;
@@ -14,6 +17,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationBigInteger extends MmBaseAttributeImplementation<MmBigInteger, MmConfigurationBigInteger, BigInteger, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationBigInteger.class);
 
   /**
    * Creates a new MmImplementationBigInteger instance.
@@ -51,17 +57,17 @@ public class MmImplementationBigInteger extends MmBaseAttributeImplementation<Mm
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmBigIntegerAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmBigIntegerAnnotation.class);
+    }
 
     MmBigIntegerAnnotation annotation = findAnnotation(declaration, MmBigIntegerAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationBigInteger(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationBigInteger();
-    } else {
-      configuration = new MmConfigurationBigInteger(annotation);
     }
   }
 

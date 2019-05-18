@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.container;
+package org.minutenwerk.mimic4j.container.model;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
-public class TestModel {
+public class Person {
 
   private String vorname;
 
@@ -25,19 +25,21 @@ public class TestModel {
   private ZonedDateTime zonedDateTime;
 
   private Gender gender;
-  
-  private TestAdresse adresse;
 
-  public enum Gender { MALE, FEMALE; }
-  
-  public TestModel() {
+  private Adresse adresse;
+
+  public enum Gender {
+    MALE, FEMALE;
+  }
+
+  public Person() {
   }
 
   public String getVorname() {
     return this.vorname;
   }
 
-  public TestModel setVorname(final String vorname) {
+  public Person setVorname(final String vorname) {
     this.vorname = vorname;
     return this;
   }
@@ -46,7 +48,7 @@ public class TestModel {
     return this.nachname;
   }
 
-  public TestModel setNachname(final String nachname) {
+  public Person setNachname(final String nachname) {
     this.nachname = nachname;
     return this;
   }
@@ -55,7 +57,7 @@ public class TestModel {
     return this.isMember;
   }
 
-  public TestModel setMember(final boolean isMember) {
+  public Person setMember(final boolean isMember) {
     this.isMember = isMember;
     return this;
   }
@@ -64,25 +66,25 @@ public class TestModel {
     return this.birthday;
   }
 
-  public TestModel setBirthday(final LocalDate birthday) {
+  public Person setBirthday(final LocalDate birthday) {
     this.birthday = birthday;
     return this;
   }
-  
+
   public Gender getGender() {
     return this.gender;
   }
 
-  public TestModel setGender(final Gender gender) {
+  public Person setGender(final Gender gender) {
     this.gender = gender;
     return this;
   }
 
-  public TestAdresse getAdresse() {
+  public Adresse getAdresse() {
     return this.adresse;
   }
 
-  public TestModel setAdresse(final TestAdresse adresse) {
+  public Person setAdresse(final Adresse adresse) {
     this.adresse = adresse;
     return this;
   }

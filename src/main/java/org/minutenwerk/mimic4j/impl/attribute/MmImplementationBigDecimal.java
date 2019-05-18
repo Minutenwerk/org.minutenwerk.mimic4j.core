@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.math.BigDecimal;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBigDecimal;
 import org.minutenwerk.mimic4j.api.attribute.MmBigDecimalAnnotation;
@@ -14,6 +17,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationBigDecimal extends MmBaseAttributeImplementation<MmBigDecimal, MmConfigurationBigDecimal, BigDecimal, String> {
+
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationBigDecimal.class);
 
   /**
    * Creates a new MmImplementationBigDecimal instance.
@@ -51,18 +57,17 @@ public class MmImplementationBigDecimal extends MmBaseAttributeImplementation<Mm
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    // TODO how to check this only for development?
-    checkForIllegalAnnotationsOtherThan(declaration, MmBigDecimalAnnotation.class);
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmBigDecimalAnnotation.class);
+    }
 
     MmBigDecimalAnnotation annotation = findAnnotation(declaration, MmBigDecimalAnnotation.class);
-
-    if (annotation == null) {
+    if (annotation != null) {
+      configuration = new MmConfigurationBigDecimal(annotation);
+    } else {
 
       // if there is no annotation, set default configuration
       configuration = new MmConfigurationBigDecimal();
-    } else {
-      configuration = new MmConfigurationBigDecimal(annotation);
     }
   }
 
