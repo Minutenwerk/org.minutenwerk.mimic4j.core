@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.impl.container;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.container.MmTableRowAnnotation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
@@ -13,7 +14,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
  * @author  Olaf Kossak
  */
 public class MmImplementationTableRow<ROW_MODEL>
-  extends MmBaseContainerImplementation<MmTableRow<ROW_MODEL>, ROW_MODEL, MmConfigurationTableRow> {
+  extends MmBaseContainerImplementation<MmTableRow<ROW_MODEL>, ROW_MODEL, MmConfigurationTableRow> implements MmTableRowMimic<ROW_MODEL> {
 
   /** The table row index of this row. */
   protected final int rowIndex;
@@ -35,6 +36,7 @@ public class MmImplementationTableRow<ROW_MODEL>
    *
    * @return  The table row index of this row.
    */
+  @Override
   public int getMmRowIndex() {
     return rowIndex;
   }

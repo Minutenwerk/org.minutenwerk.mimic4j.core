@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.api.container;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationTableRow;
@@ -12,7 +13,11 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTableRow;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<ROW_MODEL, MmImplementationTableRow<ROW_MODEL>> {
+public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<ROW_MODEL, MmImplementationTableRow<ROW_MODEL>>
+  implements MmTableRowMimic<ROW_MODEL> {
+
+    /** The table row index of this row. */
+  protected final int rowIndex;
 
   /**
    * Creates a new MmTableRow instance.
@@ -22,6 +27,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    */
   public MmTableRow(MmDeclarationMimic pParent, int pRowIndex) {
     super(new MmImplementationTableRow<ROW_MODEL>(pParent, pRowIndex));
+    rowIndex = pRowIndex;
   }
 
   /**
@@ -29,6 +35,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    *
    * @return  The table row index of this row.
    */
+  @Override
   public final int getMmRowIndex() {
     return implementation.getMmRowIndex();
   }
