@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.impl.accessor;
 
+import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
+
 /**
  * Model accessor on root of an aggregate. Because a root does not have a parent, the parent model is Void.
  *
@@ -10,7 +12,10 @@ package org.minutenwerk.mimic4j.impl.accessor;
 public class MmRootAccessor<COMPONENT_MODEL> extends MmBaseModelAccessor<Void, COMPONENT_MODEL> {
 
   /** The root model is stored in the root accessor. This is the only accessor which stores a model. */
-  private COMPONENT_MODEL rootModel;
+  private COMPONENT_MODEL                                      rootModel;
+
+  /** TODOC. */
+  private MmBaseContainerImplementation<?, COMPONENT_MODEL, ?> mmContainer;
 
   /**
    * Constructor of this mutable class.
@@ -72,11 +77,32 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmBaseModelAccessor<Void, C
   /**
    * Sets the specified model value.
    *
-   * @param  value  The specified model value.
+   * @param   value  The specified model value.
+   *
+   * @throws  IllegalStateException  TODOC
    */
   @Override
   public void set(final COMPONENT_MODEL value) {
     rootModel = value;
+    if (this.mmContainer == null) {
+      throw new IllegalStateException("mmContainer must be set");
+    }
+    mmContainer.onModelChange();
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param   pMmContainer  TODOC
+   *
+   * @throws  IllegalStateException  TODOC
+   */
+  @SuppressWarnings("unchecked")
+  public void setMmContainer(final MmBaseContainerImplementation<?, ?, ?> pMmContainer) {
+    if (this.mmContainer != null) {
+      throw new IllegalStateException("mmContainer cannot be set twice");
+    }
+    this.mmContainer = (MmBaseContainerImplementation<?, COMPONENT_MODEL, ?>)pMmContainer;
   }
 
   /**
@@ -89,7 +115,7 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmBaseModelAccessor<Void, C
    */
   @Override
   public Void with(final COMPONENT_MODEL value) {
-    rootModel = value;
+    set(value);
     return null;
   }
 }

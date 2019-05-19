@@ -20,11 +20,4 @@ public interface MmContainerMimic<MODEL> extends MmEditableMimic {
    * @return  The Java type of the model.
    */
   public Class<MODEL> getMmModelType();
-
-  /**
-   * Sets the model.
-   *
-   * @param  pModel  The model to set.
-   */
-  public void setMmModel(MODEL pModel);
 }

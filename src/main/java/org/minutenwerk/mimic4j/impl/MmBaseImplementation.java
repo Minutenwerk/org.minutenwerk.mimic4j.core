@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -317,19 +318,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   @SuppressWarnings("unchecked")
   protected static <T extends MmBaseImplementation<?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
     return (T)pDeclaration.implementation;
-  }
-
-  /**
-   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseImplementation</code>.
-   *
-   * @param         pMmBaseImplementation  The specified mimic.
-   *
-   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>.
-   *
-   * @jalopy.group  group-helper
-   */
-  protected static List<MmBaseImplementation<?, ?>> getImplementationChildrenOf(MmBaseImplementation<?, ?> pMmBaseImplementation) {
-    return pMmBaseImplementation.implementationChildren;
   }
 
   /**
@@ -1272,6 +1260,24 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   protected Class<?> getConfigurationType() {
     return findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
+  }
+
+  /**
+   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseImplementation</code>, including
+   * runtime children.
+   *
+   * @param         pType  pMmBaseImplementation The specified mimic.
+   *
+   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
+   *                children.
+   *
+   * @jalopy.group  group-helper
+   */
+  @SuppressWarnings("unchecked")
+  protected <T extends MmMimic> List<T> getImplementationChildrenOfType(Class<T> pType) {
+    return (List<T>)getMmChildren().stream() //
+    .filter(child -> pType.isAssignableFrom(child.getClass())) //
+    .collect(Collectors.toList());
   }
 
 }

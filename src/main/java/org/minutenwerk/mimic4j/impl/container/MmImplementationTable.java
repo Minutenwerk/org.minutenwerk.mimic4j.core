@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmMimic;
+import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
+import org.minutenwerk.mimic4j.api.MmTableMimic;
 import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTable;
 import org.minutenwerk.mimic4j.api.container.MmTableAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
 
@@ -20,7 +22,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
  * @author  Olaf Kossak
  */
 public class MmImplementationTable<ROW_MODEL>
-  extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable> {
+  extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable> implements MmTableMimic<ROW_MODEL> {
 
   /** The list of table columns of this table. */
   protected final List<MmTableColumn> tableColumns;
@@ -36,8 +38,21 @@ public class MmImplementationTable<ROW_MODEL>
   }
 
   /**
-   * Clears all table rows of this table.
+   * Creates a new MmImplementationTable instance.
+   *
+   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
+   *                        has a root accessor.
    */
+  public MmImplementationTable(MmDeclarationMimic pParent, MmRootAccessor<List<ROW_MODEL>> pRootAccessor) {
+    super(pParent, pRootAccessor);
+    tableColumns = new ArrayList<>();
+  }
+
+  /**
+   * Clears all rows of this table.
+   */
+  @Override
   public void doMmClearTableRows() {
     assureInitialization();
 
@@ -45,78 +60,62 @@ public class MmImplementationTable<ROW_MODEL>
   }
 
   /**
-   * Sets the values from model to modelside of mimic.
-   *
-   * @param         pRowModelList  The model to set.
-   *
-   * @jalopy.group  group-do
-   */
-  public void doMmSetModelsideFromModel(List<ROW_MODEL> pRowModelList) {
-    assureInitialization();
-
-    clearMessageListRecursively(this);
-
-    // store modelside reference to model
-    // model = pRowModelList;
-
-    // clear list of runtime children of table
-    clearRuntimeChildrenList();
-
-    // iterate over list of row models
-    int i = 0;
-    for (ROW_MODEL rowModel : pRowModelList) {
-
-      // for each row model create a table row mimic and pass row model
-      i++;
-
-      MmTableRow<ROW_MODEL> tableRowMm = declaration.callbackMmCreateTableRow(i);
-      // tableRowMm.doMmSetModelsideFromModel(rowModel);
-
-      // add table row mimic to list of runtime children
-      addChild(tableRowMm, null, typeOfFirstGenericParameter);
-    }
-
-    // invoke callbackMm to pass values from model to modelside value is NOT necessary here
-    // declaration.callbackMmSetModelsideFromModel(model);
-
-    doPassModelsideToViewsideRecursively(this);
-  }
-
-  /**
    * Returns the list of table column mimics of this table mimic.
    *
-   * @return  The list of table column mimics.
+   * @return        The list of table column mimics.
+   *
+   * @jalopy.group  group-get
    */
+  @Override
   public List<MmTableColumn> getMmTableColumns() {
     assureInitialization();
 
-    if (tableColumns.isEmpty()) {
-      for (MmMimic child : getMmChildren()) {
-        if (child instanceof MmTableColumn) {
-          tableColumns.add((MmTableColumn)child);
-        }
-      }
-    }
-    return tableColumns;
+    return getImplementationChildrenOfType(MmTableColumn.class);
   }
 
   /**
    * Returns the list of table row mimics.
    *
-   * @return  The list of table row mimics.
+   * @return        The list of table row mimics.
+   *
+   * @jalopy.group  group-get
    */
+  @Override
   public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
     assureInitialization();
 
     List<T> returnList = new ArrayList<>();
-    for (MmMimic child : getMmChildren()) {
-      if (child instanceof MmTableRow<?>) {
-        @SuppressWarnings("unchecked")
-        T tableRowMm = (T)child;
-        returnList.add(tableRowMm);
-      }
+    for (MmTableRow<?> child : getImplementationChildrenOfType(MmTableRow.class)) {
+      @SuppressWarnings("unchecked")
+      T tableRowMm = (T)child;
+      returnList.add(tableRowMm);
     }
     return returnList;
+  }
+
+  /**
+   * TODOC.
+   *
+   * @jalopy.group  group-lifecycle
+   */
+  @Override
+  public void passModelsideToViewside() {
+    // clear list of runtime children of table
+    clearRuntimeChildrenList();
+
+    // iterate over list of row models
+    for (int i = 0; i < getMmModel().size(); i++) {
+
+      // for each row model create a table row mimic and pass row model
+      MmTableRow<ROW_MODEL> tableRowMm = declaration.callbackMmCreateTableRow(i);
+
+      // add table row mimic to list of runtime children
+      addChild(tableRowMm, null, typeOfFirstGenericParameter);
+    }
+
+    for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+      child.passModelsideToViewside();
+    }
   }
 
   /**

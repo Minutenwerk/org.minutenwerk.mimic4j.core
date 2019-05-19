@@ -3,12 +3,12 @@ package org.minutenwerk.mimic4j.impl.container;
 import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimic;
+import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
-import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 import org.minutenwerk.mimic4j.impl.message.MmMessageList;
 
@@ -17,11 +17,12 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-do, group-get, group-clear, group-changed-front, group-required, group-valid
+ * @jalopy.group-order  group-initialization, group-lifecycle, group-do, group-get, group-clear, group-changed-front, group-required,
+ *                      group-valid
  */
 public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseContainerDeclaration<MODEL, ?>,
   MODEL, CONFIGURATION extends MmBaseConfiguration> extends MmBaseImplementation<DECLARATION, CONFIGURATION>
-  implements MmContainerMimic<MODEL> {
+  implements MmContainerMimic<MODEL>, MmEditableMimicImpl {
 
   /** Constant for index of generic type for model. */
   public static final int GENERIC_PARAMETER_INDEX_MODEL         = 2;
@@ -79,6 +80,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final MmRootAccessor<MODEL> pRootAccessor) {
     this(pParent);
     rootAccessor = pRootAccessor;
+    rootAccessor.setMmContainer(this);
   }
 
   /**
@@ -86,7 +88,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        The accessor of root component of model.
    *
-   * @throws        IllegalStateException  TODOC
+   * @throws        IllegalStateException  In case of there is no definition of a root accessor.
    *
    * @jalopy.group  group-initialization
    */
@@ -142,22 +144,22 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>validating viewside value syntactically and converting to modelside type</li>
-   *   <li>passing converted viewside value into modelside value</li>
-   *   <li>validating modelside value semantically</li>
+   *   <li>converting viewside value to modelside type</li>
+   *   <li>passing converted value into modelside value</li>
+   *   <li>validating modelside value</li>
    * </ol>
    *
    * @throws        MmValidatorException  in case of semantic validation of container or one of its children failed.
    *
-   * @jalopy.group  group-do
+   * @jalopy.group  group-lifecycle
    */
   @Override
   public void doMmValidate() throws MmValidatorException {
     assureInitialization();
 
-    clearMessageListRecursively(this);
-    doPassViewsideToModelsideRecursively(this);
-    doValidateModelsideRecursively(this);
+    clearMmMessageList();
+    passViewsideToModelside();
+    validateModelside();
     logSubtree(this, "");
     if (!isMmValid()) {
       throw new MmValidatorException(this);
@@ -165,130 +167,64 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Passes values from mimic's modelside to mimic's viewside just for attribute children of specified mimic, but NOT recursively for all
-   * children.
+   * TODOC.
    *
-   * @param         pMm  The specified mimic.
-   *
-   * @jalopy.group  group-do
+   * @jalopy.group  group-lifecycle
    */
-  @Deprecated
-  protected void doPassModelsideToViewside(MmBaseImplementation<?, ?> pMm) {
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
+  public void onModelChange() {
+    assureInitialization();
 
-      // if child is attribute, invoke attribute child
-      if (MmBaseAttributeImplementation.class.isAssignableFrom(child.getClass())) {
-        MmBaseAttributeImplementation<?, ?, ?, ?> attributeChild = (MmBaseAttributeImplementation<?, ?, ?, ?>)child;
+    passModelsideToViewside();
+  }
 
-        // ask each attribute child, but do NOT iterate over attribute's children
-        attributeChild.doPassModelsideToViewsideValue();
-      }
+  /**
+   * TODOC.
+   *
+   * @jalopy.group  group-lifecycle
+   */
+  @Override
+  public void passModelsideToViewside() {
+    for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+      child.passModelsideToViewside();
     }
   }
 
   /**
-   * Passes values from mimic's modelside to mimic's viewside for all children of specified mimic.
+   * TODOC.
    *
-   * @param         pMm  The specified mimic.
-   *
-   * @jalopy.group  group-do
+   * @jalopy.group  group-lifecycle
    */
-  @Deprecated
-  protected void doPassModelsideToViewsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is attribute, invoke attribute child
-      if (MmBaseAttributeImplementation.class.isAssignableFrom(child.getClass())) {
-        MmBaseAttributeImplementation<?, ?, ?, ?> attributeChild = (MmBaseAttributeImplementation<?, ?, ?, ?>)child;
-
-        // ask each attribute child, but do NOT iterate over attribute's children
-        attributeChild.doPassModelsideToViewsideValue();
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        doPassModelsideToViewsideRecursively(child);
-      }
+  @Override
+  public void passViewsideToModelside() {
+    for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+      child.passViewsideToModelside();
     }
   }
 
   /**
-   * Passes values from mimic's viewside to mimic's modelside for all children of specified mimic.
+   * TODOC.
    *
-   * @param         pMm  The specified mimic.
-   *
-   * @jalopy.group  group-do
+   * @jalopy.group  group-lifecycle
    */
-  @Deprecated
-  protected void doPassViewsideToModelsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
+  @Override
+  public void validateModelside() {
+    // validate this container
+    try {
 
-      // if child is attribute, invoke attribute child
-      if (MmBaseAttributeImplementation.class.isAssignableFrom(child.getClass())) {
-        MmBaseAttributeImplementation<?, ?, ?, ?> attributeChild = (MmBaseAttributeImplementation<?, ?, ?, ?>)child;
+      // invoke callback method for semantic validation on mimic's declaration part
+      declaration.callbackMmValidateModel(modelAccessor.get());
+      errorstate = MmContainerErrorState.SUCCESS;
 
-        // ask each attribute child, but do NOT iterate over attribute's children
-        attributeChild.doPassViewsideToModelsideValue();
+    } catch (MmValidatorException validatorException) {
+      errorstate = MmContainerErrorState.ERROR_IN_SEMANTIC_VALIDATION;
 
-      } else {
-
-        // in any other case iterate recursively over child's children
-        doPassViewsideToModelsideRecursively(child);
-      }
-    }
-  }
-
-  /**
-   * Validates at first all children of specified mimic, and at second the mimic itself. In detail {@code doValidateModelsideRecursively}
-   * iterates over all children, if child is of type {@code MmBaseAttributeImplementation} it invokes {@code doValidateModelsideValue},
-   * which invokes {@code callbackMmValidateModelsideValue} on each attribute, if child is not an attribute it invokes recursively
-   * {@code doValidateModelsideRecursively}. After validation of all children it validates the mimic itself by calling
-   * {@code callbackMmValidateModel} on container.
-   *
-   * @param         pMm  The specified mimic.
-   *
-   * @jalopy.group  group-do
-   */
-  protected void doValidateModelsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    errorstate = MmContainerErrorState.SUCCESS;
-
-    // iterate over container's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is attribute, invoke attribute child
-      if (MmBaseAttributeImplementation.class.isAssignableFrom(child.getClass())) {
-        MmBaseAttributeImplementation<?, ?, ?, ?> attributeChild = (MmBaseAttributeImplementation<?, ?, ?, ?>)child;
-
-        // ask each attribute child, whether conversion succeeded and validation is possible
-        if (attributeChild.isDoValidateModelsideValueEnabled()) {
-
-          // validate attribute child, but do NOT iterate over attribute's children
-          attributeChild.doValidateModelsideValue();
-        }
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        doValidateModelsideRecursively(child);
-      }
+      MmMessage message = new MmMessage(validatorException);
+      getMmMessageList().addMessage(message);
     }
 
-    // if validation of children succeeded, validate container
-    if (isMmValid()) {
-      try {
-
-        // invoke callback method for semantic validation on mimic's declaration part
-        declaration.callbackMmValidateModel(modelAccessor.get());
-
-      } catch (MmValidatorException validatorException) {
-        errorstate = MmContainerErrorState.ERROR_IN_SEMANTIC_VALIDATION;
-
-        MmMessage message = new MmMessage(validatorException);
-        getMmMessageList().addMessage(message);
-      }
+    // validate all children of type MmEditableMimicImpl
+    for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+      child.validateModelside();
     }
   }
 
@@ -334,48 +270,15 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Sets the model.
-   *
-   * @param         pModel  The model to set.
-   *
-   * @jalopy.group  group-get
-   */
-  @Override
-  public void setMmModel(MODEL pModel) {
-    assureInitialization();
-
-    modelAccessor.set(pModel);
-  }
-
-  /**
    * Clears message lists of specified mimic and all descendants of type attribute or container.
-   *
-   * @param         pMm  The specified mimic.
    *
    * @jalopy.group  group-clear
    */
-  protected void clearMessageListRecursively(MmBaseImplementation<?, ?> pMm) {
-    // clear container's message list
-    if (MmBaseContainerImplementation.class.isAssignableFrom(pMm.getClass())) {
-      MmBaseContainerImplementation<?, ?, ?> container = (MmBaseContainerImplementation<?, ?, ?>)pMm;
-      container.messageList.clear();
-    }
-
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is attribute, invoke attribute child
-      if (MmBaseAttributeImplementation.class.isAssignableFrom(child.getClass())) {
-        MmBaseAttributeImplementation<?, ?, ?, ?> attributeChild = (MmBaseAttributeImplementation<?, ?, ?, ?>)child;
-
-        // clear attribute's message list
-        attributeChild.clearMmMessageList();
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        clearMessageListRecursively(child);
-      }
+  @Override
+  public void clearMmMessageList() {
+    messageList.clear();
+    for (MmEditableMimic child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+      ((MmEditableMimicImpl)child).clearMmMessageList();
     }
   }
 
@@ -391,38 +294,10 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   public boolean isMmChangedFromViewside() {
     assureInitialization();
 
-    return isChangedFromViewsideRecursively(this);
-  }
-
-  /**
-   * Returns true, if any child of specified mimic is changed from viewside.
-   *
-   * @param         pMm  The specified mimic.
-   *
-   * @return        True, if any child of specified mimic is changed from viewside.
-   *
-   * @jalopy.group  group-changed-front
-   */
-  protected boolean isChangedFromViewsideRecursively(MmBaseImplementation<?, ?> pMm) {
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is editable, ask child
-      if (MmEditableMimic.class.isAssignableFrom(child.getClass())) {
-        MmEditableMimic editableChild = (MmEditableMimic)child;
-
-        // if child is editable attribute, this will NOT iterate over child's children
-        // if child is editable container, container is responsible for its children
-        if (editableChild.isMmChangedFromViewside()) {
-          return true;
-        }
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        if (isChangedFromViewsideRecursively(child)) {
-          return true;
-        }
+    // iterate over children of type MmEditableMimic
+    for (MmEditableMimic child : getImplementationChildrenOfType(MmEditableMimic.class)) {
+      if (child.isMmChangedFromViewside()) {
+        return true;
       }
     }
     return false;
@@ -439,41 +314,13 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   public boolean isMmRequired() {
     assureInitialization();
 
-    return isRequiredRecursively(this);
-  }
-
-  /**
-   * Returns true, if any child of specified mimic is required.
-   *
-   * @param         pMm  The specified mimic.
-   *
-   * @return        True, if any child of specified mimic is required.
-   *
-   * @jalopy.group  group-required
-   */
-  protected boolean isRequiredRecursively(MmBaseImplementation<?, ?> pMm) {
-    // iterate over mimic's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is editable, ask child
-      if (MmEditableMimic.class.isAssignableFrom(child.getClass())) {
-        MmEditableMimic editableChild = (MmEditableMimic)child;
-
-        // if child is editable attribute, this will NOT iterate over child's children
-        // if child is editable container, container is responsible for its children
-        if (!editableChild.isMmRequired()) {
-          return false;
-        }
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        if (!isRequiredRecursively(child)) {
-          return false;
-        }
+    // iterate over children of type MmEditableMimic
+    for (MmEditableMimic child : getImplementationChildrenOfType(MmEditableMimic.class)) {
+      if (child.isMmRequired()) {
+        return true;
       }
     }
-    return true;
+    return false;
   }
 
   /**
@@ -487,43 +334,15 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   public boolean isMmValid() {
     assureInitialization();
 
-    return isValidRecursively(this);
-  }
-
-  /**
-   * Returns true, if all children of specified mimic are validated successfully.
-   *
-   * @param         pMm  The specified mimic.
-   *
-   * @return        True, if all children of specified mimic are validated successfully.
-   *
-   * @jalopy.group  group-valid
-   */
-  protected boolean isValidRecursively(MmBaseImplementation<?, ?> pMm) {
     // if this container is invalid, return immediately
     if (errorstate != MmContainerErrorState.SUCCESS) {
       return false;
     }
 
-    // otherwise iterate over container's children
-    for (MmBaseImplementation<?, ?> child : getImplementationChildrenOf(pMm)) {
-
-      // if child is editable, ask child
-      if (MmEditableMimic.class.isAssignableFrom(child.getClass())) {
-        MmEditableMimic editableChild = (MmEditableMimic)child;
-
-        // if child is editable attribute, this will NOT iterate over child's children
-        // if child is editable container, container is responsible for its children
-        if (!editableChild.isMmValid()) {
-          return false;
-        }
-
-      } else {
-
-        // in any other case iterate recursively over child's children
-        if (!isValidRecursively(child)) {
-          return false;
-        }
+    // iterate over children of type MmEditableMimic
+    for (MmEditableMimic child : getImplementationChildrenOfType(MmEditableMimic.class)) {
+      if (!child.isMmValid()) {
+        return false;
       }
     }
     return true;

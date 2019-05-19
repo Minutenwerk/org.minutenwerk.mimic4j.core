@@ -14,7 +14,6 @@ public interface MmEditableMimic extends MmMimic {
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>passing viewside value into modelside value</li>
    *   <li>converting viewside value to modelside type</li>
    *   <li>passing converted value into modelside value</li>
    *   <li>validating modelside value</li>

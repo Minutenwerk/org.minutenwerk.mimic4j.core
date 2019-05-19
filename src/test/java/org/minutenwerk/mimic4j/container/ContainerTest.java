@@ -24,7 +24,6 @@ public class ContainerTest {
 
     // test
     controller.person().set(testPerson);
-    controller.tabPerson.setMmModel(testPerson);
 
     // assert
     Assert.assertEquals("John", controller.tabPerson.vorname.getMmViewsideValue());

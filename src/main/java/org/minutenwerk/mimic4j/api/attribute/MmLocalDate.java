@@ -17,9 +17,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 /**
  * MmLocalDate is a mimic for an editable attribute of type {@link LocalDate}.
  *
- * @author              Olaf Kossak
- *
- * @jalopy.group-order  group-callback
+ * @author  Olaf Kossak
  */
 public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLocalDate, LocalDate, String> {
 
@@ -71,13 +69,11 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   /**
    * Converts modelside value of type MODELSIDE_VALUE to value of type VIEWSIDE_VALUE.
    *
-   * @param         pModelsideValue  The modelside value to be converted.
+   * @param   pModelsideValue  The modelside value to be converted.
    *
-   * @return        The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEWSIDE_VALUE.
    *
-   * @throws        MmModelsideConverterException  In case of the conversion failed.
-   *
-   * @jalopy.group  group-callback
+   * @throws  MmModelsideConverterException  In case of the conversion failed.
    */
   @Override
   public String callbackMmConvertModelsideToViewsideValue(LocalDate pModelsideValue) throws MmModelsideConverterException {
@@ -103,13 +99,11 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   /**
    * Converts viewside value of type VIEWSIDE_VALUE to value of type MODELSIDE_VALUE.
    *
-   * @param         pViewsideValue  The viewside value to be converted.
+   * @param   pViewsideValue  The viewside value to be converted.
    *
-   * @return        The converted value of type MODELSIDE_VALUE.
+   * @return  The converted value of type MODELSIDE_VALUE.
    *
-   * @throws        MmViewsideConverterException  In case of the conversion failed.
-   *
-   * @jalopy.group  group-callback
+   * @throws  MmViewsideConverterException  In case of the conversion failed.
    */
   @Override
   public LocalDate callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
@@ -136,9 +130,7 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   /**
    * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
    *
-   * @return        A list of options.
-   *
-   * @jalopy.group  group-callback
+   * @return  A list of options.
    */
   @Override
   public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
@@ -148,11 +140,9 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   /**
    * Semantic validation of modelside value of type MODELSIDE_VALUE. If validation succeeds:
    *
-   * @param         pModelsideValue  The modelside value to be validated.
+   * @param   pModelsideValue  The modelside value to be validated.
    *
-   * @throws        MmValidatorException  In case of validation fails.
-   *
-   * @jalopy.group  group-callback
+   * @throws  MmValidatorException  In case of validation fails.
    */
   @Override
   public void callbackMmValidateModelsideValue(LocalDate pModelsideValue) throws MmValidatorException {

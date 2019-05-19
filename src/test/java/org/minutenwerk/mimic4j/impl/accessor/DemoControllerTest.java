@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.minutenwerk.mimic4j.api.composite.MmRoot;
+import org.minutenwerk.mimic4j.api.container.MmTab;
 
 
 public class DemoControllerTest {
@@ -23,6 +25,7 @@ public class DemoControllerTest {
 
     // create controller
     DemoController controller = new DemoController();
+    new MmTab<>(new MmRoot(), controller.selectedBook());
 
     // let controller point to pojo
     // use accessors to set values and assert values

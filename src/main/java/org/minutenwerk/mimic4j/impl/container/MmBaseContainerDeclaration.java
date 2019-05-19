@@ -66,7 +66,6 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>passing viewside value into modelside value</li>
    *   <li>converting viewside value to modelside type</li>
    *   <li>passing converted value into modelside value</li>
    *   <li>validating modelside value</li>
@@ -129,15 +128,4 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
   public final boolean isMmValid() {
     return implementation.isMmValid();
   }
-
-  /**
-   * Sets the model.
-   *
-   * @param  pModel  The model to set.
-   */
-  @Override
-  public final void setMmModel(MODEL pModel) {
-    implementation.setMmModel(pModel);
-  }
-
 }

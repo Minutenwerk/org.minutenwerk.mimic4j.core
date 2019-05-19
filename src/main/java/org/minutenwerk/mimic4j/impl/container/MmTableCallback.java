@@ -21,11 +21,4 @@ public interface MmTableCallback<ROW_MODEL> extends MmContainerCallback<List<ROW
    */
   public MmTableRow<ROW_MODEL> callbackMmCreateTableRow(int pRowIndex);
 
-  /**
-   * Returns the list of table row mimics.
-   *
-   * @return  The list of table row mimics.
-   */
-  public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows();
-
 }

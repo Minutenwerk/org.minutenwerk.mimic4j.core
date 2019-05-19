@@ -3,7 +3,10 @@ package org.minutenwerk.mimic4j.api.container;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmTableMimic;
+import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationTable;
 import org.minutenwerk.mimic4j.impl.container.MmTableCallback;
@@ -14,7 +17,7 @@ import org.minutenwerk.mimic4j.impl.container.MmTableCallback;
  * @author  Olaf Kossak
  */
 public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List<ROW_MODEL>, MmImplementationTable<ROW_MODEL>>
-  implements MmTableCallback<ROW_MODEL> {
+  implements MmTableCallback<ROW_MODEL>, MmTableMimic<ROW_MODEL> {
 
   /**
    * Creates a new MmTable instance.
@@ -23,6 +26,17 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    */
   public MmTable(MmDeclarationMimic pParent) {
     super(new MmImplementationTable<ROW_MODEL>(pParent));
+  }
+
+  /**
+   * Creates a new MmTable instance.
+   *
+   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
+   *                        has a root accessor.
+   */
+  public MmTable(MmDeclarationMimic pParent, final MmRootAccessor<List<ROW_MODEL>> pRootAccessor) {
+    super(new MmImplementationTable<>(pParent, pRootAccessor));
   }
 
   /**
@@ -39,8 +53,19 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
   /**
    * Clears all rows of this table.
    */
-  public final void doMmClearTableRows() {
+  @Override
+  public void doMmClearTableRows() {
     implementation.doMmClearTableRows();
+  }
+
+  /**
+   * Returns the list of table column mimics of this table mimic.
+   *
+   * @return  The list of table column mimics.
+   */
+  @Override
+  public List<MmTableColumn> getMmTableColumns() {
+    return implementation.getMmTableColumns();
   }
 
   /**

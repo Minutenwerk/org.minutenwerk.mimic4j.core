@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
@@ -33,12 +34,12 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-initialization, group-lifecycle, group-override
+ * @jalopy.group-order  group-initialization, group-lifecycle, group-override, group-helper
  */
 public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallback,
   CONFIGURATION extends MmBaseAttributeConfiguration<ATTRIBUTE_MODEL>, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>
   extends MmBaseImplementation<MmBaseAttributeDeclaration<?, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, CONFIGURATION>
-  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> {
+  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, MmEditableMimicImpl {
 
   /** Class internal constant to control index of generic type ATTRIBUTE_MODEL. */
   private static final int    GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL = 3;
@@ -185,6 +186,25 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
+   * Validates attribute, by:
+   *
+   * <ol>
+   *   <li>converting viewside value to modelside type</li>
+   *   <li>passing converted value into modelside value</li>
+   *   <li>validating modelside value</li>
+   * </ol>
+   *
+   * @jalopy.group  group-lifecycle
+   */
+  @Override
+  public void doMmValidate() {
+    assureInitialization();
+
+    passViewsideToModelside();
+    validateModelside();
+  }
+
+  /**
    * Converts and passes modelside value of type ATTRIBUTE_MODEL to viewside value of type VIEWSIDE_VALUE. If conversion succeeds:
    *
    * <ul>
@@ -202,9 +222,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-lifecycle
    */
-  public void doPassModelsideToViewsideValue() {
-    assureInitialization();
-
+  @Override
+  public void passModelsideToViewside() {
     String originalDebugState = toStringTraceState();
 
     try {
@@ -239,7 +258,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @jalopy.group  group-lifecycle
    */
-  public void doPassViewsideToModelsideValue() {
+  @Override
+  public void passViewsideToModelside() {
     assureInitialization();
 
     String originalDebugState = toStringTraceState();
@@ -269,111 +289,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
         messageList.addMessage(message);
       }
     }
-
-    logDebugChange(originalDebugState);
-  }
-
-  /**
-   * Semantic validation of modelside value of type ATTRIBUTE_MODEL. If validation succeeds:
-   *
-   * <ul>
-   *   <li>valueState is {@link MmValueState.VALID_VALUE_IN_MODELSIDE}</li>
-   *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
-   * </ul>
-   *
-   * <p>If validation fails:</p>
-   *
-   * <ul>
-   *   <li>valueState remains unchanged</li>
-   *   <li>errorState is {@link MmAttributeErrorState.ERROR_INVALID_VALUE_IN_MODELSIDE}</li>
-   *   <li>an error message is produced and added to MmRoot</li>
-   * </ul>
-   *
-   * @jalopy.group  group-lifecycle
-   */
-  public void doValidateModelsideValue() {
-    assureInitialization();
-
-    String originalDebugState = toStringTraceState();
-
-    try {
-      declaration.callbackMmValidateModelsideValue(modelAccessor.get());
-      valueState = MmValueState.VALID_VALUE_IN_MODELSIDE;
-      errorState = MmAttributeErrorState.SUCCESS;
-    } catch (MmValidatorException validatorException) {
-      errorState = MmAttributeErrorState.ERROR_INVALID_VALUE_IN_MODELSIDE;
-
-      MmMessage message = new MmMessage(validatorException);
-      messageList.addMessage(message);
-    }
-
-    logDebugChange(originalDebugState);
-  }
-
-  /**
-   * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.doValidateModelsideValue()} is
-   * executable.
-   *
-   * @return        <code>true</code> if the action {@link MmEditableMimic.doValidateModelsideValue()} is executable.
-   *
-   * @throws        IllegalStateException  in case of unconsidered value state
-   *
-   * @jalopy.group  group-lifecycle
-   */
-  public boolean isDoValidateModelsideValueEnabled() {
-    assureInitialization();
-
-    switch (valueState) {
-      case UNDEFINED: {
-        return false;
-      }
-
-      // if viewside is changed from view (but not converted yet), do not validate
-      case SET_FROM_VIEW_TO_VIEWSIDE: {
-        return false;
-      }
-
-      // if converted to viewside, validate
-      case CONVERTED_MODELSIDE_TO_VIEWSIDE: {
-        return (errorState == MmAttributeErrorState.SUCCESS);
-      }
-
-      // or converted from viewside, validate
-      case CONVERTED_VIEWSIDE_TO_MODELSIDE: {
-        return (errorState == MmAttributeErrorState.SUCCESS);
-      }
-
-      // or valid already, validate again
-      case VALID_VALUE_IN_MODELSIDE: {
-        return true;
-      }
-
-      default: {
-        throw new IllegalStateException("illegal value state " + valueState);
-      }
-    }
-  }
-
-  /**
-   * Sets modelside value of mimic to specified value. Post action state is:
-   *
-   * <ul>
-   *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
-   * </ul>
-   *
-   * @param         pModelsideValue  The specified value to be set.
-   *
-   * @jalopy.group  group-lifecycle
-   */
-  // TODO entfällt
-  public void setMmModelsideValue(ATTRIBUTE_MODEL pModelsideValue) {
-    assureInitialization();
-
-    String originalDebugState = toStringTraceState();
-
-    modelAccessor.set(pModelsideValue);
-    errorState            = MmAttributeErrorState.SUCCESS;
-    isChangedFromViewside = false;
 
     logDebugChange(originalDebugState);
   }
@@ -409,23 +324,86 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Validates attribute, by:
+   * Semantic validation of modelside value of type ATTRIBUTE_MODEL. If validation succeeds:
    *
-   * <ol>
-   *   <li>passing viewside value into modelside value</li>
-   *   <li>converting viewside value to modelside type</li>
-   *   <li>passing converted value into modelside value</li>
-   *   <li>validating modelside value</li>
-   * </ol>
+   * <ul>
+   *   <li>valueState is {@link MmValueState.VALID_VALUE_IN_MODELSIDE}</li>
+   *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
+   * </ul>
    *
-   * @jalopy.group  group-override
+   * <p>If validation fails:</p>
+   *
+   * <ul>
+   *   <li>valueState remains unchanged</li>
+   *   <li>errorState is {@link MmAttributeErrorState.ERROR_INVALID_VALUE_IN_MODELSIDE}</li>
+   *   <li>an error message is produced and added to MmRoot</li>
+   * </ul>
+   *
+   * @jalopy.group  group-lifecycle
    */
   @Override
-  public void doMmValidate() {
+  public void validateModelside() {
     assureInitialization();
 
-    doPassViewsideToModelsideValue();
-    doValidateModelsideValue();
+    String originalDebugState = toStringTraceState();
+
+    if (isValidationEnabled()) {
+      try {
+        declaration.callbackMmValidateModelsideValue(modelAccessor.get());
+        valueState = MmValueState.VALID_VALUE_IN_MODELSIDE;
+        errorState = MmAttributeErrorState.SUCCESS;
+      } catch (MmValidatorException validatorException) {
+        errorState = MmAttributeErrorState.ERROR_INVALID_VALUE_IN_MODELSIDE;
+
+        MmMessage message = new MmMessage(validatorException);
+        messageList.addMessage(message);
+      }
+    }
+
+    logDebugChange(originalDebugState);
+  }
+
+  /**
+   * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.validateModelside()} is executable.
+   *
+   * @return        <code>true</code> if the action {@link MmEditableMimic.validateModelside()} is executable.
+   *
+   * @throws        IllegalStateException  in case of unconsidered value state
+   *
+   * @jalopy.group  group-lifecycle
+   */
+  private boolean isValidationEnabled() {
+    assureInitialization();
+
+    switch (valueState) {
+      case UNDEFINED: {
+        return false;
+      }
+
+      // if viewside is changed from view (but not converted yet), do not validate
+      case SET_FROM_VIEW_TO_VIEWSIDE: {
+        return false;
+      }
+
+      // if converted to viewside, validate
+      case CONVERTED_MODELSIDE_TO_VIEWSIDE: {
+        return (errorState == MmAttributeErrorState.SUCCESS);
+      }
+
+      // or converted from viewside, validate
+      case CONVERTED_VIEWSIDE_TO_MODELSIDE: {
+        return (errorState == MmAttributeErrorState.SUCCESS);
+      }
+
+      // or valid already, validate again
+      case VALID_VALUE_IN_MODELSIDE: {
+        return true;
+      }
+
+      default: {
+        throw new IllegalStateException("illegal value state " + valueState);
+      }
+    }
   }
 
   /**
@@ -595,6 +573,21 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
+   * Returns <code>true</code>, if the mimic has been changed from viewside. If a mimic is changed, all ancestors of type MmEditableMimic
+   * are marked as being changed as well.
+   *
+   * @return        <code>True</code>, if mimic has been changed from viewside.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public final boolean isMmChangedFromViewside() {
+    assureInitialization();
+
+    return isChangedFromViewside;
+  }
+
+  /**
    * Returns <code>true</code> if the viewside value of this mimic is empty.
    *
    * @return        <code>True</code> if the viewside value of this mimic is empty.
@@ -638,7 +631,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
 
   /**
    * Clears list of messages of this mimic.
+   *
+   * @jalopy.group  group-helper
    */
+  @Override
   public void clearMmMessageList() {
     assureInitialization();
 
@@ -648,7 +644,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /**
    * Returns the highest severity of error message of this mimic, returns null in case of no messages.
    *
-   * @return  The highest severity of error message of this mimic.
+   * @return        The highest severity of error message of this mimic.
+   *
+   * @jalopy.group  group-helper
    */
   public MmMessageSeverity getMmMaximumSeverity() {
     assureInitialization();
@@ -659,7 +657,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /**
    * Returns a list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
    *
-   * @return  A list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
+   * @return        A list of {@link MmMessage}, containing error, warning, info and success messages of this mimic.
+   *
+   * @jalopy.group  group-helper
    */
   public List<MmMessage> getMmMessages() {
     assureInitialization();
@@ -670,25 +670,14 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /**
    * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
    *
-   * @return  A list of options.
+   * @return        A list of options.
+   *
+   * @jalopy.group  group-helper
    */
   public List<MmSelectOption<Object>> getMmSelectOptions() {
     assureInitialization();
 
     return declaration.callbackMmGetSelectOptions();
-  }
-
-  /**
-   * Returns <code>true</code>, if the mimic has been changed from viewside. If a mimic is changed, all ancestors of type MmEditableMimic
-   * are marked as being changed as well.
-   *
-   * @return  <code>True</code>, if mimic has been changed from viewside.
-   */
-  @Override
-  public final boolean isMmChangedFromViewside() {
-    assureInitialization();
-
-    return isChangedFromViewside;
   }
 
   /**

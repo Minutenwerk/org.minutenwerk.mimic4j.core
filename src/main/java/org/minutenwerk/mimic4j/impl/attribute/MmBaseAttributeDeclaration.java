@@ -99,6 +99,23 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
+   * Validates attribute, by:
+   *
+   * <ol>
+   *   <li>converting viewside value to modelside type</li>
+   *   <li>passing converted value into modelside value</li>
+   *   <li>validating modelside value</li>
+   * </ol>
+   *
+   * @jalopy.group  group-lifecycle
+   */
+  @Override
+  public final void doMmValidate() {
+    implementation.clearMmMessageList();
+    implementation.doMmValidate();
+  }
+
+  /**
    * Sets viewside value of mimic to specified value.
    *
    * @param         pViewsideValue  The specified value to be set.
@@ -108,22 +125,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
     implementation.setMmViewsideValue(pViewsideValue);
-  }
-
-  /**
-   * Validates attribute, by:
-   *
-   * <ol>
-   *   <li>passing viewside value into modelside value</li>
-   *   <li>converting viewside value to modelside type</li>
-   *   <li>passing converted value into modelside value</li>
-   *   <li>validating modelside value</li>
-   * </ol>
-   */
-  @Override
-  public final void doMmValidate() {
-    implementation.clearMmMessageList();
-    implementation.doMmValidate();
   }
 
   /**
