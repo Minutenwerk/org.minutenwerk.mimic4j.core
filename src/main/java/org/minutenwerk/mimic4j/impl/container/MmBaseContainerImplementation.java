@@ -15,6 +15,10 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
 /**
  * MmBaseContainerImplementation is the abstract base class for the implementation part of all container mimic classes.
  *
+ * @param               <DECLARATION>    Type of configuration, holding state of mimic configuration.
+ * @param               <MODEL>          Type of the model, containing business data.
+ * @param               <CONFIGURATION>  Type of configuration base class for containers.
+ *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-initialization, group-lifecycle, group-do, group-get, group-clear, group-changed-front, group-required,

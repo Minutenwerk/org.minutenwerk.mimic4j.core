@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
-import java.util.List;
 import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
@@ -17,7 +16,6 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationBigDecimal;
-import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 
 /**
  * MmBigDecimal is a mimic for an editable attribute of type {@link BigDecimal}.
@@ -125,16 +123,6 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
       }
     }
     return returnBigDecimal;
-  }
-
-  /**
-   * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
-   *
-   * @return  A list of options.
-   */
-  @Override
-  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
-    return null;
   }
 
   /**

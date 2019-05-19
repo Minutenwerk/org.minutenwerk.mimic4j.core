@@ -3,6 +3,8 @@ package org.minutenwerk.mimic4j.api;
 /**
  * MmContainerMimic is the basic interface of all mimic types containing other mimics of type MmEditableMimic.
  *
+ * @param   <MODEL>  The type of the model, containing business data.
+ *
  * @author  Olaf Kossak
  */
 public interface MmContainerMimic<MODEL> extends MmEditableMimic {

@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTableRow;
 public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<ROW_MODEL, MmImplementationTableRow<ROW_MODEL>>
   implements MmTableRowMimic<ROW_MODEL> {
 
-    /** The table row index of this row. */
+  /** The table row index of this row. */
   protected final int rowIndex;
 
   /**

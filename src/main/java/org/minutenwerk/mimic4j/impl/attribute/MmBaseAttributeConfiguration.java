@@ -38,4 +38,13 @@ public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_MODEL> extends MmBa
     return required;
   }
 
+  /**
+   * Set configuration for mimic, whether input is required.
+   *
+   * @param  pRequired  True, if input is required.
+   */
+  public void setRequired(boolean pRequired) {
+    required = pRequired;
+  }
+
 }

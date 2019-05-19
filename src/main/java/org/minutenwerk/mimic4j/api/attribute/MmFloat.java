@@ -3,15 +3,12 @@ package org.minutenwerk.mimic4j.api.attribute;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
-import java.util.List;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationFloat;
-import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 
 /**
  * MmFloat is a mimic for an editable attribute of type {@link Float}.
@@ -118,16 +115,6 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
       }
     }
     return returnFloat;
-  }
-
-  /**
-   * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
-   *
-   * @return  A list of options.
-   */
-  @Override
-  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
-    return null;
   }
 
   /**

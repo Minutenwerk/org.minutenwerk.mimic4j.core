@@ -4,15 +4,12 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import java.util.List;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationLocalTime;
-import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 
 /**
  * MmLocalTime is a mimic for an editable attribute of type {@link LocalTime}.
@@ -116,16 +113,6 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
       }
     }
     return returnDate;
-  }
-
-  /**
-   * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
-   *
-   * @return  A list of options.
-   */
-  @Override
-  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
-    return null;
   }
 
   /**

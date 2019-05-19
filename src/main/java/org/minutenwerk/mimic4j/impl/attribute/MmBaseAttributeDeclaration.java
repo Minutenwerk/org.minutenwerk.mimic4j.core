@@ -3,6 +3,7 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
@@ -82,6 +83,18 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public int callbackMmGetMaxLength(int pPassThroughValue) {
     return pPassThroughValue;
+  }
+
+  /**
+   * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
+   *
+   * @return        A list of options.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
+    return null;
   }
 
   /**

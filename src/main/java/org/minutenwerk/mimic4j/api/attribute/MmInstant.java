@@ -9,7 +9,6 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
 
 import java.util.Date;
-import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
@@ -17,7 +16,6 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationInstant;
-import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 
 /**
  * MmDate is a mimic for an editable attribute of type {@link Date}.
@@ -125,16 +123,6 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
       }
     }
     return returnInstant;
-  }
-
-  /**
-   * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
-   *
-   * @return  A list of options.
-   */
-  @Override
-  public <OPTION_VALUE_TYPE> List<MmSelectOption<OPTION_VALUE_TYPE>> callbackMmGetSelectOptions() {
-    return null;
   }
 
   /**

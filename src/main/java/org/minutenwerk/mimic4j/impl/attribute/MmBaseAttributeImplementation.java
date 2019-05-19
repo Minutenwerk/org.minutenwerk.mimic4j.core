@@ -28,8 +28,8 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  * viewside type and vice versa, validating a value entered from viewside and controlling change events and the mimic's state.
  *
  * @param               <CALLBACK>         Interface defining callback methods, extending {@link MmBaseCallback}.
- * @param               <CONFIGURATION>    Type of configuration base class for attributes.
- * @param               <ATTRIBUTE_MODEL>  Type of modelside value of attribute, passed to model.
+ * @param               <CONFIGURATION>    Type of configuration, holding state of mimic configuration.
+ * @param               <ATTRIBUTE_MODEL>  Type of attribute of model.
  * @param               <VIEWSIDE_VALUE>   Type of viewside value of attribute, passed to JSF tag.
  *
  * @author              Olaf Kossak
