@@ -76,7 +76,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
   @Override
-  public final boolean isPresent() throws NullPointerException {
+  public boolean isPresent() throws NullPointerException {
     return getComponentOptional().isPresent();
   }
 

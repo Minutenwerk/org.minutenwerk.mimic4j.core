@@ -7,7 +7,7 @@ import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
-import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 import org.minutenwerk.mimic4j.impl.message.MmMessageList;
@@ -49,19 +49,19 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /** The error state of this container. */
-  protected MmContainerErrorState     errorstate;
+  protected MmContainerErrorState         errorstate;
 
   /** The list of messages. */
-  protected final MmMessageList       messageList;
+  protected final MmMessageList           messageList;
 
   /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
-  protected MmRootAccessor<?>         rootAccessor;
+  protected MmRootAccessor<?>             rootAccessor;
 
   /**
    * This component has a model of type MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
    * undefined.
    */
-  protected MmModelAccessor<?, MODEL> modelAccessor;
+  protected MmComponentAccessor<?, MODEL> modelAccessor;
 
   /**
    * Creates a new MmBaseContainerImplementation instance.
@@ -88,6 +88,20 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
+   * Returns accessor of model.
+   *
+   * @return        The accessor of model.
+   *
+   * @jalopy.group  group-initialization
+   */
+  @Override
+  public MmComponentAccessor<?, MODEL> getMmModelAccessor() {
+    assureInitialization();
+
+    return modelAccessor;
+  }
+
+  /**
    * Returns accessor of root component of model.
    *
    * @return        The accessor of root component of model.
@@ -96,6 +110,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-initialization
    */
+  @Override
   public MmRootAccessor<?> getMmRootAccessor() {
     if (rootAccessor == null) {
       for (MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class); //
@@ -129,7 +144,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     if (rootAccessor != null) {
 
       // this container is the root
-      modelAccessor = (MmModelAccessor<?, MODEL>)rootAccessor;
+      modelAccessor = (MmComponentAccessor<?, MODEL>)rootAccessor;
 
     } else {
 

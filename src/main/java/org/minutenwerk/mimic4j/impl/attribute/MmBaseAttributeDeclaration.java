@@ -182,6 +182,16 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
+   * Returns accessor of attribute of model.
+   *
+   * @return  The accessor of attribute of model.
+   */
+  @Override
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> getMmModelAccessor() {
+    return implementation.getMmModelAccessor();
+  }
+
+  /**
    * Returns the type of modelside value of the mimic.
    *
    * @return  The type of modelside value of the mimic.
@@ -199,6 +209,16 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final ATTRIBUTE_MODEL getMmModelsideValue() {
     return implementation.getMmModelsideValue();
+  }
+
+  /**
+   * Returns accessor of root component of model.
+   *
+   * @return  The accessor of root component of model.
+   */
+  @Override
+  public MmRootAccessor<?> getMmRootAccessor() {
+    return implementation.getMmRootAccessor();
   }
 
   /**

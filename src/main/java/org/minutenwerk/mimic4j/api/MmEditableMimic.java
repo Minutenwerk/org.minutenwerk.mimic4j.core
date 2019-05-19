@@ -1,6 +1,8 @@
 package org.minutenwerk.mimic4j.api;
 
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
+import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
 /**
  * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from modelside. Mimics of type
@@ -22,6 +24,20 @@ public interface MmEditableMimic extends MmMimic {
    * @throws  MmValidatorException  in case of semantic validation of container or one of its children failed.
    */
   public void doMmValidate() throws MmValidatorException;
+
+  /**
+   * Returns accessor of model.
+   *
+   * @return  The accessor of model.
+   */
+  public MmModelAccessor<?, ?> getMmModelAccessor();
+
+  /**
+   * Returns accessor of root component of model.
+   *
+   * @return  The accessor of root component of model.
+   */
+  public MmRootAccessor<?> getMmRootAccessor();
 
   /**
    * Returns <code>true</code>, if the mimic has been changed from viewside. If a mimic is changed, all ancestors of type MmEditableMimic

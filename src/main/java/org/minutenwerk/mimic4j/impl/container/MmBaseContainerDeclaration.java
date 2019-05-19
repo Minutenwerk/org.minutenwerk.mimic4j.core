@@ -89,6 +89,16 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
   }
 
   /**
+   * Returns accessor of model.
+   *
+   * @return  The accessor of model.
+   */
+  @Override
+  public MmComponentAccessor<?, MODEL> getMmModelAccessor() {
+    return implementation.getMmModelAccessor();
+  }
+
+  /**
    * Returns the Java type of the model.
    *
    * @return  The Java type of the model.
@@ -96,6 +106,16 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
   @Override
   public final Class<MODEL> getMmModelType() {
     return implementation.getMmModelType();
+  }
+
+  /**
+   * Returns accessor of root component of model.
+   *
+   * @return  The accessor of root component of model.
+   */
+  @Override
+  public MmRootAccessor<?> getMmRootAccessor() {
+    return implementation.getMmRootAccessor();
   }
 
   /**

@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
  *
  * @author  Olaf Kossak
  */
-public class MmRootAccessor<COMPONENT_MODEL> extends MmBaseModelAccessor<Void, COMPONENT_MODEL> {
+public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, COMPONENT_MODEL> {
 
   /** The root model is stored in the root accessor. This is the only accessor which stores a model. */
   private COMPONENT_MODEL                                      rootModel;
@@ -21,7 +21,7 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmBaseModelAccessor<Void, C
    * Constructor of this mutable class.
    */
   public MmRootAccessor() {
-    super(null);
+    super(null, null, null);
   }
 
   /**
@@ -42,16 +42,6 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmBaseModelAccessor<Void, C
   @Override
   public Void getParent() {
     return null;
-  }
-
-  /**
-   * Returns true, if the accessed model is a component.
-   *
-   * @return  true, if the accessed model is a component.
-   */
-  @Override
-  public boolean isComponent() {
-    return true;
   }
 
   /**

@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
+import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
+
 /**
  * MmAttributeMimic is the basic interface of all mimic types containing editable data, which can be changed from viewside. Mimics of type
  * MmAttributeMimic can be set from modelside and viewside, and can be converted in both directions by means of format patterns.
@@ -71,6 +73,14 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
    * @return  The attribute's layout direction.
    */
   public MmBooleanLayout getMmLayout();
+
+  /**
+   * Returns accessor of attribute of model.
+   *
+   * @return  The accessor of attribute of model.
+   */
+  @Override
+  public MmAttributeAccessor<?, MODELSIDE_VALUE> getMmModelAccessor();
 
   /**
    * Returns the type of modelside value of the mimic.

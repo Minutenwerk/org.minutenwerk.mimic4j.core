@@ -469,6 +469,20 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
+   * Returns accessor of attribute of model.
+   *
+   * @return        The accessor of attribute of model.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> getMmModelAccessor() {
+    assureInitialization();
+
+    return modelAccessor;
+  }
+
+  /**
    * Returns the attribute's type of modelside value (ATTRIBUTE_MODEL).
    *
    * @return        The attribute's type of modelside value.
@@ -494,6 +508,20 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     assureInitialization();
 
     return modelAccessor.get();
+  }
+
+  /**
+   * Returns accessor of root component of model.
+   *
+   * @return        The accessor of root component of model.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public MmRootAccessor<?> getMmRootAccessor() {
+    assureInitialization();
+
+    return rootAccessor;
   }
 
   /**
