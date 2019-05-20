@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -1266,7 +1267,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseImplementation</code>, including
    * runtime children.
    *
-   * @param         pType  pMmBaseImplementation The specified mimic.
+   * @param         pType  The specified mimic.
    *
    * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
    *                children.
@@ -1275,8 +1276,27 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @SuppressWarnings("unchecked")
   protected <T extends MmMimic> List<T> getImplementationChildrenOfType(Class<T> pType) {
-    return (List<T>)getMmChildren().stream() //
+	return (List<T>)Stream.concat(implementationChildren.stream(), runtimeImplementationChildren.stream()) //
     .filter(child -> pType.isAssignableFrom(child.getClass())) //
+    .collect(Collectors.toList());
+  }
+
+  /**
+   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseDeclaration</code>, including
+   * runtime children.
+   *
+   * @param         pType  The specified mimic.
+   *
+   * @return        The list of all direct children of specified mimic of type <code>MmBaseDeclaration</code>, including runtime
+   *                children.
+   *
+   * @jalopy.group  group-helper
+   */
+  @SuppressWarnings("unchecked")
+  @Deprecated
+  protected <T extends MmMimic> List<T> getDeclarationChildrenOfType(Class<T> pType) {
+	return (List<T>)Stream.concat(declarationChildren.stream(), runtimeDeclarationChildren.stream()) //
+		    .filter(child -> pType.isAssignableFrom(child.getClass())) //
     .collect(Collectors.toList());
   }
 
