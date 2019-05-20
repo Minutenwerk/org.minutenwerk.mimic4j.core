@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.container.model;
+package org.minutenwerk.mimic4j.container;
 
 import java.time.Instant;
 import java.time.LocalDate;

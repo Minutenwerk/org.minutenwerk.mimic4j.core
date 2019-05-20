@@ -1,8 +1,6 @@
 package org.minutenwerk.mimic4j.container;
 
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
-import org.minutenwerk.mimic4j.container.accessor.PersonAccessor;
-import org.minutenwerk.mimic4j.container.mimic.MmTabPerson;
 
 public class PersonController {
 

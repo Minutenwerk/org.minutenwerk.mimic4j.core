@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
 import org.minutenwerk.mimic4j.api.exception.MmException;
-import org.minutenwerk.mimic4j.container.model.Adresse;
-import org.minutenwerk.mimic4j.container.model.Person;
-import org.minutenwerk.mimic4j.container.model.Person.Gender;
+import org.minutenwerk.mimic4j.container.Person.Gender;
 
 public class ContainerTest {
 

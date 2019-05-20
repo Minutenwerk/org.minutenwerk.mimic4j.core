@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.container.mimic;
+package org.minutenwerk.mimic4j.container;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,10 +24,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
-import org.minutenwerk.mimic4j.container.accessor.PersonAccessor;
-import org.minutenwerk.mimic4j.container.model.Adresse;
-import org.minutenwerk.mimic4j.container.model.Person;
-import org.minutenwerk.mimic4j.container.model.Person.Gender;
+import org.minutenwerk.mimic4j.container.Person.Gender;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;

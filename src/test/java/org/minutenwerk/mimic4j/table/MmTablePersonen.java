@@ -5,7 +5,7 @@ import org.minutenwerk.mimic4j.api.container.MmTable;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
-public class TestTableMm extends MmTable<TestModel> {
+public class MmTablePersonen extends MmTable<Person> {
   
   public final MmTableColumn vorname = new MmTableColumn(this); 
 
@@ -17,12 +17,12 @@ public class TestTableMm extends MmTable<TestModel> {
 
   public final MmTableColumn isMember = new MmTableColumn(this);
 
-  public TestTableMm(MmBaseDeclaration<?, ?> pParent) {
+  public MmTablePersonen(MmBaseDeclaration<?, ?> pParent) {
     super(pParent);
   }
 
   @Override
-  public MmTableRow<TestModel> callbackMmCreateTableRow(int pRowIndex) {
-    return new TestTableRowMm(this, pRowIndex);
+  public MmTableRow<Person> callbackMmCreateTableRow(int pRowIndex) {
+    return new MmTableRowPersonen(this, pRowIndex);
   }
 }

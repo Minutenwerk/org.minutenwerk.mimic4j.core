@@ -1,18 +1,24 @@
-package org.minutenwerk.mimic4j.container.accessor;
+package org.minutenwerk.mimic4j.table;
 
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.function.Supplier;
 
-import org.minutenwerk.mimic4j.container.model.Person;
-import org.minutenwerk.mimic4j.container.model.Person.Gender;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmListAccessor;
+import org.minutenwerk.mimic4j.impl.accessor.MmListEntryAccessor;
+import org.minutenwerk.mimic4j.table.Person.Gender;
 
-public class PersonAccessor extends MmRootAccessor<Person> {
+public class PersonAccessor extends MmListEntryAccessor<List<Person>, Person> {
 
+  public PersonAccessor(final MmListAccessor<?, List<Person>, Person> personAccessor, final Supplier<Integer> indexSupplier) {
+    super(personAccessor, indexSupplier);
+  }
+	  
   public MmAttributeAccessor<Person, String> vorname() {
     return new MmAttributeAccessor<>(this, Person::getVorname, Person::setVorname);
   }
@@ -31,10 +37,6 @@ public class PersonAccessor extends MmRootAccessor<Person> {
 
   public MmAttributeAccessor<Person, Gender> gender() {
     return new MmAttributeAccessor<>(this, Person::getGender, Person::setGender);
-  }
-
-  public AdresseAccessor adresse() {
-    return new AdresseAccessor(this);
   }
 
   public MmAttributeAccessor<Person, Instant> instant() {

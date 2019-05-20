@@ -1,7 +1,5 @@
-package org.minutenwerk.mimic4j.container.accessor;
+package org.minutenwerk.mimic4j.container;
 
-import org.minutenwerk.mimic4j.container.model.Adresse;
-import org.minutenwerk.mimic4j.container.model.Person;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 
