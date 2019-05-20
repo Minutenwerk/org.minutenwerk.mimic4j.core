@@ -1,6 +1,5 @@
 package org.minutenwerk.mimic4j.impl.accessor;
 
-
 public class Chapter {
 
   private String topic;

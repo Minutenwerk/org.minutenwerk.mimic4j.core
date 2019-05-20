@@ -14,7 +14,7 @@ import java.util.function.Function;
  * @author  Olaf Kossak
  */
 public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collection<VALUE_MODEL>, VALUE_MODEL>
-  extends MmAttributeAccessor<PARENT_MODEL, COLLECTION_MODEL> {
+  extends MmComponentAccessor<PARENT_MODEL, COLLECTION_MODEL> {
 
   /**
    * Constructor of this immutable class.

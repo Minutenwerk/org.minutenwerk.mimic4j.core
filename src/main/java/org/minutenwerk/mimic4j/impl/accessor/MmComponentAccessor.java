@@ -64,7 +64,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    * @return  true, if the accessed model is a component.
    */
   @Override
-  public boolean isComponent() {
+  public final boolean isComponent() {
     return true;
   }
 

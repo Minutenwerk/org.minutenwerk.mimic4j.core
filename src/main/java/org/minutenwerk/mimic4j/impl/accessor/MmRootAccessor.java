@@ -40,7 +40,7 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
    * @return  parent model of the accessed model.
    */
   @Override
-  public Void getParent() {
+  public final Void getParent() {
     return null;
   }
 
@@ -60,7 +60,7 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
    * @return  true, if the accessed model is the root of an aggregate.
    */
   @Override
-  public boolean isRoot() {
+  public final boolean isRoot() {
     return true;
   }
 
@@ -104,7 +104,7 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
    * @return  The parent.
    */
   @Override
-  public Void with(final COMPONENT_MODEL value) {
+  public final Void with(final COMPONENT_MODEL value) {
     set(value);
     return null;
   }

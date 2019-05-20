@@ -15,10 +15,11 @@ import org.minutenwerk.mimic4j.table.Person.Gender;
 
 public class PersonAccessor extends MmListEntryAccessor<List<Person>, Person> {
 
-  public PersonAccessor(final MmListAccessor<?, List<Person>, Person> personAccessor, final Supplier<Integer> indexSupplier) {
+  public PersonAccessor(final MmListAccessor<?, List<Person>, Person> personAccessor,
+      final Supplier<Integer> indexSupplier) {
     super(personAccessor, indexSupplier);
   }
-	  
+
   public MmAttributeAccessor<Person, String> vorname() {
     return new MmAttributeAccessor<>(this, Person::getVorname, Person::setVorname);
   }

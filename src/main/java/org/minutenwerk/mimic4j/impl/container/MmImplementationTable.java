@@ -10,6 +10,7 @@ import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTable;
 import org.minutenwerk.mimic4j.api.container.MmTableAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.impl.accessor.MmCollectionAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
@@ -60,6 +61,21 @@ public class MmImplementationTable<ROW_MODEL>
   }
 
   /**
+   * Returns accessor of model.
+   *
+   * @return        The accessor of model.
+   *
+   * @jalopy.group  group-initialization
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> getMmModelAccessor() {
+    assureInitialization();
+
+    return (MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL>)modelAccessor;
+  }
+
+  /**
    * Returns the list of table column mimics of this table mimic.
    *
    * @return        The list of table column mimics.
@@ -100,6 +116,8 @@ public class MmImplementationTable<ROW_MODEL>
    */
   @Override
   public void passModelsideToViewside() {
+    assureInitialization();
+
     // clear list of runtime children of table
     clearRuntimeChildrenList();
 

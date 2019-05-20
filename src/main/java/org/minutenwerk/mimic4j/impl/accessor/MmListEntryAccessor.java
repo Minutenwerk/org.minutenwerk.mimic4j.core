@@ -29,6 +29,15 @@ public class MmListEntryAccessor<LIST_MODEL extends List<ENTRY_MODEL>, ENTRY_MOD
   }
 
   /**
+   * Returns index of entry in parent list.
+   *
+   * @return  The index of entry in parent list.
+   */
+  public Integer getIndex() {
+    return indexSupplier.get();
+  }
+
+  /**
    * Returns {@link Optional} of entry model.
    *
    * @return  {@link Optional} of entry model.
@@ -42,5 +51,4 @@ public class MmListEntryAccessor<LIST_MODEL extends List<ENTRY_MODEL>, ENTRY_MOD
       return Optional.empty();
     }
   }
-
 }

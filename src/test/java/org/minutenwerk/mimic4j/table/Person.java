@@ -78,7 +78,7 @@ public class Person {
     return this;
   }
 
-   public Instant getInstant() {
+  public Instant getInstant() {
     return this.instant;
   }
 

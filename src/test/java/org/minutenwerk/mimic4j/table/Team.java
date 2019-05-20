@@ -3,27 +3,27 @@ package org.minutenwerk.mimic4j.table;
 import java.util.List;
 
 public class Team {
-	
-	private String name;
 
-	private List<Person> personen;
+  private String name;
 
-	public Team() {
-	}
+  private List<Person> personen;
 
-	public String getName() {
-		return name;
-	}
+  public Team() {
+  }
 
-	public void setName(final String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public List<Person> getPersonen() {
-		return personen;
-	}
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-	public void setPersonen(final List<Person> personen) {
-		this.personen = personen;
-	}
+  public List<Person> getPersonen() {
+    return personen;
+  }
+
+  public void setPersonen(final List<Person> personen) {
+    this.personen = personen;
+  }
 }

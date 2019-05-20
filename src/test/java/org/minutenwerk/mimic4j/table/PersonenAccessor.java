@@ -7,7 +7,7 @@ import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
 
 public class PersonenAccessor extends MmListAccessor<Team, List<Person>, Person> {
 
-	public PersonenAccessor(final MmModelAccessor<?, Team> rootAccessor) {
-		super(rootAccessor, Team::getPersonen, Team::setPersonen);
-	}
+  public PersonenAccessor(final MmModelAccessor<?, Team> rootAccessor) {
+    super(rootAccessor, Team::getPersonen, Team::setPersonen);
+  }
 }
