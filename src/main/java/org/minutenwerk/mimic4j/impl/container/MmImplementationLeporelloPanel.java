@@ -2,6 +2,7 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
@@ -19,9 +20,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloPanel;
 public class MmImplementationLeporelloPanel<MODEL>
   extends MmBaseContainerImplementation<MmLeporelloPanel<MODEL>, MODEL, MmConfigurationLeporelloPanel> {
 
-	  /** The logger of this class. */
-	  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLeporelloPanel.class);
-
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLeporelloPanel.class);
 
   /**
    * Creates a new MmImplementationLeporelloPanel instance.
@@ -160,18 +160,18 @@ public class MmImplementationLeporelloPanel<MODEL>
    */
   @Override
   protected void initializeConfiguration() {
-	    if (LOGGER.isDebugEnabled()) {
-	        checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloPanelAnnotation.class);
-	      }
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloPanelAnnotation.class);
+    }
 
-	      MmLeporelloPanelAnnotation annotation = findAnnotation(declaration, MmLeporelloPanelAnnotation.class);
-	      if (annotation != null) {
-	        configuration = new MmConfigurationLeporelloPanel(annotation);
-	      } else {
+    MmLeporelloPanelAnnotation annotation = findAnnotation(declaration, MmLeporelloPanelAnnotation.class);
+    if (annotation != null) {
+      configuration = new MmConfigurationLeporelloPanel(annotation);
+    } else {
 
-	        // if there is no annotation, set default configuration
-	        configuration = new MmConfigurationLeporelloPanel();
-	      }
+      // if there is no annotation, set default configuration
+      configuration = new MmConfigurationLeporelloPanel();
+    }
   }
 
 }

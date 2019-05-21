@@ -2,6 +2,7 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloAnnotation;
@@ -20,8 +21,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporello;
 public class MmImplementationLeporello<MODEL, SUB_MODEL>
   extends MmBaseContainerImplementation<MmLeporello<MODEL, SUB_MODEL>, MODEL, MmConfigurationLeporello> {
 
-	  /** The logger of this class. */
-	  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLeporello.class);
+  /** The logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLeporello.class);
 
   /**
    * Creates a new MmImplementationLeporello instance.
@@ -58,18 +59,18 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
    */
   @Override
   protected void initializeConfiguration() {
-	    if (LOGGER.isDebugEnabled()) {
-	        checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloAnnotation.class);
-	      }
+    if (LOGGER.isDebugEnabled()) {
+      checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloAnnotation.class);
+    }
 
-	      MmLeporelloAnnotation annotation = findAnnotation(declaration, MmLeporelloAnnotation.class);
-	      if (annotation != null) {
-	        configuration = new MmConfigurationLeporello(annotation);
-	      } else {
+    MmLeporelloAnnotation annotation = findAnnotation(declaration, MmLeporelloAnnotation.class);
+    if (annotation != null) {
+      configuration = new MmConfigurationLeporello(annotation);
+    } else {
 
-	        // if there is no annotation, set default configuration
-	        configuration = new MmConfigurationLeporello();
-	      }
+      // if there is no annotation, set default configuration
+      configuration = new MmConfigurationLeporello();
+    }
   }
 
 }

@@ -114,6 +114,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The MmJsfBridge of this mimic, which connects it to a JSF view component, is set in constructor phase. */
   protected final MmJsfBridge<?, ?, ?>             mmJsfBridge;
 
+  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. */
+  protected final boolean                          isRuntimeMimic;
+
   /**
    * Creates a new MmCompositeImplementation instance. After this constructor assigned values are:
    *
@@ -180,6 +183,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       // set reference to root to null
       root                 = null;
 
+      // root is compiletime mimic
+      isRuntimeMimic       = false;
+
     } else {
 
       if (!(pDeclarationParent instanceof MmBaseDeclaration<?, ?>)) {
@@ -196,23 +202,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       implementationParent = declarationParent.implementation;
 
       // evaluate reference to root ancestor
-      MmBaseImplementation<?, ?> temp = implementationParent;
-      while (temp.implementationParent != null) {
-        temp = temp.implementationParent;
-      }
+      root                 = evaluateRoot(this);
 
-      // if declaration part of root ancestor is of type MmRoot
-      if (MmImplementationRoot.class.isAssignableFrom(temp.getClass())) {
-
-        // set reference to implementation part of MmRoot
-        root = (MmImplementationRoot)temp;
-      } else {
-        throw new IllegalStateException("root ancestor of subtree must be of type MmImplementationRoot");
-      }
+      // evaluate is runtime
+      isRuntimeMimic       = ((implementationParent != null) && implementationParent.isRuntimeMimic());
     }
-    
-    // evaluate is runtime
-    isRuntimeMimic = (implementationParent != null && implementationParent.isMmRuntimeMimic());
 
     // create lists for child mimics
     implementationChildren        = new ArrayList<>();
@@ -458,27 +452,27 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     if (pChild.isMmRuntimeMimic()) {
 
-	    // if child not in list yet, add child to list of
-	    // runtime declarationChildren and list of runtime implementationChildren
-		if (LOGGER.isDebugEnabled()) {
-			if (runtimeDeclarationChildren.contains(pChild)) {
-			      throw new IllegalStateException("Runtime child " + pChild + " is already registered");
-			}
-		}
+      // if child not in list yet, add child to list of
+      // runtime declarationChildren and list of runtime implementationChildren
+      if (LOGGER.isDebugEnabled()) {
+        if (runtimeDeclarationChildren.contains(pChild)) {
+          throw new IllegalStateException("Runtime child " + pChild + " is already registered");
+        }
+      }
       runtimeDeclarationChildren.add(pChild);
       runtimeImplementationChildren.add(childImplementation);
 
     } else {
 
-        // if child not in list yet, add child to list of
-        // declarationChildren and list of implementationChildren
-		if (LOGGER.isDebugEnabled()) {
-			if (!declarationChildren.contains(pChild)) {
-			      throw new IllegalStateException("Compiletime child " + pChild + " is already registered");
-			}
-		}
-          declarationChildren.add(pChild);
-          implementationChildren.add(childImplementation);
+      // if child not in list yet, add child to list of
+      // declarationChildren and list of implementationChildren
+      if (LOGGER.isDebugEnabled()) {
+        if (declarationChildren.contains(pChild)) {
+          throw new IllegalStateException("Compiletime child " + pChild + " is already registered");
+        }
+      }
+      declarationChildren.add(pChild);
+      implementationChildren.add(childImplementation);
     }
   }
 
@@ -726,6 +720,18 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected abstract void initializeConfiguration();
 
   /**
+   * Implementation internal method for initialization. Returns <code>true</code>, if the mimic has been created at runtime, e.g. a
+   * {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
+   *
+   * @return        <code>True</code>, if the mimic has been created at runtime.
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected boolean isRuntimeMimic() {
+    return false;
+  }
+
+  /**
    * Add field to children, if field is public and not static and of type MmBaseDeclaration.
    *
    * @param         pField  The specific field to analyze.
@@ -767,6 +773,37 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
           e.printStackTrace();
         }
       }
+    }
+  }
+
+  /**
+   * Evaluates and returns reference to root ancestor.
+   *
+   * @return        The reference to root ancestor.
+   *
+   * @throws        IllegalStateException  TODOC
+   *
+   * @jalopy.group  group-initialization
+   */
+  private static MmImplementationRoot evaluateRoot(final MmBaseImplementation<?, ?> pMm) {
+    MmBaseImplementation<?, ?> tempParent = pMm.implementationParent;
+    MmImplementationRoot       tempRoot   = tempParent.root;
+    if (tempRoot != null) {
+      return tempRoot;
+    }
+
+    while (tempParent.implementationParent != null) {
+      tempParent = tempParent.implementationParent;
+      tempRoot   = tempParent.root;
+      if (tempRoot != null) {
+        return tempRoot;
+      }
+    }
+
+    if (MmImplementationRoot.class.isAssignableFrom(tempParent.getClass())) {
+      return (MmImplementationRoot)tempParent;
+    } else {
+      throw new IllegalStateException("root ancestor of subtree must be of type MmImplementationRoot");
     }
   }
 
@@ -985,13 +1022,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmRuntimeMimic() {
-	assureInitialization();
-	
-	return isRuntimeMimic;
-  }
+    assureInitialization();
 
-  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. */
-  private Boolean isRuntimeMimic = null;
+    return isRuntimeMimic;
+  }
 
   /**
    * Returns <code>true</code>, if the mimic is visible. This mimic is visible, if its parent is visible and its declaration method
