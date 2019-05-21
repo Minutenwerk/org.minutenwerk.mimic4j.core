@@ -2,6 +2,8 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
@@ -19,6 +21,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 public class MmImplementationTableRow<ROW_MODEL>
   extends MmBaseContainerImplementation<MmTableRow<ROW_MODEL>, ROW_MODEL, MmConfigurationTableRow> implements MmTableRowMimic<ROW_MODEL> {
 
+	  /** The logger of this class. */
+	  private static final Logger LOGGER = LogManager.getLogger(MmImplementationTableRow.class);
+
   /**
    * Creates a new MmImplementationTableRow instance.
    *
@@ -28,6 +33,15 @@ public class MmImplementationTableRow<ROW_MODEL>
   public MmImplementationTableRow(MmDeclarationMimic pParent, int pRowIndex) {
     super(pParent);
     setName("row" + pRowIndex);
+  }
+
+  /**
+   * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
+   *
+   * @return  <code>True</code>, if the mimic has been created at runtime.
+   */
+  public boolean isMmRuntimeMimic() {
+	  return true;
   }
 
   /**
@@ -72,18 +86,18 @@ public class MmImplementationTableRow<ROW_MODEL>
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmTableRowAnnotation.class);
+	    if (LOGGER.isDebugEnabled()) {
+	        checkForIllegalAnnotationsOtherThan(declaration, MmTableRowAnnotation.class);
+	      }
 
-    MmTableRowAnnotation annotation = findAnnotation(declaration, MmTableRowAnnotation.class);
+	      MmTableRowAnnotation annotation = findAnnotation(declaration, MmTableRowAnnotation.class);
+	      if (annotation != null) {
+	        configuration = new MmConfigurationTableRow(annotation);
+	      } else {
 
-    if (annotation == null) {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationTableRow();
-    } else {
-      configuration = new MmConfigurationTableRow(annotation);
-    }
+	        // if there is no annotation, set default configuration
+	        configuration = new MmConfigurationTableRow();
+	      }
   }
 
 }

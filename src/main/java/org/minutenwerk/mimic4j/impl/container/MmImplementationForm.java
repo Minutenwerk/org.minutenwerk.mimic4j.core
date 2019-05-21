@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.container.MmForm;
 import org.minutenwerk.mimic4j.api.container.MmFormAnnotation;
@@ -12,6 +14,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeForm;
  * @author  Olaf Kossak
  */
 public class MmImplementationForm<MODEL> extends MmBaseContainerImplementation<MmForm<MODEL>, MODEL, MmConfigurationForm> {
+
+	  /** The logger of this class. */
+	  private static final Logger LOGGER = LogManager.getLogger(MmImplementationForm.class);
 
   /**
    * Creates a new MmImplementationForm instance.
@@ -37,18 +42,18 @@ public class MmImplementationForm<MODEL> extends MmBaseContainerImplementation<M
    */
   @Override
   protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmFormAnnotation.class);
+	    if (LOGGER.isDebugEnabled()) {
+	        checkForIllegalAnnotationsOtherThan(declaration, MmFormAnnotation.class);
+	      }
 
-    MmFormAnnotation annotation = findAnnotation(declaration, MmFormAnnotation.class);
+	      MmFormAnnotation annotation = findAnnotation(declaration, MmFormAnnotation.class);
+	      if (annotation != null) {
+	        configuration = new MmConfigurationForm(annotation);
+	      } else {
 
-    if (annotation == null) {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationForm();
-    } else {
-      configuration = new MmConfigurationForm(annotation);
-    }
+	        // if there is no annotation, set default configuration
+	        configuration = new MmConfigurationForm();
+	      }
   }
 
 }

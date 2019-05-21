@@ -266,8 +266,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @jalopy.group  group-override
    */
   @Override
-  public final boolean isMmRuntimeChild() {
-    return implementation.isMmRuntimeChild();
+  public final boolean isMmRuntimeMimic() {
+    return implementation.isMmRuntimeMimic();
   }
 
   /**

@@ -104,7 +104,7 @@ public interface MmMimic {
    * @see     {@link MmBaseConfiguration#isEnabled()}
    */
   public boolean isMmEnabled();
-
+  
   /**
    * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). This mimic is readOnly, if its parent is readOnly
    * and its callback method {@link MmBaseCallback#callbackMmIsReadOnly()} returns <code>true</code>. The callback method <code>
@@ -126,7 +126,7 @@ public interface MmMimic {
    *
    * @return  <code>True</code>, if the mimic has been created at runtime.
    */
-  public boolean isMmRuntimeChild();
+  public boolean isMmRuntimeMimic();
 
   /**
    * Returns <code>true</code>, if the mimic is visible. This mimic is visible, if its parent is visible and its callback method

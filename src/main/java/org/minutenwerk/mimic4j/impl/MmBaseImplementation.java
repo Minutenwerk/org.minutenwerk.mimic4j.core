@@ -75,9 +75,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The name of this mimic is evaluated during initialization phase of its parent mimic. */
   protected String                                 name;
 
-  /** True, if this mimic is instantiated at runtime, false if it is declared at compile time, will be set in method addChild(). */
-  protected boolean                                isRuntimeChild;
-
   /** The type of first optional generic parameter of this mimic is evaluated during initialization phase of its parent mimic. */
   protected Type                                   typeOfFirstGenericParameter;
 
@@ -213,6 +210,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         throw new IllegalStateException("root ancestor of subtree must be of type MmImplementationRoot");
       }
     }
+    
+    // evaluate is runtime
+	if (isRuntimeMimic == null) {
+		isRuntimeMimic = implementationParent != null && implementationParent.isMmRuntimeMimic();
+	}
 
     // create lists for child mimics
     implementationChildren        = new ArrayList<>();
@@ -456,28 +458,29 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       childImplementation.setTypeOfFirstGenericParameter(pTypeOfFirstGenericParameter);
     }
 
-    // if parent mimic is not initialized yet, add child to declaration children
-    if (initialState != MmInitialState.INITIALIZED) {
+    if (pChild.isMmRuntimeMimic()) {
 
-      // if child not in list yet, add child to list of
-      // declarationChildren and list of implementationChildren
-      if (!declarationChildren.contains(pChild)) {
-        declarationChildren.add(pChild);
-        implementationChildren.add(childImplementation);
-      }
+	    // if child not in list yet, add child to list of
+	    // runtime declarationChildren and list of runtime implementationChildren
+		if (LOGGER.isDebugEnabled()) {
+			if (runtimeDeclarationChildren.contains(pChild)) {
+			      throw new IllegalStateException("Runtime child " + pChild + " is already registered");
+			}
+		}
+      runtimeDeclarationChildren.add(pChild);
+      runtimeImplementationChildren.add(childImplementation);
 
-      // if parent mimic is initialized, add child to runtime time children
     } else {
 
-      // if child not in list yet, add child to list of
-      // runtime declarationChildren and list of runtime implementationChildren
-      if (!runtimeDeclarationChildren.contains(pChild)) {
-
-        // mark child as being a runtime child
-        childImplementation.isRuntimeChild = true;
-        runtimeDeclarationChildren.add(pChild);
-        runtimeImplementationChildren.add(childImplementation);
-      }
+        // if child not in list yet, add child to list of
+        // declarationChildren and list of implementationChildren
+		if (LOGGER.isDebugEnabled()) {
+			if (!declarationChildren.contains(pChild)) {
+			      throw new IllegalStateException("Compiletime child " + pChild + " is already registered");
+			}
+		}
+          declarationChildren.add(pChild);
+          implementationChildren.add(childImplementation);
     }
   }
 
@@ -983,11 +986,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   @Override
-  public boolean isMmRuntimeChild() {
-    assureInitialization();
-
-    return isRuntimeChild;
+  public boolean isMmRuntimeMimic() {
+	assureInitialization();
+	
+	return isRuntimeMimic;
   }
+
+  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. */
+  private Boolean isRuntimeMimic = null;
 
   /**
    * Returns <code>true</code>, if the mimic is visible. This mimic is visible, if its parent is visible and its declaration method
