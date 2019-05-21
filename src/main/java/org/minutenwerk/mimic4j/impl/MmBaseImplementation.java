@@ -122,7 +122,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *   <li>root is assigned, except for root itself</li>
    *   <li>implementationParent is assigned, except for root</li>
    *   <li>declarationParent is assigned, except for root</li>
-   *   <li>isRuntimeChild is false, may be changed in method addChild()</li>
+   *   <li>isRuntimeMimic is assigned</li>
    *   <li>mmJsfBridge is assigned</li>
    * </ul>
    *
@@ -212,9 +212,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
     
     // evaluate is runtime
-	if (isRuntimeMimic == null) {
-		isRuntimeMimic = implementationParent != null && implementationParent.isMmRuntimeMimic();
-	}
+    isRuntimeMimic = (implementationParent != null && implementationParent.isMmRuntimeMimic());
 
     // create lists for child mimics
     implementationChildren        = new ArrayList<>();
