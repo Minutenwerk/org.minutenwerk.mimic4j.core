@@ -27,7 +27,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   protected MmBaseDeclaration(IMPLEMENTATION pImplementation) {
     implementation = pImplementation;
-    implementation.setCallback(this);
+    implementation.onPostConstruct(this);
   }
 
   /**
