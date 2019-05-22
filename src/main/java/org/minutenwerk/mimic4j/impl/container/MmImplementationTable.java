@@ -132,6 +132,10 @@ public class MmImplementationTable<ROW_MODEL>
 
       // for each row model create a table row mimic and pass row model
       MmTableRow<ROW_MODEL> tableRowMm = declaration.callbackMmCreateTableRow(i);
+      
+      if (tableRowMm == null) {
+    	  throw new IllegalStateException("callbackMmCreateTableRow() must return new MmTableRow");
+      }
 
       // add table row mimic to list of runtime children
       addChild(tableRowMm, null, typeOfFirstGenericParameter);

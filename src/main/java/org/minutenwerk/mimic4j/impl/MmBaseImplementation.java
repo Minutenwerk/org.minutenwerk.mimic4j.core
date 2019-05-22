@@ -40,11 +40,11 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration<?, ?>, CONFIGURATION extends MmBaseConfiguration>
   implements MmMimic {
 
-  /** Constant for index of generic type of configuration. */
-  public static final int     GENERIC_PARAMETER_INDEX_CONFIGURATION = 2;
-
   /** End of line characters of operating system in use. */
   public static final String  NL                                    = System.getProperty("line.separator");
+
+  /** Constant for index of generic type of configuration. */
+  private static final int    GENERIC_PARAMETER_INDEX_CONFIGURATION = 2;
 
   /** Logger of this class. */
   private static final Logger LOGGER                                = LogManager.getLogger(MmBaseImplementation.class);
@@ -122,14 +122,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * <ul>
    *   <li>initialState is IN_CONSTRUCTION</li>
-   *   <li>root is assigned, except for root itself</li>
-   *   <li>implementationParent is assigned, except for root</li>
-   *   <li>declarationParent is assigned, except for root</li>
+   *   <li>root is assigned, for root itself root is null</li>
+   *   <li>implementationParent is assigned, for root it is null</li>
+   *   <li>declarationParent is assigned, for root it is null</li>
    *   <li>isRuntimeMimic is assigned</li>
    *   <li>mmJsfBridge is assigned</li>
    * </ul>
    *
-   * <p>This constructor has been called by constructor of declaration part. Declaration constructor calls method setCallback().</p>
+   * <p>This constructor has been called by constructor of declaration part. Declaration constructor calls method setCallback(), which assigns:</p>
    *
    * <ul>
    *   <li>declaration is assigned</li>
@@ -331,11 +331,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     if (initialState != MmInitialState.IN_CONSTRUCTION) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
     }
+    if (pDeclaration == null) {
+        throw new IllegalArgumentException("Parameter pDeclaration cannot be null");
+      }
     if (declaration != null) {
       throw new IllegalStateException("Reference to declaration part must be null");
-    }
-    if (pDeclaration == null) {
-      throw new IllegalArgumentException("Parameter pDeclaration cannot be null");
     }
 
     declaration  = (DECLARATION)pDeclaration;
@@ -520,7 +520,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-initialization
    */
-  protected <ANNOTATION extends Annotation> void checkForIllegalAnnotationsOtherThan(MmBaseDeclaration<?, ?> pDeclaration,
+  protected static <ANNOTATION extends Annotation> void checkForIllegalAnnotationsOtherThan(MmBaseDeclaration<?, ?> pDeclaration,
     Class<ANNOTATION> pAnnotationClass) {
     // if implementation part has a name
     // search for all annotations annotated by MmMetaAnnotation in field declaration of parent mimic
@@ -579,7 +579,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-initialization
    */
-  protected <ANNOTATION extends Annotation> ANNOTATION findAnnotation(MmBaseDeclaration<?, ?> pDeclaration,
+  protected static <ANNOTATION extends Annotation> ANNOTATION findAnnotation(MmBaseDeclaration<?, ?> pDeclaration,
     Class<ANNOTATION> pAnnotationClass) {
     ANNOTATION returnAnnotation = null;
 
@@ -738,7 +738,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-initialization
    */
-  private void addFieldOfTypeMmToChildren(Field pField) {
+  protected void addFieldOfTypeMmToChildren(Field pField) {
     // if field is public but not static
     if (((pField.getModifiers() & Modifier.PUBLIC) != 0) && ((pField.getModifiers() & Modifier.STATIC) == 0)) {
 
@@ -785,7 +785,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-initialization
    */
-  private static MmImplementationRoot evaluateRoot(final MmBaseImplementation<?, ?> pMm) {
+  protected static MmImplementationRoot evaluateRoot(final MmBaseImplementation<?, ?> pMm) {
     MmBaseImplementation<?, ?> tempParent = pMm.implementationParent;
     MmImplementationRoot       tempRoot   = tempParent.root;
     if (tempRoot != null) {
@@ -1022,8 +1022,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmRuntimeMimic() {
-    assureInitialization();
-
+	// do NOT insert assureInitialization() here, because this method is called during initialization phase
+	// and is allowed to be called during initialization phase, because isRuntimeMimic is assigned in constructor.
+	  
     return isRuntimeMimic;
   }
 
