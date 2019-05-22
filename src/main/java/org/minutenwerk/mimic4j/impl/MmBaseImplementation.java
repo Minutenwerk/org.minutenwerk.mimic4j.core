@@ -129,7 +129,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *   <li>mmJsfBridge is assigned</li>
    * </ul>
    *
-   * <p>This constructor has been called by constructor of declaration part. Declaration constructor calls method setCallback(), which assigns:</p>
+   * <p>This constructor has been called by constructor of declaration part. Declaration constructor calls method setCallback(), which
+   * assigns:</p>
    *
    * <ul>
    *   <li>declaration is assigned</li>
@@ -216,6 +217,132 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // create bridge for jsf tags
     mmJsfBridge                   = createMmJsfBridge();
+  }
+
+  /**
+   * Searches for an annotation within the inheritance tree of a class.
+   *
+   * @param         pDeclaration      pObjectToAnalyze <ANNOTATION> The annotation type.
+   * @param         pAnnotationClass  The runtime class of the annotation.
+   *
+   * @throws        IllegalArgumentException  in case othe annotation is not allowed for this type of mimic.
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected static <ANNOTATION extends Annotation> void checkForIllegalAnnotationsOtherThan(MmBaseDeclaration<?, ?> pDeclaration,
+    Class<ANNOTATION> pAnnotationClass) {
+    // if implementation part has a name
+    // search for all annotations annotated by MmMetaAnnotation in field declaration of parent mimic
+    if ((pDeclaration.implementation.name != null) && (pDeclaration.implementation.declarationParent != null)) {
+      Class<?> declarationParentClass = pDeclaration.implementation.declarationParent.getClass();
+      try {
+        Field declaredFieldOfParent = declarationParentClass.getField(pDeclaration.implementation.name);
+        for (Annotation annotation : declaredFieldOfParent.getAnnotations()) {
+          Class<?>   annotationClass = annotation.annotationType();
+          Annotation metaAnnotation  = annotation.annotationType().getAnnotation(MmMetaAnnotation.class);
+          if (metaAnnotation != null) {
+            if (!annotationClass.equals(pAnnotationClass)) {
+              throw new IllegalArgumentException("Annotation " + annotation.annotationType().getSimpleName() + " is not allowed for "
+                + pDeclaration.getClass().getSimpleName() + ", use " + pAnnotationClass.getSimpleName() + ".");
+            }
+          }
+        }
+      } catch (NoSuchFieldException e) {
+        // attribute may use getter method
+      }
+    }
+
+    // search for all annotations annotated by MmMetaAnnotation in class tree of pDeclaration
+    Class<?> declarationClass = pDeclaration.getClass();
+
+    do {
+      for (Annotation annotation : declarationClass.getAnnotations()) {
+        if (annotation.annotationType().getAnnotation(MmMetaAnnotation.class) != null) {
+          Class<?> annotationClass = annotation.annotationType();
+          if (!annotationClass.equals(pAnnotationClass)) {
+            throw new IllegalArgumentException("Annotation " + annotation.annotationType().getSimpleName() + " is not allowed for "
+              + pDeclaration.getClass().getSimpleName() + ", use " + pAnnotationClass.getSimpleName() + ".");
+          }
+        }
+      }
+      declarationClass = declarationClass.getSuperclass();
+    } while ((declarationClass != null) && !declarationClass.equals(Object.class));
+  }
+
+  /**
+   * Evaluates and returns reference to root ancestor.
+   *
+   * @param         pMm  TODOC
+   *
+   * @return        The reference to root ancestor.
+   *
+   * @throws        IllegalStateException  TODOC
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected static MmImplementationRoot evaluateRoot(final MmBaseImplementation<?, ?> pMm) {
+    MmBaseImplementation<?, ?> tempParent = pMm.implementationParent;
+    MmImplementationRoot       tempRoot   = tempParent.root;
+    if (tempRoot != null) {
+      return tempRoot;
+    }
+
+    while (tempParent.implementationParent != null) {
+      tempParent = tempParent.implementationParent;
+      tempRoot   = tempParent.root;
+      if (tempRoot != null) {
+        return tempRoot;
+      }
+    }
+
+    if (MmImplementationRoot.class.isAssignableFrom(tempParent.getClass())) {
+      return (MmImplementationRoot)tempParent;
+    } else {
+      throw new IllegalStateException("root ancestor of subtree must be of type MmImplementationRoot");
+    }
+  }
+
+  /**
+   * Searches for an annotation within the inheritance tree of a class.
+   *
+   * @param         pDeclaration      pObjectToAnalyze <ANNOTATION> The annotation type.
+   * @param         pAnnotationClass  The runtime class of the annotation.
+   *
+   * @return        The found annotation or <code>null</code>.
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected static <ANNOTATION extends Annotation> ANNOTATION findAnnotation(MmBaseDeclaration<?, ?> pDeclaration,
+    Class<ANNOTATION> pAnnotationClass) {
+    ANNOTATION returnAnnotation = null;
+
+    // if implementation part has a name
+    // search for annotation in field declaration of parent mimic
+    if ((pDeclaration.implementation.name != null) && (pDeclaration.implementation.declarationParent != null)) {
+      Class<?> declarationParentClass = pDeclaration.implementation.declarationParent.getClass();
+      try {
+        Field declaredFieldOfParent = declarationParentClass.getField(pDeclaration.implementation.name);
+        returnAnnotation = declaredFieldOfParent.getAnnotation(pAnnotationClass);
+      } catch (NoSuchFieldException e) {
+        // attribute may use getter method
+      }
+    }
+
+    // search for annotation in class tree of pDeclaration
+    if (returnAnnotation == null) {
+      Class<?> declarationClass = pDeclaration.getClass();
+
+      while (returnAnnotation == null) {
+        returnAnnotation = declarationClass.getAnnotation(pAnnotationClass);
+        if (returnAnnotation == null) {
+          declarationClass = declarationClass.getSuperclass();
+          if ((declarationClass == null) || declarationClass.equals(Object.class)) {
+            break;
+          }
+        }
+      }
+    }
+    return returnAnnotation;
   }
 
   /**
@@ -332,8 +459,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
     }
     if (pDeclaration == null) {
-        throw new IllegalArgumentException("Parameter pDeclaration cannot be null");
-      }
+      throw new IllegalArgumentException("Parameter pDeclaration cannot be null");
+    }
     if (declaration != null) {
       throw new IllegalStateException("Reference to declaration part must be null");
     }
@@ -477,6 +604,51 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Add field to children, if field is public and not static and of type MmBaseDeclaration.
+   *
+   * @param         pField  The specific field to analyze.
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected void addFieldOfTypeMmToChildren(Field pField) {
+    // if field is public but not static
+    if (((pField.getModifiers() & Modifier.PUBLIC) != 0) && ((pField.getModifiers() & Modifier.STATIC) == 0)) {
+
+      // if field is descendant of MmBaseDeclaration
+      if (MmBaseDeclaration.class.isAssignableFrom(pField.getType())) {
+
+        // if field is not final log warning
+        if ((pField.getModifiers() & Modifier.FINAL) == 0) {
+          LOGGER.warn("Field: {}.{} is not declared final!", pField.getDeclaringClass(), pField.getName());
+        }
+        if (!pField.isAccessible()) {
+          pField.setAccessible(true);
+        }
+
+        try {
+          MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(declaration);
+          Type                    typeOfFirstGenericParameterOfField = null;
+          if (pField.getGenericType() instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType)pField.getGenericType();
+            Type[]            typeArray         = parameterizedType.getActualTypeArguments();
+            if (typeArray.length >= 1) {
+              typeOfFirstGenericParameterOfField = typeArray[0];
+            }
+          }
+          addChild(child, pField.getName(), typeOfFirstGenericParameterOfField);
+
+          // check parent child relation
+          if (child.implementation.implementationParent != this) {
+            throw new IllegalStateException("this mimic must be parent of child to add");
+          }
+        } catch (IllegalAccessException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  /**
    * Assures that mimic will be initialized, if it is not initialized yet.
    *
    * @jalopy.group  group-initialization
@@ -511,56 +683,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Searches for an annotation within the inheritance tree of a class.
-   *
-   * @param         pDeclaration      pObjectToAnalyze <ANNOTATION> The annotation type.
-   * @param         pAnnotationClass  The runtime class of the annotation.
-   *
-   * @throws        IllegalArgumentException  in case othe annotation is not allowed for this type of mimic.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected static <ANNOTATION extends Annotation> void checkForIllegalAnnotationsOtherThan(MmBaseDeclaration<?, ?> pDeclaration,
-    Class<ANNOTATION> pAnnotationClass) {
-    // if implementation part has a name
-    // search for all annotations annotated by MmMetaAnnotation in field declaration of parent mimic
-    if ((pDeclaration.implementation.name != null) && (pDeclaration.implementation.declarationParent != null)) {
-      Class<?> declarationParentClass = pDeclaration.implementation.declarationParent.getClass();
-      try {
-        Field declaredFieldOfParent = declarationParentClass.getField(pDeclaration.implementation.name);
-        for (Annotation annotation : declaredFieldOfParent.getAnnotations()) {
-          Class<?>   annotationClass = annotation.annotationType();
-          Annotation metaAnnotation  = annotation.annotationType().getAnnotation(MmMetaAnnotation.class);
-          if (metaAnnotation != null) {
-            if (!annotationClass.equals(pAnnotationClass)) {
-              throw new IllegalArgumentException("Annotation " + annotation.annotationType().getSimpleName() + " is not allowed for "
-                + pDeclaration.getClass().getSimpleName() + ", use " + pAnnotationClass.getSimpleName() + ".");
-            }
-          }
-        }
-      } catch (NoSuchFieldException e) {
-        // attribute may use getter method
-      }
-    }
-
-    // search for all annotations annotated by MmMetaAnnotation in class tree of pDeclaration
-    Class<?> declarationClass = pDeclaration.getClass();
-
-    do {
-      for (Annotation annotation : declarationClass.getAnnotations()) {
-        if (annotation.annotationType().getAnnotation(MmMetaAnnotation.class) != null) {
-          Class<?> annotationClass = annotation.annotationType();
-          if (!annotationClass.equals(pAnnotationClass)) {
-            throw new IllegalArgumentException("Annotation " + annotation.annotationType().getSimpleName() + " is not allowed for "
-              + pDeclaration.getClass().getSimpleName() + ", use " + pAnnotationClass.getSimpleName() + ".");
-          }
-        }
-      }
-      declarationClass = declarationClass.getSuperclass();
-    } while ((declarationClass != null) && !declarationClass.equals(Object.class));
-  }
-
-  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return        A new MmJsfBridge for this mimic.
@@ -568,49 +690,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-initialization
    */
   protected abstract MmJsfBridge<?, ?, ?> createMmJsfBridge();
-
-  /**
-   * Searches for an annotation within the inheritance tree of a class.
-   *
-   * @param         pDeclaration      pObjectToAnalyze <ANNOTATION> The annotation type.
-   * @param         pAnnotationClass  The runtime class of the annotation.
-   *
-   * @return        The found annotation or <code>null</code>.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected static <ANNOTATION extends Annotation> ANNOTATION findAnnotation(MmBaseDeclaration<?, ?> pDeclaration,
-    Class<ANNOTATION> pAnnotationClass) {
-    ANNOTATION returnAnnotation = null;
-
-    // if implementation part has a name
-    // search for annotation in field declaration of parent mimic
-    if ((pDeclaration.implementation.name != null) && (pDeclaration.implementation.declarationParent != null)) {
-      Class<?> declarationParentClass = pDeclaration.implementation.declarationParent.getClass();
-      try {
-        Field declaredFieldOfParent = declarationParentClass.getField(pDeclaration.implementation.name);
-        returnAnnotation = declaredFieldOfParent.getAnnotation(pAnnotationClass);
-      } catch (NoSuchFieldException e) {
-        // attribute may use getter method
-      }
-    }
-
-    // search for annotation in class tree of pDeclaration
-    if (returnAnnotation == null) {
-      Class<?> declarationClass = pDeclaration.getClass();
-
-      while (returnAnnotation == null) {
-        returnAnnotation = declarationClass.getAnnotation(pAnnotationClass);
-        if (returnAnnotation == null) {
-          declarationClass = declarationClass.getSuperclass();
-          if ((declarationClass == null) || declarationClass.equals(Object.class)) {
-            break;
-          }
-        }
-      }
-    }
-    return returnAnnotation;
-  }
 
   /**
    * Provides all fields (inclusive private ones) within the given class and its super-classes.
@@ -729,82 +808,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   protected boolean isRuntimeMimic() {
     return false;
-  }
-
-  /**
-   * Add field to children, if field is public and not static and of type MmBaseDeclaration.
-   *
-   * @param         pField  The specific field to analyze.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected void addFieldOfTypeMmToChildren(Field pField) {
-    // if field is public but not static
-    if (((pField.getModifiers() & Modifier.PUBLIC) != 0) && ((pField.getModifiers() & Modifier.STATIC) == 0)) {
-
-      // if field is descendant of MmBaseDeclaration
-      if (MmBaseDeclaration.class.isAssignableFrom(pField.getType())) {
-
-        // if field is not final log warning
-        if ((pField.getModifiers() & Modifier.FINAL) == 0) {
-          LOGGER.warn("Field: {}.{} is not declared final!", pField.getDeclaringClass(), pField.getName());
-        }
-        if (!pField.isAccessible()) {
-          pField.setAccessible(true);
-        }
-
-        try {
-          MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(declaration);
-          Type                    typeOfFirstGenericParameterOfField = null;
-          if (pField.getGenericType() instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType)pField.getGenericType();
-            Type[]            typeArray         = parameterizedType.getActualTypeArguments();
-            if (typeArray.length >= 1) {
-              typeOfFirstGenericParameterOfField = typeArray[0];
-            }
-          }
-          addChild(child, pField.getName(), typeOfFirstGenericParameterOfField);
-
-          // check parent child relation
-          if (child.implementation.implementationParent != this) {
-            throw new IllegalStateException("this mimic must be parent of child to add");
-          }
-        } catch (IllegalAccessException e) {
-          e.printStackTrace();
-        }
-      }
-    }
-  }
-
-  /**
-   * Evaluates and returns reference to root ancestor.
-   *
-   * @return        The reference to root ancestor.
-   *
-   * @throws        IllegalStateException  TODOC
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected static MmImplementationRoot evaluateRoot(final MmBaseImplementation<?, ?> pMm) {
-    MmBaseImplementation<?, ?> tempParent = pMm.implementationParent;
-    MmImplementationRoot       tempRoot   = tempParent.root;
-    if (tempRoot != null) {
-      return tempRoot;
-    }
-
-    while (tempParent.implementationParent != null) {
-      tempParent = tempParent.implementationParent;
-      tempRoot   = tempParent.root;
-      if (tempRoot != null) {
-        return tempRoot;
-      }
-    }
-
-    if (MmImplementationRoot.class.isAssignableFrom(tempParent.getClass())) {
-      return (MmImplementationRoot)tempParent;
-    } else {
-      throw new IllegalStateException("root ancestor of subtree must be of type MmImplementationRoot");
-    }
   }
 
   /**
@@ -1022,9 +1025,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmRuntimeMimic() {
-	// do NOT insert assureInitialization() here, because this method is called during initialization phase
-	// and is allowed to be called during initialization phase, because isRuntimeMimic is assigned in constructor.
-	  
+    // do NOT insert assureInitialization() here, because this method isMmRuntimeMimic() is called
+    // during initialization phase. It is allowed to callthis method isMmRuntimeMimic()
+    // during initialization phase, because variable isRuntimeMimic is assigned in constructor.
     return isRuntimeMimic;
   }
 
