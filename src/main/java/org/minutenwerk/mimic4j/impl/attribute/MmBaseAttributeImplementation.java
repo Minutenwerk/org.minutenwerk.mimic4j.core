@@ -13,6 +13,7 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
+import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
@@ -224,6 +225,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void passModelsideToViewside() {
+    assureInitialization();
+
     String originalDebugState = toStringTraceState();
 
     try {
@@ -493,7 +496,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public Class<ATTRIBUTE_MODEL> getMmModelsideType() {
     assureInitialization();
 
-    return findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
   }
 
   /**
@@ -583,7 +586,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public Class<VIEWSIDE_VALUE> getMmViewsideType() {
     assureInitialization();
 
-    return findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEWSIDE_VALUE);
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEWSIDE_VALUE);
   }
 
   /**

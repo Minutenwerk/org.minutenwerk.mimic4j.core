@@ -4,12 +4,9 @@ import java.io.StringWriter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,6 +26,7 @@ import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_C
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_INITIALIZATION;
+import org.minutenwerk.mimic4j.impl.MmJavaHelper.ChildAndNameAndGeneric;
 import org.minutenwerk.mimic4j.impl.composite.MmImplementationRoot;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
@@ -39,7 +37,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-construction, group-callback, group-initialization, group-override, group-helper
+ * @jalopy.group-order  group-construction, group-postconstruct, group-initialization, group-override, group-helper
  */
 public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration<?, ?>, CONFIGURATION extends MmBaseConfiguration>
   implements MmMimic {
@@ -115,9 +113,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *   <li>root is assigned, for root itself root is null</li>
    *   <li>implementationParent is assigned, for root it is null</li>
    *   <li>declarationParent is assigned, for root it is null</li>
-   *   <li>implementationChildren are added, but unnamed</li>
-   *   <li>declarationChildren are added, but unnamed</li>
    *   <li>isRuntimeMimic is assigned</li>
+   *   <li>referencableAncestor is assigned</li>
    *   <li>mmJsfBridge is assigned</li>
    * </ul>
    *
@@ -126,13 +123,21 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * <ul>
    *   <li>declaration is assigned</li>
+   *   <li>this mimic is added as unnamed implementationChildren of parent</li>
+   *   <li>this mimic is added as unnamed declarationChildren of parent</li>
    *   <li>initialState is CONSTRUCTION_COMPLETE</li>
+   * </ul>
+   *
+   * <p>After constructor of this mimic all constructors of child fields are being called, which assign:</p>
+   *
+   * <ul>
+   *   <li>children add themselves as unnamed implementationChildren of parent</li>
+   *   <li>children add themselves as unnamed declarationChildren of parent</li>
    * </ul>
    *
    * <p>At first call of mimic method assureInitialization() calls method initialize(). After initialization:</p>
    *
    * <ul>
-   *   <li>referencableAncestor is assigned</li>
    * </ul>
    *
    * <p>Method initialize() calls method addFieldOfTypeMmToChildren() calls method addChild(), which assigns:</p>
@@ -161,18 +166,30 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public MmBaseImplementation(MmDeclarationMimic pDeclarationParent) {
     initialState = new MmInitialState();
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(getClass().getSimpleName() + " (): " + initialState);
+      if (pDeclarationParent == null) {
+        if (!(this instanceof MmImplementationRoot)) {
+          throw new IllegalStateException("Mimic " + pDeclarationParent + " must have an pDeclarationParent or be of type MmRoot");
+        }
+      } else {
+        if (!(pDeclarationParent instanceof MmBaseDeclaration<?, ?>)) {
+          throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must be of type MmBaseDeclaration<?,?>");
+        }
+        if (((MmBaseDeclaration<?, ?>)pDeclarationParent).implementation == null) {
+          throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must have an implementation");
+        }
+        if (((MmBaseDeclaration<?, ?>)pDeclarationParent).implementation.initialState.isNotEqualOrLater(CONSTRUCTION_COMPLETE)) {
+          throw new IllegalStateException("Parameter implementationParent " + ((MmBaseDeclaration<?, ?>)pDeclarationParent).implementation
+            + " must be at least in state CONSTRUCTION_COMPLETE");
+        }
+      }
     }
+
     name       = "";
     parentPath = "";
 
     if (pDeclarationParent == null) {
 
       // if there is no parent, this is a root
-      if (!(this instanceof MmImplementationRoot)) {
-        throw new IllegalStateException("Mimic " + pDeclarationParent + " must have an pDeclarationParent or be of type MmRoot");
-      }
-
       // set reference to declaration part of parent mimic to null
       declarationParent    = null;
 
@@ -187,17 +204,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     } else {
 
-      if (!(pDeclarationParent instanceof MmBaseDeclaration<?, ?>)) {
-        throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must be of type MmBaseDeclaration<?,?>");
-      }
-
       // set reference to declaration part of parent mimic
-      declarationParent = (MmBaseDeclaration<?, ?>)pDeclarationParent;
+      declarationParent    = (MmBaseDeclaration<?, ?>)pDeclarationParent;
 
       // set reference to implementation part of parent
-      if (declarationParent.implementation == null) {
-        throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must have an implementation");
-      }
       implementationParent = declarationParent.implementation;
 
       // evaluate reference to root ancestor
@@ -212,6 +222,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     declarationChildren           = new ArrayList<>();
     runtimeImplementationChildren = new ArrayList<>();
     runtimeDeclarationChildren    = new ArrayList<>();
+
+    // evaluate ancestor for reference path, file and params
+    referencableAncestor          = getImplementationAncestorOfType(MmReferencableMimic.class);
 
     // create bridge for jsf tags
     mmJsfBridge                   = createMmJsfBridge();
@@ -277,6 +290,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @throws  IllegalStateException  In case of root ancestor of subtree is not of type MmImplementationRoot.
    */
   protected static MmImplementationRoot evaluateRoot(final MmBaseImplementation<?, ?> pMm) {
+    if (pMm.initialState.isNot(IN_CONSTRUCTION)) {
+      throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
+    }
+
     MmBaseImplementation<?, ?> tempParent = pMm.implementationParent;
     MmImplementationRoot       tempRoot   = tempParent.root;
     if (tempRoot != null) {
@@ -338,67 +355,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       }
     }
     return returnAnnotation;
-  }
-
-  /**
-   * Provides all fields (inclusive private ones) within the given class and its super-classes.
-   *
-   * <p>The fields of the super classes appear as first list items.</p>
-   *
-   * @param   pClassToAnalyze  The class to analyze.
-   *
-   * @return  All found fields.
-   */
-  protected static List<Field> findFields(Class<?> pClassToAnalyze) {
-    List<Field>    allFields = new ArrayList<>();
-    List<Class<?>> classes   = new ArrayList<>();
-    Class<?>       c         = pClassToAnalyze;
-
-    while (c != null) {
-      classes.add(c);
-      c = c.getSuperclass();
-    }
-
-    for (int i = classes.size() - 1; i >= 0; --i) {
-      allFields.addAll(Arrays.asList(classes.get(i).getDeclaredFields()));
-    }
-    return allFields;
-  }
-
-  /**
-   * Reads the Java-Generics parameter having the given index position (starting at ONE) from the given {@link Class}.
-   *
-   * @param   pClassToAnalyze  The class to analyze.
-   * @param   pGenericRawType  The class containing the generic.
-   * @param   pParameterIndex  The parameter position index. Starts with One for the first parameter.
-   *
-   * @return  The found Java-Generics parameter. <code>null</code> if none was found.
-   */
-  @SuppressWarnings("unchecked")
-  protected static <T extends Type> T findGenericsParameterType(Class<?> pClassToAnalyze, Class<?> pGenericRawType, int pParameterIndex) {
-    final int  parameterIndex    = pParameterIndex - 1;
-    final Type genericSuperclass = pClassToAnalyze.getGenericSuperclass();
-    if (genericSuperclass instanceof ParameterizedType) {
-      final ParameterizedType parameterizedType = (ParameterizedType)genericSuperclass;
-      final Type              rawType           = parameterizedType.getRawType();
-      if (rawType.equals(pGenericRawType)) {
-        Type[] typeArray = parameterizedType.getActualTypeArguments();
-        if (typeArray.length > parameterIndex) {
-          return (T)typeArray[parameterIndex];
-        } else {
-          return null;
-        }
-      } else {
-        Class<?> superClass = pClassToAnalyze.getSuperclass();
-        if (superClass != null) {
-          return (T)findGenericsParameterType(superClass, pGenericRawType, parameterIndex);
-        } else {
-          return null;
-        }
-      }
-    } else {
-      return null;
-    }
   }
 
   /**
@@ -465,32 +421,48 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *                                          null.
    * @throws        IllegalArgumentException  in case of parameter pDeclaration is null.
    *
-   * @jalopy.group  group-callback
+   * @jalopy.group  group-postconstruct
    */
   @SuppressWarnings("unchecked")
   /* package */ final void onPostConstruct(MmBaseDeclaration<?, ?> pDeclaration) {
-    if (initialState.isNot(IN_CONSTRUCTION)) {
-      throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
-    }
-    if (pDeclaration == null) {
-      throw new IllegalArgumentException("Parameter pDeclaration cannot be null");
-    }
-    if (pDeclaration.implementation != this) {
-      throw new IllegalArgumentException("Parameter pDeclaration " + pDeclaration + " must reference this");
-    }
-    if (declaration != null) {
-      throw new IllegalStateException("Reference to declaration part must be null");
+    if (LOGGER.isDebugEnabled()) {
+      if (initialState.isNot(IN_CONSTRUCTION)) {
+        throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
+      }
+      if (pDeclaration == null) {
+        throw new IllegalArgumentException("Parameter pDeclaration cannot be null");
+      }
+      if (pDeclaration.implementation != this) {
+        throw new IllegalArgumentException("Parameter pDeclaration " + pDeclaration + " must reference this");
+      }
+      if (declaration != null) {
+        throw new IllegalStateException("Reference to declaration part must be null");
+      }
     }
 
+    // set declaration part
     declaration = (DECLARATION)pDeclaration;
 
-    // if there is a parent mimic, add this mimic as child of parent mimic
+    // if there is an implementation parent, add this mimic as unnamed declaration child and implementation child
     if (implementationParent != null) {
       implementationParent.addChild(declaration, null, null);
     }
+
     initialState.set(CONSTRUCTION_COMPLETE);
+
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(getClass().getSimpleName() + " (" + name + "): " + initialState);
+      if (!declarationChildren.isEmpty()) {
+        throw new IllegalStateException("declarationChildren must be empty");
+      }
+      if (!implementationChildren.isEmpty()) {
+        throw new IllegalStateException("implementationChildren must be empty");
+      }
+      if (!runtimeDeclarationChildren.isEmpty()) {
+        throw new IllegalStateException("runtimeDeclarationChildren must be empty");
+      }
+      if (!runtimeImplementationChildren.isEmpty()) {
+        throw new IllegalStateException("runtimeImplementationChildren must be empty");
+      }
     }
   }
 
@@ -549,25 +521,28 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-initialization
    */
   protected void initialize() {
-    if (initialState.isNot(CONSTRUCTION_COMPLETE)) {
-      throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE");
-    }
-    if (declaration == null) {
-      throw new IllegalStateException("Reference to declaration part must be defined");
+    if (LOGGER.isDebugEnabled()) {
+      if (initialState.isNot(CONSTRUCTION_COMPLETE)) {
+        throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE");
+      }
+      if (declaration == null) {
+        throw new IllegalStateException("Reference to declaration part must be defined");
+      }
     }
 
     // set state to IN_INITIALIZATION
     initialState.set(IN_INITIALIZATION);
 
-    // evaluate ancestor for reference path, file and params
-    referencableAncestor = getImplementationAncestorOfType(MmReferencableMimic.class);
+    // evaluate all public static final mimic fields
+    List<Field>                  publicStaticFinalMimicFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(
+        declaration.getClass());
 
-    // evaluate children
-    for (Field field : findFields(declaration.getClass())) {
+    // apply fields to declaration part and get children, including field name and generic type
+    List<ChildAndNameAndGeneric> childrenByParentAndFields    = MmJavaHelper.getChildrenByParentAndFields(declaration,
+        publicStaticFinalMimicFields);
 
-      // add all public not static fields of type MmBaseDeclaration as children
-      addFieldOfTypeMmToChildren(field);
-    }
+    // add all public not static fields of type MmBaseDeclaration as children
+    addChildren(childrenByParentAndFields);
 
     // evaluate configuration
     initializeConfiguration();
@@ -1112,16 +1087,19 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   protected void addChild(MmBaseDeclaration<?, ?> pChild, String pNameOfChild, Type pTypeOfFirstGenericParameter) {
-    if ((initialState.isNot(CONSTRUCTION_COMPLETE)) && (initialState.isNot(IN_INITIALIZATION)) && (initialState.isNot(INITIALIZED))) {
-      throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or IN_INITIALIZATION or INITIALIZED");
-    }
-    if (pChild == null) {
-      throw new IllegalArgumentException("Parameter pChild cannot be null");
-    }
-    if (pChild.implementation == null) {
-      throw new IllegalStateException("Parameter pChild " + pChild + " must have an implementation");
+    if (LOGGER.isDebugEnabled()) {
+      if ((initialState.isNot(CONSTRUCTION_COMPLETE)) && (initialState.isNot(IN_INITIALIZATION)) && (initialState.isNot(INITIALIZED))) {
+        throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or IN_INITIALIZATION or INITIALIZED");
+      }
+      if (pChild == null) {
+        throw new IllegalArgumentException("Parameter pChild cannot be null");
+      }
+      if (pChild.implementation == null) {
+        throw new IllegalStateException("Parameter pChild " + pChild + " must have an implementation");
+      }
     }
 
+    // get implementation part of child
     MmBaseImplementation<?, ?> childImplementation = pChild.implementation;
 
     // name implementation part of child
@@ -1129,7 +1107,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       childImplementation.setName(pNameOfChild);
     }
 
-    // generic type implementation part of child
+    // set generic type of implementation part of child
     if (pTypeOfFirstGenericParameter != null) {
       childImplementation.setTypeOfFirstGenericParameter(pTypeOfFirstGenericParameter);
     }
@@ -1155,47 +1133,17 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Add field to children, if field is public and not static and of type MmBaseDeclaration.
+   * Add children of type <code>MmBaseDeclaration</code> to list of declarationChildren. Name implementation part of child and add to list
+   * of children.
    *
-   * @param         pField  The specific field to analyze.
+   * @param         pChildrenAndNameAndGeneric  TODOC
    *
    * @jalopy.group  group-helper
    */
-  protected void addFieldOfTypeMmToChildren(Field pField) {
-    // if field is public but not static
-    if (((pField.getModifiers() & Modifier.PUBLIC) != 0) && ((pField.getModifiers() & Modifier.STATIC) == 0)) {
-
-      // if field is descendant of MmBaseDeclaration
-      if (MmBaseDeclaration.class.isAssignableFrom(pField.getType())) {
-
-        // if field is not final log warning
-        if ((pField.getModifiers() & Modifier.FINAL) == 0) {
-          LOGGER.warn("Field: {}.{} is not declared final!", pField.getDeclaringClass(), pField.getName());
-        }
-        if (!pField.isAccessible()) {
-          pField.setAccessible(true);
-        }
-
-        try {
-          MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(declaration);
-          Type                    typeOfFirstGenericParameterOfField = null;
-          if (pField.getGenericType() instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType)pField.getGenericType();
-            Type[]            typeArray         = parameterizedType.getActualTypeArguments();
-            if (typeArray.length >= 1) {
-              typeOfFirstGenericParameterOfField = typeArray[0];
-            }
-          }
-          addChild(child, pField.getName(), typeOfFirstGenericParameterOfField);
-
-          // check parent child relation
-          if (child.implementation.implementationParent != this) {
-            throw new IllegalStateException("this mimic must be parent of child to add");
-          }
-        } catch (IllegalAccessException e) {
-          e.printStackTrace();
-        }
-      }
+  protected void addChildren(List<ChildAndNameAndGeneric> pChildrenAndNameAndGeneric) {
+    for (ChildAndNameAndGeneric childAndNameAndGeneric : pChildrenAndNameAndGeneric) {
+      addChild(childAndNameAndGeneric.getChild(), childAndNameAndGeneric.getNameOfChild(),
+        childAndNameAndGeneric.getTypeOfFirstGenericParameter());
     }
   }
 
@@ -1207,7 +1155,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   protected Class<?> getConfigurationType() {
-    return findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
   }
 
   /**
@@ -1229,7 +1177,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns an ancestor of this mimic of specified type, if exists, otherwise null.
+   * Returns an ancestor of this mimic of specified type, if exists, otherwise null. This method may be called at any time, even in
+   * constructor.
    *
    * @param         pType  The specified type.
    *
@@ -1281,11 +1230,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   protected void setName(String pName) {
-    if ((initialState.isNot(IN_CONSTRUCTION)) && (initialState.isNot(CONSTRUCTION_COMPLETE)) && (initialState.isNot(INITIALIZED))) {
+    if ((initialState.isNotIn(IN_CONSTRUCTION, CONSTRUCTION_COMPLETE, INITIALIZED))) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION or CONSTRUCTION_COMPLETE or INITIALIZED, but is "
         + initialState);
     }
-    assert ((implementationParent.initialState.is(IN_INITIALIZATION)) || (implementationParent.initialState.is(INITIALIZED))) : "Initial state of parent must be IN_INITIALIZATION or INITIALIZED";
+    assert ((implementationParent.initialState.isOneOf(IN_INITIALIZATION, INITIALIZED))) : "Initial state of parent must be IN_INITIALIZATION or INITIALIZED";
     if (pName == null) {
       throw new IllegalArgumentException("Parameter pName cannot be null");
     }

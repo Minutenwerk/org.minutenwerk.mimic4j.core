@@ -24,6 +24,12 @@ public class MmInitialState {
     CONSTRUCTION_COMPLETE,
 
     /** Mimic initialize method is in execution. */
+    IN_NAMING,
+
+    /** Mimic initialize method is in execution. */
+    IN_CONFIGURATION,
+
+    /** Mimic initialize method is in execution. */
     IN_INITIALIZATION,
 
     /** Mimic is initialized. */
@@ -53,6 +59,17 @@ public class MmInitialState {
   }
 
   /**
+   * Returns true, if state is equal or later in phase than specified state.
+   *
+   * @param   pState  The specified state to compare with.
+   *
+   * @return  True, if state is equal or later in phase than specified state.
+   */
+  public boolean isEqualOrLater(MmState pState) {
+    return state.ordinal() >= pState.ordinal();
+  }
+
+  /**
    * Returns false, if state is equal to specified state.
    *
    * @param   pState  The specified state to compare with.
@@ -61,6 +78,49 @@ public class MmInitialState {
    */
   public boolean isNot(MmState pState) {
     return !is(pState);
+  }
+
+  /**
+   * Returns false, if state is equal or later in phase than specified state.
+   *
+   * @param   pState  The specified state to compare with.
+   *
+   * @return  False, if state is equal or later in phase than specified state.
+   */
+  public boolean isNotEqualOrLater(MmState pState) {
+    return !isEqualOrLater(pState);
+  }
+
+  /**
+   * Returns true, if state is not equal to any of specified states.
+   *
+   * @param   pState  The specified state to compare with.
+   *
+   * @return  False, if state is not equal to any of specified states.
+   */
+  public boolean isNotIn(MmState... pState) {
+    for (MmState temp : pState) {
+      if (state == temp) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Returns true, if state is equal to one of specified states.
+   *
+   * @param   pState  The specified states to compare with.
+   *
+   * @return  True, if state is equal to one of specified states.
+   */
+  public boolean isOneOf(MmState... pState) {
+    for (MmState temp : pState) {
+      if (state == temp) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Configuration status="error" strict="true" name="log4j2-config">
-  <Filter type="ThresholdFilter" level="debug" />
+  <Filter type="ThresholdFilter" level="trace" />
 
   <Appenders>
     <Appender type="Console" name="RootConsoleAppender">
