@@ -41,11 +41,6 @@ public class MmInitialState {
     state = IN_CONSTRUCTION;
   }
 
-  @Override
-  public String toString() {
-    return state.name();
-  }
-  
   /**
    * Returns true, if state is equal to specified state.
    *
@@ -83,5 +78,15 @@ public class MmInitialState {
     } else {
       throw new IllegalStateException("Illegal transition from " + state + " to " + pNextState);
     }
+  }
+
+  /**
+   * TODOC.
+   *
+   * @return  TODOC
+   */
+  @Override
+  public String toString() {
+    return state.name();
   }
 }

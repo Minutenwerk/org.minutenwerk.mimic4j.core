@@ -54,7 +54,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   private static final Logger                      LOGGER                                = LogManager.getLogger(MmBaseImplementation.class);
 
   /** The state of initialization during initialization phase. */
-  protected final MmInitialState                         initialState;
+  protected final MmInitialState                   initialState;
 
   /** The root ancestor of this mimic, is set in constructor phase. */
   protected final MmImplementationRoot             root;
@@ -65,10 +65,16 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The declaration parent of this mimic, is set in constructor phase. */
   protected final MmBaseDeclaration<?, ?>          declarationParent;
 
-  /** All direct children are of type <code>MmBaseImplementation</code>. Children are added in constructor phase, and named in initialize phase. */
+  /**
+   * All direct children are of type <code>MmBaseImplementation</code>. Children are added in constructor phase, and named in initialize
+   * phase.
+   */
   protected final List<MmBaseImplementation<?, ?>> implementationChildren;
 
-  /** All direct children of the declaration are of type <code>MmMimic</code>. Children are added in constructor phase, and named in initialize phase. */
+  /**
+   * All direct children of the declaration are of type <code>MmMimic</code>. Children are added in constructor phase, and named in
+   * initialize phase.
+   */
   protected final List<MmMimic>                    declarationChildren;
 
   /** All runtime children are of type <code>MmBaseImplementation</code>. Children are added at runtime. */
@@ -80,7 +86,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The MmJsfBridge of this mimic, which connects it to a JSF view component, is set in constructor phase. */
   protected final MmJsfBridge<?, ?, ?>             mmJsfBridge;
 
-  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. Is set in constructor phase.*/
+  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. Is set in constructor phase. */
   protected final boolean                          isRuntimeMimic;
 
   /** The declaration part of this implementation is the declaration. Is set in postConstruct phase. */
@@ -154,11 +160,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   public MmBaseImplementation(MmDeclarationMimic pDeclarationParent) {
     initialState = new MmInitialState();
-    LOGGER.debug(getClass().getSimpleName() + " (): " + initialState);
-    name         = "";
-    parentPath   = "";
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug(getClass().getSimpleName() + " (): " + initialState);
+    }
+    name       = "";
+    parentPath = "";
 
     if (pDeclarationParent == null) {
+
       // if there is no parent, this is a root
       if (!(this instanceof MmImplementationRoot)) {
         throw new IllegalStateException("Mimic " + pDeclarationParent + " must have an pDeclarationParent or be of type MmRoot");
@@ -298,7 +307,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @return  The found annotation or <code>null</code>.
    */
   protected static <ANNOTATION extends Annotation> ANNOTATION findAnnotation( //
-      MmBaseDeclaration<?, ?> pDeclaration, Class<ANNOTATION> pAnnotationClass) {
+    MmBaseDeclaration<?, ?> pDeclaration, Class<ANNOTATION> pAnnotationClass) {
     //
     ANNOTATION returnAnnotation = null;
 
@@ -329,6 +338,31 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       }
     }
     return returnAnnotation;
+  }
+
+  /**
+   * Provides all fields (inclusive private ones) within the given class and its super-classes.
+   *
+   * <p>The fields of the super classes appear as first list items.</p>
+   *
+   * @param   pClassToAnalyze  The class to analyze.
+   *
+   * @return  All found fields.
+   */
+  protected static List<Field> findFields(Class<?> pClassToAnalyze) {
+    List<Field>    allFields = new ArrayList<>();
+    List<Class<?>> classes   = new ArrayList<>();
+    Class<?>       c         = pClassToAnalyze;
+
+    while (c != null) {
+      classes.add(c);
+      c = c.getSuperclass();
+    }
+
+    for (int i = classes.size() - 1; i >= 0; --i) {
+      allFields.addAll(Arrays.asList(classes.get(i).getDeclaredFields()));
+    }
+    return allFields;
   }
 
   /**
@@ -455,7 +489,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       implementationParent.addChild(declaration, null, null);
     }
     initialState.set(CONSTRUCTION_COMPLETE);
-    LOGGER.debug(getClass().getSimpleName() + " (" + name + "): " + initialState);
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug(getClass().getSimpleName() + " (" + name + "): " + initialState);
+    }
   }
 
   /**
@@ -1161,31 +1197,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         }
       }
     }
-  }
-
-  /**
-   * Provides all fields (inclusive private ones) within the given class and its super-classes.
-   *
-   * <p>The fields of the super classes appear as first list items.</p>
-   *
-   * @param         pClassToAnalyze  The class to analyze.
-   *
-   * @return        All found fields.
-   */
-  protected static List<Field> findFields(Class<?> pClassToAnalyze) {
-    List<Field>    allFields = new ArrayList<>();
-    List<Class<?>> classes   = new ArrayList<>();
-    Class<?>       c         = pClassToAnalyze;
-
-    while (c != null) {
-      classes.add(c);
-      c = c.getSuperclass();
-    }
-
-    for (int i = classes.size() - 1; i >= 0; --i) {
-      allFields.addAll(Arrays.asList(classes.get(i).getDeclaredFields()));
-    }
-    return allFields;
   }
 
   /**
