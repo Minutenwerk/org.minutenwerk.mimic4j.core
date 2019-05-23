@@ -41,6 +41,11 @@ public class MmInitialState {
     state = IN_CONSTRUCTION;
   }
 
+  @Override
+  public String toString() {
+    return state.name();
+  }
+  
   /**
    * Returns true, if state is equal to specified state.
    *

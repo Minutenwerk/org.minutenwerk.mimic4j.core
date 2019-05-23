@@ -59,35 +59,35 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The root ancestor of this mimic, is set in constructor phase. */
   protected final MmImplementationRoot             root;
 
-  /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. */
-  protected MmReferencableMimic<?>                 referencableAncestor;
-
   /** The implementation parent of this mimic, is set in constructor phase. */
   protected final MmBaseImplementation<?, ?>       implementationParent;
 
   /** The declaration parent of this mimic, is set in constructor phase. */
   protected final MmBaseDeclaration<?, ?>          declarationParent;
 
-  /** All direct children are of type <code>MmBaseImplementation</code>. */
+  /** All direct children are of type <code>MmBaseImplementation</code>. Children are added in constructor phase, and named in initialize phase. */
   protected final List<MmBaseImplementation<?, ?>> implementationChildren;
 
-  /** All direct children of the declaration are of type <code>MmMimic</code>. */
+  /** All direct children of the declaration are of type <code>MmMimic</code>. Children are added in constructor phase, and named in initialize phase. */
   protected final List<MmMimic>                    declarationChildren;
 
-  /** All runtime children are of type <code>MmBaseImplementation</code>. */
+  /** All runtime children are of type <code>MmBaseImplementation</code>. Children are added at runtime. */
   protected final List<MmBaseImplementation<?, ?>> runtimeImplementationChildren;
 
-  /** All runtime declaration children are of type <code>MmMimic</code>. */
+  /** All runtime declaration children are of type <code>MmMimic</code>. Children are added at runtime. */
   protected final List<MmMimic>                    runtimeDeclarationChildren;
 
   /** The MmJsfBridge of this mimic, which connects it to a JSF view component, is set in constructor phase. */
   protected final MmJsfBridge<?, ?, ?>             mmJsfBridge;
 
-  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. */
+  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. Is set in constructor phase.*/
   protected final boolean                          isRuntimeMimic;
 
-  /** The declaration part of this implementation is the declaration. */
+  /** The declaration part of this implementation is the declaration. Is set in postConstruct phase. */
   protected DECLARATION                            declaration;
+
+  /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. Is set in initialize phase. */
+  protected MmReferencableMimic<?>                 referencableAncestor;
 
   /** The name of this mimic is evaluated during initialization phase of its parent mimic. */
   protected String                                 name;
@@ -109,6 +109,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *   <li>root is assigned, for root itself root is null</li>
    *   <li>implementationParent is assigned, for root it is null</li>
    *   <li>declarationParent is assigned, for root it is null</li>
+   *   <li>implementationChildren are added, but unnamed</li>
+   *   <li>declarationChildren are added, but unnamed</li>
    *   <li>isRuntimeMimic is assigned</li>
    *   <li>mmJsfBridge is assigned</li>
    * </ul>
@@ -132,8 +134,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * <ul>
    *   <li>name</li>
    *   <li>parentPath</li>
-   *   <li>implementationChildren</li>
-   *   <li>declarationChildren</li>
    *   <li>runtimeImplementationChildren</li>
    *   <li>runtimeDeclarationChildren</li>
    * </ul>
@@ -154,11 +154,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   public MmBaseImplementation(MmDeclarationMimic pDeclarationParent) {
     initialState = new MmInitialState();
+    LOGGER.debug(getClass().getSimpleName() + " (): " + initialState);
     name         = "";
     parentPath   = "";
 
     if (pDeclarationParent == null) {
-      // if this is a MmRoot, there is no parent
+      // if there is no parent, this is a root
+      if (!(this instanceof MmImplementationRoot)) {
+        throw new IllegalStateException("Mimic " + pDeclarationParent + " must have an pDeclarationParent or be of type MmRoot");
+      }
 
       // set reference to declaration part of parent mimic to null
       declarationParent    = null;
@@ -293,8 +297,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return  The found annotation or <code>null</code>.
    */
-  protected static <ANNOTATION extends Annotation> ANNOTATION findAnnotation(MmBaseDeclaration<?, ?> pDeclaration,
-    Class<ANNOTATION> pAnnotationClass) {
+  protected static <ANNOTATION extends Annotation> ANNOTATION findAnnotation( //
+      MmBaseDeclaration<?, ?> pDeclaration, Class<ANNOTATION> pAnnotationClass) {
+    //
     ANNOTATION returnAnnotation = null;
 
     // if implementation part has a name
@@ -450,6 +455,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       implementationParent.addChild(declaration, null, null);
     }
     initialState.set(CONSTRUCTION_COMPLETE);
+    LOGGER.debug(getClass().getSimpleName() + " (" + name + "): " + initialState);
   }
 
   /**
@@ -1096,7 +1102,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // if child not in list yet, add child to list of
       // runtime declarationChildren and list of runtime implementationChildren
-      if (runtimeDeclarationChildren.contains(pChild)) {
+      if (!runtimeDeclarationChildren.contains(pChild)) {
         runtimeDeclarationChildren.add(pChild);
         runtimeImplementationChildren.add(childImplementation);
       }
