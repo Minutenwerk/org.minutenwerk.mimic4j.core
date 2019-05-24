@@ -124,8 +124,6 @@ public class MmImplementationTable<ROW_MODEL>
    */
   @Override
   public void passModelsideToViewside() {
-    assureInitialization();
-
     // clear list of runtime children of table
     clearRuntimeChildrenList();
 
@@ -143,7 +141,11 @@ public class MmImplementationTable<ROW_MODEL>
       // TODO warum kein Name?
       addChild(tableRowMm, null, typeOfFirstGenericParameter);
     }
-
+    
+    for (MmImplementationTableRow<?> child : getImplementationChildrenOfType(MmImplementationTableRow.class)) {
+      child.initialize();
+    }
+    
     for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
       child.passModelsideToViewside();
     }
