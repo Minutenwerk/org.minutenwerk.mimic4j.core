@@ -1,19 +1,27 @@
 package org.minutenwerk.mimic4j.container;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.exception.MmException;
 import org.minutenwerk.mimic4j.container.Person.Gender;
+import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 
-public class ContainerTest {
+public class TestContainer {
 
+  private static final Logger LOGGER = LogManager.getLogger(TestContainer.class);
   private static final String BIRTHDAY = "2018-02-02";
   private static final LocalDate BIRTHDAY_DATE = LocalDate.parse(BIRTHDAY);
 
   @Test
   public void test1() {
+	LOGGER.debug("test1");
     // setup
     Adresse testAdresse = new Adresse().setStreet("Hauptstraße").setCity("Hamburg");
     Person testPerson = new Person().setVorname("John").setNachname("Doe").setGender(Gender.MALE)
@@ -35,6 +43,7 @@ public class ContainerTest {
 
   @Test
   public void test2() throws MmException {
+    LOGGER.debug("test2");
     // setup
     Adresse testAdresse = new Adresse().setStreet("Hauptstraße").setCity("Hamburg");
     Person testPerson = new Person().setVorname("John").setNachname("Doe").setGender(Gender.MALE)
@@ -61,4 +70,15 @@ public class ContainerTest {
     Assert.assertEquals("Steventon", controller.person().adresse().city().get());
   }
 
+	@Test
+	public void testJavaHelper(){
+	  LOGGER.debug("testJavaHelper");
+	  // setup
+	  List<Field> fields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(MmTabPerson.class);
+	  Assert.assertNotNull(fields);
+	  Assert.assertEquals(10, fields.size());
+	  MmStringAnnotation stringAnnotation = MmJavaHelper.findAnnotation(fields.get(0), MmStringAnnotation.class);
+	  Assert.assertNotNull(stringAnnotation);
+	  Assert.assertEquals("vn", stringAnnotation.id());
+	}
 }

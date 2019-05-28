@@ -30,7 +30,7 @@ import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
-@MmTabAnnotation(id = "tab")
+@MmTabAnnotation(id = "person")
 public class MmTabPerson extends MmTab<Person> {
 
   @MmStringAnnotation(id = "vn")

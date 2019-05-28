@@ -70,7 +70,17 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent) {
-    super(pParent);
+    this(pParent, (Integer)null);
+  }
+
+  /**
+   * Creates a new MmBaseContainerImplementation instance at runtime.
+   *
+   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param pRuntimeIndex The index of this mimic when created at runtime.
+   */
+  public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final Integer pRuntimeIndex) {
+    super(pParent, pRuntimeIndex);
     messageList = new MmMessageList();
     errorstate  = MmContainerErrorState.SUCCESS;
   }
@@ -83,7 +93,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *                        has a root accessor.
    */
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final MmRootAccessor<MODEL> pRootAccessor) {
-    this(pParent);
+    this(pParent, (Integer)null);
     rootAccessor = pRootAccessor;
     rootAccessor.setMmContainer(this);
   }

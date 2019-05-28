@@ -1,5 +1,6 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,9 +32,8 @@ public class MmImplementationTableRow<ROW_MODEL>
    * @param  pParent    The parent declaration mimic, declaring a static final instance of this mimic.
    * @param  pRowIndex  The table row index of this row.
    */
-  public MmImplementationTableRow(MmDeclarationMimic pParent, int pRowIndex) {
-    super(pParent);
-    setName("row" + pRowIndex);
+  public MmImplementationTableRow(final MmDeclarationMimic pParent, final int pRowIndex) {
+    super(pParent, pRowIndex);
   }
 
   /**
