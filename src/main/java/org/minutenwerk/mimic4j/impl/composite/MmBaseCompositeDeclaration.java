@@ -8,7 +8,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmBaseCompositeDeclaration<IMPLEMENTATION extends MmBaseCompositeImplementation<?, ?>>
+public abstract class MmBaseCompositeDeclaration<IMPLEMENTATION extends MmBaseCompositeImplementation<?, ?, ?>>
   extends MmBaseDeclaration<MmCompositeMimic, IMPLEMENTATION> implements MmCompositeMimic, MmCompositeCallback {
 
   /**

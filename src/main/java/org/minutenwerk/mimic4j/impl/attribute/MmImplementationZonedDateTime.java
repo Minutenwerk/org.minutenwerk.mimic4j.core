@@ -18,7 +18,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationZonedDateTime
-  extends MmBaseAttributeImplementation<MmZonedDateTime, MmConfigurationZonedDateTime, ZonedDateTime, String> {
+  extends MmBaseAttributeImplementation<MmZonedDateTime, MmConfigurationZonedDateTime, MmZonedDateTimeAnnotation, ZonedDateTime, String> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationZonedDateTime.class);

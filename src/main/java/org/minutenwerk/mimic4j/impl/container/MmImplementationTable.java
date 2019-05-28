@@ -26,7 +26,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
  * @author  Olaf Kossak
  */
 public class MmImplementationTable<ROW_MODEL>
-  extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable> implements MmTableMimic<ROW_MODEL> {
+  extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable, MmTableAnnotation>
+  implements MmTableMimic<ROW_MODEL> {
 
   /** The logger of this class. */
   private static final Logger         LOGGER       = LogManager.getLogger(MmImplementationTable.class);
@@ -141,11 +142,11 @@ public class MmImplementationTable<ROW_MODEL>
       // TODO warum kein Name?
       addChild(tableRowMm, null, typeOfFirstGenericParameter);
     }
-    
+
     for (MmImplementationTableRow<?> child : getImplementationChildrenOfType(MmImplementationTableRow.class)) {
       child.initialize();
     }
-    
+
     for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
       child.passModelsideToViewside();
     }

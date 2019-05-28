@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.impl.link;
 
 import java.lang.annotation.Annotation;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -39,7 +40,8 @@ import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
  *
  * @jalopy.group-order  group-override, group-i18n
  */
-public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
+public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
+  CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
   extends MmBaseImplementation<MmBaseLinkDeclaration<?>, CONFIGURATION, ANNOTATION> implements MmLinkMimic {
 
   /** The displaying text and title of the link may depend dynamically on a value. */

@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLink;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationLink extends MmBaseLinkImplementation<MmLink, MmConfigurationLink> {
+public class MmImplementationLink extends MmBaseLinkImplementation<MmLink, MmConfigurationLink, MmLinkAnnotation> {
 
   /**
    * Creates a new MmImplementationLink instance.

@@ -14,7 +14,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeForm;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationForm<MODEL> extends MmBaseContainerImplementation<MmForm<MODEL>, MODEL, MmConfigurationForm> {
+public class MmImplementationForm<MODEL>
+  extends MmBaseContainerImplementation<MmForm<MODEL>, MODEL, MmConfigurationForm, MmFormAnnotation> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationForm.class);

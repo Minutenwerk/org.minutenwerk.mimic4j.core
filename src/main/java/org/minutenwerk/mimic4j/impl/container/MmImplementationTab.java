@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTab;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<MmTab<MODEL>, MODEL, MmConfigurationTab> {
+public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<MmTab<MODEL>, MODEL, MmConfigurationTab, MmTabAnnotation> {
 
   /** The logger of this class. */
   private static final Logger            LOGGER       = LogManager.getLogger(MmImplementationTab.class);

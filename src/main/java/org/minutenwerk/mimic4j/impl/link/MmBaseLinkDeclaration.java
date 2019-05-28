@@ -26,7 +26,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
  *
  * @jalopy.group-order  group-callback, group-override
  */
-public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, ?>>
+public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, ?, ?>>
   extends MmBaseDeclaration<MmLinkMimic, IMPLEMENTATION> implements MmLinkMimic, MmLinkCallback {
 
   /**

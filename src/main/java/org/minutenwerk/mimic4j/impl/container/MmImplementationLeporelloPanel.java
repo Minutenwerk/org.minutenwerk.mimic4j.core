@@ -18,7 +18,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloPanel;
  * @author  Olaf Kossak
  */
 public class MmImplementationLeporelloPanel<MODEL>
-  extends MmBaseContainerImplementation<MmLeporelloPanel<MODEL>, MODEL, MmConfigurationLeporelloPanel> {
+  extends MmBaseContainerImplementation<MmLeporelloPanel<MODEL>, MODEL, MmConfigurationLeporelloPanel, MmLeporelloPanelAnnotation> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationLeporelloPanel.class);

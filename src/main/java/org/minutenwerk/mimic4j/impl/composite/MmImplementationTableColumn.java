@@ -13,7 +13,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTableColumn;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationTableColumn extends MmBaseCompositeImplementation<MmTableColumn, MmConfigurationTableColumn> {
+public class MmImplementationTableColumn
+  extends MmBaseCompositeImplementation<MmTableColumn, MmConfigurationTableColumn, MmTableColumnAnnotation> {
 
   /**
    * Creates a new MmCompositeImplementationTableColumn instance.

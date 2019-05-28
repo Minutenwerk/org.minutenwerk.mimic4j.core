@@ -19,7 +19,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporello;
  * @author  Olaf Kossak
  */
 public class MmImplementationLeporello<MODEL, SUB_MODEL>
-  extends MmBaseContainerImplementation<MmLeporello<MODEL, SUB_MODEL>, MODEL, MmConfigurationLeporello> {
+  extends MmBaseContainerImplementation<MmLeporello<MODEL, SUB_MODEL>, MODEL, MmConfigurationLeporello, MmLeporelloAnnotation> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationLeporello.class);

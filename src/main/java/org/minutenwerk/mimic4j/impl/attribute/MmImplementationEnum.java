@@ -15,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttributeEnum;
  * @author  Olaf Kossak
  */
 public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
-  extends MmBaseAttributeImplementation<MmEnum<ENUM_TYPE>, MmConfigurationEnum<ENUM_TYPE>, ENUM_TYPE, String> {
+  extends MmBaseAttributeImplementation<MmEnum<ENUM_TYPE>, MmConfigurationEnum<ENUM_TYPE>, MmEnumAnnotation, ENUM_TYPE, String> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationEnum.class);

@@ -14,7 +14,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDouble, MmConfigurationDouble, Double, String> {
+public class MmImplementationDouble
+  extends MmBaseAttributeImplementation<MmDouble, MmConfigurationDouble, MmDoubleAnnotation, Double, String> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationDouble.class);

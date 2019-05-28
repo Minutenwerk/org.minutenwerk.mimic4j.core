@@ -14,7 +14,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoolean, MmConfigurationBoolean, Boolean, Boolean> {
+public class MmImplementationBoolean
+  extends MmBaseAttributeImplementation<MmBoolean, MmConfigurationBoolean, MmBooleanAnnotation, Boolean, Boolean> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationBoolean.class);

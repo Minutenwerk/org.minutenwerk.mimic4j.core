@@ -16,7 +16,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationBigInteger extends MmBaseAttributeImplementation<MmBigInteger, MmConfigurationBigInteger, BigInteger, String> {
+public class MmImplementationBigInteger
+  extends MmBaseAttributeImplementation<MmBigInteger, MmConfigurationBigInteger, MmBigIntegerAnnotation, BigInteger, String> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationBigInteger.class);

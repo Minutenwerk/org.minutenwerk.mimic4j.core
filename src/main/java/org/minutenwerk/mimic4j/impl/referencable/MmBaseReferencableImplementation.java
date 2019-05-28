@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.impl.referencable;
 
 import java.lang.annotation.Annotation;
+
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
@@ -21,8 +22,8 @@ import org.minutenwerk.mimic4j.impl.link.MmBaseLinkImplementation;
  */
 public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBaseReferencableDeclaration<MODEL, ?>,
   MODEL extends MmReferencableModel, //
-  CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation> extends MmBaseContainerImplementation<DECLARATION, MODEL, CONFIGURATION, ANNOTATION>
-  implements MmReferencableMimic<MODEL> {
+  CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
+  extends MmBaseContainerImplementation<DECLARATION, MODEL, CONFIGURATION, ANNOTATION> implements MmReferencableMimic<MODEL> {
 
   /** Cached instance of self reference. */
   protected MmReference cachedReference;

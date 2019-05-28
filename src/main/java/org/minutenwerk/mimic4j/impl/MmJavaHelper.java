@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,27 @@ public class MmJavaHelper {
    * Not for use.
    */
   private MmJavaHelper() {
+  }
+
+  /**
+   * Searches for a specified annotation on a field and within its inheritance tree.
+   *
+   * @param   pField            The specified field to analyze.
+   * @param   pAnnotationClass  The specified annotation class.
+   *
+   * @return  The found annotation or <code>null</code>.
+   *
+   * @throws  IllegalArgumentException  In case of more than one annotation of specified type on specified field.
+   */
+  public static <ANNOTATION extends Annotation> ANNOTATION findAnnotation(Field pField, Class<ANNOTATION> pAnnotationClass) {
+    ANNOTATION[] returnAnnotation = pField.getDeclaredAnnotationsByType(pAnnotationClass);
+    if (returnAnnotation.length == 1) {
+      return returnAnnotation[0];
+    } else if (returnAnnotation.length > 1) {
+      throw new IllegalArgumentException("more than one annotation of type " + pAnnotationClass + " on field " + pField);
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -93,26 +115,6 @@ public class MmJavaHelper {
   }
 
   /**
-   * Searches for a specified annotation on a field and within its inheritance tree.
-   *
-   * @param   pField            The specified field to analyze.
-   * @param   pAnnotationClass  The specified annotation class.
-   *
-   * @return  The found annotation or <code>null</code>.
-   * @throws IllegalArgumentException  In case of more than one annotation of specified type on specified field.
-   */
-  public static <ANNOTATION extends Annotation> ANNOTATION findAnnotation(Field pField, Class<ANNOTATION> pAnnotationClass) {
-    ANNOTATION[] returnAnnotation = pField.getDeclaredAnnotationsByType(pAnnotationClass);
-    if (returnAnnotation.length == 1) {
-      return returnAnnotation[0];
-    } else if (returnAnnotation.length > 1) {
-      throw new IllegalArgumentException("more than one annotation of type " + pAnnotationClass + " on field " + pField);
-    } else {
-      return null;
-    }
-  }
-
-  /**
    * TODOC.
    *
    * @param   pParent  TODOC
@@ -121,33 +123,21 @@ public class MmJavaHelper {
    * @return  TODOC
    */
   public static ChildAndNameAndGeneric getChildByParentAndField(final MmBaseDeclaration<?, ?> pParent, final Field pField) {
-	    try {
-	      MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(pParent);
-	      Type                    typeOfFirstGenericParameterOfField = null;
-	      if (pField.getGenericType() instanceof ParameterizedType) {
-	        ParameterizedType parameterizedType = (ParameterizedType)pField.getGenericType();
-	        Type[]            typeArray         = parameterizedType.getActualTypeArguments();
-	        if (typeArray.length >= 1) {
-	          typeOfFirstGenericParameterOfField = typeArray[0];
-	        }
-	      }
-	      return new ChildAndNameAndGeneric(child, pField.getName(), typeOfFirstGenericParameterOfField);
-	    } catch (IllegalAccessException e) {
-	      e.printStackTrace();
-	    }
-	    return null;
-	  }
-
-  public static Optional<Type> getFirstGenericType(final Field pField) {
-	Type genericSuperClass = pField.getType().getGenericSuperclass();
-    if (genericSuperClass instanceof ParameterizedType) {
-      ParameterizedType parameterizedType = (ParameterizedType)genericSuperClass;
-      Type[]            typeArray         = parameterizedType.getActualTypeArguments();
-      if (typeArray.length >= 1) {
-        return Optional.of(typeArray[0]);
+    try {
+      MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(pParent);
+      Type                    typeOfFirstGenericParameterOfField = null;
+      if (pField.getGenericType() instanceof ParameterizedType) {
+        ParameterizedType parameterizedType = (ParameterizedType)pField.getGenericType();
+        Type[]            typeArray         = parameterizedType.getActualTypeArguments();
+        if (typeArray.length >= 1) {
+          typeOfFirstGenericParameterOfField = typeArray[0];
+        }
       }
+      return new ChildAndNameAndGeneric(child, pField.getName(), typeOfFirstGenericParameterOfField);
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
     }
-    return Optional.empty();
+    return null;
   }
 
   /**
@@ -168,6 +158,25 @@ public class MmJavaHelper {
       }
     }
     return childrenByParentAndFields;
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param   pField  TODOC
+   *
+   * @return  TODOC
+   */
+  public static Optional<Type> getFirstGenericType(final Field pField) {
+    Type genericSuperClass = pField.getType().getGenericSuperclass();
+    if (genericSuperClass instanceof ParameterizedType) {
+      ParameterizedType parameterizedType = (ParameterizedType)genericSuperClass;
+      Type[]            typeArray         = parameterizedType.getActualTypeArguments();
+      if (typeArray.length >= 1) {
+        return Optional.of(typeArray[0]);
+      }
+    }
+    return Optional.empty();
   }
 
   public static class ChildAndNameAndGeneric {

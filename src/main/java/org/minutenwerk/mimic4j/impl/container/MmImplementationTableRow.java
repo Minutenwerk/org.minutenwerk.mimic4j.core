@@ -1,6 +1,5 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +20,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
  * @author  Olaf Kossak
  */
 public class MmImplementationTableRow<ROW_MODEL>
-  extends MmBaseContainerImplementation<MmTableRow<ROW_MODEL>, ROW_MODEL, MmConfigurationTableRow> implements MmTableRowMimic<ROW_MODEL> {
+  extends MmBaseContainerImplementation<MmTableRow<ROW_MODEL>, ROW_MODEL, MmConfigurationTableRow, MmTableRowAnnotation>
+  implements MmTableRowMimic<ROW_MODEL> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationTableRow.class);

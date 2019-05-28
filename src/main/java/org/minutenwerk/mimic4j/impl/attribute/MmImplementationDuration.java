@@ -16,7 +16,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationDuration extends MmBaseAttributeImplementation<MmDuration, MmConfigurationDuration, Duration, String> {
+public class MmImplementationDuration
+  extends MmBaseAttributeImplementation<MmDuration, MmConfigurationDuration, MmDurationAnnotation, Duration, String> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationDuration.class);

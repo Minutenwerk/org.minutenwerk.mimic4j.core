@@ -26,7 +26,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloTab;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationLeporelloTab extends MmBaseLinkImplementation<MmLeporelloTab, MmConfigurationLeporelloTab> {
+public class MmImplementationLeporelloTab
+  extends MmBaseLinkImplementation<MmLeporelloTab, MmConfigurationLeporelloTab, MmLeporelloTabAnnotation> {
 
   /** The super tab is the logical parent tab in the parent panel. */
   protected final MmLeporelloTab            superTab;

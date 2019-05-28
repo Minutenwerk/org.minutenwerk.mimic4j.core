@@ -17,7 +17,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationLocalDate extends MmBaseAttributeImplementation<MmLocalDate, MmConfigurationLocalDate, LocalDate, String> {
+public class MmImplementationLocalDate
+  extends MmBaseAttributeImplementation<MmLocalDate, MmConfigurationLocalDate, MmLocalDateAnnotation, LocalDate, String> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationLocalDate.class);

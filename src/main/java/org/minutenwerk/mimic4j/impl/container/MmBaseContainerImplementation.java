@@ -28,8 +28,8 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
  *                      group-valid
  */
 public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseContainerDeclaration<MODEL, ?>,
-  MODEL, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation> extends MmBaseImplementation<DECLARATION, CONFIGURATION, ANNOTATION>
-  implements MmContainerMimic<MODEL>, MmEditableMimicImpl {
+  MODEL, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
+  extends MmBaseImplementation<DECLARATION, CONFIGURATION, ANNOTATION> implements MmContainerMimic<MODEL>, MmEditableMimicImpl {
 
   /** Constant for index of generic type for model. */
   public static final int GENERIC_PARAMETER_INDEX_MODEL         = 2;
@@ -78,8 +78,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   /**
    * Creates a new MmBaseContainerImplementation instance at runtime.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
-   * @param pRuntimeIndex The index of this mimic when created at runtime.
+   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pRuntimeIndex  The index of this mimic when created at runtime.
    */
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final Integer pRuntimeIndex) {
     super(pParent, pRuntimeIndex);
@@ -126,7 +126,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   @Override
   public MmRootAccessor<?> getMmRootAccessor() {
     if (rootAccessor == null) {
-      for (MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class); //
+      for (MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getImplementationAncestorOfType(
+              MmBaseContainerImplementation.class); //
           ((rootAccessor == null) && (containerAncestor != null)); //
 
 

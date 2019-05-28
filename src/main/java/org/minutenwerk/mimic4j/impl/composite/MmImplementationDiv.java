@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeComposite;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationDiv extends MmBaseCompositeImplementation<MmDiv, MmConfigurationDiv> {
+public class MmImplementationDiv extends MmBaseCompositeImplementation<MmDiv, MmConfigurationDiv, MmDivAnnotation> {
 
   /**
    * Creates a new MmImplementationDiv instance.

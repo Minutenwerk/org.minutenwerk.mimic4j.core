@@ -15,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgePage;
  * @jalopy.group-order  group-initialization, group-override
  */
 public class MmImplementationPage<MODEL extends MmReferencableModel>
-  extends MmBaseReferencableImplementation<MmPage<MODEL>, MODEL, MmConfigurationPage> {
+  extends MmBaseReferencableImplementation<MmPage<MODEL>, MODEL, MmConfigurationPage, MmPageAnnotation> {
 
   /**
    * Creates a new MmImplementationPage instance.

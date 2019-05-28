@@ -12,7 +12,8 @@ import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmBaseCompositeImplementation<CALLBACK extends MmCompositeCallback, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
+public abstract class MmBaseCompositeImplementation<CALLBACK extends MmCompositeCallback,
+  CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
   extends MmBaseImplementation<MmBaseCompositeDeclaration<?>, CONFIGURATION, ANNOTATION> implements MmCompositeMimic {
 
   /**

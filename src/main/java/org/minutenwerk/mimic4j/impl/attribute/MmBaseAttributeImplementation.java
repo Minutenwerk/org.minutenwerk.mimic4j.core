@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.lang.annotation.Annotation;
+
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -170,7 +171,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     super.initialize();
 
     // initialize rootAccessor
-    MmBaseContainerImplementation<?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
+    MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
     if (containerAncestor == null) {
       throw new IllegalStateException("no ancestor of type MmContainerMimic for " + getMmFullName());
     } else {

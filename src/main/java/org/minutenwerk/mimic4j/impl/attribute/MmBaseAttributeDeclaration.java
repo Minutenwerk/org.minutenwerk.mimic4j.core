@@ -20,8 +20,9 @@ import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
  *
  * @jalopy.group-order  group-callback, group-lifecycle
  */
-public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAttributeImplementation<?, ?, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>,
-  ATTRIBUTE_MODEL, VIEWSIDE_VALUE> extends MmBaseDeclaration<MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, IMPLEMENTATION>
+public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAttributeImplementation<?,
+    ?, ?, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>
+  extends MmBaseDeclaration<MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, IMPLEMENTATION>
   implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> {
 
   /** Constant for value to be displayed in case of the viewside value is null. */
