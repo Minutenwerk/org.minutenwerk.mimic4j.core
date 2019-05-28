@@ -24,11 +24,11 @@ public class MmInternal {
    *
    * @throws  IllegalArgumentException  In case of mimic is not of type MmBaseImplementation or MmBaseImplementation.
    */
-  public static MmBaseImplementation<?, ?> getMmImplementation(MmMimic pMimic) {
-    if (pMimic instanceof MmBaseImplementation<?, ?>) {
-      return (MmBaseImplementation<?, ?>)pMimic;
+  public static MmBaseImplementation<?, ?, ?> getMmImplementation(MmMimic pMimic) {
+    if (pMimic instanceof MmBaseImplementation<?, ?, ?>) {
+      return (MmBaseImplementation<?, ?, ?>)pMimic;
     } else if (pMimic instanceof MmBaseDeclaration<?, ?>) {
-      final MmBaseImplementation<?, ?> implementationPartOfMimic = ((MmBaseDeclaration<?, ?>)pMimic).implementation;
+      final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = ((MmBaseDeclaration<?, ?>)pMimic).implementation;
       return implementationPartOfMimic;
     } else {
       throw new IllegalArgumentException("pMimic must be of type MmBaseImplementation or MmBaseImplementation");

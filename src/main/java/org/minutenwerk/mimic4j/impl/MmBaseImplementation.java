@@ -40,7 +40,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
  *
  * @jalopy.group-order  group-construction, group-postconstruct, group-initialization, group-override, group-helper
  */
-public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration<?, ?>, CONFIGURATION extends MmBaseConfiguration>
+public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration<?, ?>, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
   implements MmMimic {
 
   /** End of line characters of operating system in use. */
@@ -59,7 +59,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected final MmBaseDeclaration<?, ?>          declarationParent;  
 
   /** The implementation parent of this mimic, is set in constructor phase. */
-  protected final MmBaseImplementation<?, ?>       implementationParent;
+  protected final MmBaseImplementation<?, ?, ?>       implementationParent;
 
   /** The name of this mimic, is set in constructor phase. */
   protected final String                           name;
@@ -77,7 +77,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * All direct children are of type <code>MmBaseImplementation</code>. Children are added in constructor phase, and named in initialize
    * phase.
    */
-  protected final List<MmBaseImplementation<?, ?>> implementationChildren;
+  protected final List<MmBaseImplementation<?, ?, ?>> implementationChildren;
 
   /**
    * All direct children of the declaration are of type <code>MmMimic</code>. Children are added in constructor phase, and named in
@@ -86,7 +86,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected final List<MmMimic>                    declarationChildren;
 
   /** All runtime children are of type <code>MmBaseImplementation</code>. Children are added at runtime. */
-  protected final List<MmBaseImplementation<?, ?>> runtimeImplementationChildren;
+  protected final List<MmBaseImplementation<?, ?, ?>> runtimeImplementationChildren;
 
   /** All runtime declaration children are of type <code>MmMimic</code>. Children are added at runtime. */
   protected final List<MmMimic>                    runtimeDeclarationChildren;
@@ -269,7 +269,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     this(pDeclarationParent, null);
   }
   
-  private static Field onConstructField(final MmBaseImplementation<?,?> pImplementationParent) {
+  private static Field onConstructField(final MmBaseImplementation<?,?, ?> pImplementationParent) {
 	  if (pImplementationParent.declarationChildrenFields == null) {
 		  pImplementationParent.declarationChildrenFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(pImplementationParent.declaration.getClass()).iterator();
 	  }
@@ -338,12 +338,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @throws  IllegalStateException  In case of root ancestor of subtree is not of type MmImplementationRoot.
    */
-  private static MmImplementationRoot onConstructRoot(final MmBaseImplementation<?, ?> pMm) {
+  private static MmImplementationRoot onConstructRoot(final MmBaseImplementation<?, ?, ?> pMm) {
     if (pMm.initialState.isNot(IN_CONSTRUCTION)) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
     }
 
-    MmBaseImplementation<?, ?> tempParent = pMm.implementationParent;
+    MmBaseImplementation<?, ?, ?> tempParent = pMm.implementationParent;
     MmImplementationRoot       tempRoot   = tempParent.root;
     if (tempRoot != null) {
       return tempRoot;
@@ -373,9 +373,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
   }
   
-  protected <ANNOTATION extends Annotation> CONFIGURATION onConstructConfiguration(ANNOTATION pAnnotation) {
-	  return null;
-  }
+//  protected <ANNOTATION extends Annotation> CONFIGURATION onConstructConfiguration(ANNOTATION pAnnotation) {
+//	  return null;
+//  }
 
   /**
    * Searches for an annotation within the inheritance tree of a class.
@@ -427,7 +427,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @return  The implementation part of the specified declaration.
    */
   @SuppressWarnings("unchecked")
-  protected static <T extends MmBaseImplementation<?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
+  protected static <T extends MmBaseImplementation<?, ?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
     return (T)pDeclaration.implementation;
   }
 
@@ -437,13 +437,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param  pMm           The specific mimic to log.
    * @param  pIndentation  Level of indentation in log.
    */
-  protected static void logSubtree(MmBaseImplementation<?, ?> pMm, String pIndentation) {
+  protected static void logSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
     if (LOGGER.isDebugEnabled()) {
       LOGGER.debug(pIndentation + pMm.toString());
-      for (MmBaseImplementation<?, ?> child : pMm.implementationChildren) {
+      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
         logSubtree(child, pIndentation + "  ");
       }
-      for (MmBaseImplementation<?, ?> child : pMm.runtimeImplementationChildren) {
+      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
         logSubtree(child, pIndentation + "  ");
       }
     }
@@ -457,15 +457,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return  Debug information about a specified mimic and subtree of all its children and runtime children.
    */
-  protected static String toStringSubtree(MmBaseImplementation<?, ?> pMm, String pIndentation) {
+  protected static String toStringSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
     StringWriter writer = new StringWriter();
     if (pMm != null) {
       writer.append(pIndentation + pMm.toString());
       writer.append(NL);
-      for (MmBaseImplementation<?, ?> child : pMm.implementationChildren) {
+      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
         writer.append(toStringSubtree(child, pIndentation + "  "));
       }
-      for (MmBaseImplementation<?, ?> child : pMm.runtimeImplementationChildren) {
+      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
         writer.append(toStringSubtree(child, pIndentation + "  "));
       }
     }
@@ -622,7 +622,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     initialState.set(INITIALIZED);
 
     // initialize children
-    for (MmBaseImplementation<?, ?> implementationChild : implementationChildren) {
+    for (MmBaseImplementation<?, ?, ?> implementationChild : implementationChildren) {
       implementationChild.initialize();
     }
   }
@@ -1162,7 +1162,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
 
     // get implementation part of child
-    MmBaseImplementation<?, ?> childImplementation = pChild.implementation;
+    MmBaseImplementation<?, ?, ?> childImplementation = pChild.implementation;
 
     // set generic type of implementation part of child
     if (pTypeOfFirstGenericParameter != null) {

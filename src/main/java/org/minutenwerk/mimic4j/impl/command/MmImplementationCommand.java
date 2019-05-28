@@ -20,7 +20,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeCommand;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandDeclaration, MmConfigurationCommand>
+public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandDeclaration, MmConfigurationCommand, MmCommandAnnotation>
   implements MmExecutableMimic {
 
   /**

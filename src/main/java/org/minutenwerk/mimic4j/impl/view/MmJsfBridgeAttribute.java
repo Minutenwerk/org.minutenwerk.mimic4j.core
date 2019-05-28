@@ -17,14 +17,14 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  * @author  Olaf Kossak
  */
 public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
-  extends MmJsfBridge<MmBaseAttributeImplementation<?, ?, ?, VIEWSIDE_VALUE>, VIEWSIDE_VALUE, String> {
+  extends MmJsfBridge<MmBaseAttributeImplementation<?, ?, ?, ?, VIEWSIDE_VALUE>, VIEWSIDE_VALUE, String> {
 
   /**
    * Creates a new MmJsfBridgeAttribute instance.
    *
    * @param  pImplementation  The implementation part of connected mimic.
    */
-  public MmJsfBridgeAttribute(MmBaseAttributeImplementation<?, ?, ?, VIEWSIDE_VALUE> pImplementation) {
+  public MmJsfBridgeAttribute(MmBaseAttributeImplementation<?, ?, ?, ?, VIEWSIDE_VALUE> pImplementation) {
     super(pImplementation);
   }
 

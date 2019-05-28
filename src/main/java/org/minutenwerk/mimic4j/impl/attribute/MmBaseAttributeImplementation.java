@@ -1,5 +1,6 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -38,8 +39,8 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  * @jalopy.group-order  group-initialization, group-lifecycle, group-override, group-helper
  */
 public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallback,
-  CONFIGURATION extends MmBaseAttributeConfiguration<ATTRIBUTE_MODEL>, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>
-  extends MmBaseImplementation<MmBaseAttributeDeclaration<?, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, CONFIGURATION>
+  CONFIGURATION extends MmBaseAttributeConfiguration<ATTRIBUTE_MODEL>, ANNOTATION extends Annotation, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>
+  extends MmBaseImplementation<MmBaseAttributeDeclaration<?, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, CONFIGURATION, ANNOTATION>
   implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, MmEditableMimicImpl {
 
   /** Class internal constant to control index of generic type ATTRIBUTE_MODEL. */

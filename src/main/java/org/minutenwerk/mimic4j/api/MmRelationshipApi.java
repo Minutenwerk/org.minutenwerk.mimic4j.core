@@ -27,7 +27,7 @@ public class MmRelationshipApi {
    * @return  A list of all ancestor mimics of this mimic.
    */
   public static List<MmMimic> getMmAncestors(MmMimic pMimic) {
-    final MmBaseImplementation<?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
+    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmAncestors();
   }
 
@@ -40,7 +40,7 @@ public class MmRelationshipApi {
    * @return  A direct child mimic of specified name, or <code>null</code> if it doesn't exist.
    */
   public static MmMimic getMmChildByName(MmMimic pMimic, String pChildName) {
-    final MmBaseImplementation<?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
+    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmChildByName(pChildName);
   }
 
@@ -52,7 +52,7 @@ public class MmRelationshipApi {
    * @return  A list of all direct child mimics of this mimic.
    */
   public static List<MmMimic> getMmChildren(MmMimic pMimic) {
-    final MmBaseImplementation<?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
+    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmChildren();
   }
 
@@ -66,7 +66,7 @@ public class MmRelationshipApi {
    * @return  A descendant mimic of specified full name, or <code>null</code> if it doesn't exist.
    */
   public static MmMimic getMmDescendantByFullName(MmMimic pMimic, String pFullName) {
-    final MmBaseImplementation<?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
+    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmDescendantByFullName(pFullName);
   }
 
@@ -78,7 +78,7 @@ public class MmRelationshipApi {
    * @return  A list of all descendant mimics of this mimic.
    */
   public static List<MmMimic> getMmDescendants(MmMimic pMimic) {
-    final MmBaseImplementation<?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
+    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmDescendants();
   }
 
@@ -90,7 +90,7 @@ public class MmRelationshipApi {
    * @return  The parent mimic of this mimic, may be null.
    */
   public static MmMimic getMmParent(MmMimic pMimic) {
-    final MmBaseImplementation<?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
+    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmParent();
   }
 
@@ -102,7 +102,7 @@ public class MmRelationshipApi {
    * @return  The <code>MmRoot</code> of this mimic.
    */
   public static MmRoot getMmRoot(MmMimic pMimic) {
-    final MmBaseImplementation<?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
+    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmRoot();
   }
 

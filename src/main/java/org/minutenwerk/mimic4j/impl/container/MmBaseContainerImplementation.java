@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import java.lang.annotation.Annotation;
+
 import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimic;
@@ -26,7 +28,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
  *                      group-valid
  */
 public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseContainerDeclaration<MODEL, ?>,
-  MODEL, CONFIGURATION extends MmBaseConfiguration> extends MmBaseImplementation<DECLARATION, CONFIGURATION>
+  MODEL, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation> extends MmBaseImplementation<DECLARATION, CONFIGURATION, ANNOTATION>
   implements MmContainerMimic<MODEL>, MmEditableMimicImpl {
 
   /** Constant for index of generic type for model. */

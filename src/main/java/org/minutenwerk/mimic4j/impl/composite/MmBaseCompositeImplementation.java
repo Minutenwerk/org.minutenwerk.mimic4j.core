@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.impl.composite;
 
+import java.lang.annotation.Annotation;
+
 import org.minutenwerk.mimic4j.api.MmCompositeMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
@@ -10,8 +12,8 @@ import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmBaseCompositeImplementation<CALLBACK extends MmCompositeCallback, CONFIGURATION extends MmBaseConfiguration>
-  extends MmBaseImplementation<MmBaseCompositeDeclaration<?>, CONFIGURATION> implements MmCompositeMimic {
+public abstract class MmBaseCompositeImplementation<CALLBACK extends MmCompositeCallback, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
+  extends MmBaseImplementation<MmBaseCompositeDeclaration<?>, CONFIGURATION, ANNOTATION> implements MmCompositeMimic {
 
   /**
    * Creates a new MmBaseCompositeImplementation instance.

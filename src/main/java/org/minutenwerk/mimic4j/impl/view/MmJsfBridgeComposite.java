@@ -7,14 +7,14 @@ import org.minutenwerk.mimic4j.impl.composite.MmBaseCompositeImplementation;
  *
  * @author  Olaf Kossak
  */
-public class MmJsfBridgeComposite extends MmJsfBridge<MmBaseCompositeImplementation<?, ?>, String, String> {
+public class MmJsfBridgeComposite extends MmJsfBridge<MmBaseCompositeImplementation<?, ?, ?>, String, String> {
 
   /**
    * Creates a new MmJsfBridgeComposite instance.
    *
    * @param  pImplementation  The implementation part of connected mimic.
    */
-  public MmJsfBridgeComposite(MmBaseCompositeImplementation<?, ?> pImplementation) {
+  public MmJsfBridgeComposite(MmBaseCompositeImplementation<?, ?, ?> pImplementation) {
     super(pImplementation);
   }
 

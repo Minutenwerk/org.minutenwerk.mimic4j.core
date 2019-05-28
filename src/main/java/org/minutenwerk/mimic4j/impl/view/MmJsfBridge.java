@@ -21,7 +21,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessage;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?, ?>, VIEWSIDE_VALUE, MODEL> {
+public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?, ?, ?>, VIEWSIDE_VALUE, MODEL> {
 
   /** Logger of this class. */
   private static final Logger    LOGGER         = LogManager.getLogger(MmJsfBridge.class);

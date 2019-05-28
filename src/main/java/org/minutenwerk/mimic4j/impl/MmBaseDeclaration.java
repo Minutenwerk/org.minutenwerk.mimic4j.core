@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
  *
  * @jalopy.group-order  group-callback, group-override
  */
-public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATION extends MmBaseImplementation<?, ?>>
+public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATION extends MmBaseImplementation<?, ?, ?>>
   implements MmDeclarationMimic, MmBaseCallback {
 
   /** The implementation part of the mimic. */

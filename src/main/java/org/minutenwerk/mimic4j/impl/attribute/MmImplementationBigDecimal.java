@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationBigDecimal extends MmBaseAttributeImplementation<MmBigDecimal, MmConfigurationBigDecimal, BigDecimal, String> {
+public class MmImplementationBigDecimal extends MmBaseAttributeImplementation<MmBigDecimal, MmConfigurationBigDecimal, MmBigDecimalAnnotation, BigDecimal, String> {
 
   /** The logger of this class. */
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationBigDecimal.class);

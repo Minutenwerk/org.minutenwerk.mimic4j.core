@@ -19,7 +19,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeComposite;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, MmConfigurationRoot> {
+public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, MmConfigurationRoot, MmRootAnnotation> {
 
   /** Constant for default root locale in case of no session context. */
   public static final Locale  NO_SESSION_CONTEXT_LOCALE = Locale.GERMAN;
