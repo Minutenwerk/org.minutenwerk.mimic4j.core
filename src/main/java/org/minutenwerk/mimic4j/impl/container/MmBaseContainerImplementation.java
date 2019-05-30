@@ -58,7 +58,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   protected final MmMessageList           messageList;
 
   /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
-  protected MmRootAccessor<?>             rootAccessor;
+  protected final MmRootAccessor<?>       rootAccessor;
 
   /**
    * This component has a model of type MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
@@ -83,8 +83,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final Integer pRuntimeIndex) {
     super(pParent, pRuntimeIndex);
-    messageList = new MmMessageList();
-    errorstate  = MmContainerErrorState.SUCCESS;
+    messageList  = new MmMessageList();
+    errorstate   = MmContainerErrorState.SUCCESS;
+    rootAccessor = onConstructRootAccessor();
   }
 
   /**
@@ -94,10 +95,14 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
    *                        has a root accessor.
    */
+  @SuppressWarnings("unchecked")
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final MmRootAccessor<MODEL> pRootAccessor) {
-    this(pParent, (Integer)null);
+    super(pParent, (Integer)null);
+    messageList  = new MmMessageList();
+    errorstate   = MmContainerErrorState.SUCCESS;
     rootAccessor = pRootAccessor;
     rootAccessor.setMmContainer(this);
+    modelAccessor = (MmComponentAccessor<?, MODEL>)rootAccessor;
   }
 
   /**
@@ -105,7 +110,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        The accessor of model.
    *
-   * @jalopy.group  group-initialization
+   * @jalopy.group  group-override
    */
   @Override
   public MmComponentAccessor<?, MODEL> getMmModelAccessor() {
@@ -119,25 +124,23 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return        The accessor of root component of model.
    *
-   * @throws        IllegalStateException  In case of there is no definition of a root accessor.
-   *
-   * @jalopy.group  group-initialization
+   * @jalopy.group  group-override
    */
   @Override
   public MmRootAccessor<?> getMmRootAccessor() {
-    if (rootAccessor == null) {
-      for (MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getImplementationAncestorOfType(
-              MmBaseContainerImplementation.class); //
-          ((rootAccessor == null) && (containerAncestor != null)); //
+    assureInitialization();
 
+    return rootAccessor;
+  }
 
-          containerAncestor = containerAncestor.getImplementationAncestorOfType(MmBaseContainerImplementation.class)) {
-        rootAccessor = containerAncestor.rootAccessor;
-      }
-      if (rootAccessor == null) {
-        throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
-      }
-    }
+  /**
+   * Returns accessor of root component of model before initialization phase.
+   *
+   * @return        The accessor of root component of model.
+   *
+   * @jalopy.group  group-initialization
+   */
+  public MmRootAccessor<?> onInitializeGetRootAccessor() {
     return rootAccessor;
   }
 
@@ -150,27 +153,36 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-initialization
    */
   @Override
-  @SuppressWarnings("unchecked")
   protected void initialize() {
     super.initialize();
 
-    // initialize rootAccessor
-    if (rootAccessor != null) {
-
-      // this container is the root
-      modelAccessor = (MmComponentAccessor<?, MODEL>)rootAccessor;
-
-    } else {
-
-      // this container is not the root, so evaluate the root from ancestors
-      rootAccessor  = getMmRootAccessor();
-
-      // initialize modelAccessor
+    // initialize modelAccessor
+    if (modelAccessor == null) {
       modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
       if (modelAccessor == null) {
         throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
       }
     }
+  }
+
+  /**
+   * Evaluates accessor of root component of model.
+   *
+   * @return        The accessor of root component of model.
+   *
+   * @throws        IllegalStateException  In case of there is no definition of a root accessor.
+   *
+   * @jalopy.group  group-initialization
+   */
+  private MmRootAccessor<?> onConstructRootAccessor() {
+    for (MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getMmImplementationAncestorOfType(
+            MmBaseContainerImplementation.class); containerAncestor != null;
+        containerAncestor = containerAncestor.getMmImplementationAncestorOfType(MmBaseContainerImplementation.class)) {
+      if (containerAncestor.rootAccessor != null) {
+        return containerAncestor.rootAccessor;
+      }
+    }
+    throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
   }
 
   /**

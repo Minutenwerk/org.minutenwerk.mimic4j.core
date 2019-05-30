@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import java.lang.reflect.Field;
+
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
@@ -58,19 +60,6 @@ public class MmImplementationTableRow<ROW_MODEL>
   }
 
   /**
-   * Implementation internal method for initialization. Returns <code>true</code>, if the mimic has been created at runtime, e.g. a
-   * {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
-   *
-   * @return        <code>True</code>, if the mimic has been created at runtime.
-   *
-   * @jalopy.group  group-initialization
-   */
-  @Override
-  protected boolean isRuntimeMimic() {
-    return true;
-  }
-
-  /**
    * Returns configuration of this mimic, specified annotation may be null.
    *
    * @param   pAnnotation  The specified annotation, may be null.
@@ -94,6 +83,22 @@ public class MmImplementationTableRow<ROW_MODEL>
   @Override
   protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return null;
+  }
+
+  /**
+   * Evaluates and returns the name of this mimic. The name is derived from the specified field, if the mimic is declared as a field of
+   * another mimic. If there is a runtime index, the name is derived from the index value. Otherwise the name is an empty string.
+   *
+   * @param         pField         The specified field, or null.
+   * @param         pRuntimeIndex  The specified runtime index, or null.
+   *
+   * @return        The name of this mimic.
+   *
+   * @jalopy.group  group-construction
+   */
+  @Override
+  protected String onConstructName(final Field pField, final Integer pRuntimeIndex) {
+    return "row" + pRuntimeIndex;
   }
 
 }

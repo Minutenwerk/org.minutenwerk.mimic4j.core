@@ -1,17 +1,13 @@
 package org.minutenwerk.mimic4j.container;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.exception.MmException;
 import org.minutenwerk.mimic4j.container.Person.Gender;
-import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 
 public class TestContainer {
 
@@ -69,16 +65,4 @@ public class TestContainer {
     Assert.assertEquals("Mansfield Park", controller.person().adresse().street().get());
     Assert.assertEquals("Steventon", controller.person().adresse().city().get());
   }
-
-	@Test
-	public void testJavaHelper(){
-	  LOGGER.debug("testJavaHelper");
-	  // setup
-	  List<Field> fields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(MmTabPerson.class);
-	  Assert.assertNotNull(fields);
-	  Assert.assertEquals(10, fields.size());
-	  MmStringAnnotation stringAnnotation = MmJavaHelper.findAnnotation(fields.get(0), MmStringAnnotation.class);
-	  Assert.assertNotNull(stringAnnotation);
-	  Assert.assertEquals("vn", stringAnnotation.id());
-	}
 }

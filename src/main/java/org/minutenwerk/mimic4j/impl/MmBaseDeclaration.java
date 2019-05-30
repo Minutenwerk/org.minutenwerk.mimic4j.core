@@ -338,7 +338,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @return  Debug information about this mimic and subtree of all its children and runtime children.
    */
   public final String toStringSubtree() {
-    return MmBaseImplementation.toStringSubtree(implementation, "  ");
+    return implementation.toStringSubtree("  ");
   }
 
 }

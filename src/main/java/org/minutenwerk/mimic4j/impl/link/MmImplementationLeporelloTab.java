@@ -224,10 +224,13 @@ public class MmImplementationLeporelloTab
    * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
    * super.initialize()!
    */
+  @Deprecated
   @Override
   protected void initialize() {
     super.initialize();
-    parentLeporello = getImplementationAncestorOfType(MmImplementationLeporello.class);
+
+    // TODO move this into constructor and delete initialize method here
+    parentLeporello = getMmImplementationAncestorOfType(MmImplementationLeporello.class);
   }
 
   /**

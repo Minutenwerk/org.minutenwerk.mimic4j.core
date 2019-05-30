@@ -26,8 +26,6 @@ import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
-import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_INITIALIZATION;
-import org.minutenwerk.mimic4j.impl.MmJavaHelper.ChildAndNameAndGeneric;
 import org.minutenwerk.mimic4j.impl.composite.MmImplementationRoot;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
@@ -44,19 +42,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation> implements MmMimic {
 
   /** End of line characters of operating system in use. */
-  public static final String                          NL                                    = System.getProperty("line.separator");
-
-  /** Constant for index of generic type of configuration. */
-  private static final int                            GENERIC_PARAMETER_INDEX_CONFIGURATION = 2;
-
-  /** Constant for index of generic type of annotation. */
-  private static final int                            GENERIC_PARAMETER_INDEX_ANNOTATION    = 3;
+  public static final String                          NL                            = System.getProperty("line.separator");
 
   /** Logger of this class. */
-  private static final Logger                         LOGGER                                = LogManager.getLogger(
-      MmBaseImplementation.class);
+  private static final Logger                         LOGGER                        = LogManager.getLogger(MmBaseImplementation.class);
 
-  /** The state of initialization during initialization phase. */
+  /** The state of initialization during constructor and initialization phase. */
   protected final MmInitialState                      initialState;
 
   /** The declaration parent of this mimic, is set in constructor phase. */
@@ -65,31 +56,28 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The implementation parent of this mimic, is set in constructor phase. */
   protected final MmBaseImplementation<?, ?, ?>       implementationParent;
 
+  /** The type of first optional generic parameter of this mimic, is set in constructor phase. */
+  protected final Type                                typeOfFirstGenericParameter;
+
+  /** The configuration of fixed values. */
+  protected final CONFIGURATION                       configuration;
+
   /** The name of this mimic, is set in constructor phase. */
   protected final String                              name;
 
   /** The parentPath of this mimic is evaluated during initialization phase of its parent mimic. */
   protected final String                              parentPath;
 
-  /** The type of first optional generic parameter of this mimic, is set in constructor phase. */
-  protected Type                                      typeOfFirstGenericParameter;
-
-  /** The configuration of fixed values. */
-  protected final CONFIGURATION                       configuration;
-
   /** The root ancestor of this mimic, is set in constructor phase. */
   protected final MmImplementationRoot                root;
 
-  /**
-   * All direct children are of type <code>MmBaseImplementation</code>. Children are added in constructor phase, and named in initialize
-   * phase.
-   */
+  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. Is set in constructor phase. */
+  protected final boolean                             isRuntimeMimic;
+
+  /** All direct children are of type <code>MmBaseImplementation</code>. */
   protected final List<MmBaseImplementation<?, ?, ?>> implementationChildren;
 
-  /**
-   * All direct children of the declaration are of type <code>MmMimic</code>. Children are added in constructor phase, and named in
-   * initialize phase.
-   */
+  /** All direct children of the declaration are of type <code>MmMimic</code>. */
   protected final List<MmMimic>                       declarationChildren;
 
   /** All runtime children are of type <code>MmBaseImplementation</code>. Children are added at runtime. */
@@ -101,22 +89,20 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The MmJsfBridge of this mimic, which connects it to a JSF view component, is set in constructor phase. */
   protected final MmJsfBridge<?, ?, ?>                mmJsfBridge;
 
-  /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. Is set in constructor phase. */
-  protected final boolean                             isRuntimeMimic;
-
-  /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. Is set in initialize phase. */
+  /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. Is set in initialization phase. */
+  // TODO Olaf
   protected MmReferencableMimic<?>                    referencableAncestor;
 
-  /** The declaration part of this implementation is the declaration. Is set in postConstruct phase. */
+  /** The declaration part of this implementation is the declaration. Is set in postconstruct phase. */
   protected DECLARATION                               declaration;
 
-  /** TODOC. */
+  /** Iterator of fields of children of declaration part, is used only during constructor phase. */
   private Iterator<Field>                             declarationChildrenFields;
 
   /**
    * Creates a new MmBaseImplementation instance.
    *
-   * @param  pDeclarationParent  TODOC
+   * @param  pDeclarationParent  The declaration part of the parent mimic.
    */
   public MmBaseImplementation(final MmDeclarationMimic pDeclarationParent) {
     this(pDeclarationParent, null);
@@ -127,56 +113,46 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * <ul>
    *   <li>initialState is IN_CONSTRUCTION</li>
-   *   <li>root is assigned, for root itself root is null</li>
-   *   <li>implementationParent is assigned, for root it is null</li>
    *   <li>declarationParent is assigned, for root it is null</li>
+   *   <li>implementationParent is assigned, for root it is null</li>
+   *   <li>typeOfFirstGenericParameter is assigned, may be null</li>
+   *   <li>configuration is assigned</li>
+   *   <li>name is assigned, may be blank</li>
+   *   <li>parentPath is assigned, may be blank</li>
+   *   <li>id is assigned, and saved in configuration</li>
+   *   <li>root is assigned, for root itself root is null</li>
    *   <li>isRuntimeMimic is assigned</li>
+   *   <li>this mimic is added as implementationChildren of parent</li>
+   *   <li>this mimic is added as declarationChildren of parent</li>
    *   <li>referencableAncestor is assigned</li>
    *   <li>mmJsfBridge is assigned</li>
    * </ul>
    *
-   * <p>This constructor has been called by constructor of declaration part. Declaration constructor calls method onPostConstruct(), which
-   * assigns:</p>
+   * <p>This constructor has been called by constructor of declaration part. After constructor the constructor of declaration part calls
+   * method onPostConstruct(), which assigns:</p>
    *
    * <ul>
    *   <li>declaration is assigned</li>
-   *   <li>this mimic is added as unnamed implementationChildren of parent</li>
-   *   <li>this mimic is added as unnamed declarationChildren of parent</li>
    *   <li>initialState is CONSTRUCTION_COMPLETE</li>
    * </ul>
    *
    * <p>After constructor of this mimic all constructors of child fields are being called, which assign:</p>
    *
    * <ul>
-   *   <li>children add themselves as unnamed implementationChildren of parent</li>
-   *   <li>children add themselves as unnamed declarationChildren of parent</li>
+   *   <li>children add themselves as implementationChildren of parent</li>
+   *   <li>children add themselves as declarationChildren of parent</li>
    * </ul>
    *
-   * <p>At first call of mimic method assureInitialization() calls method initialize(). After initialization:</p>
+   * <p>At first call of any mimic method, assureInitialization() calls method initialize(). After initialization:</p>
    *
    * <ul>
-   * </ul>
-   *
-   * <p>Method initialize() calls method addFieldOfTypeMmToChildren() calls method addChild(), which assigns:</p>
-   *
-   * <ul>
-   *   <li>name</li>
-   *   <li>parentPath</li>
-   *   <li>runtimeImplementationChildren</li>
-   *   <li>runtimeDeclarationChildren</li>
-   * </ul>
-   *
-   * <p>Method initialize() calls method initializeConfiguration():</p>
-   *
-   * <ul>
-   *   <li>configuration is assigned</li>
    *   <li>initialState is INITIALIZED</li>
    * </ul>
    *
    * <p>Method initialize() calls method initialize() for all children:</p>
    *
    * @param   pDeclarationParent  The declaration part of the parent mimic.
-   * @param   pRuntimeIndex       TODOC
+   * @param   pRuntimeIndex       An integer index if this mimic is a runtime mimic, e.g. a {@link MmTableRow}.
    *
    * @throws  IllegalStateException  in case of parameter pDeclarationParent does not have an implementation part, or root ancestor of
    *                                 subtree is not of type {@link MmImplementationRoot}.
@@ -210,23 +186,26 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       // set reference to implementation part of parent mimic to null
       implementationParent        = null;
 
-      // set name
-      name                        = "";
-
-      // set parentPath
-      parentPath                  = "";
-
       // evaluate typeOfFirstGenericParameter
       typeOfFirstGenericParameter = null;
 
       // evaluate configuration
       configuration               = onConstructConfiguration(null);
 
+      // set name
+      name                        = "";
+
+      // set parentPath
+      parentPath                  = "";
+
+      // set id
+      configuration.setId("root");
+
       // set reference to root to null
-      root                        = null;
+      root           = null;
 
       // root is compiletime mimic
-      isRuntimeMimic              = false;
+      isRuntimeMimic = false;
 
     } else {
 
@@ -238,9 +217,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // evaluate field of this mimic's declaration in declarationParent
       final Field field    = onConstructField(implementationParent);
-      if (MmJavaHelper.getFirstGenericType(field) != null) {
-        typeOfFirstGenericParameter = MmJavaHelper.getFirstGenericType(field);
-      }
+
+      // evaluate type of first generic, if exists, e.g. MmEnum<ENUM_TYPE>
+      typeOfFirstGenericParameter = MmJavaHelper.getFirstGenericType(field);
 
       // evaluate annotation
       final ANNOTATION annotation = onConstructAnnotation(field);
@@ -261,7 +240,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       root           = onConstructRoot(this);
 
       // evaluate is runtime
-      isRuntimeMimic = ((implementationParent != null) && implementationParent.isRuntimeMimic());
+      isRuntimeMimic = onConstructRuntimeMimic(implementationParent, pRuntimeIndex);
     }
 
     // create lists for child mimics
@@ -271,7 +250,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     runtimeDeclarationChildren    = new ArrayList<>();
 
     // evaluate ancestor for reference path, file and params
-    referencableAncestor          = getImplementationAncestorOfType(MmReferencableMimic.class);
+    referencableAncestor          = getMmImplementationAncestorOfType(MmReferencableMimic.class);
 
     // evaluate bridge for jsf tags
     mmJsfBridge                   = onConstructJsfBridge();
@@ -280,9 +259,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Returns the implementation part of the specified declaration.
    *
-   * @param   pDeclaration  The specified declaration.
+   * @param         pDeclaration  The specified declaration.
    *
-   * @return  The implementation part of the specified declaration.
+   * @return        The implementation part of the specified declaration.
+   *
+   * @jalopy.group  group-helper
    */
   @SuppressWarnings("unchecked")
   protected static <T extends MmBaseImplementation<?, ?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
@@ -290,146 +271,47 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Logs debug information about a specified mimic and subtree of all its children and runtime children.
+   * Evaluates and returns the annotation on a specified mimic.
    *
-   * @param  pMm           The specific mimic to log.
-   * @param  pIndentation  Level of indentation in log.
+   * @param         pField  The specified mimic.
+   *
+   * @return        The annotation.
+   *
+   * @jalopy.group  group-construction
    */
-  protected static void logSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(pIndentation + pMm.toString());
-      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
-        logSubtree(child, pIndentation + "  ");
-      }
-      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
-        logSubtree(child, pIndentation + "  ");
-      }
-    }
-  }
-
-  /**
-   * Returns debug information about a specified mimic and subtree of all its children and runtime children.
-   *
-   * @param   pMm           The specific mimic to log.
-   * @param   pIndentation  Level of indentation in log.
-   *
-   * @return  Debug information about a specified mimic and subtree of all its children and runtime children.
-   */
-  /* package */ static String toStringSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
-    StringWriter writer = new StringWriter();
-    if (pMm != null) {
-      writer.append(pIndentation + pMm.toString());
-      writer.append(NL);
-      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
-        writer.append(toStringSubtree(child, pIndentation + "  "));
-      }
-      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
-        writer.append(toStringSubtree(child, pIndentation + "  "));
-      }
-    }
-    return writer.toString();
-  }
-
-  /**
-   * Searches for an annotation within the inheritance tree of a class.
-   *
-   * @param   pDeclaration      pObjectToAnalyze <ANNOTATION> The annotation type.
-   * @param   pAnnotationClass  The runtime class of the annotation.
-   *
-   * @throws  IllegalArgumentException  in case othe annotation is not allowed for this type of mimic.
-   */
-  private static <ANNOTATION extends Annotation> void checkForIllegalAnnotationsOtherThan(MmBaseDeclaration<?, ?> pDeclaration,
-    Class<ANNOTATION> pAnnotationClass) {
-    // if implementation part has a name
-    // search for all annotations annotated by MmMetaAnnotation in field
-    // declaration of parent mimic
-    if ((pDeclaration.implementation.name != null) && (pDeclaration.implementation.declarationParent != null)) {
-      Class<?> declarationParentClass = pDeclaration.implementation.declarationParent.getClass();
-      try {
-        Field declaredFieldOfParent = declarationParentClass.getField(pDeclaration.implementation.name);
-        for (Annotation annotation : declaredFieldOfParent.getAnnotations()) {
-          Class<?>   annotationClass = annotation.annotationType();
-          Annotation metaAnnotation  = annotation.annotationType().getAnnotation(MmMetaAnnotation.class);
-          if (metaAnnotation != null) {
-            if (!annotationClass.equals(pAnnotationClass)) {
-              throw new IllegalArgumentException("Annotation " + annotation.annotationType().getSimpleName() + " is not allowed for "
-                + pDeclaration.getClass().getSimpleName() + ", use " + pAnnotationClass.getSimpleName() + ".");
-            }
-          }
-        }
-      } catch (NoSuchFieldException e) {
-        // attribute may use getter method
-      }
-    }
-
-    // search for all annotations annotated by MmMetaAnnotation in class tree of
-    // pDeclaration
-    Class<?> declarationClass = pDeclaration.getClass();
-
-    do {
-      for (Annotation annotation : declarationClass.getAnnotations()) {
-        if (annotation.annotationType().getAnnotation(MmMetaAnnotation.class) != null) {
-          Class<?> annotationClass = annotation.annotationType();
-          if (!annotationClass.equals(pAnnotationClass)) {
-            throw new IllegalArgumentException("Annotation " + annotation.annotationType().getSimpleName() + " is not allowed for "
-              + pDeclaration.getClass().getSimpleName() + ", use " + pAnnotationClass.getSimpleName() + ".");
-          }
-        }
-      }
-      declarationClass = declarationClass.getSuperclass();
-    } while ((declarationClass != null) && !declarationClass.equals(Object.class));
-  }
-
-  /**
-   * Searches for an annotation within the inheritance tree of a class.
-   *
-   * @param   pDeclaration      pObjectToAnalyze <ANNOTATION> The annotation type.
-   * @param   pAnnotationClass  The runtime class of the annotation.
-   *
-   * @return  The found annotation or <code>null</code>.
-   */
-  private static <ANNOTATION extends Annotation> ANNOTATION findAnnotation( //
-    MmBaseDeclaration<?, ?> pDeclaration, Class<ANNOTATION> pAnnotationClass) {
-    //
-    ANNOTATION returnAnnotation = null;
-
-    // if implementation part has a name
-    // search for annotation in field declaration of parent mimic
-    if ((pDeclaration.implementation.name != null) && (pDeclaration.implementation.declarationParent != null)) {
-      Class<?> declarationParentClass = pDeclaration.implementation.declarationParent.getClass();
-      try {
-        Field declaredFieldOfParent = declarationParentClass.getField(pDeclaration.implementation.name);
-        returnAnnotation = declaredFieldOfParent.getAnnotation(pAnnotationClass);
-      } catch (NoSuchFieldException e) {
-        // attribute may use getter method
-      }
-    }
-
-    // search for annotation in class tree of pDeclaration
-    if (returnAnnotation == null) {
-      Class<?> declarationClass = pDeclaration.getClass();
-
-      while (returnAnnotation == null) {
-        returnAnnotation = declarationClass.getAnnotation(pAnnotationClass);
-        if (returnAnnotation == null) {
-          declarationClass = declarationClass.getSuperclass();
-          if ((declarationClass == null) || declarationClass.equals(Object.class)) {
-            break;
-          }
+  @SuppressWarnings("unchecked")
+  protected ANNOTATION onConstructAnnotation(final Field pField) {
+    if (pField != null) {
+      for (Annotation annotation : pField.getAnnotations()) {
+        if (annotation.annotationType().isAnnotationPresent(MmMetaAnnotation.class)) {
+          return (ANNOTATION)annotation;
         }
       }
     }
-    return returnAnnotation;
+    return null;
   }
 
   /**
-   * TODOC.
+   * Returns configuration of this mimic, specified annotation may be null.
    *
-   * @param   pImplementationParent  TODOC
+   * @param         pAnnotation  The specified annotation, may be null.
    *
-   * @return  TODOC
+   * @return        Configuration of this mimic.
+   *
+   * @jalopy.group  group-construction
    */
-  private static Field onConstructField(final MmBaseImplementation<?, ?, ?> pImplementationParent) {
+  protected abstract CONFIGURATION onConstructConfiguration(ANNOTATION pAnnotation);
+
+  /**
+   * Evaluates and returns the field (meta information of a mimic) on a specified parent.
+   *
+   * @param         pImplementationParent  The specified parent.
+   *
+   * @return        The field of this mimic.
+   *
+   * @jalopy.group  group-construction
+   */
+  protected Field onConstructField(final MmBaseImplementation<?, ?, ?> pImplementationParent) {
     if (pImplementationParent.declarationChildrenFields == null) {
       pImplementationParent.declarationChildrenFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(
           pImplementationParent.declaration.getClass()).iterator();
@@ -442,13 +324,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * TODOC.
+   * Evaluates and returns the id of a mimic.
    *
-   * @param  pConfiguration  TODOC
-   * @param  pName           TODOC
-   * @param  pParentPath     TODOC
+   * @param         pConfiguration  The specified configuration of the mimic.
+   * @param         pName           The name of the mimic.
+   * @param         pParentPath     The parent path of the mimic.
+   *
+   * @jalopy.group  group-construction
    */
-  private static void onConstructId(final MmBaseConfiguration pConfiguration, final String pName, final String pParentPath) {
+  protected void onConstructId(final MmBaseConfiguration pConfiguration, final String pName, final String pParentPath) {
     // if id is not defined yet, set id to full name
     if (pConfiguration.getId().equals(MmBaseConfiguration.UNDEFINED_ID) && !pName.isEmpty()) {
       String newId = pName;
@@ -460,31 +344,45 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * TODOC.
+   * Evaluates and returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
-   * @param   pField         TODOC
-   * @param   pRuntimeIndex  TODOC
+   * @return        A new MmJsfBridge for this mimic.
    *
-   * @return  TODOC
+   * @jalopy.group  group-construction
    */
-  private static String onConstructName(final Field pField, final Integer pRuntimeIndex) {
+  protected abstract MmJsfBridge<?, ?, ?> onConstructJsfBridge();
+
+  /**
+   * Evaluates and returns the name of this mimic. The name is derived from the specified field, if the mimic is declared as a field of
+   * another mimic. If there is a runtime index, the name is derived from the index value. Otherwise the name is an empty string.
+   *
+   * @param         pField         The specified field, or null.
+   * @param         pRuntimeIndex  The specified runtime index, or null.
+   *
+   * @return        The name of this mimic.
+   *
+   * @jalopy.group  group-construction
+   */
+  protected String onConstructName(final Field pField, final Integer pRuntimeIndex) {
     if (pField != null) {
       return pField.getName();
     } else if (pRuntimeIndex != null) {
-      return "r" + pRuntimeIndex;
+      return "run" + pRuntimeIndex;
     } else {
       return "";
     }
   }
 
   /**
-   * TODOC.
+   * Evaluates and returns the parent path of specified mimic.
    *
-   * @param   pImplementationParent  TODOC
+   * @param         pImplementationParent  The specified mimic.
    *
-   * @return  TODOC
+   * @return        The parent path.
+   *
+   * @jalopy.group  group-construction
    */
-  private static String onConstructParentPath(final MmBaseImplementation<?, ?, ?> pImplementationParent) {
+  protected String onConstructParentPath(final MmBaseImplementation<?, ?, ?> pImplementationParent) {
     if (pImplementationParent.parentPath.isEmpty()) {
       return pImplementationParent.name;
     } else {
@@ -495,13 +393,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Evaluates and returns reference to root ancestor for specified mimic.
    *
-   * @param   pMm  The specified mimic.
+   * @param         pMm  The specified mimic.
    *
-   * @return  The reference to root ancestor.
+   * @return        The reference to root ancestor.
    *
-   * @throws  IllegalStateException  In case of root ancestor of subtree is not of type MmImplementationRoot.
+   * @throws        IllegalStateException  In case of root ancestor of subtree is not of type MmImplementationRoot.
+   *
+   * @jalopy.group  group-construction
    */
-  private static MmImplementationRoot onConstructRoot(final MmBaseImplementation<?, ?, ?> pMm) {
+  protected MmImplementationRoot onConstructRoot(final MmBaseImplementation<?, ?, ?> pMm) {
     if (pMm.initialState.isNot(IN_CONSTRUCTION)) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
     }
@@ -528,6 +428,68 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Evaluates whether and returns True, if this mimic is created at runtime.
+   *
+   * @param         pImplementationParent  The specified implementationParent of this mimic, may be null.
+   * @param         pRuntimeIndex          The runtime index of this mimic, may be null.
+   *
+   * @return        True, if this mimic is created at runtime.
+   *
+   * @jalopy.group  group-construction
+   */
+  protected boolean onConstructRuntimeMimic(final MmBaseImplementation<?, ?, ?> pImplementationParent, final Integer pRuntimeIndex) {
+    return (pRuntimeIndex != null) || ((pImplementationParent != null) && pImplementationParent.isRuntimeMimic);
+  }
+
+  /**
+   * Adds a specified child to runtime children.
+   *
+   * @param         pChild  The specified child to be added.
+   *
+   * @throws        IllegalStateException     In case of initial state is not INITIALIZED.
+   * @throws        IllegalArgumentException  In case of specified child is null or doesn't have an implementation.
+   *
+   * @jalopy.group  group-postconstruct
+   */
+  protected void addDeclarationAsChildToParent(MmBaseDeclaration<?, ?> pChild) {
+    if (implementationParent != null) {
+      if (LOGGER.isDebugEnabled()) {
+        if ((implementationParent.initialState.isNot(CONSTRUCTION_COMPLETE)) && (implementationParent.initialState.isNot(INITIALIZED))) {
+          throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or INITIALIZED");
+        }
+        if (pChild == null) {
+          throw new IllegalArgumentException("Parameter pChild cannot be null");
+        }
+        if (pChild.implementation == null) {
+          throw new IllegalStateException("Parameter pChild " + pChild + " must have an implementation");
+        }
+      }
+
+      // get implementation part of child
+      MmBaseImplementation<?, ?, ?> childImplementation = pChild.implementation;
+
+      if (pChild.isMmRuntimeMimic()) {
+
+        // if child not in list yet, add child to list of
+        // runtime declarationChildren and list of runtime implementationChildren
+        if (!implementationParent.runtimeDeclarationChildren.contains(pChild)) {
+          implementationParent.runtimeDeclarationChildren.add(pChild);
+          implementationParent.runtimeImplementationChildren.add(childImplementation);
+        }
+
+      } else {
+
+        // if child not in list yet, add child to list of
+        // declarationChildren and list of implementationChildren
+        if (!implementationParent.declarationChildren.contains(pChild)) {
+          implementationParent.declarationChildren.add(pChild);
+          implementationParent.implementationChildren.add(childImplementation);
+        }
+      }
+    }
+  }
+
+  /**
    * Set declaration part of this mimic. This method onPostConstruct() is called from constructor of class {@link MmBaseDeclaration} after
    * construction phase of implementation part is finished. This method transistions initialState from {@link IN_CONSTRUCTION} to
    * {@link CONSTRUCTION_COMPLETE}. This method is <code>package final</code> so it can be not called or overridden from anywhere else.
@@ -536,7 +498,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @throws        IllegalStateException     in case of state is not in {@link IN_CONSTRUCTION}, or reference to declaration part is NOT
    *                                          null.
-   * @throws        IllegalArgumentException  in case of parameter pDeclaration is null.
+   * @throws        IllegalArgumentException  in case of parameter pDeclaration is null, or reverse reference of declaration is not this.
    *
    * @jalopy.group  group-postconstruct
    */
@@ -550,7 +512,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         throw new IllegalArgumentException("Parameter pDeclaration cannot be null");
       }
       if (pDeclaration.implementation != this) {
-        throw new IllegalArgumentException("Parameter pDeclaration " + pDeclaration + " must reference this");
+        throw new IllegalArgumentException("Parameter pDeclaration " + pDeclaration + " must reference this implementation");
       }
       if (declaration != null) {
         throw new IllegalStateException("Reference to declaration part must be null");
@@ -560,13 +522,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // set declaration part
     declaration = (DECLARATION)pDeclaration;
 
-// // evaluate typeOfFirstGenericParameter
-// typeOfFirstGenericParameter = MmJavaHelper.getFirstGenericType(declaration.getClass());
-
-    // if there is an implementation parent, add this mimic as unnamed declaration child and implementation child
-    if (implementationParent != null) {
-      implementationParent.addChild(declaration, null, null);
-    }
+    // if there is an implementation parent, add this mimic as declaration child
+    addDeclarationAsChildToParent(declaration);
 
     initialState.set(CONSTRUCTION_COMPLETE);
 
@@ -604,15 +561,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       } else if (root.initialState.is(INITIALIZED)) {
 
-        // if this mimic is not initialized, and is not the root, and the root
-        // is initialized
+        // if this mimic is not initialized, and is not the root,
+        // and the root is initialized
         // then initialize this mimic
         initialize();
 
       } else {
 
-        // if this mimic is not initialized, and is not the root, and the root
-        // is not initialized
+        // if this mimic is not initialized, and is not the root,
+        // and the root is not initialized
         // then initialize the root, and log sub tree of root
         root.initialize();
         if (LOGGER.isDebugEnabled()) {
@@ -641,23 +598,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       }
     }
 
-    // set state to IN_INITIALIZATION
-    initialState.set(IN_INITIALIZATION);
-
-    // evaluate typeOfFirstGenericParameter
-    // typeOfFirstGenericParameter = MmJavaHelper.getFirstGenericType(declaration.getClass());
-
-    // evaluate all public static final mimic fields
-// List<Field>                  publicStaticFinalMimicFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(
-// declaration.getClass());
-
-    // apply fields to declaration part and get children, including field name and generic type
-// List<ChildAndNameAndGeneric> childrenByParentAndFields    = MmJavaHelper.getChildrenByParentAndFields(declaration,
-// publicStaticFinalMimicFields);
-
-    // add all public not static fields of type MmBaseDeclaration as children
-// addChildren(childrenByParentAndFields);
-
     // set state to INITIALIZED
     initialState.set(INITIALIZED);
 
@@ -666,27 +606,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       implementationChild.initialize();
     }
   }
-
-  /**
-   * Implementation internal method for initialization. Returns <code>true</code>, if the mimic has been created at runtime, e.g. a
-   * {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
-   *
-   * @return        <code>True</code>, if the mimic has been created at runtime.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected boolean isRuntimeMimic() {
-    return false;
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return        A new MmJsfBridge for this mimic.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected abstract MmJsfBridge<?, ?, ?> onConstructJsfBridge();
 
   /**
    * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty
@@ -795,7 +714,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-override
    */
-  @Deprecated
   @Override
   public MmReference getMmReference(MmReferencableModel pModel) {
     assureInitialization();
@@ -804,8 +722,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     if (referencableAncestor == null) {
       return null;
 
-      // create an own reference from anchestor reference for specified model,
-      // and own anchor
+      // create an own reference from anchestor reference for specified model, and own anchor
     } else {
       final MmReference ancestorReference = referencableAncestor.getMmReference(pModel);
       if (ancestorReference.isMmJsfOutcome()) {
@@ -904,12 +821,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmRuntimeMimic() {
-    // do NOT insert assureInitialization() here, because this method
-    // isMmRuntimeMimic() is called
-    // during initialization phase. It is allowed to callthis method
-    // isMmRuntimeMimic()
-    // during initialization phase, because variable isRuntimeMimic is assigned
-    // in constructor.
+    // do NOT insert assureInitialization() here, because this method isMmRuntimeMimic() is called during constructor phase.
     return isRuntimeMimic;
   }
 
@@ -968,6 +880,38 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Adds a specified child to runtime children, e.g. a MmTableRow.
+   *
+   * @param         pChild  The specified child to be added.
+   *
+   * @throws        IllegalStateException     In case of initial state is not INITIALIZED.
+   * @throws        IllegalArgumentException  In case of specified child is null or doesn't have an implementation.
+   *
+   * @jalopy.group  group-helper
+   */
+  public void addRuntimeChild(MmBaseDeclaration<?, ?> pChild) {
+    if (LOGGER.isDebugEnabled()) {
+      if (initialState.isNot(INITIALIZED)) {
+        throw new IllegalStateException("Initial state must be INITIALIZED");
+      }
+      if (pChild == null) {
+        throw new IllegalArgumentException("Parameter pChild cannot be null");
+      }
+      if (pChild.implementation == null) {
+        throw new IllegalArgumentException("Parameter pChild " + pChild + " must have an implementation");
+      }
+    }
+
+    // get implementation part of child
+    MmBaseImplementation<?, ?, ?> childImplementation = pChild.implementation;
+
+    if (!runtimeDeclarationChildren.contains(pChild)) {
+      runtimeDeclarationChildren.add(pChild);
+      runtimeImplementationChildren.add(childImplementation);
+    }
+  }
+
+  /**
    * Clears the list of runtime children of this mimic.
    *
    * @jalopy.group  group-helper
@@ -1000,13 +944,31 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseImplementation</code>, including
+   * runtime children.
+   *
+   * @param         pType  The specified mimic.
+   *
+   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
+   *                children.
+   *
+   * @jalopy.group  group-helper
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends MmMimic> List<T> getImplementationChildrenOfType(Class<T> pType) {
+    return (List<T>)Stream.concat(implementationChildren.stream(), runtimeImplementationChildren.stream()) //
+    .filter(child -> pType.isAssignableFrom(child.getClass())) //
+    .collect(Collectors.toList());
+  }
+
+  /**
    * Returns the MmJsfBridge of this mimic, which connects it to a JSF view component..
    *
    * @return        The MmJsfBridge of this mimic.
    *
    * @jalopy.group  group-helper
    */
-  public final MmJsfBridge<?, ?, ?> getJsfBridge() {
+  public MmJsfBridge<?, ?, ?> getJsfBridge() {
     return mmJsfBridge;
   }
 
@@ -1052,7 +1014,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-helper
    */
-  public final MmMimic getMmChildByName(String pChildName) {
+  public MmMimic getMmChildByName(String pChildName) {
     assureInitialization();
 
     for (MmMimic child : getMmChildren()) {
@@ -1140,6 +1102,29 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Returns an ancestor of this mimic of specified type, if exists, otherwise null. This method may be called at any time, even in
+   * constructor.
+   *
+   * @param         pType  The specified type.
+   *
+   * @return        An ancestor of this mimic of specified type, if exists, otherwise null.
+   *
+   * @jalopy.group  group-helper
+   */
+  @SuppressWarnings("unchecked")
+  public <T> T getMmImplementationAncestorOfType(Class<T> pType) {
+    if (implementationParent != null) {
+      if (pType.isAssignableFrom(implementationParent.getClass())) {
+        return (T)implementationParent;
+      } else {
+        return implementationParent.getMmImplementationAncestorOfType(pType);
+      }
+    } else {
+      return null;
+    }
+  }
+
+  /**
    * Returns the parent mimic of this mimic, may be null in case of <code>MmRoot</code>.
    *
    * @return        The parent mimic of this mimic, may be null.
@@ -1177,205 +1162,44 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Add child of type <code>MmBaseDeclaration</code> to list of declarationChildren. Name implementation part of child and add to list of
-   * children.
+   * Logs debug information about a specified mimic and subtree of all its children and runtime children.
    *
-   * @param         pChild                        The child to add (cannot be null).
-   * @param         pNameOfChild                  The name of the child (may be null).
-   * @param         pTypeOfFirstGenericParameter  The type of first generic parameter of the child.
-   *
-   * @throws        IllegalStateException     in case of state is not in {@link CONSTRUCTION_COMPLETE}, {@link IN_INITIALIZATION} or
-   *                                          {@link INITIALIZED}, or parameter pChild does not have an implementation part.
-   * @throws        IllegalArgumentException  in case of parameter pChild is null.
+   * @param         pMm           The specific mimic to log.
+   * @param         pIndentation  Level of indentation in log.
    *
    * @jalopy.group  group-helper
    */
-  protected void addChild(MmBaseDeclaration<?, ?> pChild, String pNameOfChild, Type pTypeOfFirstGenericParameter) {
+  protected void logSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
     if (LOGGER.isDebugEnabled()) {
-      if ((initialState.isNot(CONSTRUCTION_COMPLETE)) && (initialState.isNot(IN_INITIALIZATION)) && (initialState.isNot(INITIALIZED))) {
-        throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or IN_INITIALIZATION or INITIALIZED");
+      LOGGER.debug(pIndentation + pMm.toString());
+      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
+        logSubtree(child, pIndentation + "  ");
       }
-      if (pChild == null) {
-        throw new IllegalArgumentException("Parameter pChild cannot be null");
-      }
-      if (pChild.implementation == null) {
-        throw new IllegalStateException("Parameter pChild " + pChild + " must have an implementation");
-      }
-    }
-
-    // get implementation part of child
-    MmBaseImplementation<?, ?, ?> childImplementation = pChild.implementation;
-
-    // set generic type of implementation part of child
-    if (pTypeOfFirstGenericParameter != null) {
-      childImplementation.setTypeOfFirstGenericParameter(pTypeOfFirstGenericParameter);
-    }
-
-    if (pChild.isMmRuntimeMimic()) {
-
-      // if child not in list yet, add child to list of
-      // runtime declarationChildren and list of runtime implementationChildren
-      if (!runtimeDeclarationChildren.contains(pChild)) {
-        runtimeDeclarationChildren.add(pChild);
-        runtimeImplementationChildren.add(childImplementation);
-      }
-
-    } else {
-
-      // if child not in list yet, add child to list of
-      // declarationChildren and list of implementationChildren
-      if (!declarationChildren.contains(pChild)) {
-        declarationChildren.add(pChild);
-        implementationChildren.add(childImplementation);
+      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
+        logSubtree(child, pIndentation + "  ");
       }
     }
   }
 
   /**
-   * Returns an ancestor of this mimic of specified type, if exists, otherwise null. This method may be called at any time, even in
-   * constructor.
+   * Returns debug information about a specified mimic and subtree of all its children and runtime children.
    *
-   * @param         pType  The specified type.
+   * @param         pIndentation  Level of indentation in log.
    *
-   * @return        An ancestor of this mimic of specified type, if exists, otherwise null.
+   * @return        Debug information about a specified mimic and subtree of all its children and runtime children.
    *
    * @jalopy.group  group-helper
    */
-  @SuppressWarnings("unchecked")
-  protected <T> T getImplementationAncestorOfType(Class<T> pType) {
-    if (implementationParent != null) {
-      if (pType.isAssignableFrom(implementationParent.getClass())) {
-        return (T)implementationParent;
-      } else {
-        return implementationParent.getImplementationAncestorOfType(pType);
-      }
-    } else {
-      return null;
+  protected String toStringSubtree(String pIndentation) {
+    StringWriter writer = new StringWriter();
+    writer.append(pIndentation + toString());
+    writer.append(NL);
+    for (MmBaseImplementation<?, ?, ?> child : implementationChildren) {
+      writer.append(child.toStringSubtree(pIndentation + "  "));
     }
-  }
-
-  /**
-   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseImplementation</code>, including
-   * runtime children.
-   *
-   * @param         pType  The specified mimic.
-   *
-   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
-   *                children.
-   *
-   * @jalopy.group  group-helper
-   */
-  @SuppressWarnings("unchecked")
-  protected <T extends MmMimic> List<T> getImplementationChildrenOfType(Class<T> pType) {
-    return (List<T>)Stream.concat(implementationChildren.stream(), runtimeImplementationChildren.stream()) //
-    .filter(child -> pType.isAssignableFrom(child.getClass())) //
-    .collect(Collectors.toList());
-  }
-
-  /**
-   * Add children of type <code>MmBaseDeclaration</code> to list of declarationChildren. Name implementation part of child and add to list
-   * of children.
-   *
-   * @param         pChildrenAndNameAndGeneric  TODOC
-   *
-   * @jalopy.group  group-helper
-   */
-  private void addChildren(List<ChildAndNameAndGeneric> pChildrenAndNameAndGeneric) {
-    for (ChildAndNameAndGeneric childAndNameAndGeneric : pChildrenAndNameAndGeneric) {
-      addChild(childAndNameAndGeneric.getChild(), childAndNameAndGeneric.getNameOfChild(),
-        childAndNameAndGeneric.getTypeOfFirstGenericParameter());
+    for (MmBaseImplementation<?, ?, ?> child : runtimeImplementationChildren) {
+      writer.append(child.toStringSubtree(pIndentation + "  "));
     }
-  }
-
-  /**
-   * Returns the Java type of annotation class of this mimic.
-   *
-   * @return        The Java type of annotation class of this mimic.
-   *
-   * @jalopy.group  group-helper
-   */
-  private final Class<ANNOTATION> getAnnotationType() {
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_ANNOTATION);
-  }
-
-  /**
-   * Returns the Java type of configuration class of this mimic.
-   *
-   * @return        The Java type of configuration class of this mimic.
-   *
-   * @jalopy.group  group-helper
-   */
-  private final Class<CONFIGURATION> getConfigurationType() {
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
-  }
-
-  /**
-   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseDeclaration</code>, including
-   * runtime children.
-   *
-   * @param         pType  The specified mimic.
-   *
-   * @return        The list of all direct children of specified mimic of type <code>MmBaseDeclaration</code>, including runtime children.
-   *
-   * @jalopy.group  group-helper
-   */
-  @Deprecated
-  @SuppressWarnings("unchecked")
-  private <T extends MmMimic> List<T> getDeclarationChildrenOfType(Class<T> pType) {
-    return (List<T>)Stream.concat(declarationChildren.stream(), runtimeDeclarationChildren.stream()) //
-    .filter(child -> pType.isAssignableFrom(child.getClass())) //
-    .collect(Collectors.toList());
-  }
-
-  /**
-   * Sets the generic type of this mimic. This method is called on a mimic during execution of mimic parent's initialize method.
-   *
-   * @param         pTypeOfFirstGenericParameter  The type to be set.
-   *
-   * @throws        IllegalStateException     in case of state is not in {@link CONSTRUCTION_COMPLETE} or {@link INITIALIZED}.
-   * @throws        IllegalArgumentException  in case of parameter pTypeOfFirstGenericParameter is null.
-   *
-   * @jalopy.group  group-helper
-   */
-  private void setTypeOfFirstGenericParameter(Type pTypeOfFirstGenericParameter) {
-    if ((initialState.isNot(CONSTRUCTION_COMPLETE)) && (initialState.isNot(INITIALIZED))) {
-      throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or INITIALIZED, but was " + initialState);
-    }
-    assert implementationParent.initialState.is(IN_INITIALIZATION) : "Initial state of parent must be IN_INITIALIZATION";
-    if (pTypeOfFirstGenericParameter == null) {
-      throw new IllegalArgumentException("Parameter pTypeOfFirstGenericParameter cannot be null");
-    }
-    assert typeOfFirstGenericParameter == null : "Instance variable genericType " + typeOfFirstGenericParameter + " cannot be changed to "
-                                                 + pTypeOfFirstGenericParameter;
-
-    typeOfFirstGenericParameter = pTypeOfFirstGenericParameter;
-  }
-
-  /**
-   * Returns configuration of this mimic, specified annotation may be null.
-   *
-   * @param   pAnnotation  The specified annotation, may be null.
-   *
-   * @return  Configuration of this mimic.
-   */
-  protected abstract CONFIGURATION onConstructConfiguration(ANNOTATION pAnnotation);
-
-  /**
-   * TODOC.
-   *
-   * @param   pField  TODOC
-   *
-   * @return  TODOC
-   */
-  @SuppressWarnings("unchecked")
-  private ANNOTATION onConstructAnnotation(final Field pField) {
-    if (pField != null) {
-      for (Annotation annotation : pField.getAnnotations()) {
-        if (annotation.annotationType().isAnnotationPresent(MmMetaAnnotation.class)) {
-          return (ANNOTATION)annotation;
-        }
-      }
-    }
-    return null;
+    return writer.toString();
   }
 }

@@ -61,8 +61,6 @@ public interface MmMimic {
    *
    * @return  The self reference (aka link) of this object for a specified data model.
    */
-  @Deprecated
-  // TODO entfällt, wird aber derzeit noch von getMmReference() aufgerufen
   public MmReference getMmReference(MmReferencableModel pModel);
 
   /**

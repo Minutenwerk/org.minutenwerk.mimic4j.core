@@ -133,11 +133,7 @@ public class MmImplementationTable<ROW_MODEL>
       }
 
       // add table row mimic to list of runtime children
-      addChild(tableRowMm, null, typeOfFirstGenericParameter);
-    }
-
-    for (MmImplementationTableRow<?> child : getImplementationChildrenOfType(MmImplementationTableRow.class)) {
-      child.initialize();
+      addRuntimeChild(tableRowMm);
     }
 
     for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {

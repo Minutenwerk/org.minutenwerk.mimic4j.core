@@ -3,7 +3,6 @@ package org.minutenwerk.mimic4j.impl;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
-import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_INITIALIZATION;
 
 /**
  * State machine of mimic initialization phase.
@@ -22,15 +21,6 @@ public class MmInitialState {
 
     /** Mimic instance constructors are executed. */
     CONSTRUCTION_COMPLETE,
-
-    /** Mimic initialize method is in execution. */
-    IN_NAMING,
-
-    /** Mimic initialize method is in execution. */
-    IN_CONFIGURATION,
-
-    /** Mimic initialize method is in execution. */
-    IN_INITIALIZATION,
 
     /** Mimic is initialized. */
     INITIALIZED;
@@ -132,8 +122,7 @@ public class MmInitialState {
    */
   public void set(MmState pNextState) {
     if (((state == IN_CONSTRUCTION) && (pNextState == CONSTRUCTION_COMPLETE)) //
-        || ((state == CONSTRUCTION_COMPLETE) && (pNextState == IN_INITIALIZATION)) //
-        || ((state == IN_INITIALIZATION) && (pNextState == INITIALIZED))) {
+        || ((state == CONSTRUCTION_COMPLETE) && (pNextState == INITIALIZED))) {
       state = pNextState;
     } else {
       throw new IllegalStateException("Illegal transition from " + state + " to " + pNextState);

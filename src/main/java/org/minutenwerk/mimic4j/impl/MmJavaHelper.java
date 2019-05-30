@@ -1,6 +1,5 @@
 package org.minutenwerk.mimic4j.impl;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -22,27 +21,6 @@ public class MmJavaHelper {
    * Not for use.
    */
   private MmJavaHelper() {
-  }
-
-  /**
-   * Searches for a specified annotation on a field and within its inheritance tree.
-   *
-   * @param   pField            The specified field to analyze.
-   * @param   pAnnotationClass  The specified annotation class.
-   *
-   * @return  The found annotation or <code>null</code>.
-   *
-   * @throws  IllegalArgumentException  In case of more than one annotation of specified type on specified field.
-   */
-  public static <ANNOTATION extends Annotation> ANNOTATION findAnnotation(Field pField, Class<ANNOTATION> pAnnotationClass) {
-    ANNOTATION[] returnAnnotation = pField.getDeclaredAnnotationsByType(pAnnotationClass);
-    if (returnAnnotation.length == 1) {
-      return returnAnnotation[0];
-    } else if (returnAnnotation.length > 1) {
-      throw new IllegalArgumentException("more than one annotation of type " + pAnnotationClass + " on field " + pField);
-    } else {
-      return null;
-    }
   }
 
   /**
@@ -116,54 +94,6 @@ public class MmJavaHelper {
   /**
    * TODOC.
    *
-   * @param   pParent  TODOC
-   * @param   pField   TODOC
-   *
-   * @return  TODOC
-   */
-  @Deprecated
-  public static ChildAndNameAndGeneric getChildByParentAndField(final MmBaseDeclaration<?, ?> pParent, final Field pField) {
-    try {
-      MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(pParent);
-      Type                    typeOfFirstGenericParameterOfField = null;
-      if (pField.getGenericType() instanceof ParameterizedType) {
-        ParameterizedType parameterizedType = (ParameterizedType)pField.getGenericType();
-        Type[]            typeArray         = parameterizedType.getActualTypeArguments();
-        if (typeArray.length >= 1) {
-          typeOfFirstGenericParameterOfField = typeArray[0];
-        }
-      }
-      return new ChildAndNameAndGeneric(child, pField.getName(), typeOfFirstGenericParameterOfField);
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-  /**
-   * TODOC.
-   *
-   * @param   pParent  TODOC
-   * @param   pFields  TODOC
-   *
-   * @return  TODOC
-   */
-  @Deprecated
-  public static List<ChildAndNameAndGeneric> getChildrenByParentAndFields(final MmBaseDeclaration<?, ?> pParent,
-    final List<Field> pFields) {
-    List<ChildAndNameAndGeneric> childrenByParentAndFields = new ArrayList<>(pFields.size());
-    for (Field field : pFields) {
-      ChildAndNameAndGeneric child = getChildByParentAndField(pParent, field);
-      if (child != null) {
-        childrenByParentAndFields.add(child);
-      }
-    }
-    return childrenByParentAndFields;
-  }
-
-  /**
-   * TODOC.
-   *
    * @param   pField  TODOC
    *
    * @return  TODOC
@@ -181,50 +111,4 @@ public class MmJavaHelper {
     }
     return null;
   }
-
-  /**
-   * TODOC.
-   *
-   * @param   pClass  TODOC
-   *
-   * @return  TODOC
-   */
-  public static Type getFirstGenericType(final Class pClass) {
-    Type genericSuperClass = pClass.getGenericSuperclass();
-    if (genericSuperClass instanceof ParameterizedType) {
-      ParameterizedType parameterizedType = (ParameterizedType)genericSuperClass;
-      Type[]            typeArray         = parameterizedType.getActualTypeArguments();
-      if (typeArray.length >= 1) {
-        return typeArray[0];
-      }
-    }
-    return null;
-  }
-
-  @Deprecated
-  public static class ChildAndNameAndGeneric {
-    private final MmBaseDeclaration<?, ?> child;
-    private final String                  nameOfChild;
-    private final Type                    typeOfFirstGenericParameter;
-
-    public ChildAndNameAndGeneric(MmBaseDeclaration<?, ?> pChild, String pNameOfChild, Type pTypeOfFirstGenericParameter) {
-      child                       = pChild;
-      nameOfChild                 = pNameOfChild;
-      typeOfFirstGenericParameter = pTypeOfFirstGenericParameter;
-    }
-
-    public MmBaseDeclaration<?, ?> getChild() {
-      return child;
-    }
-
-    public String getNameOfChild() {
-      return nameOfChild;
-    }
-
-    public Type getTypeOfFirstGenericParameter() {
-      return typeOfFirstGenericParameter;
-    }
-
-  }
-
 }

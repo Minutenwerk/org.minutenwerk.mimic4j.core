@@ -79,7 +79,6 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    *
    * @jalopy.group  group-override
    */
-  @Deprecated
   @Override
   public MmReference getMmReference(MmReferencableModel pModel) {
     assureInitialization();

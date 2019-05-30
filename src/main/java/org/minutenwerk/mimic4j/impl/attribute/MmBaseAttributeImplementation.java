@@ -125,14 +125,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /** The list of messages related to this attribute. */
   protected final MmMessageList                     messageList;
 
-  /** The state of the attribute regarding its viewside value and modelside value. Initially the state is {@link MmValueState.UNDEFINED}. */
-  protected MmValueState                            valueState;
-
-  /** The state regarding errors during conversion and validation. Initially the state is {@link MmErrorState.UNDEFINED}. */
-  protected MmAttributeErrorState                   errorState;
-
   /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
-  protected MmRootAccessor<?>                       rootAccessor;
+  protected final MmRootAccessor<?>                 rootAccessor;
 
   /**
    * This attribute has a model of type ATTRIBUTE_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
@@ -146,6 +140,12 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /** True, if attribute's viewside value has been changed. */
   protected boolean                                 isChangedFromViewside;
 
+  /** The state of the attribute regarding its viewside value and modelside value. Initially the state is {@link MmValueState.UNDEFINED}. */
+  protected MmValueState                            valueState;
+
+  /** The state regarding errors during conversion and validation. Initially the state is {@link MmErrorState.UNDEFINED}. */
+  protected MmAttributeErrorState                   errorState;
+
   /**
    * Creates a new MmBaseAttributeImplementation instance.
    *
@@ -153,9 +153,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   public MmBaseAttributeImplementation(final MmDeclarationMimic parent) {
     super(parent);
-    messageList = new MmMessageList();
-    valueState  = MmValueState.UNDEFINED;
-    errorState  = MmAttributeErrorState.SUCCESS;
+    messageList  = new MmMessageList();
+    rootAccessor = onConstructRootAccessor();
+    valueState   = MmValueState.UNDEFINED;
+    errorState   = MmAttributeErrorState.SUCCESS;
   }
 
   /**
@@ -170,21 +171,32 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   protected void initialize() {
     super.initialize();
 
-    // initialize rootAccessor
-    MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getImplementationAncestorOfType(MmBaseContainerImplementation.class);
-    if (containerAncestor == null) {
-      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + getMmFullName());
-    } else {
-      rootAccessor = containerAncestor.getMmRootAccessor();
-      if (rootAccessor == null) {
-        throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
-      }
-    }
-
     // initialize modelAccessor
     modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
     if (modelAccessor == null) {
       throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
+    }
+  }
+
+  /**
+   * Evaluates accessor of root component of model.
+   *
+   * @return        The accessor of root component of model.
+   *
+   * @throws        IllegalStateException  In case of there is no definition of a root accessor.
+   *
+   * @jalopy.group  group-initialization
+   */
+  private MmRootAccessor<?> onConstructRootAccessor() {
+    MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getMmImplementationAncestorOfType(MmBaseContainerImplementation.class);
+    if (containerAncestor == null) {
+      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + getMmFullName());
+    } else {
+      MmRootAccessor<?> containerRootAccessor = containerAncestor.onInitializeGetRootAccessor();
+      if (containerRootAccessor == null) {
+        throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
+      }
+      return containerRootAccessor;
     }
   }
 
