@@ -1,16 +1,11 @@
 package org.minutenwerk.mimic4j.impl;
 
-import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
-import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
-import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
-import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_INITIALIZATION;
-
 import java.io.StringWriter;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +14,7 @@ import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableMimic;
@@ -27,6 +23,10 @@ import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
+import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
+import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
+import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_INITIALIZATION;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper.ChildAndNameAndGeneric;
 import org.minutenwerk.mimic4j.impl.composite.MmImplementationRoot;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
@@ -50,7 +50,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   private static final int                            GENERIC_PARAMETER_INDEX_CONFIGURATION = 2;
 
   /** Constant for index of generic type of annotation. */
-  private static final int                            GENERIC_PARAMETER_INDEX_ANNOTATION = 3;
+  private static final int                            GENERIC_PARAMETER_INDEX_ANNOTATION    = 3;
 
   /** Logger of this class. */
   private static final Logger                         LOGGER                                = LogManager.getLogger(
@@ -73,6 +73,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
   /** The type of first optional generic parameter of this mimic, is set in constructor phase. */
   protected Type                                      typeOfFirstGenericParameter;
+
+  /** The configuration of fixed values. */
+  protected final CONFIGURATION                       configuration;
 
   /** The root ancestor of this mimic, is set in constructor phase. */
   protected final MmImplementationRoot                root;
@@ -103,9 +106,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
   /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. Is set in initialize phase. */
   protected MmReferencableMimic<?>                    referencableAncestor;
-
-  /** The configuration of fixed values. */
-  protected CONFIGURATION                             configuration;
 
   /** The declaration part of this implementation is the declaration. Is set in postConstruct phase. */
   protected DECLARATION                               declaration;
@@ -205,60 +205,57 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // if there is no parent, this is a root
       // set reference to declaration part of parent mimic to null
-      declarationParent    = null;
+      declarationParent           = null;
 
       // set reference to implementation part of parent mimic to null
-      implementationParent = null;
+      implementationParent        = null;
 
       // set name
-      name                 = "";
+      name                        = "";
 
       // set parentPath
-      parentPath           = "";
+      parentPath                  = "";
+
+      // evaluate typeOfFirstGenericParameter
+      typeOfFirstGenericParameter = null;
+
+      // evaluate configuration
+      configuration               = onConstructConfiguration(null);
 
       // set reference to root to null
-      root                 = null;
+      root                        = null;
 
       // root is compiletime mimic
-      isRuntimeMimic       = false;
+      isRuntimeMimic              = false;
 
     } else {
 
-      // set reference to declaration part of parent mimic
+      // evaluate reference to declaration part of parent mimic
       declarationParent    = (MmBaseDeclaration<?, ?>)pDeclarationParent;
 
-      // set reference to implementation part of parent
+      // evaluate reference to implementation part of parent
       implementationParent = declarationParent.implementation;
 
       // evaluate field of this mimic's declaration in declarationParent
-      Field field          = onConstructField(implementationParent);
-
-      // set name
-      if (field == null) {
-        if (pRuntimeIndex != null) {
-          name = "r" + pRuntimeIndex;
-        } else {
-          name = "";
-        }
-      } else {
-        name = field.getName();
-      }
-
-      // set parentPath
-      if (implementationParent.parentPath.isEmpty()) {
-        parentPath = implementationParent.name;
-      } else {
-        parentPath = implementationParent.parentPath + "." + implementationParent.name;
+      final Field field    = onConstructField(implementationParent);
+      if (MmJavaHelper.getFirstGenericType(field) != null) {
+        typeOfFirstGenericParameter = MmJavaHelper.getFirstGenericType(field);
       }
 
       // evaluate annotation
-      ANNOTATION annotation = onConstructAnnotation(field, Class<ANNOTATION>);
+      final ANNOTATION annotation = onConstructAnnotation(field);
 
       // evaluate configuration
-      CONFIGURATION configuration = onConstructConfiguration(annotation);
+      configuration = onConstructConfiguration(annotation);
+
+      // evaluate name
+      name          = onConstructName(field, pRuntimeIndex);
+
+      // evaluate parentPath
+      parentPath    = onConstructParentPath(implementationParent);
 
       // evaluate id
-      // String id = configuration.getId();
+      onConstructId(configuration, name, parentPath);
 
       // evaluate reference to root ancestor
       root           = onConstructRoot(this);
@@ -276,8 +273,61 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // evaluate ancestor for reference path, file and params
     referencableAncestor          = getImplementationAncestorOfType(MmReferencableMimic.class);
 
-    // create bridge for jsf tags
-    mmJsfBridge                   = createMmJsfBridge();
+    // evaluate bridge for jsf tags
+    mmJsfBridge                   = onConstructJsfBridge();
+  }
+
+  /**
+   * Returns the implementation part of the specified declaration.
+   *
+   * @param   pDeclaration  The specified declaration.
+   *
+   * @return  The implementation part of the specified declaration.
+   */
+  @SuppressWarnings("unchecked")
+  protected static <T extends MmBaseImplementation<?, ?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
+    return (T)pDeclaration.implementation;
+  }
+
+  /**
+   * Logs debug information about a specified mimic and subtree of all its children and runtime children.
+   *
+   * @param  pMm           The specific mimic to log.
+   * @param  pIndentation  Level of indentation in log.
+   */
+  protected static void logSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug(pIndentation + pMm.toString());
+      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
+        logSubtree(child, pIndentation + "  ");
+      }
+      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
+        logSubtree(child, pIndentation + "  ");
+      }
+    }
+  }
+
+  /**
+   * Returns debug information about a specified mimic and subtree of all its children and runtime children.
+   *
+   * @param   pMm           The specific mimic to log.
+   * @param   pIndentation  Level of indentation in log.
+   *
+   * @return  Debug information about a specified mimic and subtree of all its children and runtime children.
+   */
+  /* package */ static String toStringSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
+    StringWriter writer = new StringWriter();
+    if (pMm != null) {
+      writer.append(pIndentation + pMm.toString());
+      writer.append(NL);
+      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
+        writer.append(toStringSubtree(child, pIndentation + "  "));
+      }
+      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
+        writer.append(toStringSubtree(child, pIndentation + "  "));
+      }
+    }
+    return writer.toString();
   }
 
   /**
@@ -288,7 +338,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @throws  IllegalArgumentException  in case othe annotation is not allowed for this type of mimic.
    */
-  protected static <ANNOTATION extends Annotation> void checkForIllegalAnnotationsOtherThan(MmBaseDeclaration<?, ?> pDeclaration,
+  private static <ANNOTATION extends Annotation> void checkForIllegalAnnotationsOtherThan(MmBaseDeclaration<?, ?> pDeclaration,
     Class<ANNOTATION> pAnnotationClass) {
     // if implementation part has a name
     // search for all annotations annotated by MmMetaAnnotation in field
@@ -330,17 +380,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     } while ((declarationClass != null) && !declarationClass.equals(Object.class));
   }
 
-  protected CONFIGURATION onConstructConfiguration(final ANNOTATION pAnnotation) {
-    Class<CONFIGURATION> clazz = getConfigurationType();
-        try {
-          return clazz.getConstructor(pAnnotation.getClass()).newInstance(pAnnotation);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-            | NoSuchMethodException | SecurityException e) {
-          e.printStackTrace();
-        }
-    return null;
-  }
-
   /**
    * Searches for an annotation within the inheritance tree of a class.
    *
@@ -349,7 +388,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return  The found annotation or <code>null</code>.
    */
-  protected static <ANNOTATION extends Annotation> ANNOTATION findAnnotation( //
+  private static <ANNOTATION extends Annotation> ANNOTATION findAnnotation( //
     MmBaseDeclaration<?, ?> pDeclaration, Class<ANNOTATION> pAnnotationClass) {
     //
     ANNOTATION returnAnnotation = null;
@@ -384,76 +423,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the implementation part of the specified declaration.
-   *
-   * @param   pDeclaration  The specified declaration.
-   *
-   * @return  The implementation part of the specified declaration.
-   */
-  @SuppressWarnings("unchecked")
-  protected static <T extends MmBaseImplementation<?, ?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
-    return (T)pDeclaration.implementation;
-  }
-
-  /**
-   * Logs debug information about a specified mimic and subtree of all its children and runtime children.
-   *
-   * @param  pMm           The specific mimic to log.
-   * @param  pIndentation  Level of indentation in log.
-   */
-  protected static void logSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
-    if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug(pIndentation + pMm.toString());
-      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
-        logSubtree(child, pIndentation + "  ");
-      }
-      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
-        logSubtree(child, pIndentation + "  ");
-      }
-    }
-  }
-
-  /**
-   * Returns debug information about a specified mimic and subtree of all its children and runtime children.
-   *
-   * @param   pMm           The specific mimic to log.
-   * @param   pIndentation  Level of indentation in log.
-   *
-   * @return  Debug information about a specified mimic and subtree of all its children and runtime children.
-   */
-  protected static String toStringSubtree(MmBaseImplementation<?, ?, ?> pMm, String pIndentation) {
-    StringWriter writer = new StringWriter();
-    if (pMm != null) {
-      writer.append(pIndentation + pMm.toString());
-      writer.append(NL);
-      for (MmBaseImplementation<?, ?, ?> child : pMm.implementationChildren) {
-        writer.append(toStringSubtree(child, pIndentation + "  "));
-      }
-      for (MmBaseImplementation<?, ?, ?> child : pMm.runtimeImplementationChildren) {
-        writer.append(toStringSubtree(child, pIndentation + "  "));
-      }
-    }
-    return writer.toString();
-  }
-
-  /**
-   * TODOC.
-   *
-   * @param   pField            TODOC
-   * @param   pAnnotationClass  TODOC
-   *
-   * @return  TODOC
-   */
-  private static <ANNO_TATION extends Annotation> ANNO_TATION onConstructAnnotation(final Field pField, Class<ANNO_TATION> pAnnotationClass) {
-    ANNO_TATION[] annotations = pField.getAnnotationsByType(pAnnotationClass);
-    if (annotations.length > 0) {
-      return annotations[0];
-    } else {
-      return null;
-    }
-  }
-
-  /**
    * TODOC.
    *
    * @param   pImplementationParent  TODOC
@@ -469,6 +438,57 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       return pImplementationParent.declarationChildrenFields.next();
     } else {
       return null;
+    }
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param  pConfiguration  TODOC
+   * @param  pName           TODOC
+   * @param  pParentPath     TODOC
+   */
+  private static void onConstructId(final MmBaseConfiguration pConfiguration, final String pName, final String pParentPath) {
+    // if id is not defined yet, set id to full name
+    if (pConfiguration.getId().equals(MmBaseConfiguration.UNDEFINED_ID) && !pName.isEmpty()) {
+      String newId = pName;
+      if (!pParentPath.isEmpty()) {
+        newId = pParentPath.replaceAll("\\.", "-") + "-" + pName;
+      }
+      pConfiguration.setId(newId);
+    }
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param   pField         TODOC
+   * @param   pRuntimeIndex  TODOC
+   *
+   * @return  TODOC
+   */
+  private static String onConstructName(final Field pField, final Integer pRuntimeIndex) {
+    if (pField != null) {
+      return pField.getName();
+    } else if (pRuntimeIndex != null) {
+      return "r" + pRuntimeIndex;
+    } else {
+      return "";
+    }
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param   pImplementationParent  TODOC
+   *
+   * @return  TODOC
+   */
+  private static String onConstructParentPath(final MmBaseImplementation<?, ?, ?> pImplementationParent) {
+    if (pImplementationParent.parentPath.isEmpty()) {
+      return pImplementationParent.name;
+    } else {
+      return pImplementationParent.parentPath + "." + pImplementationParent.name;
     }
   }
 
@@ -540,6 +560,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // set declaration part
     declaration = (DECLARATION)pDeclaration;
 
+// // evaluate typeOfFirstGenericParameter
+// typeOfFirstGenericParameter = MmJavaHelper.getFirstGenericType(declaration.getClass());
+
     // if there is an implementation parent, add this mimic as unnamed declaration child and implementation child
     if (implementationParent != null) {
       implementationParent.addChild(declaration, null, null);
@@ -600,15 +623,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return        A new MmJsfBridge for this mimic.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected abstract MmJsfBridge<?, ?, ?> createMmJsfBridge();
-
-  /**
    * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
    * super.initialize()!
    *
@@ -630,28 +644,19 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // set state to IN_INITIALIZATION
     initialState.set(IN_INITIALIZATION);
 
+    // evaluate typeOfFirstGenericParameter
+    // typeOfFirstGenericParameter = MmJavaHelper.getFirstGenericType(declaration.getClass());
+
     // evaluate all public static final mimic fields
-    List<Field>                  publicStaticFinalMimicFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(
-        declaration.getClass());
+// List<Field>                  publicStaticFinalMimicFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(
+// declaration.getClass());
 
     // apply fields to declaration part and get children, including field name and generic type
-    List<ChildAndNameAndGeneric> childrenByParentAndFields    = MmJavaHelper.getChildrenByParentAndFields(declaration,
-        publicStaticFinalMimicFields);
+// List<ChildAndNameAndGeneric> childrenByParentAndFields    = MmJavaHelper.getChildrenByParentAndFields(declaration,
+// publicStaticFinalMimicFields);
 
     // add all public not static fields of type MmBaseDeclaration as children
-    addChildren(childrenByParentAndFields);
-
-    // evaluate configuration
-    initializeConfiguration();
-
-    // if id is not defined yet, set id to full name
-    if (configuration.getId().equals(MmBaseConfiguration.UNDEFINED_ID) && !name.isEmpty()) {
-      String newId = name;
-      if (!parentPath.isEmpty()) {
-        newId = parentPath.replaceAll("\\.", "-") + "-" + name;
-      }
-      configuration.setId(newId);
-    }
+// addChildren(childrenByParentAndFields);
 
     // set state to INITIALIZED
     initialState.set(INITIALIZED);
@@ -661,13 +666,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       implementationChild.initialize();
     }
   }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected abstract void initializeConfiguration();
 
   /**
    * Implementation internal method for initialization. Returns <code>true</code>, if the mimic has been created at runtime, e.g. a
@@ -680,6 +678,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected boolean isRuntimeMimic() {
     return false;
   }
+
+  /**
+   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
+   *
+   * @return        A new MmJsfBridge for this mimic.
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected abstract MmJsfBridge<?, ?, ?> onConstructJsfBridge();
 
   /**
    * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty
@@ -1225,98 +1232,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Add children of type <code>MmBaseDeclaration</code> to list of declarationChildren. Name implementation part of child and add to list
-   * of children.
-   *
-   * @param         pChildrenAndNameAndGeneric  TODOC
-   *
-   * @jalopy.group  group-helper
-   */
-  protected void addChildren(List<ChildAndNameAndGeneric> pChildrenAndNameAndGeneric) {
-    for (ChildAndNameAndGeneric childAndNameAndGeneric : pChildrenAndNameAndGeneric) {
-      addChild(childAndNameAndGeneric.getChild(), childAndNameAndGeneric.getNameOfChild(),
-        childAndNameAndGeneric.getTypeOfFirstGenericParameter());
-    }
-  }
-
-  /**
-   * Returns the Java type of configuration class of this mimic.
-   *
-   * @return        The Java type of configuration class of this mimic.
-   *
-   * @jalopy.group  group-helper
-   */
-  protected final Class<CONFIGURATION> getConfigurationType() {
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
-  }
-
-
-  /**
-   * Reads the Java-Generics parameter having the given index position (starting at ONE) from the given {@link Class}.
-   *
-   * @param   pClassToAnalyze  The class to analyze.
-   * @param   pGenericRawType  The class containing the generic.
-   * @param   pParameterIndex  The parameter position index. Starts with One for the first parameter.
-   *
-   * @return  The found Java-Generics parameter. <code>null</code> if none was found.
-   */
-  @SuppressWarnings("unchecked")
-  public static <T extends Type> T findGenericsParameterType(Class<?> pClassToAnalyze, Class<?> pGenericRawType, int pParameterIndex) {
-    final int  parameterIndex    = pParameterIndex - 1;
-    final Type genericSuperclass = pClassToAnalyze.getGenericSuperclass();
-    if (genericSuperclass instanceof ParameterizedType) {
-      final ParameterizedType parameterizedType = (ParameterizedType)genericSuperclass;
-      final Type              rawType           = parameterizedType.getRawType();
-      if (rawType.equals(pGenericRawType)) {
-        Type[] typeArray = parameterizedType.getActualTypeArguments();
-        if (typeArray.length > parameterIndex) {
-          return (T)typeArray[parameterIndex];
-        } else {
-          return null;
-        }
-      } else {
-        Class<?> superClass = pClassToAnalyze.getSuperclass();
-        if (superClass != null) {
-          return (T)findGenericsParameterType(superClass, pGenericRawType, parameterIndex);
-        } else {
-          return null;
-        }
-      }
-    } else {
-      return null;
-    }
-  }
-
-  /**
-   * Returns the Java type of annotation class of this mimic.
-   *
-   * @return        The Java type of annotation class of this mimic.
-   *
-   * @jalopy.group  group-helper
-   */
-  protected final Class<ANNOTATION> getAnnotationType() {
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_ANNOTATION);
-  }
-
-  /**
-   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseDeclaration</code>, including
-   * runtime children.
-   *
-   * @param         pType  The specified mimic.
-   *
-   * @return        The list of all direct children of specified mimic of type <code>MmBaseDeclaration</code>, including runtime children.
-   *
-   * @jalopy.group  group-helper
-   */
-  @Deprecated
-  @SuppressWarnings("unchecked")
-  protected <T extends MmMimic> List<T> getDeclarationChildrenOfType(Class<T> pType) {
-    return (List<T>)Stream.concat(declarationChildren.stream(), runtimeDeclarationChildren.stream()) //
-    .filter(child -> pType.isAssignableFrom(child.getClass())) //
-    .collect(Collectors.toList());
-  }
-
-  /**
    * Returns an ancestor of this mimic of specified type, if exists, otherwise null. This method may be called at any time, even in
    * constructor.
    *
@@ -1358,6 +1273,61 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Add children of type <code>MmBaseDeclaration</code> to list of declarationChildren. Name implementation part of child and add to list
+   * of children.
+   *
+   * @param         pChildrenAndNameAndGeneric  TODOC
+   *
+   * @jalopy.group  group-helper
+   */
+  private void addChildren(List<ChildAndNameAndGeneric> pChildrenAndNameAndGeneric) {
+    for (ChildAndNameAndGeneric childAndNameAndGeneric : pChildrenAndNameAndGeneric) {
+      addChild(childAndNameAndGeneric.getChild(), childAndNameAndGeneric.getNameOfChild(),
+        childAndNameAndGeneric.getTypeOfFirstGenericParameter());
+    }
+  }
+
+  /**
+   * Returns the Java type of annotation class of this mimic.
+   *
+   * @return        The Java type of annotation class of this mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  private final Class<ANNOTATION> getAnnotationType() {
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_ANNOTATION);
+  }
+
+  /**
+   * Returns the Java type of configuration class of this mimic.
+   *
+   * @return        The Java type of configuration class of this mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  private final Class<CONFIGURATION> getConfigurationType() {
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseImplementation.class, GENERIC_PARAMETER_INDEX_CONFIGURATION);
+  }
+
+  /**
+   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseDeclaration</code>, including
+   * runtime children.
+   *
+   * @param         pType  The specified mimic.
+   *
+   * @return        The list of all direct children of specified mimic of type <code>MmBaseDeclaration</code>, including runtime children.
+   *
+   * @jalopy.group  group-helper
+   */
+  @Deprecated
+  @SuppressWarnings("unchecked")
+  private <T extends MmMimic> List<T> getDeclarationChildrenOfType(Class<T> pType) {
+    return (List<T>)Stream.concat(declarationChildren.stream(), runtimeDeclarationChildren.stream()) //
+    .filter(child -> pType.isAssignableFrom(child.getClass())) //
+    .collect(Collectors.toList());
+  }
+
+  /**
    * Sets the generic type of this mimic. This method is called on a mimic during execution of mimic parent's initialize method.
    *
    * @param         pTypeOfFirstGenericParameter  The type to be set.
@@ -1367,7 +1337,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-helper
    */
-  protected void setTypeOfFirstGenericParameter(Type pTypeOfFirstGenericParameter) {
+  private void setTypeOfFirstGenericParameter(Type pTypeOfFirstGenericParameter) {
     if ((initialState.isNot(CONSTRUCTION_COMPLETE)) && (initialState.isNot(INITIALIZED))) {
       throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or INITIALIZED, but was " + initialState);
     }
@@ -1379,5 +1349,33 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
                                                  + pTypeOfFirstGenericParameter;
 
     typeOfFirstGenericParameter = pTypeOfFirstGenericParameter;
+  }
+
+  /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  protected abstract CONFIGURATION onConstructConfiguration(ANNOTATION pAnnotation);
+
+  /**
+   * TODOC.
+   *
+   * @param   pField  TODOC
+   *
+   * @return  TODOC
+   */
+  @SuppressWarnings("unchecked")
+  private ANNOTATION onConstructAnnotation(final Field pField) {
+    if (pField != null) {
+      for (Annotation annotation : pField.getAnnotations()) {
+        if (annotation.annotationType().isAnnotationPresent(MmMetaAnnotation.class)) {
+          return (ANNOTATION)annotation;
+        }
+      }
+    }
+    return null;
   }
 }

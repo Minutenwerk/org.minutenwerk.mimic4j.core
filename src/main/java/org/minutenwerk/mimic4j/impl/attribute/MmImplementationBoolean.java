@@ -1,8 +1,5 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
@@ -16,9 +13,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  */
 public class MmImplementationBoolean
   extends MmBaseAttributeImplementation<MmBoolean, MmConfigurationBoolean, MmBooleanAnnotation, Boolean, Boolean> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationBoolean.class);
 
   /**
    * Creates a new MmImplementationBoolean instance.
@@ -42,32 +36,29 @@ public class MmImplementationBoolean
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationBoolean onConstructConfiguration(MmBooleanAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationBoolean(pAnnotation);
+    } else {
+      return new MmConfigurationBoolean();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeAttribute<Boolean>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmBooleanAnnotation.class);
-    }
-
-    MmBooleanAnnotation annotation = findAnnotation(declaration, MmBooleanAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationBoolean(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationBoolean();
-    }
   }
 
 }

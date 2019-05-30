@@ -2,9 +2,6 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
@@ -22,9 +19,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 public class MmImplementationTableRow<ROW_MODEL>
   extends MmBaseContainerImplementation<MmTableRow<ROW_MODEL>, ROW_MODEL, MmConfigurationTableRow, MmTableRowAnnotation>
   implements MmTableRowMimic<ROW_MODEL> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationTableRow.class);
 
   /**
    * Creates a new MmImplementationTableRow instance.
@@ -64,35 +58,6 @@ public class MmImplementationTableRow<ROW_MODEL>
   }
 
   /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
-    return null;
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmTableRowAnnotation.class);
-    }
-
-    MmTableRowAnnotation annotation = findAnnotation(declaration, MmTableRowAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationTableRow(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationTableRow();
-    }
-  }
-
-  /**
    * Implementation internal method for initialization. Returns <code>true</code>, if the mimic has been created at runtime, e.g. a
    * {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
    *
@@ -103,6 +68,32 @@ public class MmImplementationTableRow<ROW_MODEL>
   @Override
   protected boolean isRuntimeMimic() {
     return true;
+  }
+
+  /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationTableRow onConstructConfiguration(MmTableRowAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationTableRow(pAnnotation);
+    } else {
+      return new MmConfigurationTableRow();
+    }
+  }
+
+  /**
+   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
+   *
+   * @return  A new MmJsfBridge for this mimic.
+   */
+  @Override
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
+    return null;
   }
 
 }

@@ -2,9 +2,6 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmListString;
 import org.minutenwerk.mimic4j.api.attribute.MmListStringAnnotation;
@@ -18,9 +15,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  */
 public class MmImplementationListString
   extends MmBaseAttributeImplementation<MmListString, MmConfigurationListString, MmListStringAnnotation, List<String>, List<String>> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationListString.class);
 
   /**
    * Creates a new MmImplementationListString instance.
@@ -44,32 +38,29 @@ public class MmImplementationListString
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationListString onConstructConfiguration(MmListStringAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationListString(pAnnotation);
+    } else {
+      return new MmConfigurationListString();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeAttribute<List<String>>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmListStringAnnotation.class);
-    }
-
-    MmListStringAnnotation annotation = findAnnotation(declaration, MmListStringAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationListString(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationListString();
-    }
   }
 
 }

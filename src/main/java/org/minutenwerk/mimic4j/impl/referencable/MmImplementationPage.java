@@ -27,27 +27,6 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
   }
 
   /**
-   * Initialize this mimic after constructor phase.
-   *
-   * @jalopy.group  group-initialization
-   */
-  @Override
-  protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmPageAnnotation.class);
-
-    MmPageAnnotation annotation = findAnnotation(declaration, MmPageAnnotation.class);
-
-    if (annotation == null) {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationPage();
-    } else {
-      configuration = new MmConfigurationPage(annotation);
-    }
-  }
-
-  /**
    * Returns the file part of the URL without slashes, like "display.html" in "person/wohnort/display.html#plz?rootId=1&subId=2".
    *
    * @return        The file part of the URL without slashes.
@@ -86,8 +65,24 @@ public class MmImplementationPage<MODEL extends MmReferencableModel>
    * @jalopy.group  group-override
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgePage<MODEL>(this);
+  }
+
+  /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationPage onConstructConfiguration(MmPageAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationPage(pAnnotation);
+    } else {
+      return new MmConfigurationPage();
+    }
   }
 
 }

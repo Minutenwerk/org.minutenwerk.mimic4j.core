@@ -5,14 +5,12 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
-import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTableAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmListAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
-@MmTabAnnotation(id = "tab")
 public class MmTabTeam extends MmTab<Team> {
 
   @MmStringAnnotation(id = "tn")

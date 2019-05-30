@@ -17,7 +17,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationEnum;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmEnumAnnotation {
 
   public String id() default MmConfigurationEnum.UNDEFINED_ID;

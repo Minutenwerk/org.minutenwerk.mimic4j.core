@@ -23,32 +23,29 @@ public class MmImplementationLink extends MmBaseLinkImplementation<MmLink, MmCon
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationLink onConstructConfiguration(MmLinkAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationLink(pAnnotation);
+    } else {
+      return new MmConfigurationLink();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeLink(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmLinkAnnotation.class);
-
-    MmLinkAnnotation annotation = findAnnotation(declaration, MmLinkAnnotation.class);
-
-    if (annotation == null) {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationLink();
-    } else {
-      configuration = new MmConfigurationLink(annotation);
-    }
   }
 
 }

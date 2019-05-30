@@ -104,32 +104,29 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationCommand onConstructConfiguration(MmCommandAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationCommand(pAnnotation);
+    } else {
+      return new MmConfigurationCommand();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeCommand(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmCommandAnnotation.class);
-
-    MmCommandAnnotation annotation = findAnnotation(declaration, MmCommandAnnotation.class);
-
-    if (annotation == null) {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationCommand();
-    } else {
-      configuration = new MmConfigurationCommand(annotation);
-    }
   }
 
 }

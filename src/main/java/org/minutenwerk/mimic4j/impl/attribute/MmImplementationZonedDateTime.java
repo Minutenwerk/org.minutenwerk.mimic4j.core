@@ -2,9 +2,6 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.ZonedDateTime;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
@@ -19,9 +16,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  */
 public class MmImplementationZonedDateTime
   extends MmBaseAttributeImplementation<MmZonedDateTime, MmConfigurationZonedDateTime, MmZonedDateTimeAnnotation, ZonedDateTime, String> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationZonedDateTime.class);
 
   /**
    * Creates a new MmImplementationDateTime instance.
@@ -65,32 +59,29 @@ public class MmImplementationZonedDateTime
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationZonedDateTime onConstructConfiguration(MmZonedDateTimeAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationZonedDateTime(pAnnotation);
+    } else {
+      return new MmConfigurationZonedDateTime();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmZonedDateTimeAnnotation.class);
-    }
-
-    MmZonedDateTimeAnnotation annotation = findAnnotation(declaration, MmZonedDateTimeAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationZonedDateTime(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationZonedDateTime();
-    }
   }
 
 }

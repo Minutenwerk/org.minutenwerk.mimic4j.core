@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmLinkAnnotation {
 
   public String id() default MmConfigurationLink.UNDEFINED_ID;

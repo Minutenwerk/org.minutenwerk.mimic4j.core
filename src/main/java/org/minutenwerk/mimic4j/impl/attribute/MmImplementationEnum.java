@@ -1,8 +1,5 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
@@ -16,9 +13,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttributeEnum;
  */
 public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   extends MmBaseAttributeImplementation<MmEnum<ENUM_TYPE>, MmConfigurationEnum<ENUM_TYPE>, MmEnumAnnotation, ENUM_TYPE, String> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationEnum.class);
 
   /**
    * Creates a new MmImplementationEnum instance.
@@ -54,32 +48,29 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationEnum<ENUM_TYPE> onConstructConfiguration(MmEnumAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationEnum<ENUM_TYPE>(pAnnotation, getMmEnumType());
+    } else {
+      return new MmConfigurationEnum<ENUM_TYPE>();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeAttributeEnum<ENUM_TYPE>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmEnumAnnotation.class);
-    }
-
-    MmEnumAnnotation annotation = findAnnotation(declaration, MmEnumAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationEnum<ENUM_TYPE>(annotation, getMmEnumType());
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationEnum<ENUM_TYPE>();
-    }
   }
 
 }

@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.impl.container.MmConfigurationLeporelloPanel;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmLeporelloPanelAnnotation {
 
   public String id() default MmConfigurationLeporelloPanel.UNDEFINED_ID;

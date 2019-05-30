@@ -1,8 +1,5 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloAnnotation;
@@ -20,9 +17,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporello;
  */
 public class MmImplementationLeporello<MODEL, SUB_MODEL>
   extends MmBaseContainerImplementation<MmLeporello<MODEL, SUB_MODEL>, MODEL, MmConfigurationLeporello, MmLeporelloAnnotation> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLeporello.class);
 
   /**
    * Creates a new MmImplementationLeporello instance.
@@ -45,32 +39,29 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationLeporello onConstructConfiguration(MmLeporelloAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationLeporello(pAnnotation);
+    } else {
+      return new MmConfigurationLeporello();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeLeporello(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloAnnotation.class);
-    }
-
-    MmLeporelloAnnotation annotation = findAnnotation(declaration, MmLeporelloAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationLeporello(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationLeporello();
-    }
   }
 
 }

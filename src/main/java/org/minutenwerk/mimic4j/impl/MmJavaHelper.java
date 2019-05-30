@@ -9,7 +9,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -122,6 +121,7 @@ public class MmJavaHelper {
    *
    * @return  TODOC
    */
+  @Deprecated
   public static ChildAndNameAndGeneric getChildByParentAndField(final MmBaseDeclaration<?, ?> pParent, final Field pField) {
     try {
       MmBaseDeclaration<?, ?> child                              = (MmBaseDeclaration<?, ?>)pField.get(pParent);
@@ -148,6 +148,7 @@ public class MmJavaHelper {
    *
    * @return  TODOC
    */
+  @Deprecated
   public static List<ChildAndNameAndGeneric> getChildrenByParentAndFields(final MmBaseDeclaration<?, ?> pParent,
     final List<Field> pFields) {
     List<ChildAndNameAndGeneric> childrenByParentAndFields = new ArrayList<>(pFields.size());
@@ -167,18 +168,40 @@ public class MmJavaHelper {
    *
    * @return  TODOC
    */
-  public static Optional<Type> getFirstGenericType(final Field pField) {
-    Type genericSuperClass = pField.getType().getGenericSuperclass();
+  public static Type getFirstGenericType(final Field pField) {
+    if (pField != null) {
+      Type genericSuperClass = pField.getGenericType();
+      if (genericSuperClass instanceof ParameterizedType) {
+        ParameterizedType parameterizedType = (ParameterizedType)genericSuperClass;
+        Type[]            typeArray         = parameterizedType.getActualTypeArguments();
+        if (typeArray.length >= 1) {
+          return typeArray[0];
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param   pClass  TODOC
+   *
+   * @return  TODOC
+   */
+  public static Type getFirstGenericType(final Class pClass) {
+    Type genericSuperClass = pClass.getGenericSuperclass();
     if (genericSuperClass instanceof ParameterizedType) {
       ParameterizedType parameterizedType = (ParameterizedType)genericSuperClass;
       Type[]            typeArray         = parameterizedType.getActualTypeArguments();
       if (typeArray.length >= 1) {
-        return Optional.of(typeArray[0]);
+        return typeArray[0];
       }
     }
-    return Optional.empty();
+    return null;
   }
 
+  @Deprecated
   public static class ChildAndNameAndGeneric {
     private final MmBaseDeclaration<?, ?> child;
     private final String                  nameOfChild;

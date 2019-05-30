@@ -1,8 +1,5 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
@@ -17,9 +14,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTab;
  * @author  Olaf Kossak
  */
 public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<MmTab<MODEL>, MODEL, MmConfigurationTab, MmTabAnnotation> {
-
-  /** The logger of this class. */
-  private static final Logger            LOGGER       = LogManager.getLogger(MmImplementationTab.class);
 
   /** The parent tab set this tab belongs to. */
   protected MmImplementationLeporelloTab parentTabSet;
@@ -45,32 +39,29 @@ public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<Mm
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationTab onConstructConfiguration(MmTabAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationTab(pAnnotation);
+    } else {
+      return new MmConfigurationTab();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeTab<MODEL>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmTabAnnotation.class);
-    }
-
-    MmTabAnnotation annotation = findAnnotation(declaration, MmTabAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationTab(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationTab();
-    }
   }
 
 }

@@ -2,9 +2,6 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.Duration;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmDuration;
 import org.minutenwerk.mimic4j.api.attribute.MmDurationAnnotation;
@@ -18,9 +15,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  */
 public class MmImplementationDuration
   extends MmBaseAttributeImplementation<MmDuration, MmConfigurationDuration, MmDurationAnnotation, Duration, String> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationDuration.class);
 
   /**
    * Creates a new MmImplementationDuration instance.
@@ -44,32 +38,29 @@ public class MmImplementationDuration
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationDuration onConstructConfiguration(MmDurationAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationDuration(pAnnotation);
+    } else {
+      return new MmConfigurationDuration();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmDurationAnnotation.class);
-    }
-
-    MmDurationAnnotation annotation = findAnnotation(declaration, MmDurationAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationDuration(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationDuration();
-    }
   }
 
 }

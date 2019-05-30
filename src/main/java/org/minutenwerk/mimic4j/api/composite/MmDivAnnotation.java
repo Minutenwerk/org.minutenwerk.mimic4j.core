@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.impl.composite.MmConfigurationDiv;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmDivAnnotation {
 
   public String id() default MmConfigurationDiv.UNDEFINED_ID;

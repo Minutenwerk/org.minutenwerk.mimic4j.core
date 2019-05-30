@@ -221,16 +221,6 @@ public class MmImplementationLeporelloTab
   }
 
   /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
-    return new MmJsfBridgeLeporelloTab(this);
-  }
-
-  /**
    * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
    * super.initialize()!
    */
@@ -241,22 +231,29 @@ public class MmImplementationLeporelloTab
   }
 
   /**
-   * Initialize this mimic after constructor phase.
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
    */
   @Override
-  protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloTabAnnotation.class);
-
-    MmLeporelloTabAnnotation annotation = findAnnotation(declaration, MmLeporelloTabAnnotation.class);
-
-    if (annotation == null) {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationLeporelloTab();
+  protected MmConfigurationLeporelloTab onConstructConfiguration(MmLeporelloTabAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationLeporelloTab(pAnnotation);
     } else {
-      configuration = new MmConfigurationLeporelloTab(annotation);
+      return new MmConfigurationLeporelloTab();
     }
+  }
+
+  /**
+   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
+   *
+   * @return  A new MmJsfBridge for this mimic.
+   */
+  @Override
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
+    return new MmJsfBridgeLeporelloTab(this);
   }
 
 }

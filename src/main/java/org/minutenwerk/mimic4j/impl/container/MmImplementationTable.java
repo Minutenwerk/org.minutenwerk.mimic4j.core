@@ -3,9 +3,6 @@ package org.minutenwerk.mimic4j.impl.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.api.MmTableMimic;
@@ -28,9 +25,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
 public class MmImplementationTable<ROW_MODEL>
   extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable, MmTableAnnotation>
   implements MmTableMimic<ROW_MODEL> {
-
-  /** The logger of this class. */
-  private static final Logger         LOGGER       = LogManager.getLogger(MmImplementationTable.class);
 
   /** The list of table columns of this table. */
   protected final List<MmTableColumn> tableColumns;
@@ -139,7 +133,6 @@ public class MmImplementationTable<ROW_MODEL>
       }
 
       // add table row mimic to list of runtime children
-      // TODO warum kein Name?
       addChild(tableRowMm, null, typeOfFirstGenericParameter);
     }
 
@@ -153,31 +146,29 @@ public class MmImplementationTable<ROW_MODEL>
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationTable onConstructConfiguration(MmTableAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationTable(pAnnotation);
+    } else {
+      return new MmConfigurationTable();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeTable<ROW_MODEL>(this);
   }
 
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmTableAnnotation.class);
-    }
-
-    MmTableAnnotation annotation = findAnnotation(declaration, MmTableAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationTable(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationTable();
-    }
-  }
 }

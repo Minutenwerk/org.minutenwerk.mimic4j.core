@@ -22,7 +22,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.javahelper.MmHelperPerson.Gender;
 
-@MmTabAnnotation(id = "prs")
 public class MmTabHelperPerson extends MmTab<MmHelperPerson> {
 
   @MmStringAnnotation(id = "vn")

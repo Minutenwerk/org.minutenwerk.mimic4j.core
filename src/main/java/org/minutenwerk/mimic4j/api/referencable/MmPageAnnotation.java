@@ -15,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.referencable.MmConfigurationPage;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmPageAnnotation {
 
   public String id() default MmConfigurationPage.UNDEFINED_ID;

@@ -1,8 +1,5 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmLong;
 import org.minutenwerk.mimic4j.api.attribute.MmLongAnnotation;
@@ -15,9 +12,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  * @author  Olaf Kossak
  */
 public class MmImplementationLong extends MmBaseAttributeImplementation<MmLong, MmConfigurationLong, MmLongAnnotation, Long, String> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLong.class);
 
   /**
    * Creates a new MmImplementationLong instance.
@@ -41,32 +35,29 @@ public class MmImplementationLong extends MmBaseAttributeImplementation<MmLong, 
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationLong onConstructConfiguration(MmLongAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationLong(pAnnotation);
+    } else {
+      return new MmConfigurationLong();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmLongAnnotation.class);
-    }
-
-    MmLongAnnotation annotation = findAnnotation(declaration, MmLongAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationLong(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationLong();
-    }
   }
 
 }

@@ -1,8 +1,5 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmInteger;
 import org.minutenwerk.mimic4j.api.attribute.MmIntegerAnnotation;
@@ -16,9 +13,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  */
 public class MmImplementationInteger
   extends MmBaseAttributeImplementation<MmInteger, MmConfigurationInteger, MmIntegerAnnotation, Integer, String> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationInteger.class);
 
   /**
    * Creates a new MmImplementationInteger instance.
@@ -42,32 +36,29 @@ public class MmImplementationInteger
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationInteger onConstructConfiguration(MmIntegerAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationInteger(pAnnotation);
+    } else {
+      return new MmConfigurationInteger();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmIntegerAnnotation.class);
-    }
-
-    MmIntegerAnnotation annotation = findAnnotation(declaration, MmIntegerAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationInteger(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationInteger();
-    }
   }
 
 }

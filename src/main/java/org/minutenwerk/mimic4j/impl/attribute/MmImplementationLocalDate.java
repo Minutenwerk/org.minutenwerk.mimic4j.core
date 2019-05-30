@@ -2,9 +2,6 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.LocalDate;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalDate;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalDateAnnotation;
@@ -19,9 +16,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
  */
 public class MmImplementationLocalDate
   extends MmBaseAttributeImplementation<MmLocalDate, MmConfigurationLocalDate, MmLocalDateAnnotation, LocalDate, String> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLocalDate.class);
 
   /**
    * Creates a new MmImplementationDate instance.
@@ -65,32 +59,29 @@ public class MmImplementationLocalDate
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationLocalDate onConstructConfiguration(MmLocalDateAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationLocalDate(pAnnotation);
+    } else {
+      return new MmConfigurationLocalDate();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeAttribute<String>(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmLocalDateAnnotation.class);
-    }
-
-    MmLocalDateAnnotation annotation = findAnnotation(declaration, MmLocalDateAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationLocalDate(annotation);
-    } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationLocalDate();
-    }
   }
 
 }

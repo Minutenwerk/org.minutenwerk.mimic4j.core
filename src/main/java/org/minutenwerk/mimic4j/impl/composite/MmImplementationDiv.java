@@ -23,32 +23,29 @@ public class MmImplementationDiv extends MmBaseCompositeImplementation<MmDiv, Mm
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationDiv onConstructConfiguration(MmDivAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationDiv(pAnnotation);
+    } else {
+      return new MmConfigurationDiv();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeComposite(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmDivAnnotation.class);
-
-    MmDivAnnotation annotation = findAnnotation(declaration, MmDivAnnotation.class);
-
-    if (annotation == null) {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationDiv();
-    } else {
-      configuration = new MmConfigurationDiv(annotation);
-    }
   }
 
 }

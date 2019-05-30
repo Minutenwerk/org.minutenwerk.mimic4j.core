@@ -30,7 +30,6 @@ import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
-@MmTabAnnotation(id = "person")
 public class MmTabPerson extends MmTab<Person> {
 
   @MmStringAnnotation(id = "vn")
@@ -115,6 +114,7 @@ public class MmTabPerson extends MmTab<Person> {
     }
   };
 
+  @MmTabAnnotation(id = "adr")
   public final MmTabAdresse adresse = new MmTabAdresse(this) {
     @Override
     public MmComponentAccessor<?, Adresse> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {

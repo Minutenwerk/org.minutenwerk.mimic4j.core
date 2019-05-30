@@ -1,8 +1,5 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
@@ -19,9 +16,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloPanel;
  */
 public class MmImplementationLeporelloPanel<MODEL>
   extends MmBaseContainerImplementation<MmLeporelloPanel<MODEL>, MODEL, MmConfigurationLeporelloPanel, MmLeporelloPanelAnnotation> {
-
-  /** The logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLeporelloPanel.class);
 
   /**
    * Creates a new MmImplementationLeporelloPanel instance.
@@ -107,16 +101,6 @@ public class MmImplementationLeporelloPanel<MODEL>
   }
 
   /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
-    return new MmJsfBridgeLeporelloPanel(this);
-  }
-
-  /**
    * TODOC.
    *
    * @return  TODOC
@@ -156,22 +140,29 @@ public class MmImplementationLeporelloPanel<MODEL>
   }
 
   /**
-   * Initialize this mimic after constructor phase.
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
    */
   @Override
-  protected void initializeConfiguration() {
-    if (LOGGER.isDebugEnabled()) {
-      checkForIllegalAnnotationsOtherThan(declaration, MmLeporelloPanelAnnotation.class);
-    }
-
-    MmLeporelloPanelAnnotation annotation = findAnnotation(declaration, MmLeporelloPanelAnnotation.class);
-    if (annotation != null) {
-      configuration = new MmConfigurationLeporelloPanel(annotation);
+  protected MmConfigurationLeporelloPanel onConstructConfiguration(MmLeporelloPanelAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationLeporelloPanel(pAnnotation);
     } else {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationLeporelloPanel();
+      return new MmConfigurationLeporelloPanel();
     }
+  }
+
+  /**
+   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
+   *
+   * @return  A new MmJsfBridge for this mimic.
+   */
+  @Override
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
+    return new MmJsfBridgeLeporelloPanel(this);
   }
 
 }

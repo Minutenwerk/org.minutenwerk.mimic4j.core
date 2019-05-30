@@ -3,13 +3,14 @@ package org.minutenwerk.mimic4j.impl.javahelper;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationString;
+import org.minutenwerk.mimic4j.impl.javahelper.MmHelperPerson.Gender;
 
 public class TestJavaHelper {
 
@@ -24,25 +25,25 @@ public class TestJavaHelper {
 	}
 
 	@Test
-	public void testJavaHelperGetStringGeneric(){
+	public void testJavaHelperGetEnumGeneric(){
 	  // test
 	  List<Field> fields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(MmTabHelperPerson.class);
-	  Optional<Type> optType = MmJavaHelper.getFirstGenericType(fields.get(0));
+	  Type type = MmJavaHelper.getFirstGenericType(fields.get(7));
 
 	  // assert
-	  Assert.assertTrue(optType.isPresent());
-	  // TODO Assert.assertEquals(String.class, optType.get());
+	  Assert.assertNotNull(type);
+	  Assert.assertEquals(Gender.class, type);
 	}
 
-	@Test
+	@Ignore
 	public void testJavaHelperGetTabGeneric(){
 	  // test
 	  List<Field> fields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(MmTabHelperPerson.class);
-	  Optional<Type> optType = MmJavaHelper.getFirstGenericType(fields.get(9));
+	  Type type = MmJavaHelper.getFirstGenericType(fields.get(9));
 
 	  // assert
-	  Assert.assertTrue(optType.isPresent());
-	  Assert.assertEquals(MmHelperAdresse.class, optType.get());
+	  Assert.assertNotNull(type);
+	  Assert.assertEquals(MmHelperAdresse.class, type);
 	}
 
 	@Test

@@ -83,32 +83,29 @@ public class MmImplementationTableColumn
   }
 
   /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param   pAnnotation  The specified annotation, may be null.
+   *
+   * @return  Configuration of this mimic.
+   */
+  @Override
+  protected MmConfigurationTableColumn onConstructConfiguration(MmTableColumnAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationTableColumn(pAnnotation);
+    } else {
+      return new MmConfigurationTableColumn();
+    }
+  }
+
+  /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
    * @return  A new MmJsfBridge for this mimic.
    */
   @Override
-  protected MmJsfBridge<?, ?, ?> createMmJsfBridge() {
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeTableColumn(this);
-  }
-
-  /**
-   * Initialize this mimic after constructor phase.
-   */
-  @Override
-  protected void initializeConfiguration() {
-    // evaluate annotation
-    checkForIllegalAnnotationsOtherThan(declaration, MmTableColumnAnnotation.class);
-
-    MmTableColumnAnnotation annotation = findAnnotation(declaration, MmTableColumnAnnotation.class);
-
-    if (annotation == null) {
-
-      // if there is no annotation, set default configuration
-      configuration = new MmConfigurationTableColumn();
-    } else {
-      configuration = new MmConfigurationTableColumn(annotation);
-    }
   }
 
 }
