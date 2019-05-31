@@ -442,6 +442,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The attribute's maximum number of characters for input.
    *
+   * @throws        IllegalStateException  In case of callbackMmGetMaxLength returns 0.
+   *
    * @jalopy.group  group-override
    */
   @Override
@@ -449,7 +451,11 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     assureInitialization();
 
     final int returnInt = declaration.callbackMmGetMaxLength(MmBaseAttributeDeclaration.EDITABLE_DEFAULT_MAX_LENGTH);
-    assert returnInt != 0 : "callbackMmGetMaxLength cannot return 0";
+    if (LOGGER.isDebugEnabled()) {
+      if (returnInt == 0) {
+        throw new IllegalStateException("callbackMmGetMaxLength cannot return 0");
+      }
+    }
     return returnInt;
   }
 
@@ -459,6 +465,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        The attribute's format pattern for displaying viewside value.
    *
+   * @throws        IllegalStateException  In case of callbackMmGetFormatPattern returns an invalid format pattern.
+   *
    * @jalopy.group  group-override
    */
   @Override
@@ -467,7 +475,11 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
 
     final String i18nFormatPattern = getMmI18nText(MmMessageType.FORMAT);
     final String returnString      = declaration.callbackMmGetFormatPattern(i18nFormatPattern);
-    assert returnString != null : "callbackMmGetFormatPattern cannot return null";
+    if (LOGGER.isDebugEnabled()) {
+      if (returnString == null) {
+        throw new IllegalStateException("callbackMmGetFormatPattern() must return valid format pattern");
+      }
+    }
     return returnString;
   }
 
@@ -732,7 +744,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   protected void logDebugChange(String pOriginalDebugState) {
     if (LOGGER.isTraceEnabled()) {
-      final String trimmedName = ("(" + name + "                              ").substring(0, 29) + ")";
+      final String trimmedName = ("(" + parentPath + "." + name + "                              ").substring(0, 29) + ")";
       LOGGER.trace(trimmedName + " was " + pOriginalDebugState);
       LOGGER.trace(trimmedName + "  is " + toStringTraceState());
     }

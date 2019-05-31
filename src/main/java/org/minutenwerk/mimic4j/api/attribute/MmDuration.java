@@ -8,6 +8,9 @@ import java.time.Duration;
 
 import java.util.Locale;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
@@ -23,6 +26,9 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationDuration;
  * @author  Olaf Kossak
  */
 public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDuration, Duration, String> {
+
+  /** Logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationDuration.class);
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
@@ -139,11 +145,17 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
    * Returns the initialized number formatter of this mimic.
    *
    * @return  The initialized number formatter of this mimic.
+   *
+   * @throws  IllegalStateException  In case of getMmFormatPattern returns an invalid format pattern.
    */
   @Override
   protected NumberFormat getMmNumberFormatter() {
     final String formatPattern = getMmFormatPattern();
-    assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
+    if (LOGGER.isDebugEnabled()) {
+      if (formatPattern == null) {
+        throw new IllegalStateException("getMmFormatPattern() must return valid format pattern");
+      }
+    }
 
     final MmRoot        root                  = MmRelationshipApi.getMmRoot(this);
     final Locale        locale                = root.getMmLocale();

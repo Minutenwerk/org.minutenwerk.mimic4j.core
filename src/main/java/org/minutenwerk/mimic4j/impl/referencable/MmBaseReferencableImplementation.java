@@ -49,7 +49,7 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * @jalopy.group  group-do
    */
   public void toDo() {
-    // TODO when?
+    // TODO MmBaseReferencableImplementation toDo when?
     evaluateAndCacheReference();
   }
 

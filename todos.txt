@@ -1,12 +1,7 @@
 todos:
 
-* In MmMimic   public MmReference getMmReference(MmReferencableModel pModel); entfernen
 * Für MmExecutableMimic Reference auf Java Function übergeben und speichern
 * 
-* alle Parameterpräfixe entfernen?
-* alle Parameter final machen?
-* alle assert entfernen!
-
 * placeholder mit namespace passthrough in tags implementieren
 * in MmMimic getMmPlaceholder aufnehmen?
 * tags aufräumen!

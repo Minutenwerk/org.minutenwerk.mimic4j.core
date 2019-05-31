@@ -4,6 +4,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
@@ -17,6 +20,9 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationLocalTime;
  * @author  Olaf Kossak
  */
 public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLocalTime, LocalTime, String> {
+
+  /** Logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLocalTime.class);
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
@@ -130,10 +136,16 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
    * Returns the initialized date formatter of this mimic.
    *
    * @return  The initialized date formatter of this mimic.
+   *
+   * @throws  IllegalStateException  In case of getMmFormatPattern returns an invalid format pattern.
    */
   protected DateTimeFormatter getMmTimeTimeFormatter() {
     final String formatPattern = getMmFormatPattern();
-    assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
+    if (LOGGER.isDebugEnabled()) {
+      if (formatPattern == null) {
+        throw new IllegalStateException("getMmFormatPattern() must return valid format pattern");
+      }
+    }
 
     final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(formatPattern);
     return returnDateFormatter;

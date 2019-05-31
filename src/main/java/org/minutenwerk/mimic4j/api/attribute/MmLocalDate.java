@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
@@ -17,6 +20,9 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationLocalDate;
  * @author  Olaf Kossak
  */
 public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLocalDate, LocalDate, String> {
+
+  /** Logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationLocalDate.class);
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
@@ -80,7 +86,11 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
         return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
       } else {
         formatPattern = getMmFormatPattern();
-        assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
+        if (LOGGER.isDebugEnabled()) {
+          if (formatPattern == null) {
+            throw new IllegalStateException("getMmFormatPattern() must return valid format pattern");
+          }
+        }
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(formatPattern);
         String            returnString  = pModelsideValue.format(dateFormatter);
@@ -111,7 +121,11 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
     } else {
       try {
         formatPattern = getMmFormatPattern();
-        assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
+        if (LOGGER.isDebugEnabled()) {
+          if (formatPattern == null) {
+            throw new IllegalStateException("getMmFormatPattern() must return valid format pattern");
+          }
+        }
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(formatPattern);
         returnDate = LocalDate.parse(pViewsideValue, dateFormatter);

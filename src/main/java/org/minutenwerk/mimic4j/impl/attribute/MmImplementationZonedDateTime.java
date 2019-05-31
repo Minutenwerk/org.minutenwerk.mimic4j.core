@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.ZonedDateTime;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
@@ -17,6 +20,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 public class MmImplementationZonedDateTime
   extends MmBaseAttributeImplementation<MmZonedDateTime, MmConfigurationZonedDateTime, MmZonedDateTimeAnnotation, ZonedDateTime, String> {
 
+  /** Logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationZonedDateTime.class);
+
   /**
    * Creates a new MmImplementationDateTime instance.
    *
@@ -31,6 +37,8 @@ public class MmImplementationZonedDateTime
    * value and vice versa. It is dependent on the user's locale.
    *
    * @return  The attribute's format pattern for displaying viewside value.
+   *
+   * @throws  IllegalStateException  In case of callbackMmGetFormatPattern returns an invalid format pattern.
    */
   @Override
   public String getMmFormatPattern() {
@@ -42,7 +50,11 @@ public class MmImplementationZonedDateTime
     }
 
     final String returnString = declaration.callbackMmGetFormatPattern(formatPattern);
-    assert returnString != null : "callbackMmGetFormatPattern cannot return null";
+    if (LOGGER.isDebugEnabled()) {
+      if (returnString == null) {
+        throw new IllegalStateException("callbackMmGetFormatPattern() must return valid format pattern");
+      }
+    }
     return returnString;
   }
 

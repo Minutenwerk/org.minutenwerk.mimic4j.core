@@ -4,11 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.minutenwerk.mimic4j.table.Person.Gender;
 
-public class TableTest {
+public class TestTable {
 
+  private static final Logger LOGGER = LogManager.getLogger(TestTable.class);
   private static final String BIRTHDAY_1 = "2002-02-02";
   private static final LocalDate BIRTHDAY_DATE1 = LocalDate.parse(BIRTHDAY_1);
 
@@ -17,6 +20,7 @@ public class TableTest {
 
   @Test
   public void test1() {
+    LOGGER.debug("test1");
     // setup
     Person testPerson1 = new Person().setVorname("John").setNachname("Doe").setGender(Gender.MALE)
         .setBirthday(BIRTHDAY_DATE1);

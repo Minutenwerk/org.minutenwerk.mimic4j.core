@@ -3,6 +3,9 @@ package org.minutenwerk.mimic4j.impl.command;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmExecutableMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
@@ -22,6 +25,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeCommand;
  */
 public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandDeclaration, MmConfigurationCommand, MmCommandAnnotation>
   implements MmExecutableMimic {
+
+  /** Logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationCommand.class);
 
   /**
    * Creates a new MmImplementationCommand instance.
@@ -48,6 +54,8 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    * Returns the current JSF tag of this mimic, dependent on enabled state and configuration.
    *
    * @return  The current JSF tag of this mimic.
+   *
+   * @throws  IllegalStateException  In case of callbackMmGetJsfTag doesn't return a value.
    */
   @Override
   public String getJsfTag() {
@@ -59,7 +67,11 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
     }
 
     final MmCommandJsfTag callbackJsfTag = declaration.callbackMmGetJsfTag(commandJsfTag);
-    assert callbackJsfTag != null : "callbackMmGetJsfTag must return a value";
+    if (LOGGER.isDebugEnabled()) {
+      if (callbackJsfTag == null) {
+        throw new IllegalStateException("callbackMmGetJsfTag must return a value");
+      }
+    }
     return callbackJsfTag.name();
   }
 

@@ -10,6 +10,9 @@ import java.time.temporal.TemporalAccessor;
 
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
@@ -23,6 +26,9 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationInstant;
  * @author  Olaf Kossak
  */
 public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstant, Instant, String> {
+
+  /** Logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationInstant.class);
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
@@ -140,10 +146,16 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
    * Returns the initialized date formatter of this mimic.
    *
    * @return  The initialized date formatter of this mimic.
+   *
+   * @throws  IllegalStateException  In case of getMmFormatPattern returns an invalid format pattern.
    */
   protected DateTimeFormatter getMmDateTimeFormatter() {
     final String formatPattern = getMmFormatPattern();
-    assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
+    if (LOGGER.isDebugEnabled()) {
+      if (formatPattern == null) {
+        throw new IllegalStateException("getMmFormatPattern() must return valid format pattern");
+      }
+    }
 
     final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(formatPattern).withZone(ZoneId.of("UTC"));
     return returnDateFormatter;

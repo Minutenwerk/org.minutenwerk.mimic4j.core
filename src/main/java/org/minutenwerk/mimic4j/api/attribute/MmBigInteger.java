@@ -9,6 +9,9 @@ import java.text.ParseException;
 
 import java.util.Locale;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
@@ -24,6 +27,9 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationBigInteger;
  * @author  Olaf Kossak
  */
 public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBigInteger, BigInteger, String> {
+
+  /** Logger of this class. */
+  private static final Logger LOGGER = LogManager.getLogger(MmImplementationBigInteger.class);
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
@@ -142,11 +148,17 @@ public class MmBigInteger extends MmBaseAttributeDeclaration<MmImplementationBig
    * Returns the initialized number formatter of this mimic.
    *
    * @return  The initialized number formatter of this mimic.
+   *
+   * @throws  IllegalStateException  In case of getMmFormatPattern returns an invalid format pattern.
    */
   @Override
   protected NumberFormat getMmNumberFormatter() {
     final String formatPattern = getMmFormatPattern();
-    assert formatPattern != null : "getMmFormatPattern() must return valid format pattern";
+    if (LOGGER.isDebugEnabled()) {
+      if (formatPattern == null) {
+        throw new IllegalStateException("getMmFormatPattern() must return valid format pattern");
+      }
+    }
 
     final MmRoot        root                  = MmRelationshipApi.getMmRoot(this);
     final Locale        locale                = root.getMmLocale();

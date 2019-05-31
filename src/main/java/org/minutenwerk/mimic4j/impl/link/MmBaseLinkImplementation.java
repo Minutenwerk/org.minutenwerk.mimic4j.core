@@ -21,6 +21,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
@@ -43,6 +46,9 @@ import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
 public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
   CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
   extends MmBaseImplementation<MmBaseLinkDeclaration<?>, CONFIGURATION, ANNOTATION> implements MmLinkMimic {
+
+  /** Logger of this class. */
+  private static final Logger   LOGGER         = LogManager.getLogger(MmBaseLinkImplementation.class);
 
   /** The displaying text and title of the link may depend dynamically on a value. */
   protected Object              modelsideValue;
@@ -367,12 +373,18 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @return        The format pattern for formatting modelside value to viewside value.
    *
+   * @throws        IllegalStateException  In case of callbackMmGetFormatPattern() returns an invalid format pattern.
+   *
    * @jalopy.group  group-i18n
    */
   public String getMmFormatPattern() {
     final String i18nFormatPattern     = getMmI18nText(MmMessageType.FORMAT);
     final String callbackFormatPattern = declaration.callbackMmGetFormatPattern(i18nFormatPattern);
-    assert callbackFormatPattern != null : "callbackMmGetFormatPattern() must return valid format pattern";
+    if (LOGGER.isDebugEnabled()) {
+      if (callbackFormatPattern == null) {
+        throw new IllegalStateException("callbackMmGetFormatPattern() must return valid format pattern");
+      }
+    }
     return callbackFormatPattern;
   }
 
@@ -382,6 +394,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    * MmConfiguration.longDescription</code>.
    *
    * @return        A long description.
+   *
+   * @throws        IllegalStateException  In case of callbackMmGetLongDescription() returns null.
    *
    * @jalopy.group  group-i18n
    */
@@ -397,7 +411,11 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
       final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue, model);
       returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue, model);
     }
-    assert returnString != null : "callbackMmGetLongDescription cannot return null";
+    if (LOGGER.isDebugEnabled()) {
+      if (returnString == null) {
+        throw new IllegalStateException("callbackMmGetLongDescription cannot return null");
+      }
+    }
     return returnString;
   }
 

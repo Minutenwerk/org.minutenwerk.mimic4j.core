@@ -113,7 +113,7 @@ public class MmImplementationTable<ROW_MODEL>
   /**
    * TODOC.
    *
-   * @throws        IllegalStateException  TODOC
+   * @throws        IllegalStateException  In case of callbackMmCreateTableRow doesn't return a MmTableRow.
    *
    * @jalopy.group  group-lifecycle
    */

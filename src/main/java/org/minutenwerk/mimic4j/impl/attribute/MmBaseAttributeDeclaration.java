@@ -6,6 +6,9 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
@@ -25,11 +28,14 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   extends MmBaseDeclaration<MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, IMPLEMENTATION>
   implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> {
 
+  /** Logger of this class. */
+  private static final Logger LOGGER                               = LogManager.getLogger(MmBaseAttributeDeclaration.class);
+
   /** Constant for value to be displayed in case of the viewside value is null. */
-  public static final String ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE = "";
+  public static final String  ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE = "";
 
   /** Constant for default value of maximum input length. */
-  public static final int    EDITABLE_DEFAULT_MAX_LENGTH          = 255;
+  public static final int     EDITABLE_DEFAULT_MAX_LENGTH          = 255;
 
   /**
    * Creates a new MmBaseEditable instance.
@@ -307,10 +313,16 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Returns the initialized number formatter of this mimic.
    *
    * @return  The initialized number formatter of this mimic.
+   *
+   * @throws  IllegalStateException  In case of getMmFormatPattern returns an invalid format pattern.
    */
   protected NumberFormat getMmNumberFormatter() {
     final String formatPattern = getMmFormatPattern();
-    assert formatPattern != null : "callbackMmGetFormatPattern() must return valid format pattern";
+    if (LOGGER.isDebugEnabled()) {
+      if (formatPattern == null) {
+        throw new IllegalStateException("getMmFormatPattern() must return valid format pattern");
+      }
+    }
 
     final MmRoot        root                  = MmRelationshipApi.getMmRoot(this);
     final Locale        locale                = root.getMmLocale();

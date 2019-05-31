@@ -90,7 +90,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected final MmJsfBridge<?, ?, ?>                mmJsfBridge;
 
   /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. Is set in initialization phase. */
-  // TODO Olaf
+  // TODO MmBaseImplementation referencableAncestor
   protected MmReferencableMimic<?>                    referencableAncestor;
 
   /** The declaration part of this implementation is the declaration. Is set in postconstruct phase. */
@@ -648,6 +648,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        A long description.
    *
+   * @throws        IllegalStateException  In case of callbackMmGetLongDescription returns null.
+   *
    * @jalopy.group  group-override
    */
   @Override
@@ -658,7 +660,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     final Object[] longDescriptionParams = declaration.callbackMmGetLongDescriptionParams(initialParams);
     final String   i18nLongDescription   = getMmI18nText(MmMessageType.LONG, longDescriptionParams);
     final String   returnString          = declaration.callbackMmGetLongDescription(i18nLongDescription, longDescriptionParams);
-    assert returnString != null : "callbackMmGetLongDescription cannot return null";
+    if (LOGGER.isDebugEnabled()) {
+      if (returnString == null) {
+        throw new IllegalStateException("callbackMmGetLongDescription cannot return null");
+      }
+    }
     return returnString;
   }
 
@@ -742,6 +748,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        A short description.
    *
+   * @throws        IllegalStateException  In case of callbackMmGetShortDescription returns null.
+   *
    * @jalopy.group  group-override
    */
   @Override
@@ -750,7 +758,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     final String i18nShortDescription = getMmI18nText(MmMessageType.SHORT);
     final String returnString         = declaration.callbackMmGetShortDescription(i18nShortDescription);
-    assert returnString != null : "callbackMmGetShortDescription cannot return null";
+    if (LOGGER.isDebugEnabled()) {
+      if (returnString == null) {
+        throw new IllegalStateException("callbackMmGetShortDescription cannot return null");
+      }
+    }
     return returnString;
   }
 

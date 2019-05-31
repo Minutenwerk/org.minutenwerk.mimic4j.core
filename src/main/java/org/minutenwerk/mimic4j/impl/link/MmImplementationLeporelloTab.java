@@ -229,7 +229,7 @@ public class MmImplementationLeporelloTab
   protected void initialize() {
     super.initialize();
 
-    // TODO move this into constructor and delete initialize method here
+    // TODO MmImplementationLeporelloTab move this into constructor and delete initialize method here
     parentLeporello = getMmImplementationAncestorOfType(MmImplementationLeporello.class);
   }
 

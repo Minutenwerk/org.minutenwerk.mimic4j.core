@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.message;
 
 import java.text.MessageFormat;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
@@ -15,6 +18,9 @@ import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
  * @author  Olaf Kossak
  */
 public class MmMessage {
+
+  /** Logger of this class. */
+  private static final Logger        LOGGER           = LogManager.getLogger(MmMessage.class);
 
   /** The type indicates whether an error can be viewed as technical error or an error in execution of business logic. */
   protected final MmErrorMessageType errorMessageType;
@@ -37,10 +43,16 @@ public class MmMessage {
   /**
    * Creates a new MmMessage instance from MmValidatorException.
    *
-   * @param  pValidatorException  The converter exception to create a message from.
+   * @param   pValidatorException  The converter exception to create a message from.
+   *
+   * @throws  IllegalArgumentException  In case of argument pValidatorException is null.
    */
   public MmMessage(MmValidatorException pValidatorException) {
-    assert pValidatorException != null : "pException must be defined";
+    if (LOGGER.isDebugEnabled()) {
+      if (pValidatorException == null) {
+        throw new IllegalArgumentException("pException must be defined");
+      }
+    }
     errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
     severity         = MmMessageSeverity.USER_ERROR;
     ownerMm          = pValidatorException.getMimic();
@@ -52,10 +64,16 @@ public class MmMessage {
   /**
    * Creates a new MmMessage instance from MmViewsideConverterException.
    *
-   * @param  pViewsideConverterException  The converter exception to create a message from.
+   * @param   pViewsideConverterException  The converter exception to create a message from.
+   *
+   * @throws  IllegalArgumentException  In case of argument pViewsideConverterException is null.
    */
   public MmMessage(MmViewsideConverterException pViewsideConverterException) {
-    assert pViewsideConverterException != null : "pException must be defined";
+    if (LOGGER.isDebugEnabled()) {
+      if (pViewsideConverterException == null) {
+        throw new IllegalArgumentException("pException must be defined");
+      }
+    }
     errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
     severity         = MmMessageSeverity.USER_ERROR;
     ownerMm          = pViewsideConverterException.getMimic();
@@ -67,20 +85,34 @@ public class MmMessage {
   /**
    * Creates a new instance of MmMessage.
    *
-   * @param  pType         The type indicates whether an error can be viewed as technical error or an error in execution of business logic.
-   * @param  pSeverity     The severity indicates whether it is an information, a warning or an error message.
-   * @param  pOwnerMm      The mimic which this message relates to.
-   * @param  pMessageId    The message id.
-   * @param  pMessageType  The message type.
-   * @param  pArgs         An array of arguments to be inserted into message text.
+   * @param   pType         The type indicates whether an error can be viewed as technical error or an error in execution of business logic.
+   * @param   pSeverity     The severity indicates whether it is an information, a warning or an error message.
+   * @param   pOwnerMm      The mimic which this message relates to.
+   * @param   pMessageId    The message id.
+   * @param   pMessageType  The message type.
+   * @param   pArgs         An array of arguments to be inserted into message text.
+   *
+   * @throws  IllegalArgumentException  In case of an argument is null or MmRelationshipApi.getMmRoot(pOwnerMm) isn't defined.
    */
   public MmMessage(MmErrorMessageType pType, MmMessageSeverity pSeverity, MmMimic pOwnerMm, String pMessageId, MmMessageType pMessageType,
     Object... pArgs) {
-    assert pType != null : "pType must be defined";
-    assert pSeverity != null : "pSeverity must be defined";
-    assert pMessageId != null : "pMessageId must be defined";
-    assert pOwnerMm != null : "pOwnerMm must be defined";
-    assert MmRelationshipApi.getMmRoot(pOwnerMm) != null : "MmRelationshipApi.getMmRoot(pOwnerMm) must be defined";
+    if (LOGGER.isDebugEnabled()) {
+      if (pType == null) {
+        throw new IllegalArgumentException("pType must be defined");
+      }
+      if (pSeverity == null) {
+        throw new IllegalArgumentException("pSeverity must be defined");
+      }
+      if (pMessageId == null) {
+        throw new IllegalArgumentException("pMessageId must be defined");
+      }
+      if (pOwnerMm == null) {
+        throw new IllegalArgumentException("pOwnerMm must be defined");
+      }
+      if (MmRelationshipApi.getMmRoot(pOwnerMm) == null) {
+        throw new IllegalArgumentException("MmRelationshipApi.getMmRoot(pOwnerMm) must be defined");
+      }
+    }
     errorMessageType = pType;
     severity         = pSeverity;
     ownerMm          = pOwnerMm;
