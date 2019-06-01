@@ -17,7 +17,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigInteger;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD })
+@Target({ ElementType.TYPE, ElementType.FIELD })
 public @interface MmBigIntegerAnnotation {
 
   public String id() default MmConfigurationBigInteger.UNDEFINED_ID;

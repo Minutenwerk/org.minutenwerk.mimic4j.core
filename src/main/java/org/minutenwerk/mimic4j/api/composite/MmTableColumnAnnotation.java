@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.impl.composite.MmConfigurationTableColumn;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD })
+@Target({ ElementType.TYPE, ElementType.FIELD })
 public @interface MmTableColumnAnnotation {
 
   public String id() default MmConfigurationTableColumn.UNDEFINED_ID;

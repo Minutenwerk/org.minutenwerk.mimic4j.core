@@ -17,7 +17,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationDuration;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD })
+@Target({ ElementType.TYPE, ElementType.FIELD })
 public @interface MmDurationAnnotation {
 
   public String id() default MmConfigurationDuration.UNDEFINED_ID;

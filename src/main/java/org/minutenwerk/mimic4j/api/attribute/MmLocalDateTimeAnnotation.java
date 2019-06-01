@@ -17,7 +17,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationLocalDateTime;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD })
+@Target({ ElementType.TYPE, ElementType.FIELD })
 public @interface MmLocalDateTimeAnnotation {
 
   public String id() default MmConfigurationLocalDateTime.UNDEFINED_ID;
