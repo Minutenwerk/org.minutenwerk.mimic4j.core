@@ -288,6 +288,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         }
       }
     }
+
     // TODO MmBaseImplementation find annotation on class!
     return null;
   }
