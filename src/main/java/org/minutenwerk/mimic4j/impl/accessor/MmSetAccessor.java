@@ -22,9 +22,10 @@ public class MmSetAccessor<PARENT_MODEL, SET_MODEL extends Set<VALUE_MODEL>, VAL
    * @param  parentAccessor   TODOC
    * @param  componentGetter  TODOC
    * @param  componentSetter  TODOC
+   * @param  valueAdder       TODOC
    */
   public MmSetAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, SET_MODEL> componentGetter,
-    final BiConsumer<PARENT_MODEL, SET_MODEL> componentSetter) {
-    super(parentAccessor, componentGetter, componentSetter);
+    final BiConsumer<PARENT_MODEL, SET_MODEL> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
+    super(parentAccessor, componentGetter, componentSetter, valueAdder);
   }
 }

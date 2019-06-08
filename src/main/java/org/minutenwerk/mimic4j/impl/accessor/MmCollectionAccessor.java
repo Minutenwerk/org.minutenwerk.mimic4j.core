@@ -16,16 +16,22 @@ import java.util.function.Function;
 public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collection<VALUE_MODEL>, VALUE_MODEL>
   extends MmComponentAccessor<PARENT_MODEL, COLLECTION_MODEL> {
 
+  /** Function which defines the value model add or put method. */
+  private final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder;
+
   /**
    * Constructor of this immutable class.
    *
    * @param  parentAccessor   TODOC
    * @param  componentGetter  TODOC
    * @param  componentSetter  TODOC
+   * @param  valueAdder       TODOC
    */
   public MmCollectionAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
-    final Function<PARENT_MODEL, COLLECTION_MODEL> componentGetter, final BiConsumer<PARENT_MODEL, COLLECTION_MODEL> componentSetter) {
+    final Function<PARENT_MODEL, COLLECTION_MODEL> componentGetter, final BiConsumer<PARENT_MODEL, COLLECTION_MODEL> componentSetter,
+    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
     super(parentAccessor, componentGetter, componentSetter);
+    this.valueAdder = valueAdder;
   }
 
   /**
@@ -34,7 +40,7 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @param  value  TODOC
    */
   public void add(final VALUE_MODEL value) {
-    get().add(value);
+    valueAdder.accept(getParent(), value);
   }
 
   /**

@@ -26,4 +26,8 @@ public class Team {
   public void setPersonen(final List<Person> personen) {
     this.personen = personen;
   }
+
+  public void addPerson(final Person person) {
+    this.personen.add(person);
+  }
 }

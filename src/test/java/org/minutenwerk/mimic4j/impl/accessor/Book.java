@@ -36,4 +36,8 @@ public class Book {
   public void setChapters(final List<Chapter> pChapters) {
     chapters = pChapters;
   }
+
+  public void addChapter(final Chapter pChapter) {
+    chapters.add(pChapter);
+  }
 }
