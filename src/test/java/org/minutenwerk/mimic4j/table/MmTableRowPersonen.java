@@ -24,7 +24,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   public final MmString vorname = new MmString(this) {
     public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(rowIndex).vorname();
+      return team.person(mmRowIndex).vorname();
     }
   };
 
@@ -32,7 +32,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   public final MmString nachname = new MmString(this) {
     public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(rowIndex).nachname();
+      return team.person(mmRowIndex).nachname();
     }
   };
 
@@ -40,7 +40,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   public final MmLocalDate birthday = new MmLocalDate(this) {
     public MmAttributeAccessor<?, LocalDate> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(rowIndex).birthday();
+      return team.person(mmRowIndex).birthday();
     }
   };
 
@@ -49,7 +49,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   public final MmEnum<Person.Gender> gender = new MmEnum<Person.Gender>(this) {
     public MmAttributeAccessor<?, Gender> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(rowIndex).gender();
+      return team.person(mmRowIndex).gender();
     }
   };
 
@@ -57,7 +57,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   public final MmBoolean isMember = new MmBoolean(this) {
     public MmAttributeAccessor<?, Boolean> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
       TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(rowIndex).isMember();
+      return team.person(mmRowIndex).isMember();
     }
   };
 
@@ -68,6 +68,6 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   @Override
   public MmListEntryAccessor<? extends List<Person>, Person> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
     TeamAccessor team = (TeamAccessor) pRootAccessor;
-    return team.person(rowIndex);
+    return team.person(mmRowIndex);
   }
 }

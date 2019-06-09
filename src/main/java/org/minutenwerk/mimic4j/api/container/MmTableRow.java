@@ -21,7 +21,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
   implements MmTableRowMimic<ROW_MODEL> {
 
   /** The table row index of this row. */
-  protected final int rowIndex;
+  protected final int mmRowIndex;
 
   /**
    * Creates a new MmTableRow instance.
@@ -31,7 +31,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    */
   public MmTableRow(MmDeclarationMimic pParent, int pRowIndex) {
     super(new MmImplementationTableRow<ROW_MODEL>(pParent, pRowIndex));
-    rowIndex = pRowIndex;
+    mmRowIndex = pRowIndex;
   }
 
   /**
