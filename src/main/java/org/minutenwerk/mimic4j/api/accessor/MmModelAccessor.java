@@ -20,6 +20,20 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
   public MODEL get();
 
   /**
+   * Returns list of accessors, root accessor first.
+   *
+   * @return  List of accessors, root accessor first.
+   */
+  public List<MmModelAccessor<?, ?>> getModelAccessorPath();
+
+  /**
+   * Returns list of models, root model first.
+   *
+   * @return  List of models, root model first.
+   */
+  public <M> List<M> getModelPath();
+
+  /**
    * Returns parent model of the accessed model.
    *
    * @return  Parent model of the accessed model.
@@ -28,31 +42,17 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
 
   /**
    * Returns accessor on root model.
-   * 
-   * @return Accessor on root model.
+   *
+   * @return  Accessor on root model.
    */
   public MmRootAccessor<?> getRootAccessor();
 
   /**
    * Returns root model.
-   * 
-   * @return Root model.
+   *
+   * @return  Root model.
    */
   public <R> R getRootModel();
-
-  /**
-   * Returns list of accessors, root accessor first.
-   * 
-   * @return List of accessors, root accessor first.
-   */
-  public List<MmModelAccessor<?, ?>> getModelAccessorPath();
-
-  /**
-   * Returns list of models, root model first.
-   * 
-   * @return List of models, root model first.
-   */
-  public <M> List<M> getModelPath();
 
   /**
    * Returns true, if the accessed model is an attribute.
