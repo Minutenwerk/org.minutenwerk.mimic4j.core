@@ -1,9 +1,11 @@
-package org.minutenwerk.mimic4j.impl.accessor;
+package org.minutenwerk.mimic4j.api.accessor;
 
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import org.minutenwerk.mimic4j.impl.accessor.MmBaseModelAccessor;
 
 /**
  * Immutable base class for accessor on component models.

@@ -3,6 +3,9 @@ package org.minutenwerk.mimic4j.table;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
@@ -13,9 +16,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
-import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmListEntryAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.table.Person.Gender;
 
 public class MmTableRowPersonen extends MmTableRow<Person> {

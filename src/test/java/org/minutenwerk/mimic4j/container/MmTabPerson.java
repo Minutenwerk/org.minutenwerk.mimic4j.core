@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
@@ -26,9 +29,6 @@ import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
 import org.minutenwerk.mimic4j.container.Person.Gender;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
-import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
 public class MmTabPerson extends MmTab<Person> {
 

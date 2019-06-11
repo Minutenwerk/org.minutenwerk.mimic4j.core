@@ -1,11 +1,11 @@
 package org.minutenwerk.mimic4j.container;
 
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
-import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
 public class MmTabAdresse extends MmTab<Adresse> {
 

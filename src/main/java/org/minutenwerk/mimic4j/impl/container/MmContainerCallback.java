@@ -1,9 +1,9 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
 /**
  * MmContainerCallback defines a set of override-able methods common to all container mimics. Callback methods are part of the declaration

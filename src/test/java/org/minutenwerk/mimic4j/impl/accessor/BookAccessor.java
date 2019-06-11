@@ -1,5 +1,8 @@
 package org.minutenwerk.mimic4j.impl.accessor;
 
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+
 public class BookAccessor extends MmRootAccessor<Book> {
 
   public MmAttributeAccessor<Book, String> title() {

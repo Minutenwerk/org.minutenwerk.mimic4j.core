@@ -1,4 +1,6 @@
-package org.minutenwerk.mimic4j.impl.accessor;
+package org.minutenwerk.mimic4j.api.accessor;
+
+import java.util.List;
 
 /**
  * TODOC.
@@ -13,49 +15,77 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
   /**
    * Returns the model value. In case of the parent supplier does not supply a parent, this method returns null.
    *
-   * @return  the model value.
+   * @return  The model value.
    */
   public MODEL get();
 
   /**
    * Returns parent model of the accessed model.
    *
-   * @return  parent model of the accessed model.
+   * @return  Parent model of the accessed model.
    */
   public PARENT_MODEL getParent();
 
   /**
+   * Returns accessor on root model.
+   * 
+   * @return Accessor on root model.
+   */
+  public MmRootAccessor<?> getRootAccessor();
+
+  /**
+   * Returns root model.
+   * 
+   * @return Root model.
+   */
+  public <R> R getRootModel();
+
+  /**
+   * Returns list of accessors, root accessor first.
+   * 
+   * @return List of accessors, root accessor first.
+   */
+  public List<MmModelAccessor<?, ?>> getModelAccessorPath();
+
+  /**
+   * Returns list of models, root model first.
+   * 
+   * @return List of models, root model first.
+   */
+  public <M> List<M> getModelPath();
+
+  /**
    * Returns true, if the accessed model is an attribute.
    *
-   * @return  true, if the accessed model is an attribute.
+   * @return  True, if the accessed model is an attribute.
    */
   public boolean isAttribute();
 
   /**
    * Returns true, if the accessed model is a collection.
    *
-   * @return  true, if the accessed model is a collection.
+   * @return  True, if the accessed model is a collection.
    */
   public boolean isCollection();
 
   /**
    * Returns true, if the accessed model is a component.
    *
-   * @return  true, if the accessed model is a component.
+   * @return  True, if the accessed model is a component.
    */
   public boolean isComponent();
 
   /**
    * Returns true, if value of the accessed model is not present.
    *
-   * @return  true, if value of the accessed model is not present.
+   * @return  True, if value of the accessed model is not present.
    */
   public boolean isNotPresent();
 
   /**
    * Returns true, if value of the accessed model is present.
    *
-   * @return  true, if value of the accessed model is present.
+   * @return  True, if value of the accessed model is present.
    */
   public boolean isPresent();
 

@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.api;
 
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.impl.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
 /**
  * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from modelside. Mimics of type

@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.api;
 
-import org.minutenwerk.mimic4j.impl.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 
 /**
  * MmContainerMimic is the basic interface of all mimic types containing other mimics of type MmEditableMimic.

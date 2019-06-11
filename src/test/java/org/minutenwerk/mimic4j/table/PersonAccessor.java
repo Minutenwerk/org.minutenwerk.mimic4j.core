@@ -8,9 +8,9 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.function.Supplier;
 
-import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmListAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmListEntryAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.table.Person.Gender;
 
 public class PersonAccessor extends MmListEntryAccessor<List<Person>, Person> {

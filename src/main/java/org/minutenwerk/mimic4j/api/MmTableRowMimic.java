@@ -2,7 +2,7 @@ package org.minutenwerk.mimic4j.api;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.impl.accessor.MmListEntryAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 
 /**
  * MmTableRowMimic is the basic interface of table row mimics containing table row cells.

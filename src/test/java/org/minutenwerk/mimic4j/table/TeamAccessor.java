@@ -2,9 +2,9 @@ package org.minutenwerk.mimic4j.table;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmListAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 
 public class TeamAccessor extends MmRootAccessor<Team> {
 

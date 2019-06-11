@@ -1,5 +1,11 @@
 package org.minutenwerk.mimic4j.impl.accessor;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+
 /**
  * Abstract base class for model accessors.
  *
@@ -22,6 +28,61 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
     parentAccessor = pParentAccessor;
   }
 
+  /**
+   * Returns root model.
+   * 
+   * @return Root model.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <R> R getRootModel() {
+    return (R)getRootAccessor().get();
+  }
+  
+  /**
+   * Returns accessor on root model.
+   * 
+   * @return Accessor on root model.
+   */
+  @Override
+  public MmRootAccessor<?> getRootAccessor() {
+    return getParentAccessor() != null ?
+        getParentAccessor().getRootAccessor() :
+        (MmRootAccessor<?>)this;
+  }
+
+  /**
+   * Returns list of models, root model first.
+   * 
+   * @return List of models, root model first.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <M> List<M> getModelPath() {
+    List<M> list = getParentAccessor() != null ?
+        getParentAccessor().getModelPath() :
+        new ArrayList<>();
+    M model = (M)get();
+    if (model != null) {
+      list.add(model);
+    }
+    return list;
+  }
+
+  /**
+   * Returns list of accessors, root accessor first.
+   * 
+   * @return List of accessors, root accessor first.
+   */
+  @Override
+  public List<MmModelAccessor<?, ?>> getModelAccessorPath() {
+    List<MmModelAccessor<?, ?>> list = getParentAccessor() != null ?
+        getParentAccessor().getModelAccessorPath() :
+        new ArrayList<>();
+    list.add(this);
+    return list;
+  }
+  
   /**
    * Returns true, if the accessed model is an attribute.
    *

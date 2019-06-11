@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmTableMimic;
+import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.impl.accessor.MmCollectionAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationTable;
 import org.minutenwerk.mimic4j.impl.container.MmTableCallback;

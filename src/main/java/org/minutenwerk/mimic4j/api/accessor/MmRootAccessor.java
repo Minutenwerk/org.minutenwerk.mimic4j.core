@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.impl.accessor;
+package org.minutenwerk.mimic4j.api.accessor;
 
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 

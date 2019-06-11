@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.api;
 
-import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 
 /**
  * MmAttributeMimic is the basic interface of all mimic types containing editable data, which can be changed from viewside. Mimics of type

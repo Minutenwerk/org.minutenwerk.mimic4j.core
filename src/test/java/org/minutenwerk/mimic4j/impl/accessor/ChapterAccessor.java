@@ -3,6 +3,10 @@ package org.minutenwerk.mimic4j.impl.accessor;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
+
 public class ChapterAccessor extends MmListEntryAccessor<List<Chapter>, Chapter> {
 
   public ChapterAccessor(final MmListAccessor<?, List<Chapter>, Chapter> chapterAccessor,

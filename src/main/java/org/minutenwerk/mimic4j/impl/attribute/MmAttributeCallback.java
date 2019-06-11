@@ -2,12 +2,12 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.util.List;
 
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
-import org.minutenwerk.mimic4j.impl.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 
 /**
  * MmAttributeCallback defines a set of override-able methods common to all attribute mimics. Callback methods are part of the declaration

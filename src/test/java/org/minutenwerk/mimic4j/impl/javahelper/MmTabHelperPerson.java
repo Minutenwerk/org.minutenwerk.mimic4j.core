@@ -1,5 +1,6 @@
 package org.minutenwerk.mimic4j.impl.javahelper;
 
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
@@ -19,7 +20,6 @@ import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
-import org.minutenwerk.mimic4j.impl.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.javahelper.MmHelperPerson.Gender;
 
 public class MmTabHelperPerson extends MmTab<MmHelperPerson> {

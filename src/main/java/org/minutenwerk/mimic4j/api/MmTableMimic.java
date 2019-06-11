@@ -2,9 +2,9 @@ package org.minutenwerk.mimic4j.api;
 
 import java.util.List;
 
+import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
 import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
-import org.minutenwerk.mimic4j.impl.accessor.MmCollectionAccessor;
 
 /**
  * MmTableMimic is the basic interface of table mimics containing table rows and table columns.
