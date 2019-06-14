@@ -45,7 +45,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -53,7 +54,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -61,7 +63,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -69,7 +72,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -77,7 +81,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -85,7 +90,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -93,7 +99,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -101,7 +108,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -109,7 +117,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -117,7 +126,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -125,7 +135,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -133,7 +144,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -141,7 +153,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -149,7 +162,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -157,7 +171,8 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel);
 
   /**
    * Sets specified modelside values of the link for text, title and query parameters.
@@ -165,6 +180,7 @@ public interface MmLinkMimic extends MmMimic {
    * @param  pModelsideValue  The specified modelside values.
    * @param  pModel           The specified data model which defines query parameters.
    */
-  @Deprecated public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel);
+  @Deprecated
+  public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel);
 
 }

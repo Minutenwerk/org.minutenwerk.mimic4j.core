@@ -152,7 +152,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -166,7 +167,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -180,7 +182,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -194,7 +197,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -208,7 +212,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -222,7 +227,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -236,7 +242,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -250,7 +257,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -264,7 +272,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -278,7 +287,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -292,7 +302,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -306,7 +317,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -320,7 +332,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -334,7 +347,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -348,7 +362,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
@@ -362,7 +377,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
    *
    * @jalopy.group  group-override
    */
-  @Override @Deprecated
+  @Deprecated
+  @Override
   public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
     modelsideValue = pModelsideValue;
     model          = pModel;
