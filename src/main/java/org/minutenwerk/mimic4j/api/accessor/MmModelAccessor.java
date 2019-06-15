@@ -31,7 +31,7 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    *
    * @return  List of models, root model first.
    */
-  public <M> List<M> getModelPath();
+  public <AN_INTERFACE_ALL_MODELS_IMPLEMENT> List<AN_INTERFACE_ALL_MODELS_IMPLEMENT> getModelPath();
 
   /**
    * Returns parent model of the accessed model.
