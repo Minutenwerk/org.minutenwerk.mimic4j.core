@@ -546,42 +546,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Assures that mimic will be initialized, if it is not initialized yet.
-   *
-   * @jalopy.group  group-initialization
-   */
-  protected void assureInitialization() {
-    if (initialState.isNot(INITIALIZED)) {
-      if (root == null) {
-
-        // if this mimic is not initialized, and this mimic is the root
-        // then initialize this mimic, and log sub tree of this mimic
-        initialize();
-        if (LOGGER.isDebugEnabled()) {
-          logSubtree(this, "");
-        }
-
-      } else if (root.initialState.is(INITIALIZED)) {
-
-        // if this mimic is not initialized, and is not the root,
-        // and the root is initialized
-        // then initialize this mimic
-        initialize();
-
-      } else {
-
-        // if this mimic is not initialized, and is not the root,
-        // and the root is not initialized
-        // then initialize the root, and log sub tree of root
-        root.initialize();
-        if (LOGGER.isDebugEnabled()) {
-          logSubtree(root, "");
-        }
-      }
-    }
-  }
-
-  /**
    * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
    * super.initialize()!
    *
@@ -590,7 +554,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-initialization
    */
-  protected void initialize() {
+  public final void initialize() {
     if (LOGGER.isDebugEnabled()) {
       if (initialState.isNot(CONSTRUCTION_COMPLETE)) {
         throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE");
@@ -600,6 +564,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       }
     }
 
+    // initialize this mimic
+    onInitialization();
+
     // set state to INITIALIZED
     initialState.set(INITIALIZED);
 
@@ -607,6 +574,33 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     for (MmBaseImplementation<?, ?, ?> implementationChild : implementationChildren) {
       implementationChild.initialize();
     }
+    for (MmBaseImplementation<?, ?, ?> runtimeImplementationChild : runtimeImplementationChildren) {
+      runtimeImplementationChild.initialize();
+    }
+  }
+
+  /**
+   * Assures that mimic will be initialized, if it is not initialized yet.
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected void assureInitialization() {
+    if (initialState.isNot(INITIALIZED)) {
+      if ((implementationParent != null) && implementationParent.initialState.isNot(INITIALIZED)) {
+        implementationParent.assureInitialization();
+      } else {
+        initialize();
+      }
+    }
+  }
+
+  /**
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
+   * super.onInitialization()!
+   *
+   * @jalopy.group  group-initialization
+   */
+  protected void onInitialization() {
   }
 
   /**
@@ -1173,6 +1167,17 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   public boolean isMmJsEnabled() {
     return root.isMmJsEnabled();
+  }
+
+  /**
+   * Returns true, if this mimic is the root mimic.
+   *
+   * @return        True, if this mimic is the root mimic.
+   *
+   * @jalopy.group  group-helper
+   */
+  public boolean isMmThisTheRoot() {
+    return false;
   }
 
   /**

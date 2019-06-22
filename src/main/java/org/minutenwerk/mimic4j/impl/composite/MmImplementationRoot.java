@@ -100,6 +100,16 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
   }
 
   /**
+   * Returns true, if this mimic is the root mimic.
+   *
+   * @return  True, if this mimic is the root mimic.
+   */
+  @Override
+  public final boolean isMmThisTheRoot() {
+    return true;
+  }
+
+  /**
    * Sets the {@link MmMessageSource} of this root, which provides internationalized messages.
    *
    * @param  pMessageSource  The message source to be set.

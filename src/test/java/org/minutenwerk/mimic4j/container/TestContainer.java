@@ -19,7 +19,7 @@ public class TestContainer {
   public void test1() {
 	LOGGER.debug("test1");
     // setup
-    Adresse testAdresse = new Adresse().setStreet("Hauptstraße").setCity("Hamburg");
+    Adress testAdresse = new Adress().setStreet("Hauptstraße").setCity("Hamburg");
     Person testPerson = new Person().setVorname("John").setNachname("Doe").setGender(Gender.MALE)
         .setBirthday(BIRTHDAY_DATE).setAdresse(testAdresse);
     PersonController controller = new PersonController();
@@ -41,7 +41,7 @@ public class TestContainer {
   public void test2() throws MmException {
     LOGGER.debug("test2");
     // setup
-    Adresse testAdresse = new Adresse().setStreet("Hauptstraße").setCity("Hamburg");
+    Adress testAdresse = new Adress().setStreet("Hauptstraße").setCity("Hamburg");
     Person testPerson = new Person().setVorname("John").setNachname("Doe").setGender(Gender.MALE)
         .setBirthday(BIRTHDAY_DATE).setAdresse(testAdresse);
     PersonController controller = new PersonController();

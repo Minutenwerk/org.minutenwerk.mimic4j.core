@@ -60,6 +60,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
   protected final MmRootAccessor<?>       rootAccessor;
 
+  /** This component may have a parent model. A parent model has a parent accessor. */
+  protected MmComponentAccessor<?, ?>     parentAccessor;
+
   /**
    * This component has a model of type MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
    * undefined.
@@ -120,6 +123,20 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
+   * Returns accessor of model of parent container mimic, may be null.
+   *
+   * @return        The accessor of model of parent container mimic, may be null.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+    assureInitialization();
+
+    return parentAccessor;
+  }
+
+  /**
    * Returns accessor of root component of model.
    *
    * @return        The accessor of root component of model.
@@ -134,33 +151,26 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Returns accessor of root component of model before initialization phase.
-   *
-   * @return        The accessor of root component of model.
-   *
-   * @jalopy.group  group-initialization
-   */
-  public MmRootAccessor<?> onInitializeGetRootAccessor() {
-    return rootAccessor;
-  }
-
-  /**
-   * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
-   * super.initialize()!
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
+   * super.onInitialization()!
    *
    * @throws        IllegalStateException  In case of root accessor or model accessor is not defined.
    *
    * @jalopy.group  group-initialization
    */
   @Override
-  protected void initialize() {
-    super.initialize();
+  protected void onInitialization() {
+    super.onInitialization();
 
-    // initialize modelAccessor
     if (modelAccessor == null) {
-      modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
+
+      // initialize parentAccessor
+      parentAccessor = onInitializeParentAccessor();
+
+      // initialize modelAccessor
+      modelAccessor  = declaration.callbackMmGetAccessor(parentAccessor);
       if (modelAccessor == null) {
-        throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
+        throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
       }
     }
   }
@@ -182,7 +192,29 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
         return containerAncestor.rootAccessor;
       }
     }
-    throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
+    throw new IllegalStateException("no definition of rootAccessor for " + parentPath + "." + name);
+  }
+
+  /**
+   * Evaluates accessor of component of parent container mimic.
+   *
+   * @return        The parent accessor.
+   *
+   * @throws        IllegalStateException  In case of there is no definition of a parent accessor.
+   *
+   * @jalopy.group  group-initialization
+   */
+  private MmComponentAccessor<?, ?> onInitializeParentAccessor() {
+    MmBaseContainerImplementation<?, ?, ?, ?> parentContainer = getMmImplementationAncestorOfType(MmBaseContainerImplementation.class);
+    if (parentContainer == null) {
+      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + parentPath + "." + name);
+    } else {
+      MmComponentAccessor<?, ?> parentContainerAccessor = parentContainer.onInitializeGetMmModelAccessor();
+      if (parentContainerAccessor == null) {
+        throw new IllegalStateException("no definition of parentAccessor for " + parentPath + "." + name);
+      }
+      return parentContainerAccessor;
+    }
   }
 
   /**
@@ -391,6 +423,15 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       }
     }
     return true;
+  }
+
+  /**
+   * TODOC.
+   *
+   * @return  TODOC
+   */
+  public MmComponentAccessor<?, MODEL> onInitializeGetMmModelAccessor() {
+    return modelAccessor;
   }
 
   /**

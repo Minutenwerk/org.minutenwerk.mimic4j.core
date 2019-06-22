@@ -3,7 +3,7 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
@@ -41,14 +41,14 @@ public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> extends Mm
   public ATTRIBUTE_MODEL callbackMmConvertViewsideToModelsideValue(VIEWSIDE_VALUE pViewsideValue) throws MmViewsideConverterException;
 
   /**
-   * Returns the attribute's accessor to corresponding model field. The attribute accessor can be derived from specified root component
+   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
    * accessor.
    *
-   * @param   pRootAccessor  The specified root component accessor.
+   * @param   pParentAccessor  The specified parent component accessor.
    *
    * @return  The attribute's accessor.
    */
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor);
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor);
 
   /**
    * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside

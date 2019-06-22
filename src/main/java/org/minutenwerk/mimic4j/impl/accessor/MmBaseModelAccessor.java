@@ -3,6 +3,7 @@ package org.minutenwerk.mimic4j.impl.accessor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 
@@ -17,14 +18,14 @@ import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmModelAccessor<PARENT_MODEL, MODEL> {
 
   /** Accessor of parent model. */
-  private final MmModelAccessor<?, PARENT_MODEL> parentAccessor;
+  private final MmComponentAccessor<?, PARENT_MODEL> parentAccessor;
 
   /**
    * Constructor of this immutable class.
    *
    * @param  pParentAccessor  The model accessor of the parent model.
    */
-  public MmBaseModelAccessor(final MmModelAccessor<?, PARENT_MODEL> pParentAccessor) {
+  public MmBaseModelAccessor(final MmComponentAccessor<?, PARENT_MODEL> pParentAccessor) {
     parentAccessor = pParentAccessor;
   }
 
@@ -54,6 +55,16 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
       list.add(model);
     }
     return list;
+  }
+
+  /**
+   * Returns accessor of parent model.
+   *
+   * @return  accessor of parent model.
+   */
+  @Override
+  public final MmComponentAccessor<?, PARENT_MODEL> getParentAccessor() {
+    return parentAccessor;
   }
 
   /**
@@ -125,14 +136,5 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
   @Override
   public boolean isRoot() {
     return false;
-  }
-
-  /**
-   * Returns accessor of parent model.
-   *
-   * @return  accessor of parent model.
-   */
-  protected final MmModelAccessor<?, PARENT_MODEL> getParentAccessor() {
-    return parentAccessor;
   }
 }

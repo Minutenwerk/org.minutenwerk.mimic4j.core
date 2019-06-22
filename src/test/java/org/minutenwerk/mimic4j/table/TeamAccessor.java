@@ -15,8 +15,4 @@ public class TeamAccessor extends MmRootAccessor<Team> {
   public MmListAccessor<Team, List<Person>, Person> personen() {
     return new MmListAccessor<>(this, Team::getPersonen, Team::setPersonen, Team::addPerson);
   }
-
-  public PersonAccessor person(final int index) {
-    return new PersonAccessor(personen(), () -> index);
-  }
 }

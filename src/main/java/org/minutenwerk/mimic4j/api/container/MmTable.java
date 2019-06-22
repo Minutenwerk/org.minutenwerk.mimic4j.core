@@ -5,6 +5,7 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmTableMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
@@ -41,16 +42,17 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
   }
 
   /**
-   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified root component accessor.
+   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified parent component
+   * accessor.
    *
-   * @param   pRootAccessor  The specified root component accessor.
+   * @param   pParentAccessor  The specified parent component accessor.
    *
    * @return  The container's accessor.
    *
    * @throws  IllegalStateException  In case of model accessor is not defined.
    */
   @Override
-  public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
+  public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 

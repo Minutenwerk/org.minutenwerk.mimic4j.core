@@ -26,7 +26,7 @@ public class Person {
 
   private Gender gender;
 
-  private Adresse adresse;
+  private Adress adress;
 
   public enum Gender {
     MALE, FEMALE;
@@ -80,12 +80,12 @@ public class Person {
     return this;
   }
 
-  public Adresse getAdresse() {
-    return this.adresse;
+  public Adress getAdresse() {
+    return this.adress;
   }
 
-  public Person setAdresse(final Adresse adresse) {
-    this.adresse = adresse;
+  public Person setAdresse(final Adress adress) {
+    this.adress = adress;
     return this;
   }
 

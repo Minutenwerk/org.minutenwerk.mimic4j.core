@@ -1,29 +1,29 @@
 package org.minutenwerk.mimic4j.container;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
-public class MmTabAdresse extends MmTab<Adresse> {
+public class MmTabAdresse extends MmTab<Adress> {
 
   @MmStringAnnotation(id = "st")
   public final MmString street = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
-      PersonAccessor person = (PersonAccessor) pRootAccessor;
-      return person.adresse().street();
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+      AdressAccessor adress = (AdressAccessor) pParentAccessor;
+      return adress.street();
     }
   };
 
   @MmStringAnnotation(id = "ci")
   public final MmString city = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
-      PersonAccessor person = (PersonAccessor) pRootAccessor;
-      return person.adresse().city();
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+      AdressAccessor adress = (AdressAccessor) pParentAccessor;
+      return adress.city();
     }
   };
 

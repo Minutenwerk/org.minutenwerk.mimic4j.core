@@ -221,19 +221,6 @@ public class MmImplementationLeporelloTab
   }
 
   /**
-   * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
-   * super.initialize()!
-   */
-  @Deprecated
-  @Override
-  protected void initialize() {
-    super.initialize();
-
-    // TODO MmImplementationLeporelloTab move this into constructor and delete initialize method here
-    parentLeporello = getMmImplementationAncestorOfType(MmImplementationLeporello.class);
-  }
-
-  /**
    * Returns configuration of this mimic, specified annotation may be null.
    *
    * @param   pAnnotation  The specified annotation, may be null.
@@ -257,6 +244,19 @@ public class MmImplementationLeporelloTab
   @Override
   protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeLeporelloTab(this);
+  }
+
+  /**
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
+   * super.onInitialization()!
+   */
+  @Deprecated
+  @Override
+  protected void onInitialization() {
+    super.onInitialization();
+
+    // TODO MmImplementationLeporelloTab move this into constructor and delete initialize method here
+    parentLeporello = getMmImplementationAncestorOfType(MmImplementationLeporello.class);
   }
 
 }

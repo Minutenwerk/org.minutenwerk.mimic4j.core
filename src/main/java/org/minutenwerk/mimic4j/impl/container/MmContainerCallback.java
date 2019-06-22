@@ -1,7 +1,6 @@
 package org.minutenwerk.mimic4j.impl.container;
 
 import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
@@ -15,13 +14,14 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 public interface MmContainerCallback<MODEL> extends MmBaseCallback {
 
   /**
-   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified root component accessor.
+   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified parent component
+   * accessor.
    *
-   * @param   pRootAccessor  The specified root component accessor.
+   * @param   pParentAccessor  The specified parent component accessor.
    *
    * @return  The container's accessor.
    */
-  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor);
+  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor);
 
   /**
    * Semantic validation of model.

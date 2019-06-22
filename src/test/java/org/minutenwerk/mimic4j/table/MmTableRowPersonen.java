@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
@@ -22,42 +23,47 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
 
   @MmStringAnnotation(id = "vn")
   public final MmString vorname = new MmString(this) {
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
-      TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(mmRowIndex).vorname();
+    @Override
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+      PersonAccessor person = (PersonAccessor) pParentAccessor;
+      return person.vorname();
     }
   };
 
   @MmStringAnnotation(id = "nn")
   public final MmString nachname = new MmString(this) {
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
-      TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(mmRowIndex).nachname();
+    @Override
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+      PersonAccessor person = (PersonAccessor) pParentAccessor;
+      return person.nachname();
     }
   };
 
   @MmLocalDateAnnotation(id = "bd", formatPattern = "yyyy-MM-dd")
   public final MmLocalDate birthday = new MmLocalDate(this) {
-    public MmAttributeAccessor<?, LocalDate> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
-      TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(mmRowIndex).birthday();
+    @Override
+    public MmAttributeAccessor<?, LocalDate> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+      PersonAccessor person = (PersonAccessor) pParentAccessor;
+      return person.birthday();
     }
   };
 
   @SuppressWarnings("unchecked")
   @MmEnumAnnotation(id = "gd")
   public final MmEnum<Person.Gender> gender = new MmEnum<Person.Gender>(this) {
-    public MmAttributeAccessor<?, Gender> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
-      TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(mmRowIndex).gender();
+    @Override
+    public MmAttributeAccessor<?, Gender> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+      PersonAccessor person = (PersonAccessor) pParentAccessor;
+      return person.gender();
     }
   };
 
   @MmBooleanAnnotation(id = "mb")
   public final MmBoolean isMember = new MmBoolean(this) {
-    public MmAttributeAccessor<?, Boolean> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
-      TeamAccessor team = (TeamAccessor) pRootAccessor;
-      return team.person(mmRowIndex).isMember();
+    @Override
+    public MmAttributeAccessor<?, Boolean> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+      PersonAccessor person = (PersonAccessor) pParentAccessor;
+      return person.isMember();
     }
   };
 
@@ -66,8 +72,9 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   };
 
   @Override
-  public MmListEntryAccessor<? extends List<Person>, Person> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
-    TeamAccessor team = (TeamAccessor) pRootAccessor;
-    return team.person(mmRowIndex);
+  public MmListEntryAccessor<? extends List<Person>, Person> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    @SuppressWarnings("unchecked")
+    MmListAccessor<Team, List<Person>, Person> personen = (MmListAccessor<Team, List<Person>, Person>) pParentAccessor;
+    return new PersonAccessor(personen, () -> mmRowIndex);
   }
 }

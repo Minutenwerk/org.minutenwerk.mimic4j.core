@@ -32,8 +32,8 @@ public class PersonAccessor extends MmRootAccessor<Person> {
     return new MmAttributeAccessor<>(this, Person::getGender, Person::setGender);
   }
 
-  public AdresseAccessor adresse() {
-    return new AdresseAccessor(this);
+  public AdressAccessor adresse() {
+    return new AdressAccessor(this);
   }
 
   public MmAttributeAccessor<Person, Instant> instant() {

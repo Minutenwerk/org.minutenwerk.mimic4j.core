@@ -1,7 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 
 /**
@@ -33,11 +33,11 @@ public interface MmEditableMimic extends MmMimic {
   public MmModelAccessor<?, ?> getMmModelAccessor();
 
   /**
-   * Returns accessor of root component of model.
+   * Returns accessor of model of parent container mimic, may be null.
    *
-   * @return  The accessor of root component of model.
+   * @return  The accessor of model of parent container mimic, may be null.
    */
-  public MmRootAccessor<?> getMmRootAccessor();
+  public MmComponentAccessor<?, ?> getMmParentAccessor();
 
   /**
    * Returns <code>true</code>, if the mimic has been changed from viewside. If a mimic is changed, all ancestors of type MmEditableMimic

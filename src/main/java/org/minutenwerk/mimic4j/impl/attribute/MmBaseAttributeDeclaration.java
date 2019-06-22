@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
@@ -47,10 +47,10 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's accessor to corresponding model field. The attribute accessor can be derived from specified root component
+   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
    * accessor.
    *
-   * @param         pRootAccessor  The specified root component accessor.
+   * @param         pParentAccessor  The specified parent component accessor.
    *
    * @return        The attribute's accessor.
    *
@@ -59,7 +59,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @jalopy.group  group-callback
    */
   @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 
@@ -219,13 +219,13 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns accessor of root component of model.
+   * Returns accessor of model of parent container mimic, may be null.
    *
-   * @return  The accessor of root component of model.
+   * @return  The accessor of model of parent container mimic, may be null.
    */
   @Override
-  public MmRootAccessor<?> getMmRootAccessor() {
-    return implementation.getMmRootAccessor();
+  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+    return implementation.getMmParentAccessor();
   }
 
   /**

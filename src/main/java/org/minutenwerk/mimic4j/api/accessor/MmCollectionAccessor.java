@@ -27,7 +27,7 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @param  componentSetter  TODOC
    * @param  valueAdder       TODOC
    */
-  public MmCollectionAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
+  public MmCollectionAccessor(final MmComponentAccessor<?, PARENT_MODEL> parentAccessor,
     final Function<PARENT_MODEL, COLLECTION_MODEL> componentGetter, final BiConsumer<PARENT_MODEL, COLLECTION_MODEL> componentSetter,
     final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
     super(parentAccessor, componentGetter, componentSetter);

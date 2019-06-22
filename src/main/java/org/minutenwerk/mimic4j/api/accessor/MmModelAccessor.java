@@ -41,6 +41,13 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
   public PARENT_MODEL getParent();
 
   /**
+   * Returns accessor of parent model.
+   *
+   * @return  accessor of parent model.
+   */
+  public MmComponentAccessor<?, PARENT_MODEL> getParentAccessor();
+
+  /**
    * Returns accessor on root model.
    *
    * @return  Accessor on root model.

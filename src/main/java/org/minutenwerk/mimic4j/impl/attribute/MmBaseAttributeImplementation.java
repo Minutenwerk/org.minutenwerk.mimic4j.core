@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
@@ -125,8 +125,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /** The list of messages related to this attribute. */
   protected final MmMessageList                     messageList;
 
-  /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
-  protected final MmRootAccessor<?>                 rootAccessor;
+  /** This attribute has a parent model. The parent model has a parent accessor. */
+  protected MmComponentAccessor<?, ?>               parentAccessor;
 
   /**
    * This attribute has a model of type ATTRIBUTE_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
@@ -153,50 +153,52 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   public MmBaseAttributeImplementation(final MmDeclarationMimic parent) {
     super(parent);
-    messageList  = new MmMessageList();
-    rootAccessor = onConstructRootAccessor();
-    valueState   = MmValueState.UNDEFINED;
-    errorState   = MmAttributeErrorState.SUCCESS;
+    messageList = new MmMessageList();
+    valueState  = MmValueState.UNDEFINED;
+    errorState  = MmAttributeErrorState.SUCCESS;
   }
 
   /**
-   * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
-   * super.initialize()!
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
+   * super.onInitialization()!
    *
    * @throws        IllegalStateException  In case of root accessor or model accessor is not defined.
    *
    * @jalopy.group  group-initialization
    */
   @Override
-  protected void initialize() {
-    super.initialize();
+  protected void onInitialization() {
+    super.onInitialization();
+
+    // initialize parentAccessor
+    parentAccessor = onInitializeParentAccessor();
 
     // initialize modelAccessor
-    modelAccessor = declaration.callbackMmGetAccessor(rootAccessor);
+    modelAccessor  = declaration.callbackMmGetAccessor(parentAccessor);
     if (modelAccessor == null) {
-      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
+      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
     }
   }
 
   /**
-   * Evaluates accessor of root component of model.
+   * Evaluates accessor of component of parent container mimic.
    *
-   * @return        The accessor of root component of model.
+   * @return        The parent accessor.
    *
-   * @throws        IllegalStateException  In case of there is no definition of a root accessor.
+   * @throws        IllegalStateException  In case of there is no definition of a parent accessor.
    *
    * @jalopy.group  group-initialization
    */
-  private MmRootAccessor<?> onConstructRootAccessor() {
+  private MmComponentAccessor<?, ?> onInitializeParentAccessor() {
     MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getMmImplementationAncestorOfType(MmBaseContainerImplementation.class);
     if (containerAncestor == null) {
-      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + getMmFullName());
+      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + parentPath + "." + name);
     } else {
-      MmRootAccessor<?> containerRootAccessor = containerAncestor.onInitializeGetRootAccessor();
-      if (containerRootAccessor == null) {
-        throw new IllegalStateException("no definition of rootAccessor for " + getMmFullName());
+      MmComponentAccessor<?, ?> containerAccessor = containerAncestor.onInitializeGetMmModelAccessor();
+      if (containerAccessor == null) {
+        throw new IllegalStateException("no definition of parentAccessor for " + parentPath + "." + name);
       }
-      return containerRootAccessor;
+      return containerAccessor;
     }
   }
 
@@ -540,17 +542,17 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns accessor of root component of model.
+   * Returns accessor of model of parent container mimic, may be null.
    *
-   * @return        The accessor of root component of model.
+   * @return        The accessor of model of parent container mimic, may be null.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public MmRootAccessor<?> getMmRootAccessor() {
+  public MmComponentAccessor<?, ?> getMmParentAccessor() {
     assureInitialization();
 
-    return rootAccessor;
+    return parentAccessor;
   }
 
   /**

@@ -38,16 +38,17 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
   }
 
   /**
-   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified root component accessor.
+   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified parent component
+   * accessor.
    *
-   * @param   pRootAccessor  The specified root component accessor.
+   * @param   pParentAccessor  The specified parent component accessor.
    *
    * @return  The container's accessor.
    *
    * @throws  IllegalStateException  In case of model accessor is not defined.
    */
   @Override
-  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmRootAccessor<?> pRootAccessor) {
+  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 
@@ -106,6 +107,16 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
   @Override
   public final Class<MODEL> getMmModelType() {
     return implementation.getMmModelType();
+  }
+
+  /**
+   * Returns accessor of model of parent container mimic, may be null.
+   *
+   * @return  The accessor of model of parent container mimic, may be null.
+   */
+  @Override
+  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+    return implementation.getMmParentAccessor();
   }
 
   /**

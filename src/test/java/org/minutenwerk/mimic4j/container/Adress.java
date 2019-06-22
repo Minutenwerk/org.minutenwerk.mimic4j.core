@@ -1,12 +1,12 @@
 package org.minutenwerk.mimic4j.container;
 
-public class Adresse {
+public class Adress {
 
   private String street;
 
   private String city;
 
-  public Adresse() {
+  public Adress() {
   }
 
   public String getStreet() {
@@ -17,12 +17,12 @@ public class Adresse {
     return this.city;
   }
 
-  public Adresse setStreet(final String pStreet) {
+  public Adress setStreet(final String pStreet) {
     this.street = pStreet;
     return this;
   }
 
-  public Adresse setCity(final String pCity) {
+  public Adress setCity(final String pCity) {
     this.city = pCity;
     return this;
   }

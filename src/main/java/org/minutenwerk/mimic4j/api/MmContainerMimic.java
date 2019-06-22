@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
 import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 
 /**
  * MmContainerMimic is the basic interface of all mimic types containing other mimics of type MmEditableMimic.
@@ -32,5 +33,12 @@ public interface MmContainerMimic<MODEL> extends MmEditableMimic {
    * @return  The Java type of the model.
    */
   public Class<MODEL> getMmModelType();
+
+  /**
+   * Returns accessor of root component of model.
+   *
+   * @return  The accessor of root component of model.
+   */
+  public MmRootAccessor<?> getMmRootAccessor();
 
 }
