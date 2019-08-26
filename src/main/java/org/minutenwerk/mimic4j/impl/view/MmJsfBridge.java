@@ -2,8 +2,6 @@ package org.minutenwerk.mimic4j.impl.view;
 
 import java.util.List;
 
-import javax.faces.model.SelectItem;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -341,26 +339,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    */
   public int getRows() {
     throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag rows");
-  }
-
-  /**
-   * Returns a list of {@link SelectItem}, which are displayed as drop down menu or list box.
-   *
-   * <ul>
-   *   <li>value - Value to be delivered to the model if this item is selected by the user</li>
-   *   <li>label - Label to be rendered for this item in the response</li>
-   *   <li>description - Description of this item, for use in tools</li>
-   *   <li>disabled - Flag indicating that this option is disabled</li>
-   *   <li>escape - Flag indicating that the text of this option should be escaped when rendered.</li>
-   *   <li>noSelectionOption - Flag indicating that the current option is a "no selection" option</li>
-   * </ul>
-   *
-   * @return  A list of {@link SelectItem},
-   *
-   * @throws  UnsupportedOperationException  In case of the method is not supported by MmJsfBridge and its concrete subclass.
-   */
-  public List<SelectItem> getSelectItems() {
-    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag selectItems");
   }
 
   /**

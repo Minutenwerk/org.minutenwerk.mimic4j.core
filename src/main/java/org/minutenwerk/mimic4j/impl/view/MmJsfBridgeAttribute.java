@@ -1,12 +1,8 @@
 package org.minutenwerk.mimic4j.impl.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
-
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
-import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 import org.minutenwerk.mimic4j.impl.message.MmMessageSeverity;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
@@ -120,36 +116,6 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
   @Override
   public int getRows() {
     return implementation.getMmRows();
-  }
-
-  /**
-   * Returns a list of {@link SelectItem}, which are displayed as drop down menu or list box.
-   *
-   * <ul>
-   *   <li>value - Value to be delivered to the model if this item is selected by the user</li>
-   *   <li>label - Label to be rendered for this item in the response</li>
-   *   <li>description - Description of this item, for use in tools</li>
-   *   <li>disabled - Flag indicating that this option is disabled</li>
-   *   <li>escape - Flag indicating that the text of this option should be escaped when rendered.</li>
-   *   <li>noSelectionOption - Flag indicating that the current option is a "no selection" option</li>
-   * </ul>
-   *
-   * @return  A list of {@link SelectItem},
-   */
-  @Override
-  public List<SelectItem> getSelectItems() {
-    List<SelectItem> returnList = new ArrayList<>();
-    for (MmSelectOption<Object> selectOption : implementation.getMmSelectOptions()) {
-      String     value             = selectOption.getDisplayId();
-      String     label             = selectOption.getShortDescription();
-      String     description       = selectOption.getLongDescription();
-      boolean    disabled          = false;
-      boolean    escape            = false;
-      boolean    noSelectionOption = false;
-      SelectItem selectItem        = new SelectItem(value, label, description, disabled, escape, noSelectionOption);
-      returnList.add(selectItem);
-    }
-    return returnList;
   }
 
   /**
