@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTab;
 public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<MmTab<MODEL>, MODEL, MmConfigurationTab, MmTabAnnotation> {
 
   /** The parent tab set this tab belongs to. */
-  protected MmImplementationLeporelloTab parentTabSet;
+  protected MmImplementationLeporelloTab<?> parentTabSet;
 
   /**
    * Creates a new MmImplementationTab instance.

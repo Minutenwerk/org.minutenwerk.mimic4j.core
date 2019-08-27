@@ -7,7 +7,6 @@ import java.util.List;
  *
  * @author  Olaf Kossak
  */
-@Deprecated
 public interface MmReferencableModel {
 
   /**

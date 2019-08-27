@@ -17,6 +17,6 @@ public interface MmLeporelloCallback<MODEL, SUB_MODEL> extends MmContainerCallba
    *
    * @return  The currently selected tab of the leporello.
    */
-  public MmLeporelloTab callbackMmGetSelectedTab();
+  public MmLeporelloTab<?> callbackMmGetSelectedTab();
 
 }

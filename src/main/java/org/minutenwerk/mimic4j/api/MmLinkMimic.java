@@ -1,32 +1,44 @@
 package org.minutenwerk.mimic4j.api;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 
 /**
  * MmCompositeMimic defines mimics which can be nested following the composite design pattern.
  *
  * @author  Olaf Kossak
  */
-public interface MmLinkMimic extends MmMimic {
+public interface MmLinkMimic<LINK_MODEL> extends MmMimic {
 
   /**
-   * Returns the data model.
+   * Returns accessor of model.
    *
-   * @return  The data model.
+   * @return  The accessor of model.
    */
-  @Deprecated
-  public MmReferencableModel getMmModel();
+  public MmComponentAccessor<?, LINK_MODEL> getMmModelAccessor();
 
   /**
-   * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns the link's type of modelside value (LINK_MODEL).
+   *
+   * @return  The link's type of modelside value.
+   */
+  public Class<LINK_MODEL> getMmModelsideType();
+
+  /**
+   * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
+   *
+   * @return  The modelside value of the mimic.
+   */
+  public LINK_MODEL getMmModelsideValue();
+
+  /**
+   * Returns accessor of model of parent container mimic, may be null.
+   *
+   * @return  The accessor of model of parent container mimic, may be null.
+   */
+  public MmComponentAccessor<?, ?> getMmParentAccessor();
+
+  /**
+   * Returns a reference to some target, either an URL or an outcome.
    *
    * @return  A reference to some target.
    */
@@ -38,149 +50,5 @@ public interface MmLinkMimic extends MmMimic {
    * @return  The link's viewside value of type String.
    */
   public String getMmViewsideValue();
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel);
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param  pModelsideValue  The specified modelside values.
-   * @param  pModel           The specified data model which defines query parameters.
-   */
-  @Deprecated
-  public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel);
 
 }

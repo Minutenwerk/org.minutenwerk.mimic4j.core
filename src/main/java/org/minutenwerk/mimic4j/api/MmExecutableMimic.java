@@ -15,7 +15,7 @@ public interface MmExecutableMimic extends MmMimic {
   public String doMmIt();
 
   /**
-   * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns a reference to some target, either an URL or an outcome.
    *
    * @return  A reference to some target.
    */

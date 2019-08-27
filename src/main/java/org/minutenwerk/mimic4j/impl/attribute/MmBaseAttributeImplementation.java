@@ -246,8 +246,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     String originalDebugState = toStringTraceState();
 
     try {
-      ATTRIBUTE_MODEL modelsideVALUE = modelAccessor.get();
-      viewsideValue = declaration.callbackMmConvertModelsideToViewsideValue(modelsideVALUE);
+      ATTRIBUTE_MODEL modelsideValue = modelAccessor.get();
+      viewsideValue = declaration.callbackMmConvertModelsideToViewsideValue(modelsideValue);
       valueState    = MmValueState.CONVERTED_MODELSIDE_TO_VIEWSIDE;
       errorState    = MmAttributeErrorState.SUCCESS;
     } catch (MmModelsideConverterException converterException) {

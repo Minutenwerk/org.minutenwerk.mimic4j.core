@@ -12,7 +12,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
   /** Constant for default value of target outcome of this mimic. */
   public static final String DEFAULT_TARGET_OUTCOME = "";
 
-  /** A string referencing a target, either an URL or an outcome, to be translated by FacesNavigator. */
+  /** A string referencing a target, either an URL or an outcome. */
   protected String           targetOutcome;
 
   /**
@@ -35,7 +35,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * @param  pVisible        True, if HTML tag of mimic is rendered visible.
    * @param  pReadOnly       True, if HTML tag of mimic is rendered readonly.
    * @param  pEnabled        True, if HTML tag of mimic is rendered enabled.
-   * @param  pTargetOutcome  A string referencing some target, either an URL or an outcome, to be translated by FacesNavigator.
+   * @param  pTargetOutcome  A string referencing some target, either an URL or an outcome.
    */
   public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetOutcome) {
     super(pId, pVisible, pReadOnly, pEnabled);
@@ -43,7 +43,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
   }
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns a string referencing a target, either an URL or an outcome.
    *
    * @return  A string referencing a target, either an URL or an outcome
    */
@@ -52,7 +52,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
   }
 
   /**
-   * Sets a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Sets a string referencing a target, either an URL or an outcome.
    *
    * @param  pTargetOutcome  A string referencing a target.
    */

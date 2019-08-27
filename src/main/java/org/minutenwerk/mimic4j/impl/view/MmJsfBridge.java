@@ -322,7 +322,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
   }
 
   /**
-   * Returns a self reference of this mimic, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns a self reference of this mimic, either an URL or an outcome.
    *
    * @return  A self reference of this mimic.
    */
@@ -374,8 +374,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator. May be used in combination with
-   * getMmTargetRefParams().
+   * Returns a reference to some target, either an URL or an outcome. May be used in combination with getMmTargetRefParams().
    *
    * @return  A reference to some target.
    *

@@ -8,14 +8,14 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
  *
  * @author  Olaf Kossak
  */
-public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporelloTab, String, String> {
+public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporelloTab<?>, String, String> {
 
   /**
    * Creates a new MmJsfBridgeLeporelloTab instance.
    *
    * @param  pImplementation  The implementation part of connected mimic.
    */
-  public MmJsfBridgeLeporelloTab(MmImplementationLeporelloTab pImplementation) {
+  public MmJsfBridgeLeporelloTab(MmImplementationLeporelloTab<?> pImplementation) {
     super(pImplementation);
   }
 
@@ -29,8 +29,7 @@ public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporel
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator. May be used in combination with
-   * getMmTargetRefParams().
+   * Returns a reference to some target, either an URL or an outcome. May be used in combination with getMmTargetRefParams().
    *
    * @return  A reference to some target.
    */

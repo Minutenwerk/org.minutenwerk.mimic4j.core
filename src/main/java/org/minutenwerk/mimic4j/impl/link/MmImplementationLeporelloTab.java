@@ -26,14 +26,14 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloTab;
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationLeporelloTab
-  extends MmBaseLinkImplementation<MmLeporelloTab, MmConfigurationLeporelloTab, MmLeporelloTabAnnotation> {
+public class MmImplementationLeporelloTab<LINK_MODEL>
+  extends MmBaseLinkImplementation<MmLeporelloTab<LINK_MODEL>, LINK_MODEL, MmConfigurationLeporelloTab, MmLeporelloTabAnnotation> {
 
   /** The super tab is the logical parent tab in the parent panel. */
-  protected final MmLeporelloTab            superTab;
+  protected final MmLeporelloTab<LINK_MODEL> superTab;
 
   /** The parent leporello of this leporello tab. */
-  protected MmImplementationLeporello<?, ?> parentLeporello;
+  protected MmImplementationLeporello<?, ?>  parentLeporello;
 
   /**
    * Creates a new MmImplementationLeporelloTab instance.
@@ -50,7 +50,7 @@ public class MmImplementationLeporelloTab
    * @param  pParentPanel  The parent declaration mimic, declaring a static final instance of this mimic.
    * @param  pSuperTab     The super tab is the logical parent tab in the parent panel.
    */
-  public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel, MmLeporelloTab pSuperTab) {
+  public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel, MmLeporelloTab<LINK_MODEL> pSuperTab) {
     super(pParentPanel);
     superTab = pSuperTab;
   }
@@ -186,21 +186,22 @@ public class MmImplementationLeporelloTab
   public boolean isMmActive() {
     assureInitialization();
 
-    final MmLeporelloTab thisDeclaration = (MmLeporelloTab)declaration;
-    final MmLeporelloTab selectedTab     = parentLeporello.getMmSelectedTab();
+    final MmLeporelloTab<?> thisDeclaration = (MmLeporelloTab<?>)declaration;
+    final MmLeporelloTab<?> selectedTab     = parentLeporello.getMmSelectedTab();
     if (selectedTab == null) {
       return false;
     } else if (selectedTab == thisDeclaration) {
       return true;
     } else {
-      final MmImplementationLeporelloTab selectedTabImplementation = MmBaseImplementation.getImplementation(selectedTab);
-      MmLeporelloTab                     superTabOfSelected        = selectedTabImplementation.superTab;
+      final MmImplementationLeporelloTab<LINK_MODEL> selectedTabImplementation = MmBaseImplementation.getImplementation(selectedTab);
+      MmLeporelloTab<LINK_MODEL>                     superTabOfSelected        = selectedTabImplementation.superTab;
       while (superTabOfSelected != null) {
         if (thisDeclaration == superTabOfSelected) {
           return true;
         }
 
-        final MmImplementationLeporelloTab superTabOfSelectedImplementation = MmBaseImplementation.getImplementation(superTabOfSelected);
+        final MmImplementationLeporelloTab<LINK_MODEL> superTabOfSelectedImplementation = MmBaseImplementation.getImplementation(
+            superTabOfSelected);
         superTabOfSelected = superTabOfSelectedImplementation.superTab;
       }
     }
@@ -215,8 +216,8 @@ public class MmImplementationLeporelloTab
   public boolean isMmSelected() {
     assureInitialization();
 
-    final MmLeporelloTab thisDeclaration = (MmLeporelloTab)declaration;
-    final MmLeporelloTab selectedTab     = parentLeporello.getMmSelectedTab();
+    final MmLeporelloTab<?> thisDeclaration = (MmLeporelloTab<?>)declaration;
+    final MmLeporelloTab<?> selectedTab     = parentLeporello.getMmSelectedTab();
     return (thisDeclaration == selectedTab);
   }
 

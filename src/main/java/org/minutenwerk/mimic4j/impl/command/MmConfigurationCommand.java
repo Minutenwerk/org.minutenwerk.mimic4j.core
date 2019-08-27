@@ -22,7 +22,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
   /** Constant for default value of JSF tag in disabled state. Redundant to {@link MmCommandAnnotation.jsfTag()}. */
   public static final MmCommandJsfDisabled DEFAULT_JSF_TAG_DISABLED = MmCommandJsfDisabled.SameAsEnabled;
 
-  /** A string referencing a target, either an URL or an outcome, to be translated by FacesNavigator. */
+  /** A string referencing a target, either an URL or an outcome. */
   protected String                         targetOutcome;
 
   /** The configuration of JSF tag in enabled state. */
@@ -74,7 +74,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
   }
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns a string referencing a target, either an URL or an outcome.
    *
    * @return  A string referencing a target, either an URL or an outcome
    */
@@ -92,7 +92,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
   }
 
   /**
-   * Sets a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Sets a string referencing a target, either an URL or an outcome.
    *
    * @param  pTargetOutcome  A string referencing a target.
    */

@@ -67,7 +67,7 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
   }
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns a string referencing a target, either an URL or an outcome.
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
@@ -106,7 +106,7 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns a reference to some target, either an URL or an outcome.
    *
    * @return        A reference to some target.
    *

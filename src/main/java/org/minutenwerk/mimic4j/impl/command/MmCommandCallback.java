@@ -42,7 +42,7 @@ public interface MmCommandCallback extends MmBaseCallback {
   public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue);
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns a string referencing a target, either an URL or an outcome.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *

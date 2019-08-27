@@ -15,8 +15,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  * MmString is a mimic for an editable attribute of type {@link String}.
  *
  * @author  Olaf Kossak
- *
- *          <p>, group-getter</p>
  */
 public class MmString extends MmBaseAttributeDeclaration<MmImplementationString, String, String> {
 
@@ -94,13 +92,11 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
    */
   @Override
   public String callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
-    String returnString;
     if (isMmEmpty()) {
-      returnString = null;
+      return null;
     } else {
-      returnString = pViewsideValue;
+      return pViewsideValue;
     }
-    return returnString;
   }
 
   /**

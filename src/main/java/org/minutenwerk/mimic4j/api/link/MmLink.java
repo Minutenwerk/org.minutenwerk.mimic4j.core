@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
  *
  * @author  Olaf Kossak
  */
-public class MmLink extends MmBaseLinkDeclaration<MmImplementationLink> {
+public class MmLink<LINK_MODEL> extends MmBaseLinkDeclaration<MmImplementationLink<LINK_MODEL>, LINK_MODEL> {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
@@ -27,7 +27,7 @@ public class MmLink extends MmBaseLinkDeclaration<MmImplementationLink> {
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
   public MmLink(MmDeclarationMimic pParent) {
-    super(new MmImplementationLink(pParent));
+    super(new MmImplementationLink<>(pParent));
   }
 
 }

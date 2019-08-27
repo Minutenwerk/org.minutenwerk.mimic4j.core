@@ -30,9 +30,13 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmReference;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.link.MmReferenceParam;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
+import org.minutenwerk.mimic4j.impl.MmJavaHelper;
+import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
+import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
 
@@ -41,27 +45,36 @@ import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-override, group-i18n
+ * @jalopy.group-order  group-initialization, group-override, group-i18n
  */
-public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
-  CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
-  extends MmBaseImplementation<MmBaseLinkDeclaration<?>, CONFIGURATION, ANNOTATION> implements MmLinkMimic {
+public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<LINK_MODEL>,
+  LINK_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
+  extends MmBaseImplementation<MmBaseLinkDeclaration<?, LINK_MODEL>, CONFIGURATION, ANNOTATION> implements MmLinkMimic<LINK_MODEL> {
+
+  /** Class internal constant to control index of generic type LINK_MODEL. */
+  private static final int                     GENERIC_PARAMETER_INDEX_LINK_MODEL = 1;
 
   /** Logger of this class. */
-  private static final Logger   LOGGER         = LogManager.getLogger(MmBaseLinkImplementation.class);
+  private static final Logger                  LOGGER                             = LogManager.getLogger(MmBaseLinkImplementation.class);
 
   /** The displaying text and title of the link may depend dynamically on a value. */
-  protected Object              modelsideValue;
+  protected Object                             modelsideValue;
 
-  /** The query parameters of the link my depend dynamically on a data model. */
-  protected MmReferencableModel model;
+  /** This link has a parent model. The parent model has a parent accessor. */
+  protected MmComponentAccessor<?, ?>          parentAccessor;
+
+  /**
+   * This link has a model of type LINK_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
+   * undefined.
+   */
+  protected MmComponentAccessor<?, LINK_MODEL> modelAccessor;
 
   /**
    * Creates a new MmBaseLinkImplementation instance.
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
-  public MmBaseLinkImplementation(MmDeclarationMimic pParent) {
+  public MmBaseLinkImplementation(final MmDeclarationMimic pParent) {
     super(pParent);
   }
 
@@ -92,19 +105,107 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
   }
 
   /**
-   * Returns the data model.
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
+   * super.onInitialization()!
    *
-   * @return        The data model.
+   * @throws        IllegalStateException  In case of root accessor or model accessor is not defined.
+   *
+   * @jalopy.group  group-initialization
+   */
+  @Override
+  protected void onInitialization() {
+    super.onInitialization();
+
+    // initialize parentAccessor
+    parentAccessor = onInitializeParentAccessor();
+
+    // initialize modelAccessor
+    modelAccessor  = declaration.callbackMmGetAccessor(parentAccessor);
+    if (modelAccessor == null) {
+      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
+    }
+  }
+
+  /**
+   * Evaluates accessor of component of parent container mimic.
+   *
+   * @return        The parent accessor.
+   *
+   * @throws        IllegalStateException  In case of there is no definition of a parent accessor.
+   *
+   * @jalopy.group  group-initialization
+   */
+  private MmComponentAccessor<?, ?> onInitializeParentAccessor() {
+    MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getMmImplementationAncestorOfType(MmBaseContainerImplementation.class);
+    if (containerAncestor == null) {
+      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + parentPath + "." + name);
+    } else {
+      MmComponentAccessor<?, ?> containerAccessor = containerAncestor.onInitializeGetMmModelAccessor();
+      if (containerAccessor == null) {
+        throw new IllegalStateException("no definition of parentAccessor for " + parentPath + "." + name);
+      }
+      return containerAccessor;
+    }
+  }
+
+  /**
+   * Returns accessor of model.
+   *
+   * @return        The accessor of model.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public MmReferencableModel getMmModel() {
-    return model;
+  public MmComponentAccessor<?, LINK_MODEL> getMmModelAccessor() {
+    assureInitialization();
+
+    return modelAccessor;
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns the link's type of modelside value (LINK_MODEL).
+   *
+   * @return        The link's type of modelside value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public Class<LINK_MODEL> getMmModelsideType() {
+    assureInitialization();
+
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_LINK_MODEL);
+  }
+
+  /**
+   * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
+   *
+   * @return        The modelside value of the mimic.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public LINK_MODEL getMmModelsideValue() {
+    assureInitialization();
+
+    return modelAccessor.get();
+  }
+
+  /**
+   * Returns accessor of model of parent container mimic, may be null.
+   *
+   * @return        The accessor of model of parent container mimic, may be null.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+    assureInitialization();
+
+    return parentAccessor;
+  }
+
+  /**
+   * Returns a reference to some target, either an URL or an outcome.
    *
    * @return        A reference to some target.
    *
@@ -114,16 +215,26 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
   public MmReference getMmTargetReference() {
     assureInitialization();
 
-    MmReference   targetReference = null;
-    final MmMimic targetMimic     = declaration.callbackMmGetTargetMimic(null);
+    MmReference      targetReference = null;
+    final MmMimic    targetMimic     = declaration.callbackMmGetTargetMimic(null);
+
+    // retrieve model
+    final LINK_MODEL model           = modelAccessor.get();
 
     // if link references another mimic without a specified data model
     if ((targetMimic != null) && (model == null)) {
       targetReference = targetMimic.getMmReference();
 
-      // if link references another mimic for a specified data model
+      // if link references another mimic for a specified referencable data model
+    } else if ((targetMimic != null) && (model != null) && (model instanceof MmReferencableModel)) {
+      targetReference = targetMimic.getMmReference((MmReferencableModel)model);
+
+      // if link references another mimic for a specified raw data model
     } else if ((targetMimic != null) && (model != null)) {
-      targetReference = targetMimic.getMmReference(model);
+
+      // TODO final List<MmNameValue> targetReferenceParams = targetMimic.callbackMmGetTargetReferenceParams(Collections.emptyList(),
+      // model);
+      return null;
 
       // if link references an URL without a specified data model
     } else if ((targetMimic == null) && (model == null)) {
@@ -133,255 +244,22 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
       final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(emptyList, null);
       targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
 
-      // if link references an URL for a specified data model
+      // if link references an URL for a specified referencable data model
+    } else if ((targetMimic == null) && (model != null) && (model instanceof MmReferencableModel)) {
+      final String            configurationOutcome  = configuration.getTargetOutcome();
+      final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
+      final List<MmNameValue> modelReferenceParams  = getMmModelParams((MmReferencableModel)model);
+      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(modelReferenceParams, model);
+      targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
+
+      // if link references an URL for a specified raw data model
     } else if ((targetMimic == null) && (model != null)) {
       final String            configurationOutcome  = configuration.getTargetOutcome();
       final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<MmNameValue> modelReferenceParams  = getMmModelParams(model);
-      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(modelReferenceParams, model);
+      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(Collections.emptyList(), model);
       targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
     }
     return targetReference;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(String pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Object[] pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Integer pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Instant pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(LocalTime pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(LocalDate pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(LocalDateTime pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(BigDecimal pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Boolean pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(BigInteger pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Double pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Duration pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Float pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Long pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(ZonedDateTime pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
-  }
-
-  /**
-   * Sets specified modelside values of the link for text, title and query parameters.
-   *
-   * @param         pModelsideValue  The specified modelside values.
-   * @param         pModel           The specified data model which defines query parameters.
-   *
-   * @jalopy.group  group-override
-   */
-  @Deprecated
-  @Override
-  public void setMmModelsideValue(Enum<?> pModelsideValue, MmReferencableModel pModel) {
-    modelsideValue = pModelsideValue;
-    model          = pModel;
   }
 
   /**
@@ -419,7 +297,10 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback,
   public String getMmLongDescription() {
     assureInitialization();
 
-    String returnString = null;
+    // retrieve model
+    final LINK_MODEL model        = modelAccessor.get();
+
+    String           returnString = null;
     if (model == null) {
       final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue);
       returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue);

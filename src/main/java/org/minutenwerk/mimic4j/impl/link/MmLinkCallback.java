@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmNameValue;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
 /**
@@ -13,7 +13,16 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
  *
  * @author  Olaf Kossak
  */
-public interface MmLinkCallback extends MmBaseCallback {
+public interface MmLinkCallback<LINK_MODEL> extends MmBaseCallback {
+
+  /**
+   * Returns the link's model accessor to corresponding model. The link accessor can be derived from specified parent component accessor.
+   *
+   * @param   pParentAccessor  The specified parent component accessor.
+   *
+   * @return  The link's model accessor.
+   */
+  public MmComponentAccessor<?, LINK_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor);
 
   /**
    * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
@@ -35,7 +44,7 @@ public interface MmLinkCallback extends MmBaseCallback {
   public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue);
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome, to be translated by FacesNavigator.
+   * Returns a string referencing a target, either an URL or an outcome.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
@@ -47,10 +56,10 @@ public interface MmLinkCallback extends MmBaseCallback {
    * Returns a list of URL parameters to be concatenated to target reference. May be used in combination with callbackMmGetTargetOutcome().
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
-   * @param   pModel             A referencable data model providing a list of reference values.
+   * @param   pModel             The link's data model providing the list of URL parameters.
    *
    * @return  A list of URL parameters to be concatenated to target reference.
    */
-  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel);
+  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, LINK_MODEL pModel);
 
 }

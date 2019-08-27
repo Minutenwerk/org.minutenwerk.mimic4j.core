@@ -8,20 +8,19 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
  *
  * @author  Olaf Kossak
  */
-public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink, String, String> {
+public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink<?>, String, String> {
 
   /**
    * Creates a new MmJsfBridgeLink instance.
    *
    * @param  pImplementation  The implementation part of connected mimic.
    */
-  public MmJsfBridgeLink(MmImplementationLink pImplementation) {
+  public MmJsfBridgeLink(MmImplementationLink<?> pImplementation) {
     super(pImplementation);
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome, to be translated by FacesNavigator. May be used in combination with
-   * getMmTargetRefParams().
+   * Returns a reference to some target, either an URL or an outcome. May be used in combination with getMmTargetRefParams().
    *
    * @return  A reference to some target.
    */

@@ -10,7 +10,7 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
  *
  * @author  Olaf Kossak
  */
-public class MmLeporelloTab extends MmBaseLinkDeclaration<MmImplementationLeporelloTab> {
+public class MmLeporelloTab<LINK_MODEL> extends MmBaseLinkDeclaration<MmImplementationLeporelloTab<LINK_MODEL>, LINK_MODEL> {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
@@ -37,8 +37,8 @@ public class MmLeporelloTab extends MmBaseLinkDeclaration<MmImplementationLepore
    * @param  pParent    The parent declaration mimic, declaring a static final instance of this mimic.
    * @param  pSuperTab  The super tab of this leporello tab.
    */
-  public MmLeporelloTab(MmLeporelloPanel<?> pParent, MmLeporelloTab pSuperTab) {
-    super(new MmImplementationLeporelloTab(pParent, pSuperTab));
+  public MmLeporelloTab(MmLeporelloPanel<?> pParent, MmLeporelloTab<LINK_MODEL> pSuperTab) {
+    super(new MmImplementationLeporelloTab<LINK_MODEL>(pParent, pSuperTab));
   }
 
   /**
