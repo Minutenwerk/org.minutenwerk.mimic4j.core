@@ -105,4 +105,14 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
     return implementation.getMmTableRows();
   }
 
+  /**
+   * Returns true, if table contains rows.
+   *
+   * @return  true, if table contains rows.
+   */
+  @Override
+  public boolean isContainingRows() {
+    return implementation.isContainingRows();
+  }
+
 }

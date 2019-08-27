@@ -18,9 +18,11 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
 /**
  * MmImplementationTable is the specific class for the implementation part of table mimics.
  *
- * @param   <ROW_MODEL>  The row model type.
+ * @param               <ROW_MODEL>  The row model type.
  *
- * @author  Olaf Kossak
+ * @author              Olaf Kossak
+ *
+ * @jalopy.group-order  group-initialization, group-lifecycle, group-do, group-get
  */
 public class MmImplementationTable<ROW_MODEL>
   extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable, MmTableAnnotation>
@@ -52,16 +54,6 @@ public class MmImplementationTable<ROW_MODEL>
   }
 
   /**
-   * Clears all rows of this table.
-   */
-  @Override
-  public void doMmClearTableRows() {
-    assureInitialization();
-
-    clearRuntimeChildrenList();
-  }
-
-  /**
    * Returns accessor of model.
    *
    * @return        The accessor of model.
@@ -74,40 +66,6 @@ public class MmImplementationTable<ROW_MODEL>
     assureInitialization();
 
     return (MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL>)modelAccessor;
-  }
-
-  /**
-   * Returns the list of table column mimics of this table mimic.
-   *
-   * @return        The list of table column mimics.
-   *
-   * @jalopy.group  group-get
-   */
-  @Override
-  public List<MmTableColumn> getMmTableColumns() {
-    assureInitialization();
-
-    return getImplementationChildrenOfType(MmTableColumn.class);
-  }
-
-  /**
-   * Returns the list of table row mimics.
-   *
-   * @return        The list of table row mimics.
-   *
-   * @jalopy.group  group-get
-   */
-  @Override
-  public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
-    assureInitialization();
-
-    List<T> returnList = new ArrayList<>();
-    for (MmTableRow<?> child : getImplementationChildrenOfType(MmTableRow.class)) {
-      @SuppressWarnings("unchecked")
-      T tableRowMm = (T)child;
-      returnList.add(tableRowMm);
-    }
-    return returnList;
   }
 
   /**
@@ -136,7 +94,7 @@ public class MmImplementationTable<ROW_MODEL>
       addRuntimeChild(tableRowMm);
     }
 
-    for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+    for (MmEditableMimicImpl child : getDirectChildrenOfType(MmEditableMimicImpl.class)) {
       child.passModelsideToViewside();
     }
   }
@@ -144,9 +102,11 @@ public class MmImplementationTable<ROW_MODEL>
   /**
    * Returns configuration of this mimic, specified annotation may be null.
    *
-   * @param   pAnnotation  The specified annotation, may be null.
+   * @param         pAnnotation  The specified annotation, may be null.
    *
-   * @return  Configuration of this mimic.
+   * @return        Configuration of this mimic.
+   *
+   * @jalopy.group  group-lifecycle
    */
   @Override
   protected MmConfigurationTable onConstructConfiguration(MmTableAnnotation pAnnotation) {
@@ -160,11 +120,74 @@ public class MmImplementationTable<ROW_MODEL>
   /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
-   * @return  A new MmJsfBridge for this mimic.
+   * @return        A new MmJsfBridge for this mimic.
+   *
+   * @jalopy.group  group-lifecycle
    */
   @Override
   protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
     return new MmJsfBridgeTable<ROW_MODEL>(this);
+  }
+
+  /**
+   * Clears all rows of this table.
+   *
+   * @jalopy.group  group-do
+   */
+  @Override
+  public void doMmClearTableRows() {
+    assureInitialization();
+
+    clearRuntimeChildrenList();
+  }
+
+  /**
+   * Returns the list of table column mimics of this table mimic.
+   *
+   * @return        The list of table column mimics.
+   *
+   * @jalopy.group  group-get
+   */
+  @Override
+  public List<MmTableColumn> getMmTableColumns() {
+    assureInitialization();
+
+    return getDirectChildrenOfType(MmTableColumn.class);
+  }
+
+  /**
+   * Returns the list of table row mimics.
+   *
+   * @return        The list of table row mimics.
+   *
+   * @jalopy.group  group-get
+   */
+  @Override
+  public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
+    assureInitialization();
+
+    List<T> returnList = new ArrayList<>();
+    for (MmTableRow<?> child : getDirectChildrenOfType(MmTableRow.class)) {
+      @SuppressWarnings("unchecked")
+      T tableRowMm = (T)child;
+      returnList.add(tableRowMm);
+    }
+    return returnList;
+  }
+
+  /**
+   * Returns true, if table contains rows.
+   *
+   * @return        true, if table contains rows.
+   *
+   * @jalopy.group  group-get
+   */
+  @Override
+  public boolean isContainingRows() {
+    assureInitialization();
+
+    final List<?> rows = getMmTableRows();
+    return (rows != null) && (rows.size() > 0);
   }
 
 }

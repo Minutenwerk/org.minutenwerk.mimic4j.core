@@ -40,4 +40,11 @@ public interface MmTableMimic<ROW_MODEL> extends MmContainerMimic<List<ROW_MODEL
    */
   public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows();
 
+  /**
+   * Returns true, if table contains rows.
+   *
+   * @return  true, if table contains rows.
+   */
+  public boolean isContainingRows();
+
 }

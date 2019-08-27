@@ -963,7 +963,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   @SuppressWarnings("unchecked")
-  public <T extends MmMimic> List<T> getImplementationChildrenOfType(Class<T> pType) {
+  public <T extends MmMimic> List<T> getDirectChildrenOfType(Class<T> pType) {
     return (List<T>)Stream.concat(implementationChildren.stream(), runtimeImplementationChildren.stream()) //
     .filter(child -> pType.isAssignableFrom(child.getClass())) //
     .collect(Collectors.toList());

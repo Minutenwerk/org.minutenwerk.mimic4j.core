@@ -261,7 +261,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public void passModelsideToViewside() {
-    for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+    for (MmEditableMimicImpl child : getDirectChildrenOfType(MmEditableMimicImpl.class)) {
       child.passModelsideToViewside();
     }
   }
@@ -273,7 +273,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public void passViewsideToModelside() {
-    for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+    for (MmEditableMimicImpl child : getDirectChildrenOfType(MmEditableMimicImpl.class)) {
       child.passViewsideToModelside();
     }
   }
@@ -300,7 +300,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     }
 
     // validate all children of type MmEditableMimicImpl
-    for (MmEditableMimicImpl child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+    for (MmEditableMimicImpl child : getDirectChildrenOfType(MmEditableMimicImpl.class)) {
       child.validateModelside();
     }
   }
@@ -354,7 +354,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   @Override
   public void clearMmMessageList() {
     messageList.clear();
-    for (MmEditableMimic child : getImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+    for (MmEditableMimic child : getDirectChildrenOfType(MmEditableMimicImpl.class)) {
       ((MmEditableMimicImpl)child).clearMmMessageList();
     }
   }
@@ -372,7 +372,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     assureInitialization();
 
     // iterate over children of type MmEditableMimic
-    for (MmEditableMimic child : getImplementationChildrenOfType(MmEditableMimic.class)) {
+    for (MmEditableMimic child : getDirectChildrenOfType(MmEditableMimic.class)) {
       if (child.isMmChangedFromViewside()) {
         return true;
       }
@@ -392,7 +392,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     assureInitialization();
 
     // iterate over children of type MmEditableMimic
-    for (MmEditableMimic child : getImplementationChildrenOfType(MmEditableMimic.class)) {
+    for (MmEditableMimic child : getDirectChildrenOfType(MmEditableMimic.class)) {
       if (child.isMmRequired()) {
         return true;
       }
@@ -417,7 +417,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     }
 
     // iterate over children of type MmEditableMimic
-    for (MmEditableMimic child : getImplementationChildrenOfType(MmEditableMimic.class)) {
+    for (MmEditableMimic child : getDirectChildrenOfType(MmEditableMimic.class)) {
       if (!child.isMmValid()) {
         return false;
       }
