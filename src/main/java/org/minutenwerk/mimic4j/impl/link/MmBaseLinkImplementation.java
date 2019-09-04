@@ -31,6 +31,7 @@ import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.link.MmReferenceParam;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
@@ -52,22 +53,22 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
   extends MmBaseImplementation<MmBaseLinkDeclaration<?, LINK_MODEL>, CONFIGURATION, ANNOTATION> implements MmLinkMimic<LINK_MODEL> {
 
   /** Class internal constant to control index of generic type LINK_MODEL. */
-  private static final int                     GENERIC_PARAMETER_INDEX_LINK_MODEL = 1;
+  private static final int                 GENERIC_PARAMETER_INDEX_LINK_MODEL = 1;
 
   /** Logger of this class. */
-  private static final Logger                  LOGGER                             = LogManager.getLogger(MmBaseLinkImplementation.class);
+  private static final Logger              LOGGER                             = LogManager.getLogger(MmBaseLinkImplementation.class);
 
   /** The displaying text and title of the link may depend dynamically on a value. */
-  protected Object                             modelsideValue;
+  protected Object                         modelsideValue;
 
   /** This link has a parent model. The parent model has a parent accessor. */
-  protected MmComponentAccessor<?, ?>          parentAccessor;
+  protected MmComponentAccessor<?, ?>      parentAccessor;
 
   /**
    * This link has a model of type LINK_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
    * undefined.
    */
-  protected MmComponentAccessor<?, LINK_MODEL> modelAccessor;
+  protected MmModelAccessor<?, LINK_MODEL> modelAccessor;
 
   /**
    * Creates a new MmBaseLinkImplementation instance.
@@ -156,7 +157,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
    * @jalopy.group  group-override
    */
   @Override
-  public MmComponentAccessor<?, LINK_MODEL> getMmModelAccessor() {
+  public MmModelAccessor<?, LINK_MODEL> getMmModelAccessor() {
     assureInitialization();
 
     return modelAccessor;

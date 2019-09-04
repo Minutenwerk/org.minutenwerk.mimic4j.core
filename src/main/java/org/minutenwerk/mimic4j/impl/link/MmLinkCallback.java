@@ -5,6 +5,7 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
 /**
@@ -22,7 +23,7 @@ public interface MmLinkCallback<LINK_MODEL> extends MmBaseCallback {
    *
    * @return  The link's model accessor.
    */
-  public MmComponentAccessor<?, LINK_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor);
+  public MmModelAccessor<?, LINK_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor);
 
   /**
    * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside

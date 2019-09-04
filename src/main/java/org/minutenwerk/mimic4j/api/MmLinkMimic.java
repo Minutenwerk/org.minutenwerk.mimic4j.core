@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
 import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 
 /**
  * MmCompositeMimic defines mimics which can be nested following the composite design pattern.
@@ -14,7 +15,7 @@ public interface MmLinkMimic<LINK_MODEL> extends MmMimic {
    *
    * @return  The accessor of model.
    */
-  public MmComponentAccessor<?, LINK_MODEL> getMmModelAccessor();
+  public MmModelAccessor<?, LINK_MODEL> getMmModelAccessor();
 
   /**
    * Returns the link's type of modelside value (LINK_MODEL).
