@@ -15,7 +15,7 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
   /**
    * Returns the model value. In case of the parent supplier does not supply a parent, this method returns null.
    *
-   * @return  The model value.
+   * @return  The model value, may be null.
    */
   public MODEL get();
 
@@ -104,16 +104,16 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
   public boolean isRoot();
 
   /**
-   * Sets the specified model value.
+   * Sets the specified model value, may be null.
    *
-   * @param  value  The specified model value.
+   * @param  value  The specified model value, may be null.
    */
   public void set(MODEL value);
 
   /**
    * Sets the specified model value and returns the parent for chaining setters.
    *
-   * @param   value  The specified model value.
+   * @param   value  The specified model value, may be null.
    *
    * @return  The parent.
    */

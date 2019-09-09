@@ -41,7 +41,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   /**
    * Returns the model value. In case of the parent model supplier does not supply a parent, this method returns null.
    *
-   * @return  the model value.
+   * @return  the model value, may be null.
    *
    * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
    */
@@ -83,9 +83,9 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   }
 
   /**
-   * Sets the specified model value.
+   * Sets the specified model value, may be null.
    *
-   * @param  value  The specified model value.
+   * @param  value  The specified model value, may be null.
    */
   @Override
   public void set(final COMPONENT_MODEL value) {
@@ -95,7 +95,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   /**
    * Sets the specified model value and returns the parent for chaining setters.
    *
-   * @param   value  The specified model value.
+   * @param   value  The specified model value, may be null.
    *
    * @return  The parent.
    */

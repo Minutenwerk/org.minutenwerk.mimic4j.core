@@ -65,9 +65,9 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
   }
 
   /**
-   * Sets the specified model value.
+   * Sets the specified model value, may be null.
    *
-   * @param   value  The specified model value.
+   * @param   value  The specified model value, may be null.
    *
    * @throws  IllegalStateException  TODOC
    */
@@ -99,7 +99,7 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
    * Sets the specified model value and returns the parent for chaining setters. Because a root does not have a parent, the parent model is
    * Void.
    *
-   * @param   value  The specified model value.
+   * @param   value  The specified model value, may be null.
    *
    * @return  The parent.
    */
