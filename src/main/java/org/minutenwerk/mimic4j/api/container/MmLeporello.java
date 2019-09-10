@@ -6,6 +6,7 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporello;
 import org.minutenwerk.mimic4j.impl.container.MmLeporelloCallback;
@@ -38,6 +39,17 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
    */
   public MmLeporello(MmDeclarationMimic pParent) {
     super(new MmImplementationLeporello<MODEL, SUB_MODEL>(pParent));
+  }
+
+  /**
+   * Creates a new MmLeporello instance.
+   *
+   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
+   *                        has a root accessor.
+   */
+  public MmLeporello(MmDeclarationMimic pParent, MmRootAccessor<MODEL> pRootAccessor) {
+    super(new MmImplementationLeporello<MODEL, SUB_MODEL>(pParent, pRootAccessor));
   }
 
   /**

@@ -7,6 +7,7 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelChangeListener;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
@@ -29,7 +30,8 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
  */
 public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseContainerDeclaration<MODEL, ?>,
   MODEL, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
-  extends MmBaseImplementation<DECLARATION, CONFIGURATION, ANNOTATION> implements MmContainerMimic<MODEL>, MmEditableMimicImpl {
+  extends MmBaseImplementation<DECLARATION, CONFIGURATION, ANNOTATION> implements MmContainerMimic<MODEL>, MmEditableMimicImpl,
+    MmModelChangeListener {
 
   /** Constant for index of generic type for model. */
   public static final int GENERIC_PARAMETER_INDEX_MODEL         = 2;
@@ -104,7 +106,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     messageList  = new MmMessageList();
     errorstate   = MmContainerErrorState.SUCCESS;
     rootAccessor = pRootAccessor;
-    rootAccessor.setMmContainer(this);
+    rootAccessor.setMmModelChangeListener(this);
     modelAccessor = (MmComponentAccessor<?, MODEL>)rootAccessor;
   }
 
@@ -244,10 +246,11 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * TODOC.
+   * Event of model change.
    *
    * @jalopy.group  group-lifecycle
    */
+  @Override
   public void onModelChange() {
     assureInitialization();
 

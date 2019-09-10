@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.impl.container;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloAnnotation;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
@@ -25,6 +26,17 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
    */
   public MmImplementationLeporello(MmDeclarationMimic pParent) {
     super(pParent);
+  }
+
+  /**
+   * Creates a new MmImplementationLeporello instance.
+   *
+   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
+   *                        has a root accessor.
+   */
+  public MmImplementationLeporello(MmDeclarationMimic pParent, MmRootAccessor<MODEL> pRootAccessor) {
+    super(pParent, pRootAccessor);
   }
 
   /**

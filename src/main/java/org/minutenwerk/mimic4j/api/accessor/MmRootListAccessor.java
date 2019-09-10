@@ -1,16 +1,18 @@
 package org.minutenwerk.mimic4j.api.accessor;
 
+import java.util.List;
+
 /**
- * Model accessor on root of an aggregate. Because a root does not have a parent, the parent model is Void.
+ * Model accessor on root list. Because a root does not have a parent, the parent model is Void.
  *
- * @param   <COMPONENT_MODEL>  Type of root model.
+ * @param   <VALUE_MODEL>  Type of root model in list.
  *
  * @author  Olaf Kossak
  */
-public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, COMPONENT_MODEL> {
+public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<VALUE_MODEL>, VALUE_MODEL> {
 
   /** The root model is stored in the root accessor. Root Accessors are the only accessor which hold a reference on a model. */
-  private COMPONENT_MODEL       rootModel;
+  private List<VALUE_MODEL>     rootModel;
 
   /** Listener to model changes. */
   private MmModelChangeListener modelChangeListener;
@@ -18,18 +20,31 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
   /**
    * Constructor of this mutable class.
    */
-  public MmRootAccessor() {
-    super(null, null, null);
+  public MmRootListAccessor() {
+    super(null, null, null, null);
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param  value  TODOC
+   */
+  @Override
+  public void add(final VALUE_MODEL value) {
+    rootModel.add(value);
+    notifyListener();
   }
 
   /**
    * Returns the model value. In case of the parent supplier does not supply a parent, this method returns null.
    *
+   * @param   index  TODOC
+   *
    * @return  the model value.
    */
   @Override
-  public COMPONENT_MODEL get() {
-    return rootModel;
+  public VALUE_MODEL get(final int index) {
+    return rootModel.get(index);
   }
 
   /**
@@ -63,15 +78,25 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
   }
 
   /**
+   * TODOC.
+   *
+   * @param  value  TODOC
+   */
+  @Override
+  public void remove(final VALUE_MODEL value) {
+    rootModel.remove(value);
+    notifyListener();
+  }
+
+  /**
    * Sets the specified model value, may be null, and notifies model change listener.
    *
    * @param  value  The specified model value, may be null.
    */
   @Override
-  public void set(final COMPONENT_MODEL value) {
+  public void set(final List<VALUE_MODEL> value) {
     rootModel = value;
     notifyListener();
-    modelChangeListener.onModelChange();
   }
 
   /**
@@ -97,7 +122,7 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
    * @return  The parent.
    */
   @Override
-  public final Void with(final COMPONENT_MODEL value) {
+  public final Void with(final List<VALUE_MODEL> value) {
     set(value);
     return null;
   }
