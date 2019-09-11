@@ -2,6 +2,7 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelChangeListener;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
@@ -17,7 +18,8 @@ import org.minutenwerk.mimic4j.impl.message.MmMessage;
  * @author  Olaf Kossak
  */
 public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends MmBaseContainerImplementation<?, MODEL, ?, ?>>
-  extends MmBaseDeclaration<MmContainerMimic<MODEL>, IMPLEMENTATION> implements MmContainerMimic<MODEL>, MmContainerCallback<MODEL> {
+  extends MmBaseDeclaration<MmContainerMimic<MODEL>, IMPLEMENTATION> implements MmContainerMimic<MODEL>, MmContainerCallback<MODEL>,
+    MmModelChangeListener {
 
   /**
    * Creates a new MmBaseContainerDeclaration instance.
@@ -158,5 +160,13 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
   @Override
   public final boolean isMmValid() {
     return implementation.isMmValid();
+  }
+
+  /**
+   * Event of model change.
+   */
+  @Override
+  public void onModelChange() {
+    implementation.onModelChange();
   }
 }

@@ -12,10 +12,7 @@ import java.util.List;
 public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<VALUE_MODEL>, VALUE_MODEL> {
 
   /** The root model is stored in the root accessor. Root Accessors are the only accessor which hold a reference on a model. */
-  private List<VALUE_MODEL>     rootModel;
-
-  /** Listener to model changes. */
-  private MmModelChangeListener modelChangeListener;
+  private List<VALUE_MODEL> rootModel;
 
   /**
    * Constructor of this mutable class.
@@ -32,7 +29,6 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<V
   @Override
   public void add(final VALUE_MODEL value) {
     rootModel.add(value);
-    notifyListener();
   }
 
   /**
@@ -85,7 +81,6 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<V
   @Override
   public void remove(final VALUE_MODEL value) {
     rootModel.remove(value);
-    notifyListener();
   }
 
   /**
@@ -96,21 +91,6 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<V
   @Override
   public void set(final List<VALUE_MODEL> value) {
     rootModel = value;
-    notifyListener();
-  }
-
-  /**
-   * Sets specified listener to model changes, cannot be set twice.
-   *
-   * @param   pModelChangeListener  The specified listener to model changes.
-   *
-   * @throws  IllegalStateException  In case of model change listener is set already.
-   */
-  public void setMmModelChangeListener(final MmModelChangeListener pModelChangeListener) {
-    if (modelChangeListener != null) {
-      throw new IllegalStateException("modelChangeListener cannot be set twice");
-    }
-    modelChangeListener = pModelChangeListener;
   }
 
   /**
@@ -125,18 +105,6 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<V
   public final Void with(final List<VALUE_MODEL> value) {
     set(value);
     return null;
-  }
-
-  /**
-   * TODOC.
-   */
-  private void notifyListener() {
-// if (modelChangeListener == null) {
-// throw new IllegalStateException("modelChangeListener must be set");
-// }
-    if (modelChangeListener != null) {
-      modelChangeListener.onModelChange();
-    }
   }
 
 }

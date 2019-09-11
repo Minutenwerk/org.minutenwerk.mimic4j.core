@@ -1,25 +1,24 @@
 package org.minutenwerk.mimic4j.api.accessor;
 
+import org.minutenwerk.mimic4j.impl.accessor.MmBaseModelAccessor;
+
 /**
  * Model accessor on root of an aggregate. Because a root does not have a parent, the parent model is Void.
  *
- * @param   <COMPONENT_MODEL>  Type of root model.
+ * @param   <MODEL>  Type of root model.
  *
  * @author  Olaf Kossak
  */
-public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, COMPONENT_MODEL> {
+public class MmRootAccessor<MODEL> extends MmBaseModelAccessor<Void, MODEL> {
 
   /** The root model is stored in the root accessor. Root Accessors are the only accessor which hold a reference on a model. */
-  private COMPONENT_MODEL       rootModel;
-
-  /** Listener to model changes. */
-  private MmModelChangeListener modelChangeListener;
+  private MODEL rootModel;
 
   /**
    * Constructor of this mutable class.
    */
   public MmRootAccessor() {
-    super(null, null, null);
+    super(null);
   }
 
   /**
@@ -28,7 +27,7 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
    * @return  the model value.
    */
   @Override
-  public COMPONENT_MODEL get() {
+  public MODEL get() {
     return rootModel;
   }
 
@@ -68,24 +67,8 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
    * @param  value  The specified model value, may be null.
    */
   @Override
-  public void set(final COMPONENT_MODEL value) {
+  public void set(final MODEL value) {
     rootModel = value;
-    notifyListener();
-    modelChangeListener.onModelChange();
-  }
-
-  /**
-   * Sets specified listener to model changes, cannot be set twice.
-   *
-   * @param   pModelChangeListener  The specified listener to model changes.
-   *
-   * @throws  IllegalStateException  In case of model change listener is set already.
-   */
-  public void setMmModelChangeListener(final MmModelChangeListener pModelChangeListener) {
-    if (modelChangeListener != null) {
-      throw new IllegalStateException("modelChangeListener cannot be set twice");
-    }
-    modelChangeListener = pModelChangeListener;
   }
 
   /**
@@ -97,21 +80,9 @@ public class MmRootAccessor<COMPONENT_MODEL> extends MmComponentAccessor<Void, C
    * @return  The parent.
    */
   @Override
-  public final Void with(final COMPONENT_MODEL value) {
+  public final Void with(final MODEL value) {
     set(value);
     return null;
-  }
-
-  /**
-   * TODOC.
-   */
-  private void notifyListener() {
-// if (modelChangeListener == null) {
-// throw new IllegalStateException("modelChangeListener must be set");
-// }
-    if (modelChangeListener != null) {
-      modelChangeListener.onModelChange();
-    }
   }
 
 }

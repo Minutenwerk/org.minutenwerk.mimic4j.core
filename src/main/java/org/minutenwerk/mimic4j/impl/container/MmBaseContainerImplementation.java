@@ -103,10 +103,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   @SuppressWarnings("unchecked")
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final MmRootAccessor<MODEL> pRootAccessor) {
     super(pParent, (Integer)null);
-    messageList  = new MmMessageList();
-    errorstate   = MmContainerErrorState.SUCCESS;
-    rootAccessor = pRootAccessor;
-    rootAccessor.setMmModelChangeListener(this);
+    messageList   = new MmMessageList();
+    errorstate    = MmContainerErrorState.SUCCESS;
+    rootAccessor  = pRootAccessor;
     modelAccessor = (MmModelAccessor<?, MODEL>)rootAccessor;
   }
 

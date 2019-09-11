@@ -17,7 +17,7 @@ public class TestContainer {
 
   @Test
   public void test1() {
-	LOGGER.debug("test1");
+    LOGGER.debug("test1");
     // setup
     Adress testAdresse = new Adress().setStreet("Hauptstraße").setCity("Hamburg");
     Person testPerson = new Person().setVorname("John").setNachname("Doe").setGender(Gender.MALE)
@@ -26,6 +26,7 @@ public class TestContainer {
 
     // test
     controller.person().set(testPerson);
+    controller.tabPerson.onModelChange();
 
     // assert
     Assert.assertEquals("John", controller.tabPerson.vorname.getMmViewsideValue());
@@ -48,6 +49,7 @@ public class TestContainer {
 
     // test
     controller.person().set(testPerson);
+    controller.tabPerson.onModelChange();
 
     controller.tabPerson.vorname.setMmViewsideValue("Jane");
     controller.tabPerson.nachname.setMmViewsideValue("Austen");
