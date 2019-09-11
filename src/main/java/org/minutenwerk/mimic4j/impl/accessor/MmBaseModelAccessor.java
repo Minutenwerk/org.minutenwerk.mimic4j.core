@@ -3,7 +3,6 @@ package org.minutenwerk.mimic4j.impl.accessor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 
@@ -18,14 +17,14 @@ import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmModelAccessor<PARENT_MODEL, MODEL> {
 
   /** Accessor of parent model. */
-  private final MmComponentAccessor<?, PARENT_MODEL> parentAccessor;
+  private final MmModelAccessor<?, PARENT_MODEL> parentAccessor;
 
   /**
    * Constructor of this immutable class.
    *
    * @param  pParentAccessor  The model accessor of the parent model.
    */
-  public MmBaseModelAccessor(final MmComponentAccessor<?, PARENT_MODEL> pParentAccessor) {
+  public MmBaseModelAccessor(final MmModelAccessor<?, PARENT_MODEL> pParentAccessor) {
     parentAccessor = pParentAccessor;
   }
 
@@ -63,7 +62,7 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
    * @return  accessor of parent model.
    */
   @Override
-  public final MmComponentAccessor<?, PARENT_MODEL> getParentAccessor() {
+  public final MmModelAccessor<?, PARENT_MODEL> getParentAccessor() {
     return parentAccessor;
   }
 
@@ -86,55 +85,5 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
   @SuppressWarnings("unchecked")
   public <R> R getRootModel() {
     return (R)getRootAccessor().get();
-  }
-
-  /**
-   * Returns true, if the accessed model is an attribute.
-   *
-   * @return  true, if the accessed model is an attribute.
-   */
-  @Override
-  public boolean isAttribute() {
-    return false;
-  }
-
-  /**
-   * Returns true, if the accessed model is a collection.
-   *
-   * @return  true, if the accessed model is a collection.
-   */
-  @Override
-  public boolean isCollection() {
-    return false;
-  }
-
-  /**
-   * Returns true, if the accessed model is a component.
-   *
-   * @return  true, if the accessed model is a component.
-   */
-  @Override
-  public boolean isComponent() {
-    return false;
-  }
-
-  /**
-   * Returns true, if value of the accessed model is not present.
-   *
-   * @return  true, if value of the accessed model is not present.
-   */
-  @Override
-  public final boolean isNotPresent() {
-    return !isPresent();
-  }
-
-  /**
-   * Returns true, if the accessed model is the root of an aggregate.
-   *
-   * @return  true, if the accessed model is the root of an aggregate.
-   */
-  @Override
-  public boolean isRoot() {
-    return false;
   }
 }

@@ -30,7 +30,6 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmReference;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
 import org.minutenwerk.mimic4j.api.link.MmReferenceParam;
@@ -62,7 +61,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
   protected Object                         modelsideValue;
 
   /** This link has a parent model. The parent model has a parent accessor. */
-  protected MmComponentAccessor<?, ?>      parentAccessor;
+  protected MmModelAccessor<?, ?>          parentAccessor;
 
   /**
    * This link has a model of type LINK_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
@@ -136,12 +135,12 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
    *
    * @jalopy.group  group-initialization
    */
-  private MmComponentAccessor<?, ?> onInitializeParentAccessor() {
+  private MmModelAccessor<?, ?> onInitializeParentAccessor() {
     MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getMmImplementationAncestorOfType(MmBaseContainerImplementation.class);
     if (containerAncestor == null) {
       throw new IllegalStateException("no ancestor of type MmContainerMimic for " + parentPath + "." + name);
     } else {
-      MmComponentAccessor<?, ?> containerAccessor = containerAncestor.onInitializeGetMmModelAccessor();
+      MmModelAccessor<?, ?> containerAccessor = containerAncestor.onInitializeGetMmModelAccessor();
       if (containerAccessor == null) {
         throw new IllegalStateException("no definition of parentAccessor for " + parentPath + "." + name);
       }
@@ -199,7 +198,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
    * @jalopy.group  group-override
    */
   @Override
-  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+  public MmModelAccessor<?, ?> getMmParentAccessor() {
     assureInitialization();
 
     return parentAccessor;

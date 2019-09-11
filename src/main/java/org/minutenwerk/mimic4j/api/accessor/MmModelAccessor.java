@@ -45,7 +45,7 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    *
    * @return  accessor of parent model.
    */
-  public MmComponentAccessor<?, PARENT_MODEL> getParentAccessor();
+  public MmModelAccessor<?, PARENT_MODEL> getParentAccessor();
 
   /**
    * Returns accessor on root model.
@@ -66,28 +66,36 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    *
    * @return  True, if the accessed model is an attribute.
    */
-  public boolean isAttribute();
+  default public boolean isAttribute() {
+    return false;
+  }
 
   /**
    * Returns true, if the accessed model is a collection.
    *
    * @return  True, if the accessed model is a collection.
    */
-  public boolean isCollection();
+  default public boolean isCollection() {
+    return false;
+  }
 
   /**
    * Returns true, if the accessed model is a component.
    *
    * @return  True, if the accessed model is a component.
    */
-  public boolean isComponent();
+  default public boolean isComponent() {
+    return false;
+  }
 
   /**
    * Returns true, if value of the accessed model is not present.
    *
    * @return  True, if value of the accessed model is not present.
    */
-  public boolean isNotPresent();
+  default public boolean isNotPresent() {
+    return !isPresent();
+  }
 
   /**
    * Returns true, if value of the accessed model is present.
@@ -101,7 +109,9 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    *
    * @return  true, if the accessed model is the root of an aggregate.
    */
-  public boolean isRoot();
+  default public boolean isRoot() {
+    return false;
+  }
 
   /**
    * Sets the specified model value, may be null.

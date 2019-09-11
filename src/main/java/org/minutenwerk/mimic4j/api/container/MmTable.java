@@ -5,7 +5,7 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmTableMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
@@ -52,7 +52,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    * @throws  IllegalStateException  In case of model accessor is not defined.
    */
   @Override
-  public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+  public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 

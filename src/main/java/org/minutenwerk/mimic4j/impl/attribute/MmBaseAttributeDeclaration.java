@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
@@ -59,7 +59,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @jalopy.group  group-callback
    */
   @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 
@@ -224,7 +224,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @return  The accessor of model of parent container mimic, may be null.
    */
   @Override
-  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+  public MmModelAccessor<?, ?> getMmParentAccessor() {
     return implementation.getMmParentAccessor();
   }
 

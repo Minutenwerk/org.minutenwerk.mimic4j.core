@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.api;
 
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 
 /**
@@ -25,7 +25,7 @@ public interface MmContainerMimic<MODEL> extends MmEditableMimic {
    * @return  The accessor of model.
    */
   @Override
-  public MmComponentAccessor<?, MODEL> getMmModelAccessor();
+  public MmModelAccessor<?, MODEL> getMmModelAccessor();
 
   /**
    * Returns the Java type of the model.

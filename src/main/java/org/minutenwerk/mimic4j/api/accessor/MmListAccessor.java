@@ -24,7 +24,7 @@ public class MmListAccessor<PARENT_MODEL, LIST_MODEL extends List<VALUE_MODEL>, 
    * @param  componentSetter  TODOC
    * @param  valueAdder       TODOC
    */
-  public MmListAccessor(final MmComponentAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, LIST_MODEL> componentGetter,
+  public MmListAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, LIST_MODEL> componentGetter,
     final BiConsumer<PARENT_MODEL, LIST_MODEL> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
     super(parentAccessor, componentGetter, componentSetter, valueAdder);
   }

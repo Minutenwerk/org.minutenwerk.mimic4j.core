@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
@@ -21,7 +21,7 @@ public interface MmContainerCallback<MODEL> extends MmBaseCallback {
    *
    * @return  The container's accessor.
    */
-  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor);
+  public MmModelAccessor<?, MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
   /**
    * Semantic validation of model.

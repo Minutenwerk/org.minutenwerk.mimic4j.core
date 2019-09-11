@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReference;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
@@ -41,7 +40,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public MmModelAccessor<?, LINK_MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+  public MmModelAccessor<?, LINK_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 
@@ -147,7 +146,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override
-  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+  public MmModelAccessor<?, ?> getMmParentAccessor() {
     return implementation.getMmParentAccessor();
   }
 

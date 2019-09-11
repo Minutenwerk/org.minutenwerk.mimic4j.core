@@ -1,7 +1,7 @@
 package org.minutenwerk.mimic4j.container;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTab;
@@ -12,7 +12,7 @@ public class MmTabAdresse extends MmTab<Adress> {
   @MmStringAnnotation(id = "st")
   public final MmString street = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       AdressAccessor adress = (AdressAccessor) pParentAccessor;
       return adress.street();
     }
@@ -21,7 +21,7 @@ public class MmTabAdresse extends MmTab<Adress> {
   @MmStringAnnotation(id = "ci")
   public final MmString city = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       AdressAccessor adress = (AdressAccessor) pParentAccessor;
       return adress.city();
     }

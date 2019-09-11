@@ -30,7 +30,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    * @param  pComponentGetter  The component model getter method.
    * @param  pComponentSetter  The component model setter method.
    */
-  public MmComponentAccessor(final MmComponentAccessor<?, PARENT_MODEL> parentAccessor, //
+  public MmComponentAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, //
     final Function<PARENT_MODEL, COMPONENT_MODEL> pComponentGetter, //
     final BiConsumer<PARENT_MODEL, COMPONENT_MODEL> pComponentSetter) {
     super(parentAccessor);

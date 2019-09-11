@@ -1,6 +1,5 @@
 package org.minutenwerk.mimic4j.api;
 
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 
 /**
@@ -36,7 +35,7 @@ public interface MmLinkMimic<LINK_MODEL> extends MmMimic {
    *
    * @return  The accessor of model of parent container mimic, may be null.
    */
-  public MmComponentAccessor<?, ?> getMmParentAccessor();
+  public MmModelAccessor<?, ?> getMmParentAccessor();
 
   /**
    * Returns a reference to some target, either an URL or an outcome.

@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
@@ -35,7 +35,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmStringAnnotation(id = "vn")
   public final MmString vorname = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.vorname();
     }
@@ -44,7 +44,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmStringAnnotation(id = "nn")
   public final MmString nachname = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.nachname();
     }
@@ -53,7 +53,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmLocalDateAnnotation(id = "bd")
   public final MmLocalDate birthday = new MmLocalDate(this) {
     @Override
-    public MmAttributeAccessor<?, LocalDate> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, LocalDate> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.birthday();
     }
@@ -62,7 +62,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmInstantAnnotation(id = "in")
   public final MmInstant instant = new MmInstant(this) {
     @Override
-    public MmAttributeAccessor<?, Instant> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, Instant> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.instant();
     }
@@ -71,7 +71,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmLocalTimeAnnotation(id = "lt")
   public final MmLocalTime localTime = new MmLocalTime(this) {
     @Override
-    public MmAttributeAccessor<?, LocalTime> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, LocalTime> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.localTime();
     }
@@ -80,7 +80,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmLocalDateTimeAnnotation(id = "ldt")
   public final MmLocalDateTime localDateTime = new MmLocalDateTime(this) {
     @Override
-    public MmAttributeAccessor<?, LocalDateTime> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, LocalDateTime> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.localDateTime();
     }
@@ -89,7 +89,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmZonedDateTimeAnnotation(id = "zdt")
   public final MmZonedDateTime zonedDateTime = new MmZonedDateTime(this) {
     @Override
-    public MmAttributeAccessor<?, ZonedDateTime> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, ZonedDateTime> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.zonedDateTime();
     }
@@ -99,7 +99,7 @@ public class MmTabPerson extends MmTab<Person> {
   @SuppressWarnings("unchecked")
   public final MmEnum<Gender> gender = new MmEnum<Gender>(this) {
     @Override
-    public MmAttributeAccessor<?, Gender> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, Gender> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.gender();
     }
@@ -108,7 +108,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmBooleanAnnotation(id = "mb")
   public final MmBoolean isMember = new MmBoolean(this) {
     @Override
-    public MmAttributeAccessor<?, Boolean> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, Boolean> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.isMember();
     }
@@ -117,7 +117,7 @@ public class MmTabPerson extends MmTab<Person> {
   @MmTabAnnotation(id = "adr")
   public final MmTabAdresse adresse = new MmTabAdresse(this) {
     @Override
-    public MmComponentAccessor<?, Adress> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmModelAccessor<?, Adress> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.adresse();
     }

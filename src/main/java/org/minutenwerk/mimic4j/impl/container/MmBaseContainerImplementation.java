@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimic;
 import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelChangeListener;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
@@ -54,22 +54,22 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /** The error state of this container. */
-  protected MmContainerErrorState         errorstate;
+  protected MmContainerErrorState     errorstate;
 
   /** The list of messages. */
-  protected final MmMessageList           messageList;
+  protected final MmMessageList       messageList;
 
   /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
-  protected final MmRootAccessor<?>       rootAccessor;
+  protected final MmRootAccessor<?>   rootAccessor;
 
   /** This component may have a parent model. A parent model has a parent accessor. */
-  protected MmComponentAccessor<?, ?>     parentAccessor;
+  protected MmModelAccessor<?, ?>     parentAccessor;
 
   /**
    * This component has a model of type MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
    * undefined.
    */
-  protected MmComponentAccessor<?, MODEL> modelAccessor;
+  protected MmModelAccessor<?, MODEL> modelAccessor;
 
   /**
    * Creates a new MmBaseContainerImplementation instance.
@@ -107,7 +107,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     errorstate   = MmContainerErrorState.SUCCESS;
     rootAccessor = pRootAccessor;
     rootAccessor.setMmModelChangeListener(this);
-    modelAccessor = (MmComponentAccessor<?, MODEL>)rootAccessor;
+    modelAccessor = (MmModelAccessor<?, MODEL>)rootAccessor;
   }
 
   /**
@@ -118,7 +118,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-override
    */
   @Override
-  public MmComponentAccessor<?, MODEL> getMmModelAccessor() {
+  public MmModelAccessor<?, MODEL> getMmModelAccessor() {
     assureInitialization();
 
     return modelAccessor;
@@ -132,7 +132,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-override
    */
   @Override
-  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+  public MmModelAccessor<?, ?> getMmParentAccessor() {
     assureInitialization();
 
     return parentAccessor;
@@ -206,12 +206,12 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @jalopy.group  group-initialization
    */
-  private MmComponentAccessor<?, ?> onInitializeParentAccessor() {
+  private MmModelAccessor<?, ?> onInitializeParentAccessor() {
     MmBaseContainerImplementation<?, ?, ?, ?> parentContainer = getMmImplementationAncestorOfType(MmBaseContainerImplementation.class);
     if (parentContainer == null) {
       throw new IllegalStateException("no ancestor of type MmContainerMimic for " + parentPath + "." + name);
     } else {
-      MmComponentAccessor<?, ?> parentContainerAccessor = parentContainer.onInitializeGetMmModelAccessor();
+      MmModelAccessor<?, ?> parentContainerAccessor = parentContainer.onInitializeGetMmModelAccessor();
       if (parentContainerAccessor == null) {
         throw new IllegalStateException("no definition of parentAccessor for " + parentPath + "." + name);
       }
@@ -433,7 +433,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    *
    * @return  TODOC
    */
-  public MmComponentAccessor<?, MODEL> onInitializeGetMmModelAccessor() {
+  public MmModelAccessor<?, MODEL> onInitializeGetMmModelAccessor() {
     return modelAccessor;
   }
 

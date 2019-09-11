@@ -1,7 +1,7 @@
 package org.minutenwerk.mimic4j.impl.container;
 
 import org.minutenwerk.mimic4j.api.MmContainerMimic;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
@@ -48,7 +48,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * @throws  IllegalStateException  In case of model accessor is not defined.
    */
   @Override
-  public MmComponentAccessor<?, MODEL> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+  public MmModelAccessor<?, MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
   }
 
@@ -95,7 +95,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * @return  The accessor of model.
    */
   @Override
-  public MmComponentAccessor<?, MODEL> getMmModelAccessor() {
+  public MmModelAccessor<?, MODEL> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
   }
 
@@ -115,7 +115,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    * @return  The accessor of model of parent container mimic, may be null.
    */
   @Override
-  public MmComponentAccessor<?, ?> getMmParentAccessor() {
+  public MmModelAccessor<?, ?> getMmParentAccessor() {
     return implementation.getMmParentAccessor();
   }
 

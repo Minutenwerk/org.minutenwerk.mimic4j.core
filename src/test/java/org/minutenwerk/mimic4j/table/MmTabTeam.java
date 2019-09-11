@@ -3,7 +3,7 @@ package org.minutenwerk.mimic4j.table;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
@@ -17,7 +17,7 @@ public class MmTabTeam extends MmTab<Team> {
   @MmStringAnnotation(id = "tn")
   public final MmString name = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?,String> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?,String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       TeamAccessor team = (TeamAccessor) pParentAccessor;
       return team.name();
     }
@@ -26,7 +26,7 @@ public class MmTabTeam extends MmTab<Team> {
   @MmTableAnnotation(id = "pt")
   public final MmTablePersonen personenTable = new MmTablePersonen(this) {
     @Override
-    public MmListAccessor<Team, List<Person>, Person> callbackMmGetAccessor(MmComponentAccessor<?, ?> pParentAccessor) {
+    public MmListAccessor<Team, List<Person>, Person> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       TeamAccessor team = (TeamAccessor) pParentAccessor;
       return team.personen();
     }
