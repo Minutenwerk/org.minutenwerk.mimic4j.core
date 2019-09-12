@@ -7,6 +7,7 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporello;
 import org.minutenwerk.mimic4j.impl.container.MmLeporelloCallback;
@@ -50,6 +51,16 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
    */
   public MmLeporello(MmDeclarationMimic pParent, MmRootAccessor<MODEL> pRootAccessor) {
     super(new MmImplementationLeporello<MODEL, SUB_MODEL>(pParent, pRootAccessor));
+  }
+
+  /**
+   * TODOC.
+   *
+   * @return  TODOC
+   */
+  @Override
+  public MmLeporelloTab<?> callbackMmGetSelectedTab() {
+    return null;
   }
 
   /**
