@@ -41,7 +41,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public MmModelAccessor<?, LINK_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
+    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getClass().getSimpleName());
   }
 
   /**

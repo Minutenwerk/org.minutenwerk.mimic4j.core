@@ -46,7 +46,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    */
   @Override
   public MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
+    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getClass().getSimpleName());
   }
 
   /**

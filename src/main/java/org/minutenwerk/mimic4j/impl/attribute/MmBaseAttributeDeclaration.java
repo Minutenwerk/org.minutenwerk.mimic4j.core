@@ -60,7 +60,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    */
   @Override
   public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getMmFullName());
+    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getClass().getSimpleName());
   }
 
   /**
