@@ -42,8 +42,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
   }
 
   /**
-   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified parent component
-   * accessor.
+   * Returns the container's accessor to corresponding model, derived from specified parent accessor.
    *
    * @param   pParentAccessor  The specified parent component accessor.
    *

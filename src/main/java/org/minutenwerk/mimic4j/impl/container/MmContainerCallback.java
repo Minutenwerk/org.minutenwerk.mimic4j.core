@@ -14,8 +14,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 public interface MmContainerCallback<MODEL> extends MmBaseCallback {
 
   /**
-   * Returns the container's accessor to corresponding model. The container accessor can be derived from specified parent component
-   * accessor.
+   * Returns the container's accessor to corresponding model, derived from specified parent accessor.
    *
    * @param   pParentAccessor  The specified parent component accessor.
    *
