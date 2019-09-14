@@ -6,8 +6,8 @@
   <artifactId>mimic4j-core</artifactId>
   <version>2.0-SNAPSHOT</version>
 
-  <name>Minutenwerk Mimic4j JSF framework</name>
-  <description>GUI presentation model framework to fill the gap between JSF tags and service layer.</description>
+  <name>Minutenwerk Mimic4j presentation model framework for Java</name>
+  <description>Mimic4j fills the gap between model and html.</description>
   <organization>
     <name>Minutenwerk</name>
     <url>http://www.minutenwerk.de/</url>
