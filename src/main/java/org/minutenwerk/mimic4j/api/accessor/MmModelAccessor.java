@@ -52,7 +52,7 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    *
    * @return  Accessor on root model.
    */
-  public MmRootAccessor<?> getRootAccessor();
+  public MmModelAccessor<?, ?> getRootAccessor();
 
   /**
    * Returns root model.

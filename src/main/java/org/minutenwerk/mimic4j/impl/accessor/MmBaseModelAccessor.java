@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 
 /**
  * Abstract base class for model accessors.
@@ -72,8 +71,8 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
    * @return  Accessor on root model.
    */
   @Override
-  public MmRootAccessor<?> getRootAccessor() {
-    return (getParentAccessor() != null) ? getParentAccessor().getRootAccessor() : (MmRootAccessor<?>)this;
+  public MmModelAccessor<?, ?> getRootAccessor() {
+    return (getParentAccessor() != null) ? getParentAccessor().getRootAccessor() : (MmModelAccessor<?, ?>)this;
   }
 
   /**

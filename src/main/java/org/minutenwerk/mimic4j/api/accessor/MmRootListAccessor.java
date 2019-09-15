@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.api.accessor;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Model accessor on root list. Because a root does not have a parent, the parent model is Void.
@@ -105,6 +106,16 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<V
   public final Void with(final List<VALUE_MODEL> value) {
     set(value);
     return null;
+  }
+
+  /**
+   * Returns {@link Optional} of component.
+   *
+   * @return  {@link Optional} of component.
+   */
+  @Override
+  protected Optional<List<VALUE_MODEL>> getComponentOptional() {
+    return Optional.of(rootModel);
   }
 
 }
