@@ -20,18 +20,14 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTableRow;
 public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<ROW_MODEL, MmImplementationTableRow<ROW_MODEL>>
   implements MmTableRowMimic<ROW_MODEL> {
 
-  /** The table row index of this row. */
-  protected final int mmRowIndex;
-
   /**
    * Creates a new MmTableRow instance.
    *
    * @param  pParent    The parent mimic of type {@link MmBaseDeclaration}.
    * @param  pRowIndex  The index of this row
    */
-  public MmTableRow(MmDeclarationMimic pParent, int pRowIndex) {
+  public MmTableRow(MmDeclarationMimic pParent, Integer pRowIndex) {
     super(new MmImplementationTableRow<ROW_MODEL>(pParent, pRowIndex));
-    mmRowIndex = pRowIndex;
   }
 
   /**
@@ -64,7 +60,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<R
    * @return  The table row index of this row.
    */
   @Override
-  public final int getMmRowIndex() {
+  public int getMmRowIndex() {
     return implementation.getMmRowIndex();
   }
 

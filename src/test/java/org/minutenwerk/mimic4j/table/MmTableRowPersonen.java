@@ -75,6 +75,6 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   public MmListEntryAccessor<? extends List<Person>, Person> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     @SuppressWarnings("unchecked")
     MmListAccessor<Team, List<Person>, Person> personen = (MmListAccessor<Team, List<Person>, Person>) pParentAccessor;
-    return new PersonAccessor(personen, () -> mmRowIndex);
+    return new PersonAccessor(personen, () -> getMmRowIndex());
   }
 }
