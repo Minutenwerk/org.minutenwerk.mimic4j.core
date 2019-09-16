@@ -162,8 +162,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
    * super.onInitialization()!
    *
-   * @throws        IllegalStateException  In case of root accessor or model accessor is not defined.
-   *
    * @jalopy.group  group-initialization
    */
   @Override
@@ -176,7 +174,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     // initialize modelAccessor
     modelAccessor  = declaration.callbackMmGetAccessor(parentAccessor);
     if (modelAccessor == null) {
-      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
+      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      // TODO throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
     }
   }
 
@@ -246,7 +245,12 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     String originalDebugState = toStringTraceState();
 
     try {
-      ATTRIBUTE_MODEL modelsideValue = modelAccessor.get();
+      ATTRIBUTE_MODEL modelsideValue = null;
+      if (modelAccessor != null) {
+        modelsideValue = modelAccessor.get();
+      } else {
+        LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      }
       viewsideValue = declaration.callbackMmConvertModelsideToViewsideValue(modelsideValue);
       valueState    = MmValueState.CONVERTED_MODELSIDE_TO_VIEWSIDE;
       errorState    = MmAttributeErrorState.SUCCESS;
@@ -368,7 +372,12 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
 
     if (isValidationEnabled()) {
       try {
-        declaration.callbackMmValidateModelsideValue(modelAccessor.get());
+        if (modelAccessor != null) {
+          declaration.callbackMmValidateModelsideValue(modelAccessor.get());
+        } else {
+          LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+          declaration.callbackMmValidateModelsideValue(null);
+        }
         valueState = MmValueState.VALID_VALUE_IN_MODELSIDE;
         errorState = MmAttributeErrorState.SUCCESS;
       } catch (MmValidatorException validatorException) {
@@ -538,7 +547,12 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public ATTRIBUTE_MODEL getMmModelsideValue() {
     assureInitialization();
 
-    return modelAccessor.get();
+    if (modelAccessor != null) {
+      return modelAccessor.get();
+    } else {
+      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      return null;
+    }
   }
 
   /**
