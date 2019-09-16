@@ -952,20 +952,48 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseImplementation</code>, including
+   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseDeclaration</code>, including
    * runtime children.
    *
-   * @param         pType  The specified mimic.
+   * @param         pDeclarationType  The specified mimic.
    *
    * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
    *                children.
    *
+   * @throws        IllegalArgumentException  TODOC
+   *
    * @jalopy.group  group-helper
    */
   @SuppressWarnings("unchecked")
-  public <T extends MmMimic> List<T> getDirectChildrenOfType(Class<T> pType) {
+  public <T extends MmMimic> List<T> getDirectDeclarationChildrenOfType(Class<T> pDeclarationType) {
+    if (!(MmBaseDeclaration.class.isAssignableFrom(pDeclarationType))) {
+      throw new IllegalArgumentException("Class " + pDeclarationType.getSimpleName() + " is not a subclass of MmBaseDeclaration");
+    }
+    return (List<T>)Stream.concat(declarationChildren.stream(), runtimeDeclarationChildren.stream()) //
+    .filter(child -> pDeclarationType.isAssignableFrom(child.getClass())) //
+    .collect(Collectors.toList());
+  }
+
+  /**
+   * Returns the list of all direct implementation children of specified mimic, which are instances of class <code>
+   * MmBaseImplementation</code>, including runtime children.
+   *
+   * @param         pImplementationType  The specified mimic.
+   *
+   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
+   *                children.
+   *
+   * @throws        IllegalArgumentException  TODOC
+   *
+   * @jalopy.group  group-helper
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends MmMimic> List<T> getDirectImplementationChildrenOfType(Class<T> pImplementationType) {
+    if (!pImplementationType.isInterface() && !(MmBaseImplementation.class.isAssignableFrom(pImplementationType))) {
+      throw new IllegalArgumentException("Class " + pImplementationType.getSimpleName() + " is not a subclass of MmBaseImplementation");
+    }
     return (List<T>)Stream.concat(implementationChildren.stream(), runtimeImplementationChildren.stream()) //
-    .filter(child -> pType.isAssignableFrom(child.getClass())) //
+    .filter(child -> pImplementationType.isAssignableFrom(child.getClass())) //
     .collect(Collectors.toList());
   }
 

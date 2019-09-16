@@ -94,7 +94,7 @@ public class MmImplementationTable<ROW_MODEL>
       addRuntimeChild(tableRowMm);
     }
 
-    for (MmEditableMimicImpl child : getDirectChildrenOfType(MmEditableMimicImpl.class)) {
+    for (MmEditableMimicImpl child : getDirectImplementationChildrenOfType(MmEditableMimicImpl.class)) {
       child.passModelsideToViewside();
     }
   }
@@ -152,7 +152,7 @@ public class MmImplementationTable<ROW_MODEL>
   public List<MmTableColumn> getMmTableColumns() {
     assureInitialization();
 
-    return getDirectChildrenOfType(MmTableColumn.class);
+    return getDirectDeclarationChildrenOfType(MmTableColumn.class);
   }
 
   /**
@@ -167,7 +167,7 @@ public class MmImplementationTable<ROW_MODEL>
     assureInitialization();
 
     List<T> returnList = new ArrayList<>();
-    for (MmTableRow<?> child : getDirectChildrenOfType(MmTableRow.class)) {
+    for (MmTableRow<?> child : getDirectDeclarationChildrenOfType(MmTableRow.class)) {
       @SuppressWarnings("unchecked")
       T tableRowMm = (T)child;
       returnList.add(tableRowMm);
