@@ -50,7 +50,7 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    */
   @Override
   public MmModelAccessor<?, MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + getClass().getSimpleName());
+    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + this);
   }
 
   /**
