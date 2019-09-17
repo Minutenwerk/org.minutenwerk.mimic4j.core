@@ -1,8 +1,11 @@
 package org.minutenwerk.mimic4j.impl.thymeleaf;
 
+import org.minutenwerk.mimic4j.api.container.MmLeporello;
+
 import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
+import org.thymeleaf.model.AttributeValueQuotes;
 import org.thymeleaf.model.IProcessableElementTag;
 import org.thymeleaf.processor.element.AbstractAttributeTagProcessor;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
@@ -38,8 +41,8 @@ public class Mimic4jAttributeTagProcessor extends AbstractAttributeTagProcessor 
    * Creates a new Mimic4jAttributeTagProcessor instance.
    */
   public Mimic4jAttributeTagProcessor() {
-    super(TemplateMode.HTML, Mimic4jDialect.DIALECT_PREFIX, ELEMENT_NAME_ATTRIBUTE, PREFIX_ELEMENT_NAME_TRUE, ATTRIBUTE_NAME_VALUE,
-      PREFIX_ATTRIBUTE_NAME_FALSE, PRECEDENCE_100, REMOVE_ATTRIBUTE_FALSE);
+    super(TemplateMode.HTML, Mimic4jDialect.MIMIC4J_DIALECT_PREFIX_MM, ELEMENT_NAME_ATTRIBUTE, PREFIX_ELEMENT_NAME_TRUE,
+      ATTRIBUTE_NAME_VALUE, PREFIX_ATTRIBUTE_NAME_FALSE, PRECEDENCE_100, REMOVE_ATTRIBUTE_FALSE);
   }
 
   /**
@@ -60,8 +63,10 @@ public class Mimic4jAttributeTagProcessor extends AbstractAttributeTagProcessor 
 
     final IStandardExpression       expression    = parser.parseExpression(context, attributeValue);
 
-    final String                    result        = (String)expression.execute(context);
+    final Object                    object        = expression.execute(context);
 
-    structureHandler.setAttribute("value", result);
+    final MmLeporello<?, ?>         leporello     = (MmLeporello<?, ?>)object;
+
+    structureHandler.setAttribute("value", leporello.getMmId(), AttributeValueQuotes.DOUBLE);
   }
 }

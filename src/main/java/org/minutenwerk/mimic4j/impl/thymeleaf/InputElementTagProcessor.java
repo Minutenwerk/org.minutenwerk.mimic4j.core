@@ -58,7 +58,7 @@ public class InputElementTagProcessor extends AbstractElementTagProcessor {
     Map<String, String> inputAttributes = new HashMap<>();
     inputAttributes.put("name", name);
     inputAttributes.put("value", value);
-    model.add(modelFactory.createStandaloneElementTag("input", inputAttributes, AttributeValueQuotes.DOUBLE, false, false));
+    model.add(modelFactory.createStandaloneElementTag("input", inputAttributes, AttributeValueQuotes.DOUBLE, false, true));
 
     structureHandler.replaceWith(model, false);
   }

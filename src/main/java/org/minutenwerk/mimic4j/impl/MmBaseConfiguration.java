@@ -19,7 +19,7 @@ public abstract class MmBaseConfiguration {
   /** Constant for default value of enabled. */
   public static final boolean DEFAULT_IS_ENABLED  = true;
 
-  /** The JSF view id of HTML tag. */
+  /** The HTML id of HTML tag. */
   protected String            id;
 
   /** True, if HTML tag of mimic is rendered visible. */
@@ -34,7 +34,7 @@ public abstract class MmBaseConfiguration {
   /**
    * Creates a new MmBaseConfiguration instance.
    *
-   * @param  pId        The JSF view id of HTML tag.
+   * @param  pId        The HTML id of HTML tag.
    * @param  pVisible   True, if HTML tag of mimic is rendered visible.
    * @param  pReadOnly  True, if HTML tag of mimic is rendered readonly.
    * @param  pEnabled   True, if HTML tag of mimic is rendered enabled.
@@ -47,9 +47,9 @@ public abstract class MmBaseConfiguration {
   }
 
   /**
-   * Returns the JSF view id of HTML tag.
+   * Returns the HTML id of HTML tag.
    *
-   * @return  The JSF view id of HTML tag.
+   * @return  The HTML id of HTML tag.
    */
   public String getId() {
     return id;
@@ -106,9 +106,9 @@ public abstract class MmBaseConfiguration {
   }
 
   /**
-   * Sets JSF view id of mimic, cannot be set twice.
+   * Sets HTML id of mimic, cannot be set twice.
    *
-   * @param   pId  The JSF view id to be set.
+   * @param   pId  The HTML id to be set.
    *
    * @throws  IllegalArgumentException  In case of the view id has been set already.
    */

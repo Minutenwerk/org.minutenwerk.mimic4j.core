@@ -33,7 +33,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  * @param               <CALLBACK>         Interface defining callback methods, extending {@link MmBaseCallback}.
  * @param               <CONFIGURATION>    Type of configuration, holding state of mimic configuration.
  * @param               <ATTRIBUTE_MODEL>  Type of attribute of model.
- * @param               <VIEWSIDE_VALUE>   Type of viewside value of attribute, passed to JSF tag.
+ * @param               <VIEWSIDE_VALUE>   Type of viewside value of attribute, passed to HTML tag.
  *
  * @author              Olaf Kossak
  *

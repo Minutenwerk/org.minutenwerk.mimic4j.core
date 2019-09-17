@@ -10,6 +10,7 @@ import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.container.MmTableRowAnnotation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
+import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTableRow;
 
 /**
  * MmImplementationTableRow is the specific class for the implementation part of table row mimics.
@@ -82,7 +83,7 @@ public class MmImplementationTableRow<ROW_MODEL>
    */
   @Override
   protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return null;
+    return new MmJsfBridgeTableRow(this);
   }
 
   /**

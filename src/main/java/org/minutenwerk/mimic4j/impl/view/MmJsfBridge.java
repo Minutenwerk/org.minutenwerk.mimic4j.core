@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmReference;
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
@@ -118,17 +117,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
   }
 
   /**
-   * Returns the caption text of a table (tag caption in tag h:dataTable).
-   *
-   * @return  The caption text of a table.
-   *
-   * @throws  UnsupportedOperationException  In case of the method is not supported by MmJsfBridge and its concrete subclass.
-   */
-  public String getCaption() {
-    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag caption");
-  }
-
-  /**
    * Returns the number of columns of a multiline text field (attribute {@code}cols{@code}).
    *
    * @return  The number of columns of a multiline text field.
@@ -137,28 +125,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    */
   public int getCols() {
     throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag cols");
-  }
-
-  /**
-   * Returns the CSS style classes of columns, one style class for each column, comma separated.
-   *
-   * @return  The CSS style classes of columns.
-   *
-   * @throws  UnsupportedOperationException  In case of the method is not supported by MmJsfBridge and its concrete subclass.
-   */
-  public String getColumnClasses() {
-    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag columnClasses");
-  }
-
-  /**
-   * Returns the list of table column mimics of this table mimic.
-   *
-   * @return  The list of table column mimics.
-   *
-   * @throws  UnsupportedOperationException  In case of the method is not supported by MmJsfBridge and its concrete subclass.
-   */
-  public List<MmTableColumn> getColumnMms() {
-    throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag columnMms");
   }
 
   /**

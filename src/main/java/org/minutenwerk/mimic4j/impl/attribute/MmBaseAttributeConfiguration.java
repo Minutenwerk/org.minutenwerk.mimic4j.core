@@ -18,7 +18,7 @@ public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_MODEL> extends MmBa
   /**
    * Creates a new MmBaseAttributeConfiguration instance from annotation.
    *
-   * @param  pId        The JSF view id of HTML tag.
+   * @param  pId        The HTML id of HTML tag.
    * @param  pVisible   True, if HTML tag of mimic is rendered visible.
    * @param  pReadOnly  True, if HTML tag of mimic is rendered readonly.
    * @param  pEnabled   True, if HTML tag of mimic is rendered enabled.
