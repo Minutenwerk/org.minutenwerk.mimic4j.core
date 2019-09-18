@@ -9,10 +9,13 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLink;
 /**
  * MmImplementationLink is the specific class for the implementation part of link mimics.
  *
+ * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
+ * @param   <LINK_MODEL>       Link model delivers text of link.
+ *
  * @author  Olaf Kossak
  */
-public class MmImplementationLink<LINK_MODEL>
-  extends MmBaseLinkImplementation<MmLink<LINK_MODEL>, LINK_MODEL, MmConfigurationLink, MmLinkAnnotation> {
+public class MmImplementationLink<MODELSIDE_VALUE, LINK_MODEL>
+  extends MmBaseLinkImplementation<MmLink<MODELSIDE_VALUE, LINK_MODEL>, MODELSIDE_VALUE, LINK_MODEL, MmConfigurationLink, MmLinkAnnotation> {
 
   /**
    * Creates a new MmImplementationLink instance.

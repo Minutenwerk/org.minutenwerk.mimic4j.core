@@ -115,11 +115,11 @@ public class MmImplementationLeporelloPanel<MODEL>
    * @return  The reverse index of this panel.
    */
   protected int getReverseIndex() {
-    final MmLeporelloTab<?>   selectedTab   = getMmImplementationLeporello().getMmSelectedTab();
-    final MmLeporelloPanel<?> selectedPanel = selectedTab.getMmLeporelloPanel();
-    int                       index         = 0;
-    int                       count         = 0;
-    boolean                   found         = false;
+    final MmLeporelloTab<?, ?> selectedTab   = getMmImplementationLeporello().getMmSelectedTab();
+    final MmLeporelloPanel<?>  selectedPanel = selectedTab.getMmLeporelloPanel();
+    int                        index         = 0;
+    int                        count         = 0;
+    boolean                    found         = false;
     for (MmMimic mimic : getMmImplementationLeporello().getMmChildren()) {
       if (mimic instanceof MmLeporelloPanel<?>) {
         count++;

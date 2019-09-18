@@ -44,7 +44,7 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
    *
    * @return  the currently selected leporello tab, may be null.
    */
-  public MmLeporelloTab<?> getMmSelectedTab() {
+  public MmLeporelloTab<?, ?> getMmSelectedTab() {
     assureInitialization();
 
     return declaration.callbackMmGetSelectedTab();

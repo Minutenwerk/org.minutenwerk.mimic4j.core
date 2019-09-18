@@ -1,10 +1,6 @@
-todos:
+Todos:
 
 * Für MmExecutableMimic Reference auf Java Function übergeben und speichern
-* 
-* placeholder mit namespace passthrough in tags implementieren
-* in MmMimic getMmPlaceholder aufnehmen?
-* tags aufräumen!
 * Meldung anzeigen
 * Fehler auf Tab anzeigen
 * In Dto.getInfo() auch i18n von Enum-Werten erlauben und anzeigen
@@ -19,15 +15,11 @@ todos:
 
 * TabSet und Tab
 * Links auf Tabs
-* Conversation Controller refactoring
-* All MmTabs als Spring beans
-* Wie Tab mit PageController verbinden?
-* MmSubRoot: muß RequestController implementieren
-* MmComponent: muß Jaquama-Component implementieren
 * unit tests
-* Commands
-* Toolbar ?
-* Für Jsf type SelectOneCheckboxDisabled icon-class konfigurierbar machen
+
+
+
+Überlegungen
 
 * Jedes mimic verfügt über eine Selbstreferenz, d.h. über seine eigene URL.
 * Eine URL besteht aus drei Teilen: dem href, dem text und dem title

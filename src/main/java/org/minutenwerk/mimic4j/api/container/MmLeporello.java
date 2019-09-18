@@ -59,7 +59,7 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
    * @return  TODOC
    */
   @Override
-  public MmLeporelloTab<?> callbackMmGetSelectedTab() {
+  public MmLeporelloTab<?, ?> callbackMmGetSelectedTab() {
     return null;
   }
 

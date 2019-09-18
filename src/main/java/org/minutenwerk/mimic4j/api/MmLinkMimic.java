@@ -5,30 +5,40 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 /**
  * MmCompositeMimic defines mimics which can be nested following the composite design pattern.
  *
+ * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
+ * @param   <LINK_MODEL>       Link model delivers text of link.
+ *
  * @author  Olaf Kossak
  */
-public interface MmLinkMimic<LINK_MODEL> extends MmMimic {
+public interface MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL> extends MmMimic {
+
+  /**
+   * Returns the link's model value.
+   *
+   * @return  The link's model value.
+   */
+  public LINK_MODEL getMmLinkModelValue();
 
   /**
    * Returns accessor of model.
    *
    * @return  The accessor of model.
    */
-  public MmModelAccessor<?, LINK_MODEL> getMmModelAccessor();
+  public MmModelAccessor<?, MODELSIDE_VALUE> getMmModelAccessor();
 
   /**
    * Returns the link's type of modelside value (LINK_MODEL).
    *
    * @return  The link's type of modelside value.
    */
-  public Class<LINK_MODEL> getMmModelsideType();
+  public Class<MODELSIDE_VALUE> getMmModelsideType();
 
   /**
    * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
    *
    * @return  The modelside value of the mimic.
    */
-  public LINK_MODEL getMmModelsideValue();
+  public MODELSIDE_VALUE getMmModelsideValue();
 
   /**
    * Returns accessor of model of parent container mimic, may be null.

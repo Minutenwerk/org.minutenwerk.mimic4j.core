@@ -43,31 +43,35 @@ import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
 /**
  * MmBaseLinkImplementation is the abstract base class for the implementation part of all link mimic classes.
  *
+ * @param               <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
+ * @param               <LINK_MODEL>       Link model delivers text of link.
+ *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-initialization, group-override, group-i18n
  */
-public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<LINK_MODEL>,
-  LINK_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
-  extends MmBaseImplementation<MmBaseLinkDeclaration<?, LINK_MODEL>, CONFIGURATION, ANNOTATION> implements MmLinkMimic<LINK_MODEL> {
+public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<MODELSIDE_VALUE, LINK_MODEL>,
+  MODELSIDE_VALUE, LINK_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
+  extends MmBaseImplementation<MmBaseLinkDeclaration<?, MODELSIDE_VALUE, LINK_MODEL>, CONFIGURATION, ANNOTATION>
+  implements MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL> {
 
   /** Class internal constant to control index of generic type LINK_MODEL. */
-  private static final int                 GENERIC_PARAMETER_INDEX_LINK_MODEL = 1;
+  private static final int                      GENERIC_PARAMETER_INDEX_LINK_MODEL = 2;
 
   /** Logger of this class. */
-  private static final Logger              LOGGER                             = LogManager.getLogger(MmBaseLinkImplementation.class);
-
-  /** The displaying text and title of the link may depend dynamically on a value. */
-  protected Object                         modelsideValue;
+  private static final Logger                   LOGGER                             = LogManager.getLogger(MmBaseLinkImplementation.class);
 
   /** This link has a parent model. The parent model has a parent accessor. */
-  protected MmModelAccessor<?, ?>          parentAccessor;
+  protected MmModelAccessor<?, ?>               parentAccessor;
 
   /**
    * This link has a model of type LINK_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
    * undefined.
    */
-  protected MmModelAccessor<?, LINK_MODEL> modelAccessor;
+  protected MmModelAccessor<?, MODELSIDE_VALUE> modelAccessor;
+
+  /** TODOC. */
+  protected MmModelAccessor<?, LINK_MODEL>      linkModelAccessor;
 
   /**
    * Creates a new MmBaseLinkImplementation instance.
@@ -124,6 +128,12 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
     if (modelAccessor == null) {
       throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
     }
+
+    // initialize link modelAccessor
+    linkModelAccessor = declaration.callbackMmGetLinkModelAccessor(parentAccessor);
+    if (linkModelAccessor == null) {
+      throw new IllegalStateException("no definition of callbackMmGetLinkModelAccessor() for " + parentPath + "." + name);
+    }
   }
 
   /**
@@ -156,7 +166,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
    * @jalopy.group  group-override
    */
   @Override
-  public MmModelAccessor<?, LINK_MODEL> getMmModelAccessor() {
+  public MmModelAccessor<?, MODELSIDE_VALUE> getMmModelAccessor() {
     assureInitialization();
 
     return modelAccessor;
@@ -170,7 +180,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
    * @jalopy.group  group-override
    */
   @Override
-  public Class<LINK_MODEL> getMmModelsideType() {
+  public Class<MODELSIDE_VALUE> getMmModelsideType() {
     assureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_LINK_MODEL);
@@ -184,7 +194,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
    * @jalopy.group  group-override
    */
   @Override
-  public LINK_MODEL getMmModelsideValue() {
+  public MODELSIDE_VALUE getMmModelsideValue() {
     assureInitialization();
 
     return modelAccessor.get();
@@ -215,11 +225,11 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
   public MmReference getMmTargetReference() {
     assureInitialization();
 
-    MmReference      targetReference = null;
-    final MmMimic    targetMimic     = declaration.callbackMmGetTargetMimic(null);
+    MmReference           targetReference = null;
+    final MmMimic         targetMimic     = declaration.callbackMmGetTargetMimic(null);
 
     // retrieve model
-    final LINK_MODEL model           = modelAccessor.get();
+    final MODELSIDE_VALUE model           = modelAccessor.get();
 
     // if link references another mimic without a specified data model
     if ((targetMimic != null) && (model == null)) {
@@ -298,9 +308,12 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
     assureInitialization();
 
     // retrieve model
-    final LINK_MODEL model        = modelAccessor.get();
+    final MODELSIDE_VALUE model          = getMmModelsideValue();
 
-    String           returnString = null;
+    // retrieve modelside value
+    final LINK_MODEL      modelsideValue = getMmLinkModelValue();
+
+    String                returnString   = null;
     if (model == null) {
       final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue);
       returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue);
@@ -325,6 +338,11 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
    */
   @Override
   public String getMmViewsideValue() {
+    assureInitialization();
+
+    // retrieve modelside value
+    final LINK_MODEL modelsideValue = getMmLinkModelValue();
+
     // if model is an array of objects
     if (modelsideValue instanceof Object[]) {
 
@@ -521,6 +539,18 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<L
     returnNumberFormatter.setParseBigDecimal(pParseBigDecimal);
     returnNumberFormatter.applyPattern(getMmFormatPattern());
     return returnNumberFormatter;
+  }
+
+  /**
+   * Returns the link's model value.
+   *
+   * @return  The link's model value.
+   */
+  @Override
+  public LINK_MODEL getMmLinkModelValue() {
+    assureInitialization();
+
+    return linkModelAccessor.get();
   }
 
 }

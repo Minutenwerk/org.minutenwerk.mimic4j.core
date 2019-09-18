@@ -7,9 +7,13 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
 /**
  * MmLink is a composite mimic offering a display link.
  *
+ * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
+ * @param   <LINK_MODEL>       Link model delivers text of link.
+ *
  * @author  Olaf Kossak
  */
-public class MmLink<LINK_MODEL> extends MmBaseLinkDeclaration<MmImplementationLink<LINK_MODEL>, LINK_MODEL> {
+public class MmLink<MODELSIDE_VALUE, LINK_MODEL>
+  extends MmBaseLinkDeclaration<MmImplementationLink<MODELSIDE_VALUE, LINK_MODEL>, MODELSIDE_VALUE, LINK_MODEL> {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.

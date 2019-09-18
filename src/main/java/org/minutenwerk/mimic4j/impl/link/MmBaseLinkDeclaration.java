@@ -12,12 +12,16 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 /**
  * MmBaseLinkDeclaration is the base class for link mimics.
  *
+ * @param               <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
+ * @param               <LINK_MODEL>       Link model delivers text of link.
+ *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-callback, group-override
  */
-public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, LINK_MODEL, ?, ?>, LINK_MODEL>
-  extends MmBaseDeclaration<MmLinkMimic<LINK_MODEL>, IMPLEMENTATION> implements MmLinkMimic<LINK_MODEL>, MmLinkCallback<LINK_MODEL> {
+public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, MODELSIDE_VALUE, LINK_MODEL, ?, ?>,
+  MODELSIDE_VALUE, LINK_MODEL> extends MmBaseDeclaration<MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL>, IMPLEMENTATION>
+  implements MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL>, MmLinkCallback<MODELSIDE_VALUE, LINK_MODEL> {
 
   /**
    * Creates a new MmBaseLinkDeclaration instance.
@@ -40,7 +44,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public MmModelAccessor<?, LINK_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmModelAccessor<?, MODELSIDE_VALUE> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + this);
   }
 
@@ -98,7 +102,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, LINK_MODEL pModel) {
+  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MODELSIDE_VALUE pModel) {
     return pPassThroughValue;
   }
 
@@ -110,7 +114,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override
-  public MmModelAccessor<?, LINK_MODEL> getMmModelAccessor() {
+  public MmModelAccessor<?, MODELSIDE_VALUE> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
   }
 
@@ -122,7 +126,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override
-  public final Class<LINK_MODEL> getMmModelsideType() {
+  public final Class<MODELSIDE_VALUE> getMmModelsideType() {
     return implementation.getMmModelsideType();
   }
 
@@ -134,7 +138,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override
-  public final LINK_MODEL getMmModelsideValue() {
+  public final MODELSIDE_VALUE getMmModelsideValue() {
     return implementation.getMmModelsideValue();
   }
 
@@ -172,5 +176,30 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   @Override
   public final String getMmViewsideValue() {
     return implementation.getMmViewsideValue();
+  }
+
+  /**
+   * Returns the link's model accessor to corresponding link model. The link model delivers text of link. The link accessor can be derived
+   * from specified parent component accessor.
+   *
+   * @param   pParentAccessor  The specified parent component accessor.
+   *
+   * @return  The link's model accessor.
+   *
+   * @throws  IllegalStateException  In case of link model accessor is not defined.
+   */
+  @Override
+  public MmModelAccessor<?, LINK_MODEL> callbackMmGetLinkModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    throw new IllegalStateException("no definition of callbackMmGetLinkModel() for " + this);
+  }
+
+  /**
+   * Returns the link's model value.
+   *
+   * @return  The link's model value.
+   */
+  @Override
+  public LINK_MODEL getMmLinkModelValue() {
+    return implementation.getMmLinkModelValue();
   }
 }

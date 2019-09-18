@@ -24,16 +24,20 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloTab;
 /**
  * MmImplementationLeporelloTab is the specific class for the implementation part of tab set mimics.
  *
+ * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
+ * @param   <LINK_MODEL>       Link model delivers text of link.
+ *
  * @author  Olaf Kossak
  */
-public class MmImplementationLeporelloTab<LINK_MODEL>
-  extends MmBaseLinkImplementation<MmLeporelloTab<LINK_MODEL>, LINK_MODEL, MmConfigurationLeporelloTab, MmLeporelloTabAnnotation> {
+public class MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
+  extends MmBaseLinkImplementation<MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>,
+    MODELSIDE_VALUE, LINK_MODEL, MmConfigurationLeporelloTab, MmLeporelloTabAnnotation> {
 
   /** The super tab is the logical parent tab in the parent panel. */
-  protected final MmLeporelloTab<LINK_MODEL> superTab;
+  protected final MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL> superTab;
 
   /** The parent leporello of this leporello tab. */
-  protected MmImplementationLeporello<?, ?>  parentLeporello;
+  protected MmImplementationLeporello<?, ?>                   parentLeporello;
 
   /**
    * Creates a new MmImplementationLeporelloTab instance.
@@ -50,7 +54,7 @@ public class MmImplementationLeporelloTab<LINK_MODEL>
    * @param  pParentPanel  The parent declaration mimic, declaring a static final instance of this mimic.
    * @param  pSuperTab     The super tab is the logical parent tab in the parent panel.
    */
-  public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel, MmLeporelloTab<LINK_MODEL> pSuperTab) {
+  public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel, MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL> pSuperTab) {
     super(pParentPanel);
     superTab = pSuperTab;
   }
@@ -95,6 +99,11 @@ public class MmImplementationLeporelloTab<LINK_MODEL>
    */
   @Override
   public String getMmViewsideValue() {
+    assureInitialization();
+
+    // retrieve modelside value
+    final LINK_MODEL modelsideValue = getMmLinkModelValue();
+
     // if model is an array of objects
     if (modelsideValue instanceof Object[]) {
 
@@ -186,21 +195,21 @@ public class MmImplementationLeporelloTab<LINK_MODEL>
   public boolean isMmActive() {
     assureInitialization();
 
-    final MmLeporelloTab<?> thisDeclaration = (MmLeporelloTab<?>)declaration;
-    final MmLeporelloTab<?> selectedTab     = parentLeporello.getMmSelectedTab();
+    final MmLeporelloTab<?, ?> thisDeclaration = (MmLeporelloTab<?, ?>)declaration;
+    final MmLeporelloTab<?, ?> selectedTab     = parentLeporello.getMmSelectedTab();
     if (selectedTab == null) {
       return false;
     } else if (selectedTab == thisDeclaration) {
       return true;
     } else {
-      final MmImplementationLeporelloTab<LINK_MODEL> selectedTabImplementation = MmBaseImplementation.getImplementation(selectedTab);
-      MmLeporelloTab<LINK_MODEL>                     superTabOfSelected        = selectedTabImplementation.superTab;
+      final MmImplementationLeporelloTab<?, LINK_MODEL> selectedTabImplementation = MmBaseImplementation.getImplementation(selectedTab);
+      MmLeporelloTab<?, LINK_MODEL>                     superTabOfSelected        = selectedTabImplementation.superTab;
       while (superTabOfSelected != null) {
         if (thisDeclaration == superTabOfSelected) {
           return true;
         }
 
-        final MmImplementationLeporelloTab<LINK_MODEL> superTabOfSelectedImplementation = MmBaseImplementation.getImplementation(
+        final MmImplementationLeporelloTab<?, LINK_MODEL> superTabOfSelectedImplementation = MmBaseImplementation.getImplementation(
             superTabOfSelected);
         superTabOfSelected = superTabOfSelectedImplementation.superTab;
       }
@@ -216,8 +225,8 @@ public class MmImplementationLeporelloTab<LINK_MODEL>
   public boolean isMmSelected() {
     assureInitialization();
 
-    final MmLeporelloTab<?> thisDeclaration = (MmLeporelloTab<?>)declaration;
-    final MmLeporelloTab<?> selectedTab     = parentLeporello.getMmSelectedTab();
+    final MmLeporelloTab<?, ?> thisDeclaration = (MmLeporelloTab<?, ?>)declaration;
+    final MmLeporelloTab<?, ?> selectedTab     = parentLeporello.getMmSelectedTab();
     return (thisDeclaration == selectedTab);
   }
 

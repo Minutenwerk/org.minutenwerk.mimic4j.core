@@ -8,14 +8,14 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
  *
  * @author  Olaf Kossak
  */
-public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporelloTab<?>, String, String> {
+public class MmJsfBridgeLeporelloTab extends MmJsfBridge<MmImplementationLeporelloTab<?, ?>, String, String> {
 
   /**
    * Creates a new MmJsfBridgeLeporelloTab instance.
    *
    * @param  pImplementation  The implementation part of connected mimic.
    */
-  public MmJsfBridgeLeporelloTab(MmImplementationLeporelloTab<?> pImplementation) {
+  public MmJsfBridgeLeporelloTab(MmImplementationLeporelloTab<?, ?> pImplementation) {
     super(pImplementation);
   }
 

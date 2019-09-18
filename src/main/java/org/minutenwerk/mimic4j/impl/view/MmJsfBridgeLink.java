@@ -8,14 +8,14 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
  *
  * @author  Olaf Kossak
  */
-public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink<?>, String, String> {
+public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink<?, ?>, String, String> {
 
   /**
    * Creates a new MmJsfBridgeLink instance.
    *
    * @param  pImplementation  The implementation part of connected mimic.
    */
-  public MmJsfBridgeLink(MmImplementationLink<?> pImplementation) {
+  public MmJsfBridgeLink(MmImplementationLink<?, ?> pImplementation) {
     super(pImplementation);
   }
 
