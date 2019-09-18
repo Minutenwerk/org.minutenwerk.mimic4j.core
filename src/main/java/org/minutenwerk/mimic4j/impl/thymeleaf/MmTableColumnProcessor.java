@@ -3,6 +3,7 @@ package org.minutenwerk.mimic4j.impl.thymeleaf;
 import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 
 import org.thymeleaf.context.ITemplateContext;
+import org.thymeleaf.model.AttributeValueQuotes;
 import org.thymeleaf.model.IProcessableElementTag;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
 
@@ -38,4 +39,25 @@ public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn> {
     out.removeAttribute(getPrefixedAttributeName());
   }
 
+  /**
+   * TODOC.
+   *
+   * @param  mimic    TODOC
+   * @param  context  TODOC
+   * @param  tag      TODOC
+   * @param  out      TODOC
+   */
+  protected void processStyleClasses(MmTableColumn mimic, ITemplateContext context, IProcessableElementTag tag,
+    IElementTagStructureHandler out) {
+    // TODO merge style classes without duplicates
+    String outStyleClasses = mimic.getMmHeaderClasses();
+    if (tag.hasAttribute("class")) {
+      outStyleClasses = (tag.getAttributeValue("class") + " " + outStyleClasses).trim();
+    }
+    if (outStyleClasses.isEmpty()) {
+      out.removeAttribute("class");
+    } else {
+      out.setAttribute("class", outStyleClasses, AttributeValueQuotes.DOUBLE);
+    }
+  }
 }
