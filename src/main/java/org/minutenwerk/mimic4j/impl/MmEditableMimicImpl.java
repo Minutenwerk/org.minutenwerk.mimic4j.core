@@ -1,4 +1,6 @@
-package org.minutenwerk.mimic4j.api;
+package org.minutenwerk.mimic4j.impl;
+
+import org.minutenwerk.mimic4j.api.MmEditableMimic;
 
 /**
  * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from modelside. Mimics of type

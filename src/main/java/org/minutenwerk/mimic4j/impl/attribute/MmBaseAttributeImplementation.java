@@ -9,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
@@ -17,6 +16,7 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
+import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmErrorMessageType;

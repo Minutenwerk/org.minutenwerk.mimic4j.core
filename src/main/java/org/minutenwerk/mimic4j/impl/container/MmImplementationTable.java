@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.api.MmTableMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
@@ -12,6 +11,7 @@ import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTable;
 import org.minutenwerk.mimic4j.api.container.MmTableAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
 
