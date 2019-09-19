@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import java.util.Locale;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
@@ -48,6 +50,17 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
     assureInitialization();
 
     return declaration.callbackMmGetSelectedTab();
+  }
+
+  /**
+   * Set specified locale.
+   *
+   * @param  pLocale  The specified locale.
+   */
+  public void setMmLocale(Locale pLocale) {
+    assureInitialization();
+
+    root.setMmLocale(pLocale);
   }
 
   /**

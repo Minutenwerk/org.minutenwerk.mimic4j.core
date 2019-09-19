@@ -2,6 +2,7 @@ package org.minutenwerk.mimic4j.api.container;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
@@ -76,6 +77,15 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
       }
     }
     return panels;
+  }
+
+  /**
+   * Set specified locale.
+   *
+   * @param  pLocale  The specified locale.
+   */
+  public void setMmLocale(Locale pLocale) {
+    implementation.setMmLocale(pLocale);
   }
 
 }

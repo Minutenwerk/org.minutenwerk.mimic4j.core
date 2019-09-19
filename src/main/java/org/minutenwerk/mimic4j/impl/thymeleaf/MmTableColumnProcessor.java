@@ -47,6 +47,7 @@ public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn> {
    * @param  tag      TODOC
    * @param  out      TODOC
    */
+  @Override
   protected void processStyleClasses(MmTableColumn mimic, ITemplateContext context, IProcessableElementTag tag,
     IElementTagStructureHandler out) {
     // TODO merge style classes without duplicates

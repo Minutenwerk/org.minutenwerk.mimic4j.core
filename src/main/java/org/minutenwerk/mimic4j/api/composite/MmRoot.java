@@ -5,8 +5,9 @@ import java.util.Locale;
 import org.minutenwerk.mimic4j.impl.composite.MmBaseCompositeDeclaration;
 import org.minutenwerk.mimic4j.impl.composite.MmImplementationRoot;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
-import org.minutenwerk.mimic4j.impl.provided.MmMessageSource;
 import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
+
+import org.springframework.context.MessageSource;
 
 /**
  * MmRoot is a composite mimic for the root of a subtree of mimics.
@@ -20,6 +21,15 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    */
   public MmRoot() {
     super(new MmImplementationRoot(null));
+  }
+
+  /**
+   * Creates a new MmRoot instance.
+   *
+   * @param  pMessageSource  Spring message provider with support for parameters and i18n.
+   */
+  public MmRoot(MessageSource pMessageSource) {
+    super(new MmImplementationRoot(null, pMessageSource));
   }
 
   /**
@@ -51,15 +61,6 @@ public class MmRoot extends MmBaseCompositeDeclaration<MmImplementationRoot> {
    */
   public boolean isMmJsEnabled() {
     return implementation.isMmJsEnabled();
-  }
-
-  /**
-   * Sets the {@link MmMessageSource} of this root, which provides internationalized messages.
-   *
-   * @param  pMessageSource  The message source to be set.
-   */
-  public void setMessageSource(MmMessageSource pMessageSource) {
-    implementation.setMessageSource(pMessageSource);
   }
 
   /**

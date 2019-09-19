@@ -9,10 +9,12 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.composite.MmRootAnnotation;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
-import org.minutenwerk.mimic4j.impl.provided.MmMessageSource;
 import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeComposite;
+
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 
 /**
  * MmImplementationRoot is the specific class for the implementation part of root mimics.
@@ -27,11 +29,14 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
   /** The logger of this class. */
   private static final Logger LOGGER                    = LogManager.getLogger(MmImplementationRoot.class);
 
-  /** The message source. */
-  protected MmMessageSource   messageSource;
+  /** Spring message provider with support for parameters and i18n. */
+  protected MessageSource     messageSource;
 
   /** The user's session context. */
   protected MmSessionContext  sessionContext;
+
+  /** TODOC. */
+  protected Locale            locale;
 
   /**
    * Creates a new MmImplementationRoot instance.
@@ -40,6 +45,17 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
    */
   public MmImplementationRoot(MmDeclarationMimic pParent) {
     super(pParent);
+  }
+
+  /**
+   * Creates a new MmImplementationRoot instance.
+   *
+   * @param  pParent         The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pMessageSource  Spring message provider with support for parameters and i18n.
+   */
+  public MmImplementationRoot(MmDeclarationMimic pParent, MessageSource pMessageSource) {
+    super(pParent);
+    messageSource = pMessageSource;
   }
 
   /**
@@ -54,21 +70,28 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
     assureInitialization();
 
-    String returnString = "";
     if (messageSource != null) {
-      returnString = messageSource.getMmI18nText(getMmLocale(), pMessageId, pMessageType, pArguments);
+      String messageCode = pMessageId;
+      if ((pMessageType != null) && (pMessageType != MmMessageType.TEXT)) {
+        messageCode = messageCode + "." + pMessageType.getSuffix();
+      }
+      try {
+        return messageSource.getMessage(messageCode, pArguments, getMmLocale());
+      } catch (NoSuchMessageException e) {
+        LOGGER.warn("no message for >" + messageCode + "< for locale " + getMmLocale());
+        return messageCode;
+      }
+
     } else {
       LOGGER.warn("getMmI18nText: {}, {}: no message source", pMessageId, pMessageType);
 
       // for unit tests this root returns last part of message id
-      if (pMessageType.equals(MmMessageType.SHORT)) {
-        returnString = pMessageId;
-        if (returnString.contains(".")) {
-          returnString = returnString.substring(returnString.lastIndexOf(".") + 1);
-        }
+      String returnString = pMessageId;
+      if (returnString.contains(".")) {
+        returnString = returnString.substring(returnString.lastIndexOf(".") + 1);
       }
+      return returnString;
     }
-    return returnString;
   }
 
   /**
@@ -79,12 +102,11 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
   public Locale getMmLocale() {
     assureInitialization();
 
-    if (sessionContext != null) {
-      return sessionContext.getMmLocale();
-    } else {
-      LOGGER.warn("getMmLocale: no session context");
-      return NO_SESSION_CONTEXT_LOCALE;
+    if (locale == null) {
+      LOGGER.warn("getMmLocale: undefined locale is set to " + NO_SESSION_CONTEXT_LOCALE);
+      locale = NO_SESSION_CONTEXT_LOCALE;
     }
+    return locale;
   }
 
   /**
@@ -110,12 +132,14 @@ public class MmImplementationRoot extends MmBaseCompositeImplementation<MmRoot, 
   }
 
   /**
-   * Sets the {@link MmMessageSource} of this root, which provides internationalized messages.
+   * Set specified locale.
    *
-   * @param  pMessageSource  The message source to be set.
+   * @param  pLocale  The specified locale.
    */
-  public void setMessageSource(MmMessageSource pMessageSource) {
-    messageSource = pMessageSource;
+  public void setMmLocale(Locale pLocale) {
+    assureInitialization();
+
+    locale = pLocale;
   }
 
   /**
