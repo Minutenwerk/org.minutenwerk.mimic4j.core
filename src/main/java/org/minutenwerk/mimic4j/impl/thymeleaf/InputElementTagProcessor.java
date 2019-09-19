@@ -15,6 +15,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 /**
  * TODOC InputElementTagProcessor.
  */
+@Deprecated
 public class InputElementTagProcessor extends AbstractElementTagProcessor {
 
   /** TODOC. */

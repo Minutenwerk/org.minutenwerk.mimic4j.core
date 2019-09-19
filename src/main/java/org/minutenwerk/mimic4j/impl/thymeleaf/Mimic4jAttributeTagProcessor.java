@@ -17,6 +17,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 /**
  * TODOC Mimic4jAttributeTagProcessor.
  */
+@Deprecated
 public class Mimic4jAttributeTagProcessor extends AbstractAttributeTagProcessor {
 
   /** TODOC. */

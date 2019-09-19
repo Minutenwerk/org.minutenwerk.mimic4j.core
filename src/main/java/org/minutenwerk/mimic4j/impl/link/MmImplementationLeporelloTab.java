@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 
 import java.util.Date;
 
+import org.minutenwerk.mimic4j.api.MmInformationable;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
@@ -102,7 +103,11 @@ public class MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
     assureInitialization();
 
     // retrieve modelside value
-    final LINK_MODEL modelsideValue = getMmLinkModelValue();
+    final LINK_MODEL linkModel      = getMmLinkModelValue();
+
+    final Object     modelsideValue = (linkModel instanceof MmInformationable) //
+      ? ((MmInformationable)linkModel).getInfo() //
+      : linkModel;
 
     // if model is an array of objects
     if (modelsideValue instanceof Object[]) {

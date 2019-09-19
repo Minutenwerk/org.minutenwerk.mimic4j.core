@@ -37,11 +37,10 @@ public class Mimic4jDialect extends AbstractProcessorDialect {
   @Override
   public Set<IProcessor> getProcessors(final String dialectPrefix) {
     final Set<IProcessor> processors = new HashSet<IProcessor>();
-    processors.add(new InputElementTagProcessor(dialectPrefix));
-    processors.add(new Mimic4jAttributeTagProcessor());
     processors.add(new MmTableProcessor());
     processors.add(new MmTableColumnProcessor());
     processors.add(new MmTableRowProcessor());
+    processors.add(new MmTableCellProcessor());
 
     // remove namespace xmlns:mm="http://www.minutenwerk.de"
     processors.add(new StandardXmlNsTagProcessor(TemplateMode.HTML, dialectPrefix));

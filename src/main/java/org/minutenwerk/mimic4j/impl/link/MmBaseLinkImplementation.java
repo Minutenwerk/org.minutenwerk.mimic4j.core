@@ -13,11 +13,14 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,6 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmInformationable;
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmNameValue;
@@ -341,18 +345,18 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
     assureInitialization();
 
     // retrieve modelside value
-    final LINK_MODEL modelsideValue = getMmLinkModelValue();
+    final LINK_MODEL linkModel      = getMmLinkModelValue();
+
+    final Object     modelsideValue = (linkModel instanceof MmInformationable) //
+      ? ((MmInformationable)linkModel).getInfo() //
+      : linkModel;
 
     // if model is an array of objects
     if (modelsideValue instanceof Object[]) {
 
       // translate enum values to i18n strings before, because MessageFormat shall not do this
       for (int index = 0; index < ((Object[])modelsideValue).length; index++) {
-        final Object modelsideObject = ((Object[])modelsideValue)[index];
-        if (modelsideObject instanceof Enum<?>) {
-          final String i18nEnumValue = formatModelsideValue(modelsideObject);
-          ((Object[])modelsideValue)[index] = i18nEnumValue;
-        }
+        ((Object[])modelsideValue)[index] = transformObjectForFormattingByMessageSource(((Object[])modelsideValue)[index]);
       }
 
       // modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
@@ -551,6 +555,44 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
     assureInitialization();
 
     return linkModelAccessor.get();
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param   pObject  TODOC
+   *
+   * @return  TODOC
+   */
+  protected Object transformObjectForFormattingByMessageSource(final Object pObject) {
+    // return empty String for null value
+    if (pObject == null) {
+      return "";
+
+      // translate enum values to i18n strings before, because MessageFormat shall not do this
+    } else if (pObject instanceof Enum<?>) {
+      return formatModelsideValue(pObject);
+
+      // transform Instant values to java.util.Date
+    } else if (pObject instanceof Instant) {
+      return Date.from(((Instant)pObject));
+
+      // transform LocalDate values to java.util.Date
+    } else if (pObject instanceof LocalDate) {
+      return Date.from(((LocalDate)pObject).atStartOfDay(ZoneId.of("UTC")).toInstant());
+
+      // transform LocalDateTime values to java.util.Date
+    } else if (pObject instanceof LocalDateTime) {
+      return Date.from(((LocalDateTime)pObject).toInstant(ZoneOffset.UTC));
+
+      // transform ZonedDateTime values to java.util.Date
+    } else if (pObject instanceof ZonedDateTime) {
+      return Date.from(((ZonedDateTime)pObject).toInstant());
+
+      // all other objects pass through
+    } else {
+      return pObject;
+    }
   }
 
 }
