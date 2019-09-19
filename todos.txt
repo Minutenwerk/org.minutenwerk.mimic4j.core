@@ -78,3 +78,37 @@ Ein Mimic1 kann auf ein Mimic2 verweisen
 * Einem Link wird als TargetReference ein Mimic2 gegeben
 * Das Link verweist auf die Selbstreferenz des Mimic2
 * Dem Link wird ein DTO gegeben, das Link übergibt seinem target Mimic2 dieses DTO und bekommt eine Selbstreferenz 
+
+package de.minutenwerk.reference.firma.kunden.service.kunden.accessor.angebot;
+
+import javax.transaction.Transactional;
+
+import de.minutenwerk.reference.firma.kunden.service.kunden.domain.AngebotDto;
+import de.minutenwerk.reference.firma.kunden.service.kunden.domain.WaehrungsbetragDto;
+
+import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmComponentAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+
+public class angebot extends MmRootAccessor<AngebotDto> {
+  
+  public angebot() {
+    super();
+  }
+  
+  public class angebotsgesamtsumme extends MmComponentAccessor<AngebotDto, WaehrungsbetragDto> {
+
+    public angebotsgesamtsumme() {
+      super(angebot.this, AngebotDto::getAngebotsgesamtsumme, AngebotDto::setAngebotsgesamtsumme);
+    }
+    
+    public class betrag extends MmAttributeAccessor<WaehrungsbetragDto, Float> {
+      
+      public betrag() {
+        super(angebotsgesamtsumme.this, WaehrungsbetragDto::getBetrag, WaehrungsbetragDto::setBetrag);
+      }
+    }
+  }
+}
+
+@Transactional(rollbackOn=angebot.angebotsgesamtsumme.betrag.class)

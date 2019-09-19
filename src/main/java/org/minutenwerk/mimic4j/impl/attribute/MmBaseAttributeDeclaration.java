@@ -54,13 +54,20 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return        The attribute's accessor.
    *
-   * @throws        IllegalStateException  In case of model accessor is not defined.
+   * @throws        ClassCastException  IllegalStateException In case of model accessor is not defined.
    *
    * @jalopy.group  group-callback
    */
   @Override
   public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + this);
+    try {
+      @SuppressWarnings("unchecked")
+      MmAttributeAccessor<?, ATTRIBUTE_MODEL> modelAccessor = (MmAttributeAccessor<?, ATTRIBUTE_MODEL>)pParentAccessor;
+      return modelAccessor;
+    } catch (ClassCastException e) {
+      throw new ClassCastException("Parent accessor " + pParentAccessor
+        + " cannot be casted to attributeAccessor. You must redefine callbackMmGetAccessor() for " + this);
+    }
   }
 
   /**

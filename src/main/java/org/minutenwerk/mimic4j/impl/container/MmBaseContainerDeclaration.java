@@ -46,11 +46,18 @@ public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends M
    *
    * @return  The container's accessor.
    *
-   * @throws  IllegalStateException  In case of model accessor is not defined.
+   * @throws  ClassCastException  IllegalStateException In case of model accessor is not defined.
    */
   @Override
   public MmModelAccessor<?, MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + this);
+    try {
+      @SuppressWarnings("unchecked")
+      MmModelAccessor<?, MODEL> modelAccessor = (MmModelAccessor<?, MODEL>)pParentAccessor;
+      return modelAccessor;
+    } catch (ClassCastException e) {
+      throw new ClassCastException("Parent accessor " + pParentAccessor
+        + " cannot be casted to containerAccessor. You must redefine callbackMmGetAccessor() for " + this);
+    }
   }
 
   /**

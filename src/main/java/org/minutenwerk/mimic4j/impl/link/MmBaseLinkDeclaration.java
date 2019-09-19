@@ -39,13 +39,20 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @return        The link's model accessor.
    *
-   * @throws        IllegalStateException  In case of model accessor is not defined.
+   * @throws        ClassCastException  IllegalStateException In case of model accessor is not defined.
    *
    * @jalopy.group  group-callback
    */
   @Override
   public MmModelAccessor<?, MODELSIDE_VALUE> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + this);
+    try {
+      @SuppressWarnings("unchecked")
+      MmModelAccessor<?, MODELSIDE_VALUE> modelAccessor = (MmModelAccessor<?, MODELSIDE_VALUE>)pParentAccessor;
+      return modelAccessor;
+    } catch (ClassCastException e) {
+      throw new ClassCastException("Parent accessor " + pParentAccessor
+        + " cannot be casted to modelAccessor. You must redefine callbackMmGetAccessor() for " + this);
+    }
   }
 
   /**
@@ -186,11 +193,18 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @return  The link's model accessor.
    *
-   * @throws  IllegalStateException  In case of link model accessor is not defined.
+   * @throws  ClassCastException  IllegalStateException In case of link model accessor is not defined.
    */
   @Override
   public MmModelAccessor<?, LINK_MODEL> callbackMmGetLinkModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    throw new IllegalStateException("no definition of callbackMmGetLinkModel() for " + this);
+    try {
+      @SuppressWarnings("unchecked")
+      MmModelAccessor<?, LINK_MODEL> linkModelAccessor = (MmModelAccessor<?, LINK_MODEL>)pParentAccessor;
+      return linkModelAccessor;
+    } catch (ClassCastException e) {
+      throw new ClassCastException("Parent accessor " + pParentAccessor
+        + " cannot be casted to linkModelAccessor. You must redefine callbackMmGetLinkModel() for " + this);
+    }
   }
 
   /**

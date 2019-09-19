@@ -175,7 +175,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     modelAccessor  = declaration.callbackMmGetAccessor(parentAccessor);
     if (modelAccessor == null) {
       LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
-      // TODO throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
     }
   }
 
