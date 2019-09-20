@@ -14,13 +14,13 @@ import org.thymeleaf.processor.element.IElementTagStructureHandler;
  *
  * @author  Olaf Kossak
  */
-public class MmDivProcessor extends MmBaseProcessor<MmBaseDeclaration<?, ?>> {
+public class MmTableCellLinkProcessor extends MmBaseProcessor<MmBaseDeclaration<?, ?>> {
 
   /**
    * Creates a new MmTableRowProcessor instance.
    */
-  public MmDivProcessor() {
-    super("div", "div");
+  public MmTableCellLinkProcessor() {
+    super("a", "tda");
   }
 
   /**
@@ -34,7 +34,7 @@ public class MmDivProcessor extends MmBaseProcessor<MmBaseDeclaration<?, ?>> {
   protected void doProcess(ITemplateContext context, IProcessableElementTag tag, IElementTagStructureHandler out) {
     MmBaseDeclaration<?, ?> mimic = evaluateMimic(context, tag, out);
     processId(mimic, context, tag, out);
-    LOGGER.info("div id = " + mimic.getMmId());
+    LOGGER.info("table cell id = " + mimic.getMmId());
 
     processStyleClasses(mimic, context, tag, out);
     out.setSelectionTarget(mimic.getToJsf());
@@ -42,6 +42,7 @@ public class MmDivProcessor extends MmBaseProcessor<MmBaseDeclaration<?, ?>> {
     if ((mimic instanceof MmAttributeMimic) || (mimic instanceof MmLinkMimic<?, ?>)) {
       out.setAttribute("th:title", "*{title}", AttributeValueQuotes.DOUBLE);
       out.setAttribute("th:text", "*{value}", AttributeValueQuotes.DOUBLE);
+      out.setAttribute("th:href", "@{firma/kunden/angebot/1}", AttributeValueQuotes.DOUBLE);
     }
 
     out.removeAttribute(getPrefixedAttributeName());

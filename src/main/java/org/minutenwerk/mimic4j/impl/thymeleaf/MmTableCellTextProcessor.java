@@ -14,13 +14,13 @@ import org.thymeleaf.processor.element.IElementTagStructureHandler;
  *
  * @author  Olaf Kossak
  */
-public class MmTableCellProcessor extends MmBaseProcessor<MmBaseDeclaration<?, ?>> {
+public class MmTableCellTextProcessor extends MmBaseProcessor<MmBaseDeclaration<?, ?>> {
 
   /**
    * Creates a new MmTableRowProcessor instance.
    */
-  public MmTableCellProcessor() {
-    super("a", "tda");
+  public MmTableCellTextProcessor() {
+    super("div", "div");
   }
 
   /**
@@ -34,7 +34,7 @@ public class MmTableCellProcessor extends MmBaseProcessor<MmBaseDeclaration<?, ?
   protected void doProcess(ITemplateContext context, IProcessableElementTag tag, IElementTagStructureHandler out) {
     MmBaseDeclaration<?, ?> mimic = evaluateMimic(context, tag, out);
     processId(mimic, context, tag, out);
-    LOGGER.info("table cell id = " + mimic.getMmId());
+    LOGGER.info("div id = " + mimic.getMmId());
 
     processStyleClasses(mimic, context, tag, out);
     out.setSelectionTarget(mimic.getToJsf());

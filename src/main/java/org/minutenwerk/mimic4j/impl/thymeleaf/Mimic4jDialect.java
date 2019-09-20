@@ -15,7 +15,9 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class Mimic4jDialect extends AbstractProcessorDialect {
 
   /** TODOC. */
-  public static final String DIALECT_NAME              = "Mimic4j Dialect";
+  public static final String MIMIC4J_DIALECT_NAME              = "Mimic4j Dialect";
+
+  public static final String MIMIC4J_DIALECT_NAMESPACE              = "http://www.minutenwerk.org";
 
   /** TODOC. */
   public static final String MIMIC4J_DIALECT_PREFIX_MM = "mm";
@@ -24,7 +26,7 @@ public class Mimic4jDialect extends AbstractProcessorDialect {
    * Creates a new Mimic4jDialect instance.
    */
   public Mimic4jDialect() {
-    super(DIALECT_NAME, MIMIC4J_DIALECT_PREFIX_MM, StandardDialect.PROCESSOR_PRECEDENCE);
+    super(MIMIC4J_DIALECT_NAME, MIMIC4J_DIALECT_PREFIX_MM, StandardDialect.PROCESSOR_PRECEDENCE);
   }
 
   /**
@@ -40,8 +42,8 @@ public class Mimic4jDialect extends AbstractProcessorDialect {
     processors.add(new MmTableProcessor());
     processors.add(new MmTableColumnProcessor());
     processors.add(new MmTableRowProcessor());
-    processors.add(new MmTableCellProcessor());
-    processors.add(new MmDivProcessor());
+    processors.add(new MmTableCellLinkProcessor());
+    processors.add(new MmTableCellTextProcessor());
 
     // remove namespace xmlns:mm="http://www.minutenwerk.de"
     processors.add(new StandardXmlNsTagProcessor(TemplateMode.HTML, dialectPrefix));
