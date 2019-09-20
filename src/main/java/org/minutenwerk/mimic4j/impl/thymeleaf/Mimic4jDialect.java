@@ -41,6 +41,7 @@ public class Mimic4jDialect extends AbstractProcessorDialect {
     processors.add(new MmTableColumnProcessor());
     processors.add(new MmTableRowProcessor());
     processors.add(new MmTableCellProcessor());
+    processors.add(new MmDivProcessor());
 
     // remove namespace xmlns:mm="http://www.minutenwerk.de"
     processors.add(new StandardXmlNsTagProcessor(TemplateMode.HTML, dialectPrefix));

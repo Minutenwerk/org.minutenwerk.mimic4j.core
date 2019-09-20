@@ -26,10 +26,10 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
   public static final String              DEFAULT_STYLE_CLASSES  = "";
 
   /** Constant for configuration of default value of header CSS style classes. */
-  public static final String              DEFAULT_HEADER_CLASSES = "table-header";
+  public static final String              DEFAULT_HEADER_CLASSES = "";
 
   /** Constant for configuration of default value of footer CSS style classes. */
-  public static final String              DEFAULT_FOOTER_CLASSES = "table-footer";
+  public static final String              DEFAULT_FOOTER_CLASSES = "";
 
   /** The JSF tag of this mimic. */
   protected MmTableColumnJsfTag           jsfTag;

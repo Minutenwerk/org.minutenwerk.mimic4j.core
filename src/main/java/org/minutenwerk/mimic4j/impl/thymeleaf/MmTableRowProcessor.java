@@ -18,7 +18,7 @@ public class MmTableRowProcessor extends MmBaseProcessor<MmTableRow<?>> {
    * Creates a new MmTableRowProcessor instance.
    */
   public MmTableRowProcessor() {
-    super("tr", "tableRow");
+    super("tr", "tr");
   }
 
   /**
@@ -32,7 +32,7 @@ public class MmTableRowProcessor extends MmBaseProcessor<MmTableRow<?>> {
   protected void doProcess(ITemplateContext context, IProcessableElementTag tag, IElementTagStructureHandler out) {
     MmTableRow<?> mimic = evaluateMimic(context, tag, out);
     processId(mimic, context, tag, out);
-    LOGGER.info("table row id = " + mimic.getMmId());
+    // LOGGER.info("table row id = " + mimic.getMmId());
 
     processStyleClasses(mimic, context, tag, out);
     out.setSelectionTarget(mimic);

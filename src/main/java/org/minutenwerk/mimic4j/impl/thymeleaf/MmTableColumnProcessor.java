@@ -18,7 +18,7 @@ public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn> {
    * Creates a new MmTableColumnProcessor instance.
    */
   public MmTableColumnProcessor() {
-    super("th", "tableColumn");
+    super("th", "th");
   }
 
   /**
