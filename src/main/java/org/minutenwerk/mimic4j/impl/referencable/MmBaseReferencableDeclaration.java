@@ -8,8 +8,7 @@ import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 
 /**
- * MmBaseReferencableDeclaration is the abstract base class for MmBaseContainerDeclaration (containing other mimics of type MmEditableMimic)
- * and being referencable by an url.
+ * MmBaseReferencableDeclaration is the declaration part of a MmContainerMimic being referencable by an url.
  *
  * @param   <MODEL>           The type of the model, containing business data.
  * @param   <IMPLEMENTATION>  The type of the corresponding class implementing this declaration api.

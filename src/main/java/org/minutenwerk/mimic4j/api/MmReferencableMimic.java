@@ -1,8 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
 /**
- * MmReferencableMimic is the basic interface of all MmContainerMimic (containing other mimics of type MmEditableMimic) and being
- * referencable by an url.
+ * MmReferencableMimic is a MmContainerMimic (containing other mimics of type MmEditableMimic) being referencable by an url.
  *
  * @author  Olaf Kossak
  */

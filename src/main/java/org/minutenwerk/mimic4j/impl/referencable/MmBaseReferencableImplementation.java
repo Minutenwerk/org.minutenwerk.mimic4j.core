@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 import org.minutenwerk.mimic4j.impl.link.MmBaseLinkImplementation;
 
 /**
- * MmBaseReferencableImplementation is the abstract base class for the implementation part of all container mimic classes.
+ * MmBaseReferencableImplementation is the implementation part of a MmContainerMimic being referencable by an url.
  *
  * @author              Olaf Kossak
  *

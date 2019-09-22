@@ -15,9 +15,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 public class Mimic4jDialect extends AbstractProcessorDialect {
 
   /** TODOC. */
-  public static final String MIMIC4J_DIALECT_NAME              = "Mimic4j Dialect";
+  public static final String MIMIC4J_DIALECT_NAME      = "Mimic4j Dialect";
 
-  public static final String MIMIC4J_DIALECT_NAMESPACE              = "http://www.minutenwerk.org";
+  /** TODOC. */
+  public static final String MIMIC4J_DIALECT_NAMESPACE = "http://www.minutenwerk.org";
 
   /** TODOC. */
   public static final String MIMIC4J_DIALECT_PREFIX_MM = "mm";
