@@ -5,9 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.composite.MmDiv.MmRootJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.composite.MmConfigurationRoot;
+import org.minutenwerk.mimic4j.impl.composite.MmConfigurationRoot.MmRootJsfTag;
 
 /**
  * MmRootAnnotation annotates declarations of {@link MmRoot} by static configuration values.

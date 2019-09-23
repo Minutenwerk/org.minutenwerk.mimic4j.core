@@ -1,6 +1,5 @@
 package org.minutenwerk.mimic4j.impl.composite;
 
-import org.minutenwerk.mimic4j.api.composite.MmDiv.MmRootJsfTag;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.composite.MmRootAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
@@ -15,8 +14,18 @@ public class MmConfigurationRoot extends MmBaseConfiguration {
   /** Constant for default value of JSF tag in enabled state. Redundant to {@link MmRootAnnotation.jsfTag()}. */
   public static final MmRootJsfTag DEFAULT_JSF_TAG = MmRootJsfTag.Root;
 
+  /**
+   * Enumeration of possible JSF tags of attribute in enabled state.
+   *
+   * @author  Olaf Kossak
+   */
+  public enum MmRootJsfTag {
+
+    Root;
+  }
+
   /** The JSF tag in enabled state. */
-  protected MmRootJsfTag           jsfTag;
+  protected MmRootJsfTag jsfTag;
 
   /**
    * Creates a new MmConfigurationRoot instance of default values.
