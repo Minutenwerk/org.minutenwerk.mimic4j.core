@@ -121,13 +121,4 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    */
   public void set(MODEL value);
 
-  /**
-   * Sets the specified model value and returns the parent for chaining setters.
-   *
-   * @param   value  The specified model value, may be null.
-   *
-   * @return  The parent.
-   */
-  // TODO remove
-  public PARENT_MODEL with(MODEL value);
 }

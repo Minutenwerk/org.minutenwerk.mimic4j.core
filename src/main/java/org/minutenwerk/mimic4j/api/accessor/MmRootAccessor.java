@@ -71,18 +71,4 @@ public class MmRootAccessor<MODEL> extends MmBaseModelAccessor<Void, MODEL> {
     rootModel = value;
   }
 
-  /**
-   * Sets the specified model value and returns the parent for chaining setters. Because a root does not have a parent, the parent model is
-   * Void.
-   *
-   * @param   value  The specified model value, may be null.
-   *
-   * @return  The parent.
-   */
-  @Override
-  public final Void with(final MODEL value) {
-    set(value);
-    return null;
-  }
-
 }

@@ -95,20 +95,6 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<V
   }
 
   /**
-   * Sets the specified model value and returns the parent for chaining setters. Because a root does not have a parent, the parent model is
-   * Void.
-   *
-   * @param   value  The specified model value, may be null.
-   *
-   * @return  The parent.
-   */
-  @Override
-  public final Void with(final List<VALUE_MODEL> value) {
-    set(value);
-    return null;
-  }
-
-  /**
    * Returns {@link Optional} of component.
    *
    * @return  {@link Optional} of component.

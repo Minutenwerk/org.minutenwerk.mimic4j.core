@@ -93,20 +93,6 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   }
 
   /**
-   * Sets the specified model value and returns the parent for chaining setters.
-   *
-   * @param   value  The specified model value, may be null.
-   *
-   * @return  The parent.
-   */
-  @Override
-  public PARENT_MODEL with(final COMPONENT_MODEL value) {
-    PARENT_MODEL withParent = getParent();
-    componentSetter.accept(withParent, value);
-    return withParent;
-  }
-
-  /**
    * Returns component.
    *
    * @return  component.

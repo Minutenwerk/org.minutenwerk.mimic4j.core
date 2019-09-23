@@ -99,22 +99,6 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
   }
 
   /**
-   * Sets the specified attribute value and returns the component for chaining setters.
-   *
-   * @param   value  The specified attribute value.
-   *
-   * @return  The component.
-   *
-   * @throws  NullPointerException  In case of the parent component supplier does not supply a component.
-   */
-  @Override
-  public PARENT_MODEL with(final ATTRIBUTE_MODEL value) throws NullPointerException {
-    PARENT_MODEL component = getParent();
-    attributeSetter.accept(component, value);
-    return component;
-  }
-
-  /**
    * Returns {@link Optional} of parent component.
    *
    * @return  {@link Optional} of parent component.
