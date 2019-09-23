@@ -22,9 +22,9 @@ import org.springframework.web.util.UriComponents;
  *
  * @jalopy.group-order  group-callback, group-override
  */
-public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, MODELSIDE_VALUE, VIEW_MODEL, ?, ?>,
-  MODELSIDE_VALUE, VIEW_MODEL> extends MmBaseDeclaration<MmLinkMimic<MODELSIDE_VALUE, VIEW_MODEL>, IMPLEMENTATION>
-  implements MmLinkMimic<MODELSIDE_VALUE, VIEW_MODEL>, MmLinkCallback<MODELSIDE_VALUE, VIEW_MODEL> {
+public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, DATA_MODEL, VIEW_MODEL, ?, ?>,
+  DATA_MODEL, VIEW_MODEL> extends MmBaseDeclaration<MmLinkMimic<DATA_MODEL, VIEW_MODEL>, IMPLEMENTATION>
+  implements MmLinkMimic<DATA_MODEL, VIEW_MODEL>, MmLinkCallback<DATA_MODEL, VIEW_MODEL> {
 
   /**
    * Creates a new MmBaseLinkDeclaration instance.
@@ -48,10 +48,10 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public MmModelAccessor<?, MODELSIDE_VALUE> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmModelAccessor<?, DATA_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")
-      MmModelAccessor<?, MODELSIDE_VALUE> modelAccessor = (MmModelAccessor<?, MODELSIDE_VALUE>)pParentAccessor;
+      MmModelAccessor<?, DATA_MODEL> modelAccessor = (MmModelAccessor<?, DATA_MODEL>)pParentAccessor;
       return modelAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor
@@ -98,7 +98,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, MODELSIDE_VALUE pModel) {
+  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, DATA_MODEL pModel) {
     return pPassThroughValue;
   }
 
@@ -149,7 +149,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override
-  public final MmModelAccessor<?, MODELSIDE_VALUE> getMmModelAccessor() {
+  public final MmModelAccessor<?, DATA_MODEL> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
   }
 
@@ -161,7 +161,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override
-  public final Class<MODELSIDE_VALUE> getMmModelType() {
+  public final Class<DATA_MODEL> getMmModelType() {
     return implementation.getMmModelType();
   }
 
@@ -173,7 +173,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override
-  public final MODELSIDE_VALUE getMmModelValue() {
+  public final DATA_MODEL getMmModelValue() {
     return implementation.getMmModelValue();
   }
 
