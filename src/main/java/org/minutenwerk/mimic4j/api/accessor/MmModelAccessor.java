@@ -34,19 +34,18 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
   public <AN_INTERFACE_ALL_MODELS_IMPLEMENT> List<AN_INTERFACE_ALL_MODELS_IMPLEMENT> getModelPath();
 
   /**
-   * Returns parent model of the accessed model.
-   *
-   * @return  Parent model of the accessed model.
-   */
-  // TODO rename to getParentModel
-  public PARENT_MODEL getParent();
-
-  /**
    * Returns accessor of parent model.
    *
    * @return  accessor of parent model.
    */
   public MmModelAccessor<?, PARENT_MODEL> getParentAccessor();
+
+  /**
+   * Returns parent model of the accessed model.
+   *
+   * @return  Parent model of the accessed model.
+   */
+  public PARENT_MODEL getParentModel();
 
   /**
    * Returns accessor on root model.

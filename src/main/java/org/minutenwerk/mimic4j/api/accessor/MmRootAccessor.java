@@ -37,7 +37,7 @@ public class MmRootAccessor<MODEL> extends MmBaseModelAccessor<Void, MODEL> {
    * @return  parent model of the accessed model.
    */
   @Override
-  public final Void getParent() {
+  public final Void getParentModel() {
     return null;
   }
 

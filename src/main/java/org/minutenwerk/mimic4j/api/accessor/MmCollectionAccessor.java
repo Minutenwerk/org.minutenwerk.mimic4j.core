@@ -40,7 +40,7 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @param  value  TODOC
    */
   public void add(final VALUE_MODEL value) {
-    valueAdder.accept(getParent(), value);
+    valueAdder.accept(getParentModel(), value);
   }
 
   /**

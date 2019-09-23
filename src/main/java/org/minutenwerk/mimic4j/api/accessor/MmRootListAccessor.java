@@ -50,7 +50,7 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<V
    * @return  parent model of the accessed model.
    */
   @Override
-  public final Void getParent() {
+  public final Void getParentModel() {
     return null;
   }
 

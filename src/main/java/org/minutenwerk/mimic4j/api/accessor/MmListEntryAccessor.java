@@ -44,7 +44,7 @@ public class MmListEntryAccessor<LIST_MODEL extends List<ENTRY_MODEL>, ENTRY_MOD
    */
   @Override
   protected Optional<ENTRY_MODEL> getComponentOptional() {
-    LIST_MODEL parentList = getParent();
+    LIST_MODEL parentList = getParentModel();
     if (parentList != null) {
       return Optional.ofNullable(parentList.get(indexSupplier.get()));
     } else {
