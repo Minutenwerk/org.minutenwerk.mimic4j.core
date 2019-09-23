@@ -54,7 +54,7 @@ import org.springframework.web.util.UriComponents;
  * @jalopy.group-order  group-initialization, group-override, group-i18n
  */
 public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<DATA_MODEL, VIEW_MODEL>,
-  DATA_MODEL, VIEW_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
+  DATA_MODEL extends MmReferencableModel, VIEW_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
   extends MmBaseImplementation<MmBaseLinkDeclaration<?, DATA_MODEL, VIEW_MODEL>, CONFIGURATION, ANNOTATION>
   implements MmLinkMimic<DATA_MODEL, VIEW_MODEL> {
 

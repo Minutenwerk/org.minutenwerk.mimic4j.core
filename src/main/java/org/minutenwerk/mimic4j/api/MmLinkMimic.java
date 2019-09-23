@@ -13,7 +13,7 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
  *
  * @author  Olaf Kossak
  */
-public interface MmLinkMimic<DATA_MODEL, VIEW_MODEL> extends MmMimic {
+public interface MmLinkMimic<DATA_MODEL extends MmReferencableModel, VIEW_MODEL> extends MmMimic {
 
   /**
    * Returns accessor of data model.

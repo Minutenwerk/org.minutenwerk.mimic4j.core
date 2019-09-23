@@ -1255,7 +1255,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
     assureInitialization();
 
-    if (root != null && root.messageSource != null) {
+    if (root.messageSource != null) {
       String messageCode = pMessageId;
       if ((pMessageType != null) && (pMessageType != MmMessageType.TEXT)) {
         messageCode = messageCode + "." + pMessageType.getSuffix();
@@ -1287,11 +1287,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public Locale getMmLocale() {
     assureInitialization();
 
-    if (locale == null) {
-      LOGGER.warn("getMmLocale: undefined locale is set to " + NO_SESSION_CONTEXT_LOCALE);
-      locale = NO_SESSION_CONTEXT_LOCALE;
+    if (root.locale == null) {
+      LOGGER.warn("getMmLocale: undefined root locale is set to " + NO_SESSION_CONTEXT_LOCALE);
+      root.locale = NO_SESSION_CONTEXT_LOCALE;
     }
-    return locale;
+    return root.locale;
   }
 
   /**
@@ -1302,7 +1302,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public boolean isMmJsEnabled() {
     assureInitialization();
 
-    return sessionContext.isMmJsEnabled();
+    return root.sessionContext.isMmJsEnabled();
   }
 
   /**
@@ -1313,7 +1313,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public void setMmLocale(Locale pLocale) {
     assureInitialization();
 
-    locale = pLocale;
+    root.locale = pLocale;
   }
 
   /**
@@ -1322,7 +1322,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param  pMessageSource  The specified message source.
    */
   public void setMmMessageSource(MessageSource pMessageSource) {
-    messageSource = pMessageSource;
+    root.messageSource = pMessageSource;
   }
 
   /**
@@ -1331,7 +1331,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param  pSessionContext  The session context to be set.
    */
   public void setSessionContext(MmSessionContext pSessionContext) {
-    sessionContext = pSessionContext;
+    root.sessionContext = pSessionContext;
   }
 
 }

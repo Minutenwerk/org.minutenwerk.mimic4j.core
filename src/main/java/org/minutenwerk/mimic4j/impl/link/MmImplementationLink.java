@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.impl.link;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.link.MmLink;
 import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
@@ -17,7 +18,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLink;
  *
  * @jalopy.group-order  group-initialization
  */
-public class MmImplementationLink<DATA_MODEL, VIEW_MODEL>
+public class MmImplementationLink<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   extends MmBaseLinkImplementation<MmLink<DATA_MODEL, VIEW_MODEL>, DATA_MODEL, VIEW_MODEL, MmConfigurationLink, MmLinkAnnotation> {
 
   /**

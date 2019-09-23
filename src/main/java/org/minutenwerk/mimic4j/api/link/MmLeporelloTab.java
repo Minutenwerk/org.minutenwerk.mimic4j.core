@@ -1,5 +1,6 @@
 package org.minutenwerk.mimic4j.api.link;
 
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
 import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
@@ -14,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
  *
  * @author  Olaf Kossak
  */
-public class MmLeporelloTab<DATA_MODEL, VIEW_MODEL>
+public class MmLeporelloTab<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   extends MmBaseLinkDeclaration<MmImplementationLeporelloTab<DATA_MODEL, VIEW_MODEL>, DATA_MODEL, VIEW_MODEL> {
 
   /**

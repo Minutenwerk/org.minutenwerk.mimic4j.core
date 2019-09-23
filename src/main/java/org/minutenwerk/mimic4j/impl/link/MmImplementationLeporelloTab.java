@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 
 import org.minutenwerk.mimic4j.api.MmInformationable;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
@@ -33,7 +34,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloTab;
  *
  * @jalopy.group-order  group-initialization
  */
-public class MmImplementationLeporelloTab<DATA_MODEL, VIEW_MODEL>
+public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   extends MmBaseLinkImplementation<MmLeporelloTab<DATA_MODEL, VIEW_MODEL>,
     DATA_MODEL, VIEW_MODEL, MmConfigurationLeporelloTab, MmLeporelloTabAnnotation> {
 
