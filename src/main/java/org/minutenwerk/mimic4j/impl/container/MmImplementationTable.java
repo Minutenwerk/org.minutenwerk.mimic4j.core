@@ -76,7 +76,7 @@ public class MmImplementationTable<ROW_MODEL>
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void passModelsideToViewside() {
+  public void passDataModelToViewModel() {
     // clear list of runtime children of table
     clearRuntimeChildrenList();
 
@@ -95,7 +95,7 @@ public class MmImplementationTable<ROW_MODEL>
     }
 
     for (MmEditableMimicImpl child : getDirectImplementationChildrenOfType(MmEditableMimicImpl.class)) {
-      child.passModelsideToViewside();
+      child.passDataModelToViewModel();
     }
   }
 

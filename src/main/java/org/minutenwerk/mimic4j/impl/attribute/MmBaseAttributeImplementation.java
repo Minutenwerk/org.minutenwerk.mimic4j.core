@@ -11,9 +11,9 @@ import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
@@ -27,28 +27,28 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**
  * MmBaseAttributeImplementation is the abstract base class for all mimics of editable attributes. This class implements the mimic of
- * setting a value into an attribute either by a attribute accessor on a model or from viewside, converting the value between model and
- * viewside type and vice versa, validating a value entered from viewside and controlling change events and the mimic's state.
+ * setting a value into an attribute either by a attribute accessor on a model or from view model, converting the value between model and
+ * view model type and vice versa, validating a value entered from view model and controlling change events and the mimic's state.
  *
  * @param               <CALLBACK>         Interface defining callback methods, extending {@link MmBaseCallback}.
  * @param               <CONFIGURATION>    Type of configuration, holding state of mimic configuration.
  * @param               <ATTRIBUTE_MODEL>  Type of attribute of model.
- * @param               <VIEWSIDE_VALUE>   Type of viewside value of attribute, passed to HTML tag.
+ * @param               <VIEW_MODEL>       Type of view model value of attribute, passed to HTML tag.
  *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-initialization, group-lifecycle, group-override, group-helper
  */
 public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallback,
-  CONFIGURATION extends MmBaseAttributeConfiguration<ATTRIBUTE_MODEL>, ANNOTATION extends Annotation, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>
-  extends MmBaseImplementation<MmBaseAttributeDeclaration<?, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, CONFIGURATION, ANNOTATION>
-  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, MmEditableMimicImpl {
+  CONFIGURATION extends MmBaseAttributeConfiguration<ATTRIBUTE_MODEL>, ANNOTATION extends Annotation, ATTRIBUTE_MODEL, VIEW_MODEL>
+  extends MmBaseImplementation<MmBaseAttributeDeclaration<?, ATTRIBUTE_MODEL, VIEW_MODEL>, CONFIGURATION, ANNOTATION>
+  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL>, MmEditableMimicImpl {
 
   /** Class internal constant to control index of generic type ATTRIBUTE_MODEL. */
-  private static final int    GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL = 3;
+  private static final int    GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL = 4;
 
-  /** Class internal constant to control index of generic type VIEWSIDE_VALUE. */
-  private static final int    GENERIC_PARAMETER_INDEX_VIEWSIDE_VALUE  = 4;
+  /** Class internal constant to control index of generic type VIEW_MODEL. */
+  private static final int    GENERIC_PARAMETER_INDEX_VIEW_MODEL      = 5;
 
   /** The logger of this class. */
   private static final Logger LOGGER                                  = LogManager.getLogger(MmBaseAttributeImplementation.class);
@@ -63,17 +63,17 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     /** No error occurred during last conversion or validation. */
     SUCCESS,
 
-    /** Error occurred during conversion from modelside value to viewside value. */
-    ERROR_UNCONVERTABLE_MODELSIDE_TO_VIEWSIDE,
+    /** Error occurred during conversion from data model value to view model value. */
+    ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_MODEL,
 
-    /** Error occurred during conversion from viewside value to modelside value. */
-    ERROR_UNCONVERTABLE_VIEWSIDE_TO_MODELSIDE,
+    /** Error occurred during conversion from view model value to data model value. */
+    ERROR_UNCONVERTABLE_VIEW_MODEL_TO_DATA_MODEL,
 
-    /** Error occurred because required value in viewside is missing. */
-    ERROR_REQUIRED_VALUE_IN_VIEWSIDE,
+    /** Error occurred because required value in view model is missing. */
+    ERROR_REQUIRED_VALUE_IN_VIEW_MODEL,
 
-    /** Error occurred during validation of modelside value. */
-    ERROR_INVALID_VALUE_IN_MODELSIDE;
+    /** Error occurred during validation of data model value. */
+    ERROR_INVALID_VALUE_IN_DATA_MODEL;
 
     /**
      * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change
@@ -98,17 +98,17 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     /** The state of the attribute is undefined. */
     UNDEFINED,
 
-    /** The attribute is in the state, that modelside value is converted to viewside type and passed to viewside value. */
-    CONVERTED_MODELSIDE_TO_VIEWSIDE,
+    /** The attribute is in the state, that data model value is converted to view model type and passed to view model value. */
+    CONVERTED_DATA_MODEL_TO_VIEW_MODEL,
 
-    /** The attribute is in the state, that view value is passed to viewside value. */
-    SET_FROM_VIEW_TO_VIEWSIDE,
+    /** The attribute is in the state, that view value is passed to view model value. */
+    SET_FROM_VIEW_TO_VIEW_MODEL,
 
-    /** The attribute is in the state, that viewside value is converted to modelside type and passed to modelside value. */
-    CONVERTED_VIEWSIDE_TO_MODELSIDE,
+    /** The attribute is in the state, that view model value is converted to data model type and passed to data model value. */
+    CONVERTED_VIEW_MODEL_TO_DATA_MODEL,
 
-    /** The attribute is in the state, that modelside value has validated successfully. */
-    VALID_VALUE_IN_MODELSIDE;
+    /** The attribute is in the state, that data model value has validated successfully. */
+    VALID_VALUE_IN_DATA_MODEL;
 
     /**
      * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change
@@ -134,13 +134,15 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   protected MmAttributeAccessor<?, ATTRIBUTE_MODEL> modelAccessor;
 
-  /** The attribute's viewside value of type VIEWSIDE_VALUE. */
-  protected VIEWSIDE_VALUE                          viewsideValue;
+  /** The attribute's view model value of type VIEW_MODEL. */
+  protected VIEW_MODEL                              viewModelValue;
 
-  /** True, if attribute's viewside value has been changed. */
-  protected boolean                                 isChangedFromViewside;
+  /** True, if attribute's view model value has been changed. */
+  protected boolean                                 isChangedFromView;
 
-  /** The state of the attribute regarding its viewside value and modelside value. Initially the state is {@link MmValueState.UNDEFINED}. */
+  /**
+   * The state of the attribute regarding its view model value and data model value. Initially the state is {@link MmValueState.UNDEFINED}.
+   */
   protected MmValueState                            valueState;
 
   /** The state regarding errors during conversion and validation. Initially the state is {@link MmErrorState.UNDEFINED}. */
@@ -223,9 +225,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>converting viewside value to modelside type</li>
-   *   <li>passing converted value into modelside value</li>
-   *   <li>validating modelside value</li>
+   *   <li>converting view model value to data model type</li>
+   *   <li>passing converted value into data model value</li>
+   *   <li>validating data model value</li>
    * </ol>
    *
    * @jalopy.group  group-lifecycle
@@ -234,15 +236,15 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public void doMmValidate() {
     assureInitialization();
 
-    passViewsideToModelside();
-    validateModelside();
+    passViewModelToDataModel();
+    validateDataModel();
   }
 
   /**
-   * Converts and passes modelside value of type ATTRIBUTE_MODEL to viewside value of type VIEWSIDE_VALUE. If conversion succeeds:
+   * Converts and passes data model value of type ATTRIBUTE_MODEL to view model value of type VIEW_MODEL. If conversion succeeds:
    *
    * <ul>
-   *   <li>valueState is {@link MmValueState.CONVERTED_MODELSIDE_TO_VIEWSIDE}</li>
+   *   <li>valueState is {@link MmValueState.CONVERTED_DATA_MODEL_TO_VIEW_MODEL}</li>
    *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
    * </ul>
    *
@@ -250,30 +252,30 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * <ul>
    *   <li>valueState remains unchanged</li>
-   *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_MODELSIDE_TO_VIEWSIDE}</li>
-   *   <li>a {@link MmModelsideConverterException} is thrown</li>
+   *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_MODEL}</li>
+   *   <li>a {@link MmDataModelConverterException} is thrown</li>
    * </ul>
    *
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void passModelsideToViewside() {
+  public void passDataModelToViewModel() {
     assureInitialization();
 
     String originalDebugState = toStringTraceState();
 
     try {
-      ATTRIBUTE_MODEL modelsideValue = null;
+      ATTRIBUTE_MODEL dataModelValue = null;
       if (modelAccessor != null) {
-        modelsideValue = modelAccessor.get();
+        dataModelValue = modelAccessor.get();
       } else {
         LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
       }
-      viewsideValue = declaration.callbackMmConvertModelsideToViewsideValue(modelsideValue);
-      valueState    = MmValueState.CONVERTED_MODELSIDE_TO_VIEWSIDE;
-      errorState    = MmAttributeErrorState.SUCCESS;
-    } catch (MmModelsideConverterException converterException) {
-      errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_MODELSIDE_TO_VIEWSIDE;
+      viewModelValue = declaration.callbackMmConvertDataModelToViewModel(dataModelValue);
+      valueState     = MmValueState.CONVERTED_DATA_MODEL_TO_VIEW_MODEL;
+      errorState     = MmAttributeErrorState.SUCCESS;
+    } catch (MmDataModelConverterException converterException) {
+      errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_MODEL;
       throw converterException;
     }
 
@@ -281,10 +283,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Validates syntactically, converts and passes viewside value of type VIEWSIDE_VALUE to modelside value of type ATTRIBUTE_MODEL.
+   * Validates syntactically, converts and passes view model value of type VIEW_MODEL to data model value of type ATTRIBUTE_MODEL.
    *
    * <ul>
-   *   <li>valueState is {@link MmValueState.CONVERTED_VIEWSIDE_TO_MODELSIDE}</li>
+   *   <li>valueState is {@link MmValueState.CONVERTED_VIEW_MODEL_TO_DATA_MODEL}</li>
    *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
    * </ul>
    *
@@ -292,22 +294,22 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * <ul>
    *   <li>valueState remains unchanged</li>
-   *   <li>errorState is {@link MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEWSIDE}, or</li>
-   *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEWSIDE_TO_MODELSIDE}</li>
+   *   <li>errorState is {@link MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEW_MODEL}, or</li>
+   *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEW_MODEL_TO_DATA_MODEL}</li>
    *   <li>an error message is produced and added to MmRoot</li>
    * </ul>
    *
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void passViewsideToModelside() {
+  public void passViewModelToDataModel() {
     assureInitialization();
 
     String originalDebugState = toStringTraceState();
 
-    // syntactic validation of viewside
+    // syntactic validation of view model
     if (isMmRequired() && isMmEmpty()) {
-      errorState = MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEWSIDE;
+      errorState = MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEW_MODEL;
 
       MmMessage message = new MmMessage(MmErrorMessageType.BUSINESS_LOGIC_ERROR, MmMessageSeverity.USER_ERROR, this, getMmId(),
           MmMessageType.ERROR_REQUIRED);
@@ -315,16 +317,16 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
 
     } else {
 
-      // conversion to modelside
+      // conversion to data model
       try {
-        if (isChangedFromViewside) {
-          ATTRIBUTE_MODEL modelsideValue = declaration.callbackMmConvertViewsideToModelsideValue(viewsideValue);
-          modelAccessor.set(modelsideValue);
+        if (isChangedFromView) {
+          ATTRIBUTE_MODEL dataModelValue = declaration.callbackMmConvertViewModelToDataModel(viewModelValue);
+          modelAccessor.set(dataModelValue);
         }
-        valueState = MmValueState.CONVERTED_VIEWSIDE_TO_MODELSIDE;
+        valueState = MmValueState.CONVERTED_VIEW_MODEL_TO_DATA_MODEL;
         errorState = MmAttributeErrorState.SUCCESS;
-      } catch (MmViewsideConverterException converterException) {
-        errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEWSIDE_TO_MODELSIDE;
+      } catch (MmViewModelConverterException converterException) {
+        errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEW_MODEL_TO_DATA_MODEL;
 
         MmMessage message = new MmMessage(converterException);
         messageList.addMessage(message);
@@ -335,40 +337,40 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Sets viewside value of mimic to specified value. Post action state is:
+   * Sets view model value of mimic to specified value. Post action state is:
    *
    * <ul>
-   *   <li>valueState is {@link MmValueState.SET_FROM_VIEW_TO_VIEWSIDE}</li>
+   *   <li>valueState is {@link MmValueState.SET_FROM_VIEW_TO_VIEW_MODEL}</li>
    *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
    * </ul>
    *
-   * @param         pViewsideValue  The specified value to be set.
+   * @param         pViewModelValue  The specified value to be set.
    *
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
+  public void setMmViewModelValue(VIEW_MODEL pViewModelValue) {
     assureInitialization();
 
     String originalDebugState = toStringTraceState();
 
     // set changed flag just in case it has changed
-    if ((viewsideValue != null) && (!viewsideValue.equals(pViewsideValue))) {
-      isChangedFromViewside = true;
+    if ((viewModelValue != null) && (!viewModelValue.equals(pViewModelValue))) {
+      isChangedFromView = true;
     }
 
-    viewsideValue = pViewsideValue;
-    valueState    = MmValueState.SET_FROM_VIEW_TO_VIEWSIDE;
-    errorState    = MmAttributeErrorState.SUCCESS;
+    viewModelValue = pViewModelValue;
+    valueState     = MmValueState.SET_FROM_VIEW_TO_VIEW_MODEL;
+    errorState     = MmAttributeErrorState.SUCCESS;
 
     logDebugChange(originalDebugState);
   }
 
   /**
-   * Semantic validation of modelside value of type ATTRIBUTE_MODEL. If validation succeeds:
+   * Semantic validation of data model value of type ATTRIBUTE_MODEL. If validation succeeds:
    *
    * <ul>
-   *   <li>valueState is {@link MmValueState.VALID_VALUE_IN_MODELSIDE}</li>
+   *   <li>valueState is {@link MmValueState.VALID_VALUE_IN_DATA_MODEL}</li>
    *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
    * </ul>
    *
@@ -376,14 +378,14 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * <ul>
    *   <li>valueState remains unchanged</li>
-   *   <li>errorState is {@link MmAttributeErrorState.ERROR_INVALID_VALUE_IN_MODELSIDE}</li>
+   *   <li>errorState is {@link MmAttributeErrorState.ERROR_INVALID_VALUE_IN_DATA_MODEL}</li>
    *   <li>an error message is produced and added to MmRoot</li>
    * </ul>
    *
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void validateModelside() {
+  public void validateDataModel() {
     assureInitialization();
 
     String originalDebugState = toStringTraceState();
@@ -391,15 +393,15 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     if (isValidationEnabled()) {
       try {
         if (modelAccessor != null) {
-          declaration.callbackMmValidateModelsideValue(modelAccessor.get());
+          declaration.callbackMmValidateDataModel(modelAccessor.get());
         } else {
           LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
-          declaration.callbackMmValidateModelsideValue(null);
+          declaration.callbackMmValidateDataModel(null);
         }
-        valueState = MmValueState.VALID_VALUE_IN_MODELSIDE;
+        valueState = MmValueState.VALID_VALUE_IN_DATA_MODEL;
         errorState = MmAttributeErrorState.SUCCESS;
       } catch (MmValidatorException validatorException) {
-        errorState = MmAttributeErrorState.ERROR_INVALID_VALUE_IN_MODELSIDE;
+        errorState = MmAttributeErrorState.ERROR_INVALID_VALUE_IN_DATA_MODEL;
 
         MmMessage message = new MmMessage(validatorException);
         messageList.addMessage(message);
@@ -410,9 +412,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.validateModelside()} is executable.
+   * Returns <code>true</code> if the mimic is in such a state, that the action {@link MmEditableMimic.validateDataModel()} is executable.
    *
-   * @return        <code>true</code> if the action {@link MmEditableMimic.validateModelside()} is executable.
+   * @return        <code>true</code> if the action {@link MmEditableMimic.validateDataModel()} is executable.
    *
    * @throws        IllegalStateException  in case of unconsidered value state
    *
@@ -426,23 +428,23 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
         return false;
       }
 
-      // if viewside is changed from view (but not converted yet), do not validate
-      case SET_FROM_VIEW_TO_VIEWSIDE: {
+      // if view model is changed from view (but not converted yet), do not validate
+      case SET_FROM_VIEW_TO_VIEW_MODEL: {
         return false;
       }
 
-      // if converted to viewside, validate
-      case CONVERTED_MODELSIDE_TO_VIEWSIDE: {
+      // if converted to view model, validate
+      case CONVERTED_DATA_MODEL_TO_VIEW_MODEL: {
         return (errorState == MmAttributeErrorState.SUCCESS);
       }
 
-      // or converted from viewside, validate
-      case CONVERTED_VIEWSIDE_TO_MODELSIDE: {
+      // or converted from view model, validate
+      case CONVERTED_VIEW_MODEL_TO_DATA_MODEL: {
         return (errorState == MmAttributeErrorState.SUCCESS);
       }
 
       // or valid already, validate again
-      case VALID_VALUE_IN_MODELSIDE: {
+      case VALID_VALUE_IN_DATA_MODEL: {
         return true;
       }
 
@@ -464,6 +466,39 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     assureInitialization();
 
     return 1;
+  }
+
+  /**
+   * Returns the attribute's type of data model value (ATTRIBUTE_MODEL).
+   *
+   * @return        The attribute's type of data model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public Class<ATTRIBUTE_MODEL> getMmDataModelType() {
+    assureInitialization();
+
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
+  }
+
+  /**
+   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
+   *
+   * @return        The data model value of the mimic.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public ATTRIBUTE_MODEL getMmDataModelValue() {
+    assureInitialization();
+
+    if (modelAccessor != null) {
+      return modelAccessor.get();
+    } else {
+      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      return null;
+    }
   }
 
   /**
@@ -489,10 +524,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
+   * model value and vice versa. It is dependent on the user's locale.
    *
-   * @return        The attribute's format pattern for displaying viewside value.
+   * @return        The attribute's format pattern for displaying view model value.
    *
    * @throws        IllegalStateException  In case of callbackMmGetFormatPattern returns an invalid format pattern.
    *
@@ -538,39 +573,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     assureInitialization();
 
     return modelAccessor;
-  }
-
-  /**
-   * Returns the attribute's type of modelside value (ATTRIBUTE_MODEL).
-   *
-   * @return        The attribute's type of modelside value.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public Class<ATTRIBUTE_MODEL> getMmModelsideType() {
-    assureInitialization();
-
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
-  }
-
-  /**
-   * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
-   *
-   * @return        The modelside value of the mimic.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public ATTRIBUTE_MODEL getMmModelsideValue() {
-    assureInitialization();
-
-    if (modelAccessor != null) {
-      return modelAccessor.get();
-    } else {
-      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
-      return null;
-    }
   }
 
   /**
@@ -636,52 +638,52 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns the attribute's type of viewside value (VIEWSIDE_VALUE).
+   * Returns the attribute's type of view model value (VIEW_MODEL).
    *
-   * @return        The attribute's type of viewside value.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public Class<VIEWSIDE_VALUE> getMmViewsideType() {
-    assureInitialization();
-
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEWSIDE_VALUE);
-  }
-
-  /**
-   * Returns the attribute's viewside value of type VIEWSIDE_VALUE.
-   *
-   * @return        The attribute's viewside value of type VIEWSIDE_VALUE.
+   * @return        The attribute's type of view model value.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public VIEWSIDE_VALUE getMmViewsideValue() {
+  public Class<VIEW_MODEL> getMmViewModelType() {
     assureInitialization();
 
-    return viewsideValue;
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_MODEL);
   }
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from viewside. If a mimic is changed, all ancestors of type MmEditableMimic
+   * Returns the attribute's view model value of type VIEW_MODEL.
+   *
+   * @return        The attribute's view model value of type VIEW_MODEL.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public VIEW_MODEL getMmViewModelValue() {
+    assureInitialization();
+
+    return viewModelValue;
+  }
+
+  /**
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
    * are marked as being changed as well.
    *
-   * @return        <code>True</code>, if mimic has been changed from viewside.
+   * @return        <code>True</code>, if mimic has been changed from view model.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public final boolean isMmChangedFromViewside() {
+  public final boolean isMmChangedFromView() {
     assureInitialization();
 
-    return isChangedFromViewside;
+    return isChangedFromView;
   }
 
   /**
-   * Returns <code>true</code> if the viewside value of this mimic is empty.
+   * Returns <code>true</code> if the view model value of this mimic is empty.
    *
-   * @return        <code>True</code> if the viewside value of this mimic is empty.
+   * @return        <code>True</code> if the view model value of this mimic is empty.
    *
    * @jalopy.group  group-override
    */
@@ -689,7 +691,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public boolean isMmEmpty() {
     assureInitialization();
 
-    return viewsideValue == null;
+    return viewModelValue == null;
   }
 
   /**
@@ -717,7 +719,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public boolean isMmValid() {
     assureInitialization();
 
-    return valueState == MmValueState.VALID_VALUE_IN_MODELSIDE;
+    return valueState == MmValueState.VALID_VALUE_IN_DATA_MODEL;
   }
 
   /**
@@ -796,19 +798,19 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
         sb.append("U         ");
         break;
       }
-      case CONVERTED_MODELSIDE_TO_VIEWSIDE: {
+      case CONVERTED_DATA_MODEL_TO_VIEW_MODEL: {
         sb.append("     M>V  ");
         break;
       }
-      case SET_FROM_VIEW_TO_VIEWSIDE: {
+      case SET_FROM_VIEW_TO_VIEW_MODEL: {
         sb.append("       V<V");
         break;
       }
-      case CONVERTED_VIEWSIDE_TO_MODELSIDE: {
+      case CONVERTED_VIEW_MODEL_TO_DATA_MODEL: {
         sb.append("     M<V  ");
         break;
       }
-      case VALID_VALUE_IN_MODELSIDE: {
+      case VALID_VALUE_IN_DATA_MODEL: {
         sb.append(" VAL<M    ");
       }
     }
@@ -817,16 +819,16 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
         sb.append("         ");
         break;
       }
-      case ERROR_REQUIRED_VALUE_IN_VIEWSIDE: {
+      case ERROR_REQUIRED_VALUE_IN_VIEW_MODEL: {
         sb.append(" REQUIRED");
         break;
       }
-      case ERROR_UNCONVERTABLE_MODELSIDE_TO_VIEWSIDE:
-      case ERROR_UNCONVERTABLE_VIEWSIDE_TO_MODELSIDE: {
+      case ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_MODEL:
+      case ERROR_UNCONVERTABLE_VIEW_MODEL_TO_DATA_MODEL: {
         sb.append(" UNCONVRT");
         break;
       }
-      case ERROR_INVALID_VALUE_IN_MODELSIDE: {
+      case ERROR_INVALID_VALUE_IN_DATA_MODEL: {
         sb.append(" INVALID ");
         break;
       }
@@ -846,13 +848,13 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     }
     sb.append("/");
 
-    String viewsideValueAsString = "----                ";
-    if (viewsideValue != null) {
-      viewsideValueAsString = viewsideValue.toString();
-      viewsideValueAsString += "                    ";
-      viewsideValueAsString = viewsideValueAsString.substring(0, 20);
+    String viewModelValueAsString = "----                ";
+    if (viewModelValue != null) {
+      viewModelValueAsString = viewModelValue.toString();
+      viewModelValueAsString += "                    ";
+      viewModelValueAsString = viewModelValueAsString.substring(0, 20);
     }
-    sb.append(viewsideValueAsString);
+    sb.append(viewModelValueAsString);
     sb.append(")");
     return sb.toString();
   }

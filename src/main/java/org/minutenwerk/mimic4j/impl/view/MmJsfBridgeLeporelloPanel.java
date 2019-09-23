@@ -55,7 +55,7 @@ public class MmJsfBridgeLeporelloPanel extends MmJsfBridge<MmImplementationLepor
    */
   @Override
   public String getValue() {
-    return implementation.getMmViewsideValue();
+    return implementation.getMmViewModelValue();
   }
 
 }

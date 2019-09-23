@@ -22,13 +22,13 @@ public enum MmMessageType {
   /** Message in case of input is required. */
   ERROR_REQUIRED        ("error_required"),
 
-  /** Message in case of error in conversion from viewside to modelside. */
+  /** Message in case of error in conversion from view model to data model. */
   ERROR_CONVERSION_MODEL("error_conversion_model"),
 
-  /** Message in case of error in conversion from modelside to viewside. */
+  /** Message in case of error in conversion from data model to view model. */
   ERROR_CONVERSION_VIEW ("error_conversion_view"),
 
-  /** Message in case of error in validation of modelside value. */
+  /** Message in case of error in validation of data model value. */
   ERROR_VALIDATION      ("error_validation");
 
   /** TODOC. */

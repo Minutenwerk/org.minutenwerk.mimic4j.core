@@ -23,19 +23,18 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
  *
  * @jalopy.group-order  group-callback, group-lifecycle
  */
-public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAttributeImplementation<?,
-    ?, ?, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, ATTRIBUTE_MODEL, VIEWSIDE_VALUE>
-  extends MmBaseDeclaration<MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, IMPLEMENTATION>
-  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEWSIDE_VALUE>, MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> {
+public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAttributeImplementation<?, ?, ?, ATTRIBUTE_MODEL, VIEW_MODEL>,
+  ATTRIBUTE_MODEL, VIEW_MODEL> extends MmBaseDeclaration<MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL>, IMPLEMENTATION>
+  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL>, MmAttributeCallback<ATTRIBUTE_MODEL, VIEW_MODEL> {
 
   /** Logger of this class. */
-  private static final Logger LOGGER                               = LogManager.getLogger(MmBaseAttributeDeclaration.class);
+  private static final Logger LOGGER                                 = LogManager.getLogger(MmBaseAttributeDeclaration.class);
 
-  /** Constant for value to be displayed in case of the viewside value is null. */
-  public static final String  ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE = "";
+  /** Constant for value to be displayed in case of the view model value is null. */
+  public static final String  ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE = "";
 
   /** Constant for default value of maximum input length. */
-  public static final int     EDITABLE_DEFAULT_MAX_LENGTH          = 255;
+  public static final int     EDITABLE_DEFAULT_MAX_LENGTH            = 255;
 
   /**
    * Creates a new MmBaseEditable instance.
@@ -71,12 +70,12 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
+   * model value and vice versa. It is dependent on the user's locale.
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
-   * @return        The attribute's format pattern for displaying viewside value.
+   * @return        The attribute's format pattern for displaying view model value.
    *
    * @jalopy.group  group-callback
    */
@@ -129,9 +128,9 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>converting viewside value to modelside type</li>
-   *   <li>passing converted value into modelside value</li>
-   *   <li>validating modelside value</li>
+   *   <li>converting view model value to data model type</li>
+   *   <li>passing converted value into data model value</li>
+   *   <li>validating data model value</li>
    * </ol>
    *
    * @jalopy.group  group-lifecycle
@@ -143,15 +142,15 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Sets viewside value of mimic to specified value.
+   * Sets view model value of mimic to specified value.
    *
-   * @param         pViewsideValue  The specified value to be set.
+   * @param         pViewModelValue  The specified value to be set.
    *
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public final void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue) {
-    implementation.setMmViewsideValue(pViewsideValue);
+  public final void setMmViewModelValue(VIEW_MODEL pViewModelValue) {
+    implementation.setMmViewModelValue(pViewModelValue);
   }
 
   /**
@@ -165,6 +164,26 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
+   * Returns the type of data model value of the mimic.
+   *
+   * @return  The type of data model value of the mimic.
+   */
+  @Override
+  public final Class<ATTRIBUTE_MODEL> getMmDataModelType() {
+    return implementation.getMmDataModelType();
+  }
+
+  /**
+   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
+   *
+   * @return  The data model value of the mimic.
+   */
+  @Override
+  public final ATTRIBUTE_MODEL getMmDataModelValue() {
+    return implementation.getMmDataModelValue();
+  }
+
+  /**
    * Returns the attribute's maximum number of characters for input in view.
    *
    * @return  The attribute's maximum number of characters for input.
@@ -175,10 +194,10 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
+   * model value and vice versa. It is dependent on the user's locale.
    *
-   * @return  The attribute's format pattern for displaying viewside value.
+   * @return  The attribute's format pattern for displaying view model value.
    */
   @Override
   public final String getMmFormatPattern() {
@@ -203,26 +222,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public MmAttributeAccessor<?, ATTRIBUTE_MODEL> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
-  }
-
-  /**
-   * Returns the type of modelside value of the mimic.
-   *
-   * @return  The type of modelside value of the mimic.
-   */
-  @Override
-  public final Class<ATTRIBUTE_MODEL> getMmModelsideType() {
-    return implementation.getMmModelsideType();
-  }
-
-  /**
-   * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
-   *
-   * @return  The modelside value of the mimic.
-   */
-  @Override
-  public final ATTRIBUTE_MODEL getMmModelsideValue() {
-    return implementation.getMmModelsideValue();
   }
 
   /**
@@ -256,40 +255,40 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's type of viewside value (VIEWSIDE_VALUE).
+   * Returns the attribute's type of view model value (VIEW_MODEL).
    *
-   * @return  The attribute's type of viewside value.
+   * @return  The attribute's type of view model value.
    */
   @Override
-  public final Class<VIEWSIDE_VALUE> getMmViewsideType() {
-    return implementation.getMmViewsideType();
+  public final Class<VIEW_MODEL> getMmViewModelType() {
+    return implementation.getMmViewModelType();
   }
 
   /**
-   * Returns the attribute's viewside value of type VIEWSIDE_VALUE.
+   * Returns the attribute's view model value of type VIEW_MODEL.
    *
-   * @return  The attribute's viewside value of type VIEWSIDE_VALUE.
+   * @return  The attribute's view model value of type VIEW_MODEL.
    */
   @Override
-  public final VIEWSIDE_VALUE getMmViewsideValue() {
-    return implementation.getMmViewsideValue();
+  public final VIEW_MODEL getMmViewModelValue() {
+    return implementation.getMmViewModelValue();
   }
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from viewside. If a mimic is changed, all ancestors of type MmEditableMimic
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
    * are marked as being changed as well.
    *
-   * @return  <code>True</code>, if mimic has been changed from viewside.
+   * @return  <code>True</code>, if mimic has been changed from view model.
    */
   @Override
-  public final boolean isMmChangedFromViewside() {
-    return implementation.isMmChangedFromViewside();
+  public final boolean isMmChangedFromView() {
+    return implementation.isMmChangedFromView();
   }
 
   /**
-   * Returns <code>true</code> if the viewside value of this mimic is empty.
+   * Returns <code>true</code> if the view model value of this mimic is empty.
    *
-   * @return  <code>True</code> if the viewside value of this mimic is empty.
+   * @return  <code>True</code> if the view model value of this mimic is empty.
    */
   @Override
   public final boolean isMmEmpty() {

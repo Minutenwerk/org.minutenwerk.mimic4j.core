@@ -8,9 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationLocalDate;
 
@@ -70,20 +70,20 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   }
 
   /**
-   * Converts modelside value of type MODELSIDE_VALUE to value of type VIEWSIDE_VALUE.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be converted.
+   * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEW_MODEL.
    *
-   * @throws  MmModelsideConverterException  In case of the conversion failed.
+   * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
-  public String callbackMmConvertModelsideToViewsideValue(LocalDate pModelsideValue) throws MmModelsideConverterException {
+  public String callbackMmConvertDataModelToViewModel(LocalDate pDataModelValue) throws MmDataModelConverterException {
     String formatPattern = null;
     try {
-      if (pModelsideValue == null) {
-        return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
+      if (pDataModelValue == null) {
+        return ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE;
       } else {
         formatPattern = getMmFormatPattern();
         if (LOGGER.isDebugEnabled()) {
@@ -93,27 +93,27 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
         }
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(formatPattern);
-        String            returnString  = pModelsideValue.format(dateFormatter);
+        String            returnString  = pDataModelValue.format(dateFormatter);
         return returnString;
       }
     } catch (IllegalArgumentException | DateTimeParseException e) {
-      throw new MmModelsideConverterException(this,
-        "Cannot format " + getClass().getSimpleName() + ", modelside value: " + pModelsideValue + " by pattern >" + formatPattern + "< "
+      throw new MmDataModelConverterException(this,
+        "Cannot format " + getClass().getSimpleName() + ", data model value: " + pDataModelValue + " by pattern >" + formatPattern + "< "
         + e.getMessage());
     }
   }
 
   /**
-   * Converts viewside value of type VIEWSIDE_VALUE to value of type MODELSIDE_VALUE.
+   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
    *
-   * @param   pViewsideValue  The viewside value to be converted.
+   * @param   pViewModelValue  The view model value to be converted.
    *
-   * @return  The converted value of type MODELSIDE_VALUE.
+   * @return  The converted value of type DATA_MODEL.
    *
-   * @throws  MmViewsideConverterException  In case of the conversion failed.
+   * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
   @Override
-  public LocalDate callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  public LocalDate callbackMmConvertViewModelToDataModel(String pViewModelValue) throws MmViewModelConverterException {
     LocalDate returnDate;
     String    formatPattern = null;
     if (isMmEmpty()) {
@@ -128,10 +128,10 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
         }
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(formatPattern);
-        returnDate = LocalDate.parse(pViewsideValue, dateFormatter);
+        returnDate = LocalDate.parse(pViewModelValue, dateFormatter);
       } catch (DateTimeParseException e) {
-        throw new MmViewsideConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue + " by pattern >"
+        throw new MmViewModelConverterException(this,
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view model value: " + pViewModelValue + " by pattern >"
           + formatPattern + "< " + e.getMessage());
       }
     }
@@ -139,14 +139,14 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   }
 
   /**
-   * Semantic validation of modelside value of type MODELSIDE_VALUE. If validation succeeds:
+   * Semantic validation of data model value of type DATA_MODEL. If validation succeeds:
    *
-   * @param   pModelsideValue  The modelside value to be validated.
+   * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
   @Override
-  public void callbackMmValidateModelsideValue(LocalDate pModelsideValue) throws MmValidatorException {
+  public void callbackMmValidateDataModel(LocalDate pDataModelValue) throws MmValidatorException {
   }
 
 }

@@ -3,12 +3,12 @@ package org.minutenwerk.mimic4j.api;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 
 /**
- * MmAttributeMimic is the basic interface of all mimic types containing editable data, which can be changed from viewside. Mimics of type
- * MmAttributeMimic can be set from modelside and viewside, and can be converted in both directions by means of format patterns.
+ * MmAttributeMimic is the basic interface of all mimic types containing editable data, which can be changed from view model. Mimics of type
+ * MmAttributeMimic can be set from data model and view model, and can be converted in both directions by means of format patterns.
  *
  * @author  Olaf Kossak
  */
-public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEditableMimic {
+public interface MmAttributeMimic<DATA_MODEL, VIEW_MODEL> extends MmEditableMimic {
 
   /**
    * MmBooleanLayout is an enumeration of layout directions for JSF tags of type checkbox.
@@ -53,6 +53,20 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
   public int getMmCols();
 
   /**
+   * Returns the type of data model value of the mimic.
+   *
+   * @return  The type of data model value of the mimic.
+   */
+  public Class<DATA_MODEL> getMmDataModelType();
+
+  /**
+   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
+   *
+   * @return  The data model value of the mimic.
+   */
+  public DATA_MODEL getMmDataModelValue();
+
+  /**
    * Returns the attribute's maximum number of characters for input in view.
    *
    * @return  The attribute's maximum number of characters for input.
@@ -60,10 +74,10 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
   public int getMmFormatMaxLength();
 
   /**
-   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
+   * model value and vice versa. It is dependent on the user's locale.
    *
-   * @return  The attribute's format pattern for displaying viewside value.
+   * @return  The attribute's format pattern for displaying view model value.
    */
   public String getMmFormatPattern();
 
@@ -80,21 +94,7 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
    * @return  The accessor of attribute of model.
    */
   @Override
-  public MmAttributeAccessor<?, MODELSIDE_VALUE> getMmModelAccessor();
-
-  /**
-   * Returns the type of modelside value of the mimic.
-   *
-   * @return  The type of modelside value of the mimic.
-   */
-  public Class<MODELSIDE_VALUE> getMmModelsideType();
-
-  /**
-   * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
-   *
-   * @return  The modelside value of the mimic.
-   */
-  public MODELSIDE_VALUE getMmModelsideValue();
+  public MmAttributeAccessor<?, DATA_MODEL> getMmModelAccessor();
 
   /**
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
@@ -111,31 +111,31 @@ public interface MmAttributeMimic<MODELSIDE_VALUE, VIEWSIDE_VALUE> extends MmEdi
   public int getMmSize();
 
   /**
-   * Returns the attribute's type of viewside value (VIEWSIDE_VALUE).
+   * Returns the attribute's type of view model value (VIEW_MODEL).
    *
-   * @return  The attribute's type of viewside value.
+   * @return  The attribute's type of view model value.
    */
-  public Class<VIEWSIDE_VALUE> getMmViewsideType();
+  public Class<VIEW_MODEL> getMmViewModelType();
 
   /**
-   * Returns the attribute's viewside value of type VIEWSIDE_VALUE.
+   * Returns the attribute's view model value of type VIEW_MODEL.
    *
-   * @return  The attribute's viewside value of type VIEWSIDE_VALUE.
+   * @return  The attribute's view model value of type VIEW_MODEL.
    */
-  public VIEWSIDE_VALUE getMmViewsideValue();
+  public VIEW_MODEL getMmViewModelValue();
 
   /**
-   * Returns <code>true</code> if the viewside value of this mimic is empty.
+   * Returns <code>true</code> if the view model value of this mimic is empty.
    *
-   * @return  <code>True</code> if the viewside value of this mimic is empty.
+   * @return  <code>True</code> if the view model value of this mimic is empty.
    */
   public boolean isMmEmpty();
 
   /**
-   * Sets viewside value of mimic to specified value.
+   * Sets view model value of mimic to specified value.
    *
-   * @param  pViewsideValue  The specified value to be set.
+   * @param  pViewModelValue  The specified value to be set.
    */
-  public void setMmViewsideValue(VIEWSIDE_VALUE pViewsideValue);
+  public void setMmViewModelValue(VIEW_MODEL pViewModelValue);
 
 }

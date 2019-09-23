@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 
 /**
  * MmMessage is the base class for messages from the application to its users. Messages have a severity level and a message text. The
@@ -62,24 +62,24 @@ public class MmMessage {
   }
 
   /**
-   * Creates a new MmMessage instance from MmViewsideConverterException.
+   * Creates a new MmMessage instance from MmViewModelConverterException.
    *
-   * @param   pViewsideConverterException  The converter exception to create a message from.
+   * @param   pViewModelConverterException  The converter exception to create a message from.
    *
-   * @throws  IllegalArgumentException  In case of argument pViewsideConverterException is null.
+   * @throws  IllegalArgumentException  In case of argument pViewModelConverterException is null.
    */
-  public MmMessage(MmViewsideConverterException pViewsideConverterException) {
+  public MmMessage(MmViewModelConverterException pViewModelConverterException) {
     if (LOGGER.isDebugEnabled()) {
-      if (pViewsideConverterException == null) {
+      if (pViewModelConverterException == null) {
         throw new IllegalArgumentException("pException must be defined");
       }
     }
     errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
     severity         = MmMessageSeverity.USER_ERROR;
-    ownerMm          = pViewsideConverterException.getMimic();
+    ownerMm          = pViewModelConverterException.getMimic();
     messageId        = ownerMm.getMmId();
     messageType      = MmMessageType.ERROR_CONVERSION_VIEW;
-    args             = pViewsideConverterException.getArgs();
+    args             = pViewModelConverterException.getArgs();
   }
 
   /**

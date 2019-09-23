@@ -14,9 +14,9 @@ import org.apache.logging.log4j.Logger;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationDuration;
 
@@ -76,26 +76,26 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
   }
 
   /**
-   * Converts modelside value of type MODELSIDE_VALUE to value of type VIEWSIDE_VALUE.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be converted.
+   * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEW_MODEL.
    *
-   * @throws  MmModelsideConverterException  In case of the conversion failed.
+   * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
-  public String callbackMmConvertModelsideToViewsideValue(Duration pModelsideValue) throws MmModelsideConverterException {
+  public String callbackMmConvertDataModelToViewModel(Duration pDataModelValue) throws MmDataModelConverterException {
     String returnString;
-    if (pModelsideValue == null) {
-      returnString = ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
+    if (pDataModelValue == null) {
+      returnString = ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE;
     } else {
       try {
         NumberFormat numberFormatter = getMmNumberFormatter();
-        returnString = numberFormatter.format(pModelsideValue);
+        returnString = numberFormatter.format(pDataModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmModelsideConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+        throw new MmDataModelConverterException(this,
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
           + getMmFormatPattern() + "<");
       }
     }
@@ -103,27 +103,27 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
   }
 
   /**
-   * Converts viewside value of type VIEWSIDE_VALUE to value of type MODELSIDE_VALUE.
+   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
    *
-   * @param   pViewsideValue  The viewside value to be converted.
+   * @param   pViewModelValue  The view model value to be converted.
    *
-   * @return  The converted value of type MODELSIDE_VALUE.
+   * @return  The converted value of type DATA_MODEL.
    *
-   * @throws  MmViewsideConverterException  In case of the conversion failed.
+   * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
   @Override
-  public Duration callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  public Duration callbackMmConvertViewModelToDataModel(String pViewModelValue) throws MmViewModelConverterException {
     Duration returnDuration;
     if (isMmEmpty()) {
       returnDuration = null;
     } else {
       try {
         NumberFormat numberFormatter = getMmNumberFormatter();
-        Number       parsedNumber    = numberFormatter.parse(pViewsideValue);
+        Number       parsedNumber    = numberFormatter.parse(pViewModelValue);
         returnDuration = Duration.ofMillis(parsedNumber.longValue());
       } catch (ParseException e) {
-        throw new MmViewsideConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue + " by pattern >"
+        throw new MmViewModelConverterException(this,
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view model value: " + pViewModelValue + " by pattern >"
           + getMmFormatPattern() + "<");
       }
     }
@@ -131,14 +131,14 @@ public class MmDuration extends MmBaseAttributeDeclaration<MmImplementationDurat
   }
 
   /**
-   * Semantic validation of modelside value of type MODELSIDE_VALUE. If validation succeeds:
+   * Semantic validation of data model value of type DATA_MODEL. If validation succeeds:
    *
-   * @param   pModelsideValue  The modelside value to be validated.
+   * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
   @Override
-  public void callbackMmValidateModelsideValue(Duration pModelsideValue) throws MmValidatorException {
+  public void callbackMmValidateDataModel(Duration pDataModelValue) throws MmValidatorException {
   }
 
   /**

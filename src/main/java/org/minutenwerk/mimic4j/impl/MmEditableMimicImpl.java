@@ -3,7 +3,7 @@ package org.minutenwerk.mimic4j.impl;
 import org.minutenwerk.mimic4j.api.MmEditableMimic;
 
 /**
- * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from modelside. Mimics of type
+ * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from data model. Mimics of type
  * MmEditableMimic can be validated.
  *
  * @author  Olaf Kossak
@@ -18,16 +18,16 @@ public interface MmEditableMimicImpl extends MmEditableMimic {
   /**
    * TODOC.
    */
-  public void passModelsideToViewside();
+  public void passDataModelToViewModel();
 
   /**
    * TODOC.
    */
-  public void passViewsideToModelside();
+  public void passViewModelToDataModel();
 
   /**
    * TODOC.
    */
-  public void validateModelside();
+  public void validateDataModel();
 
 }

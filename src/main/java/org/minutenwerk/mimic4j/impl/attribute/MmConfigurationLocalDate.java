@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmLocalDateAnnotation;
  */
 public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<LocalDate> {
 
-  /** Constant for default value of format pattern for parsing user input and formatting viewside value. */
+  /** Constant for default value of format pattern for parsing user input and formatting view model value. */
   public static final String            DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy";
 
   /** Constant for default value of maximum length of formatted input string. */
@@ -26,7 +26,7 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
   /** Redundant to {@link MmDateAnnotation.jsfTagDisabled()}. */
   public static final MmDateJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmDateJsfDisabled.SameAsEnabled;
 
-  /** Format pattern for parsing user input and formatting viewside value. */
+  /** Format pattern for parsing user input and formatting view model value. */
   protected String                      formatPattern;
 
   /** Maximum length of formatted input string. */
@@ -73,9 +73,9 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
   }
 
   /**
-   * Returns the configuration of format pattern for parsing user input and formatting viewside value.
+   * Returns the configuration of format pattern for parsing user input and formatting view model value.
    *
-   * @return  The configuration of format pattern for parsing user input and formatting viewside value.
+   * @return  The configuration of format pattern for parsing user input and formatting view model value.
    */
   public String getFormatPattern() {
     return formatPattern;
@@ -111,9 +111,9 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
   }
 
   /**
-   * Sets the configuration of format pattern for parsing user input and formatting viewside value.
+   * Sets the configuration of format pattern for parsing user input and formatting view model value.
    *
-   * @param  pFormatPattern  The specified configuration of format pattern for parsing user input and formatting viewside value.
+   * @param  pFormatPattern  The specified configuration of format pattern for parsing user input and formatting view model value.
    */
   public void setFormatPattern(String pFormatPattern) {
     formatPattern = pFormatPattern;

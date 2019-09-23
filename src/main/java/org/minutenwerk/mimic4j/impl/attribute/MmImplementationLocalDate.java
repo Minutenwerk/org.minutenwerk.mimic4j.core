@@ -33,10 +33,10 @@ public class MmImplementationLocalDate
   }
 
   /**
-   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
+   * model value and vice versa. It is dependent on the user's locale.
    *
-   * @return  The attribute's format pattern for displaying viewside value.
+   * @return  The attribute's format pattern for displaying view model value.
    *
    * @throws  IllegalStateException  In case of callbackMmGetFormatPattern returns an invalid format pattern.
    */
@@ -59,15 +59,15 @@ public class MmImplementationLocalDate
   }
 
   /**
-   * Returns <code>true</code> if the viewside value of this mimic is empty.
+   * Returns <code>true</code> if the view model value of this mimic is empty.
    *
-   * @return  <code>True</code> if the viewside value of this mimic is empty.
+   * @return  <code>True</code> if the view model value of this mimic is empty.
    */
   @Override
   public boolean isMmEmpty() {
     assureInitialization();
 
-    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
+    return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }
 
   /**

@@ -6,9 +6,9 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationEnum;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
@@ -62,50 +62,50 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   }
 
   /**
-   * Converts modelside value of type MODELSIDE_VALUE to value of type VIEWSIDE_VALUE.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be converted.
+   * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEW_MODEL.
    *
-   * @throws  MmModelsideConverterException  In case of the conversion failed.
+   * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
-  public String callbackMmConvertModelsideToViewsideValue(ENUM_TYPE pModelsideValue) throws MmModelsideConverterException {
-    if (pModelsideValue == null) {
-      return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
+  public String callbackMmConvertDataModelToViewModel(ENUM_TYPE pDataModelValue) throws MmDataModelConverterException {
+    if (pDataModelValue == null) {
+      return ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE;
     } else {
       if (isMmEnabled()) {
-        return pModelsideValue.name();
+        return pDataModelValue.name();
       } else {
         MmRoot           root         = MmRelationshipApi.getMmRoot(this);
         Class<ENUM_TYPE> enumType     = implementation.getMmEnumType();
         String           enumTypeName = enumType.getSimpleName();
-        String           enumLabel    = root.getMmI18nText(enumTypeName + "." + pModelsideValue.name(), MmMessageType.SHORT);
+        String           enumLabel    = root.getMmI18nText(enumTypeName + "." + pDataModelValue.name(), MmMessageType.SHORT);
         return enumLabel;
       }
     }
   }
 
   /**
-   * Converts viewside value of type VIEWSIDE_VALUE to value of type MODELSIDE_VALUE.
+   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
    *
-   * @param   pViewsideValue  The viewside value to be converted.
+   * @param   pViewModelValue  The view model value to be converted.
    *
-   * @return  The converted value of type MODELSIDE_VALUE.
+   * @return  The converted value of type DATA_MODEL.
    *
-   * @throws  MmViewsideConverterException  In case of the conversion failed.
+   * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
   @Override
-  public ENUM_TYPE callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  public ENUM_TYPE callbackMmConvertViewModelToDataModel(String pViewModelValue) throws MmViewModelConverterException {
     ENUM_TYPE returnEnumType = null;
     if (!isMmEmpty()) {
       try {
         Class<ENUM_TYPE> enumType = implementation.getMmEnumType();
-        returnEnumType = Enum.valueOf(enumType, pViewsideValue);
+        returnEnumType = Enum.valueOf(enumType, pViewModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmViewsideConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue);
+        throw new MmViewModelConverterException(this,
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view model value: " + pViewModelValue);
       }
     }
     return returnEnumType;
@@ -137,14 +137,14 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   }
 
   /**
-   * Semantic validation of modelside value of type MODELSIDE_VALUE. If validation succeeds:
+   * Semantic validation of data model value of type DATA_MODEL. If validation succeeds:
    *
-   * @param   pModelsideValue  The modelside value to be validated.
+   * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
   @Override
-  public void callbackMmValidateModelsideValue(ENUM_TYPE pModelsideValue) throws MmValidatorException {
+  public void callbackMmValidateDataModel(ENUM_TYPE pDataModelValue) throws MmValidatorException {
   }
 
 }

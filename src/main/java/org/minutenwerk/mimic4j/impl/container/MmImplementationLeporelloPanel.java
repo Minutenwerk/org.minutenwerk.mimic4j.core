@@ -91,12 +91,12 @@ public class MmImplementationLeporelloPanel<MODEL>
   }
 
   /**
-   * Returns the leporello panel's viewside value of type String.
+   * Returns the leporello panel's view model value of type String.
    *
-   * @return  The leporello panel's viewside value of type String.
+   * @return  The leporello panel's view model value of type String.
    */
-  public String getMmViewsideValue() {
-    // TODO MmImplementationLeporelloPanel.getMmViewsideValue()
+  public String getMmViewModelValue() {
+    // TODO MmImplementationLeporelloPanel.getMmViewModelValue()
     return getMmShortDescription();
   }
 

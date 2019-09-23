@@ -10,9 +10,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationZonedDateTime;
 
@@ -72,51 +72,51 @@ public class MmZonedDateTime extends MmBaseAttributeDeclaration<MmImplementation
   }
 
   /**
-   * Converts modelside value of type MODELSIDE_VALUE to value of type VIEWSIDE_VALUE.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be converted.
+   * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEW_MODEL.
    *
-   * @throws  MmModelsideConverterException  In case of the conversion failed.
+   * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
-  public String callbackMmConvertModelsideToViewsideValue(ZonedDateTime pModelsideValue) throws MmModelsideConverterException {
+  public String callbackMmConvertDataModelToViewModel(ZonedDateTime pDataModelValue) throws MmDataModelConverterException {
     try {
-      if (pModelsideValue == null) {
-        return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
+      if (pDataModelValue == null) {
+        return ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE;
       } else {
-        String returnString = pModelsideValue.format(getMmDateTimeFormatter());
+        String returnString = pDataModelValue.format(getMmDateTimeFormatter());
         return returnString;
       }
     } catch (Exception e) {
-      throw new MmModelsideConverterException(this,
-        "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+      throw new MmDataModelConverterException(this,
+        "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
         + getMmFormatPattern() + "<");
     }
   }
 
   /**
-   * Converts viewside value of type VIEWSIDE_VALUE to value of type MODELSIDE_VALUE.
+   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
    *
-   * @param   pViewsideValue  The viewside value to be converted.
+   * @param   pViewModelValue  The view model value to be converted.
    *
-   * @return  The converted value of type MODELSIDE_VALUE.
+   * @return  The converted value of type DATA_MODEL.
    *
-   * @throws  MmViewsideConverterException  In case of the conversion failed.
+   * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
   @Override
-  public ZonedDateTime callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  public ZonedDateTime callbackMmConvertViewModelToDataModel(String pViewModelValue) throws MmViewModelConverterException {
     ZonedDateTime returnDateTime;
     if (isMmEmpty()) {
       returnDateTime = null;
     } else {
       try {
         DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-        returnDateTime = ZonedDateTime.parse(pViewsideValue, dateTimeFormatter);
+        returnDateTime = ZonedDateTime.parse(pViewModelValue, dateTimeFormatter);
       } catch (DateTimeParseException e) {
-        throw new MmViewsideConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", viewside value: " + pViewsideValue + " by pattern >"
+        throw new MmViewModelConverterException(this,
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view model value: " + pViewModelValue + " by pattern >"
           + getMmFormatPattern() + "<");
       }
     }
@@ -124,14 +124,14 @@ public class MmZonedDateTime extends MmBaseAttributeDeclaration<MmImplementation
   }
 
   /**
-   * Semantic validation of modelside value of type MODELSIDE_VALUE. If validation succeeds:
+   * Semantic validation of data model value of type DATA_MODEL. If validation succeeds:
    *
-   * @param   pModelsideValue  The modelside value to be validated.
+   * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
   @Override
-  public void callbackMmValidateModelsideValue(ZonedDateTime pModelsideValue) throws MmValidatorException {
+  public void callbackMmValidateDataModel(ZonedDateTime pDataModelValue) throws MmValidatorException {
   }
 
   /**

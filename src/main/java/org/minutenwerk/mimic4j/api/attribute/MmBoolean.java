@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationBoolean;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
@@ -20,8 +20,8 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  */
 public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolean, Boolean, Boolean> {
 
-  /** Constant for value to be displayed in case of the viewside value is null. */
-  public static final Boolean ATTRIBUTE_BOOLEAN_VIEWSIDE_NULL_VALUE = Boolean.FALSE;
+  /** Constant for value to be displayed in case of the view model value is null. */
+  public static final Boolean ATTRIBUTE_BOOLEAN_VIEW_MODEL_NULL_VALUE = Boolean.FALSE;
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
@@ -67,35 +67,35 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   }
 
   /**
-   * Converts modelside value of type MODELSIDE_VALUE to value of type VIEWSIDE_VALUE.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be converted.
+   * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEW_MODEL.
    *
-   * @throws  MmModelsideConverterException  In case of the conversion failed.
+   * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
-  public Boolean callbackMmConvertModelsideToViewsideValue(Boolean pModelsideValue) throws MmModelsideConverterException {
-    if (pModelsideValue == null) {
-      return ATTRIBUTE_BOOLEAN_VIEWSIDE_NULL_VALUE;
+  public Boolean callbackMmConvertDataModelToViewModel(Boolean pDataModelValue) throws MmDataModelConverterException {
+    if (pDataModelValue == null) {
+      return ATTRIBUTE_BOOLEAN_VIEW_MODEL_NULL_VALUE;
     } else {
-      return pModelsideValue;
+      return pDataModelValue;
     }
   }
 
   /**
-   * Converts viewside value of type VIEWSIDE_VALUE to value of type MODELSIDE_VALUE.
+   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
    *
-   * @param   pViewsideValue  The viewside value to be converted.
+   * @param   pViewModelValue  The view model value to be converted.
    *
-   * @return  The converted value of type MODELSIDE_VALUE.
+   * @return  The converted value of type DATA_MODEL.
    *
-   * @throws  MmViewsideConverterException  In case of the conversion failed.
+   * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
   @Override
-  public Boolean callbackMmConvertViewsideToModelsideValue(Boolean pViewsideValue) throws MmViewsideConverterException {
-    return pViewsideValue;
+  public Boolean callbackMmConvertViewModelToDataModel(Boolean pViewModelValue) throws MmViewModelConverterException {
+    return pViewModelValue;
   }
 
   /**
@@ -121,14 +121,14 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   }
 
   /**
-   * Semantic validation of modelside value of type MODELSIDE_VALUE. If validation succeeds:
+   * Semantic validation of data model value of type DATA_MODEL. If validation succeeds:
    *
-   * @param   pModelsideValue  The modelside value to be validated.
+   * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
   @Override
-  public void callbackMmValidateModelsideValue(Boolean pModelsideValue) throws MmValidatorException {
+  public void callbackMmValidateDataModel(Boolean pDataModelValue) throws MmValidatorException {
   }
 
 }

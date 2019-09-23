@@ -175,17 +175,17 @@ public class MmImplementationLeporelloTab<DATA_MODEL, VIEW_MODEL>
 
       // translate enum values to i18n strings before, because MessageFormat shall not do this
       for (int index = 0; index < ((Object[])dataModel).length; index++) {
-        final Object modelsideObject = ((Object[])dataModel)[index];
-        if (modelsideObject instanceof Enum<?>) {
-          final String i18nEnumValue = formatModelsideValue(modelsideObject);
+        final Object dataModelObject = ((Object[])dataModel)[index];
+        if (dataModelObject instanceof Enum<?>) {
+          final String i18nEnumValue = formatDataModelValue(dataModelObject);
           ((Object[])dataModel)[index] = i18nEnumValue;
         }
       }
 
-      // modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
+      // data model keeps an Object[], but because it is of type Object, java still interprets it to be just one object
       // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-      final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, (Object[])dataModel);
-      return i18nViewsideValue;
+      final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, (Object[])dataModel);
+      return i18nViewModelValue;
 
       // if model is a single object
     } else {
@@ -202,41 +202,41 @@ public class MmImplementationLeporelloTab<DATA_MODEL, VIEW_MODEL>
       } else if (dataModel instanceof Enum<?>) {
 
         // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewsideValue = formatModelsideValue(dataModel);
-        return i18nViewsideValue;
+        final String i18nViewModelValue = formatDataModelValue(dataModel);
+        return i18nViewModelValue;
 
         // format Instant values
       } else if (dataModel instanceof Instant) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((Instant)dataModel));
-        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
-        return formattedViewsideValue;
+        final Date   dataModelValueAsJavaUtilDate = Date.from(((Instant)dataModel));
+        final String formattedViewModelValue      = formatDataModelValue(dataModelValueAsJavaUtilDate);
+        return formattedViewModelValue;
 
         // format LocalDate values
       } else if (dataModel instanceof LocalDate) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDate)dataModel).atStartOfDay(ZoneId.of("UTC")).toInstant());
-        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
-        return formattedViewsideValue;
+        final Date   dataModelValueAsJavaUtilDate = Date.from(((LocalDate)dataModel).atStartOfDay(ZoneId.of("UTC")).toInstant());
+        final String formattedViewModelValue      = formatDataModelValue(dataModelValueAsJavaUtilDate);
+        return formattedViewModelValue;
 
         // format LocalDateTime values
       } else if (dataModel instanceof LocalDateTime) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDateTime)dataModel).toInstant(ZoneOffset.UTC));
-        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
-        return formattedViewsideValue;
+        final Date   dataModelValueAsJavaUtilDate = Date.from(((LocalDateTime)dataModel).toInstant(ZoneOffset.UTC));
+        final String formattedViewModelValue      = formatDataModelValue(dataModelValueAsJavaUtilDate);
+        return formattedViewModelValue;
 
         // format ZonedDateTime values
       } else if (dataModel instanceof ZonedDateTime) {
 
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)dataModel).toInstant());
-        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
-        return formattedViewsideValue;
+        final Date   dataModelValueAsJavaUtilDate = Date.from(((ZonedDateTime)dataModel).toInstant());
+        final String formattedViewModelValue      = formatDataModelValue(dataModelValueAsJavaUtilDate);
+        return formattedViewModelValue;
 
         // all other single objects translate to i18n
       } else {
-        final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, dataModel);
-        return i18nViewsideValue;
+        final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, dataModel);
+        return i18nViewModelValue;
       }
     }
   }

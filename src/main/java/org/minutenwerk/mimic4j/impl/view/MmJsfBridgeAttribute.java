@@ -12,15 +12,15 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  *
  * @author  Olaf Kossak
  */
-public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
-  extends MmJsfBridge<MmBaseAttributeImplementation<?, ?, ?, ?, VIEWSIDE_VALUE>, VIEWSIDE_VALUE, String> {
+public class MmJsfBridgeAttribute<VIEW_MODEL>
+  extends MmJsfBridge<MmBaseAttributeImplementation<?, ?, ?, ?, VIEW_MODEL>, VIEW_MODEL, String> {
 
   /**
    * Creates a new MmJsfBridgeAttribute instance.
    *
    * @param  pImplementation  The implementation part of connected mimic.
    */
-  public MmJsfBridgeAttribute(MmBaseAttributeImplementation<?, ?, ?, ?, VIEWSIDE_VALUE> pImplementation) {
+  public MmJsfBridgeAttribute(MmBaseAttributeImplementation<?, ?, ?, ?, VIEW_MODEL> pImplementation) {
     super(pImplementation);
   }
 
@@ -129,23 +129,23 @@ public class MmJsfBridgeAttribute<VIEWSIDE_VALUE>
   }
 
   /**
-   * Returns the value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
+   * Returns the value of type VIEW_MODEL from mimic, to be displayed in HTML tag.
    *
-   * @return  The value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
+   * @return  The value of type VIEW_MODEL from mimic, to be displayed in HTML tag.
    */
   @Override
-  public VIEWSIDE_VALUE getValue() {
-    return implementation.getMmViewsideValue();
+  public VIEW_MODEL getValue() {
+    return implementation.getMmViewModelValue();
   }
 
   /**
-   * Sets the value of type VIEWSIDE_VALUE into mimic, usually called by input HTML tags.
+   * Sets the value of type VIEW_MODEL into mimic, usually called by input HTML tags.
    *
-   * @param  pValue  The value of type VIEWSIDE_VALUE to be set.
+   * @param  pValue  The value of type VIEW_MODEL to be set.
    */
   @Override
-  public void setValue(VIEWSIDE_VALUE pValue) {
-    implementation.setMmViewsideValue(pValue);
+  public void setValue(VIEW_MODEL pValue) {
+    implementation.setMmViewModelValue(pValue);
   }
 
 }

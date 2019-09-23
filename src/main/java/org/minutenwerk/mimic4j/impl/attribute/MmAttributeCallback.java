@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
 /**
@@ -16,29 +16,29 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
  *
  * @author  Olaf Kossak
  */
-public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> extends MmBaseCallback {
+public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmBaseCallback {
 
   /**
-   * Converts modelside value of type ATTRIBUTE_MODEL to value of type VIEWSIDE_VALUE.
+   * Converts data model value of type ATTRIBUTE_MODEL to value of type VIEW_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be converted.
+   * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEW_MODEL.
    *
-   * @throws  MmModelsideConverterException  In case of the conversion failed.
+   * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
-  public VIEWSIDE_VALUE callbackMmConvertModelsideToViewsideValue(ATTRIBUTE_MODEL pModelsideValue) throws MmModelsideConverterException;
+  public VIEW_MODEL callbackMmConvertDataModelToViewModel(ATTRIBUTE_MODEL pDataModelValue) throws MmDataModelConverterException;
 
   /**
-   * Converts viewside value of type VIEWSIDE_VALUE to value of type ATTRIBUTE_MODEL.
+   * Converts view model value of type VIEW_MODEL to value of type ATTRIBUTE_MODEL.
    *
-   * @param   pViewsideValue  The viewside value to be converted.
+   * @param   pViewModelValue  The view model value to be converted.
    *
    * @return  The converted value of type ATTRIBUTE_MODEL.
    *
-   * @throws  MmViewsideConverterException  In case of the conversion failed.
+   * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
-  public ATTRIBUTE_MODEL callbackMmConvertViewsideToModelsideValue(VIEWSIDE_VALUE pViewsideValue) throws MmViewsideConverterException;
+  public ATTRIBUTE_MODEL callbackMmConvertViewModelToDataModel(VIEW_MODEL pViewModelValue) throws MmViewModelConverterException;
 
   /**
    * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
@@ -51,12 +51,12 @@ public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> extends Mm
   public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
   /**
-   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
+   * model value and vice versa. It is dependent on the user's locale.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
-   * @return  The attribute's format pattern for displaying viewside value.
+   * @return  The attribute's format pattern for displaying view model value.
    */
   public String callbackMmGetFormatPattern(String pPassThroughValue);
 
@@ -86,12 +86,12 @@ public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEWSIDE_VALUE> extends Mm
   public boolean callbackMmIsRequired(boolean pPassThroughValue);
 
   /**
-   * Semantic validation of modelside value of type ATTRIBUTE_MODEL.
+   * Semantic validation of data model value of type ATTRIBUTE_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be validated.
+   * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
-  public void callbackMmValidateModelsideValue(ATTRIBUTE_MODEL pModelsideValue) throws MmValidatorException;
+  public void callbackMmValidateDataModel(ATTRIBUTE_MODEL pDataModelValue) throws MmValidatorException;
 
 }

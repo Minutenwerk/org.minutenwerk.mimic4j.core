@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationString;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
@@ -64,38 +64,38 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
   }
 
   /**
-   * Converts modelside value of type MODELSIDE_VALUE to value of type VIEWSIDE_VALUE.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be converted.
+   * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEW_MODEL.
    *
-   * @throws  MmModelsideConverterException  In case of the conversion failed.
+   * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
-  public String callbackMmConvertModelsideToViewsideValue(String pModelsideValue) throws MmModelsideConverterException {
-    if (pModelsideValue == null) {
-      return ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE;
+  public String callbackMmConvertDataModelToViewModel(String pDataModelValue) throws MmDataModelConverterException {
+    if (pDataModelValue == null) {
+      return ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE;
     } else {
-      return pModelsideValue;
+      return pDataModelValue;
     }
   }
 
   /**
-   * Converts viewside value of type VIEWSIDE_VALUE to value of type MODELSIDE_VALUE.
+   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
    *
-   * @param   pViewsideValue  The viewside value to be converted.
+   * @param   pViewModelValue  The view model value to be converted.
    *
-   * @return  The converted value of type MODELSIDE_VALUE.
+   * @return  The converted value of type DATA_MODEL.
    *
-   * @throws  MmViewsideConverterException  In case of the conversion failed.
+   * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
   @Override
-  public String callbackMmConvertViewsideToModelsideValue(String pViewsideValue) throws MmViewsideConverterException {
+  public String callbackMmConvertViewModelToDataModel(String pViewModelValue) throws MmViewModelConverterException {
     if (isMmEmpty()) {
       return null;
     } else {
-      return pViewsideValue;
+      return pViewModelValue;
     }
   }
 
@@ -112,7 +112,7 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
     final MmSelectOption<String>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
-    final String currentValue = getMmModelsideValue();
+    final String currentValue = getMmDataModelValue();
     if ((currentValue != null) && !currentValue.isEmpty()) {
       final MmSelectOption<String> valueOption = new MmSelectOption<>(currentValue, currentValue, currentValue, currentValue);
       returnList.add(valueOption);
@@ -121,14 +121,14 @@ public class MmString extends MmBaseAttributeDeclaration<MmImplementationString,
   }
 
   /**
-   * Semantic validation of modelside value of type MODELSIDE_VALUE. If validation succeeds:
+   * Semantic validation of data model value of type DATA_MODEL. If validation succeeds:
    *
-   * @param   pModelsideValue  The modelside value to be validated.
+   * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
   @Override
-  public void callbackMmValidateModelsideValue(String pModelsideValue) throws MmValidatorException {
+  public void callbackMmValidateDataModel(String pDataModelValue) throws MmValidatorException {
   }
 
 }

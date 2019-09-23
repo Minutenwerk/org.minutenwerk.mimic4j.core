@@ -4,7 +4,7 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 
 /**
- * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from modelside. Mimics of type
+ * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from data model. Mimics of type
  * MmEditableMimic can be validated.
  *
  * @author  Olaf Kossak
@@ -15,9 +15,9 @@ public interface MmEditableMimic extends MmMimic {
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>converting viewside value to modelside type</li>
-   *   <li>passing converted value into modelside value</li>
-   *   <li>validating modelside value</li>
+   *   <li>converting view model value to data model type</li>
+   *   <li>passing converted value into data model value</li>
+   *   <li>validating data model value</li>
    * </ol>
    *
    * @throws  MmValidatorException  in case of semantic validation of container or one of its children failed.
@@ -39,12 +39,12 @@ public interface MmEditableMimic extends MmMimic {
   public MmModelAccessor<?, ?> getMmParentAccessor();
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from viewside. If a mimic is changed, all ancestors of type MmEditableMimic
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
    * are marked as being changed as well.
    *
-   * @return  <code>True</code>, if mimic has been changed from viewside.
+   * @return  <code>True</code>, if mimic has been changed from view model.
    */
-  public boolean isMmChangedFromViewside();
+  public boolean isMmChangedFromView();
 
   /**
    * Returns <code>true</code> if a value from view has to be set for this mimic or one of its children.

@@ -236,9 +236,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>converting viewside value to modelside type</li>
-   *   <li>passing converted value into modelside value</li>
-   *   <li>validating modelside value</li>
+   *   <li>converting view model value to data model type</li>
+   *   <li>passing converted value into data model value</li>
+   *   <li>validating data model value</li>
    * </ol>
    *
    * @throws        MmValidatorException  in case of semantic validation of container or one of its children failed.
@@ -250,8 +250,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     assureInitialization();
 
     clearMmMessageList();
-    passViewsideToModelside();
-    validateModelside();
+    passViewModelToDataModel();
+    validateDataModel();
     logSubtree(this, "");
     if (!isMmValid()) {
       throw new MmValidatorException(this);
@@ -267,7 +267,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   public void onModelChange() {
     assureInitialization();
 
-    passModelsideToViewside();
+    passDataModelToViewModel();
   }
 
   /**
@@ -276,9 +276,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void passModelsideToViewside() {
+  public void passDataModelToViewModel() {
     for (MmEditableMimicImpl child : getDirectImplementationChildrenOfType(MmEditableMimicImpl.class)) {
-      child.passModelsideToViewside();
+      child.passDataModelToViewModel();
     }
   }
 
@@ -288,9 +288,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void passViewsideToModelside() {
+  public void passViewModelToDataModel() {
     for (MmEditableMimicImpl child : getDirectImplementationChildrenOfType(MmEditableMimicImpl.class)) {
-      child.passViewsideToModelside();
+      child.passViewModelToDataModel();
     }
   }
 
@@ -300,7 +300,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void validateModelside() {
+  public void validateDataModel() {
     // validate this container
     try {
 
@@ -317,7 +317,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
 
     // validate all children of type MmEditableMimicImpl
     for (MmEditableMimicImpl child : getDirectImplementationChildrenOfType(MmEditableMimicImpl.class)) {
-      child.validateModelside();
+      child.validateDataModel();
     }
   }
 
@@ -376,20 +376,20 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from viewside. If a mimic is changed, all ancestors of type MmEditableMimic
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
    * are marked as being changed as well.
    *
-   * @return        <code>True</code>, if mimic has been changed from viewside.
+   * @return        <code>True</code>, if mimic has been changed from view model.
    *
    * @jalopy.group  group-changed-front
    */
   @Override
-  public boolean isMmChangedFromViewside() {
+  public boolean isMmChangedFromView() {
     assureInitialization();
 
     // iterate over children of type MmEditableMimic
     for (MmEditableMimic child : getDirectImplementationChildrenOfType(MmEditableMimic.class)) {
-      if (child.isMmChangedFromViewside()) {
+      if (child.isMmChangedFromView()) {
         return true;
       }
     }

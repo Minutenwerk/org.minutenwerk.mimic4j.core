@@ -23,15 +23,15 @@ public class MmImplementationFloat extends MmBaseAttributeImplementation<MmFloat
   }
 
   /**
-   * Returns <code>true</code> if the viewside value of this mimic is empty.
+   * Returns <code>true</code> if the view model value of this mimic is empty.
    *
-   * @return  <code>True</code> if the viewside value of this mimic is empty.
+   * @return  <code>True</code> if the view model value of this mimic is empty.
    */
   @Override
   public boolean isMmEmpty() {
     assureInitialization();
 
-    return ((viewsideValue == null) || viewsideValue.trim().isEmpty());
+    return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }
 
   /**

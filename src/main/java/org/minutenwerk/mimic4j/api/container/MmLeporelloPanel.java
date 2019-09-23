@@ -60,12 +60,12 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
   }
 
   /**
-   * Returns the leporello panel's viewside value of type String.
+   * Returns the leporello panel's view model value of type String.
    *
-   * @return  The leporello panel's viewside value of type String.
+   * @return  The leporello panel's view model value of type String.
    */
-  public String getMmViewsideValue() {
-    return implementation.getMmViewsideValue();
+  public String getMmViewModelValue() {
+    return implementation.getMmViewModelValue();
   }
 
 }

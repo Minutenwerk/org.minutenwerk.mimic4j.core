@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
-import org.minutenwerk.mimic4j.api.exception.MmViewsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationListString;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
@@ -57,43 +57,43 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   }
 
   /**
-   * Converts modelside value of type MODELSIDE_VALUE to value of type VIEWSIDE_VALUE.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
    *
-   * @param   pModelsideValue  The modelside value to be converted.
+   * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEWSIDE_VALUE.
+   * @return  The converted value of type VIEW_MODEL.
    *
-   * @throws  MmModelsideConverterException  In case of the conversion failed.
+   * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
-  public List<String> callbackMmConvertModelsideToViewsideValue(List<String> pModelsideValue) throws MmModelsideConverterException {
+  public List<String> callbackMmConvertDataModelToViewModel(List<String> pDataModelValue) throws MmDataModelConverterException {
     final List<String> returnList = new ArrayList<>();
-    if (pModelsideValue == null) {
-      returnList.add(ATTRIBUTE_STRING_VIEWSIDE_NULL_VALUE);
+    if (pDataModelValue == null) {
+      returnList.add(ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE);
     } else {
-      Collections.copy(pModelsideValue, returnList);
+      Collections.copy(pDataModelValue, returnList);
     }
     return returnList;
   }
 
   /**
-   * Converts viewside value of type VIEWSIDE_VALUE to value of type MODELSIDE_VALUE.
+   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
    *
-   * @param   pViewsideValue  The viewside value to be converted.
+   * @param   pViewModelValue  The view model value to be converted.
    *
-   * @return  The converted value of type MODELSIDE_VALUE.
+   * @return  The converted value of type DATA_MODEL.
    *
-   * @throws  MmViewsideConverterException  In case of the conversion failed.
+   * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
   @Override
   @SuppressWarnings("unchecked")
-  public List<String> callbackMmConvertViewsideToModelsideValue(List<String> pViewsideValue) throws MmViewsideConverterException {
+  public List<String> callbackMmConvertViewModelToDataModel(List<String> pViewModelValue) throws MmViewModelConverterException {
     List<String> returnList;
     if (isMmEmpty()) {
       returnList = (List<String>)Collections.EMPTY_LIST;
     } else {
       returnList = new ArrayList<>();
-      Collections.copy(pViewsideValue, returnList);
+      Collections.copy(pViewModelValue, returnList);
     }
     return returnList;
   }
@@ -110,7 +110,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
     MmSelectOption<String>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
-    List<String> currentValues = getMmModelsideValue();
+    List<String> currentValues = getMmDataModelValue();
     if ((currentValues != null) && !currentValues.isEmpty()) {
       for (String currentValue : currentValues) {
         MmSelectOption<String> valueOption = new MmSelectOption<>("currentValue", "currentValue", "currentValue", currentValue);
@@ -121,14 +121,14 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   }
 
   /**
-   * Semantic validation of modelside value of type MODELSIDE_VALUE. If validation succeeds:
+   * Semantic validation of data model value of type DATA_MODEL. If validation succeeds:
    *
-   * @param   pModelsideValue  The modelside value to be validated.
+   * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
   @Override
-  public void callbackMmValidateModelsideValue(List<String> pModelsideValue) throws MmValidatorException {
+  public void callbackMmValidateDataModel(List<String> pDataModelValue) throws MmValidatorException {
   }
 
 }

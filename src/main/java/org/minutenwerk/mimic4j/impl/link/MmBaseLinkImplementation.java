@@ -34,7 +34,7 @@ import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
@@ -153,16 +153,16 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     // retrieve model
     final DATA_MODEL model          = getMmModelValue();
 
-    // retrieve modelside value
-    final VIEW_MODEL modelsideValue = getMmViewModelValue();
+    // retrieve data model value
+    final VIEW_MODEL dataModelValue = getMmViewModelValue();
 
     String           returnString   = null;
     if (model == null) {
-      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue);
-      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue);
+      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, dataModelValue);
+      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, dataModelValue);
     } else {
-      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue, model);
-      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue, model);
+      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, dataModelValue, model);
+      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, dataModelValue, model);
     }
     if (LOGGER.isDebugEnabled()) {
       if (returnString == null) {
@@ -340,56 +340,56 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     assureInitialization();
 
     // retrieve view model
-    final VIEW_MODEL viewModel      = getMmViewModelValue();
+    final VIEW_MODEL viewModel = getMmViewModelValue();
 
     // retrieve data model
-    final Object     modelsideValue = (viewModel instanceof MmInformationable) //
+    final Object     dataModel = (viewModel instanceof MmInformationable) //
       ? ((MmInformationable)viewModel).getInfo() //
       : viewModel;
 
     // if model is an array of objects
-    if (modelsideValue instanceof Object[]) {
+    if (dataModel instanceof Object[]) {
 
       // translate enum values to i18n strings before, because MessageFormat shall not do this
-      for (int index = 0; index < ((Object[])modelsideValue).length; index++) {
-        ((Object[])modelsideValue)[index] = transformObjectForFormattingByMessageSource(((Object[])modelsideValue)[index]);
+      for (int index = 0; index < ((Object[])dataModel).length; index++) {
+        ((Object[])dataModel)[index] = transformObjectForFormattingByMessageSource(((Object[])dataModel)[index]);
       }
 
-      // modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
+      // dataModelValue keeps an Object[], but because it is of type Object, java still interprets it to be just one object
       // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-      final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, (Object[])modelsideValue);
-      return i18nViewsideValue;
+      final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, (Object[])dataModel);
+      return i18nViewModelValue;
 
       // if model is a single object
     } else {
 
       // return empty String for null value
-      if (modelsideValue == null) {
+      if (dataModel == null) {
         return "";
 
         // pass through Strings
-      } else if (modelsideValue instanceof String) {
-        return (String)modelsideValue;
+      } else if (dataModel instanceof String) {
+        return (String)dataModel;
 
         // i18n single enums
-      } else if (modelsideValue instanceof Enum<?>) {
+      } else if (dataModel instanceof Enum<?>) {
 
         // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewsideValue = formatModelsideValue(modelsideValue);
-        return i18nViewsideValue;
+        final String i18nViewModelValue = formatDataModelValue(dataModel);
+        return i18nViewModelValue;
 
         // format number, date and time values
-      } else if ((modelsideValue instanceof Number) || (modelsideValue instanceof Boolean) || (modelsideValue instanceof Duration)
-          || (modelsideValue instanceof Instant) || (modelsideValue instanceof LocalTime) || (modelsideValue instanceof LocalDate)
-          || (modelsideValue instanceof LocalDateTime) || (modelsideValue instanceof ZonedDateTime)) {
+      } else if ((dataModel instanceof Number) || (dataModel instanceof Boolean) || (dataModel instanceof Duration)
+          || (dataModel instanceof Instant) || (dataModel instanceof LocalTime) || (dataModel instanceof LocalDate)
+          || (dataModel instanceof LocalDateTime) || (dataModel instanceof ZonedDateTime)) {
 
-        final String formattedViewsideValue = formatModelsideValue(modelsideValue);
-        return formattedViewsideValue;
+        final String formattedViewModelValue = formatDataModelValue(dataModel);
+        return formattedViewModelValue;
 
         // all other single objects translate to i18n
       } else {
-        final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, modelsideValue);
-        return i18nViewsideValue;
+        final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, dataModel);
+        return i18nViewModelValue;
       }
     }
   }
@@ -414,9 +414,9 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Returns the format pattern for formatting modelside value to viewside value.
+   * Returns the format pattern for formatting data model value to view model value.
    *
-   * @return        The format pattern for formatting modelside value to viewside value.
+   * @return        The format pattern for formatting data model value to view model value.
    *
    * @throws        IllegalStateException  In case of callbackMmGetFormatPattern() returns an invalid format pattern.
    *
@@ -434,117 +434,117 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Returns the specified modelside value, formatted depending on its type.
+   * Returns the specified data model value, formatted depending on its type.
    *
-   * @param         pModelsideValue  The specified modelside value.
+   * @param         pDataModelValue  The specified data model value.
    *
-   * @return        The formatted modelside value, formatted depending on its type.
+   * @return        The formatted data model value, formatted depending on its type.
    *
-   * @throws        MmModelsideConverterException  In case of conversion fails.
+   * @throws        MmDataModelConverterException  In case of conversion fails.
    * @throws        IllegalArgumentException       In case of conversion fails.
    *
    * @jalopy.group  group-i18n
    */
-  protected String formatModelsideValue(Object pModelsideValue) {
+  protected String formatDataModelValue(Object pDataModelValue) {
     String formattedValue = "";
-    if (pModelsideValue != null) {
+    if (pDataModelValue != null) {
 
-      if (pModelsideValue instanceof String) {
-        formattedValue = (String)pModelsideValue;
+      if (pDataModelValue instanceof String) {
+        formattedValue = (String)pDataModelValue;
 
-      } else if ((pModelsideValue instanceof Integer) || (pModelsideValue instanceof Long) || (pModelsideValue instanceof Float)
-          || (pModelsideValue instanceof Double)) {
+      } else if ((pDataModelValue instanceof Integer) || (pDataModelValue instanceof Long) || (pDataModelValue instanceof Float)
+          || (pDataModelValue instanceof Double)) {
         try {
           final NumberFormat numberFormatter = getMmNumberFormatter(false);
-          formattedValue = numberFormatter.format(pModelsideValue);
+          formattedValue = numberFormatter.format(pDataModelValue);
         } catch (IllegalArgumentException e) {
-          throw new MmModelsideConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          throw new MmDataModelConverterException(this,
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
             + getMmFormatPattern() + "<");
         }
 
-      } else if ((pModelsideValue instanceof BigDecimal) || (pModelsideValue instanceof BigInteger)) {
+      } else if ((pDataModelValue instanceof BigDecimal) || (pDataModelValue instanceof BigInteger)) {
         try {
           final NumberFormat numberFormatter = getMmNumberFormatter(true);
-          formattedValue = numberFormatter.format(pModelsideValue);
+          formattedValue = numberFormatter.format(pDataModelValue);
         } catch (IllegalArgumentException e) {
-          throw new MmModelsideConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          throw new MmDataModelConverterException(this,
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
             + getMmFormatPattern() + "<");
         }
 
-      } else if (pModelsideValue instanceof Duration) {
+      } else if (pDataModelValue instanceof Duration) {
         try {
-          formattedValue = ((Duration)pModelsideValue).toString();
+          formattedValue = ((Duration)pDataModelValue).toString();
         } catch (IllegalArgumentException e) {
-          throw new MmModelsideConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          throw new MmDataModelConverterException(this,
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
             + getMmFormatPattern() + "<");
         }
 
-      } else if (pModelsideValue instanceof Instant) {
-        try {
-          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = dateTimeFormatter.format((Instant)pModelsideValue);
-        } catch (IllegalArgumentException e) {
-          throw new MmModelsideConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
-            + getMmFormatPattern() + "<");
-        }
-
-      } else if (pModelsideValue instanceof LocalTime) {
+      } else if (pDataModelValue instanceof Instant) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalTime)pModelsideValue).format(dateTimeFormatter);
+          formattedValue = dateTimeFormatter.format((Instant)pDataModelValue);
         } catch (IllegalArgumentException e) {
-          throw new MmModelsideConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          throw new MmDataModelConverterException(this,
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
             + getMmFormatPattern() + "<");
         }
 
-      } else if (pModelsideValue instanceof LocalDate) {
+      } else if (pDataModelValue instanceof LocalTime) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalDate)pModelsideValue).format(dateTimeFormatter);
+          formattedValue = ((LocalTime)pDataModelValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
-          throw new MmModelsideConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          throw new MmDataModelConverterException(this,
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
             + getMmFormatPattern() + "<");
         }
 
-      } else if (pModelsideValue instanceof LocalDateTime) {
+      } else if (pDataModelValue instanceof LocalDate) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalDateTime)pModelsideValue).format(dateTimeFormatter);
+          formattedValue = ((LocalDate)pDataModelValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
-          throw new MmModelsideConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          throw new MmDataModelConverterException(this,
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
             + getMmFormatPattern() + "<");
         }
 
-      } else if (pModelsideValue instanceof ZonedDateTime) {
+      } else if (pDataModelValue instanceof LocalDateTime) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((ZonedDateTime)pModelsideValue).format(dateTimeFormatter);
+          formattedValue = ((LocalDateTime)pDataModelValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
-          throw new MmModelsideConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", modelside value: " + pModelsideValue + " by pattern >"
+          throw new MmDataModelConverterException(this,
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
             + getMmFormatPattern() + "<");
         }
 
-      } else if (pModelsideValue instanceof Enum<?>) {
-        final Enum<?> enumValue    = (Enum<?>)pModelsideValue;
+      } else if (pDataModelValue instanceof ZonedDateTime) {
+        try {
+          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
+          formattedValue = ((ZonedDateTime)pDataModelValue).format(dateTimeFormatter);
+        } catch (IllegalArgumentException e) {
+          throw new MmDataModelConverterException(this,
+            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
+            + getMmFormatPattern() + "<");
+        }
+
+      } else if (pDataModelValue instanceof Enum<?>) {
+        final Enum<?> enumValue    = (Enum<?>)pDataModelValue;
         final String  enumTypeName = enumValue.getClass().getSimpleName();
         formattedValue = root.getMmI18nText(enumTypeName + "." + enumValue.name(), MmMessageType.SHORT);
 
-      } else if (pModelsideValue instanceof Boolean) {
-        if ((Boolean)pModelsideValue) {
+      } else if (pDataModelValue instanceof Boolean) {
+        if ((Boolean)pDataModelValue) {
           formattedValue = root.getMmI18nText(getMmId() + ".true", MmMessageType.SHORT);
         } else {
           formattedValue = root.getMmI18nText(getMmId() + ".false", MmMessageType.SHORT);
         }
       } else {
-        throw new IllegalArgumentException("unknown modelside value type cannot be formatted " + pModelsideValue);
+        throw new IllegalArgumentException("unknown data model value type cannot be formatted " + pDataModelValue);
       }
     }
     return formattedValue;
@@ -595,7 +595,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
 
       // translate enum values to i18n strings before, because MessageFormat shall not do this
     } else if (pObject instanceof Enum<?>) {
-      return formatModelsideValue(pObject);
+      return formatDataModelValue(pObject);
 
       // transform Instant values to java.util.Date
     } else if (pObject instanceof Instant) {

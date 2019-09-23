@@ -19,7 +19,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessage;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?, ?, ?>, VIEWSIDE_VALUE, MODEL> {
+public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?, ?, ?>, VIEW_MODEL, MODEL> {
 
   /** Logger of this class. */
   private static final Logger    LOGGER         = LogManager.getLogger(MmJsfBridge.class);
@@ -361,13 +361,13 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
   }
 
   /**
-   * Returns the value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
+   * Returns the value of type VIEW_MODEL from mimic, to be displayed in HTML tag.
    *
-   * @return  The value of type VIEWSIDE_VALUE from mimic, to be displayed in HTML tag.
+   * @return  The value of type VIEW_MODEL from mimic, to be displayed in HTML tag.
    *
    * @throws  UnsupportedOperationException  In case of the method is not supported by MmJsfBridge and its concrete subclass.
    */
-  public VIEWSIDE_VALUE getValue() {
+  public VIEW_MODEL getValue() {
     throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag value");
   }
 
@@ -452,13 +452,13 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
   }
 
   /**
-   * Sets the value of type VIEWSIDE_VALUE into mimic, usually called by input HTML tags.
+   * Sets the value of type VIEW_MODEL into mimic, usually called by input HTML tags.
    *
-   * @param   pValue  The value of type VIEWSIDE_VALUE to be set.
+   * @param   pValue  The value of type VIEW_MODEL to be set.
    *
    * @throws  UnsupportedOperationException  In case of the method is not supported by MmJsfBridge and its concrete subclass.
    */
-  public void setValue(VIEWSIDE_VALUE pValue) {
+  public void setValue(VIEW_MODEL pValue) {
     throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag setValue");
   }
 

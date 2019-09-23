@@ -45,7 +45,7 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
   }
 
   /**
-   * Sets the values from model to modelside of mimic.
+   * Sets the values from model to data model of mimic.
    *
    * @jalopy.group  group-do
    */
