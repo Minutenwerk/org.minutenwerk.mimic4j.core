@@ -17,7 +17,7 @@ import org.minutenwerk.mimic4j.impl.container.MmTableCallback;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List<ROW_MODEL>, MmImplementationTable<ROW_MODEL>>
+public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<MmImplementationTable<ROW_MODEL>, List<ROW_MODEL>>
   implements MmTableCallback<ROW_MODEL>, MmTableMimic<ROW_MODEL> {
 
   /**

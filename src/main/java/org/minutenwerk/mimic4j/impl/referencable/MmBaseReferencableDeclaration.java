@@ -14,9 +14,9 @@ import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmBaseReferencableDeclaration<MODEL extends MmReferencableModel,
-  IMPLEMENTATION extends MmBaseReferencableImplementation<?, MODEL, ?, ?>> extends MmBaseContainerDeclaration<MODEL, IMPLEMENTATION>
-  implements MmReferencableMimic<MODEL>, MmReferencableCallback<MODEL> {
+public abstract class MmBaseReferencableDeclaration<IMPLEMENTATION extends MmBaseReferencableImplementation<?, MODEL, ?, ?>,
+  MODEL extends MmReferencableModel> extends MmBaseContainerDeclaration<IMPLEMENTATION, MODEL> implements MmReferencableMimic<MODEL>,
+  MmReferencableCallback<MODEL> {
 
   /**
    * Creates a new MmBaseReferencableDeclaration instance.

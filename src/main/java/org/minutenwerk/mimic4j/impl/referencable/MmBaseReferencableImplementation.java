@@ -21,7 +21,7 @@ import org.springframework.web.util.UriComponents;
  *
  * @jalopy.group-order  group-initialization, group-do, group-override
  */
-public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBaseReferencableDeclaration<MODEL, ?>,
+public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBaseReferencableDeclaration<?, MODEL>,
   MODEL extends MmReferencableModel, //
   CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
   extends MmBaseContainerImplementation<DECLARATION, MODEL, CONFIGURATION, ANNOTATION> implements MmReferencableMimic<MODEL> {

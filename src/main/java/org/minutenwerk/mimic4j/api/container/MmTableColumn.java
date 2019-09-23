@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTableColumn;
  *
  * @author  Olaf Kossak
  */
-public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationTableColumn<MODEL>> {
+public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplementationTableColumn<MODEL>, MODEL> {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.

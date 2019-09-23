@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporelloPanel;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationLeporelloPanel<MODEL>> {
+public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration<MmImplementationLeporelloPanel<MODEL>, MODEL> {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.

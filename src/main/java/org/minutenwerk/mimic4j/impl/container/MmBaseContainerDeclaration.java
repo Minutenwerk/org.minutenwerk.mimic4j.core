@@ -17,7 +17,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessage;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmBaseContainerDeclaration<MODEL, IMPLEMENTATION extends MmBaseContainerImplementation<?, MODEL, ?, ?>>
+public abstract class MmBaseContainerDeclaration<IMPLEMENTATION extends MmBaseContainerImplementation<?, MODEL, ?, ?>, MODEL>
   extends MmBaseDeclaration<MmContainerMimic<MODEL>, IMPLEMENTATION> implements MmContainerMimic<MODEL>, MmContainerCallback<MODEL>,
     MmModelChangeListener {
 

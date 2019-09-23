@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationForm;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmForm<MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationForm<MODEL>> {
+public abstract class MmForm<MODEL> extends MmBaseContainerDeclaration<MmImplementationForm<MODEL>, MODEL> {
 
   /**
    * Creates a new MmForm instance.

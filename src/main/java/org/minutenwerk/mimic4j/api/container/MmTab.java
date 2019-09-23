@@ -10,7 +10,7 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTab;
  *
  * @author  Olaf Kossak
  */
-public class MmTab<MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationTab<MODEL>> {
+public class MmTab<MODEL> extends MmBaseContainerDeclaration<MmImplementationTab<MODEL>, MODEL> {
 
   /**
    * Creates a new MmTab instance.

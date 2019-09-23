@@ -28,7 +28,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
  * @jalopy.group-order  group-initialization, group-lifecycle, group-do, group-get, group-clear, group-changed-front, group-required,
  *                      group-valid
  */
-public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseContainerDeclaration<MODEL, ?>,
+public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseContainerDeclaration<?, MODEL>,
   MODEL, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
   extends MmBaseImplementation<DECLARATION, CONFIGURATION, ANNOTATION> implements MmContainerMimic<MODEL>, MmEditableMimicImpl,
     MmModelChangeListener {
