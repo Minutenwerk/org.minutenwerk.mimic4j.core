@@ -12,8 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmRelationshipApi;
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
@@ -158,8 +156,7 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
       }
     }
 
-    final MmRoot        root                  = MmRelationshipApi.getMmRoot(this);
-    final Locale        locale                = root.getMmLocale();
+    final Locale        locale                = getMmLocale();
     final NumberFormat  numberFormat          = NumberFormat.getNumberInstance(locale);
     final DecimalFormat returnNumberFormatter = (DecimalFormat)numberFormat;
     returnNumberFormatter.setParseBigDecimal(true);

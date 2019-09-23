@@ -2,7 +2,6 @@ package org.minutenwerk.mimic4j.api;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmInternal;
 
@@ -101,7 +100,7 @@ public class MmRelationshipApi {
    *
    * @return  The <code>MmRoot</code> of this mimic.
    */
-  public static MmRoot getMmRoot(MmMimic pMimic) {
+  public static MmMimic getMmRoot(MmMimic pMimic) {
     final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmRoot();
   }

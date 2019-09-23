@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmRelationshipApi;
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
@@ -78,10 +76,9 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
       if (isMmEnabled()) {
         return pDataModelValue.name();
       } else {
-        MmRoot           root         = MmRelationshipApi.getMmRoot(this);
         Class<ENUM_TYPE> enumType     = implementation.getMmEnumType();
         String           enumTypeName = enumType.getSimpleName();
-        String           enumLabel    = root.getMmI18nText(enumTypeName + "." + pDataModelValue.name(), MmMessageType.SHORT);
+        String           enumLabel    = getMmI18nText(enumTypeName + "." + pDataModelValue.name(), MmMessageType.SHORT);
         return enumLabel;
       }
     }
@@ -124,12 +121,11 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
     final MmSelectOption<ENUM_TYPE>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
-    final MmRoot     root     = MmRelationshipApi.getMmRoot(this);
     Class<ENUM_TYPE> enumType = implementation.getMmEnumType();
     for (ENUM_TYPE enumInstance : enumType.getEnumConstants()) {
       final String                    messageId       = enumType.getSimpleName() + "." + enumInstance.name();
-      final String                    enumLabel       = root.getMmI18nText(messageId, MmMessageType.SHORT);
-      final String                    enumDescription = root.getMmI18nText(messageId, MmMessageType.LONG);
+      final String                    enumLabel       = getMmI18nText(messageId, MmMessageType.SHORT);
+      final String                    enumDescription = getMmI18nText(messageId, MmMessageType.LONG);
       final MmSelectOption<ENUM_TYPE> option          = new MmSelectOption<>(enumInstance.name(), enumLabel, enumDescription, enumInstance);
       returnList.add(option);
     }

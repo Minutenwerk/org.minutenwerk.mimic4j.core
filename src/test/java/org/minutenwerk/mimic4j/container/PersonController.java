@@ -1,12 +1,10 @@
 package org.minutenwerk.mimic4j.container;
 
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
-
 public class PersonController {
 
   private final PersonAccessor personAccessor = new PersonAccessor();
 
-  public final MmTabPerson tabPerson = new MmTabPerson(new MmRoot(), person());
+  public final MmTabPerson tabPerson = new MmTabPerson(null, person());
 
   /** root accessor. */
   public PersonAccessor person() {

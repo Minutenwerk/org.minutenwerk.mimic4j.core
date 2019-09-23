@@ -11,6 +11,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,15 +23,16 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
-import org.minutenwerk.mimic4j.impl.composite.MmImplementationRoot;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
+import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.web.util.UriComponents;
 
 /**
@@ -48,6 +50,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
   /** Logger of this class. */
   private static final Logger                         LOGGER                        = LogManager.getLogger(MmBaseImplementation.class);
+
+  /** Constant for default root locale in case of no session context. */
+  public static final Locale                          NO_SESSION_CONTEXT_LOCALE     = Locale.GERMAN;
 
   /** The state of initialization during constructor and initialization phase. */
   protected final MmInitialState                      initialState;
@@ -71,7 +76,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected final String                              parentPath;
 
   /** The root ancestor of this mimic, is set in constructor phase. */
-  protected final MmImplementationRoot                root;
+  protected final MmBaseImplementation<?, ?, ?>       root;
 
   /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. Is set in constructor phase. */
   protected final boolean                             isRuntimeMimic;
@@ -97,6 +102,15 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
   /** The declaration part of this implementation is the declaration. Is set in postconstruct phase. */
   protected DECLARATION                               declaration;
+
+  /** Spring message provider with support for parameters and i18n. */
+  protected MessageSource                             messageSource;
+
+  /** The user's session context. */
+  protected MmSessionContext                          sessionContext;
+
+  /** TODOC. */
+  protected Locale                                    locale;
 
   /** Iterator of fields of children of declaration part, is used only during constructor phase. */
   private Iterator<Field>                             declarationChildrenFields;
@@ -162,11 +176,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public MmBaseImplementation(final MmDeclarationMimic pDeclarationParent, final Integer pRuntimeIndex) {
     initialState = new MmInitialState();
     if (LOGGER.isDebugEnabled()) {
-      if (pDeclarationParent == null) {
-        if (!(this instanceof MmImplementationRoot)) {
-          throw new IllegalStateException("Mimic " + pDeclarationParent + " must have an pDeclarationParent or be of type MmRoot");
-        }
-      } else {
+      if (pDeclarationParent != null) {
         if (!(pDeclarationParent instanceof MmBaseDeclaration<?, ?>)) {
           throw new IllegalStateException("Parameter pDeclarationParent " + pDeclarationParent + " must be of type MmBaseDeclaration<?,?>");
         }
@@ -181,7 +191,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
     if (pDeclarationParent == null) {
 
-      // if there is no parent, this is a root
+      // if there is no parent, this is the root
       // set reference to declaration part of parent mimic to null
       declarationParent           = null;
 
@@ -203,8 +213,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       // set id
       configuration.setId("root");
 
-      // set reference to root to null
-      root           = null;
+      // set reference to root to this
+      root           = this;
 
       // root is compiletime mimic
       isRuntimeMimic = false;
@@ -405,13 +415,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-construction
    */
-  protected MmImplementationRoot onConstructRoot(final MmBaseImplementation<?, ?, ?> pMm) {
+  protected MmBaseImplementation<?, ?, ?> onConstructRoot(final MmBaseImplementation<?, ?, ?> pMm) {
     if (pMm.initialState.isNot(IN_CONSTRUCTION)) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
     }
 
     MmBaseImplementation<?, ?, ?> tempParent = pMm.implementationParent;
-    MmImplementationRoot          tempRoot   = tempParent.root;
+    MmBaseImplementation<?, ?, ?> tempRoot   = tempParent.root;
     if (tempRoot != null) {
       return tempRoot;
     }
@@ -424,11 +434,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       }
     }
 
-    if (MmImplementationRoot.class.isAssignableFrom(tempParent.getClass())) {
-      return (MmImplementationRoot)tempParent;
-    } else {
-      throw new IllegalStateException("root ancestor of subtree must be of type MmImplementationRoot");
-    }
+    return tempParent;
   }
 
   /**
@@ -1134,7 +1140,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public String getMmI18nText(MmMessageType pMessageType, Object... pArguments) {
-    return root.getMmI18nText(getMmId(), pMessageType, pArguments);
+    return getMmI18nText(getMmId(), pMessageType, pArguments);
   }
 
   /**
@@ -1174,27 +1180,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the <code>MmRoot</code> of this mimic. The <code>MmRoot</code> is a root element of a subtree.
+   * Returns root mimic of mimic tree.
    *
-   * @return        The <code>MmRoot</code> of this mimic.
-   *
-   * @jalopy.group  group-helper
-   */
-  public MmRoot getMmRoot() {
-    assureInitialization();
-
-    return (MmRoot)root.declaration;
-  }
-
-  /**
-   * Returns true, if the user's browser has enabled Javascript language.
-   *
-   * @return        True, if the user's browser has enabled Javascript language.
+   * @return        The root mimic of mimic tree.
    *
    * @jalopy.group  group-helper
    */
-  public boolean isMmJsEnabled() {
-    return root.isMmJsEnabled();
+  public MmBaseImplementation<?, ?, ?> getMmRoot() {
+    return root;
   }
 
   /**
@@ -1249,4 +1242,96 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
     return writer.toString();
   }
+
+  /**
+   * Returns an internationalized version for a specified message id and type.
+   *
+   * @param   pMessageId    The specified id of the message to be internationalized.
+   * @param   pMessageType  The specified type of the message to be internationalized.
+   * @param   pArguments    Optional list of message arguments.
+   *
+   * @return  The internationalized message.
+   */
+  public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
+    assureInitialization();
+
+    if (root != null && root.messageSource != null) {
+      String messageCode = pMessageId;
+      if ((pMessageType != null) && (pMessageType != MmMessageType.TEXT)) {
+        messageCode = messageCode + "." + pMessageType.getSuffix();
+      }
+      try {
+        return root.messageSource.getMessage(messageCode, pArguments, getMmLocale());
+      } catch (NoSuchMessageException e) {
+        LOGGER.warn("no message for >" + messageCode + "< for locale " + getMmLocale());
+        return messageCode;
+      }
+
+    } else {
+      LOGGER.warn("getMmI18nText: {}, {}: no root message source", pMessageId, pMessageType);
+
+      // for unit tests this root returns last part of message id
+      String returnString = pMessageId;
+      if (returnString.contains(".")) {
+        returnString = returnString.substring(returnString.lastIndexOf(".") + 1);
+      }
+      return returnString;
+    }
+  }
+
+  /**
+   * Returns the {@link Locale} of this root.
+   *
+   * @return  The locale of this root.
+   */
+  public Locale getMmLocale() {
+    assureInitialization();
+
+    if (locale == null) {
+      LOGGER.warn("getMmLocale: undefined locale is set to " + NO_SESSION_CONTEXT_LOCALE);
+      locale = NO_SESSION_CONTEXT_LOCALE;
+    }
+    return locale;
+  }
+
+  /**
+   * Returns true, if the user's browser has enabled Javascript language.
+   *
+   * @return  True, if the user's browser has enabled Javascript language.
+   */
+  public boolean isMmJsEnabled() {
+    assureInitialization();
+
+    return sessionContext.isMmJsEnabled();
+  }
+
+  /**
+   * Set specified locale.
+   *
+   * @param  pLocale  The specified locale.
+   */
+  public void setMmLocale(Locale pLocale) {
+    assureInitialization();
+
+    locale = pLocale;
+  }
+
+  /**
+   * Sets specified message source.
+   *
+   * @param  pMessageSource  The specified message source.
+   */
+  public void setMmMessageSource(MessageSource pMessageSource) {
+    messageSource = pMessageSource;
+  }
+
+  /**
+   * Sets the {@link MmSessionContext} of this root, which provides information about the user's session.
+   *
+   * @param  pSessionContext  The session context to be set.
+   */
+  public void setSessionContext(MmSessionContext pSessionContext) {
+    sessionContext = pSessionContext;
+  }
+
 }

@@ -1,6 +1,5 @@
 package org.minutenwerk.mimic4j.impl.view;
 
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationEnum;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
@@ -34,10 +33,9 @@ public class MmJsfBridgeAttributeEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends
       // if mimic is readOnly or disabled, show localized value in textfield
       Class<ENUM_TYPE> enumType       = implementationEnum.getMmEnumType();
       String           enumTypeName   = enumType.getSimpleName();
-      MmRoot           root           = implementationEnum.getMmRoot();
       ENUM_TYPE        dataModelValue = implementationEnum.getMmDataModelValue();
       String           enumLabel      = (dataModelValue != null)
-        ? root.getMmI18nText(enumTypeName + "." + dataModelValue.name(), MmMessageType.SHORT) : "";
+        ? implementationEnum.getMmI18nText(enumTypeName + "." + dataModelValue.name(), MmMessageType.SHORT) : "";
       return enumLabel;
     } else {
 

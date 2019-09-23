@@ -2,11 +2,17 @@ package org.minutenwerk.mimic4j.impl;
 
 import java.net.URI;
 
+import java.util.Locale;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.impl.message.MmMessageType;
+import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
+
+import org.springframework.context.MessageSource;
 
 /**
  * MmBaseDeclaration is the base class of the declaration part of all mimic classes.
@@ -332,6 +338,28 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   }
 
   /**
+   * Returns an internationalized version for a specified message id and type.
+   *
+   * @param   pMessageId    The specified id of the message to be internationalized.
+   * @param   pMessageType  The specified type of the message to be internationalized.
+   * @param   pArguments    Optional list of message arguments.
+   *
+   * @return  The internationalized message.
+   */
+  public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
+    return implementation.getMmI18nText(pMessageId, pMessageType, pArguments);
+  }
+
+  /**
+   * Returns the {@link Locale} of this root.
+   *
+   * @return  The locale of this root.
+   */
+  public Locale getMmLocale() {
+    return implementation.getMmLocale();
+  }
+
+  /**
    * Returns the MmJsfBridge of this mimic, which connects it to a JSF view component, is called in facelets tags. See /META-INF/*.xhtml.
    *
    * <pre>
@@ -342,6 +370,33 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    */
   public final MmJsfBridge<?, ?, ?> getToJsf() {
     return implementation.getJsfBridge();
+  }
+
+  /**
+   * Returns true, if the user's browser has enabled Javascript language.
+   *
+   * @return  True, if the user's browser has enabled Javascript language.
+   */
+  public boolean isMmJsEnabled() {
+    return implementation.isMmJsEnabled();
+  }
+
+  /**
+   * Sets specified message source.
+   *
+   * @param  pMessageSource  The specified message source.
+   */
+  public void setMmMessageSource(MessageSource pMessageSource) {
+    implementation.setMmMessageSource(pMessageSource);
+  }
+
+  /**
+   * Sets the {@link MmSessionContext} of this root, which provides information about the user's session.
+   *
+   * @param  pSessionContext  The session context to be set.
+   */
+  public void setSessionContext(MmSessionContext pSessionContext) {
+    implementation.setSessionContext(pSessionContext);
   }
 
   /**

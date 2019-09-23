@@ -7,9 +7,9 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
+import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
 /**
  * MmMessage is the base class for messages from the application to its users. Messages have a severity level and a message text. The
@@ -221,8 +221,7 @@ public class MmMessage {
    * @return  The message text.
    */
   public String getText() {
-    MmRoot mmRoot        = MmRelationshipApi.getMmRoot(ownerMm);
-    String returnMessage = mmRoot.getMmI18nText(messageId, messageType);
+    String returnMessage = ((MmBaseDeclaration<?, ?>)ownerMm).getMmI18nText(messageId, messageType);
     String label         = ownerMm.getMmShortDescription();
     if (args == null) {
       returnMessage = MessageFormat.format(returnMessage, label);

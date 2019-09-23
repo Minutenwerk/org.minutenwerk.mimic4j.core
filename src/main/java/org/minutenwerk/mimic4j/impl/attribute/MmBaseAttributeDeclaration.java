@@ -10,10 +10,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmAttributeMimic;
-import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
 /**
@@ -330,8 +328,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
       }
     }
 
-    final MmRoot        root                  = MmRelationshipApi.getMmRoot(this);
-    final Locale        locale                = root.getMmLocale();
+    final Locale        locale                = getMmLocale();
     final NumberFormat  numberFormat          = NumberFormat.getNumberInstance(locale);
     final DecimalFormat returnNumberFormatter = (DecimalFormat)numberFormat;
     returnNumberFormatter.applyPattern(formatPattern);

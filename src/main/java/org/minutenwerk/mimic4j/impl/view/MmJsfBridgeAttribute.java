@@ -103,7 +103,7 @@ public class MmJsfBridgeAttribute<VIEW_MODEL>
     String returnTitle = "";
     String maxSeverity = getMsgMaxSeverity();
     if (!maxSeverity.isEmpty()) {
-      returnTitle = implementation.getMmRoot().getMmI18nText(maxSeverity, MmMessageType.SHORT);
+      returnTitle = implementation.getMmI18nText(maxSeverity, MmMessageType.SHORT);
     }
     return returnTitle;
   }

@@ -13,7 +13,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTableColumn;
  *
  * @author  Olaf Kossak
  */
-//TableColumn hat noch keinen Accessor
+// TableColumn hat noch keinen Accessor
 public class MmImplementationTableColumn<MODEL>
   extends MmBaseContainerImplementation<MmTableColumn<MODEL>, MODEL, MmConfigurationTableColumn, MmTableColumnAnnotation> {
 
