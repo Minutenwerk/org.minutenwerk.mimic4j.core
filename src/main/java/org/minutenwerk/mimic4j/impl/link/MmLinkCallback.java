@@ -12,42 +12,22 @@ import org.springframework.web.util.UriComponents;
  * MmLinkCallback defines a set of override-able methods common to all link mimics. Callback methods are part of the declaration API of
  * mimics. Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
- * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
- * @param   <LINK_MODEL>       Link model delivers text of link.
+ * @param   <DATA_MODEL>  Data model delivers dynamic parts of URL.
+ * @param   <VIEW_MODEL>  View model delivers view text label of link.
  *
  * @author  Olaf Kossak
  */
-public interface MmLinkCallback<MODELSIDE_VALUE, LINK_MODEL> extends MmBaseCallback {
+public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
 
   /**
-   * Returns the link's model accessor to corresponding model. The modelside value delivers dynamic parts of URL. The link accessor can be
-   * derived from specified parent component accessor.
+   * Returns the link's model accessor to corresponding data model. The data model delivers dynamic parts of URL. The data model accessor
+   * can be derived from specified parent component accessor.
    *
    * @param   pParentAccessor  The specified parent component accessor.
    *
-   * @return  The link's model accessor.
+   * @return  The data model accessor.
    */
-  public MmModelAccessor<?, MODELSIDE_VALUE> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
-
-  /**
-   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
-   * value and vice versa. It is dependent on the user's locale.
-   *
-   * @param   pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return  The attribute's format pattern for displaying viewside value.
-   */
-  public String callbackMmGetFormatPattern(String pPassThroughValue);
-
-  /**
-   * Returns the link's model accessor to corresponding link model. The link model delivers text of link. The link accessor can be derived
-   * from specified parent component accessor.
-   *
-   * @param   pParentAccessor  The specified parent component accessor.
-   *
-   * @return  The link's model accessor.
-   */
-  public MmModelAccessor<?, LINK_MODEL> callbackMmGetLinkModelAccessor(MmModelAccessor<?, ?> pParentAccessor);
+  public MmModelAccessor<?, DATA_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
   /**
    * Returns a mimic, which is the target reference of this link mimic.
@@ -56,25 +36,45 @@ public interface MmLinkCallback<MODELSIDE_VALUE, LINK_MODEL> extends MmBaseCallb
    *
    * @return  A mimic, which is the target reference of this link mimic.
    */
-  public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue);
+  public MmMimic callbackMmGetTargetReferenceMimic(MmMimic pPassThroughValue);
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome.
+   * Returns the path part of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
-   * @return  A string referencing a target, either an URL or an outcome
+   * @return  The path part of the target URL.
    */
-  public UriComponents callbackMmGetTargetOutcome(UriComponents pPassThroughValue);
+  public UriComponents callbackMmGetTargetReferencePath(UriComponents pPassThroughValue);
 
   /**
-   * Returns a list of URL parameters to be concatenated to target reference. May be used in combination with callbackMmGetTargetOutcome().
+   * Returns a list of path or query parameter values of the target URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
-   * @param   pModel             The link's data model providing the list of URL parameters.
+   * @param   pModel             The model data, which may control the query string.
    *
-   * @return  A list of URL parameters to be concatenated to target reference.
+   * @return  A list of path or query parameter values of the target URL. Usually this is a list of ids starting by id of root dto.
    */
-  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, MODELSIDE_VALUE pModel);
+  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, DATA_MODEL pModel);
+
+  /**
+   * Returns the link's format pattern for displaying view value. It is used during conversion from view model to view value and vice versa.
+   * It is dependent on the user's locale.
+   *
+   * @param   pPassThroughValue  By default this parameter value will be returned.
+   *
+   * @return  The attribute's format pattern for displaying view value.
+   */
+  public String callbackMmGetViewFormatPattern(String pPassThroughValue);
+
+  /**
+   * Returns the link's model accessor to corresponding view model. The view model delivers dynamic parts of URL. The view model accessor
+   * can be derived from specified parent component accessor.
+   *
+   * @param   pParentAccessor  The specified parent component accessor.
+   *
+   * @return  The view model accessor.
+   */
+  public MmModelAccessor<?, VIEW_MODEL> callbackMmGetViewModelAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
 }

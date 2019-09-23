@@ -17,7 +17,7 @@ public interface MmExecutableMimic extends MmMimic {
   public String doMmIt();
 
   /**
-   * Returns a reference to some target, either an URL or an outcome.
+   * Returns a target URI.
    *
    * @return  A reference to some target.
    */

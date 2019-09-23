@@ -29,6 +29,6 @@ public @interface MmLinkAnnotation {
 
   public MmLinkJsfTag jsfTag() default MmLinkJsfTag.Link;
 
-  public String targetOutcome() default MmConfigurationLink.DEFAULT_TARGET_OUTCOME;
+  public String targetReferencePath() default MmConfigurationLink.DEFAULT_TARGET_REFERENCE_PATH;
 
 }

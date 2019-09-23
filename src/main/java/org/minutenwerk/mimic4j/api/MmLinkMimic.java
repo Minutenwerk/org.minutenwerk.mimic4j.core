@@ -5,63 +5,77 @@ import java.net.URI;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 
 /**
- * MmLinkMimic is a mimic with two models, one model delivers the modelside value for dynamic parts of URL, the link model delivers the text
- * of the link.
+ * MmLinkMimic is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text
+ * label of the link.
  *
- * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
- * @param   <LINK_MODEL>       Link model delivers text of link.
+ * @param   <DATA_MODEL>  Data model delivers dynamic parts of URL.
+ * @param   <VIEW_MODEL>  View model delivers view text label of link.
  *
  * @author  Olaf Kossak
  */
-public interface MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL> extends MmMimic {
+public interface MmLinkMimic<DATA_MODEL, VIEW_MODEL> extends MmMimic {
 
   /**
-   * Returns the link's model value.
+   * Returns accessor of data model.
    *
-   * @return  The link's model value.
+   * @return  The accessor of data model.
    */
-  public LINK_MODEL getMmLinkModelValue();
+  public MmModelAccessor<?, DATA_MODEL> getMmModelAccessor();
 
   /**
-   * Returns accessor of model.
+   * Returns type of data model.
    *
-   * @return  The accessor of model.
+   * @return  The type of data model.
    */
-  public MmModelAccessor<?, MODELSIDE_VALUE> getMmModelAccessor();
+  public Class<DATA_MODEL> getMmModelType();
 
   /**
-   * Returns the link's type of modelside value (LINK_MODEL).
+   * Returns data model value.
    *
-   * @return  The link's type of modelside value.
+   * @return  The data model value.
    */
-  public Class<MODELSIDE_VALUE> getMmModelsideType();
+  public DATA_MODEL getMmModelValue();
 
   /**
-   * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
+   * Returns model accessor of link mimic parent, may be null.
    *
-   * @return  The modelside value of the mimic.
-   */
-  public MODELSIDE_VALUE getMmModelsideValue();
-
-  /**
-   * Returns accessor of model of parent container mimic, may be null.
-   *
-   * @return  The accessor of model of parent container mimic, may be null.
+   * @return  The model accessor of link mimic parent, may be null.
    */
   public MmModelAccessor<?, ?> getMmParentAccessor();
 
   /**
-   * Returns a reference to some target, either an URL or an outcome.
+   * Returns URI of the link.
    *
-   * @return  A reference to some target.
+   * @return  The URI of the link.
    */
   public URI getMmTargetReference();
 
   /**
-   * Returns the link's viewside value of type String.
+   * Returns model accessor of view model.
    *
-   * @return  The link's viewside value of type String.
+   * @return  The model accessor of view model.
    */
-  public String getMmViewsideValue();
+  public MmModelAccessor<?, VIEW_MODEL> getMmViewModelAccessor();
+
+  /**
+   * Returns type of view model.
+   *
+   * @return  The type of view model.
+   */
+  public Class<VIEW_MODEL> getMmViewModelType();
+
+  /**
+   * Returns view model value.
+   *
+   * @return  The view model value.
+   */
+  public VIEW_MODEL getMmViewModelValue();
+
+  /**
+   * Returns view text of the link.
+   *
+   * @return  The view text of the link.
+   */
+  public String getMmViewValue();
 
 }

@@ -7,15 +7,18 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLink;
 
 /**
- * MmImplementationLink is the specific class for the implementation part of link mimics.
+ * MmImplementationLink is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the
+ * text label of the link.
  *
- * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
- * @param   <LINK_MODEL>       Link model delivers text of link.
+ * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
+ * @param               <VIEW_MODEL>  View model delivers view text label of link.
  *
- * @author  Olaf Kossak
+ * @author              Olaf Kossak
+ *
+ * @jalopy.group-order  group-initialization
  */
-public class MmImplementationLink<MODELSIDE_VALUE, LINK_MODEL>
-  extends MmBaseLinkImplementation<MmLink<MODELSIDE_VALUE, LINK_MODEL>, MODELSIDE_VALUE, LINK_MODEL, MmConfigurationLink, MmLinkAnnotation> {
+public class MmImplementationLink<DATA_MODEL, VIEW_MODEL>
+  extends MmBaseLinkImplementation<MmLink<DATA_MODEL, VIEW_MODEL>, DATA_MODEL, VIEW_MODEL, MmConfigurationLink, MmLinkAnnotation> {
 
   /**
    * Creates a new MmImplementationLink instance.
@@ -29,9 +32,11 @@ public class MmImplementationLink<MODELSIDE_VALUE, LINK_MODEL>
   /**
    * Returns configuration of this mimic, specified annotation may be null.
    *
-   * @param   pAnnotation  The specified annotation, may be null.
+   * @param         pAnnotation  The specified annotation, may be null.
    *
-   * @return  Configuration of this mimic.
+   * @return        Configuration of this mimic.
+   *
+   * @jalopy.group  group-initialization
    */
   @Override
   protected MmConfigurationLink onConstructConfiguration(MmLinkAnnotation pAnnotation) {
@@ -45,7 +50,9 @@ public class MmImplementationLink<MODELSIDE_VALUE, LINK_MODEL>
   /**
    * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
    *
-   * @return  A new MmJsfBridge for this mimic.
+   * @return        A new MmJsfBridge for this mimic.
+   *
+   * @jalopy.group  group-initialization
    */
   @Override
   protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {

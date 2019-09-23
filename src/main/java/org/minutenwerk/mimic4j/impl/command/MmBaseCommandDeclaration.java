@@ -106,7 +106,7 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome.
+   * Returns a target URI.
    *
    * @return        A reference to some target.
    *

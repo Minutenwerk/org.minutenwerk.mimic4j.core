@@ -31,7 +31,7 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome. May be used in combination with getMmTargetRefParams().
+   * Returns a target URI.
    *
    * @return  A reference to some target.
    */

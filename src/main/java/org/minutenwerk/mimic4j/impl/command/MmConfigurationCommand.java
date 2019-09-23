@@ -98,10 +98,10 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
   /**
    * Sets a string referencing a target, either an URL or an outcome.
    *
-   * @param  pTargetOutcome  A string referencing a target.
+   * @param  pTargetReferencePath  A string referencing a target.
    */
-  public void setTargetOutcome(UriComponents pTargetOutcome) {
-    targetOutcome = pTargetOutcome;
+  public void setTargetOutcome(UriComponents pTargetReferencePath) {
+    targetOutcome = pTargetReferencePath;
   }
 
 }

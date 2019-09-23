@@ -28,6 +28,6 @@ public @interface MmLeporelloTabAnnotation {
 
   public MmLeporelloTab.MmLeporelloTabJsfTag jsfTag() default MmLeporelloTab.MmLeporelloTabJsfTag.LeporelloTab;
 
-  public String targetOutcome() default MmConfigurationLeporelloTab.DEFAULT_TARGET_OUTCOME;
+  public String targetReferencePath() default MmConfigurationLeporelloTab.DEFAULT_TARGET_REFERENCE_PATH;
 
 }

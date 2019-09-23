@@ -46,35 +46,35 @@ import org.springframework.web.util.UriComponents;
 /**
  * MmBaseLinkImplementation is the abstract base class for the implementation part of all link mimic classes.
  *
- * @param               <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
- * @param               <LINK_MODEL>       Link model delivers text of link.
+ * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
+ * @param               <VIEW_MODEL>  View model delivers view text label of link.
  *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-initialization, group-override, group-i18n
  */
-public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<MODELSIDE_VALUE, LINK_MODEL>,
-  MODELSIDE_VALUE, LINK_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
-  extends MmBaseImplementation<MmBaseLinkDeclaration<?, MODELSIDE_VALUE, LINK_MODEL>, CONFIGURATION, ANNOTATION>
-  implements MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL> {
+public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<DATA_MODEL, VIEW_MODEL>,
+  DATA_MODEL, VIEW_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
+  extends MmBaseImplementation<MmBaseLinkDeclaration<?, DATA_MODEL, VIEW_MODEL>, CONFIGURATION, ANNOTATION>
+  implements MmLinkMimic<DATA_MODEL, VIEW_MODEL> {
 
-  /** Class internal constant to control index of generic type LINK_MODEL. */
-  private static final int                      GENERIC_PARAMETER_INDEX_LINK_MODEL = 2;
+  /** Class internal constant to control index of generic type DATA_MODEL. */
+  private static final int                 GENERIC_PARAMETER_INDEX_DATA_MODEL = 2;
+
+  /** Class internal constant to control index of generic type VIEW_MODEL. */
+  private static final int                 GENERIC_PARAMETER_INDEX_VIEW_MODEL = 3;
 
   /** Logger of this class. */
-  private static final Logger                   LOGGER                             = LogManager.getLogger(MmBaseLinkImplementation.class);
+  private static final Logger              LOGGER                             = LogManager.getLogger(MmBaseLinkImplementation.class);
 
-  /** This link has a parent model. The parent model has a parent accessor. */
-  protected MmModelAccessor<?, ?>               parentAccessor;
+  /** Model accessor of link mimic parent, may be null. */
+  protected MmModelAccessor<?, ?>          parentAccessor;
 
-  /**
-   * This link has a model of type LINK_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
-   * undefined.
-   */
-  protected MmModelAccessor<?, MODELSIDE_VALUE> modelAccessor;
+  /** Accessor of data model. Data model delivers dynamic parts of URL. */
+  protected MmModelAccessor<?, DATA_MODEL> dataModelAccessor;
 
-  /** TODOC. */
-  protected MmModelAccessor<?, LINK_MODEL>      linkModelAccessor;
+  /** Accessor of view model. View model delivers view text label of link. */
+  protected MmModelAccessor<?, VIEW_MODEL> viewModelAccessor;
 
   /**
    * Creates a new MmBaseLinkImplementation instance.
@@ -83,25 +83,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
    */
   public MmBaseLinkImplementation(final MmDeclarationMimic pParent) {
     super(pParent);
-  }
-
-  /**
-   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
-   *
-   * @return        <code>True</code>, if a model instance is currently present.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public final boolean isMmModelPresent() {
-    assureInitialization();
-
-    if (modelAccessor != null) {
-      return modelAccessor.isPresent();
-    } else {
-      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
-      return false;
-    }
   }
 
   /**
@@ -117,18 +98,18 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
     super.onInitialization();
 
     // initialize parentAccessor
-    parentAccessor = onInitializeParentAccessor();
+    parentAccessor    = onInitializeParentAccessor();
 
     // initialize modelAccessor
-    modelAccessor  = declaration.callbackMmGetAccessor(parentAccessor);
-    if (modelAccessor == null) {
+    dataModelAccessor = declaration.callbackMmGetAccessor(parentAccessor);
+    if (dataModelAccessor == null) {
       throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
     }
 
-    // initialize link modelAccessor
-    linkModelAccessor = declaration.callbackMmGetLinkModelAccessor(parentAccessor);
-    if (linkModelAccessor == null) {
-      throw new IllegalStateException("no definition of callbackMmGetLinkModelAccessor() for " + parentPath + "." + name);
+    // initialize view modelAccessor
+    viewModelAccessor = declaration.callbackMmGetViewModelAccessor(parentAccessor);
+    if (viewModelAccessor == null) {
+      throw new IllegalStateException("no definition of callbackMmGetViewModelAccessor() for " + parentPath + "." + name);
     }
   }
 
@@ -155,51 +136,88 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
   }
 
   /**
-   * Returns accessor of model.
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
+   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * MmConfiguration.longDescription</code>.
    *
-   * @return        The accessor of model.
+   * @return        A long description.
    *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public MmModelAccessor<?, MODELSIDE_VALUE> getMmModelAccessor() {
-    assureInitialization();
-
-    return modelAccessor;
-  }
-
-  /**
-   * Returns the link's type of modelside value (LINK_MODEL).
-   *
-   * @return        The link's type of modelside value.
+   * @throws        IllegalStateException  In case of callbackMmGetLongDescription() returns null.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public Class<MODELSIDE_VALUE> getMmModelsideType() {
+  public String getMmLongDescription() {
     assureInitialization();
 
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_LINK_MODEL);
+    // retrieve model
+    final DATA_MODEL model          = getMmModelValue();
+
+    // retrieve modelside value
+    final VIEW_MODEL modelsideValue = getMmViewModelValue();
+
+    String           returnString   = null;
+    if (model == null) {
+      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue);
+      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue);
+    } else {
+      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue, model);
+      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue, model);
+    }
+    if (LOGGER.isDebugEnabled()) {
+      if (returnString == null) {
+        throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + parentPath + "." + name);
+      }
+    }
+    return returnString;
   }
 
   /**
-   * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
+   * Returns accessor of data model.
    *
-   * @return        The modelside value of the mimic.
+   * @return        The accessor of data model.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public MODELSIDE_VALUE getMmModelsideValue() {
+  public MmModelAccessor<?, DATA_MODEL> getMmModelAccessor() {
     assureInitialization();
 
-    return modelAccessor.get();
+    return dataModelAccessor;
   }
 
   /**
-   * Returns accessor of model of parent container mimic, may be null.
+   * Returns type of data model.
    *
-   * @return        The accessor of model of parent container mimic, may be null.
+   * @return        The type of data model.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public Class<DATA_MODEL> getMmModelType() {
+    assureInitialization();
+
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_DATA_MODEL);
+  }
+
+  /**
+   * Returns data model value.
+   *
+   * @return        The data model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public DATA_MODEL getMmModelValue() {
+    assureInitialization();
+
+    return dataModelAccessor.get();
+  }
+
+  /**
+   * Returns model accessor of link mimic parent, may be null.
+   *
+   * @return        The model accessor of link mimic parent, may be null.
    *
    * @jalopy.group  group-override
    */
@@ -211,9 +229,9 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome.
+   * Returns URI of the link.
    *
-   * @return        A reference to some target.
+   * @return        The URI of the link.
    *
    * @jalopy.group  group-override
    */
@@ -221,11 +239,12 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
   public URI getMmTargetReference() {
     assureInitialization();
 
-    URI                   targetReference = null;
-    final MmMimic         targetMimic     = declaration.callbackMmGetTargetMimic(null);
+    // retrieve target mimic, may be null
+    URI              targetReference = null;
+    final MmMimic    targetMimic     = declaration.callbackMmGetTargetReferenceMimic(null);
 
-    // retrieve model
-    final MODELSIDE_VALUE model           = modelAccessor.get();
+    // retrieve data model, may be null
+    final DATA_MODEL model           = dataModelAccessor.get();
 
     // if link references another mimic without a specified data model
     if ((targetMimic != null) && (model == null)) {
@@ -244,104 +263,89 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
 
       // if link references an URL without a specified data model
     } else if ((targetMimic == null) && (model == null)) {
-      final UriComponents configurationOutcome  = configuration.getTargetOutcome();
-      final UriComponents callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<String>  emptyList             = Collections.emptyList();
-      final List<String>  targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(emptyList, null);
-      targetReference = callbackOutcome.expand(targetReferenceParams).toUri();
+      final UriComponents configurationTargetReferencePath = configuration.getTargetReferencePath();
+      final UriComponents callbackTargetReferencePath      = declaration.callbackMmGetTargetReferencePath(configurationTargetReferencePath);
+      final List<String>  emptyList                        = Collections.emptyList();
+      final List<String>  targetReferenceParams            = declaration.callbackMmGetTargetReferenceValues(emptyList, null);
+      targetReference = callbackTargetReferencePath.expand(targetReferenceParams).toUri();
 
       // if link references an URL for a specified referencable data model
     } else if ((targetMimic == null) && (model != null) && (model instanceof MmReferencableModel)) {
-      final UriComponents configurationOutcome  = configuration.getTargetOutcome();
-      final UriComponents callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<String>  modelReferenceParams  = ((MmReferencableModel)model).getMmReferenceValues();
-      final List<String>  targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(modelReferenceParams, model);
-      targetReference = callbackOutcome.expand(targetReferenceParams).toUri();
+      final UriComponents configurationTargetReferencePath = configuration.getTargetReferencePath();
+      final UriComponents callbackTargetReferencePath      = declaration.callbackMmGetTargetReferencePath(configurationTargetReferencePath);
+      final List<String>  modelReferenceParams             = ((MmReferencableModel)model).getMmReferenceValues();
+      final List<String>  targetReferenceParams            = declaration.callbackMmGetTargetReferenceValues(modelReferenceParams, model);
+      targetReference = callbackTargetReferencePath.expand(targetReferenceParams).toUri();
 
       // if link references an URL for a specified raw data model
     } else if ((targetMimic == null) && (model != null)) {
-      final UriComponents configurationOutcome  = configuration.getTargetOutcome();
-      final UriComponents callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<String>  targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(Collections.emptyList(), model);
-      targetReference = callbackOutcome.expand(targetReferenceParams).toUri();
+      final UriComponents configurationTargetReferencePath = configuration.getTargetReferencePath();
+      final UriComponents callbackTargetReferencePath      = declaration.callbackMmGetTargetReferencePath(configurationTargetReferencePath);
+      final List<String>  targetReferenceParams            = declaration.callbackMmGetTargetReferenceValues(Collections.emptyList(), model);
+      targetReference = callbackTargetReferencePath.expand(targetReferenceParams).toUri();
     }
     return targetReference;
   }
 
   /**
-   * Returns the format pattern for formatting modelside value to viewside value.
+   * Returns model accessor of view model.
    *
-   * @return        The format pattern for formatting modelside value to viewside value.
+   * @return        The model accessor of view model.
    *
-   * @throws        IllegalStateException  In case of callbackMmGetFormatPattern() returns an invalid format pattern.
-   *
-   * @jalopy.group  group-i18n
+   * @jalopy.group  group-override
    */
-  public String getMmFormatPattern() {
-    final String i18nFormatPattern     = getMmI18nText(MmMessageType.FORMAT);
-    final String callbackFormatPattern = declaration.callbackMmGetFormatPattern(i18nFormatPattern);
-    if (LOGGER.isDebugEnabled()) {
-      if (callbackFormatPattern == null) {
-        throw new IllegalStateException("callbackMmGetFormatPattern() must return valid format pattern");
-      }
-    }
-    return callbackFormatPattern;
+  @Override
+  public MmModelAccessor<?, VIEW_MODEL> getMmViewModelAccessor() {
+    assureInitialization();
+
+    return viewModelAccessor;
   }
 
   /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
-   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
-   * MmConfiguration.longDescription</code>.
+   * Returns type of view model.
    *
-   * @return        A long description.
+   * @return        The type of view model.
    *
-   * @throws        IllegalStateException  In case of callbackMmGetLongDescription() returns null.
-   *
-   * @jalopy.group  group-i18n
+   * @jalopy.group  group-override
    */
-  @Override
-  public String getMmLongDescription() {
+  public Class<VIEW_MODEL> getMmViewModelType() {
     assureInitialization();
 
-    // retrieve model
-    final MODELSIDE_VALUE model          = getMmModelsideValue();
-
-    // retrieve modelside value
-    final LINK_MODEL      modelsideValue = getMmLinkModelValue();
-
-    String                returnString   = null;
-    if (model == null) {
-      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue);
-      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue);
-    } else {
-      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, modelsideValue, model);
-      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, modelsideValue, model);
-    }
-    if (LOGGER.isDebugEnabled()) {
-      if (returnString == null) {
-        throw new IllegalStateException("callbackMmGetLongDescription cannot return null");
-      }
-    }
-    return returnString;
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_MODEL);
   }
 
   /**
-   * Returns the link's viewside value of type String.
+   * Returns view model value.
    *
-   * @return        The link's viewside value of type String.
+   * @return        The view model value.
    *
-   * @jalopy.group  group-i18n
+   * @jalopy.group  group-override
    */
   @Override
-  public String getMmViewsideValue() {
+  public VIEW_MODEL getMmViewModelValue() {
     assureInitialization();
 
-    // retrieve modelside value
-    final LINK_MODEL linkModel      = getMmLinkModelValue();
+    return viewModelAccessor.get();
+  }
 
-    final Object     modelsideValue = (linkModel instanceof MmInformationable) //
-      ? ((MmInformationable)linkModel).getInfo() //
-      : linkModel;
+  /**
+   * Returns view text of the link.
+   *
+   * @return        The view text of the link.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public String getMmViewValue() {
+    assureInitialization();
+
+    // retrieve view model
+    final VIEW_MODEL viewModel      = getMmViewModelValue();
+
+    // retrieve data model
+    final Object     modelsideValue = (viewModel instanceof MmInformationable) //
+      ? ((MmInformationable)viewModel).getInfo() //
+      : viewModel;
 
     // if model is an array of objects
     if (modelsideValue instanceof Object[]) {
@@ -388,6 +392,45 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
         return i18nViewsideValue;
       }
     }
+  }
+
+  /**
+   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
+   *
+   * @return        <code>True</code>, if a model instance is currently present.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public boolean isMmModelPresent() {
+    assureInitialization();
+
+    if (dataModelAccessor != null) {
+      return dataModelAccessor.isPresent();
+    } else {
+      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      return false;
+    }
+  }
+
+  /**
+   * Returns the format pattern for formatting modelside value to viewside value.
+   *
+   * @return        The format pattern for formatting modelside value to viewside value.
+   *
+   * @throws        IllegalStateException  In case of callbackMmGetFormatPattern() returns an invalid format pattern.
+   *
+   * @jalopy.group  group-i18n
+   */
+  public String getMmFormatPattern() {
+    final String i18nFormatPattern     = getMmI18nText(MmMessageType.FORMAT);
+    final String callbackFormatPattern = declaration.callbackMmGetViewFormatPattern(i18nFormatPattern);
+    if (LOGGER.isDebugEnabled()) {
+      if (callbackFormatPattern == null) {
+        throw new IllegalStateException("callbackMmGetFormatPattern() must return valid format pattern");
+      }
+    }
+    return callbackFormatPattern;
   }
 
   /**
@@ -538,23 +581,12 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
   }
 
   /**
-   * Returns the link's model value.
+   * Transform specialized types of dates into java.util.date so MessageFormat can format them by rules like "wurde am {1,date,dd.MM.yyy}
+   * von".
    *
-   * @return  The link's model value.
-   */
-  @Override
-  public LINK_MODEL getMmLinkModelValue() {
-    assureInitialization();
-
-    return linkModelAccessor.get();
-  }
-
-  /**
-   * TODOC.
+   * @param   pObject  Enum or specialized types of date.
    *
-   * @param   pObject  TODOC
-   *
-   * @return  TODOC
+   * @return  String or java.util.Date.
    */
   protected Object transformObjectForFormattingByMessageSource(final Object pObject) {
     // return empty String for null value

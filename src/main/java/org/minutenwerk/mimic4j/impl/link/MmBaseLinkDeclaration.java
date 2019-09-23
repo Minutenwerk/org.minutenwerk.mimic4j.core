@@ -12,18 +12,19 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.springframework.web.util.UriComponents;
 
 /**
- * MmBaseLinkDeclaration is the base class for link mimics.
+ * MmBaseLinkDeclaration is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the
+ * text label of the link.
  *
- * @param               <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
- * @param               <LINK_MODEL>       Link model delivers text of link.
+ * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
+ * @param               <VIEW_MODEL>  View model delivers view text label of link.
  *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-callback, group-override
  */
-public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, MODELSIDE_VALUE, LINK_MODEL, ?, ?>,
-  MODELSIDE_VALUE, LINK_MODEL> extends MmBaseDeclaration<MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL>, IMPLEMENTATION>
-  implements MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL>, MmLinkCallback<MODELSIDE_VALUE, LINK_MODEL> {
+public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, MODELSIDE_VALUE, VIEW_MODEL, ?, ?>,
+  MODELSIDE_VALUE, VIEW_MODEL> extends MmBaseDeclaration<MmLinkMimic<MODELSIDE_VALUE, VIEW_MODEL>, IMPLEMENTATION>
+  implements MmLinkMimic<MODELSIDE_VALUE, VIEW_MODEL>, MmLinkCallback<MODELSIDE_VALUE, VIEW_MODEL> {
 
   /**
    * Creates a new MmBaseLinkDeclaration instance.
@@ -35,13 +36,14 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns the link's model accessor to corresponding model. The link accessor can be derived from specified parent component accessor.
+   * Returns the link's model accessor to corresponding data model. The data model delivers dynamic parts of URL. The data model accessor
+   * can be derived from specified parent component accessor.
    *
    * @param         pParentAccessor  The specified parent component accessor.
    *
-   * @return        The link's model accessor.
+   * @return        The data model accessor.
    *
-   * @throws        ClassCastException  IllegalStateException In case of model accessor is not defined.
+   * @throws        ClassCastException  IllegalStateException In case of data model accessor is not defined.
    *
    * @jalopy.group  group-callback
    */
@@ -58,21 +60,6 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns the attribute's format pattern for displaying viewside value in view. It is used during conversion from modelside to viewside
-   * value and vice versa. It is dependent on the user's locale.
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The attribute's format pattern for displaying viewside value.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public String callbackMmGetFormatPattern(String pPassThroughValue) {
-    return pPassThroughValue;
-  }
-
-  /**
    * Returns a mimic, which is the target reference of this link mimic.
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
@@ -82,31 +69,31 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public MmMimic callbackMmGetTargetMimic(MmMimic pPassThroughValue) {
+  public MmMimic callbackMmGetTargetReferenceMimic(MmMimic pPassThroughValue) {
     return pPassThroughValue;
   }
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome.
+   * Returns the path part of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
-   * @return        A string referencing a target, either an URL or an outcome
+   * @return        The path part of the target URL.
    *
    * @jalopy.group  group-callback
    */
   @Override
-  public UriComponents callbackMmGetTargetOutcome(UriComponents pPassThroughValue) {
+  public UriComponents callbackMmGetTargetReferencePath(UriComponents pPassThroughValue) {
     return pPassThroughValue;
   }
 
   /**
-   * Returns a list of URL parameters to be concatenated to target reference. May be used in combination with callbackMmGetTargetOutcome().
+   * Returns a list of path or query parameter values of the target URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
-   * @param         pModel             The link's data model providing the list of URL parameters.
+   * @param         pModel             The model data, which may control the query string.
    *
-   * @return        A list of URL parameters to be concatenated to target reference.
+   * @return        A list of path or query parameter values of the target URL. Usually this is a list of ids starting by id of root dto.
    *
    * @jalopy.group  group-callback
    */
@@ -116,57 +103,96 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns accessor of model.
+   * Returns the link's format pattern for displaying view value. It is used during conversion from view model to view value and vice versa.
+   * It is dependent on the user's locale.
    *
-   * @return        The accessor of model.
+   * @param         pPassThroughValue  By default this parameter value will be returned.
+   *
+   * @return        The attribute's format pattern for displaying view value.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public String callbackMmGetViewFormatPattern(String pPassThroughValue) {
+    return pPassThroughValue;
+  }
+
+  /**
+   * Returns the link's model accessor to corresponding view model. The view model delivers dynamic parts of URL. The view model accessor
+   * can be derived from specified parent component accessor.
+   *
+   * @param         pParentAccessor  The specified parent component accessor.
+   *
+   * @return        The view model accessor.
+   *
+   * @throws        ClassCastException  IllegalStateException In case of view model accessor is not defined.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public MmModelAccessor<?, VIEW_MODEL> callbackMmGetViewModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    try {
+      @SuppressWarnings("unchecked")
+      MmModelAccessor<?, VIEW_MODEL> viewModelAccessor = (MmModelAccessor<?, VIEW_MODEL>)pParentAccessor;
+      return viewModelAccessor;
+    } catch (ClassCastException e) {
+      throw new ClassCastException("Parent accessor " + pParentAccessor
+        + " cannot be casted to viewModelAccessor. You must redefine callbackMmGetViewModelAccessor() for " + this);
+    }
+  }
+
+  /**
+   * Returns accessor of data model.
+   *
+   * @return        The accessor of data model.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public MmModelAccessor<?, MODELSIDE_VALUE> getMmModelAccessor() {
+  public final MmModelAccessor<?, MODELSIDE_VALUE> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
   }
 
   /**
-   * Returns the type of modelside value of the mimic.
+   * Returns type of data model.
    *
-   * @return        The type of modelside value of the mimic.
+   * @return        The type of data model.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public final Class<MODELSIDE_VALUE> getMmModelsideType() {
-    return implementation.getMmModelsideType();
+  public final Class<MODELSIDE_VALUE> getMmModelType() {
+    return implementation.getMmModelType();
   }
 
   /**
-   * Returns the modelside value of the mimic. The modelside value is exchanged between model and mimic.
+   * Returns data model value.
    *
-   * @return        The modelside value of the mimic.
+   * @return        The data model value.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public final MODELSIDE_VALUE getMmModelsideValue() {
-    return implementation.getMmModelsideValue();
+  public final MODELSIDE_VALUE getMmModelValue() {
+    return implementation.getMmModelValue();
   }
 
   /**
-   * Returns accessor of model of parent container mimic, may be null.
+   * Returns model accessor of link mimic parent, may be null.
    *
-   * @return        The accessor of model of parent container mimic, may be null.
+   * @return        The model accessor of link mimic parent, may be null.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public MmModelAccessor<?, ?> getMmParentAccessor() {
+  public final MmModelAccessor<?, ?> getMmParentAccessor() {
     return implementation.getMmParentAccessor();
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome.
+   * Returns URI of the link.
    *
-   * @return        A reference to some target.
+   * @return        The URI of the link.
    *
    * @jalopy.group  group-override
    */
@@ -176,46 +202,50 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns the link's viewside value of type String.
+   * Returns model accessor of view model.
    *
-   * @return        The link's viewside value of type String.
+   * @return        The model accessor of view model.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public final String getMmViewsideValue() {
-    return implementation.getMmViewsideValue();
+  public final MmModelAccessor<?, VIEW_MODEL> getMmViewModelAccessor() {
+    return implementation.getMmViewModelAccessor();
   }
 
   /**
-   * Returns the link's model accessor to corresponding link model. The link model delivers text of link. The link accessor can be derived
-   * from specified parent component accessor.
+   * Returns type of view model.
    *
-   * @param   pParentAccessor  The specified parent component accessor.
+   * @return        The type of view model.
    *
-   * @return  The link's model accessor.
-   *
-   * @throws  ClassCastException  IllegalStateException In case of link model accessor is not defined.
+   * @jalopy.group  group-override
    */
   @Override
-  public MmModelAccessor<?, LINK_MODEL> callbackMmGetLinkModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    try {
-      @SuppressWarnings("unchecked")
-      MmModelAccessor<?, LINK_MODEL> linkModelAccessor = (MmModelAccessor<?, LINK_MODEL>)pParentAccessor;
-      return linkModelAccessor;
-    } catch (ClassCastException e) {
-      throw new ClassCastException("Parent accessor " + pParentAccessor
-        + " cannot be casted to linkModelAccessor. You must redefine callbackMmGetLinkModel() for " + this);
-    }
+  public final Class<VIEW_MODEL> getMmViewModelType() {
+    return implementation.getMmViewModelType();
   }
 
   /**
-   * Returns the link's model value.
+   * Returns view model value.
    *
-   * @return  The link's model value.
+   * @return        The view model value.
+   *
+   * @jalopy.group  group-override
    */
   @Override
-  public LINK_MODEL getMmLinkModelValue() {
-    return implementation.getMmLinkModelValue();
+  public final VIEW_MODEL getMmViewModelValue() {
+    return implementation.getMmViewModelValue();
+  }
+
+  /**
+   * Returns view text of the link.
+   *
+   * @return        The view text of the link.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public final String getMmViewValue() {
+    return implementation.getMmViewValue();
   }
 }

@@ -6,15 +6,16 @@ import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
 import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
 
 /**
- * MmLeporelloTab is a composite mimic to represent a single tab of a leporello panel.
+ * MmLeporelloTab is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text
+ * label of the link.
  *
- * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
- * @param   <LINK_MODEL>       Link model delivers text of link.
+ * @param   <DATA_MODEL>  Data model delivers dynamic parts of URL.
+ * @param   <VIEW_MODEL>  View model delivers view text label of link.
  *
  * @author  Olaf Kossak
  */
-public class MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
-  extends MmBaseLinkDeclaration<MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>, MODELSIDE_VALUE, LINK_MODEL> {
+public class MmLeporelloTab<DATA_MODEL, VIEW_MODEL>
+  extends MmBaseLinkDeclaration<MmImplementationLeporelloTab<DATA_MODEL, VIEW_MODEL>, DATA_MODEL, VIEW_MODEL> {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
@@ -41,8 +42,8 @@ public class MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
    * @param  pParent    The parent declaration mimic, declaring a static final instance of this mimic.
    * @param  pSuperTab  The super tab of this leporello tab.
    */
-  public MmLeporelloTab(MmLeporelloPanel<?> pParent, MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL> pSuperTab) {
-    super(new MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>(pParent, pSuperTab));
+  public MmLeporelloTab(MmLeporelloPanel<?> pParent, MmLeporelloTab<DATA_MODEL, VIEW_MODEL> pSuperTab) {
+    super(new MmImplementationLeporelloTab<DATA_MODEL, VIEW_MODEL>(pParent, pSuperTab));
   }
 
   /**

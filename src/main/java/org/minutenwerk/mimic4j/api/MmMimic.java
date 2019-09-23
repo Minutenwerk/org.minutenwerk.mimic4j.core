@@ -13,6 +13,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-ro, group-enabled, group-short,
  *                      group-long, group-style, group-model, group-reference
  */
+// TODO introduce model of mimic
 public interface MmMimic {
 
   /**
@@ -153,6 +154,9 @@ public interface MmMimic {
    *
    * @jalopy.group  group-model
    */
+  // TODO introduce getMmModelAccessor
+  // TODO introduce getMmModelValue
+  // TODO introduce getMmModelType
   public boolean isMmModelPresent();
 
   /**
@@ -164,6 +168,7 @@ public interface MmMimic {
    *
    * @jalopy.group  group-reference
    */
+  // TODO rename to getMmSelfReference ?
   public URI getMmReference();
 
   /**

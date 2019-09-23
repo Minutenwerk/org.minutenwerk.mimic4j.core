@@ -21,7 +21,7 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink<?, ?>, Str
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome. May be used in combination with getMmTargetRefParams().
+   * Returns a target URI.
    *
    * @return  A reference to some target.
    */
@@ -37,7 +37,7 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink<?, ?>, Str
    */
   @Override
   public String getValue() {
-    return implementation.getMmViewsideValue();
+    return implementation.getMmViewValue();
   }
 
   /**

@@ -13,10 +13,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
 
   /** Constant for default value of target outcome of this mimic. */
-  public static final String DEFAULT_TARGET_OUTCOME = "";
+  public static final String DEFAULT_TARGET_REFERENCE_PATH = "";
 
-  /** A string referencing a target, either an URL or an outcome. */
-  protected UriComponents    targetOutcome;
+  /** The path part of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display". */
+  protected UriComponents    targetReferencePath;
 
   /**
    * Creates a new MmBaseLinkConfiguration instance from annotation.
@@ -28,39 +28,40 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    */
   public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled) {
     super(pId, pVisible, pReadOnly, pEnabled);
-    targetOutcome = UriComponentsBuilder.fromPath(DEFAULT_TARGET_OUTCOME).build();
-    ;
+    targetReferencePath = null;
   }
 
   /**
    * Creates a new MmBaseLinkConfiguration instance from annotation.
    *
-   * @param  pId             The HTML id of HTML tag.
-   * @param  pVisible        True, if HTML tag of mimic is rendered visible.
-   * @param  pReadOnly       True, if HTML tag of mimic is rendered readonly.
-   * @param  pEnabled        True, if HTML tag of mimic is rendered enabled.
-   * @param  pTargetOutcome  A string referencing some target, either an URL or an outcome.
+   * @param  pId                   The HTML id of HTML tag.
+   * @param  pVisible              True, if HTML tag of mimic is rendered visible.
+   * @param  pReadOnly             True, if HTML tag of mimic is rendered readonly.
+   * @param  pEnabled              True, if HTML tag of mimic is rendered enabled.
+   * @param  pTargetReferencePath  The path part of the target URL.
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, UriComponents pTargetOutcome) {
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetReferencePath) {
     super(pId, pVisible, pReadOnly, pEnabled);
-    targetOutcome = pTargetOutcome;
+    if ((pTargetReferencePath != null) && !pTargetReferencePath.isEmpty()) {
+      targetReferencePath = UriComponentsBuilder.fromPath(pTargetReferencePath).build();
+    }
   }
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome.
+   * Returns the path part of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
    *
-   * @return  A string referencing a target, either an URL or an outcome
+   * @return  The path part of the target URL.
    */
-  public UriComponents getTargetOutcome() {
-    return targetOutcome;
+  public UriComponents getTargetReferencePath() {
+    return targetReferencePath;
   }
 
   /**
-   * Sets a string referencing a target, either an URL or an outcome.
+   * Sets the path part of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
    *
-   * @param  pTargetOutcome  A string referencing a target.
+   * @param  pTargetReferencePath  The path part of the target URL.
    */
-  public void setTargetOutcome(UriComponents pTargetOutcome) {
-    targetOutcome = pTargetOutcome;
+  public void setTargetReferencePath(UriComponents pTargetReferencePath) {
+    targetReferencePath = pTargetReferencePath;
   }
 }

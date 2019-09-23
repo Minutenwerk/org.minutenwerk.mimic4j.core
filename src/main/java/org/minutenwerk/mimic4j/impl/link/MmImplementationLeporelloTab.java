@@ -23,22 +23,25 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloTab;
 
 /**
- * MmImplementationLeporelloTab is the specific class for the implementation part of tab set mimics.
+ * MmImplementationLeporelloTab is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model
+ * delivers the text label of the link.
  *
- * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
- * @param   <LINK_MODEL>       Link model delivers text of link.
+ * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
+ * @param               <VIEW_MODEL>  View model delivers view text label of link.
  *
- * @author  Olaf Kossak
+ * @author              Olaf Kossak
+ *
+ * @jalopy.group-order  group-initialization
  */
-public class MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
-  extends MmBaseLinkImplementation<MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>,
-    MODELSIDE_VALUE, LINK_MODEL, MmConfigurationLeporelloTab, MmLeporelloTabAnnotation> {
+public class MmImplementationLeporelloTab<DATA_MODEL, VIEW_MODEL>
+  extends MmBaseLinkImplementation<MmLeporelloTab<DATA_MODEL, VIEW_MODEL>,
+    DATA_MODEL, VIEW_MODEL, MmConfigurationLeporelloTab, MmLeporelloTabAnnotation> {
 
   /** The super tab is the logical parent tab in the parent panel. */
-  protected final MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL> superTab;
+  protected final MmLeporelloTab<DATA_MODEL, VIEW_MODEL> superTab;
 
   /** The parent leporello of this leporello tab. */
-  protected MmImplementationLeporello<?, ?>                   parentLeporello;
+  protected MmImplementationLeporello<?, ?>              parentLeporello;
 
   /**
    * Creates a new MmImplementationLeporelloTab instance.
@@ -55,9 +58,54 @@ public class MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
    * @param  pParentPanel  The parent declaration mimic, declaring a static final instance of this mimic.
    * @param  pSuperTab     The super tab is the logical parent tab in the parent panel.
    */
-  public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel, MmLeporelloTab<MODELSIDE_VALUE, LINK_MODEL> pSuperTab) {
+  public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel, MmLeporelloTab<DATA_MODEL, VIEW_MODEL> pSuperTab) {
     super(pParentPanel);
     superTab = pSuperTab;
+  }
+
+  /**
+   * Returns configuration of this mimic, specified annotation may be null.
+   *
+   * @param         pAnnotation  The specified annotation, may be null.
+   *
+   * @return        Configuration of this mimic.
+   *
+   * @jalopy.group  group-initialization
+   */
+  @Override
+  protected MmConfigurationLeporelloTab onConstructConfiguration(MmLeporelloTabAnnotation pAnnotation) {
+    if (pAnnotation != null) {
+      return new MmConfigurationLeporelloTab(pAnnotation);
+    } else {
+      return new MmConfigurationLeporelloTab();
+    }
+  }
+
+  /**
+   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
+   *
+   * @return        A new MmJsfBridge for this mimic.
+   *
+   * @jalopy.group  group-initialization
+   */
+  @Override
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
+    return new MmJsfBridgeLeporelloTab(this);
+  }
+
+  /**
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
+   * super.onInitialization()!
+   *
+   * @jalopy.group  group-initialization
+   */
+  @Deprecated
+  @Override
+  protected void onInitialization() {
+    super.onInitialization();
+
+    // TODO MmImplementationLeporelloTab move this into constructor and delete initialize method here
+    parentLeporello = getMmImplementationAncestorOfType(MmImplementationLeporello.class);
   }
 
   /**
@@ -94,93 +142,6 @@ public class MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
   }
 
   /**
-   * Returns the link's viewside value of type String.
-   *
-   * @return  The link's viewside value of type String.
-   */
-  @Override
-  public String getMmViewsideValue() {
-    assureInitialization();
-
-    // retrieve modelside value
-    final LINK_MODEL linkModel      = getMmLinkModelValue();
-
-    final Object     modelsideValue = (linkModel instanceof MmInformationable) //
-      ? ((MmInformationable)linkModel).getInfo() //
-      : linkModel;
-
-    // if model is an array of objects
-    if (modelsideValue instanceof Object[]) {
-
-      // translate enum values to i18n strings before, because MessageFormat shall not do this
-      for (int index = 0; index < ((Object[])modelsideValue).length; index++) {
-        final Object modelsideObject = ((Object[])modelsideValue)[index];
-        if (modelsideObject instanceof Enum<?>) {
-          final String i18nEnumValue = formatModelsideValue(modelsideObject);
-          ((Object[])modelsideValue)[index] = i18nEnumValue;
-        }
-      }
-
-      // modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
-      // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-      final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, (Object[])modelsideValue);
-      return i18nViewsideValue;
-
-      // if model is a single object
-    } else {
-
-      // return empty String for null value
-      if (modelsideValue == null) {
-        return "";
-
-        // pass through Strings
-      } else if (modelsideValue instanceof String) {
-        return (String)modelsideValue;
-
-        // i18n single enums
-      } else if (modelsideValue instanceof Enum<?>) {
-
-        // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewsideValue = formatModelsideValue(modelsideValue);
-        return i18nViewsideValue;
-
-        // format Instant values
-      } else if (modelsideValue instanceof Instant) {
-
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((Instant)modelsideValue));
-        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
-        return formattedViewsideValue;
-
-        // format LocalDate values
-      } else if (modelsideValue instanceof LocalDate) {
-
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDate)modelsideValue).atStartOfDay(ZoneId.of("UTC")).toInstant());
-        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
-        return formattedViewsideValue;
-
-        // format LocalDateTime values
-      } else if (modelsideValue instanceof LocalDateTime) {
-
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDateTime)modelsideValue).toInstant(ZoneOffset.UTC));
-        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
-        return formattedViewsideValue;
-
-        // format ZonedDateTime values
-      } else if (modelsideValue instanceof ZonedDateTime) {
-
-        final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)modelsideValue).toInstant());
-        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
-        return formattedViewsideValue;
-
-        // all other single objects translate to i18n
-      } else {
-        final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, modelsideValue);
-        return i18nViewsideValue;
-      }
-    }
-  }
-
-  /**
    * Returns the view tab of this leporello panel tab.
    *
    * @return  The view tab of this leporello panel tab.
@@ -190,6 +151,94 @@ public class MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
 
     // TODO MmImplementationLeporelloTab getMmViewTab
     return null;
+  }
+
+  /**
+   * Returns view text of the link.
+   *
+   * @return  The view text of the link.
+   */
+  @Override
+  public String getMmViewValue() {
+    assureInitialization();
+
+    // retrieve view model
+    final VIEW_MODEL viewModel = getMmViewModelValue();
+
+    // retrieve data model
+    final Object     dataModel = (viewModel instanceof MmInformationable) //
+      ? ((MmInformationable)viewModel).getInfo() //
+      : viewModel;
+
+    // if model is an array of objects
+    if (dataModel instanceof Object[]) {
+
+      // translate enum values to i18n strings before, because MessageFormat shall not do this
+      for (int index = 0; index < ((Object[])dataModel).length; index++) {
+        final Object modelsideObject = ((Object[])dataModel)[index];
+        if (modelsideObject instanceof Enum<?>) {
+          final String i18nEnumValue = formatModelsideValue(modelsideObject);
+          ((Object[])dataModel)[index] = i18nEnumValue;
+        }
+      }
+
+      // modelside keeps an Object[], but because it is of type Object, java still interprets it to be just one object
+      // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
+      final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, (Object[])dataModel);
+      return i18nViewsideValue;
+
+      // if model is a single object
+    } else {
+
+      // return empty String for null value
+      if (dataModel == null) {
+        return "";
+
+        // pass through Strings
+      } else if (dataModel instanceof String) {
+        return (String)dataModel;
+
+        // i18n single enums
+      } else if (dataModel instanceof Enum<?>) {
+
+        // translate enum values to i18n strings before, because MessageFormat shall not do this
+        final String i18nViewsideValue = formatModelsideValue(dataModel);
+        return i18nViewsideValue;
+
+        // format Instant values
+      } else if (dataModel instanceof Instant) {
+
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((Instant)dataModel));
+        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
+        return formattedViewsideValue;
+
+        // format LocalDate values
+      } else if (dataModel instanceof LocalDate) {
+
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDate)dataModel).atStartOfDay(ZoneId.of("UTC")).toInstant());
+        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
+        return formattedViewsideValue;
+
+        // format LocalDateTime values
+      } else if (dataModel instanceof LocalDateTime) {
+
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((LocalDateTime)dataModel).toInstant(ZoneOffset.UTC));
+        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
+        return formattedViewsideValue;
+
+        // format ZonedDateTime values
+      } else if (dataModel instanceof ZonedDateTime) {
+
+        final Date   modelsideValueAsJavaUtilDate = Date.from(((ZonedDateTime)dataModel).toInstant());
+        final String formattedViewsideValue       = formatModelsideValue(modelsideValueAsJavaUtilDate);
+        return formattedViewsideValue;
+
+        // all other single objects translate to i18n
+      } else {
+        final String i18nViewsideValue = getMmI18nText(MmMessageType.SHORT, dataModel);
+        return i18nViewsideValue;
+      }
+    }
   }
 
   /**
@@ -207,14 +256,14 @@ public class MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
     } else if (selectedTab == thisDeclaration) {
       return true;
     } else {
-      final MmImplementationLeporelloTab<?, LINK_MODEL> selectedTabImplementation = MmBaseImplementation.getImplementation(selectedTab);
-      MmLeporelloTab<?, LINK_MODEL>                     superTabOfSelected        = selectedTabImplementation.superTab;
+      final MmImplementationLeporelloTab<?, VIEW_MODEL> selectedTabImplementation = MmBaseImplementation.getImplementation(selectedTab);
+      MmLeporelloTab<?, VIEW_MODEL>                     superTabOfSelected        = selectedTabImplementation.superTab;
       while (superTabOfSelected != null) {
         if (thisDeclaration == superTabOfSelected) {
           return true;
         }
 
-        final MmImplementationLeporelloTab<?, LINK_MODEL> superTabOfSelectedImplementation = MmBaseImplementation.getImplementation(
+        final MmImplementationLeporelloTab<?, VIEW_MODEL> superTabOfSelectedImplementation = MmBaseImplementation.getImplementation(
             superTabOfSelected);
         superTabOfSelected = superTabOfSelectedImplementation.superTab;
       }
@@ -233,45 +282,6 @@ public class MmImplementationLeporelloTab<MODELSIDE_VALUE, LINK_MODEL>
     final MmLeporelloTab<?, ?> thisDeclaration = (MmLeporelloTab<?, ?>)declaration;
     final MmLeporelloTab<?, ?> selectedTab     = parentLeporello.getMmSelectedTab();
     return (thisDeclaration == selectedTab);
-  }
-
-  /**
-   * Returns configuration of this mimic, specified annotation may be null.
-   *
-   * @param   pAnnotation  The specified annotation, may be null.
-   *
-   * @return  Configuration of this mimic.
-   */
-  @Override
-  protected MmConfigurationLeporelloTab onConstructConfiguration(MmLeporelloTabAnnotation pAnnotation) {
-    if (pAnnotation != null) {
-      return new MmConfigurationLeporelloTab(pAnnotation);
-    } else {
-      return new MmConfigurationLeporelloTab();
-    }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeLeporelloTab(this);
-  }
-
-  /**
-   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
-   * super.onInitialization()!
-   */
-  @Deprecated
-  @Override
-  protected void onInitialization() {
-    super.onInitialization();
-
-    // TODO MmImplementationLeporelloTab move this into constructor and delete initialize method here
-    parentLeporello = getMmImplementationAncestorOfType(MmImplementationLeporello.class);
   }
 
 }

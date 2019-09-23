@@ -4,8 +4,6 @@ import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab.MmLeporelloTabJsfTag;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTabAnnotation;
 
-import org.springframework.web.util.UriComponentsBuilder;
-
 /**
  * MmConfigurationLeporelloTab contains static configuration information for mimics of type {@link MmLeporelloTab}.
  *
@@ -34,7 +32,7 @@ public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
    */
   public MmConfigurationLeporelloTab(MmLeporelloTabAnnotation pLeporelloTabAnnotation) {
     super(pLeporelloTabAnnotation.id(), pLeporelloTabAnnotation.visible(), pLeporelloTabAnnotation.readOnly(),
-      pLeporelloTabAnnotation.enabled(), UriComponentsBuilder.fromPath(pLeporelloTabAnnotation.targetOutcome()).build());
+      pLeporelloTabAnnotation.enabled(), pLeporelloTabAnnotation.targetReferencePath());
     jsfTag = pLeporelloTabAnnotation.jsfTag();
   }
 

@@ -78,7 +78,7 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
   }
 
   /**
-   * Returns a reference to some target, either an URL or an outcome.
+   * Returns a target URI.
    *
    * @return  A reference to some target.
    */

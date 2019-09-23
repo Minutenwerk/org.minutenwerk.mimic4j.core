@@ -4,8 +4,6 @@ import org.minutenwerk.mimic4j.api.link.MmLink;
 import org.minutenwerk.mimic4j.api.link.MmLink.MmLinkJsfTag;
 import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
 
-import org.springframework.web.util.UriComponentsBuilder;
-
 /**
  * MmConfigurationLink contains static configuration information for mimics of type {@link MmLink}.
  *
@@ -34,7 +32,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
    */
   public MmConfigurationLink(MmLinkAnnotation pLinkAnnotation) {
     super(pLinkAnnotation.id(), pLinkAnnotation.visible(), pLinkAnnotation.readOnly(), pLinkAnnotation.enabled(),
-      UriComponentsBuilder.fromPath(pLinkAnnotation.targetOutcome()).build());
+      pLinkAnnotation.targetReferencePath());
     jsfTag = pLinkAnnotation.jsfTag();
   }
 
