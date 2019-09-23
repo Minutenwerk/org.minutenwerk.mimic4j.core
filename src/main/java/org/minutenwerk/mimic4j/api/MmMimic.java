@@ -10,8 +10,8 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-ro, group-enabled,
- *                      group-short, group-long, group-style, group-model, group-reference
+ * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-ro, group-enabled, group-short,
+ *                      group-long, group-style, group-model, group-reference
  */
 public interface MmMimic {
 
@@ -106,15 +106,6 @@ public interface MmMimic {
   public boolean isMmEnabled();
 
   /**
-   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
-   *
-   * @return        <code>True</code>, if a model instance is currently present.
-   *
-   * @jalopy.group  group-model
-   */
-  public boolean isMmModelPresent();
-
-  /**
    * Returns a short description. The short description is evaluated from callback method
    * {@link MmBaseCallback#callbackMmGetShortDescription()}. If {@link MmCallback#callbackMmGetShortDescription())} returns null, the short
    * description is evaluated from configuration attribute {@link MmBaseConfiguration#shortDescription()}.
@@ -154,6 +145,15 @@ public interface MmMimic {
    * @jalopy.group  group-style
    */
   public String getMmStyleClasses();
+
+  /**
+   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
+   *
+   * @return        <code>True</code>, if a model instance is currently present.
+   *
+   * @jalopy.group  group-model
+   */
+  public boolean isMmModelPresent();
 
   /**
    * Returns the self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
