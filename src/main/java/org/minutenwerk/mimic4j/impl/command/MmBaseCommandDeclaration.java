@@ -1,15 +1,17 @@
 package org.minutenwerk.mimic4j.impl.command;
 
+import java.net.URI;
+
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmExecutableMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
-import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.command.MmCommand.MmCommandJsfTag;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmBaseCommandDeclaration is an abstract base class for command mimics.
@@ -76,22 +78,20 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    * @jalopy.group  group-callback
    */
   @Override
-  public String callbackMmGetTargetOutcome(String pPassThroughValue) {
+  public UriComponents callbackMmGetTargetOutcome(UriComponents pPassThroughValue) {
     return pPassThroughValue;
   }
 
   /**
-   * Returns a list of URL parameters to be concatenated to target reference. May be used in combination with callbackMmGetTargetOutcome().
+   * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
    *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   * @param         pModel             A referencable data model providing a list of reference values.
+   * @param   pPassThroughValue  By default this parameter value will be returned.
+   * @param   pModel             The model data, which may control the query string.
    *
-   * @return        A list of URL parameters to be concatenated to target reference.
-   *
-   * @jalopy.group  group-callback
+   * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.
    */
   @Override
-  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel) {
+  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, MmReferencableModel pModel) {
     return pPassThroughValue;
   }
 
@@ -113,7 +113,7 @@ public abstract class MmBaseCommandDeclaration extends MmBaseDeclaration<MmExecu
    * @jalopy.group  group-override
    */
   @Override
-  public final MmReference getMmTargetReference() {
+  public final URI getMmTargetReference() {
     return implementation.getMmTargetReference();
   }
 

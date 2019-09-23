@@ -38,6 +38,7 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    *
    * @return  Parent model of the accessed model.
    */
+  // TODO rename to getParentModel
   public PARENT_MODEL getParent();
 
   /**
@@ -127,5 +128,6 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    *
    * @return  The parent.
    */
+  // TODO remove
   public PARENT_MODEL with(MODEL value);
 }

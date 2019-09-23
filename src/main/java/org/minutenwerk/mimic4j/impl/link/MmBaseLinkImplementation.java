@@ -5,6 +5,8 @@ import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.net.URI;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -18,7 +20,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -31,18 +32,16 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmInformationable;
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
-import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmModelsideConverterException;
-import org.minutenwerk.mimic4j.api.link.MmReferenceParam;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
-import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmBaseLinkImplementation is the abstract base class for the implementation part of all link mimic classes.
@@ -84,32 +83,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
    */
   public MmBaseLinkImplementation(final MmDeclarationMimic pParent) {
     super(pParent);
-  }
-
-  /**
-   * Returns a list of name/ value parameters for a specified list of reference values, the names are rootId, subId1, subId2, ...
-   *
-   * @param   pModel  A referencable data model providing a list of reference values.
-   *
-   * @return  A list of name/ value parameters for a specified list of reference values, the names are rootId, subId1, subId2, ...
-   */
-  public static List<MmNameValue> getMmModelParams(MmReferencableModel pModel) {
-    final List<String> referenceValues = (pModel != null) ? pModel.getMmReferenceValues() : null;
-    if ((referenceValues == null) || referenceValues.isEmpty()) {
-      return Collections.emptyList();
-    } else {
-      final List<MmNameValue> modelReferenceValues = new ArrayList<>();
-      int                     index                = 0;
-      for (String referenceValue : referenceValues) {
-        if (index == 0) {
-          modelReferenceValues.add(new MmReferenceParam("rootId", referenceValue));
-        } else {
-          modelReferenceValues.add(new MmReferenceParam("subId" + index, referenceValue));
-        }
-        index++;
-      }
-      return modelReferenceValues;
-    }
   }
 
   /**
@@ -226,10 +199,10 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
    * @jalopy.group  group-override
    */
   @Override
-  public MmReference getMmTargetReference() {
+  public URI getMmTargetReference() {
     assureInitialization();
 
-    MmReference           targetReference = null;
+    URI                   targetReference = null;
     final MmMimic         targetMimic     = declaration.callbackMmGetTargetMimic(null);
 
     // retrieve model
@@ -246,32 +219,32 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
       // if link references another mimic for a specified raw data model
     } else if ((targetMimic != null) && (model != null)) {
 
-      // TODO final List<MmNameValue> targetReferenceParams = targetMimic.callbackMmGetTargetReferenceParams(Collections.emptyList(),
+      // TODO final List<String> targetReferenceParams = targetMimic.callbackMmGetTargetReferenceValues(Collections.emptyList(),
       // model);
       return null;
 
       // if link references an URL without a specified data model
     } else if ((targetMimic == null) && (model == null)) {
-      final String            configurationOutcome  = configuration.getTargetOutcome();
-      final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<MmNameValue> emptyList             = Collections.emptyList();
-      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(emptyList, null);
-      targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
+      final UriComponents configurationOutcome  = configuration.getTargetOutcome();
+      final UriComponents callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
+      final List<String>  emptyList             = Collections.emptyList();
+      final List<String>  targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(emptyList, null);
+      targetReference = callbackOutcome.expand(targetReferenceParams).toUri();
 
       // if link references an URL for a specified referencable data model
     } else if ((targetMimic == null) && (model != null) && (model instanceof MmReferencableModel)) {
-      final String            configurationOutcome  = configuration.getTargetOutcome();
-      final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<MmNameValue> modelReferenceParams  = getMmModelParams((MmReferencableModel)model);
-      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(modelReferenceParams, model);
-      targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
+      final UriComponents configurationOutcome  = configuration.getTargetOutcome();
+      final UriComponents callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
+      final List<String>  modelReferenceParams  = ((MmReferencableModel)model).getMmReferenceValues();
+      final List<String>  targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(modelReferenceParams, model);
+      targetReference = callbackOutcome.expand(targetReferenceParams).toUri();
 
       // if link references an URL for a specified raw data model
     } else if ((targetMimic == null) && (model != null)) {
-      final String            configurationOutcome  = configuration.getTargetOutcome();
-      final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(Collections.emptyList(), model);
-      targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
+      final UriComponents configurationOutcome  = configuration.getTargetOutcome();
+      final UriComponents callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
+      final List<String>  targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(Collections.emptyList(), model);
+      targetReference = callbackOutcome.expand(targetReferenceParams).toUri();
     }
     return targetReference;
   }

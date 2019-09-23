@@ -3,10 +3,11 @@ package org.minutenwerk.mimic4j.impl.command;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.command.MmCommand.MmCommandJsfTag;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmCommandCallback defines a set of override-able methods common to all command mimics. Callback methods are part of the declaration API
@@ -48,7 +49,7 @@ public interface MmCommandCallback extends MmBaseCallback {
    *
    * @return  A string referencing a target, either an URL or an outcome
    */
-  public String callbackMmGetTargetOutcome(String pPassThroughValue);
+  public UriComponents callbackMmGetTargetOutcome(UriComponents pPassThroughValue);
 
   /**
    * Returns a list of URL parameters to be concatenated to target reference. May be used in combination with callbackMmGetTargetOutcome().
@@ -58,6 +59,6 @@ public interface MmCommandCallback extends MmBaseCallback {
    *
    * @return  A list of URL parameters to be concatenated to target reference.
    */
-  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MmReferencableModel pModel);
+  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, MmReferencableModel pModel);
 
 }

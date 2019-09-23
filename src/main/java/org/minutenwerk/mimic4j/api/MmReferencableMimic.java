@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
+import org.springframework.web.util.UriComponents;
+
 /**
  * MmReferencableMimic is a MmContainerMimic (containing other mimics of type MmEditableMimic) being referencable by an url.
  *
@@ -8,18 +10,10 @@ package org.minutenwerk.mimic4j.api;
 public interface MmReferencableMimic<MODEL extends MmReferencableModel> extends MmContainerMimic<MODEL> {
 
   /**
-   * Returns the file part of the URL without slashes, like "display.html" in "person/wohnort/display.html#plz?rootId=1&subId=2".
+   * Returns the path part of the URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
    *
-   * @return  The file part of the URL without slashes.
+   * @return  The path part of the URL.
    */
-  public String getMmReferenceFile();
-
-  /**
-   * Returns the path part of the URL including trailing slash but without base part, like "person/wohnort/" in
-   * "person/wohnort/display.html#plz?rootId=1&subId=2".
-   *
-   * @return  The path part of the URL including trailing slash but without base part.
-   */
-  public String getMmReferencePath();
+  public UriComponents getMmReferencePath();
 
 }

@@ -1,9 +1,10 @@
 package org.minutenwerk.mimic4j.impl;
 
+import java.net.URI;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
-import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 
@@ -185,7 +186,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @jalopy.group  group-override
    */
   @Override
-  public final MmReference getMmReference() {
+  public final URI getMmReference() {
     return implementation.getMmReference();
   }
 
@@ -199,7 +200,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @jalopy.group  group-override
    */
   @Override
-  public final MmReference getMmReference(MmReferencableModel pModel) {
+  public final URI getMmReference(MmReferencableModel pModel) {
     return implementation.getMmReference(pModel);
   }
 

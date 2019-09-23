@@ -6,6 +6,9 @@ import org.minutenwerk.mimic4j.api.command.MmCommand.MmCommandJsfTag;
 import org.minutenwerk.mimic4j.api.command.MmCommandAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 /**
  * MmConfigurationCommand contains static configuration information for mimics of type {@link MmCommand}.
  *
@@ -23,7 +26,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
   public static final MmCommandJsfDisabled DEFAULT_JSF_TAG_DISABLED = MmCommandJsfDisabled.SameAsEnabled;
 
   /** A string referencing a target, either an URL or an outcome. */
-  protected String                         targetOutcome;
+  protected UriComponents                  targetOutcome;
 
   /** The configuration of JSF tag in enabled state. */
   protected MmCommandJsfTag                jsfTag;
@@ -36,7 +39,8 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    */
   public MmConfigurationCommand() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    targetOutcome  = DEFAULT_TARGET_OUTCOME;
+    targetOutcome = UriComponentsBuilder.fromPath(DEFAULT_TARGET_OUTCOME).build();
+    ;
     jsfTag         = DEFAULT_JSF_TAG;
     jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }
@@ -48,7 +52,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    */
   public MmConfigurationCommand(MmCommandAnnotation pCommandAnnotation) {
     super(pCommandAnnotation.id(), pCommandAnnotation.visible(), pCommandAnnotation.readOnly(), pCommandAnnotation.enabled());
-    targetOutcome  = pCommandAnnotation.targetOutcome();
+    targetOutcome  = UriComponentsBuilder.fromPath(pCommandAnnotation.targetOutcome()).build();
     jsfTag         = pCommandAnnotation.jsfTag();
     jsfTagDisabled = pCommandAnnotation.jsfTagDisabled();
   }
@@ -78,7 +82,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    *
    * @return  A string referencing a target, either an URL or an outcome
    */
-  public String getTargetOutcome() {
+  public UriComponents getTargetOutcome() {
     return targetOutcome;
   }
 
@@ -96,7 +100,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    *
    * @param  pTargetOutcome  A string referencing a target.
    */
-  public void setTargetOutcome(String pTargetOutcome) {
+  public void setTargetOutcome(UriComponents pTargetOutcome) {
     targetOutcome = pTargetOutcome;
   }
 

@@ -3,9 +3,10 @@ package org.minutenwerk.mimic4j.impl.link;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmLinkCallback defines a set of override-able methods common to all link mimics. Callback methods are part of the declaration API of
@@ -64,7 +65,7 @@ public interface MmLinkCallback<MODELSIDE_VALUE, LINK_MODEL> extends MmBaseCallb
    *
    * @return  A string referencing a target, either an URL or an outcome
    */
-  public String callbackMmGetTargetOutcome(String pPassThroughValue);
+  public UriComponents callbackMmGetTargetOutcome(UriComponents pPassThroughValue);
 
   /**
    * Returns a list of URL parameters to be concatenated to target reference. May be used in combination with callbackMmGetTargetOutcome().
@@ -74,6 +75,6 @@ public interface MmLinkCallback<MODELSIDE_VALUE, LINK_MODEL> extends MmBaseCallb
    *
    * @return  A list of URL parameters to be concatenated to target reference.
    */
-  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MODELSIDE_VALUE pModel);
+  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, MODELSIDE_VALUE pModel);
 
 }

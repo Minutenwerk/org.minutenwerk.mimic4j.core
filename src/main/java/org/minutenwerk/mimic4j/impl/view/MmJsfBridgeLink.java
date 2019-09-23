@@ -1,6 +1,7 @@
 package org.minutenwerk.mimic4j.impl.view;
 
-import org.minutenwerk.mimic4j.api.MmReference;
+import java.net.URI;
+
 import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
 
 /**
@@ -25,7 +26,7 @@ public class MmJsfBridgeLink extends MmJsfBridge<MmImplementationLink<?, ?>, Str
    * @return  A reference to some target.
    */
   @Override
-  public MmReference getTargetReference() {
+  public URI getTargetReference() {
     return implementation.getMmTargetReference();
   }
 

@@ -1,9 +1,12 @@
 package org.minutenwerk.mimic4j.api;
 
+import java.net.URI;
+
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 
 /**
- * MmCompositeMimic defines mimics which can be nested following the composite design pattern.
+ * MmLinkMimic is a mimic with two models, one model delivers the modelside value for dynamic parts of URL, the link model delivers the text
+ * of the link.
  *
  * @param   <MODELSIDE_VALUE>  Modelside value delivers dynamic parts of URL.
  * @param   <LINK_MODEL>       Link model delivers text of link.
@@ -52,7 +55,7 @@ public interface MmLinkMimic<MODELSIDE_VALUE, LINK_MODEL> extends MmMimic {
    *
    * @return  A reference to some target.
    */
-  public MmReference getMmTargetReference();
+  public URI getMmTargetReference();
 
   /**
    * Returns the link's viewside value of type String.

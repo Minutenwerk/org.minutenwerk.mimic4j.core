@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.impl.command;
 
+import java.net.URI;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -9,14 +11,13 @@ import org.apache.logging.log4j.Logger;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmExecutableMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmNameValue;
-import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.command.MmCommand.MmCommandJsfTag;
 import org.minutenwerk.mimic4j.api.command.MmCommandAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
-import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeCommand;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmImplementationCommand is the specific class for the implementation part of command mimics.
@@ -81,10 +82,10 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    * @return  A reference to some target.
    */
   @Override
-  public MmReference getMmTargetReference() {
+  public URI getMmTargetReference() {
     assureInitialization();
 
-    MmReference   targetReference = null;
+    URI           targetReference = null;
     final MmMimic targetMimic     = declaration.callbackMmGetTargetMimic(null);
 
     // if link references another mimic
@@ -93,11 +94,11 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
 
       // if link references an URL
     } else {
-      final String            configurationOutcome  = configuration.getTargetOutcome();
-      final String            callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<MmNameValue> emptyList             = Collections.emptyList();
-      final List<MmNameValue> targetReferenceParams = declaration.callbackMmGetTargetReferenceParams(emptyList, null);
-      targetReference = new MmReferenceImplementation(callbackOutcome, targetReferenceParams);
+      final UriComponents configurationOutcome  = configuration.getTargetOutcome();
+      final UriComponents callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
+      final List<String>  emptyList             = Collections.emptyList();
+      final List<String>  targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(emptyList, null);
+      targetReference = callbackOutcome.expand(targetReferenceParams).toUri();
     }
     return targetReference;
   }

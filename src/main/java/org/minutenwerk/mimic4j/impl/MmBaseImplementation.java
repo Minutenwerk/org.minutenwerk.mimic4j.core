@@ -6,6 +6,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
+import java.net.URI;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,7 +21,6 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
-import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.composite.MmRoot;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
@@ -28,8 +29,9 @@ import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
 import org.minutenwerk.mimic4j.impl.composite.MmImplementationRoot;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
-import org.minutenwerk.mimic4j.impl.referencable.MmReferenceImplementation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmBaseImplementation is the abstract base class for the implementation part of all mimic classes.
@@ -687,7 +689,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   @Override
-  public MmReference getMmReference() {
+  public URI getMmReference() {
     assureInitialization();
 
     // if no referencable ancestor is available, no reference can be returned
@@ -696,14 +698,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // create an own reference from anchestor reference and own anchor
     } else {
-      final MmReference ancestorReference = referencableAncestor.getMmReference();
-      if (ancestorReference.isMmJsfOutcome()) {
-        return ancestorReference;
-      } else {
-        final String      anchor          = "#" + getMmId();
-        final MmReference returnReference = new MmReferenceImplementation(ancestorReference, anchor);
-        return returnReference;
-      }
+      final UriComponents ancestorReference = referencableAncestor.getMmReferencePath();
+
+      // TODO referenceValues of this
+      final List<String>  referenceValues   = null;
+      final String        anchor            = "#" + getMmId();
+      final URI           returnReference   = ancestorReference.expand(referenceValues).toUri();
+      return returnReference;
     }
   }
 
@@ -717,7 +718,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   @Override
-  public MmReference getMmReference(MmReferencableModel pModel) {
+  public URI getMmReference(MmReferencableModel pModel) {
     assureInitialization();
 
     // if no referencable ancestor is available, no reference can be returned
@@ -726,14 +727,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // create an own reference from anchestor reference for specified model, and own anchor
     } else {
-      final MmReference ancestorReference = referencableAncestor.getMmReference(pModel);
-      if (ancestorReference.isMmJsfOutcome()) {
-        return ancestorReference;
-      } else {
-        final String      anchor          = "#" + getMmId();
-        final MmReference returnReference = new MmReferenceImplementation(ancestorReference, anchor);
-        return returnReference;
-      }
+      final UriComponents ancestorReference = referencableAncestor.getMmReferencePath();
+
+      // TODO referenceValues from pModel
+      final List<String>  referenceValues   = null;
+      final String        anchor            = "#" + getMmId();
+      final URI           returnReference   = ancestorReference.expand(referenceValues).toUri();
+      return returnReference;
     }
   }
 

@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
+import java.net.URI;
+
 /**
  * MmExecutableMimic defines a mimic which controls execution of actions.
  *
@@ -19,6 +21,6 @@ public interface MmExecutableMimic extends MmMimic {
    *
    * @return  A reference to some target.
    */
-  public MmReference getMmTargetReference();
+  public URI getMmTargetReference();
 
 }

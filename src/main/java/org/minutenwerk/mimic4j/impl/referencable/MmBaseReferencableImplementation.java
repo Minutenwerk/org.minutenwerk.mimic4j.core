@@ -2,16 +2,17 @@ package org.minutenwerk.mimic4j.impl.referencable;
 
 import java.lang.annotation.Annotation;
 
+import java.net.URI;
+
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
-import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
-import org.minutenwerk.mimic4j.impl.link.MmBaseLinkImplementation;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmBaseReferencableImplementation is the implementation part of a MmContainerMimic being referencable by an url.
@@ -26,13 +27,13 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
   extends MmBaseContainerImplementation<DECLARATION, MODEL, CONFIGURATION, ANNOTATION> implements MmReferencableMimic<MODEL> {
 
   /** Cached instance of self reference. */
-  protected MmReference cachedReference;
+  protected URI   cachedReference;
 
   /** Cached instance of foreign reference. */
-  protected MmReference foreignReference;
+  protected URI   foreignReference;
 
   /** Cached instance of foreign model. */
-  protected MODEL       foreignModel;
+  protected MODEL foreignModel;
 
   /**
    * Creates a new MmBaseReferencableImplementation instance.
@@ -61,7 +62,7 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * @jalopy.group  group-override
    */
   @Override
-  public MmReference getMmReference() {
+  public URI getMmReference() {
     assureInitialization();
 
     if (cachedReference == null) {
@@ -80,18 +81,17 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * @jalopy.group  group-override
    */
   @Override
-  public MmReference getMmReference(MmReferencableModel pModel) {
+  public URI getMmReference(MmReferencableModel pModel) {
     assureInitialization();
 
     @SuppressWarnings("unchecked")
     final MODEL castedModel = (MODEL)pModel;
 
     if (!pModel.equals(foreignModel)) {
-      final String            path            = getMmReferencePath();
-      final String            file            = getMmReferenceFile();
-      final List<MmNameValue> modelParams     = MmBaseLinkImplementation.getMmModelParams(castedModel);
-      final List<MmNameValue> callbackParams  = declaration.callbackMmGetReferenceParams(modelParams, modelAccessor.get());
-      final MmReference       returnReference = new MmReferenceImplementation(path, file, callbackParams);
+      final UriComponents path            = getMmReferencePath();
+      final List<String>  modelParams     = castedModel.getMmReferenceValues();
+      final List<String>  callbackParams  = declaration.callbackMmGetReferenceValues(modelParams, modelAccessor.get());
+      final URI           returnReference = path.expand(callbackParams).toUri();
 
       foreignModel     = castedModel;
       foreignReference = returnReference;
@@ -103,12 +103,11 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * Evaluates and caches the self reference of this mimic.
    */
   protected void evaluateAndCacheReference() {
-    final String            path           = getMmReferencePath();
-    final String            file           = getMmReferenceFile();
-    final List<MmNameValue> modelParams    = MmBaseLinkImplementation.getMmModelParams(modelAccessor.get());
-    final List<MmNameValue> callbackParams = declaration.callbackMmGetReferenceParams(modelParams, modelAccessor.get());
+    final UriComponents path           = getMmReferencePath();
+    final List<String>  modelParams    = modelAccessor.get().getMmReferenceValues();
+    final List<String>  callbackParams = declaration.callbackMmGetReferenceValues(modelParams, modelAccessor.get());
 
-    cachedReference = new MmReferenceImplementation(path, file, callbackParams);
+    cachedReference = path.expand(callbackParams).toUri();
   }
 
 }

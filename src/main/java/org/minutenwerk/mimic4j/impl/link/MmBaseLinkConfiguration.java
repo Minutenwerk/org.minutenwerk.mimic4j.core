@@ -2,6 +2,9 @@ package org.minutenwerk.mimic4j.impl.link;
 
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 /**
  * MmBaseAttributeConfiguration is the abstract base class for configuration of all link mimic classes.
  *
@@ -13,7 +16,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
   public static final String DEFAULT_TARGET_OUTCOME = "";
 
   /** A string referencing a target, either an URL or an outcome. */
-  protected String           targetOutcome;
+  protected UriComponents    targetOutcome;
 
   /**
    * Creates a new MmBaseLinkConfiguration instance from annotation.
@@ -25,7 +28,8 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    */
   public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled) {
     super(pId, pVisible, pReadOnly, pEnabled);
-    targetOutcome = DEFAULT_TARGET_OUTCOME;
+    targetOutcome = UriComponentsBuilder.fromPath(DEFAULT_TARGET_OUTCOME).build();
+    ;
   }
 
   /**
@@ -37,7 +41,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * @param  pEnabled        True, if HTML tag of mimic is rendered enabled.
    * @param  pTargetOutcome  A string referencing some target, either an URL or an outcome.
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetOutcome) {
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, UriComponents pTargetOutcome) {
     super(pId, pVisible, pReadOnly, pEnabled);
     targetOutcome = pTargetOutcome;
   }
@@ -47,7 +51,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    *
    * @return  A string referencing a target, either an URL or an outcome
    */
-  public String getTargetOutcome() {
+  public UriComponents getTargetOutcome() {
     return targetOutcome;
   }
 
@@ -56,7 +60,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    *
    * @param  pTargetOutcome  A string referencing a target.
    */
-  public void setTargetOutcome(String pTargetOutcome) {
+  public void setTargetOutcome(UriComponents pTargetOutcome) {
     targetOutcome = pTargetOutcome;
   }
 }

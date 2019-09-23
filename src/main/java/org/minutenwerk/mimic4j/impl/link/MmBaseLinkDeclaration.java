@@ -1,13 +1,15 @@
 package org.minutenwerk.mimic4j.impl.link;
 
+import java.net.URI;
+
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmNameValue;
-import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmBaseLinkDeclaration is the base class for link mimics.
@@ -94,7 +96,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public String callbackMmGetTargetOutcome(String pPassThroughValue) {
+  public UriComponents callbackMmGetTargetOutcome(UriComponents pPassThroughValue) {
     return pPassThroughValue;
   }
 
@@ -109,7 +111,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public List<MmNameValue> callbackMmGetTargetReferenceParams(List<MmNameValue> pPassThroughValue, MODELSIDE_VALUE pModel) {
+  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, MODELSIDE_VALUE pModel) {
     return pPassThroughValue;
   }
 
@@ -169,7 +171,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-override
    */
   @Override
-  public final MmReference getMmTargetReference() {
+  public final URI getMmTargetReference() {
     return implementation.getMmTargetReference();
   }
 

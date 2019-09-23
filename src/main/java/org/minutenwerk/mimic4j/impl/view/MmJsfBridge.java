@@ -1,11 +1,12 @@
 package org.minutenwerk.mimic4j.impl.view;
 
+import java.net.URI;
+
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.minutenwerk.mimic4j.api.MmReference;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
@@ -292,7 +293,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    *
    * @return  A self reference of this mimic.
    */
-  public MmReference getReference() {
+  public URI getReference() {
     return implementation.getMmReference();
   }
 
@@ -346,7 +347,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    *
    * @throws  UnsupportedOperationException  In case of the method is not supported by MmJsfBridge and its concrete subclass.
    */
-  public MmReference getTargetReference() {
+  public URI getTargetReference() {
     throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support JSF tag targetReference");
   }
 

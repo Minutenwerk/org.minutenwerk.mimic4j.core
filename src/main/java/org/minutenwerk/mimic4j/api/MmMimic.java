@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
+import java.net.URI;
+
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
@@ -52,7 +54,7 @@ public interface MmMimic {
    * @return  The self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
    *          current data model.
    */
-  public MmReference getMmReference();
+  public URI getMmReference();
 
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
@@ -61,7 +63,7 @@ public interface MmMimic {
    *
    * @return  The self reference (aka link) of this object for a specified data model.
    */
-  public MmReference getMmReference(MmReferencableModel pModel);
+  public URI getMmReference(MmReferencableModel pModel);
 
   /**
    * Returns a short description. The short description is evaluated from callback method

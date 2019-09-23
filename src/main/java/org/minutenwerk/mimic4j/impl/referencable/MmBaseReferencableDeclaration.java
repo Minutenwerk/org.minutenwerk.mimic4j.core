@@ -2,7 +2,6 @@ package org.minutenwerk.mimic4j.impl.referencable;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmNameValue;
 import org.minutenwerk.mimic4j.api.MmReferencableMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
@@ -29,15 +28,15 @@ public abstract class MmBaseReferencableDeclaration<MODEL extends MmReferencable
   }
 
   /**
-   * Returns the list of query parameters of the URL, like "rootId 1", "subId 2" in "person/wohnort/display.html#plz?rootId=1&subId=2".
+   * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    * @param   pModel             The model data, which may control the query string.
    *
-   * @return  The list of query parameters of the URL.
+   * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.
    */
   @Override
-  public List<MmNameValue> callbackMmGetReferenceParams(List<MmNameValue> pPassThroughValue, MODEL pModel) {
+  public List<String> callbackMmGetReferenceValues(List<String> pPassThroughValue, MODEL pModel) {
     return pPassThroughValue;
   }
 
