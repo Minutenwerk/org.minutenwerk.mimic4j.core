@@ -1,13 +1,13 @@
-package org.minutenwerk.mimic4j.api.composite;
+package org.minutenwerk.mimic4j.api.container;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn.MmTableColumnJsfTag;
+import org.minutenwerk.mimic4j.api.container.MmTableColumn.MmTableColumnJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
-import org.minutenwerk.mimic4j.impl.composite.MmConfigurationTableColumn;
+import org.minutenwerk.mimic4j.impl.container.MmConfigurationTableColumn;
 
 /**
  * MmTableColumnAnnotation annotates declarations of {@link MmTableColumn} by static configuration values.

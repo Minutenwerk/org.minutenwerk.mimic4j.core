@@ -1,20 +1,20 @@
 package org.minutenwerk.mimic4j.impl.view;
 
-import org.minutenwerk.mimic4j.impl.composite.MmImplementationTableColumn;
+import org.minutenwerk.mimic4j.impl.container.MmImplementationTableColumn;
 
 /**
  * MmJsfBridgeTableColumn connects a table column mimic and a JSF table column view component.
  *
  * @author  Olaf Kossak
  */
-public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableColumn, String, String> {
+public class MmJsfBridgeTableColumn extends MmJsfBridge<MmImplementationTableColumn<?>, String, String> {
 
   /**
    * Creates a new MmJsfBridgeTableColumn instance.
    *
    * @param  pImplementation  The implementation part of connected mimic.
    */
-  public MmJsfBridgeTableColumn(MmImplementationTableColumn pImplementation) {
+  public MmJsfBridgeTableColumn(MmImplementationTableColumn<?> pImplementation) {
     super(pImplementation);
   }
 

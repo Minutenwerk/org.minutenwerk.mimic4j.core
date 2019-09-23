@@ -3,7 +3,7 @@ package org.minutenwerk.mimic4j.api;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
+import org.minutenwerk.mimic4j.api.container.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 
 /**
@@ -31,7 +31,7 @@ public interface MmTableMimic<ROW_MODEL> extends MmContainerMimic<List<ROW_MODEL
    *
    * @return  The list of table column mimics.
    */
-  public List<MmTableColumn> getMmTableColumns();
+  public List<MmTableColumn<?>> getMmTableColumns();
 
   /**
    * Returns the list of table row mimics.

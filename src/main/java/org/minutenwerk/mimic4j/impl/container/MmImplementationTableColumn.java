@@ -1,23 +1,23 @@
-package org.minutenwerk.mimic4j.impl.composite;
+package org.minutenwerk.mimic4j.impl.container;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
-import org.minutenwerk.mimic4j.api.composite.MmTableColumnAnnotation;
+import org.minutenwerk.mimic4j.api.container.MmTableColumn;
+import org.minutenwerk.mimic4j.api.container.MmTableColumnAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTableColumn;
 
 /**
- * MmCompositeImplementationTableColumn is the specific class for the implementation part of table column mimics.
+ * MmImplementationTableColumn is the specific class for the implementation part of table column mimics.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationTableColumn
-  extends MmBaseCompositeImplementation<MmTableColumn, MmConfigurationTableColumn, MmTableColumnAnnotation> {
+public class MmImplementationTableColumn<MODEL>
+  extends MmBaseContainerImplementation<MmTableColumn<MODEL>, MODEL, MmConfigurationTableColumn, MmTableColumnAnnotation> {
 
   /**
-   * Creates a new MmCompositeImplementationTableColumn instance.
+   * Creates a new MmImplementationTableColumn instance.
    *
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */

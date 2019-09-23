@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.impl.thymeleaf;
 
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
+import org.minutenwerk.mimic4j.api.container.MmTableColumn;
 
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.model.AttributeValueQuotes;
@@ -12,7 +12,7 @@ import org.thymeleaf.processor.element.IElementTagStructureHandler;
  *
  * @author  Olaf Kossak
  */
-public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn> {
+public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn<?>> {
 
   /**
    * Creates a new MmTableColumnProcessor instance.
@@ -30,7 +30,7 @@ public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn> {
    */
   @Override
   protected void doProcess(ITemplateContext context, IProcessableElementTag tag, IElementTagStructureHandler out) {
-    MmTableColumn mimic = evaluateMimic(context, tag, out);
+    MmTableColumn<?> mimic = evaluateMimic(context, tag, out);
     processId(mimic, context, tag, out);
     LOGGER.info("table column id = " + mimic.getMmId());
 
@@ -48,7 +48,7 @@ public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn> {
    * @param  out      TODOC
    */
   @Override
-  protected void processStyleClasses(MmTableColumn mimic, ITemplateContext context, IProcessableElementTag tag,
+  protected void processStyleClasses(MmTableColumn<?> mimic, ITemplateContext context, IProcessableElementTag tag,
     IElementTagStructureHandler out) {
     // TODO merge style classes without duplicates
     String outStyleClasses = mimic.getMmHeaderClasses();

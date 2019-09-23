@@ -10,7 +10,7 @@ import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporelloPanel;
 
 /**
- * MmLeporelloPanel is a composite mimic to represent a leporello of tabsets.
+ * MmLeporelloPanel is a container mimic to represent a leporello of tabsets.
  *
  * @author  Olaf Kossak
  */

@@ -7,9 +7,9 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmTableMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTable;
 import org.minutenwerk.mimic4j.api.container.MmTableAnnotation;
+import org.minutenwerk.mimic4j.api.container.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
@@ -29,7 +29,7 @@ public class MmImplementationTable<ROW_MODEL>
   implements MmTableMimic<ROW_MODEL> {
 
   /** The list of table columns of this table. */
-  protected final List<MmTableColumn> tableColumns;
+  protected final List<MmTableColumn<?>> tableColumns;
 
   /**
    * Creates a new MmImplementationTable instance.
@@ -149,10 +149,12 @@ public class MmImplementationTable<ROW_MODEL>
    * @jalopy.group  group-get
    */
   @Override
-  public List<MmTableColumn> getMmTableColumns() {
+  public List<MmTableColumn<?>> getMmTableColumns() {
     assureInitialization();
 
-    return getDirectDeclarationChildrenOfType(MmTableColumn.class);
+    final List<MmTableColumn<?>> returnTableColumns = new ArrayList<>();
+    getDirectDeclarationChildrenOfType(MmTableColumn.class).stream().forEach(returnTableColumns::add);
+    return returnTableColumns;
   }
 
   /**

@@ -1,11 +1,11 @@
-package org.minutenwerk.mimic4j.impl.composite;
+package org.minutenwerk.mimic4j.impl.container;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn.MmTableColumnJsfTag;
-import org.minutenwerk.mimic4j.api.composite.MmTableColumnAnnotation;
+import org.minutenwerk.mimic4j.api.container.MmTableColumn;
+import org.minutenwerk.mimic4j.api.container.MmTableColumn.MmTableColumnJsfTag;
+import org.minutenwerk.mimic4j.api.container.MmTableColumnAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 

@@ -7,7 +7,6 @@ import org.minutenwerk.mimic4j.api.MmTableMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
-import org.minutenwerk.mimic4j.api.composite.MmTableColumn;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationTable;
@@ -98,7 +97,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<List
    * @return  The list of table column mimics.
    */
   @Override
-  public List<MmTableColumn> getMmTableColumns() {
+  public List<MmTableColumn<?>> getMmTableColumns() {
     return implementation.getMmTableColumns();
   }
 

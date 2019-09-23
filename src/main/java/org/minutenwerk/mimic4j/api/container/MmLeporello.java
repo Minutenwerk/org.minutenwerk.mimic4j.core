@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporello;
 import org.minutenwerk.mimic4j.impl.container.MmLeporelloCallback;
 
 /**
- * MmLeporello is a composite mimic to represent a leporello of panels.
+ * MmLeporello is a container mimic to represent a leporello of panels.
  *
  * @param   MODEL      The model containing the values to be set, cannot be null.
  * @param   SUB_MODEL  The sub model containing the values to be set, can be null.

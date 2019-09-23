@@ -1,15 +1,15 @@
-package org.minutenwerk.mimic4j.api.composite;
+package org.minutenwerk.mimic4j.api.container;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.impl.composite.MmBaseCompositeDeclaration;
-import org.minutenwerk.mimic4j.impl.composite.MmImplementationTableColumn;
+import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
+import org.minutenwerk.mimic4j.impl.container.MmImplementationTableColumn;
 
 /**
- * MmTableColumn is a composite mimic to represent a table column.
+ * MmTableColumn is a container mimic to represent a table column.
  *
  * @author  Olaf Kossak
  */
-public class MmTableColumn extends MmBaseCompositeDeclaration<MmImplementationTableColumn> {
+public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MODEL, MmImplementationTableColumn<MODEL>> {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
@@ -27,7 +27,7 @@ public class MmTableColumn extends MmBaseCompositeDeclaration<MmImplementationTa
    * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
    */
   public MmTableColumn(MmDeclarationMimic pParent) {
-    super(new MmImplementationTableColumn(pParent));
+    super(new MmImplementationTableColumn<>(pParent));
   }
 
   /**
