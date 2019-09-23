@@ -10,13 +10,14 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-id, group-name, group-fullname, group-short, group-long, group-style, group-state, group-runtime,
- *                      group-reference
+ * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-ro, group-enabled,
+ *                      group-short, group-long, group-style, group-model, group-reference
  */
 public interface MmMimic {
 
   /**
-   * Returns id of this mimic. The id is unique within the subtree of a MmRoot.
+   * Returns id of this mimic. The id is unique within the subtree of a MmRoot. It is evaluated during initialization phase and cannot
+   * change.
    *
    * @return        The id of this mimic.
    *
@@ -25,8 +26,8 @@ public interface MmMimic {
   public String getMmId();
 
   /**
-   * Returns the name of this mimic, or an empty String if the name is undefined. The name is evaluated during initialization phase and
-   * derived from the field declaration name in its parent class.
+   * Returns the name of this mimic, or an empty String if the name is undefined. It is evaluated during initialization phase and cannot
+   * change. The name is derived from the field declaration name in its parent class.
    *
    * @return        The name of this mimic.
    *
@@ -36,14 +37,82 @@ public interface MmMimic {
 
   /**
    * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty
-   * String if the full name is undefined. The full name is evaluated during initialization phase and derived from the field declaration
-   * name in its parent class.
+   * String if the full name is undefined. It is evaluated during initialization phase and cannot change. The full name is derived from the
+   * field declaration name in its parent class.
    *
    * @return        The full name of this mimic.
    *
    * @jalopy.group  group-fullname
    */
   public String getMmFullName();
+
+  /**
+   * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
+   * It is evaluated during initialization phase and cannot change.
+   *
+   * @return        <code>True</code>, if the mimic has been created at runtime.
+   *
+   * @jalopy.group  group-runtime
+   */
+  public boolean isMmRuntimeMimic();
+
+  /**
+   * Returns <code>true</code>, if the mimic is visible. This mimic is visible, if its parent is visible and its callback method
+   * callbackMmIsVisible returns <code>true</code>.
+   *
+   * @return        <code>True</code>, if the mimic is visible.
+   *
+   * @see           {@link MmBaseCallback#callbackMmIsVisible()}
+   * @see           {@link MmBaseConfiguration#isVisible()}
+   *
+   * @jalopy.group  group-visible
+   */
+  public boolean isMmVisible();
+
+  /**
+   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). This mimic is readOnly, if its parent is readOnly
+   * and its callback method {@link MmBaseCallback#callbackMmIsReadOnly()} returns <code>true</code>. The callback method <code>
+   * callbackMmIsReadOnly()</code> can be redefined by the developer. The default implementation of <code>callbackMmIsReadOnly()</code>
+   * returns the value of the mimic's annotation attribute {@link MmBaseConfiguration#isReadOnly()}. If the annotation <code>
+   * MmConfiguration</code> or its attribute <code>readOnly</code> are not declared, the default implementation of <code>
+   * MmCallback.callbackMmIsReadOnly()</code> returns the default value of the default configuration <code>
+   * MmConfiguration.isReadOnly()</code>, which is <code>false</code>.
+   *
+   * @return        <code>True</code>, if the mimic is read only.
+   *
+   * @see           {@link MmBaseCallback#callbackMmIsReadOnly()}
+   * @see           {@link MmBaseConfiguration#isReadOnly()}
+   *
+   * @jalopy.group  group-ro
+   */
+  public boolean isMmReadOnly();
+
+  /**
+   * Returns <code>true</code>, if the mimic is enabled (default is <code>true</code>). This mimic is enabled, if its parent is enabled and
+   * its callback method {@link MmBaseCallback#callbackMmIsEnabled()} returns <code>true</code>. The callback method <code>
+   * callbackMmIsEnabled()</code> can be redefined by the developer. The default implementation of <code>callbackMmIsEnabled()</code>
+   * returns the value of the mimic's annotation attribute {@link MmBaseConfiguration#isEnabled()}. If the annotation <code>
+   * MmConfiguration</code> or its attribute <code>enabled</code> are not declared, the default implementation of <code>
+   * MmCallback.callbackMmIsEnabled()</code> returns the default value of the default configuration <code>
+   * MmConfiguration.isEnabled()</code>, which is <code>true</code>.
+   *
+   * @return        <code>True</code>, if the mimic is enabled.
+   *
+   * @see           {@link MmBaseCallback#callbackMmIsEnabled()}
+   * @see           {@link MmBaseConfiguration#isEnabled()}
+   *
+   * @jalopy.group  group-enabled
+   */
+  public boolean isMmEnabled();
+
+  /**
+   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
+   *
+   * @return        <code>True</code>, if a model instance is currently present.
+   *
+   * @jalopy.group  group-model
+   */
+  public boolean isMmModelPresent();
 
   /**
    * Returns a short description. The short description is evaluated from callback method
@@ -87,64 +156,6 @@ public interface MmMimic {
   public String getMmStyleClasses();
 
   /**
-   * Returns <code>true</code>, if the mimic is enabled (default is <code>true</code>). This mimic is enabled, if its parent is enabled and
-   * its callback method {@link MmBaseCallback#callbackMmIsEnabled()} returns <code>true</code>. The callback method <code>
-   * callbackMmIsEnabled()</code> can be redefined by the developer. The default implementation of <code>callbackMmIsEnabled()</code>
-   * returns the value of the mimic's annotation attribute {@link MmBaseConfiguration#isEnabled()}. If the annotation <code>
-   * MmConfiguration</code> or its attribute <code>enabled</code> are not declared, the default implementation of <code>
-   * MmCallback.callbackMmIsEnabled()</code> returns the default value of the default configuration <code>
-   * MmConfiguration.isEnabled()</code>, which is <code>true</code>.
-   *
-   * @return        <code>True</code>, if the mimic is enabled.
-   *
-   * @see           {@link MmBaseCallback#callbackMmIsEnabled()}
-   * @see           {@link MmBaseConfiguration#isEnabled()}
-   *
-   * @jalopy.group  group-state
-   */
-  public boolean isMmEnabled();
-
-  /**
-   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). This mimic is readOnly, if its parent is readOnly
-   * and its callback method {@link MmBaseCallback#callbackMmIsReadOnly()} returns <code>true</code>. The callback method <code>
-   * callbackMmIsReadOnly()</code> can be redefined by the developer. The default implementation of <code>callbackMmIsReadOnly()</code>
-   * returns the value of the mimic's annotation attribute {@link MmBaseConfiguration#isReadOnly()}. If the annotation <code>
-   * MmConfiguration</code> or its attribute <code>readOnly</code> are not declared, the default implementation of <code>
-   * MmCallback.callbackMmIsReadOnly()</code> returns the default value of the default configuration <code>
-   * MmConfiguration.isReadOnly()</code>, which is <code>false</code>.
-   *
-   * @return        <code>True</code>, if the mimic is read only.
-   *
-   * @see           {@link MmBaseCallback#callbackMmIsReadOnly()}
-   * @see           {@link MmBaseConfiguration#isReadOnly()}
-   *
-   * @jalopy.group  group-state
-   */
-  public boolean isMmReadOnly();
-
-  /**
-   * Returns <code>true</code>, if the mimic is visible. This mimic is visible, if its parent is visible and its callback method
-   * callbackMmIsVisible returns <code>true</code>.
-   *
-   * @return        <code>True</code>, if the mimic is visible.
-   *
-   * @see           {@link MmBaseCallback#callbackMmIsVisible()}
-   * @see           {@link MmBaseConfiguration#isVisible()}
-   *
-   * @jalopy.group  group-state
-   */
-  public boolean isMmVisible();
-
-  /**
-   * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
-   *
-   * @return        <code>True</code>, if the mimic has been created at runtime.
-   *
-   * @jalopy.group  group-runtime
-   */
-  public boolean isMmRuntimeMimic();
-
-  /**
    * Returns the self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
    * current data model.
    *
@@ -165,12 +176,5 @@ public interface MmMimic {
    * @jalopy.group  group-reference
    */
   public URI getMmReference(MmReferencableModel pModel);
-
-  /**
-   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
-   *
-   * @return  <code>True</code>, if a model instance is currently present.
-   */
-  public boolean isMmModelPresent();
 
 }
