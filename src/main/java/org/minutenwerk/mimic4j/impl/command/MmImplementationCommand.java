@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponents;
  *
  * @author  Olaf Kossak
  */
+// TODO MmCommand needs a modelAccessor and an actionAccessor
 public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandDeclaration, MmConfigurationCommand, MmCommandAnnotation>
   implements MmExecutableMimic {
 
@@ -114,6 +115,18 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
     assureInitialization();
 
     return declaration.callbackMmIsEnabled(configuration.isEnabled());
+  }
+
+  /**
+   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
+   *
+   * @return        <code>True</code>, if a model instance is currently present.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public final boolean isMmModelPresent() {
+    return false;
   }
 
   /**

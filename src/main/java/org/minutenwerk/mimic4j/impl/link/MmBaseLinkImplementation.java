@@ -86,6 +86,25 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<M
   }
 
   /**
+   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
+   *
+   * @return        <code>True</code>, if a model instance is currently present.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public final boolean isMmModelPresent() {
+    assureInitialization();
+
+    if (modelAccessor != null) {
+      return modelAccessor.isPresent();
+    } else {
+      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      return false;
+    }
+  }
+
+  /**
    * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
    * super.onInitialization()!
    *

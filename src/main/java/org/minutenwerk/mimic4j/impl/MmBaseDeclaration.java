@@ -126,6 +126,18 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   }
 
   /**
+   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
+   *
+   * @return        <code>True</code>, if a model instance is currently present.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public final boolean isMmModelPresent() {
+    return implementation.isMmModelPresent();
+  }
+
+  /**
    * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty
    * String if the full name is undefined. The full name is evaluated during initialization phase and derived from the field declaration
    * name in its parent class.

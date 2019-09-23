@@ -152,6 +152,20 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
+   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
+   *
+   * @return        <code>True</code>, if a model instance is currently present.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public final boolean isMmModelPresent() {
+    assureInitialization();
+
+    return modelAccessor.isPresent();
+  }
+
+  /**
    * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
    * super.onInitialization()!
    *

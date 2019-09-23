@@ -8,84 +8,81 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 /**
  * A mimic controls the data exchange between data layer and view output. MmMimic is the basic interface of all mimic classes in mimic4j.
  *
- * @author  Olaf Kossak
+ * @author              Olaf Kossak
+ *
+ * @jalopy.group-order  group-id, group-name, group-fullname, group-short, group-long, group-style, group-state, group-runtime,
+ *                      group-reference
  */
 public interface MmMimic {
+
+  /**
+   * Returns id of this mimic. The id is unique within the subtree of a MmRoot.
+   *
+   * @return        The id of this mimic.
+   *
+   * @jalopy.group  group-id
+   */
+  public String getMmId();
+
+  /**
+   * Returns the name of this mimic, or an empty String if the name is undefined. The name is evaluated during initialization phase and
+   * derived from the field declaration name in its parent class.
+   *
+   * @return        The name of this mimic.
+   *
+   * @jalopy.group  group-name
+   */
+  public String getMmName();
 
   /**
    * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty
    * String if the full name is undefined. The full name is evaluated during initialization phase and derived from the field declaration
    * name in its parent class.
    *
-   * @return  The full name of this mimic.
+   * @return        The full name of this mimic.
+   *
+   * @jalopy.group  group-fullname
    */
   public String getMmFullName();
-
-  /**
-   * Returns id of this mimic. The id is unique within the subtree of a MmRoot.
-   *
-   * @return  The id of this mimic.
-   */
-  public String getMmId();
-
-  /**
-   * Returns a long description. The long description is evaluated from callback method
-   * {@link MmBaseCallback#callbackMmGetLongDescription()}.
-   *
-   * @return  A long description.
-   *
-   * @see     {@link MmBaseCallback#callbackMmGetLongDescription()}
-   * @see     {@link MmBaseConfiguration#longDescription()}
-   */
-  public String getMmLongDescription();
-
-  /**
-   * Returns the name of this mimic, or an empty String if the name is undefined. The name is evaluated during initialization phase and
-   * derived from the field declaration name in its parent class.
-   *
-   * @return  The name of this mimic.
-   */
-  public String getMmName();
-
-  /**
-   * Returns the self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
-   * current data model.
-   *
-   * @return  The self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
-   *          current data model.
-   */
-  public URI getMmReference();
-
-  /**
-   * Returns the self reference (aka link) of this object for a specified data model.
-   *
-   * @param   pModel  The specified instance of a data model, which is referencable by an URL.
-   *
-   * @return  The self reference (aka link) of this object for a specified data model.
-   */
-  public URI getMmReference(MmReferencableModel pModel);
 
   /**
    * Returns a short description. The short description is evaluated from callback method
    * {@link MmBaseCallback#callbackMmGetShortDescription()}. If {@link MmCallback#callbackMmGetShortDescription())} returns null, the short
    * description is evaluated from configuration attribute {@link MmBaseConfiguration#shortDescription()}.
    *
-   * @return  A short description.
+   * @return        A short description.
    *
-   * @see     {@link MmBaseCallback#callbackMmGetShortDescription()}
-   * @see     {@link MmBaseConfiguration#shortDescription()}
+   * @see           {@link MmBaseCallback#callbackMmGetShortDescription()}
+   * @see           {@link MmBaseConfiguration#shortDescription()}
+   *
+   * @jalopy.group  group-short
    */
   public String getMmShortDescription();
+
+  /**
+   * Returns a long description. The long description is evaluated from callback method
+   * {@link MmBaseCallback#callbackMmGetLongDescription()}.
+   *
+   * @return        A long description.
+   *
+   * @see           {@link MmBaseCallback#callbackMmGetLongDescription()}
+   * @see           {@link MmBaseConfiguration#longDescription()}
+   *
+   * @jalopy.group  group-long
+   */
+  public String getMmLongDescription();
 
   /**
    * Returns a String containing space delimited <code>CSS</code> style classes. The style classes are evaluated from callback method
    * {@link MmBaseCallback#callbackMmGetStyleClasses()}. If {@link MmBaseCallback#callbackMmGetStyleClasses()} returns null, the style
    * classes are evaluated from configuration attribute {@link MmBaseConfiguration#styleClasses()}.
    *
-   * @return  A String containing space delimited <code>CSS</code> style classes.
+   * @return        A String containing space delimited <code>CSS</code> style classes.
    *
-   * @see     {@link MmBaseCallback#callbackMmGetStyleClasses()}
-   * @see     {@link MmBaseConfiguration#styleClasses()}
+   * @see           {@link MmBaseCallback#callbackMmGetStyleClasses()}
+   * @see           {@link MmBaseConfiguration#styleClasses()}
+   *
+   * @jalopy.group  group-style
    */
   public String getMmStyleClasses();
 
@@ -98,10 +95,12 @@ public interface MmMimic {
    * MmCallback.callbackMmIsEnabled()</code> returns the default value of the default configuration <code>
    * MmConfiguration.isEnabled()</code>, which is <code>true</code>.
    *
-   * @return  <code>True</code>, if the mimic is enabled.
+   * @return        <code>True</code>, if the mimic is enabled.
    *
-   * @see     {@link MmBaseCallback#callbackMmIsEnabled()}
-   * @see     {@link MmBaseConfiguration#isEnabled()}
+   * @see           {@link MmBaseCallback#callbackMmIsEnabled()}
+   * @see           {@link MmBaseConfiguration#isEnabled()}
+   *
+   * @jalopy.group  group-state
    */
   public boolean isMmEnabled();
 
@@ -114,29 +113,64 @@ public interface MmMimic {
    * MmCallback.callbackMmIsReadOnly()</code> returns the default value of the default configuration <code>
    * MmConfiguration.isReadOnly()</code>, which is <code>false</code>.
    *
-   * @return  <code>True</code>, if the mimic is read only.
+   * @return        <code>True</code>, if the mimic is read only.
    *
-   * @see     {@link MmBaseCallback#callbackMmIsReadOnly()}
-   * @see     {@link MmBaseConfiguration#isReadOnly()}
+   * @see           {@link MmBaseCallback#callbackMmIsReadOnly()}
+   * @see           {@link MmBaseConfiguration#isReadOnly()}
+   *
+   * @jalopy.group  group-state
    */
   public boolean isMmReadOnly();
-
-  /**
-   * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
-   *
-   * @return  <code>True</code>, if the mimic has been created at runtime.
-   */
-  public boolean isMmRuntimeMimic();
 
   /**
    * Returns <code>true</code>, if the mimic is visible. This mimic is visible, if its parent is visible and its callback method
    * callbackMmIsVisible returns <code>true</code>.
    *
-   * @return  <code>True</code>, if the mimic is visible.
+   * @return        <code>True</code>, if the mimic is visible.
    *
-   * @see     {@link MmBaseCallback#callbackMmIsVisible()}
-   * @see     {@link MmBaseConfiguration#isVisible()}
+   * @see           {@link MmBaseCallback#callbackMmIsVisible()}
+   * @see           {@link MmBaseConfiguration#isVisible()}
+   *
+   * @jalopy.group  group-state
    */
   public boolean isMmVisible();
+
+  /**
+   * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
+   *
+   * @return        <code>True</code>, if the mimic has been created at runtime.
+   *
+   * @jalopy.group  group-runtime
+   */
+  public boolean isMmRuntimeMimic();
+
+  /**
+   * Returns the self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
+   * current data model.
+   *
+   * @return        The self reference (aka link) of this object for the current data model, or the static part of the reference if there is
+   *                no current data model.
+   *
+   * @jalopy.group  group-reference
+   */
+  public URI getMmReference();
+
+  /**
+   * Returns the self reference (aka link) of this object for a specified data model.
+   *
+   * @param         pModel  The specified instance of a data model, which is referencable by an URL.
+   *
+   * @return        The self reference (aka link) of this object for a specified data model.
+   *
+   * @jalopy.group  group-reference
+   */
+  public URI getMmReference(MmReferencableModel pModel);
+
+  /**
+   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
+   *
+   * @return  <code>True</code>, if a model instance is currently present.
+   */
+  public boolean isMmModelPresent();
 
 }
