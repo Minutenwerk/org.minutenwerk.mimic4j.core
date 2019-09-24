@@ -1,9 +1,9 @@
 package org.minutenwerk.mimic4j.impl.link;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.link.MmLink;
 import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLink;
 

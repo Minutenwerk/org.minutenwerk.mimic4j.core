@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.api;
+package org.minutenwerk.mimic4j.api.reference;
 
 import org.springframework.web.util.UriComponents;
 

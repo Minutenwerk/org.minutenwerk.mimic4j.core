@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.api.link;
 
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
 import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
 

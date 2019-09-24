@@ -3,6 +3,7 @@ package org.minutenwerk.mimic4j.api;
 import java.net.URI;
 
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 
 /**
  * MmLinkMimic is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text

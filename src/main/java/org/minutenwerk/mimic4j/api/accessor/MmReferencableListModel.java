@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmInformationable;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 
 /**
  * TODOC MmReferencableListModel.

@@ -6,8 +6,8 @@ import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;

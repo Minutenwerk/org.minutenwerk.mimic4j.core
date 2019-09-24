@@ -20,10 +20,10 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
-import org.minutenwerk.mimic4j.api.MmReferenceProvider;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.reference.MmReferenceProvider;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;

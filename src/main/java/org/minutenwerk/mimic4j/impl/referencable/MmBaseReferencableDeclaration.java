@@ -2,8 +2,8 @@ package org.minutenwerk.mimic4j.impl.referencable;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
-import org.minutenwerk.mimic4j.api.MmReferenceProvider;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.reference.MmReferenceProvider;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 
 /**
