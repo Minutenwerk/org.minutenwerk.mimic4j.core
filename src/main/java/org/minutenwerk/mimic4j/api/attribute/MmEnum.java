@@ -60,18 +60,18 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   }
 
   /**
-   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_TYPE.
    *
    * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEW_MODEL.
+   * @return  The converted value of type VIEW_TYPE.
    *
    * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
   public String callbackMmConvertDataModelToViewModel(ENUM_TYPE pDataModelValue) throws MmDataModelConverterException {
     if (pDataModelValue == null) {
-      return ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE;
+      return ATTRIBUTE_STRING_VIEW_NULL_VALUE;
     } else {
       if (isMmEnabled()) {
         return pDataModelValue.name();
@@ -85,9 +85,9 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   }
 
   /**
-   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
+   * Converts view value of type VIEW_TYPE to value of type DATA_MODEL.
    *
-   * @param   pViewModelValue  The view model value to be converted.
+   * @param   pViewModelValue  The view value to be converted.
    *
    * @return  The converted value of type DATA_MODEL.
    *
@@ -102,7 +102,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
         returnEnumType = Enum.valueOf(enumType, pViewModelValue);
       } catch (IllegalArgumentException e) {
         throw new MmViewModelConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view model value: " + pViewModelValue);
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view value: " + pViewModelValue);
       }
     }
     return returnEnumType;

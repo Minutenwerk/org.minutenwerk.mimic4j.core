@@ -6,12 +6,12 @@ import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
  * MmAttributeMimic is the basic interface of all mimic types containing editable data, which can be changed from view model. Mimics of type
  * MmAttributeMimic can be set from data model and view model, and can be converted in both directions by means of format patterns.
  *
- * @param   <ATTRIBUTE_MODEL>  Type of attribute of model.
- * @param   <VIEW_MODEL>       Type of view model value of attribute, passed to HTML tag.
+ * @param   <ATTRIBUTE_TYPE>  Type of attribute of model.
+ * @param   <VIEW_TYPE>       Type of view value of attribute, passed to HTML tag, is either String or Boolean.
  *
  * @author  Olaf Kossak
  */
-public interface MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmEditableMimic {
+public interface MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmEditableMimic {
 
   /**
    * MmBooleanLayout is an enumeration of layout directions for JSF tags of type checkbox.
@@ -63,10 +63,10 @@ public interface MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmEditabl
   public int getMmFormatMaxLength();
 
   /**
-   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
-   * model value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
+   * value and vice versa. It is dependent on the user's locale.
    *
-   * @return  The attribute's format pattern for displaying view model value.
+   * @return  The attribute's format pattern for displaying view value.
    */
   public String getMmFormatPattern();
 
@@ -82,7 +82,7 @@ public interface MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmEditabl
    *
    * @return  The data model value of the mimic.
    */
-  public ATTRIBUTE_MODEL getMmModel();
+  public ATTRIBUTE_TYPE getMmModel();
 
   /**
    * Returns accessor of attribute of model.
@@ -90,14 +90,14 @@ public interface MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmEditabl
    * @return  The accessor of attribute of model.
    */
   @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> getMmModelAccessor();
+  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> getMmModelAccessor();
 
   /**
    * Returns the type of data model value of the mimic.
    *
    * @return  The type of data model value of the mimic.
    */
-  public Class<ATTRIBUTE_MODEL> getMmModelType();
+  public Class<ATTRIBUTE_TYPE> getMmModelType();
 
   /**
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
@@ -114,31 +114,31 @@ public interface MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmEditabl
   public int getMmSize();
 
   /**
-   * Returns the attribute's view model value of type VIEW_MODEL.
+   * Returns the attribute's type of view value.
    *
-   * @return  The attribute's view model value of type VIEW_MODEL.
+   * @return  The attribute's type of view value.
    */
-  public VIEW_MODEL getMmViewModel();
+  public Class<VIEW_TYPE> getMmViewType();
 
   /**
-   * Returns the attribute's type of view model value (VIEW_MODEL).
+   * Returns the attribute's view value of type VIEW_MODEL.
    *
-   * @return  The attribute's type of view model value.
+   * @return  The attribute's view value of type VIEW_MODEL.
    */
-  public Class<VIEW_MODEL> getMmViewModelType();
+  public VIEW_TYPE getMmViewValue();
 
   /**
-   * Returns <code>true</code> if the view model value of this mimic is empty.
+   * Returns <code>true</code> if the view value of this mimic is empty.
    *
-   * @return  <code>True</code> if the view model value of this mimic is empty.
+   * @return  <code>True</code> if the view value of this mimic is empty.
    */
   public boolean isMmEmpty();
 
   /**
-   * Sets view model value of mimic to specified value.
+   * Sets view value of mimic to specified value.
    *
    * @param  pViewModelValue  The specified value to be set.
    */
-  public void setMmViewModel(VIEW_MODEL pViewModelValue);
+  public void setMmViewValue(VIEW_TYPE pViewModelValue);
 
 }

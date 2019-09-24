@@ -63,11 +63,11 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
   }
 
   /**
-   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_TYPE.
    *
    * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEW_MODEL.
+   * @return  The converted value of type VIEW_TYPE.
    *
    * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
@@ -75,7 +75,7 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
   public String callbackMmConvertDataModelToViewModel(Long pDataModelValue) throws MmDataModelConverterException {
     String returnString;
     if (pDataModelValue == null) {
-      returnString = ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE;
+      returnString = ATTRIBUTE_STRING_VIEW_NULL_VALUE;
     } else {
       try {
         NumberFormat numberFormatter = getMmNumberFormatter();
@@ -90,9 +90,9 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
   }
 
   /**
-   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
+   * Converts view value of type VIEW_TYPE to value of type DATA_MODEL.
    *
-   * @param   pViewModelValue  The view model value to be converted.
+   * @param   pViewModelValue  The view value to be converted.
    *
    * @return  The converted value of type DATA_MODEL.
    *
@@ -110,7 +110,7 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
         returnLong = parsedNumber.longValue();
       } catch (ParseException e) {
         throw new MmViewModelConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view model value: " + pViewModelValue + " by pattern >"
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view value: " + pViewModelValue + " by pattern >"
           + getMmFormatPattern() + "<");
       }
     }

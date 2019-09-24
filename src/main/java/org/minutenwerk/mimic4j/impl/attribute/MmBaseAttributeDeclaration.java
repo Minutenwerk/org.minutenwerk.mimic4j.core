@@ -17,26 +17,26 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 /**
  * MmBaseEditable is an abstract base class for all editable attribute mimics.
  *
- * @param               <IMPLEMENTATION>   Implementation part of this mimic.
- * @param               <ATTRIBUTE_MODEL>  Type of attribute of model.
- * @param               <VIEW_MODEL>       Type of view model value of attribute, passed to HTML tag.
+ * @param               <IMPLEMENTATION>  Implementation part of this mimic.
+ * @param               <ATTRIBUTE_TYPE>  Type of attribute of model.
+ * @param               <VIEW_TYPE>       Type of view value of attribute, passed to HTML tag.
  *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-callback, group-lifecycle
  */
-public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAttributeImplementation<?, ?, ?, ATTRIBUTE_MODEL, VIEW_MODEL>,
-  ATTRIBUTE_MODEL, VIEW_MODEL> extends MmBaseDeclaration<MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL>, IMPLEMENTATION>
-  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL>, MmAttributeCallback<ATTRIBUTE_MODEL, VIEW_MODEL> {
+public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAttributeImplementation<?, ?, ?, ATTRIBUTE_TYPE, VIEW_TYPE>,
+  ATTRIBUTE_TYPE, VIEW_TYPE> extends MmBaseDeclaration<MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE>, IMPLEMENTATION>
+  implements MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE>, MmAttributeCallback<ATTRIBUTE_TYPE, VIEW_TYPE> {
 
   /** Logger of this class. */
-  private static final Logger LOGGER                                 = LogManager.getLogger(MmBaseAttributeDeclaration.class);
+  private static final Logger LOGGER                           = LogManager.getLogger(MmBaseAttributeDeclaration.class);
 
-  /** Constant for value to be displayed in case of the view model value is null. */
-  public static final String  ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE = "";
+  /** Constant for value to be displayed in case of the view value is null. */
+  public static final String  ATTRIBUTE_STRING_VIEW_NULL_VALUE = "";
 
   /** Constant for default value of maximum input length. */
-  public static final int     EDITABLE_DEFAULT_MAX_LENGTH            = 255;
+  public static final int     EDITABLE_DEFAULT_MAX_LENGTH      = 255;
 
   /**
    * Creates a new MmBaseEditable instance.
@@ -60,10 +60,10 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @jalopy.group  group-callback
    */
   @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")
-      MmAttributeAccessor<?, ATTRIBUTE_MODEL> modelAccessor = (MmAttributeAccessor<?, ATTRIBUTE_MODEL>)pParentAccessor;
+      MmAttributeAccessor<?, ATTRIBUTE_TYPE> modelAccessor = (MmAttributeAccessor<?, ATTRIBUTE_TYPE>)pParentAccessor;
       return modelAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor
@@ -72,12 +72,12 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
-   * model value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
+   * value and vice versa. It is dependent on the user's locale.
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
-   * @return        The attribute's format pattern for displaying view model value.
+   * @return        The attribute's format pattern for displaying view value.
    *
    * @jalopy.group  group-callback
    */
@@ -130,7 +130,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>converting view model value to data model type</li>
+   *   <li>converting view value to data model type</li>
    *   <li>passing converted value into data model value</li>
    *   <li>validating data model value</li>
    * </ol>
@@ -144,15 +144,15 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Sets view model value of mimic to specified value.
+   * Sets view value of mimic to specified value.
    *
    * @param         pViewModelValue  The specified value to be set.
    *
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public final void setMmViewModel(VIEW_MODEL pViewModelValue) {
-    implementation.setMmViewModel(pViewModelValue);
+  public final void setMmViewValue(VIEW_TYPE pViewModelValue) {
+    implementation.setMmViewValue(pViewModelValue);
   }
 
   /**
@@ -176,10 +176,10 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
-   * model value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
+   * value and vice versa. It is dependent on the user's locale.
    *
-   * @return  The attribute's format pattern for displaying view model value.
+   * @return  The attribute's format pattern for displaying view value.
    */
   @Override
   public final String getMmFormatPattern() {
@@ -202,7 +202,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @return  The data model value of the mimic.
    */
   @Override
-  public final ATTRIBUTE_MODEL getMmModel() {
+  public final ATTRIBUTE_TYPE getMmModel() {
     return implementation.getMmModel();
   }
 
@@ -212,7 +212,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @return  The accessor of attribute of model.
    */
   @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> getMmModelAccessor() {
+  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
   }
 
@@ -222,7 +222,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @return  The type of data model value of the mimic.
    */
   @Override
-  public final Class<ATTRIBUTE_MODEL> getMmModelType() {
+  public final Class<ATTRIBUTE_TYPE> getMmModelType() {
     return implementation.getMmModelType();
   }
 
@@ -257,23 +257,23 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's view model value of type VIEW_MODEL.
+   * Returns the attribute's type of view value (VIEW_TYPE).
    *
-   * @return  The attribute's view model value of type VIEW_MODEL.
+   * @return  The attribute's type of view value.
    */
   @Override
-  public final VIEW_MODEL getMmViewModel() {
-    return implementation.getMmViewModel();
+  public final Class<VIEW_TYPE> getMmViewType() {
+    return implementation.getMmViewType();
   }
 
   /**
-   * Returns the attribute's type of view model value (VIEW_MODEL).
+   * Returns the attribute's view value of type VIEW_TYPE.
    *
-   * @return  The attribute's type of view model value.
+   * @return  The attribute's view value of type VIEW_TYPE.
    */
   @Override
-  public final Class<VIEW_MODEL> getMmViewModelType() {
-    return implementation.getMmViewModelType();
+  public final VIEW_TYPE getMmViewValue() {
+    return implementation.getMmViewValue();
   }
 
   /**
@@ -288,9 +288,9 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns <code>true</code> if the view model value of this mimic is empty.
+   * Returns <code>true</code> if the view value of this mimic is empty.
    *
-   * @return  <code>True</code> if the view model value of this mimic is empty.
+   * @return  <code>True</code> if the view value of this mimic is empty.
    */
   @Override
   public final boolean isMmEmpty() {

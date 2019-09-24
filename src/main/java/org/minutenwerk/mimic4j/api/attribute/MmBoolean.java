@@ -20,8 +20,8 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
  */
 public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolean, Boolean, Boolean> {
 
-  /** Constant for value to be displayed in case of the view model value is null. */
-  public static final Boolean ATTRIBUTE_BOOLEAN_VIEW_MODEL_NULL_VALUE = Boolean.FALSE;
+  /** Constant for value to be displayed in case of the view value is null. */
+  public static final Boolean ATTRIBUTE_BOOLEAN_VIEW_TYPE_NULL_VALUE = Boolean.FALSE;
 
   /**
    * Enumeration of possible JSF tags of attribute in disabled state.
@@ -67,27 +67,27 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   }
 
   /**
-   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_TYPE.
    *
    * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEW_MODEL.
+   * @return  The converted value of type VIEW_TYPE.
    *
    * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
   @Override
   public Boolean callbackMmConvertDataModelToViewModel(Boolean pDataModelValue) throws MmDataModelConverterException {
     if (pDataModelValue == null) {
-      return ATTRIBUTE_BOOLEAN_VIEW_MODEL_NULL_VALUE;
+      return ATTRIBUTE_BOOLEAN_VIEW_TYPE_NULL_VALUE;
     } else {
       return pDataModelValue;
     }
   }
 
   /**
-   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
+   * Converts view value of type VIEW_TYPE to value of type DATA_MODEL.
    *
-   * @param   pViewModelValue  The view model value to be converted.
+   * @param   pViewModelValue  The view value to be converted.
    *
    * @return  The converted value of type DATA_MODEL.
    *

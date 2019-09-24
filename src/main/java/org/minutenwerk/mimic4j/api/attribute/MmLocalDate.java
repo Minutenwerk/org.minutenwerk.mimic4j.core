@@ -70,11 +70,11 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   }
 
   /**
-   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_TYPE.
    *
    * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEW_MODEL.
+   * @return  The converted value of type VIEW_TYPE.
    *
    * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
@@ -83,7 +83,7 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
     String formatPattern = null;
     try {
       if (pDataModelValue == null) {
-        return ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE;
+        return ATTRIBUTE_STRING_VIEW_NULL_VALUE;
       } else {
         formatPattern = getMmFormatPattern();
         if (LOGGER.isDebugEnabled()) {
@@ -104,9 +104,9 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   }
 
   /**
-   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
+   * Converts view value of type VIEW_TYPE to value of type DATA_MODEL.
    *
-   * @param   pViewModelValue  The view model value to be converted.
+   * @param   pViewModelValue  The view value to be converted.
    *
    * @return  The converted value of type DATA_MODEL.
    *
@@ -131,7 +131,7 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
         returnDate = LocalDate.parse(pViewModelValue, dateFormatter);
       } catch (DateTimeParseException e) {
         throw new MmViewModelConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view model value: " + pViewModelValue + " by pattern >"
+          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view value: " + pViewModelValue + " by pattern >"
           + formatPattern + "< " + e.getMessage());
       }
     }

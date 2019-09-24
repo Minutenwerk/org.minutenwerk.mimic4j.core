@@ -57,11 +57,11 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   }
 
   /**
-   * Converts data model value of type DATA_MODEL to value of type VIEW_MODEL.
+   * Converts data model value of type DATA_MODEL to value of type VIEW_TYPE.
    *
    * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEW_MODEL.
+   * @return  The converted value of type VIEW_TYPE.
    *
    * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
@@ -69,7 +69,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   public List<String> callbackMmConvertDataModelToViewModel(List<String> pDataModelValue) throws MmDataModelConverterException {
     final List<String> returnList = new ArrayList<>();
     if (pDataModelValue == null) {
-      returnList.add(ATTRIBUTE_STRING_VIEW_MODEL_NULL_VALUE);
+      returnList.add(ATTRIBUTE_STRING_VIEW_NULL_VALUE);
     } else {
       Collections.copy(pDataModelValue, returnList);
     }
@@ -77,9 +77,9 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
   }
 
   /**
-   * Converts view model value of type VIEW_MODEL to value of type DATA_MODEL.
+   * Converts view value of type VIEW_TYPE to value of type DATA_MODEL.
    *
-   * @param   pViewModelValue  The view model value to be converted.
+   * @param   pViewModelValue  The view value to be converted.
    *
    * @return  The converted value of type DATA_MODEL.
    *

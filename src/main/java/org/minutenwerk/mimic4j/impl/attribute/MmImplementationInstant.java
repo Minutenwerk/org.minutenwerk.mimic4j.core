@@ -33,10 +33,10 @@ public class MmImplementationInstant
   }
 
   /**
-   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
-   * model value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
+   * value and vice versa. It is dependent on the user's locale.
    *
-   * @return  The attribute's format pattern for displaying view model value.
+   * @return  The attribute's format pattern for displaying view value.
    *
    * @throws  IllegalStateException  In case of callbackMmGetFormatPattern returns an invalid format pattern.
    */
@@ -59,9 +59,9 @@ public class MmImplementationInstant
   }
 
   /**
-   * Returns <code>true</code> if the view model value of this mimic is empty.
+   * Returns <code>true</code> if the view value of this mimic is empty.
    *
-   * @return  <code>True</code> if the view model value of this mimic is empty.
+   * @return  <code>True</code> if the view value of this mimic is empty.
    */
   @Override
   public boolean isMmEmpty() {

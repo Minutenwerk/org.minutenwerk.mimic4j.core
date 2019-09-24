@@ -7,7 +7,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  *
  * @author  Olaf Kossak
  */
-public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_MODEL> extends MmBaseConfiguration {
+public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_TYPE> extends MmBaseConfiguration {
 
   /** Constant for default value of required. */
   public static final boolean DEFAULT_IS_REQUIRED = false;

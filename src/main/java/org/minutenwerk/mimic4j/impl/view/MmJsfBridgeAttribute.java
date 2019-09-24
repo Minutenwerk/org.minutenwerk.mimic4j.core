@@ -135,7 +135,7 @@ public class MmJsfBridgeAttribute<VIEW_MODEL>
    */
   @Override
   public VIEW_MODEL getValue() {
-    return implementation.getMmViewModel();
+    return implementation.getMmViewValue();
   }
 
   /**
@@ -145,7 +145,7 @@ public class MmJsfBridgeAttribute<VIEW_MODEL>
    */
   @Override
   public void setValue(VIEW_MODEL pValue) {
-    implementation.setMmViewModel(pValue);
+    implementation.setMmViewValue(pValue);
   }
 
 }

@@ -16,29 +16,29 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
  *
  * @author  Olaf Kossak
  */
-public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmBaseCallback {
+public interface MmAttributeCallback<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmBaseCallback {
 
   /**
-   * Converts data model value of type ATTRIBUTE_MODEL to value of type VIEW_MODEL.
+   * Converts data model value of type ATTRIBUTE_TYPE to value of type VIEW_TYPE.
    *
    * @param   pDataModelValue  The data model value to be converted.
    *
-   * @return  The converted value of type VIEW_MODEL.
+   * @return  The converted value of type VIEW_TYPE.
    *
    * @throws  MmDataModelConverterException  In case of the conversion failed.
    */
-  public VIEW_MODEL callbackMmConvertDataModelToViewModel(ATTRIBUTE_MODEL pDataModelValue) throws MmDataModelConverterException;
+  public VIEW_TYPE callbackMmConvertDataModelToViewModel(ATTRIBUTE_TYPE pDataModelValue) throws MmDataModelConverterException;
 
   /**
-   * Converts view model value of type VIEW_MODEL to value of type ATTRIBUTE_MODEL.
+   * Converts view value of type VIEW_TYPE to value of type ATTRIBUTE_TYPE.
    *
-   * @param   pViewModelValue  The view model value to be converted.
+   * @param   pViewModelValue  The view value to be converted.
    *
-   * @return  The converted value of type ATTRIBUTE_MODEL.
+   * @return  The converted value of type ATTRIBUTE_TYPE.
    *
    * @throws  MmViewModelConverterException  In case of the conversion failed.
    */
-  public ATTRIBUTE_MODEL callbackMmConvertViewModelToDataModel(VIEW_MODEL pViewModelValue) throws MmViewModelConverterException;
+  public ATTRIBUTE_TYPE callbackMmConvertViewModelToDataModel(VIEW_TYPE pViewModelValue) throws MmViewModelConverterException;
 
   /**
    * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
@@ -48,15 +48,15 @@ public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmBase
    *
    * @return  The attribute's accessor.
    */
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
+  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
   /**
-   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
-   * model value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
+   * value and vice versa. It is dependent on the user's locale.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
-   * @return  The attribute's format pattern for displaying view model value.
+   * @return  The attribute's format pattern for displaying view value.
    */
   public String callbackMmGetFormatPattern(String pPassThroughValue);
 
@@ -86,12 +86,12 @@ public interface MmAttributeCallback<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmBase
   public boolean callbackMmIsRequired(boolean pPassThroughValue);
 
   /**
-   * Semantic validation of data model value of type ATTRIBUTE_MODEL.
+   * Semantic validation of data model value of type ATTRIBUTE_TYPE.
    *
    * @param   pDataModelValue  The data model value to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
-  public void callbackMmValidateDataModel(ATTRIBUTE_MODEL pDataModelValue) throws MmValidatorException;
+  public void callbackMmValidateDataModel(ATTRIBUTE_TYPE pDataModelValue) throws MmValidatorException;
 
 }

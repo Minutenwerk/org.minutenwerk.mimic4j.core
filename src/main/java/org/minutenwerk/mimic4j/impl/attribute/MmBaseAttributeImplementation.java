@@ -30,29 +30,29 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  * setting a value into an attribute either by a attribute accessor on a model or from view model, converting the value between model and
  * view model type and vice versa, validating a value entered from view model and controlling change events and the mimic's state.
  *
- * @param               <CALLBACK>         Interface defining callback methods, extending {@link MmBaseCallback}.
- * @param               <CONFIGURATION>    Type of configuration, holding state of mimic configuration.
- * @param               <ANNOTATION>       Annotation type for configuration of this mimic.
- * @param               <ATTRIBUTE_MODEL>  Type of attribute of model.
- * @param               <VIEW_MODEL>       Type of view model value of attribute, passed to HTML tag.
+ * @param               <CALLBACK>        Interface defining callback methods, extending {@link MmBaseCallback}.
+ * @param               <CONFIGURATION>   Type of configuration, holding state of mimic configuration.
+ * @param               <ANNOTATION>      Annotation type for configuration of this mimic.
+ * @param               <ATTRIBUTE_TYPE>  Type of attribute of model.
+ * @param               <VIEW_TYPE>       Type of view value of attribute, passed to HTML tag.
  *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-initialization, group-lifecycle, group-override, group-helper
  */
 public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallback,
-  CONFIGURATION extends MmBaseAttributeConfiguration<ATTRIBUTE_MODEL>, ANNOTATION extends Annotation, ATTRIBUTE_MODEL, VIEW_MODEL>
-  extends MmBaseImplementation<MmBaseAttributeDeclaration<?, ATTRIBUTE_MODEL, VIEW_MODEL>, CONFIGURATION, ANNOTATION>
-  implements MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL>, MmEditableMimicImpl {
+  CONFIGURATION extends MmBaseAttributeConfiguration<ATTRIBUTE_TYPE>, ANNOTATION extends Annotation, ATTRIBUTE_TYPE, VIEW_TYPE>
+  extends MmBaseImplementation<MmBaseAttributeDeclaration<?, ATTRIBUTE_TYPE, VIEW_TYPE>, CONFIGURATION, ANNOTATION>
+  implements MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE>, MmEditableMimicImpl {
 
-  /** Class internal constant to control index of generic type ATTRIBUTE_MODEL. */
-  private static final int    GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL = 4;
+  /** Class internal constant to control index of generic type ATTRIBUTE_TYPE. */
+  private static final int    GENERIC_PARAMETER_INDEX_ATTRIBUTE_TYPE = 4;
 
-  /** Class internal constant to control index of generic type VIEW_MODEL. */
-  private static final int    GENERIC_PARAMETER_INDEX_VIEW_MODEL      = 5;
+  /** Class internal constant to control index of generic type VIEW_TYPE. */
+  private static final int    GENERIC_PARAMETER_INDEX_VIEW_TYPE      = 5;
 
   /** The logger of this class. */
-  private static final Logger LOGGER                                  = LogManager.getLogger(MmBaseAttributeImplementation.class);
+  private static final Logger LOGGER                                 = LogManager.getLogger(MmBaseAttributeImplementation.class);
 
   /**
    * MmAttributeErrorState is an enumeration of values regarding an attribute's error state during conversion and validation.
@@ -64,14 +64,14 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     /** No error occurred during last conversion or validation. */
     SUCCESS,
 
-    /** Error occurred during conversion from data model value to view model value. */
-    ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_MODEL,
+    /** Error occurred during conversion from data model value to view value. */
+    ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_TYPE,
 
-    /** Error occurred during conversion from view model value to data model value. */
-    ERROR_UNCONVERTABLE_VIEW_MODEL_TO_DATA_MODEL,
+    /** Error occurred during conversion from view value to data model value. */
+    ERROR_UNCONVERTABLE_VIEW_TYPE_TO_DATA_MODEL,
 
     /** Error occurred because required value in view model is missing. */
-    ERROR_REQUIRED_VALUE_IN_VIEW_MODEL,
+    ERROR_REQUIRED_VALUE_IN_VIEW_TYPE,
 
     /** Error occurred during validation of data model value. */
     ERROR_INVALID_VALUE_IN_DATA_MODEL;
@@ -99,14 +99,14 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     /** The state of the attribute is undefined. */
     UNDEFINED,
 
-    /** The attribute is in the state, that data model value is converted to view model type and passed to view model value. */
-    CONVERTED_DATA_MODEL_TO_VIEW_MODEL,
+    /** The attribute is in the state, that data model value is converted to view model type and passed to view value. */
+    CONVERTED_DATA_MODEL_TO_VIEW_TYPE,
 
-    /** The attribute is in the state, that view value is passed to view model value. */
-    SET_FROM_VIEW_TO_VIEW_MODEL,
+    /** The attribute is in the state, that view value is passed to view value. */
+    SET_FROM_VIEW_TO_VIEW_TYPE,
 
-    /** The attribute is in the state, that view model value is converted to data model type and passed to data model value. */
-    CONVERTED_VIEW_MODEL_TO_DATA_MODEL,
+    /** The attribute is in the state, that view value is converted to data model type and passed to data model value. */
+    CONVERTED_VIEW_TYPE_TO_DATA_MODEL,
 
     /** The attribute is in the state, that data model value has validated successfully. */
     VALID_VALUE_IN_DATA_MODEL;
@@ -124,30 +124,28 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /** The list of messages related to this attribute. */
-  protected final MmMessageList                     messageList;
+  protected final MmMessageList                    messageList;
 
   /** This attribute has a parent model. The parent model has a parent accessor. */
-  protected MmModelAccessor<?, ?>                   parentAccessor;
+  protected MmModelAccessor<?, ?>                  parentAccessor;
 
   /**
-   * This attribute has a model of type ATTRIBUTE_MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
+   * This attribute has a model of type ATTRIBUTE_TYPE. The model has a model accessor. Its first generic, the type of the parent model, is
    * undefined.
    */
-  protected MmAttributeAccessor<?, ATTRIBUTE_MODEL> modelAccessor;
+  protected MmAttributeAccessor<?, ATTRIBUTE_TYPE> modelAccessor;
 
-  /** The attribute's view model value of type VIEW_MODEL. */
-  protected VIEW_MODEL                              viewModelValue;
+  /** The attribute's view value of type VIEW_TYPE. */
+  protected VIEW_TYPE                              viewModelValue;
 
-  /** True, if attribute's view model value has been changed. */
-  protected boolean                                 isChangedFromView;
+  /** True, if attribute's view value has been changed. */
+  protected boolean                                isChangedFromView;
 
-  /**
-   * The state of the attribute regarding its view model value and data model value. Initially the state is {@link MmValueState.UNDEFINED}.
-   */
-  protected MmValueState                            valueState;
+  /** The state of the attribute regarding its view value and data model value. Initially the state is {@link MmValueState.UNDEFINED}. */
+  protected MmValueState                           valueState;
 
   /** The state regarding errors during conversion and validation. Initially the state is {@link MmErrorState.UNDEFINED}. */
-  protected MmAttributeErrorState                   errorState;
+  protected MmAttributeErrorState                  errorState;
 
   /**
    * Creates a new MmBaseAttributeImplementation instance.
@@ -226,7 +224,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * Validates attribute, by:
    *
    * <ol>
-   *   <li>converting view model value to data model type</li>
+   *   <li>converting view value to data model type</li>
    *   <li>passing converted value into data model value</li>
    *   <li>validating data model value</li>
    * </ol>
@@ -242,10 +240,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Converts and passes data model value of type ATTRIBUTE_MODEL to view model value of type VIEW_MODEL. If conversion succeeds:
+   * Converts and passes data model value of type ATTRIBUTE_TYPE to view value of type VIEW_TYPE. If conversion succeeds:
    *
    * <ul>
-   *   <li>valueState is {@link MmValueState.CONVERTED_DATA_MODEL_TO_VIEW_MODEL}</li>
+   *   <li>valueState is {@link MmValueState.CONVERTED_DATA_MODEL_TO_VIEW_TYPE}</li>
    *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
    * </ul>
    *
@@ -253,7 +251,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * <ul>
    *   <li>valueState remains unchanged</li>
-   *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_MODEL}</li>
+   *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_TYPE}</li>
    *   <li>a {@link MmDataModelConverterException} is thrown</li>
    * </ul>
    *
@@ -266,17 +264,17 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     String originalDebugState = toStringTraceState();
 
     try {
-      ATTRIBUTE_MODEL dataModelValue = null;
+      ATTRIBUTE_TYPE dataModelValue = null;
       if (modelAccessor != null) {
         dataModelValue = modelAccessor.get();
       } else {
         LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
       }
       viewModelValue = declaration.callbackMmConvertDataModelToViewModel(dataModelValue);
-      valueState     = MmValueState.CONVERTED_DATA_MODEL_TO_VIEW_MODEL;
+      valueState     = MmValueState.CONVERTED_DATA_MODEL_TO_VIEW_TYPE;
       errorState     = MmAttributeErrorState.SUCCESS;
     } catch (MmDataModelConverterException converterException) {
-      errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_MODEL;
+      errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_TYPE;
       throw converterException;
     }
 
@@ -284,10 +282,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Validates syntactically, converts and passes view model value of type VIEW_MODEL to data model value of type ATTRIBUTE_MODEL.
+   * Validates syntactically, converts and passes view value of type VIEW_TYPE to data model value of type ATTRIBUTE_TYPE.
    *
    * <ul>
-   *   <li>valueState is {@link MmValueState.CONVERTED_VIEW_MODEL_TO_DATA_MODEL}</li>
+   *   <li>valueState is {@link MmValueState.CONVERTED_VIEW_TYPE_TO_DATA_MODEL}</li>
    *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
    * </ul>
    *
@@ -295,8 +293,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * <ul>
    *   <li>valueState remains unchanged</li>
-   *   <li>errorState is {@link MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEW_MODEL}, or</li>
-   *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEW_MODEL_TO_DATA_MODEL}</li>
+   *   <li>errorState is {@link MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEW_TYPE}, or</li>
+   *   <li>errorState is {@link MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEW_TYPE_TO_DATA_MODEL}</li>
    *   <li>an error message is produced and added to MmRoot</li>
    * </ul>
    *
@@ -310,7 +308,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
 
     // syntactic validation of view model
     if (isMmRequired() && isMmEmpty()) {
-      errorState = MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEW_MODEL;
+      errorState = MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEW_TYPE;
 
       MmMessage message = new MmMessage(MmErrorMessageType.BUSINESS_LOGIC_ERROR, MmMessageSeverity.USER_ERROR, this, getMmId(),
           MmMessageType.ERROR_REQUIRED);
@@ -321,13 +319,13 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
       // conversion to data model
       try {
         if (isChangedFromView) {
-          ATTRIBUTE_MODEL dataModelValue = declaration.callbackMmConvertViewModelToDataModel(viewModelValue);
+          ATTRIBUTE_TYPE dataModelValue = declaration.callbackMmConvertViewModelToDataModel(viewModelValue);
           modelAccessor.set(dataModelValue);
         }
-        valueState = MmValueState.CONVERTED_VIEW_MODEL_TO_DATA_MODEL;
+        valueState = MmValueState.CONVERTED_VIEW_TYPE_TO_DATA_MODEL;
         errorState = MmAttributeErrorState.SUCCESS;
       } catch (MmViewModelConverterException converterException) {
-        errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEW_MODEL_TO_DATA_MODEL;
+        errorState = MmAttributeErrorState.ERROR_UNCONVERTABLE_VIEW_TYPE_TO_DATA_MODEL;
 
         MmMessage message = new MmMessage(converterException);
         messageList.addMessage(message);
@@ -338,10 +336,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Sets view model value of mimic to specified value. Post action state is:
+   * Sets view value of mimic to specified value. Post action state is:
    *
    * <ul>
-   *   <li>valueState is {@link MmValueState.SET_FROM_VIEW_TO_VIEW_MODEL}</li>
+   *   <li>valueState is {@link MmValueState.SET_FROM_VIEW_TO_VIEW_TYPE}</li>
    *   <li>errorState is {@link MmAttributeErrorState.NO_ERROR}</li>
    * </ul>
    *
@@ -350,7 +348,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void setMmViewModel(VIEW_MODEL pViewModelValue) {
+  public void setMmViewValue(VIEW_TYPE pViewModelValue) {
     assureInitialization();
 
     String originalDebugState = toStringTraceState();
@@ -361,14 +359,14 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     }
 
     viewModelValue = pViewModelValue;
-    valueState     = MmValueState.SET_FROM_VIEW_TO_VIEW_MODEL;
+    valueState     = MmValueState.SET_FROM_VIEW_TO_VIEW_TYPE;
     errorState     = MmAttributeErrorState.SUCCESS;
 
     logDebugChange(originalDebugState);
   }
 
   /**
-   * Semantic validation of data model value of type ATTRIBUTE_MODEL. If validation succeeds:
+   * Semantic validation of data model value of type ATTRIBUTE_TYPE. If validation succeeds:
    *
    * <ul>
    *   <li>valueState is {@link MmValueState.VALID_VALUE_IN_DATA_MODEL}</li>
@@ -430,17 +428,17 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
       }
 
       // if view model is changed from view (but not converted yet), do not validate
-      case SET_FROM_VIEW_TO_VIEW_MODEL: {
+      case SET_FROM_VIEW_TO_VIEW_TYPE: {
         return false;
       }
 
       // if converted to view model, validate
-      case CONVERTED_DATA_MODEL_TO_VIEW_MODEL: {
+      case CONVERTED_DATA_MODEL_TO_VIEW_TYPE: {
         return (errorState == MmAttributeErrorState.SUCCESS);
       }
 
       // or converted from view model, validate
-      case CONVERTED_VIEW_MODEL_TO_DATA_MODEL: {
+      case CONVERTED_VIEW_TYPE_TO_DATA_MODEL: {
         return (errorState == MmAttributeErrorState.SUCCESS);
       }
 
@@ -492,10 +490,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns the attribute's format pattern for displaying view model value in view. It is used during conversion from data model to view
-   * model value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
+   * value and vice versa. It is dependent on the user's locale.
    *
-   * @return        The attribute's format pattern for displaying view model value.
+   * @return        The attribute's format pattern for displaying view value.
    *
    * @throws        IllegalStateException  In case of callbackMmGetFormatPattern returns an invalid format pattern.
    *
@@ -537,7 +535,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-override
    */
   @Override
-  public ATTRIBUTE_MODEL getMmModel() {
+  public ATTRIBUTE_TYPE getMmModel() {
     assureInitialization();
 
     if (modelAccessor != null) {
@@ -556,24 +554,24 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-override
    */
   @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> getMmModelAccessor() {
+  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> getMmModelAccessor() {
     assureInitialization();
 
     return modelAccessor;
   }
 
   /**
-   * Returns the attribute's type of data model value (ATTRIBUTE_MODEL).
+   * Returns the attribute's type of data model value (ATTRIBUTE_TYPE).
    *
    * @return        The attribute's type of data model value.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public Class<ATTRIBUTE_MODEL> getMmModelType() {
+  public Class<ATTRIBUTE_TYPE> getMmModelType() {
     assureInitialization();
 
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_TYPE);
   }
 
   /**
@@ -639,31 +637,31 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns the attribute's view model value of type VIEW_MODEL.
+   * Returns the attribute's type of view value (VIEW_TYPE).
    *
-   * @return        The attribute's view model value of type VIEW_MODEL.
+   * @return        The attribute's type of view value.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public VIEW_MODEL getMmViewModel() {
+  public Class<VIEW_TYPE> getMmViewType() {
     assureInitialization();
 
-    return viewModelValue;
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_TYPE);
   }
 
   /**
-   * Returns the attribute's type of view model value (VIEW_MODEL).
+   * Returns the attribute's view value of type VIEW_TYPE.
    *
-   * @return        The attribute's type of view model value.
+   * @return        The attribute's view value of type VIEW_TYPE.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public Class<VIEW_MODEL> getMmViewModelType() {
+  public VIEW_TYPE getMmViewValue() {
     assureInitialization();
 
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_MODEL);
+    return viewModelValue;
   }
 
   /**
@@ -682,9 +680,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns <code>true</code> if the view model value of this mimic is empty.
+   * Returns <code>true</code> if the view value of this mimic is empty.
    *
-   * @return        <code>True</code> if the view model value of this mimic is empty.
+   * @return        <code>True</code> if the view value of this mimic is empty.
    *
    * @jalopy.group  group-override
    */
@@ -799,15 +797,15 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
         sb.append("U         ");
         break;
       }
-      case CONVERTED_DATA_MODEL_TO_VIEW_MODEL: {
+      case CONVERTED_DATA_MODEL_TO_VIEW_TYPE: {
         sb.append("     M>V  ");
         break;
       }
-      case SET_FROM_VIEW_TO_VIEW_MODEL: {
+      case SET_FROM_VIEW_TO_VIEW_TYPE: {
         sb.append("       V<V");
         break;
       }
-      case CONVERTED_VIEW_MODEL_TO_DATA_MODEL: {
+      case CONVERTED_VIEW_TYPE_TO_DATA_MODEL: {
         sb.append("     M<V  ");
         break;
       }
@@ -820,12 +818,12 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
         sb.append("         ");
         break;
       }
-      case ERROR_REQUIRED_VALUE_IN_VIEW_MODEL: {
+      case ERROR_REQUIRED_VALUE_IN_VIEW_TYPE: {
         sb.append(" REQUIRED");
         break;
       }
-      case ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_MODEL:
-      case ERROR_UNCONVERTABLE_VIEW_MODEL_TO_DATA_MODEL: {
+      case ERROR_UNCONVERTABLE_DATA_MODEL_TO_VIEW_TYPE:
+      case ERROR_UNCONVERTABLE_VIEW_TYPE_TO_DATA_MODEL: {
         sb.append(" UNCONVRT");
         break;
       }

@@ -36,9 +36,9 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   }
 
   /**
-   * Returns <code>true</code> if the view model value of this mimic is empty.
+   * Returns <code>true</code> if the view value of this mimic is empty.
    *
-   * @return  <code>True</code> if the view model value of this mimic is empty.
+   * @return  <code>True</code> if the view value of this mimic is empty.
    */
   @Override
   public boolean isMmEmpty() {

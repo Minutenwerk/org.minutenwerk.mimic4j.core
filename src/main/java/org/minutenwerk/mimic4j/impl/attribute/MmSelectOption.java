@@ -86,7 +86,7 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
   }
 
   /**
-   * Returns the value of this select option, will be synchronized with mimic view model value.
+   * Returns the value of this select option, will be synchronized with mimic view value.
    *
    * @return  The value of this select option.
    */
