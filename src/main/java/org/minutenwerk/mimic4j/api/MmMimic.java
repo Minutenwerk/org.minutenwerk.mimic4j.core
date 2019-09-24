@@ -180,6 +180,7 @@ public interface MmMimic {
    *
    * @jalopy.group  group-reference
    */
+  // TODO rename to getMmTargetReference ?
   public URI getMmReference(MmReferencableModel pModel);
 
 }

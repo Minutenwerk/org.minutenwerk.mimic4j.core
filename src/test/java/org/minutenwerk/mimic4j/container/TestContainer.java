@@ -29,13 +29,13 @@ public class TestContainer {
     controller.tabPerson.onModelChange();
 
     // assert
-    Assert.assertEquals("John", controller.tabPerson.vorname.getMmViewModelValue());
-    Assert.assertEquals("Doe", controller.tabPerson.nachname.getMmViewModelValue());
-    Assert.assertEquals("MALE", controller.tabPerson.gender.getMmViewModelValue());
-    Assert.assertEquals("02.02.2018", controller.tabPerson.birthday.getMmViewModelValue());
+    Assert.assertEquals("John", controller.tabPerson.vorname.getMmViewModel());
+    Assert.assertEquals("Doe", controller.tabPerson.nachname.getMmViewModel());
+    Assert.assertEquals("MALE", controller.tabPerson.gender.getMmViewModel());
+    Assert.assertEquals("02.02.2018", controller.tabPerson.birthday.getMmViewModel());
     Assert.assertNotNull(controller.tabPerson.adresse.getMmModel());
-    Assert.assertEquals("Hauptstraße", controller.tabPerson.adresse.street.getMmViewModelValue());
-    Assert.assertEquals("Hamburg", controller.tabPerson.adresse.city.getMmViewModelValue());
+    Assert.assertEquals("Hauptstraße", controller.tabPerson.adresse.street.getMmViewModel());
+    Assert.assertEquals("Hamburg", controller.tabPerson.adresse.city.getMmViewModel());
   }
 
   @Test
@@ -51,12 +51,12 @@ public class TestContainer {
     controller.person().set(testPerson);
     controller.tabPerson.onModelChange();
 
-    controller.tabPerson.vorname.setMmViewModelValue("Jane");
-    controller.tabPerson.nachname.setMmViewModelValue("Austen");
-    controller.tabPerson.gender.setMmViewModelValue("FEMALE");
-    controller.tabPerson.birthday.setMmViewModelValue("16.12.1775");
-    controller.tabPerson.adresse.street.setMmViewModelValue("Mansfield Park");
-    controller.tabPerson.adresse.city.setMmViewModelValue("Steventon");
+    controller.tabPerson.vorname.setMmViewModel("Jane");
+    controller.tabPerson.nachname.setMmViewModel("Austen");
+    controller.tabPerson.gender.setMmViewModel("FEMALE");
+    controller.tabPerson.birthday.setMmViewModel("16.12.1775");
+    controller.tabPerson.adresse.street.setMmViewModel("Mansfield Park");
+    controller.tabPerson.adresse.city.setMmViewModel("Steventon");
     controller.tabPerson.doMmValidate();
 
     // assert

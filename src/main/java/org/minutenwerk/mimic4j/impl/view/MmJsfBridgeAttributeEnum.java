@@ -33,7 +33,7 @@ public class MmJsfBridgeAttributeEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends
       // if mimic is readOnly or disabled, show localized value in textfield
       Class<ENUM_TYPE> enumType       = implementationEnum.getMmEnumType();
       String           enumTypeName   = enumType.getSimpleName();
-      ENUM_TYPE        dataModelValue = implementationEnum.getMmDataModelValue();
+      ENUM_TYPE        dataModelValue = implementationEnum.getMmModel();
       String           enumLabel      = (dataModelValue != null)
         ? implementationEnum.getMmI18nText(enumTypeName + "." + dataModelValue.name(), MmMessageType.SHORT) : "";
       return enumLabel;

@@ -143,6 +143,18 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
+   * Returns data model value.
+   *
+   * @return        The data model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public final DATA_MODEL getMmModel() {
+    return implementation.getMmModel();
+  }
+
+  /**
    * Returns accessor of data model.
    *
    * @return        The accessor of data model.
@@ -164,18 +176,6 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   @Override
   public final Class<DATA_MODEL> getMmModelType() {
     return implementation.getMmModelType();
-  }
-
-  /**
-   * Returns data model value.
-   *
-   * @return        The data model value.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public final DATA_MODEL getMmModelValue() {
-    return implementation.getMmModelValue();
   }
 
   /**
@@ -203,6 +203,18 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
+   * Returns view model value.
+   *
+   * @return        The view model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public final VIEW_MODEL getMmViewModel() {
+    return implementation.getMmViewModel();
+  }
+
+  /**
    * Returns model accessor of view model.
    *
    * @return        The model accessor of view model.
@@ -224,18 +236,6 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   @Override
   public final Class<VIEW_MODEL> getMmViewModelType() {
     return implementation.getMmViewModelType();
-  }
-
-  /**
-   * Returns view model value.
-   *
-   * @return        The view model value.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public final VIEW_MODEL getMmViewModelValue() {
-    return implementation.getMmViewModelValue();
   }
 
   /**

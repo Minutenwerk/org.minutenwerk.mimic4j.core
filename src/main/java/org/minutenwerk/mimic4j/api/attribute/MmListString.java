@@ -110,7 +110,7 @@ public class MmListString extends MmBaseAttributeDeclaration<MmImplementationLis
     MmSelectOption<String>       nullOption = new MmSelectOption<>("UNDEFINED", "", "", null);
     returnList.add(nullOption);
 
-    List<String> currentValues = getMmDataModelValue();
+    List<String> currentValues = getMmModel();
     if ((currentValues != null) && !currentValues.isEmpty()) {
       for (String currentValue : currentValues) {
         MmSelectOption<String> valueOption = new MmSelectOption<>("currentValue", "currentValue", "currentValue", currentValue);

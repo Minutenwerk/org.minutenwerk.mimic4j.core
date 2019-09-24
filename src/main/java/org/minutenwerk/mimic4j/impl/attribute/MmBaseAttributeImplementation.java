@@ -32,6 +32,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  *
  * @param               <CALLBACK>         Interface defining callback methods, extending {@link MmBaseCallback}.
  * @param               <CONFIGURATION>    Type of configuration, holding state of mimic configuration.
+ * @param               <ANNOTATION>       Annotation type for configuration of this mimic.
  * @param               <ATTRIBUTE_MODEL>  Type of attribute of model.
  * @param               <VIEW_MODEL>       Type of view model value of attribute, passed to HTML tag.
  *
@@ -349,7 +350,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public void setMmViewModelValue(VIEW_MODEL pViewModelValue) {
+  public void setMmViewModel(VIEW_MODEL pViewModelValue) {
     assureInitialization();
 
     String originalDebugState = toStringTraceState();
@@ -469,39 +470,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns the attribute's type of data model value (ATTRIBUTE_MODEL).
-   *
-   * @return        The attribute's type of data model value.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public Class<ATTRIBUTE_MODEL> getMmDataModelType() {
-    assureInitialization();
-
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
-  }
-
-  /**
-   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
-   *
-   * @return        The data model value of the mimic.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public ATTRIBUTE_MODEL getMmDataModelValue() {
-    assureInitialization();
-
-    if (modelAccessor != null) {
-      return modelAccessor.get();
-    } else {
-      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
-      return null;
-    }
-  }
-
-  /**
    * Returns the attribute's maximum number of characters for input in view.
    *
    * @return        The attribute's maximum number of characters for input.
@@ -562,6 +530,25 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
+   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
+   *
+   * @return        The data model value of the mimic.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public ATTRIBUTE_MODEL getMmModel() {
+    assureInitialization();
+
+    if (modelAccessor != null) {
+      return modelAccessor.get();
+    } else {
+      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      return null;
+    }
+  }
+
+  /**
    * Returns accessor of attribute of model.
    *
    * @return        The accessor of attribute of model.
@@ -573,6 +560,20 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     assureInitialization();
 
     return modelAccessor;
+  }
+
+  /**
+   * Returns the attribute's type of data model value (ATTRIBUTE_MODEL).
+   *
+   * @return        The attribute's type of data model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public Class<ATTRIBUTE_MODEL> getMmModelType() {
+    assureInitialization();
+
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_MODEL);
   }
 
   /**
@@ -638,6 +639,20 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
+   * Returns the attribute's view model value of type VIEW_MODEL.
+   *
+   * @return        The attribute's view model value of type VIEW_MODEL.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public VIEW_MODEL getMmViewModel() {
+    assureInitialization();
+
+    return viewModelValue;
+  }
+
+  /**
    * Returns the attribute's type of view model value (VIEW_MODEL).
    *
    * @return        The attribute's type of view model value.
@@ -649,20 +664,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     assureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_MODEL);
-  }
-
-  /**
-   * Returns the attribute's view model value of type VIEW_MODEL.
-   *
-   * @return        The attribute's view model value of type VIEW_MODEL.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public VIEW_MODEL getMmViewModelValue() {
-    assureInitialization();
-
-    return viewModelValue;
   }
 
   /**

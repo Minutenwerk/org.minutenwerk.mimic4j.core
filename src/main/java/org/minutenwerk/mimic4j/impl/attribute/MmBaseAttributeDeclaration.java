@@ -17,6 +17,10 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 /**
  * MmBaseEditable is an abstract base class for all editable attribute mimics.
  *
+ * @param               <IMPLEMENTATION>   Implementation part of this mimic.
+ * @param               <ATTRIBUTE_MODEL>  Type of attribute of model.
+ * @param               <VIEW_MODEL>       Type of view model value of attribute, passed to HTML tag.
+ *
  * @author              Olaf Kossak
  *
  * @jalopy.group-order  group-callback, group-lifecycle
@@ -147,8 +151,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    * @jalopy.group  group-lifecycle
    */
   @Override
-  public final void setMmViewModelValue(VIEW_MODEL pViewModelValue) {
-    implementation.setMmViewModelValue(pViewModelValue);
+  public final void setMmViewModel(VIEW_MODEL pViewModelValue) {
+    implementation.setMmViewModel(pViewModelValue);
   }
 
   /**
@@ -159,26 +163,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final int getMmCols() {
     return implementation.getMmCols();
-  }
-
-  /**
-   * Returns the type of data model value of the mimic.
-   *
-   * @return  The type of data model value of the mimic.
-   */
-  @Override
-  public final Class<ATTRIBUTE_MODEL> getMmDataModelType() {
-    return implementation.getMmDataModelType();
-  }
-
-  /**
-   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
-   *
-   * @return  The data model value of the mimic.
-   */
-  @Override
-  public final ATTRIBUTE_MODEL getMmDataModelValue() {
-    return implementation.getMmDataModelValue();
   }
 
   /**
@@ -213,6 +197,16 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
+   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
+   *
+   * @return  The data model value of the mimic.
+   */
+  @Override
+  public final ATTRIBUTE_MODEL getMmModel() {
+    return implementation.getMmModel();
+  }
+
+  /**
    * Returns accessor of attribute of model.
    *
    * @return  The accessor of attribute of model.
@@ -220,6 +214,16 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public MmAttributeAccessor<?, ATTRIBUTE_MODEL> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
+  }
+
+  /**
+   * Returns the type of data model value of the mimic.
+   *
+   * @return  The type of data model value of the mimic.
+   */
+  @Override
+  public final Class<ATTRIBUTE_MODEL> getMmModelType() {
+    return implementation.getMmModelType();
   }
 
   /**
@@ -253,6 +257,16 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
+   * Returns the attribute's view model value of type VIEW_MODEL.
+   *
+   * @return  The attribute's view model value of type VIEW_MODEL.
+   */
+  @Override
+  public final VIEW_MODEL getMmViewModel() {
+    return implementation.getMmViewModel();
+  }
+
+  /**
    * Returns the attribute's type of view model value (VIEW_MODEL).
    *
    * @return  The attribute's type of view model value.
@@ -260,16 +274,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final Class<VIEW_MODEL> getMmViewModelType() {
     return implementation.getMmViewModelType();
-  }
-
-  /**
-   * Returns the attribute's view model value of type VIEW_MODEL.
-   *
-   * @return  The attribute's view model value of type VIEW_MODEL.
-   */
-  @Override
-  public final VIEW_MODEL getMmViewModelValue() {
-    return implementation.getMmViewModelValue();
   }
 
   /**

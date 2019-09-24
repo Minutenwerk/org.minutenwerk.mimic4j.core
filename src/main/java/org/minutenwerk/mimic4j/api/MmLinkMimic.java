@@ -16,6 +16,13 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 public interface MmLinkMimic<DATA_MODEL extends MmReferencableModel, VIEW_MODEL> extends MmMimic {
 
   /**
+   * Returns data model value.
+   *
+   * @return  The data model value.
+   */
+  public DATA_MODEL getMmModel();
+
+  /**
    * Returns accessor of data model.
    *
    * @return  The accessor of data model.
@@ -28,13 +35,6 @@ public interface MmLinkMimic<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
    * @return  The type of data model.
    */
   public Class<DATA_MODEL> getMmModelType();
-
-  /**
-   * Returns data model value.
-   *
-   * @return  The data model value.
-   */
-  public DATA_MODEL getMmModelValue();
 
   /**
    * Returns model accessor of link mimic parent, may be null.
@@ -51,6 +51,13 @@ public interface MmLinkMimic<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   public URI getMmTargetReference();
 
   /**
+   * Returns view model value.
+   *
+   * @return  The view model value.
+   */
+  public VIEW_MODEL getMmViewModel();
+
+  /**
    * Returns model accessor of view model.
    *
    * @return  The model accessor of view model.
@@ -63,13 +70,6 @@ public interface MmLinkMimic<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
    * @return  The type of view model.
    */
   public Class<VIEW_MODEL> getMmViewModelType();
-
-  /**
-   * Returns view model value.
-   *
-   * @return  The view model value.
-   */
-  public VIEW_MODEL getMmViewModelValue();
 
   /**
    * Returns view text of the link.

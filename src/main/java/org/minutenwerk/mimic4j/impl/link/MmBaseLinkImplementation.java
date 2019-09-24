@@ -151,10 +151,10 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     assureInitialization();
 
     // retrieve model
-    final DATA_MODEL model          = getMmModelValue();
+    final DATA_MODEL model          = getMmModel();
 
     // retrieve data model value
-    final VIEW_MODEL dataModelValue = getMmViewModelValue();
+    final VIEW_MODEL dataModelValue = getMmViewModel();
 
     String           returnString   = null;
     if (model == null) {
@@ -170,6 +170,20 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
       }
     }
     return returnString;
+  }
+
+  /**
+   * Returns data model value.
+   *
+   * @return        The data model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public DATA_MODEL getMmModel() {
+    assureInitialization();
+
+    return dataModelAccessor.get();
   }
 
   /**
@@ -198,20 +212,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     assureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_DATA_MODEL);
-  }
-
-  /**
-   * Returns data model value.
-   *
-   * @return        The data model value.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public DATA_MODEL getMmModelValue() {
-    assureInitialization();
-
-    return dataModelAccessor.get();
   }
 
   /**
@@ -288,6 +288,20 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
+   * Returns view model value.
+   *
+   * @return        The view model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public VIEW_MODEL getMmViewModel() {
+    assureInitialization();
+
+    return viewModelAccessor.get();
+  }
+
+  /**
    * Returns model accessor of view model.
    *
    * @return        The model accessor of view model.
@@ -315,20 +329,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Returns view model value.
-   *
-   * @return        The view model value.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public VIEW_MODEL getMmViewModelValue() {
-    assureInitialization();
-
-    return viewModelAccessor.get();
-  }
-
-  /**
    * Returns view text of the link.
    *
    * @return        The view text of the link.
@@ -340,7 +340,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     assureInitialization();
 
     // retrieve view model
-    final VIEW_MODEL viewModel = getMmViewModelValue();
+    final VIEW_MODEL viewModel = getMmViewModel();
 
     // retrieve data model
     final Object     dataModel = (viewModel instanceof MmInformationable) //

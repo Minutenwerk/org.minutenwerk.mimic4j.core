@@ -6,9 +6,12 @@ import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
  * MmAttributeMimic is the basic interface of all mimic types containing editable data, which can be changed from view model. Mimics of type
  * MmAttributeMimic can be set from data model and view model, and can be converted in both directions by means of format patterns.
  *
+ * @param   <ATTRIBUTE_MODEL>  Type of attribute of model.
+ * @param   <VIEW_MODEL>       Type of view model value of attribute, passed to HTML tag.
+ *
  * @author  Olaf Kossak
  */
-public interface MmAttributeMimic<DATA_MODEL, VIEW_MODEL> extends MmEditableMimic {
+public interface MmAttributeMimic<ATTRIBUTE_MODEL, VIEW_MODEL> extends MmEditableMimic {
 
   /**
    * MmBooleanLayout is an enumeration of layout directions for JSF tags of type checkbox.
@@ -53,20 +56,6 @@ public interface MmAttributeMimic<DATA_MODEL, VIEW_MODEL> extends MmEditableMimi
   public int getMmCols();
 
   /**
-   * Returns the type of data model value of the mimic.
-   *
-   * @return  The type of data model value of the mimic.
-   */
-  public Class<DATA_MODEL> getMmDataModelType();
-
-  /**
-   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
-   *
-   * @return  The data model value of the mimic.
-   */
-  public DATA_MODEL getMmDataModelValue();
-
-  /**
    * Returns the attribute's maximum number of characters for input in view.
    *
    * @return  The attribute's maximum number of characters for input.
@@ -89,12 +78,26 @@ public interface MmAttributeMimic<DATA_MODEL, VIEW_MODEL> extends MmEditableMimi
   public MmBooleanLayout getMmLayout();
 
   /**
+   * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
+   *
+   * @return  The data model value of the mimic.
+   */
+  public ATTRIBUTE_MODEL getMmModel();
+
+  /**
    * Returns accessor of attribute of model.
    *
    * @return  The accessor of attribute of model.
    */
   @Override
-  public MmAttributeAccessor<?, DATA_MODEL> getMmModelAccessor();
+  public MmAttributeAccessor<?, ATTRIBUTE_MODEL> getMmModelAccessor();
+
+  /**
+   * Returns the type of data model value of the mimic.
+   *
+   * @return  The type of data model value of the mimic.
+   */
+  public Class<ATTRIBUTE_MODEL> getMmModelType();
 
   /**
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
@@ -111,18 +114,18 @@ public interface MmAttributeMimic<DATA_MODEL, VIEW_MODEL> extends MmEditableMimi
   public int getMmSize();
 
   /**
+   * Returns the attribute's view model value of type VIEW_MODEL.
+   *
+   * @return  The attribute's view model value of type VIEW_MODEL.
+   */
+  public VIEW_MODEL getMmViewModel();
+
+  /**
    * Returns the attribute's type of view model value (VIEW_MODEL).
    *
    * @return  The attribute's type of view model value.
    */
   public Class<VIEW_MODEL> getMmViewModelType();
-
-  /**
-   * Returns the attribute's view model value of type VIEW_MODEL.
-   *
-   * @return  The attribute's view model value of type VIEW_MODEL.
-   */
-  public VIEW_MODEL getMmViewModelValue();
 
   /**
    * Returns <code>true</code> if the view model value of this mimic is empty.
@@ -136,6 +139,6 @@ public interface MmAttributeMimic<DATA_MODEL, VIEW_MODEL> extends MmEditableMimi
    *
    * @param  pViewModelValue  The specified value to be set.
    */
-  public void setMmViewModelValue(VIEW_MODEL pViewModelValue);
+  public void setMmViewModel(VIEW_MODEL pViewModelValue);
 
 }

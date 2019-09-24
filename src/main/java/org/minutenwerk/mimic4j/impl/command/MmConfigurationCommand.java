@@ -39,8 +39,7 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    */
   public MmConfigurationCommand() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    targetOutcome = UriComponentsBuilder.fromPath(DEFAULT_TARGET_OUTCOME).build();
-    ;
+    targetOutcome  = UriComponentsBuilder.fromPath(DEFAULT_TARGET_OUTCOME).build();
     jsfTag         = DEFAULT_JSF_TAG;
     jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }

@@ -3,9 +3,6 @@ Todos:
 * Für MmExecutableMimic Reference auf Java Function übergeben und speichern
 * Meldung anzeigen
 * Fehler auf Tab anzeigen
-* In Dto.getInfo() auch i18n von Enum-Werten erlauben und anzeigen
-* In Dto.getInfo() auch Konvertierung von Zahlen und Datum?
-* Dto.getInfo() mit getFormat() implementieren?
 * Einheiten?
 * Eingabeformat als Suffix anzeigen? 
 * Multi format converter

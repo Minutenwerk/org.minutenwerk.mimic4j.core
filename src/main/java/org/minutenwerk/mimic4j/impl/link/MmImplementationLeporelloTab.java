@@ -164,7 +164,7 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
     assureInitialization();
 
     // retrieve view model
-    final VIEW_MODEL viewModel = getMmViewModelValue();
+    final VIEW_MODEL viewModel = getMmViewModel();
 
     // retrieve data model
     final Object     dataModel = (viewModel instanceof MmInformationable) //
