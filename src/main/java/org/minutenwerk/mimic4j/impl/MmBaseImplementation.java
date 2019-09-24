@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableMimic;
+import org.minutenwerk.mimic4j.api.MmReferenceProvider;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
@@ -98,7 +98,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
   /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. Is set in initialization phase. */
   // TODO MmBaseImplementation referencableAncestor
-  protected MmReferencableMimic<?>                    referencableAncestor;
+  protected MmReferenceProvider                    referencableAncestor;
 
   /** The declaration part of this implementation is the declaration. Is set in postconstruct phase. */
   protected DECLARATION                               declaration;
@@ -262,7 +262,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     runtimeDeclarationChildren    = new ArrayList<>();
 
     // evaluate ancestor for reference path, file and params
-    referencableAncestor          = getMmImplementationAncestorOfType(MmReferencableMimic.class);
+    referencableAncestor          = getMmImplementationAncestorOfType(MmReferenceProvider.class);
 
     // evaluate bridge for jsf tags
     mmJsfBridge                   = onConstructJsfBridge();

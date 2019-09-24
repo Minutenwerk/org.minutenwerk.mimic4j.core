@@ -2,7 +2,7 @@ package org.minutenwerk.mimic4j.impl.referencable;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmReferencableMimic;
+import org.minutenwerk.mimic4j.api.MmReferenceProvider;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 
@@ -15,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
  * @author  Olaf Kossak
  */
 public abstract class MmBaseReferencableDeclaration<IMPLEMENTATION extends MmBaseReferencableImplementation<?, MODEL, ?, ?>,
-  MODEL extends MmReferencableModel> extends MmBaseContainerDeclaration<IMPLEMENTATION, MODEL> implements MmReferencableMimic<MODEL>,
+  MODEL extends MmReferencableModel> extends MmBaseContainerDeclaration<IMPLEMENTATION, MODEL> implements MmReferenceProvider,
   MmReferencableCallback<MODEL> {
 
   /**

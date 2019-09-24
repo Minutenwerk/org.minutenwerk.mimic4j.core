@@ -7,7 +7,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableMimic;
+import org.minutenwerk.mimic4j.api.MmReferenceProvider;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
@@ -24,7 +24,7 @@ import org.springframework.web.util.UriComponents;
 public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBaseReferencableDeclaration<?, MODEL>,
   MODEL extends MmReferencableModel, //
   CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
-  extends MmBaseContainerImplementation<DECLARATION, MODEL, CONFIGURATION, ANNOTATION> implements MmReferencableMimic<MODEL> {
+  extends MmBaseContainerImplementation<DECLARATION, MODEL, CONFIGURATION, ANNOTATION> implements MmReferenceProvider {
 
   /** Cached instance of self reference. */
   protected URI   cachedReference;
