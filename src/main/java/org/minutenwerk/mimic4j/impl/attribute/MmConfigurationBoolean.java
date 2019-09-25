@@ -7,7 +7,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmBoolean.MmBooleanJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
 
 /**
- * MmConfigurationBoolean contains fixed configuration information for mimics of type {@link MmBoolean}.
+ * MmConfigurationBoolean contains configuration information for mimics of type {@link MmBoolean}.
  *
  * @author  Olaf Kossak
  */

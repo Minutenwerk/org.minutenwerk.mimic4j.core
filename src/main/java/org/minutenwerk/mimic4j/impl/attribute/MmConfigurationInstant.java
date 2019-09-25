@@ -8,7 +8,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmInstant.MmInstantJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmInstantAnnotation;
 
 /**
- * MmConfigurationInstant contains fixed configuration information for mimics of type {@link MmInstant}.
+ * MmConfigurationInstant contains configuration information for mimics of type {@link MmInstant}.
  *
  * @author  Olaf Kossak
  */

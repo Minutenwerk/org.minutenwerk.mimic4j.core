@@ -8,7 +8,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmBigDecimal.MmBigDecimalJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmBigDecimalAnnotation;
 
 /**
- * MmConfigurationBigDecimal contains fixed configuration information for mimics of type {@link MmBigDecimal}.
+ * MmConfigurationBigDecimal contains configuration information for mimics of type {@link MmBigDecimal}.
  *
  * @author  Olaf Kossak
  */

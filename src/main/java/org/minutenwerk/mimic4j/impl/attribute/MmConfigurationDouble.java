@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmDouble.MmDoubleJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmDoubleAnnotation;
 
 /**
- * MmConfigurationDouble contains fixed configuration information for mimics of type {@link MmDouble}.
+ * MmConfigurationDouble contains configuration information for mimics of type {@link MmDouble}.
  *
  * @author  Olaf Kossak
  */

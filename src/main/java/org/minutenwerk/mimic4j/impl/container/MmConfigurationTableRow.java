@@ -5,7 +5,7 @@ import org.minutenwerk.mimic4j.api.container.MmTableRowAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
 /**
- * MmConfigurationTableRow contains fixed configuration information for mimics of type {@link MmTableRow}.
+ * MmConfigurationTableRow contains configuration information for mimics of type {@link MmTableRow}.
  *
  * @author  Olaf Kossak
  */

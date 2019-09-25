@@ -5,7 +5,7 @@ import org.minutenwerk.mimic4j.api.link.MmLink.MmLinkJsfTag;
 import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
 
 /**
- * MmConfigurationLink contains fixed configuration information for mimics of type {@link MmLink}.
+ * MmConfigurationLink contains configuration information for mimics of type {@link MmLink}.
  *
  * @author  Olaf Kossak
  */

@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmInteger.MmIntegerJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmIntegerAnnotation;
 
 /**
- * MmConfigurationInteger contains fixed configuration information for mimics of type {@link MmInteger}.
+ * MmConfigurationInteger contains configuration information for mimics of type {@link MmInteger}.
  *
  * @author  Olaf Kossak
  */

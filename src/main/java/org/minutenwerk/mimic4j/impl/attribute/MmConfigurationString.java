@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmString.MmStringJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 
 /**
- * MmConfigurationString contains fixed configuration information for mimics of type {@link MmString}.
+ * MmConfigurationString contains configuration information for mimics of type {@link MmString}.
  *
  * @author  Olaf Kossak
  */

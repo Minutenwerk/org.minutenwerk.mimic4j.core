@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.container.MmLeporelloAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
 /**
- * MmConfigurationLeporello contains fixed configuration information for mimics of type {@link MmLeporello}.
+ * MmConfigurationLeporello contains configuration information for mimics of type {@link MmLeporello}.
  *
  * @author  Olaf Kossak
  */

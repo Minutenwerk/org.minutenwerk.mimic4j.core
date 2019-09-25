@@ -5,7 +5,7 @@ import org.minutenwerk.mimic4j.api.link.MmLeporelloTab.MmLeporelloTabJsfTag;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTabAnnotation;
 
 /**
- * MmConfigurationLeporelloTab contains fixed configuration information for mimics of type {@link MmLeporelloTab}.
+ * MmConfigurationLeporelloTab contains configuration information for mimics of type {@link MmLeporelloTab}.
  *
  * @author  Olaf Kossak
  */

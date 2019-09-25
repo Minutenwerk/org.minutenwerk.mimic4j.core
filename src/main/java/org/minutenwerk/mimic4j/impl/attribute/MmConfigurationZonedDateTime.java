@@ -8,7 +8,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime.MmDateTimeJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
 
 /**
- * MmConfigurationZonedDateTime contains fixed configuration information for mimics of type {@link MmZonedDateTime}.
+ * MmConfigurationZonedDateTime contains configuration information for mimics of type {@link MmZonedDateTime}.
  *
  * @author  Olaf Kossak
  */

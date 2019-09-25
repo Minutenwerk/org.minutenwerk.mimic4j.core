@@ -8,7 +8,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmDuration.MmDurationJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmDurationAnnotation;
 
 /**
- * MmConfigurationDuration contains fixed configuration information for mimics of type {@link MmDuration}.
+ * MmConfigurationDuration contains configuration information for mimics of type {@link MmDuration}.
  *
  * @author  Olaf Kossak
  */

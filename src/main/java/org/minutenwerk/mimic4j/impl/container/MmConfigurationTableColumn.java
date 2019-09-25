@@ -10,7 +10,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
 /**
- * MmConfigurationTableColumn contains fixed configuration information for mimics of type {@link MmTableColumn}.
+ * MmConfigurationTableColumn contains configuration information for mimics of type {@link MmTableColumn}.
  *
  * @author  Olaf Kossak
  */

@@ -5,7 +5,7 @@ import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
 /**
- * MmConfigurationTab contains fixed configuration information for mimics of type {@link MmTab}.
+ * MmConfigurationTab contains configuration information for mimics of type {@link MmTab}.
  *
  * @author  Olaf Kossak
  */

@@ -5,7 +5,7 @@ import org.minutenwerk.mimic4j.api.container.MmFormAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
 /**
- * MmConfigurationForm contains fixed configuration information for mimics of type {@link MmForm}.
+ * MmConfigurationForm contains configuration information for mimics of type {@link MmForm}.
  *
  * @author  Olaf Kossak
  */
