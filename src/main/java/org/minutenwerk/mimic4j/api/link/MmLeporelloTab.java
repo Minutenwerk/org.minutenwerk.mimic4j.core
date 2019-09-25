@@ -31,7 +31,7 @@ public class MmLeporelloTab<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   /**
    * Creates a new MmLeporelloTab instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmLeporelloTab(MmLeporelloPanel<?> pParent) {
     this(pParent, null);
@@ -40,7 +40,7 @@ public class MmLeporelloTab<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   /**
    * Creates a new MmLeporelloTab instance.
    *
-   * @param  pParent    The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent    The parent declaration mimic, containing a public final declaration of this mimic.
    * @param  pSuperTab  The super tab of this leporello tab.
    */
   public MmLeporelloTab(MmLeporelloPanel<?> pParent, MmLeporelloTab<DATA_MODEL, VIEW_MODEL> pSuperTab) {

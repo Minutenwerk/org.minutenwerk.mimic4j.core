@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationLocalDate;
 
 /**
- * MmLocalDateAnnotation annotates declarations of {@link MmLocalDate} by static configuration values.
+ * MmLocalDateAnnotation annotates declarations of {@link MmLocalDate} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

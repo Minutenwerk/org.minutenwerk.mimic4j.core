@@ -24,7 +24,7 @@ public class MmImplementationLink<DATA_MODEL extends MmReferencableModel, VIEW_M
   /**
    * Creates a new MmImplementationLink instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmImplementationLink(MmDeclarationMimic pParent) {
     super(pParent);

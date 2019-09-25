@@ -47,7 +47,7 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
   /**
    * Creates a new MmImplementationLeporelloTab instance.
    *
-   * @param  pParentPanel  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParentPanel  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel) {
     this(pParentPanel, null);
@@ -56,7 +56,7 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
   /**
    * Creates a new MmImplementationLeporelloTab instance.
    *
-   * @param  pParentPanel  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParentPanel  The parent declaration mimic, containing a public final declaration of this mimic.
    * @param  pSuperTab     The super tab is the logical parent tab in the parent panel.
    */
   public MmImplementationLeporelloTab(MmLeporelloPanel<?> pParentPanel, MmLeporelloTab<DATA_MODEL, VIEW_MODEL> pSuperTab) {

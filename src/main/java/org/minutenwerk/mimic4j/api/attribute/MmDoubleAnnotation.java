@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationDouble;
 
 /**
- * MmDoubleAnnotation annotates declarations of {@link MmDouble} by static configuration values.
+ * MmDoubleAnnotation annotates declarations of {@link MmDouble} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

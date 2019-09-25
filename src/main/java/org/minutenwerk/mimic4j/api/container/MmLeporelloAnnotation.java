@@ -10,7 +10,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.container.MmConfigurationLeporello;
 
 /**
- * MmLeporelloAnnotation annotates declarations of {@link MmLeporello} by static configuration values.
+ * MmLeporelloAnnotation annotates declarations of {@link MmLeporello} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

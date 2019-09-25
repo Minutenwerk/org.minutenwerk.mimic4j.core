@@ -38,7 +38,7 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
   /**
    * Creates a new MmBaseReferencableImplementation instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmBaseReferencableImplementation(MmDeclarationMimic pParent) {
     super(pParent);
@@ -55,9 +55,9 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
   }
 
   /**
-   * Returns the self reference of this object for the current data model, or the static part if there is no current data model.
+   * Returns the self reference of this object for the current data model, or the fixed part if there is no current data model.
    *
-   * @return        The self reference of this object for the current data model, or the static part if there is no current data model.
+   * @return        The self reference of this object for the current data model, or the fixed part if there is no current data model.
    *
    * @jalopy.group  group-override
    */

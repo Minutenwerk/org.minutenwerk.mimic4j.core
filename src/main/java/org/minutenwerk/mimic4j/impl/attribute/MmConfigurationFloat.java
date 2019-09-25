@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmFloat.MmFloatJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmFloatAnnotation;
 
 /**
- * MmConfigurationFloat contains static configuration information for mimics of type {@link MmFloat}.
+ * MmConfigurationFloat contains fixed configuration information for mimics of type {@link MmFloat}.
  *
  * @author  Olaf Kossak
  */

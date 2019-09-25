@@ -65,7 +65,7 @@ public class MmZonedDateTime extends MmBaseAttributeDeclaration<MmImplementation
   /**
    * Creates a new MmDate instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmZonedDateTime(final MmDeclarationMimic pParent) {
     super(new MmImplementationZonedDateTime(pParent));

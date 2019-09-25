@@ -13,7 +13,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
- * MmReferencePath is an immutable class to deliver the static parts of an URL.
+ * MmReferencePath is an immutable class to deliver the fixed parts of an URL.
  */
 public abstract class MmReferencePath {
 

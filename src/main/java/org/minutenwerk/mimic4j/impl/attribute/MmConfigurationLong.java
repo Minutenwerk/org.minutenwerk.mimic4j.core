@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmLong.MmLongJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmLongAnnotation;
 
 /**
- * MmConfigurationLong contains static configuration information for mimics of type {@link MmLong}.
+ * MmConfigurationLong contains fixed configuration information for mimics of type {@link MmLong}.
  *
  * @author  Olaf Kossak
  */

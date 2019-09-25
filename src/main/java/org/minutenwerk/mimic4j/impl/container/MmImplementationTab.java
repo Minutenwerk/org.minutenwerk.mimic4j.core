@@ -21,7 +21,7 @@ public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<Mm
   /**
    * Creates a new MmImplementationTab instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmImplementationTab(MmDeclarationMimic pParent) {
     super(pParent);
@@ -30,7 +30,7 @@ public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<Mm
   /**
    * Creates a new MmImplementationTab instance.
    *
-   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent        The parent declaration mimic, containing a public final declaration of this mimic.
    * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
    *                        has a root accessor.
    */

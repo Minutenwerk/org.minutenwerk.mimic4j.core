@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationString;
 
 /**
- * MmStringAnnotation annotates declarations of {@link MmString} by static configuration values.
+ * MmStringAnnotation annotates declarations of {@link MmString} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

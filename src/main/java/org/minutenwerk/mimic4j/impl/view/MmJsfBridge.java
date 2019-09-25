@@ -37,19 +37,6 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
   }
 
   /**
-   * A static helper method to evaluate conditions in expression language (EL).
-   *
-   * @param   pCondition    The condition to be evaluated, must return true or false.
-   * @param   pTrueReturn   The object to use in case the condition is true.
-   * @param   pFalseReturn  The object to use in case the condition is false.
-   *
-   * @return  The object to use dependent on condition.
-   */
-  public static final Object conditionalValue(boolean pCondition, Object pTrueReturn, Object pFalseReturn) {
-    return pCondition ? pTrueReturn : pFalseReturn;
-  }
-
-  /**
    * Returns an EL expression of type String, which triggers JSF to execute a Java method, usually invoked by a HTML button.
    *
    * @return  An EL expression of type String.

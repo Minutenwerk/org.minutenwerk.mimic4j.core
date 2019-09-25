@@ -10,7 +10,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * MmConfigurationCommand contains static configuration information for mimics of type {@link MmCommand}.
+ * MmConfigurationCommand contains fixed configuration information for mimics of type {@link MmCommand}.
  *
  * @author  Olaf Kossak
  */

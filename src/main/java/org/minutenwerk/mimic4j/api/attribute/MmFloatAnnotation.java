@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationFloat;
 
 /**
- * MmFloatAnnotation annotates declarations of {@link MmFloat} by static configuration values.
+ * MmFloatAnnotation annotates declarations of {@link MmFloat} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

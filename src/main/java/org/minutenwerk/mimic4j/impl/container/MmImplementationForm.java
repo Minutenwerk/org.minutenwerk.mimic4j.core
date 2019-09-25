@@ -17,7 +17,7 @@ public class MmImplementationForm<MODEL>
   /**
    * Creates a new MmImplementationForm instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmImplementationForm(MmDeclarationMimic pParent) {
     super(pParent);

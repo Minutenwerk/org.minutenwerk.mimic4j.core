@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.container.MmLeporelloPanelAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
 /**
- * MmConfigurationLeporelloPanel contains static configuration information for mimics of type {@link MmLeporelloPanel}.
+ * MmConfigurationLeporelloPanel contains fixed configuration information for mimics of type {@link MmLeporelloPanel}.
  *
  * @author  Olaf Kossak
  */

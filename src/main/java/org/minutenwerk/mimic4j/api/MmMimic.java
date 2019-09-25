@@ -161,10 +161,10 @@ public interface MmMimic {
   public boolean isMmModelPresent();
 
   /**
-   * Returns the self reference (aka link) of this object for the current data model, or the static part of the reference if there is no
+   * Returns the self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is no
    * current data model.
    *
-   * @return        The self reference (aka link) of this object for the current data model, or the static part of the reference if there is
+   * @return        The self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is
    *                no current data model.
    *
    * @jalopy.group  group-reference

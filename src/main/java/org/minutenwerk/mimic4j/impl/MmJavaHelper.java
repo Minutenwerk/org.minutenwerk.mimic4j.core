@@ -60,7 +60,7 @@ public class MmJavaHelper {
   }
 
   /**
-   * Provides all fields within the given class and its super-classes, which are public, static, final and instances of
+   * Provides all fields within the given class and its super-classes, which are public, final, NOT static, and instances of
    * {@link MmBaseDeclaration}.
    *
    * <p>The fields of the super classes appear as first list items.</p>

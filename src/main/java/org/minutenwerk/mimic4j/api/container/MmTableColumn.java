@@ -24,7 +24,7 @@ public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplement
   /**
    * Creates a new MmTableColumn instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmTableColumn(MmDeclarationMimic pParent) {
     super(new MmImplementationTableColumn<>(pParent));

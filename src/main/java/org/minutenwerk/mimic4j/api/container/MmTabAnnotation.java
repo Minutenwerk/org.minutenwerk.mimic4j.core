@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.container.MmConfigurationTab;
 
 /**
- * MmTabAnnotation annotates declarations of {@link MmTab} by static configuration values.
+ * MmTabAnnotation annotates declarations of {@link MmTab} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

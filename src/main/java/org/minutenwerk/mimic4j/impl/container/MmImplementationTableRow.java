@@ -26,7 +26,7 @@ public class MmImplementationTableRow<ROW_MODEL>
   /**
    * Creates a new MmImplementationTableRow instance.
    *
-   * @param  pParent    The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent    The parent declaration mimic, containing a public final declaration of this mimic.
    * @param  pRowIndex  The table row index of this row.
    */
   public MmImplementationTableRow(final MmDeclarationMimic pParent, final Integer pRowIndex) {

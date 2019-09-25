@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationLong;
 
 /**
- * MmLongAnnotation annotates declarations of {@link MmLong} by static configuration values.
+ * MmLongAnnotation annotates declarations of {@link MmLong} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

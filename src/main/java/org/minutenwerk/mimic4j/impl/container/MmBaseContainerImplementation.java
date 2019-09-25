@@ -74,7 +74,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   /**
    * Creates a new MmBaseContainerImplementation instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent) {
     this(pParent, (Integer)null);
@@ -83,7 +83,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   /**
    * Creates a new MmBaseContainerImplementation instance at runtime.
    *
-   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent        The parent declaration mimic, containing a public final declaration of this mimic.
    * @param  pRuntimeIndex  The index of this mimic when created at runtime.
    */
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final Integer pRuntimeIndex) {
@@ -96,7 +96,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   /**
    * Creates a new MmBaseContainerImplementation instance.
    *
-   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent        The parent declaration mimic, containing a public final declaration of this mimic.
    * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
    *                        has a root accessor.
    */

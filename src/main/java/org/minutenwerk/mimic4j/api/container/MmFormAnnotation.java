@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.container.MmConfigurationForm;
 
 /**
- * MmFormAnnotation annotates declarations of {@link MmForm} by static configuration values.
+ * MmFormAnnotation annotates declarations of {@link MmForm} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

@@ -60,7 +60,7 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   /**
    * Creates a new MmBoolean instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmBoolean(final MmDeclarationMimic pParent) {
     super(new MmImplementationBoolean(pParent));

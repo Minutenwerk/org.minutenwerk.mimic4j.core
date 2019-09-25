@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigDecimal;
 
 /**
- * MmBigDecimalAnnotation annotates declarations of {@link MmBigDecimal} by static configuration values.
+ * MmBigDecimalAnnotation annotates declarations of {@link MmBigDecimal} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

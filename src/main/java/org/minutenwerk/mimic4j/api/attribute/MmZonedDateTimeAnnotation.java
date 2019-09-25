@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationZonedDateTime;
 
 /**
- * MmZonedDateTimeAnnotation annotates declarations of {@link MmZonedDateTime} by static configuration values.
+ * MmZonedDateTimeAnnotation annotates declarations of {@link MmZonedDateTime} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.container.MmConfigurationTableRow;
 
 /**
- * MmTableRowAnnotation annotates declarations of {@link MmTableRow} by static configuration values.
+ * MmTableRowAnnotation annotates declarations of {@link MmTableRow} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

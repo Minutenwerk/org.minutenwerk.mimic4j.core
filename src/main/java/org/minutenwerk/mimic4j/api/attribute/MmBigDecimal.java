@@ -67,7 +67,7 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
   /**
    * Creates a new MmBigDecimal instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmBigDecimal(final MmDeclarationMimic pParent) {
     super(new MmImplementationBigDecimal(pParent));

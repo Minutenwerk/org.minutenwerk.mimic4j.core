@@ -8,7 +8,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmBigInteger.MmBigIntegerJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmBigIntegerAnnotation;
 
 /**
- * MmConfigurationBigInteger contains static configuration information for mimics of type {@link MmBigInteger}.
+ * MmConfigurationBigInteger contains fixed configuration information for mimics of type {@link MmBigInteger}.
  *
  * @author  Olaf Kossak
  */

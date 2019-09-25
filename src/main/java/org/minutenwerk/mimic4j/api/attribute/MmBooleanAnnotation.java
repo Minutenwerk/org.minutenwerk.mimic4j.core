@@ -12,7 +12,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBoolean;
 
 /**
- * MmBooleanAnnotation annotates declarations of {@link MmBoolean} by static configuration values.
+ * MmBooleanAnnotation annotates declarations of {@link MmBoolean} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

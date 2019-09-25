@@ -65,7 +65,7 @@ public class MmLocalDateTime extends MmBaseAttributeDeclaration<MmImplementation
   /**
    * Creates a new MmDate instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmLocalDateTime(final MmDeclarationMimic pParent) {
     super(new MmImplementationLocalDateTime(pParent));

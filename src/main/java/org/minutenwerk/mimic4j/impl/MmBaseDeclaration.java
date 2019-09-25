@@ -197,9 +197,9 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   }
 
   /**
-   * Returns the self reference of this object for the current data model, or the static part if there is no current data model.
+   * Returns the self reference of this object for the current data model, or the fixed part if there is no current data model.
    *
-   * @return        The self reference of this object for the current data model, or the static part if there is no current data model.
+   * @return        The self reference of this object for the current data model, or the fixed part if there is no current data model.
    *
    * @jalopy.group  group-override
    */

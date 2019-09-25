@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigInteger;
 
 /**
- * MmBigIntegerAnnotation annotates declarations of {@link MmBigInteger} by static configuration values.
+ * MmBigIntegerAnnotation annotates declarations of {@link MmBigInteger} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

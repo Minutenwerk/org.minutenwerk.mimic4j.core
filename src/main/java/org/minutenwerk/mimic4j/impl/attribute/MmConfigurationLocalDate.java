@@ -8,7 +8,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmLocalDate.MmDateJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalDateAnnotation;
 
 /**
- * MmConfigurationLocalDate contains static configuration information for mimics of type {@link MmLocalDate}.
+ * MmConfigurationLocalDate contains fixed configuration information for mimics of type {@link MmLocalDate}.
  *
  * @author  Olaf Kossak
  */

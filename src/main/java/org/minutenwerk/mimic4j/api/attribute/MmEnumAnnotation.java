@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationEnum;
 
 /**
- * MmEnumAnnotation annotates declarations of {@link MmEnum} by static configuration values.
+ * MmEnumAnnotation annotates declarations of {@link MmEnum} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

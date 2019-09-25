@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationDuration;
 
 /**
- * MmDurationAnnotation annotates declarations of {@link MmDuration} by static configuration values.
+ * MmDurationAnnotation annotates declarations of {@link MmDuration} by hardcoded configuration values.
  *
  * @author  Olaf Kossak
  */

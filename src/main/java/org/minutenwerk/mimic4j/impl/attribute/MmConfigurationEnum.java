@@ -6,7 +6,7 @@ import org.minutenwerk.mimic4j.api.attribute.MmEnum.MmEnumJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
 
 /**
- * MmConfigurationEnum contains static configuration information for mimics of type {@link MmEnum}.
+ * MmConfigurationEnum contains fixed configuration information for mimics of type {@link MmEnum}.
  *
  * @author  Olaf Kossak
  */

@@ -37,7 +37,7 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
   /**
    * Creates a new MmLeporelloPanel instance.
    *
-   * @param  pParent  The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmLeporello(MmDeclarationMimic pParent) {
     super(new MmImplementationLeporello<MODEL, SUB_MODEL>(pParent));
@@ -46,7 +46,7 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
   /**
    * Creates a new MmLeporello instance.
    *
-   * @param  pParent        The parent declaration mimic, declaring a static final instance of this mimic.
+   * @param  pParent        The parent declaration mimic, containing a public final declaration of this mimic.
    * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
    *                        has a root accessor.
    */
