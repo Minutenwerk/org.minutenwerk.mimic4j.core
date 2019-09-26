@@ -67,7 +67,7 @@ public class MmInitialState {
    * @return  False, if state is equal to specified state.
    */
   public boolean isNot(MmState pState) {
-    return !is(pState);
+    return state != pState;
   }
 
   /**
@@ -95,6 +95,24 @@ public class MmInitialState {
       }
     }
     return true;
+  }
+
+  /**
+   * Returns true, if state is not IN_CONSTRUCTION.
+   *
+   * @return  True, if state is not IN_CONSTRUCTION.
+   */
+  public boolean isNotInConstruction() {
+    return state != IN_CONSTRUCTION;
+  }
+
+  /**
+   * Returns true, if state is not INITIALIZED.
+   *
+   * @return  True, if state is not INITIALIZED.
+   */
+  public boolean isNotInitialized() {
+    return state != INITIALIZED;
   }
 
   /**

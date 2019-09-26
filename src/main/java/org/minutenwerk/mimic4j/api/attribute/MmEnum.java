@@ -101,8 +101,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
         Class<ENUM_TYPE> enumType = implementation.getMmEnumType();
         returnEnumType = Enum.valueOf(enumType, pViewModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmViewModelConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view value: " + pViewModelValue);
+        throw new MmViewModelConverterException(this, "Cannot format " + this + ", view value: " + pViewModelValue);
       }
     }
     return returnEnumType;

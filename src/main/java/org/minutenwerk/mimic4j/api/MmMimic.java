@@ -122,8 +122,9 @@ public interface MmMimic {
   public String getMmShortDescription();
 
   /**
-   * Returns a long description. The long description is evaluated from callback method
-   * {@link MmBaseCallback#callbackMmGetLongDescription()}.
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
+   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * MmConfiguration.longDescription</code>.
    *
    * @return        A long description.
    *

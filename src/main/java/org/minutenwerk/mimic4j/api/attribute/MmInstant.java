@@ -96,8 +96,7 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
       }
     } catch (Exception e) {
       throw new MmDataModelConverterException(this,
-        "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-        + getMmFormatPattern() + "<");
+        "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
     }
   }
 
@@ -124,8 +123,7 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
         returnInstant = Instant.from(zonedDateTime);
       } catch (DateTimeParseException e) {
         throw new MmViewModelConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view value: " + pViewModelValue + " by pattern >"
-          + getMmFormatPattern() + "<");
+          "Cannot format " + this + ", view value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
       }
     }
     return returnInstant;

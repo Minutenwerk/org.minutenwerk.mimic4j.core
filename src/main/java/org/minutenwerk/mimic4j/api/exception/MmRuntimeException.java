@@ -15,39 +15,26 @@ public class MmRuntimeException extends RuntimeException {
   /** The mimic this exception relates to. */
   protected final MmMimic   mimic;
 
-  /** The arguments to be inserted into message text, may be null. */
-  protected final Object[]  args;
-
   /**
    * Creates a new MmRuntimeException instance.
    *
-   * @param  pMm    The mimic this exception relates to.
-   * @param  pArgs  The arguments to be inserted into message text, may be null.
+   * @param  pMm       The mimic this exception relates to.
+   * @param  pMessage  pArgs The arguments to be inserted into message text, may be null.
    */
-  public MmRuntimeException(MmMimic pMm, Object... pArgs) {
-    this(pMm, null, pArgs);
+  public MmRuntimeException(MmMimic pMm, String pMessage) {
+    this(pMm, pMessage, null);
   }
 
   /**
    * Creates a new MmRuntimeException instance.
    *
-   * @param  pMimic  The mimic this exception relates to.
-   * @param  pCause  The causing exception, may be null.
-   * @param  pArgs   The arguments to be inserted into message text, may be null.
+   * @param  pMimic    The mimic this exception relates to.
+   * @param  pMessage  pArgs The arguments to be inserted into message text, may be null.
+   * @param  pCause    The causing exception, may be null.
    */
-  public MmRuntimeException(MmMimic pMimic, Throwable pCause, Object... pArgs) {
-    super(pMimic.getMmId(), pCause);
+  public MmRuntimeException(MmMimic pMimic, String pMessage, Throwable pCause) {
+    super(pMimic.toString() + ": " + pMessage, pCause);
     mimic = pMimic;
-    args  = pArgs;
-  }
-
-  /**
-   * Returns the arguments to be inserted into message text, may be null.
-   *
-   * @return  The arguments to be inserted into message text, may be null.
-   */
-  public final Object[] getArgs() {
-    return args;
   }
 
   /**

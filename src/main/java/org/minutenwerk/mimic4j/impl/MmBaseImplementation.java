@@ -416,7 +416,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-construction
    */
   protected MmBaseImplementation<?, ?, ?> onConstructRoot(final MmBaseImplementation<?, ?, ?> pMm) {
-    if (pMm.initialState.isNot(IN_CONSTRUCTION)) {
+    if (pMm.initialState.isNotInConstruction()) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
     }
 
@@ -464,7 +464,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected void addDeclarationAsChildToParent(MmBaseDeclaration<?, ?> pChild) {
     if (implementationParent != null) {
       if (LOGGER.isDebugEnabled()) {
-        if ((implementationParent.initialState.isNot(CONSTRUCTION_COMPLETE)) && (implementationParent.initialState.isNot(INITIALIZED))) {
+        if ((implementationParent.initialState.isNot(CONSTRUCTION_COMPLETE)) && (implementationParent.initialState.isNotInitialized())) {
           throw new IllegalStateException("Initial state must be CONSTRUCTION_COMPLETE or INITIALIZED");
         }
         if (pChild == null) {
@@ -593,8 +593,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-initialization
    */
   protected void assureInitialization() {
-    if (initialState.isNot(INITIALIZED)) {
-      if ((implementationParent != null) && implementationParent.initialState.isNot(INITIALIZED)) {
+    if (initialState.isNotInitialized()) {
+      if ((implementationParent != null) && implementationParent.initialState.isNotInitialized()) {
         implementationParent.assureInitialization();
       } else {
         initialize();
@@ -666,7 +666,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     final String   returnString          = declaration.callbackMmGetLongDescription(i18nLongDescription, longDescriptionParams);
     if (LOGGER.isDebugEnabled()) {
       if (returnString == null) {
-        throw new IllegalStateException("callbackMmGetLongDescription cannot return null");
+        throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + this);
       }
     }
     return returnString;
@@ -904,7 +904,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   public void addRuntimeChild(MmBaseDeclaration<?, ?> pChild) {
     if (LOGGER.isDebugEnabled()) {
-      if (initialState.isNot(INITIALIZED)) {
+      if (initialState.isNotInitialized()) {
         throw new IllegalStateException("Initial state must be INITIALIZED");
       }
       if (pChild == null) {

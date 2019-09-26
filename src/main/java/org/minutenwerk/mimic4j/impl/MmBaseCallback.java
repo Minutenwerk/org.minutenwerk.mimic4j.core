@@ -9,10 +9,9 @@ package org.minutenwerk.mimic4j.impl;
 public interface MmBaseCallback {
 
   /**
-   * Returns a long description. The long description is evaluated from callbackMm method <code>callbackMmGetLongDescription</code>. If
-   * <code>callbackMmGetLongDescription</code> returns null, the long description is evaluated from configuration attribute <code>
-   * MmConfiguration.longDescription</code>. If <code>MmConfiguration.longDescription</code> returns the constant <code>
-   * MmConfiguration.UNDEFINED</code>, the long description is set to value of name of mimic.
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
+   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * MmConfiguration.longDescription</code>.
    *
    * @param   pPassThroughValue      By default this parameter value will be returned.
    * @param   pPassThroughArguments  Optional list of message arguments.
@@ -22,7 +21,9 @@ public interface MmBaseCallback {
   public String callbackMmGetLongDescription(String pPassThroughValue, Object... pPassThroughArguments);
 
   /**
-   * Returns an array of message arguments for the long description.
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
+   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * MmConfiguration.longDescription</code>.
    *
    * @param   pPassThroughValues  By default this parameter value will be returned.
    *
@@ -31,10 +32,9 @@ public interface MmBaseCallback {
   public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues);
 
   /**
-   * Returns a short description. The short description is evaluated from callbackMm method <code>callbackMmGetShortDescription</code>. If
-   * <code>callbackMmGetShortDescription</code> returns null, the short description is evaluated from configuration attribute <code>
-   * MmConfiguration.shortDescription</code>. If <code>MmConfiguration.shortDescription</code> returns the constant <code>
-   * MmConfiguration.UNDEFINED</code>, the short description is set to value of name of mimic.
+   * Returns a short description. The short description is evaluated from declaration method <code>callbackMmGetShortDescription</code>. If
+   * <code>callbackMmGetShortDescription</code> is not overridden, the short description is evaluated from configuration attribute <code>
+   * MmConfiguration.shortDescription</code>.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *

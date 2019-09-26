@@ -1,15 +1,5 @@
 package org.minutenwerk.mimic4j.impl.link;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-
-import java.util.Date;
-
-import org.minutenwerk.mimic4j.api.MmInformationable;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
@@ -19,7 +9,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporello;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloTab;
 
@@ -152,94 +141,6 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
 
     // TODO MmImplementationLeporelloTab getMmViewTab
     return null;
-  }
-
-  /**
-   * Returns view text of the link.
-   *
-   * @return  The view text of the link.
-   */
-  @Override
-  public String getMmViewValue() {
-    assureInitialization();
-
-    // retrieve view model
-    final VIEW_MODEL viewModel = getMmViewModel();
-
-    // retrieve data model
-    final Object     dataModel = (viewModel instanceof MmInformationable) //
-      ? ((MmInformationable)viewModel).getInfo() //
-      : viewModel;
-
-    // if model is an array of objects
-    if (dataModel instanceof Object[]) {
-
-      // translate enum values to i18n strings before, because MessageFormat shall not do this
-      for (int index = 0; index < ((Object[])dataModel).length; index++) {
-        final Object dataModelObject = ((Object[])dataModel)[index];
-        if (dataModelObject instanceof Enum<?>) {
-          final String i18nEnumValue = formatViewModelValue(dataModelObject);
-          ((Object[])dataModel)[index] = i18nEnumValue;
-        }
-      }
-
-      // data model keeps an Object[], but because it is of type Object, java still interprets it to be just one object
-      // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-      final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, (Object[])dataModel);
-      return i18nViewModelValue;
-
-      // if model is a single object
-    } else {
-
-      // return empty String for null value
-      if (dataModel == null) {
-        return "";
-
-        // pass through Strings
-      } else if (dataModel instanceof String) {
-        return (String)dataModel;
-
-        // i18n single enums
-      } else if (dataModel instanceof Enum<?>) {
-
-        // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewModelValue = formatViewModelValue(dataModel);
-        return i18nViewModelValue;
-
-        // format Instant values
-      } else if (dataModel instanceof Instant) {
-
-        final Date   dataModelValueAsJavaUtilDate = Date.from(((Instant)dataModel));
-        final String formattedViewModelValue      = formatViewModelValue(dataModelValueAsJavaUtilDate);
-        return formattedViewModelValue;
-
-        // format LocalDate values
-      } else if (dataModel instanceof LocalDate) {
-
-        final Date   dataModelValueAsJavaUtilDate = Date.from(((LocalDate)dataModel).atStartOfDay(ZoneId.of("UTC")).toInstant());
-        final String formattedViewModelValue      = formatViewModelValue(dataModelValueAsJavaUtilDate);
-        return formattedViewModelValue;
-
-        // format LocalDateTime values
-      } else if (dataModel instanceof LocalDateTime) {
-
-        final Date   dataModelValueAsJavaUtilDate = Date.from(((LocalDateTime)dataModel).toInstant(ZoneOffset.UTC));
-        final String formattedViewModelValue      = formatViewModelValue(dataModelValueAsJavaUtilDate);
-        return formattedViewModelValue;
-
-        // format ZonedDateTime values
-      } else if (dataModel instanceof ZonedDateTime) {
-
-        final Date   dataModelValueAsJavaUtilDate = Date.from(((ZonedDateTime)dataModel).toInstant());
-        final String formattedViewModelValue      = formatViewModelValue(dataModelValueAsJavaUtilDate);
-        return formattedViewModelValue;
-
-        // all other single objects translate to i18n
-      } else {
-        final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, dataModel);
-        return i18nViewModelValue;
-      }
-    }
   }
 
   /**

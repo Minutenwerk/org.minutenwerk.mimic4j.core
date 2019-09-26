@@ -15,13 +15,10 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -143,34 +140,20 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    *
    * @return        A long description.
    *
-   * @throws        IllegalStateException  In case of callbackMmGetLongDescription() returns null.
-   *
    * @jalopy.group  group-override
    */
   @Override
   public String getMmLongDescription() {
     assureInitialization();
 
-    // retrieve model
-    final DATA_MODEL model          = getMmModel();
+    // retrieve view model
+    final VIEW_MODEL viewModel = getMmViewModel();
 
-    // retrieve data model value
-    final VIEW_MODEL dataModelValue = getMmViewModel();
-
-    String           returnString   = null;
-    if (model == null) {
-      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, dataModelValue);
-      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, dataModelValue);
+    if (viewModel instanceof MmInformationable) {
+      return getMmDescription((MmInformationable)viewModel, MmMessageType.LONG);
     } else {
-      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG, dataModelValue, model);
-      returnString = declaration.callbackMmGetLongDescription(i18nLongDescription, dataModelValue, model);
+      return getMmDescription(viewModel, MmMessageType.LONG);
     }
-    if (LOGGER.isDebugEnabled()) {
-      if (returnString == null) {
-        throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + this);
-      }
-    }
-    return returnString;
   }
 
   /**
@@ -234,7 +217,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    *
    * @return        The URI of the link.
    *
-   * @throws        IllegalArgumentException  TODOC
+   * @throws        IllegalArgumentException  In case of no definition of target reference path.
    *
    * @jalopy.group  group-override
    */
@@ -322,6 +305,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    *
    * @jalopy.group  group-override
    */
+  @Override
   public Class<VIEW_MODEL> getMmViewModelType() {
     assureInitialization();
 
@@ -342,61 +326,10 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     // retrieve view model
     final VIEW_MODEL viewModel = getMmViewModel();
 
-    // if view model is MmInformationable
-    Object[] viewModelArray = null;
     if (viewModel instanceof MmInformationable) {
-      viewModelArray = ((MmInformationable)viewModel).getInfo();
-      for (int index = 0; index < ((Object[])viewModelArray).length; index++) {
-        viewModelArray[index] = transformObjectForFormattingByMessageSource(((Object[])viewModelArray)[index]);
-      }
-      
-      // if view model is an array of objects
-    } else if (viewModel instanceof Object[]){
-      // transform object into array of objects
-      viewModelArray = new Object[((Object[])viewModel).length];
-      for (int index = 0; index < ((Object[])viewModel).length; index++) {
-        viewModelArray[index] = transformObjectForFormattingByMessageSource(((Object[])viewModel)[index]);
-      }
-    }
-
-    // if model is an array
-    if (viewModelArray != null) {
-      // viewModelArray keeps an Object[], but because it is of type Object, java still interprets it to be just one object
-      // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-      final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, (Object[])viewModelArray);
-      return i18nViewModelValue;
-
-      // if model is a single object
+      return getMmDescription((MmInformationable)viewModel, MmMessageType.SHORT);
     } else {
-
-      // return empty String for null value
-      if (viewModel == null) {
-        return "";
-
-        // pass through Strings
-      } else if (viewModel instanceof String) {
-        return (String)viewModel;
-
-        // i18n single enums
-      } else if (viewModel instanceof Enum<?>) {
-
-        // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewModelValue = formatViewModelValue(viewModel);
-        return i18nViewModelValue;
-
-        // format number, date and time values
-//      } else if ((viewModel instanceof Number) || (viewModel instanceof Boolean) || (viewModel instanceof Duration)
-//          || (viewModel instanceof Instant) || (viewModel instanceof LocalTime) || (viewModel instanceof LocalDate)
-//          || (viewModel instanceof LocalDateTime) || (viewModel instanceof ZonedDateTime)) {
-//
-//        final String formattedViewModelValue = formatViewModelValue(viewModel);
-//        return formattedViewModelValue;
-
-        // all other single objects translate to i18n
-      } else {
-        final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, viewModel);
-        return i18nViewModelValue;
-      }
+      return getMmDescription(viewModel, MmMessageType.SHORT);
     }
   }
 
@@ -440,181 +373,213 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Returns the specified view model value, formatted depending on its type.
+   * Returns the formatted specified view model value, formatted depending on its type, returns otherwise the unformatted view model value.
    *
    * @param         pViewModelValue  The specified view model value.
+   * @param         pFormatPattern   The specified format pattern.
    *
    * @return        The formatted view model value, formatted depending on its type.
    *
    * @throws        MmDataModelConverterException  In case of conversion fails.
-   * @throws        IllegalArgumentException       In case of conversion fails.
    *
    * @jalopy.group  group-i18n
    */
-  protected String formatViewModelValue(Object pViewModelValue) {
-    String formattedValue = "";
-    if (pViewModelValue != null) {
+  protected Object formatViewModelValue(Object pViewModelValue, String pFormatPattern) {
+    if (pViewModelValue == null) {
+      return null;
 
-      if (pViewModelValue instanceof String) {
-        formattedValue = (String)pViewModelValue;
+    } else if (pViewModelValue instanceof String) {
+      return pViewModelValue;
 
-      } else if ((pViewModelValue instanceof Integer) || (pViewModelValue instanceof Long) || (pViewModelValue instanceof Float)
-          || (pViewModelValue instanceof Double)) {
-        try {
-          final NumberFormat numberFormatter = getMmNumberFormatter(false);
-          formattedValue = numberFormatter.format(pViewModelValue);
-        } catch (IllegalArgumentException e) {
-          throw new MmDataModelConverterException(this,
-            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
-        }
-
-      } else if ((pViewModelValue instanceof BigDecimal) || (pViewModelValue instanceof BigInteger)) {
-        try {
-          final NumberFormat numberFormatter = getMmNumberFormatter(true);
-          formattedValue = numberFormatter.format(pViewModelValue);
-        } catch (IllegalArgumentException e) {
-          throw new MmDataModelConverterException(this,
-            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
-        }
-
-      } else if (pViewModelValue instanceof Duration) {
-        try {
-          formattedValue = ((Duration)pViewModelValue).toString();
-        } catch (IllegalArgumentException e) {
-          throw new MmDataModelConverterException(this,
-            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
-        }
-
-      } else if (pViewModelValue instanceof Instant) {
-        try {
-          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = dateTimeFormatter.format((Instant)pViewModelValue);
-        } catch (IllegalArgumentException e) {
-          throw new MmDataModelConverterException(this,
-            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
-        }
-
-      } else if (pViewModelValue instanceof LocalTime) {
-        try {
-          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalTime)pViewModelValue).format(dateTimeFormatter);
-        } catch (IllegalArgumentException e) {
-          throw new MmDataModelConverterException(this,
-            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
-        }
-
-      } else if (pViewModelValue instanceof LocalDate) {
-        try {
-          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalDate)pViewModelValue).format(dateTimeFormatter);
-        } catch (IllegalArgumentException e) {
-          throw new MmDataModelConverterException(this,
-            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
-        }
-
-      } else if (pViewModelValue instanceof LocalDateTime) {
-        try {
-          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalDateTime)pViewModelValue).format(dateTimeFormatter);
-        } catch (IllegalArgumentException e) {
-          throw new MmDataModelConverterException(this,
-            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
-        }
-
-      } else if (pViewModelValue instanceof ZonedDateTime) {
-        try {
-          final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((ZonedDateTime)pViewModelValue).format(dateTimeFormatter);
-        } catch (IllegalArgumentException e) {
-          throw new MmDataModelConverterException(this,
-            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
-        }
-
-      } else if (pViewModelValue instanceof Enum<?>) {
-        final Enum<?> enumValue    = (Enum<?>)pViewModelValue;
-        final String  enumTypeName = enumValue.getClass().getSimpleName();
-        formattedValue = root.getMmI18nText(enumTypeName + "." + enumValue.name(), MmMessageType.SHORT);
-
-      } else if (pViewModelValue instanceof Boolean) {
-        if ((Boolean)pViewModelValue) {
-          formattedValue = root.getMmI18nText(getMmId() + ".true", MmMessageType.SHORT);
-        } else {
-          formattedValue = root.getMmI18nText(getMmId() + ".false", MmMessageType.SHORT);
-        }
-      } else {
-        throw new IllegalArgumentException("unknown view model value type cannot be formatted " + pViewModelValue);
+    } else if ((pViewModelValue instanceof Integer) || (pViewModelValue instanceof Long) || (pViewModelValue.getClass().equals(long.class))
+        || (pViewModelValue instanceof Float) || (pViewModelValue.getClass().equals(float.class)) || (pViewModelValue instanceof Double)
+        || (pViewModelValue.getClass().equals(double.class))) {
+      try {
+        final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, false);
+        return numberFormatter.format(pViewModelValue);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
+
+    } else if ((pViewModelValue instanceof BigDecimal) || (pViewModelValue instanceof BigInteger)) {
+      try {
+        final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, true);
+        return numberFormatter.format(pViewModelValue);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof Duration) {
+      try {
+        return ((Duration)pViewModelValue).toString();
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof Instant) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return dateTimeFormatter.format((Instant)pViewModelValue);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof LocalTime) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return ((LocalTime)pViewModelValue).format(dateTimeFormatter);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof LocalDate) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return ((LocalDate)pViewModelValue).format(dateTimeFormatter);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof LocalDateTime) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return ((LocalDateTime)pViewModelValue).format(dateTimeFormatter);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof ZonedDateTime) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return ((ZonedDateTime)pViewModelValue).format(dateTimeFormatter);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof Enum<?>) {
+      final Enum<?> enumValue    = (Enum<?>)pViewModelValue;
+      final String  enumTypeName = enumValue.getClass().getSimpleName();
+      return root.getMmI18nText(enumTypeName + "." + enumValue.name(), MmMessageType.SHORT);
+
+    } else if ((pViewModelValue instanceof Boolean) || (pViewModelValue.getClass().equals(boolean.class))) {
+      if ((Boolean)pViewModelValue) {
+        return root.getMmI18nText(getMmId() + ".true", MmMessageType.SHORT);
+      } else {
+        return root.getMmI18nText(getMmId() + ".false", MmMessageType.SHORT);
+      }
+    } else {
+      return pViewModelValue;
     }
-    return formattedValue;
   }
 
   /**
-   * Returns the initialized date formatter of this mimic.
+   * Returns the initialized date formatter of this mimic for specified format pattern..
+   *
+   * @param         pFormatPattern  The specified format pattern.
    *
    * @return        The initialized date formatter of this mimic.
    *
    * @jalopy.group  group-i18n
    */
-  protected DateTimeFormatter getMmDateTimeFormatter() {
-    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(getMmFormatPattern());
+  protected DateTimeFormatter getMmDateTimeFormatter(final String pFormatPattern) {
+    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(pFormatPattern);
     return returnDateFormatter;
   }
 
   /**
-   * Returns the initialized number formatter of this mimic.
+   * Returns view text of the link for specified MmInformationable.
    *
+   * @param         pInformationable  The specified MmInformationable.
+   * @param         pMessageType      The specified pMessageType e.g. SHORT or LONG.
+   *
+   * @return        The view text of the link.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected String getMmDescription(final MmInformationable pInformationable, final MmMessageType pMessageType) {
+    // if view value is MmInformationable, transform into an array of formatted objects
+    final Object[] viewValueArray     = ((MmInformationable)pInformationable).getInfo();
+
+    // retrieve array of format patterns
+    final String[] formatPatternArray = getMmFormatPattern().split("\\|");
+
+    // apply each format pattern to corresponding view value
+    for (int index = 0; index < ((Object[])viewValueArray).length; index++) {
+      final Object viewValue = ((Object[])viewValueArray)[index];
+      if ((viewValue != null) && !(viewValue instanceof String)) {
+        final String formatPattern = formatPatternArray[index];
+        viewValueArray[index] = formatViewModelValue(viewValue, formatPattern);
+      }
+    }
+
+    // viewValueArray keeps an Object[], but as this is an Object as well, java still interprets it to be just one object
+    // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
+    final String i18nalizedViewValue = getMmI18nText(pMessageType, (Object[])viewValueArray);
+    return i18nalizedViewValue;
+  }
+
+  /**
+   * Returns view text of the link for specified single object.
+   *
+   * @param         pViewValue    The specified single object.
+   * @param         pMessageType  The specified pMessageType e.g. SHORT or LONG.
+   *
+   * @return        The view text of the link.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected String getMmDescription(final Object pViewValue, final MmMessageType pMessageType) {
+    // if view value is a single object
+
+    // return empty String for null value
+    if (pViewValue == null) {
+      return "";
+
+      // format number, boolean, duration, date, time and enum values
+    } else if ((pViewValue instanceof Number) || (pViewValue instanceof Boolean) || (pViewValue instanceof Duration)
+        || (pViewValue instanceof Instant) || (pViewValue instanceof LocalTime) || (pViewValue instanceof LocalDate)
+        || (pViewValue instanceof LocalDateTime) || (pViewValue instanceof ZonedDateTime) || (pViewValue instanceof Enum<?>)) {
+
+      // retrieve format pattern and format view value
+      final String formatPattern           = getMmFormatPattern();
+      final String formattedViewModelValue = (String)formatViewModelValue(pViewValue, formatPattern);
+
+      // i18nize view value
+      final String i18nalizedViewValue     = getMmI18nText(pMessageType, formattedViewModelValue);
+      return i18nalizedViewValue;
+
+      // all other types just i18nize
+    } else {
+      final String i18nalizedViewValue = getMmI18nText(pMessageType, pViewValue);
+      return i18nalizedViewValue;
+    }
+  }
+
+  /**
+   * Returns the initialized number formatter of this mimic for specified format pattern.
+   *
+   * @param         pFormatPattern    The specified format pattern.
    * @param         pParseBigDecimal  True, if
    *
    * @return        The initialized number formatter of this mimic.
    *
    * @jalopy.group  group-i18n
    */
-  protected NumberFormat getMmNumberFormatter(boolean pParseBigDecimal) {
+  protected NumberFormat getMmNumberFormatter(final String pFormatPattern, boolean pParseBigDecimal) {
     final Locale        locale                = root.getMmLocale();
     final NumberFormat  numberFormat          = NumberFormat.getNumberInstance(locale);
     final DecimalFormat returnNumberFormatter = (DecimalFormat)numberFormat;
     returnNumberFormatter.setParseBigDecimal(pParseBigDecimal);
-    returnNumberFormatter.applyPattern(getMmFormatPattern());
+    returnNumberFormatter.applyPattern(pFormatPattern);
     return returnNumberFormatter;
-  }
-
-  /**
-   * Transform specialized types of dates into java.util.date so MessageFormat can format them by rules like "wurde am {1,date,dd.MM.yyy}
-   * von".
-   *
-   * @param   pObject  Enum or specialized types of date.
-   *
-   * @return  String or java.util.Date.
-   */
-  protected Object transformObjectForFormattingByMessageSource(final Object pObject) {
-    // return empty String for null value
-    if (pObject == null) {
-      return "";
-
-      // translate enum values to i18n strings before, because MessageFormat shall not do this
-    } else if (pObject instanceof Enum<?>) {
-      return formatViewModelValue(pObject);
-
-      // transform Instant values to java.util.Date
-    } else if (pObject instanceof Instant) {
-      return Date.from(((Instant)pObject));
-
-      // transform LocalDate values to java.util.Date
-    } else if (pObject instanceof LocalDate) {
-      return Date.from(((LocalDate)pObject).atStartOfDay(ZoneId.of("UTC")).toInstant());
-
-      // transform LocalDateTime values to java.util.Date
-    } else if (pObject instanceof LocalDateTime) {
-      return Date.from(((LocalDateTime)pObject).toInstant(ZoneOffset.UTC));
-
-      // transform ZonedDateTime values to java.util.Date
-    } else if (pObject instanceof ZonedDateTime) {
-      return Date.from(((ZonedDateTime)pObject).toInstant());
-
-      // all other objects pass through
-    } else {
-      return pObject;
-    }
   }
 
 }

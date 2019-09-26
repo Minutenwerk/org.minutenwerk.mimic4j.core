@@ -98,8 +98,7 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
       }
     } catch (IllegalArgumentException | DateTimeParseException e) {
       throw new MmDataModelConverterException(this,
-        "Cannot format " + getClass().getSimpleName() + ", data model value: " + pDataModelValue + " by pattern >" + formatPattern + "< "
-        + e.getMessage());
+        "Cannot format data model value: " + pDataModelValue + " by pattern >" + formatPattern + "< " + e.getMessage());
     }
   }
 
@@ -131,8 +130,7 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
         returnDate = LocalDate.parse(pViewModelValue, dateFormatter);
       } catch (DateTimeParseException e) {
         throw new MmViewModelConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view value: " + pViewModelValue + " by pattern >"
-          + formatPattern + "< " + e.getMessage());
+          "Cannot format " + this + ", view value: " + pViewModelValue + " by pattern >" + formatPattern + "< " + e.getMessage());
       }
     }
     return returnDate;

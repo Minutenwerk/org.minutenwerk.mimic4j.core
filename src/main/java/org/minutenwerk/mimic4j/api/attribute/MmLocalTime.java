@@ -84,13 +84,12 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
       if (pDataModelValue == null) {
         return ATTRIBUTE_STRING_VIEW_NULL_VALUE;
       } else {
-        String returnString = pDataModelValue.format(getMmTimeTimeFormatter());
+        String returnString = pDataModelValue.format(getMmTimeFormatter());
         return returnString;
       }
     } catch (Exception e) {
       throw new MmDataModelConverterException(this,
-        "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-        + getMmFormatPattern() + "<");
+        "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
     }
   }
 
@@ -110,12 +109,11 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
       returnDate = null;
     } else {
       try {
-        DateTimeFormatter dateTimeFormatter = getMmTimeTimeFormatter();
+        DateTimeFormatter dateTimeFormatter = getMmTimeFormatter();
         returnDate = LocalTime.parse(pViewModelValue, dateTimeFormatter);
       } catch (DateTimeParseException e) {
         throw new MmViewModelConverterException(this,
-          "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", view value: " + pViewModelValue + " by pattern >"
-          + getMmFormatPattern() + "<");
+          "Cannot format " + this + ", view value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
       }
     }
     return returnDate;
@@ -139,7 +137,7 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
    *
    * @throws  IllegalStateException  In case of getMmFormatPattern returns an invalid format pattern.
    */
-  protected DateTimeFormatter getMmTimeTimeFormatter() {
+  protected DateTimeFormatter getMmTimeFormatter() {
     final String formatPattern = getMmFormatPattern();
     if (LOGGER.isDebugEnabled()) {
       if (formatPattern == null) {
