@@ -44,7 +44,8 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.springframework.web.util.UriComponents;
 
 /**
- * MmBaseLinkImplementation is the abstract base class for the implementation part of all link mimic classes.
+ * MmBaseLinkImplementation is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers
+ * the text label of the link. In most cases the two models are the same.
  *
  * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
  * @param               <VIEW_MODEL>  View model delivers view text label of link.
@@ -103,13 +104,13 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     // initialize modelAccessor
     dataModelAccessor = declaration.callbackMmGetAccessor(parentAccessor);
     if (dataModelAccessor == null) {
-      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
+      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + this);
     }
 
     // initialize view modelAccessor
     viewModelAccessor = declaration.callbackMmGetViewModelAccessor(parentAccessor);
     if (viewModelAccessor == null) {
-      throw new IllegalStateException("no definition of callbackMmGetViewModelAccessor() for " + parentPath + "." + name);
+      throw new IllegalStateException("no definition of callbackMmGetViewModelAccessor() for " + this);
     }
   }
 
@@ -125,11 +126,11 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   private MmModelAccessor<?, ?> onInitializeParentAccessor() {
     MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getMmImplementationAncestorOfType(MmBaseContainerImplementation.class);
     if (containerAncestor == null) {
-      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + parentPath + "." + name);
+      throw new IllegalStateException("no ancestor of type MmContainerMimic for " + this);
     } else {
       MmModelAccessor<?, ?> containerAccessor = containerAncestor.onInitializeGetMmModelAccessor();
       if (containerAccessor == null) {
-        throw new IllegalStateException("no definition of parentAccessor for " + parentPath + "." + name);
+        throw new IllegalStateException("no definition of parentAccessor for " + this);
       }
       return containerAccessor;
     }
@@ -166,7 +167,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     }
     if (LOGGER.isDebugEnabled()) {
       if (returnString == null) {
-        throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + parentPath + "." + name);
+        throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + this);
       }
     }
     return returnString;
@@ -233,6 +234,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    *
    * @return        The URI of the link.
    *
+   * @throws        IllegalArgumentException  TODOC
+   *
    * @jalopy.group  group-override
    */
   @Override
@@ -240,51 +243,48 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     assureInitialization();
 
     // retrieve target mimic, may be null
-    URI              targetReference = null;
-    final MmMimic    targetMimic     = declaration.callbackMmGetTargetReferenceMimic(null);
+    final MmMimic    targetMimic = declaration.callbackMmGetTargetReferenceMimic(null);
 
     // retrieve data model, may be null
-    final DATA_MODEL model           = dataModelAccessor.get();
+    final DATA_MODEL model       = dataModelAccessor.get();
 
     // if link references another mimic without a specified data model
     if ((targetMimic != null) && (model == null)) {
-      targetReference = targetMimic.getMmReference();
+      return targetMimic.getMmReference();
 
       // if link references another mimic for a specified referencable data model
     } else if ((targetMimic != null) && (model != null) && (model instanceof MmReferencableModel)) {
-      targetReference = targetMimic.getMmReference((MmReferencableModel)model);
+      return targetMimic.getMmReference((MmReferencableModel)model);
 
-      // if link references another mimic for a specified raw data model
-    } else if ((targetMimic != null) && (model != null)) {
+      // retrieve target reference path
+    } else {
+      final UriComponents configTargetReferencePath = configuration.getTargetReferencePath();
+      final UriComponents targetReferencePath       = declaration.callbackMmGetTargetReferencePath(configTargetReferencePath);
+      if (targetReferencePath == null) {
+        throw new IllegalArgumentException("no definition of target reference path for " + this);
+      }
 
-      // TODO final List<String> targetReferenceParams = targetMimic.callbackMmGetTargetReferenceValues(Collections.emptyList(),
-      // model);
-      return null;
+      // if link references an URI without a specified data model
+      if ((targetMimic == null) && (model == null)) {
+        final List<String> targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(Collections.emptyList(), null);
+        return targetReferencePath.expand(targetReferenceParams).toUri();
 
-      // if link references an URL without a specified data model
-    } else if ((targetMimic == null) && (model == null)) {
-      final UriComponents configurationTargetReferencePath = configuration.getTargetReferencePath();
-      final UriComponents callbackTargetReferencePath      = declaration.callbackMmGetTargetReferencePath(configurationTargetReferencePath);
-      final List<String>  emptyList                        = Collections.emptyList();
-      final List<String>  targetReferenceParams            = declaration.callbackMmGetTargetReferenceValues(emptyList, null);
-      targetReference = callbackTargetReferencePath.expand(targetReferenceParams).toUri();
+        // if link references an URI for a specified referencable data model
+      } else if ((targetMimic == null) && (model != null) && (model instanceof MmReferencableModel)) {
+        final List<String> modelReferenceParams  = ((MmReferencableModel)model).getMmReferenceValues();
+        final List<String> targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(modelReferenceParams, model);
+        return targetReferencePath.expand(targetReferenceParams).toUri();
 
-      // if link references an URL for a specified referencable data model
-    } else if ((targetMimic == null) && (model != null) && (model instanceof MmReferencableModel)) {
-      final UriComponents configurationTargetReferencePath = configuration.getTargetReferencePath();
-      final UriComponents callbackTargetReferencePath      = declaration.callbackMmGetTargetReferencePath(configurationTargetReferencePath);
-      final List<String>  modelReferenceParams             = ((MmReferencableModel)model).getMmReferenceValues();
-      final List<String>  targetReferenceParams            = declaration.callbackMmGetTargetReferenceValues(modelReferenceParams, model);
-      targetReference = callbackTargetReferencePath.expand(targetReferenceParams).toUri();
+        // if link references an URI for a specified raw data model
+      } else if ((targetMimic == null) && (model != null)) {
+        final List<String> targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(Collections.emptyList(), model);
+        return targetReferencePath.expand(targetReferenceParams).toUri();
 
-      // if link references an URL for a specified raw data model
-    } else if ((targetMimic == null) && (model != null)) {
-      final UriComponents configurationTargetReferencePath = configuration.getTargetReferencePath();
-      final UriComponents callbackTargetReferencePath      = declaration.callbackMmGetTargetReferencePath(configurationTargetReferencePath);
-      final List<String>  targetReferenceParams            = declaration.callbackMmGetTargetReferenceValues(Collections.emptyList(), model);
-      targetReference = callbackTargetReferencePath.expand(targetReferenceParams).toUri();
+        // in all other cases just use target reference path
+      } else {
+        return targetReferencePath.toUri();
+      }
     }
-    return targetReference;
   }
 
   /**
@@ -342,53 +342,59 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     // retrieve view model
     final VIEW_MODEL viewModel = getMmViewModel();
 
-    // retrieve data model
-    final Object     dataModel = (viewModel instanceof MmInformationable) //
-      ? ((MmInformationable)viewModel).getInfo() //
-      : viewModel;
-
-    // if model is an array of objects
-    if (dataModel instanceof Object[]) {
-
-      // translate enum values to i18n strings before, because MessageFormat shall not do this
-      for (int index = 0; index < ((Object[])dataModel).length; index++) {
-        ((Object[])dataModel)[index] = transformObjectForFormattingByMessageSource(((Object[])dataModel)[index]);
+    // if view model is MmInformationable
+    Object[] viewModelArray = null;
+    if (viewModel instanceof MmInformationable) {
+      viewModelArray = ((MmInformationable)viewModel).getInfo();
+      for (int index = 0; index < ((Object[])viewModelArray).length; index++) {
+        viewModelArray[index] = transformObjectForFormattingByMessageSource(((Object[])viewModelArray)[index]);
       }
+      
+      // if view model is an array of objects
+    } else if (viewModel instanceof Object[]){
+      // transform object into array of objects
+      viewModelArray = new Object[((Object[])viewModel).length];
+      for (int index = 0; index < ((Object[])viewModel).length; index++) {
+        viewModelArray[index] = transformObjectForFormattingByMessageSource(((Object[])viewModel)[index]);
+      }
+    }
 
-      // dataModelValue keeps an Object[], but because it is of type Object, java still interprets it to be just one object
+    // if model is an array
+    if (viewModelArray != null) {
+      // viewModelArray keeps an Object[], but because it is of type Object, java still interprets it to be just one object
       // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-      final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, (Object[])dataModel);
+      final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, (Object[])viewModelArray);
       return i18nViewModelValue;
 
       // if model is a single object
     } else {
 
       // return empty String for null value
-      if (dataModel == null) {
+      if (viewModel == null) {
         return "";
 
         // pass through Strings
-      } else if (dataModel instanceof String) {
-        return (String)dataModel;
+      } else if (viewModel instanceof String) {
+        return (String)viewModel;
 
         // i18n single enums
-      } else if (dataModel instanceof Enum<?>) {
+      } else if (viewModel instanceof Enum<?>) {
 
         // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewModelValue = formatDataModelValue(dataModel);
+        final String i18nViewModelValue = formatViewModelValue(viewModel);
         return i18nViewModelValue;
 
         // format number, date and time values
-      } else if ((dataModel instanceof Number) || (dataModel instanceof Boolean) || (dataModel instanceof Duration)
-          || (dataModel instanceof Instant) || (dataModel instanceof LocalTime) || (dataModel instanceof LocalDate)
-          || (dataModel instanceof LocalDateTime) || (dataModel instanceof ZonedDateTime)) {
-
-        final String formattedViewModelValue = formatDataModelValue(dataModel);
-        return formattedViewModelValue;
+//      } else if ((viewModel instanceof Number) || (viewModel instanceof Boolean) || (viewModel instanceof Duration)
+//          || (viewModel instanceof Instant) || (viewModel instanceof LocalTime) || (viewModel instanceof LocalDate)
+//          || (viewModel instanceof LocalDateTime) || (viewModel instanceof ZonedDateTime)) {
+//
+//        final String formattedViewModelValue = formatViewModelValue(viewModel);
+//        return formattedViewModelValue;
 
         // all other single objects translate to i18n
       } else {
-        final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, dataModel);
+        final String i18nViewModelValue = getMmI18nText(MmMessageType.SHORT, viewModel);
         return i18nViewModelValue;
       }
     }
@@ -434,117 +440,109 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Returns the specified data model value, formatted depending on its type.
+   * Returns the specified view model value, formatted depending on its type.
    *
-   * @param         pDataModelValue  The specified data model value.
+   * @param         pViewModelValue  The specified view model value.
    *
-   * @return        The formatted data model value, formatted depending on its type.
+   * @return        The formatted view model value, formatted depending on its type.
    *
    * @throws        MmDataModelConverterException  In case of conversion fails.
    * @throws        IllegalArgumentException       In case of conversion fails.
    *
    * @jalopy.group  group-i18n
    */
-  protected String formatDataModelValue(Object pDataModelValue) {
+  protected String formatViewModelValue(Object pViewModelValue) {
     String formattedValue = "";
-    if (pDataModelValue != null) {
+    if (pViewModelValue != null) {
 
-      if (pDataModelValue instanceof String) {
-        formattedValue = (String)pDataModelValue;
+      if (pViewModelValue instanceof String) {
+        formattedValue = (String)pViewModelValue;
 
-      } else if ((pDataModelValue instanceof Integer) || (pDataModelValue instanceof Long) || (pDataModelValue instanceof Float)
-          || (pDataModelValue instanceof Double)) {
+      } else if ((pViewModelValue instanceof Integer) || (pViewModelValue instanceof Long) || (pViewModelValue instanceof Float)
+          || (pViewModelValue instanceof Double)) {
         try {
           final NumberFormat numberFormatter = getMmNumberFormatter(false);
-          formattedValue = numberFormatter.format(pDataModelValue);
+          formattedValue = numberFormatter.format(pViewModelValue);
         } catch (IllegalArgumentException e) {
           throw new MmDataModelConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-            + getMmFormatPattern() + "<");
+            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
         }
 
-      } else if ((pDataModelValue instanceof BigDecimal) || (pDataModelValue instanceof BigInteger)) {
+      } else if ((pViewModelValue instanceof BigDecimal) || (pViewModelValue instanceof BigInteger)) {
         try {
           final NumberFormat numberFormatter = getMmNumberFormatter(true);
-          formattedValue = numberFormatter.format(pDataModelValue);
+          formattedValue = numberFormatter.format(pViewModelValue);
         } catch (IllegalArgumentException e) {
           throw new MmDataModelConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-            + getMmFormatPattern() + "<");
+            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
         }
 
-      } else if (pDataModelValue instanceof Duration) {
+      } else if (pViewModelValue instanceof Duration) {
         try {
-          formattedValue = ((Duration)pDataModelValue).toString();
+          formattedValue = ((Duration)pViewModelValue).toString();
         } catch (IllegalArgumentException e) {
           throw new MmDataModelConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-            + getMmFormatPattern() + "<");
+            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
         }
 
-      } else if (pDataModelValue instanceof Instant) {
+      } else if (pViewModelValue instanceof Instant) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = dateTimeFormatter.format((Instant)pDataModelValue);
+          formattedValue = dateTimeFormatter.format((Instant)pViewModelValue);
         } catch (IllegalArgumentException e) {
           throw new MmDataModelConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-            + getMmFormatPattern() + "<");
+            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
         }
 
-      } else if (pDataModelValue instanceof LocalTime) {
+      } else if (pViewModelValue instanceof LocalTime) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalTime)pDataModelValue).format(dateTimeFormatter);
+          formattedValue = ((LocalTime)pViewModelValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmDataModelConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-            + getMmFormatPattern() + "<");
+            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
         }
 
-      } else if (pDataModelValue instanceof LocalDate) {
+      } else if (pViewModelValue instanceof LocalDate) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalDate)pDataModelValue).format(dateTimeFormatter);
+          formattedValue = ((LocalDate)pViewModelValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmDataModelConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-            + getMmFormatPattern() + "<");
+            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
         }
 
-      } else if (pDataModelValue instanceof LocalDateTime) {
+      } else if (pViewModelValue instanceof LocalDateTime) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((LocalDateTime)pDataModelValue).format(dateTimeFormatter);
+          formattedValue = ((LocalDateTime)pViewModelValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmDataModelConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-            + getMmFormatPattern() + "<");
+            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
         }
 
-      } else if (pDataModelValue instanceof ZonedDateTime) {
+      } else if (pViewModelValue instanceof ZonedDateTime) {
         try {
           final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter();
-          formattedValue = ((ZonedDateTime)pDataModelValue).format(dateTimeFormatter);
+          formattedValue = ((ZonedDateTime)pViewModelValue).format(dateTimeFormatter);
         } catch (IllegalArgumentException e) {
           throw new MmDataModelConverterException(this,
-            "Cannot format " + getClass().getSimpleName() + " " + getMmId() + ", data model value: " + pDataModelValue + " by pattern >"
-            + getMmFormatPattern() + "<");
+            "Cannot format " + this + ", view model value: " + pViewModelValue + " by pattern >" + getMmFormatPattern() + "<");
         }
 
-      } else if (pDataModelValue instanceof Enum<?>) {
-        final Enum<?> enumValue    = (Enum<?>)pDataModelValue;
+      } else if (pViewModelValue instanceof Enum<?>) {
+        final Enum<?> enumValue    = (Enum<?>)pViewModelValue;
         final String  enumTypeName = enumValue.getClass().getSimpleName();
         formattedValue = root.getMmI18nText(enumTypeName + "." + enumValue.name(), MmMessageType.SHORT);
 
-      } else if (pDataModelValue instanceof Boolean) {
-        if ((Boolean)pDataModelValue) {
+      } else if (pViewModelValue instanceof Boolean) {
+        if ((Boolean)pViewModelValue) {
           formattedValue = root.getMmI18nText(getMmId() + ".true", MmMessageType.SHORT);
         } else {
           formattedValue = root.getMmI18nText(getMmId() + ".false", MmMessageType.SHORT);
         }
       } else {
-        throw new IllegalArgumentException("unknown data model value type cannot be formatted " + pDataModelValue);
+        throw new IllegalArgumentException("unknown view model value type cannot be formatted " + pViewModelValue);
       }
     }
     return formattedValue;
@@ -595,7 +593,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
 
       // translate enum values to i18n strings before, because MessageFormat shall not do this
     } else if (pObject instanceof Enum<?>) {
-      return formatDataModelValue(pObject);
+      return formatViewModelValue(pObject);
 
       // transform Instant values to java.util.Date
     } else if (pObject instanceof Instant) {

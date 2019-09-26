@@ -7,7 +7,7 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
 
 /**
  * MmLink is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of
- * the link.
+ * the link. In most cases the two models are the same.
  *
  * @param   <DATA_MODEL>  Data model delivers dynamic parts of URL.
  * @param   <VIEW_MODEL>  View model delivers view text label of link.

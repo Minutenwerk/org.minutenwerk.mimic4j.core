@@ -55,6 +55,15 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
   }
 
   /**
+   * Returns self reference path. Attention: static method!
+   *
+   * @return  Self reference path.
+   */
+  public static String getMmReferencePath() {
+    return null;
+  }
+
+  /**
    * TODOC.
    *
    * @return  TODOC
@@ -88,4 +97,16 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
     implementation.setMmLocale(pLocale);
   }
 
+  /**
+   * Static class for void leporello, used as default reference target in mimic annotations.
+   */
+  public static final class MmVoidTarget extends MmLeporello<Void, Void> {
+    public MmVoidTarget() {
+      super(null);
+    }
+
+    public static String getMmReferencePath() {
+      return null;
+    }
+  }
 }

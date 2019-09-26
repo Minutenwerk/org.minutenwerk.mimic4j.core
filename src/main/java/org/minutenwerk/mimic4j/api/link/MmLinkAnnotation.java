@@ -5,8 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.minutenwerk.mimic4j.api.container.MmLeporello;
+import org.minutenwerk.mimic4j.api.container.MmLeporello.MmVoidTarget;
 import org.minutenwerk.mimic4j.api.link.MmLink.MmLinkJsfTag;
-import org.minutenwerk.mimic4j.api.reference.MmDisplayItemReferenceProvider;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
 
@@ -32,6 +33,6 @@ public @interface MmLinkAnnotation {
 
   public String targetReferencePath() default MmConfigurationLink.DEFAULT_TARGET_REFERENCE_PATH;
 
-  public Class<? extends MmDisplayItemReferenceProvider> referenceProvider() default MmDisplayItemReferenceProvider.class;
+  public Class<? extends MmLeporello<?, ?>> targetLeporello() default MmVoidTarget.class;
 
 }

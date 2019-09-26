@@ -42,7 +42,7 @@ public class MmTableCellLinkProcessor extends MmBaseProcessor<MmBaseDeclaration<
     if ((mimic instanceof MmAttributeMimic) || (mimic instanceof MmLinkMimic<?, ?>)) {
       out.setAttribute("th:title", "*{title}", AttributeValueQuotes.DOUBLE);
       out.setAttribute("th:text", "*{value}", AttributeValueQuotes.DOUBLE);
-      out.setAttribute("th:href", "@{firma/kunden/angebot/1}", AttributeValueQuotes.DOUBLE);
+      out.setAttribute("th:href", "@{*{targetReference}}", AttributeValueQuotes.DOUBLE);
     }
 
     out.removeAttribute(getPrefixedAttributeName());

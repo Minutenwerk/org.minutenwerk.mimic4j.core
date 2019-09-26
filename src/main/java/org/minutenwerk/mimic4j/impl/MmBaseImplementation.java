@@ -876,7 +876,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       clazz = clazz.getSuperclass();
     }
     sb.append(clazz.getSimpleName());
-    if (!parentPath.isEmpty()) {
+    if (getConfiguration() != null) {
+      sb.append(" id=");
+      sb.append(configuration.id);
+    } else if (!parentPath.isEmpty()) {
       sb.append(" path=");
       sb.append(parentPath);
       sb.append(".");
@@ -884,10 +887,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     } else if (!name.isEmpty()) {
       sb.append(" name=");
       sb.append(name);
-    }
-    if (getConfiguration() != null) {
-      sb.append(" id=");
-      sb.append(configuration.id);
     }
     sb.append(")");
     return sb.toString();

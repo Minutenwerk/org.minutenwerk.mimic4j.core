@@ -25,7 +25,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloTab;
 
 /**
  * MmImplementationLeporelloTab is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model
- * delivers the text label of the link.
+ * delivers the text label of the link. In most cases the two models are the same.
  *
  * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
  * @param               <VIEW_MODEL>  View model delivers view text label of link.
@@ -178,7 +178,7 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
       for (int index = 0; index < ((Object[])dataModel).length; index++) {
         final Object dataModelObject = ((Object[])dataModel)[index];
         if (dataModelObject instanceof Enum<?>) {
-          final String i18nEnumValue = formatDataModelValue(dataModelObject);
+          final String i18nEnumValue = formatViewModelValue(dataModelObject);
           ((Object[])dataModel)[index] = i18nEnumValue;
         }
       }
@@ -203,35 +203,35 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
       } else if (dataModel instanceof Enum<?>) {
 
         // translate enum values to i18n strings before, because MessageFormat shall not do this
-        final String i18nViewModelValue = formatDataModelValue(dataModel);
+        final String i18nViewModelValue = formatViewModelValue(dataModel);
         return i18nViewModelValue;
 
         // format Instant values
       } else if (dataModel instanceof Instant) {
 
         final Date   dataModelValueAsJavaUtilDate = Date.from(((Instant)dataModel));
-        final String formattedViewModelValue      = formatDataModelValue(dataModelValueAsJavaUtilDate);
+        final String formattedViewModelValue      = formatViewModelValue(dataModelValueAsJavaUtilDate);
         return formattedViewModelValue;
 
         // format LocalDate values
       } else if (dataModel instanceof LocalDate) {
 
         final Date   dataModelValueAsJavaUtilDate = Date.from(((LocalDate)dataModel).atStartOfDay(ZoneId.of("UTC")).toInstant());
-        final String formattedViewModelValue      = formatDataModelValue(dataModelValueAsJavaUtilDate);
+        final String formattedViewModelValue      = formatViewModelValue(dataModelValueAsJavaUtilDate);
         return formattedViewModelValue;
 
         // format LocalDateTime values
       } else if (dataModel instanceof LocalDateTime) {
 
         final Date   dataModelValueAsJavaUtilDate = Date.from(((LocalDateTime)dataModel).toInstant(ZoneOffset.UTC));
-        final String formattedViewModelValue      = formatDataModelValue(dataModelValueAsJavaUtilDate);
+        final String formattedViewModelValue      = formatViewModelValue(dataModelValueAsJavaUtilDate);
         return formattedViewModelValue;
 
         // format ZonedDateTime values
       } else if (dataModel instanceof ZonedDateTime) {
 
         final Date   dataModelValueAsJavaUtilDate = Date.from(((ZonedDateTime)dataModel).toInstant());
-        final String formattedViewModelValue      = formatDataModelValue(dataModelValueAsJavaUtilDate);
+        final String formattedViewModelValue      = formatViewModelValue(dataModelValueAsJavaUtilDate);
         return formattedViewModelValue;
 
         // all other single objects translate to i18n

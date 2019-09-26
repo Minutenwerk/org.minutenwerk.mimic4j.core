@@ -42,9 +42,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    */
   public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetReferencePath) {
     super(pId, pVisible, pReadOnly, pEnabled);
-    if ((pTargetReferencePath != null) && !pTargetReferencePath.isEmpty()) {
-      targetReferencePath = UriComponentsBuilder.fromPath(pTargetReferencePath).build();
-    }
+    setTargetReferencePath(pTargetReferencePath);
   }
 
   /**
@@ -61,7 +59,9 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    *
    * @param  pTargetReferencePath  The path part of the target URL.
    */
-  public void setTargetReferencePath(UriComponents pTargetReferencePath) {
-    targetReferencePath = pTargetReferencePath;
+  public void setTargetReferencePath(String pTargetReferencePath) {
+    if ((pTargetReferencePath != null) && !pTargetReferencePath.isEmpty()) {
+      targetReferencePath = UriComponentsBuilder.fromPath(pTargetReferencePath).build();
+    }
   }
 }
