@@ -101,7 +101,7 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<V
    */
   @Override
   protected Optional<List<VALUE_MODEL>> getComponentOptional() {
-    return Optional.of(rootModel);
+    return Optional.ofNullable(rootModel);
   }
 
 }

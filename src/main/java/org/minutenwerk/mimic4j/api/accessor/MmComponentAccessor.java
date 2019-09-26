@@ -112,9 +112,9 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    * @return  {@link Optional} of component.
    */
   protected Optional<COMPONENT_MODEL> getComponentOptional() {
-    PARENT_MODEL thisParent = getParentModel();
-    if (thisParent != null) {
-      return Optional.ofNullable(componentGetter.apply(thisParent));
+    PARENT_MODEL parentModel = getParentModel();
+    if (parentModel != null) {
+      return Optional.ofNullable(componentGetter.apply(parentModel));
     } else {
       return Optional.empty();
     }

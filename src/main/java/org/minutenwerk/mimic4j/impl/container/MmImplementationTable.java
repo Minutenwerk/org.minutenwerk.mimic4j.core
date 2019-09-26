@@ -80,22 +80,26 @@ public class MmImplementationTable<ROW_MODEL>
     // clear list of runtime children of table
     clearRuntimeChildrenList();
 
-    // iterate over list of row models
-    for (int i = 0; i < getMmModel().size(); i++) {
+    final List<ROW_MODEL> rowModel = getMmModel();
+    if (rowModel != null) {
 
-      // for each row model create a table row mimic and pass row model
-      MmTableRow<ROW_MODEL> tableRowMm = declaration.callbackMmCreateTableRow(i);
+      // iterate over list of row models
+      for (int i = 0; i < rowModel.size(); i++) {
 
-      if (tableRowMm == null) {
-        throw new IllegalStateException("callbackMmCreateTableRow() must return new MmTableRow");
+        // for each row model create a table row mimic and pass row model
+        MmTableRow<ROW_MODEL> tableRowMm = declaration.callbackMmCreateTableRow(i);
+
+        if (tableRowMm == null) {
+          throw new IllegalStateException("callbackMmCreateTableRow() must return new MmTableRow");
+        }
+
+        // add table row mimic to list of runtime children
+        addRuntimeChild(tableRowMm);
       }
 
-      // add table row mimic to list of runtime children
-      addRuntimeChild(tableRowMm);
-    }
-
-    for (MmEditableMimicImpl child : getDirectImplementationChildrenOfType(MmEditableMimicImpl.class)) {
-      child.passDataModelToViewModel();
+      for (MmEditableMimicImpl child : getDirectImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+        child.passDataModelToViewModel();
+      }
     }
   }
 

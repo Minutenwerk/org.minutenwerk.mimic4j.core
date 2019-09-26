@@ -256,7 +256,11 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
       } else if ((targetMimic == null) && (model != null) && (model instanceof MmReferencableModel)) {
         final List<String> modelReferenceParams  = ((MmReferencableModel)model).getMmReferenceValues();
         final List<String> targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(modelReferenceParams, model);
-        return targetReferencePath.expand(targetReferenceParams).toUri();
+        if (targetReferenceParams.size() == 1) {
+          return targetReferencePath.expand(targetReferenceParams.get(0)).toUri();
+        } else {
+          return targetReferencePath.expand(targetReferenceParams).toUri();
+        }
 
         // if link references an URI for a specified raw data model
       } else if ((targetMimic == null) && (model != null)) {
