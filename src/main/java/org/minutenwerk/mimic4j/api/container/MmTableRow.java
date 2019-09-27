@@ -40,7 +40,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<M
    * @throws  ClassCastException  IllegalStateException In case of model accessor is not defined.
    */
   @Override
-  public MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")
       MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL> modelAccessor = (MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL>)
@@ -48,7 +48,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<M
       return modelAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor
-        + " cannot be casted to listEntryAccessor. You must redefine callbackMmGetAccessor() for " + this);
+        + " cannot be casted to listEntryAccessor. You must redefine callbackMmGetModelAccessor() for " + this);
     }
   }
 

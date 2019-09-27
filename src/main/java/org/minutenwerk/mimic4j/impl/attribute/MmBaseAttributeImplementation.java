@@ -173,7 +173,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     if (modelAccessor != null) {
       return modelAccessor.isPresent();
     } else {
-      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
       return false;
     }
   }
@@ -192,9 +192,9 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     parentAccessor = onInitializeParentAccessor();
 
     // initialize modelAccessor
-    modelAccessor  = declaration.callbackMmGetAccessor(parentAccessor);
+    modelAccessor  = declaration.callbackMmGetModelAccessor(parentAccessor);
     if (modelAccessor == null) {
-      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
     }
   }
 
@@ -268,7 +268,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
       if (modelAccessor != null) {
         dataModelValue = modelAccessor.get();
       } else {
-        LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+        LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
       }
       viewModelValue = declaration.callbackMmConvertDataModelToViewModel(dataModelValue);
       valueState     = MmValueState.CONVERTED_DATA_MODEL_TO_VIEW_TYPE;
@@ -394,7 +394,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
         if (modelAccessor != null) {
           declaration.callbackMmValidateDataModel(modelAccessor.get());
         } else {
-          LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+          LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
           declaration.callbackMmValidateDataModel(null);
         }
         valueState = MmValueState.VALID_VALUE_IN_DATA_MODEL;
@@ -541,7 +541,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     if (modelAccessor != null) {
       return modelAccessor.get();
     } else {
-      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
       return null;
     }
   }

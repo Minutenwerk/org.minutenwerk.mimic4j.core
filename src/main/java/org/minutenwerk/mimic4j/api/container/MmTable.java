@@ -50,7 +50,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<MmIm
    * @throws  ClassCastException  IllegalStateException In case of model accessor is not defined.
    */
   @Override
-  public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")
       MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> modelAccessor = (MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL>)
@@ -58,7 +58,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<MmIm
       return modelAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor
-        + " cannot be casted to collectionAccessor. You must redefine callbackMmGetAccessor() for " + this);
+        + " cannot be casted to collectionAccessor. You must redefine callbackMmGetModelAccessor() for " + this);
     }
   }
 

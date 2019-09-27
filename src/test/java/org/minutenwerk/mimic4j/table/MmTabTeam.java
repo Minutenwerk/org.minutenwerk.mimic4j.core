@@ -17,7 +17,7 @@ public class MmTabTeam extends MmTab<Team> {
   @MmStringAnnotation(id = "tn")
   public final MmString name = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?,String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?,String> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       TeamAccessor team = (TeamAccessor) pParentAccessor;
       return team.name();
     }
@@ -26,7 +26,7 @@ public class MmTabTeam extends MmTab<Team> {
   @MmTableAnnotation(id = "pt")
   public final MmTablePersonen personenTable = new MmTablePersonen(this) {
     @Override
-    public MmListAccessor<Team, List<Person>, Person> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmListAccessor<Team, List<Person>, Person> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       TeamAccessor team = (TeamAccessor) pParentAccessor;
       return team.personen();
     }

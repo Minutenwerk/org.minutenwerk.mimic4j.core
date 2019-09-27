@@ -12,7 +12,7 @@ public class MmTabAdresse extends MmTab<Adress> {
   @MmStringAnnotation(id = "st")
   public final MmString street = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       AdressAccessor adress = (AdressAccessor) pParentAccessor;
       return adress.street();
     }
@@ -21,7 +21,7 @@ public class MmTabAdresse extends MmTab<Adress> {
   @MmStringAnnotation(id = "ci")
   public final MmString city = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       AdressAccessor adress = (AdressAccessor) pParentAccessor;
       return adress.city();
     }

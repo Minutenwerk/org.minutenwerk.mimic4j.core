@@ -99,9 +99,9 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     parentAccessor    = onInitializeParentAccessor();
 
     // initialize modelAccessor
-    dataModelAccessor = declaration.callbackMmGetAccessor(parentAccessor);
+    dataModelAccessor = declaration.callbackMmGetModelAccessor(parentAccessor);
     if (dataModelAccessor == null) {
-      throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + this);
+      throw new IllegalStateException("no definition of callbackMmGetModelAccessor() for " + this);
     }
 
     // initialize view modelAccessor
@@ -359,7 +359,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     if (dataModelAccessor != null) {
       return dataModelAccessor.isPresent();
     } else {
-      LOGGER.warn("no definition of callbackMmGetAccessor() for {}.{}.", parentPath, name);
+      LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
       return false;
     }
   }

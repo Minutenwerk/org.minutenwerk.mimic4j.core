@@ -183,9 +183,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       parentAccessor = onInitializeParentAccessor();
 
       // initialize modelAccessor
-      modelAccessor  = declaration.callbackMmGetAccessor(parentAccessor);
+      modelAccessor  = declaration.callbackMmGetModelAccessor(parentAccessor);
       if (modelAccessor == null) {
-        throw new IllegalStateException("no definition of callbackMmGetAccessor() for " + parentPath + "." + name);
+        throw new IllegalStateException("no definition of callbackMmGetModelAccessor() for " + parentPath + "." + name);
       }
     }
   }

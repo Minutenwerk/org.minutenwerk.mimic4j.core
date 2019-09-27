@@ -27,7 +27,7 @@ public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
    *
    * @return  The data model accessor.
    */
-  public MmModelAccessor<?, DATA_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
+  public MmModelAccessor<?, DATA_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
   /**
    * Returns a mimic, which is the target reference of this link mimic.

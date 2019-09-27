@@ -49,14 +49,14 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  public MmModelAccessor<?, DATA_MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmModelAccessor<?, DATA_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")
       MmModelAccessor<?, DATA_MODEL> modelAccessor = (MmModelAccessor<?, DATA_MODEL>)pParentAccessor;
       return modelAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor
-        + " cannot be casted to modelAccessor. You must redefine callbackMmGetAccessor() for " + this);
+        + " cannot be casted to modelAccessor. You must redefine callbackMmGetModelAccessor() for " + this);
     }
   }
 
@@ -131,7 +131,7 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
-  // TODO get view model accessor from callbackMmGetAccessor
+  // TODO get view model accessor from callbackMmGetModelAccessor
   public MmModelAccessor<?, VIEW_MODEL> callbackMmGetViewModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")

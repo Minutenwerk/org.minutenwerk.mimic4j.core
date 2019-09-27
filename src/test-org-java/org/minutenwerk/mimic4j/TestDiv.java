@@ -22,7 +22,7 @@ public class TestDiv extends MmDiv {
 
     @MmStringAnnotation(id = "vn")
     public final MmString vorname = new MmString(this) {
-      public MmAttributeAccessor<?,String> callbackMmGetAccessor(MmModelAccessor<?,?> pRootAccessor) {
+      public MmAttributeAccessor<?,String> callbackMmGetModelAccessor(MmModelAccessor<?,?> pRootAccessor) {
         return null;
       };
     };

@@ -48,30 +48,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
-   * accessor.
-   *
-   * @param         pParentAccessor  The specified parent component accessor.
-   *
-   * @return        The attribute's accessor.
-   *
-   * @throws        ClassCastException  IllegalStateException In case of model accessor is not defined.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
-    try {
-      @SuppressWarnings("unchecked")
-      MmAttributeAccessor<?, ATTRIBUTE_TYPE> modelAccessor = (MmAttributeAccessor<?, ATTRIBUTE_TYPE>)pParentAccessor;
-      return modelAccessor;
-    } catch (ClassCastException e) {
-      throw new ClassCastException("Parent accessor " + pParentAccessor
-        + " cannot be casted to attributeAccessor. You must redefine callbackMmGetAccessor() for " + this);
-    }
-  }
-
-  /**
    * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
    * value and vice versa. It is dependent on the user's locale.
    *
@@ -98,6 +74,30 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public int callbackMmGetMaxLength(int pPassThroughValue) {
     return pPassThroughValue;
+  }
+
+  /**
+   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
+   * accessor.
+   *
+   * @param         pParentAccessor  The specified parent component accessor.
+   *
+   * @return        The attribute's accessor.
+   *
+   * @throws        ClassCastException  IllegalStateException In case of model accessor is not defined.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    try {
+      @SuppressWarnings("unchecked")
+      MmAttributeAccessor<?, ATTRIBUTE_TYPE> modelAccessor = (MmAttributeAccessor<?, ATTRIBUTE_TYPE>)pParentAccessor;
+      return modelAccessor;
+    } catch (ClassCastException e) {
+      throw new ClassCastException("Parent accessor " + pParentAccessor
+        + " cannot be casted to attributeAccessor. You must redefine callbackMmGetModelAccessor() for " + this);
+    }
   }
 
   /**

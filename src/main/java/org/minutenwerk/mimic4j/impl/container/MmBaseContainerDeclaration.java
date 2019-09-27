@@ -49,14 +49,14 @@ public abstract class MmBaseContainerDeclaration<IMPLEMENTATION extends MmBaseCo
    * @throws  ClassCastException  IllegalStateException In case of model accessor is not defined.
    */
   @Override
-  public MmModelAccessor<?, MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmModelAccessor<?, MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")
       MmModelAccessor<?, MODEL> modelAccessor = (MmModelAccessor<?, MODEL>)pParentAccessor;
       return modelAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor
-        + " cannot be casted to containerAccessor. You must redefine callbackMmGetAccessor() for " + this);
+        + " cannot be casted to containerAccessor. You must redefine callbackMmGetModelAccessor() for " + this);
     }
   }
 

@@ -24,7 +24,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   @MmStringAnnotation(id = "vn")
   public final MmString vorname = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.vorname();
     }
@@ -33,7 +33,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   @MmStringAnnotation(id = "nn")
   public final MmString nachname = new MmString(this) {
     @Override
-    public MmAttributeAccessor<?, String> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, String> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.nachname();
     }
@@ -42,7 +42,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   @MmLocalDateAnnotation(id = "bd", formatPattern = "yyyy-MM-dd")
   public final MmLocalDate birthday = new MmLocalDate(this) {
     @Override
-    public MmAttributeAccessor<?, LocalDate> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, LocalDate> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.birthday();
     }
@@ -52,7 +52,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   @MmEnumAnnotation(id = "gd")
   public final MmEnum<Person.Gender> gender = new MmEnum<Person.Gender>(this) {
     @Override
-    public MmAttributeAccessor<?, Gender> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, Gender> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.gender();
     }
@@ -61,7 +61,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   @MmBooleanAnnotation(id = "mb")
   public final MmBoolean isMember = new MmBoolean(this) {
     @Override
-    public MmAttributeAccessor<?, Boolean> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmAttributeAccessor<?, Boolean> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       PersonAccessor person = (PersonAccessor) pParentAccessor;
       return person.isMember();
     }
@@ -72,7 +72,7 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   };
 
   @Override
-  public MmListEntryAccessor<? extends List<Person>, Person> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmListEntryAccessor<? extends List<Person>, Person> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     @SuppressWarnings("unchecked")
     MmListAccessor<Team, List<Person>, Person> personen = (MmListAccessor<Team, List<Person>, Person>) pParentAccessor;
     return new PersonAccessor(personen, () -> getMmRowIndex());

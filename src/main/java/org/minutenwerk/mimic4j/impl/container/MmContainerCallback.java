@@ -20,7 +20,7 @@ public interface MmContainerCallback<MODEL> extends MmBaseCallback {
    *
    * @return  The container's accessor.
    */
-  public MmModelAccessor<?, MODEL> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
+  public MmModelAccessor<?, MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
   /**
    * Semantic validation of model.

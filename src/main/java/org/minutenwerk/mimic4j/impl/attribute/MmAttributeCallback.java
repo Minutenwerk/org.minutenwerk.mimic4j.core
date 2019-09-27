@@ -41,16 +41,6 @@ public interface MmAttributeCallback<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmBaseCa
   public ATTRIBUTE_TYPE callbackMmConvertViewModelToDataModel(VIEW_TYPE pViewModelValue) throws MmViewModelConverterException;
 
   /**
-   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
-   * accessor.
-   *
-   * @param   pParentAccessor  The specified parent component accessor.
-   *
-   * @return  The attribute's accessor.
-   */
-  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> callbackMmGetAccessor(MmModelAccessor<?, ?> pParentAccessor);
-
-  /**
    * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
    * value and vice versa. It is dependent on the user's locale.
    *
@@ -68,6 +58,16 @@ public interface MmAttributeCallback<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmBaseCa
    * @return  The configuration of maximum length of formatted input string.
    */
   public int callbackMmGetMaxLength(int pPassThroughValue);
+
+  /**
+   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
+   * accessor.
+   *
+   * @param   pParentAccessor  The specified parent component accessor.
+   *
+   * @return  The attribute's accessor.
+   */
+  public MmAttributeAccessor<?, ATTRIBUTE_TYPE> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
   /**
    * Returns a list of options of type {@link MmSelectOption}, which can be transformed to an option list of a select box.
