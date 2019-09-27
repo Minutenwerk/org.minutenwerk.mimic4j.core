@@ -1,23 +1,27 @@
 package org.minutenwerk.mimic4j.impl.command;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.command.MmCommand;
 import org.minutenwerk.mimic4j.api.command.MmCommand.MmCommandJsfDisabled;
 import org.minutenwerk.mimic4j.api.command.MmCommand.MmCommandJsfTag;
 import org.minutenwerk.mimic4j.api.command.MmCommandAnnotation;
-import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
-
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
+import org.minutenwerk.mimic4j.api.container.MmLeporello;
+import org.minutenwerk.mimic4j.impl.link.MmBaseLinkConfiguration;
 
 /**
  * MmConfigurationCommand contains configuration information for mimics of type {@link MmCommand}.
  *
  * @author  Olaf Kossak
  */
-public class MmConfigurationCommand extends MmBaseConfiguration {
+public class MmConfigurationCommand extends MmBaseLinkConfiguration {
 
-  /** Constant for default value of target outcome of this mimic. */
-  public static final String               DEFAULT_TARGET_OUTCOME   = "";
+  /** Logger of this class. */
+  private static final Logger              LOGGER                   = LogManager.getLogger(MmConfigurationCommand.class);
+
+  /** Constant for default value of command button submit parameter. */
+  public static final String               DEFAULT_SUBMIT_PARAM     = "andAction";
 
   /** Constant for default value of JSF tag in enabled state. Redundant to {@link MmCommandAnnotation.jsfTag()}. */
   public static final MmCommandJsfTag      DEFAULT_JSF_TAG          = MmCommandJsfTag.CommandButton;
@@ -25,21 +29,21 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
   /** Constant for default value of JSF tag in disabled state. Redundant to {@link MmCommandAnnotation.jsfTag()}. */
   public static final MmCommandJsfDisabled DEFAULT_JSF_TAG_DISABLED = MmCommandJsfDisabled.SameAsEnabled;
 
-  /** A string referencing a target, either an URL or an outcome. */
-  protected UriComponents                  targetOutcome;
-
   /** The configuration of JSF tag in enabled state. */
   protected MmCommandJsfTag                jsfTag;
 
   /** The configuration of JSF tag in disabled state. */
   protected MmCommandJsfDisabled           jsfTagDisabled;
 
+  /** The command button submit parameter. */
+  protected String                         submitParam;
+
   /**
    * Creates a new MmConfigurationCommand instance of default values.
    */
   public MmConfigurationCommand() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
-    targetOutcome  = UriComponentsBuilder.fromPath(DEFAULT_TARGET_OUTCOME).build();
+    ;
     jsfTag         = DEFAULT_JSF_TAG;
     jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }
@@ -50,10 +54,24 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    * @param  pCommandAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationCommand(MmCommandAnnotation pCommandAnnotation) {
-    super(pCommandAnnotation.id(), pCommandAnnotation.visible(), pCommandAnnotation.readOnly(), pCommandAnnotation.enabled());
-    targetOutcome  = UriComponentsBuilder.fromPath(pCommandAnnotation.targetOutcome()).build();
+    super(pCommandAnnotation.id(), pCommandAnnotation.visible(), pCommandAnnotation.readOnly(), pCommandAnnotation.enabled(),
+      pCommandAnnotation.targetReferencePath());
+    submitParam    = DEFAULT_SUBMIT_PARAM;
     jsfTag         = pCommandAnnotation.jsfTag();
     jsfTagDisabled = pCommandAnnotation.jsfTagDisabled();
+
+    Class<? extends MmLeporello<?, ?>> targetLeporello = pCommandAnnotation.targetLeporello();
+    if (!targetLeporello.equals(MmLeporello.MmVoidTarget.class)) {
+      try {
+        String targetReferencePath = (String)targetLeporello.getMethod("getMmStaticReferencePath").invoke(null);
+        if (targetReferencePath == null) {
+          LOGGER.error("class " + targetLeporello.getSimpleName() + " must define 'public static String getMmStaticReferencePath()'");
+        }
+        setTargetReferencePath(targetReferencePath);
+      } catch (Exception e) {
+        LOGGER.error(e);
+      }
+    }
   }
 
   /**
@@ -77,12 +95,12 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
   }
 
   /**
-   * Returns a string referencing a target, either an URL or an outcome.
+   * Returns command button submit parameter.
    *
-   * @return  A string referencing a target, either an URL or an outcome
+   * @return  command button submit parameter.
    */
-  public UriComponents getTargetOutcome() {
-    return targetOutcome;
+  public String getSubmitParam() {
+    return submitParam;
   }
 
   /**
@@ -92,15 +110,6 @@ public class MmConfigurationCommand extends MmBaseConfiguration {
    */
   public void setJsfTag(MmCommandJsfTag pJsfTag) {
     jsfTag = pJsfTag;
-  }
-
-  /**
-   * Sets a string referencing a target, either an URL or an outcome.
-   *
-   * @param  pTargetReferencePath  A string referencing a target.
-   */
-  public void setTargetOutcome(UriComponents pTargetReferencePath) {
-    targetOutcome = pTargetReferencePath;
   }
 
 }

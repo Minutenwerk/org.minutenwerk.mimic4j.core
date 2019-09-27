@@ -1,7 +1,5 @@
 package org.minutenwerk.mimic4j.impl.view;
 
-import java.net.URI;
-
 import org.minutenwerk.mimic4j.impl.command.MmImplementationCommand;
 
 /**
@@ -18,26 +16,6 @@ public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, Str
    */
   public MmJsfBridgeCommand(MmImplementationCommand pDeclaration) {
     super(pDeclaration);
-  }
-
-  /**
-   * Returns an EL expression of type String, which triggers JSF to execute a Java method, usually invoked by a HTML button.
-   *
-   * @return  An EL expression of type String.
-   */
-  @Override
-  public String action() {
-    return implementation.doMmIt();
-  }
-
-  /**
-   * Returns a target URI.
-   *
-   * @return  A reference to some target.
-   */
-  @Override
-  public URI getTargetReference() {
-    return implementation.getMmTargetReference();
   }
 
   /**

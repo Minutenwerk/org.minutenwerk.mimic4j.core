@@ -5,8 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.minutenwerk.mimic4j.api.container.MmLeporello;
+import org.minutenwerk.mimic4j.api.container.MmLeporello.MmVoidTarget;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.command.MmConfigurationCommand;
+import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
 
 /**
  * MmCommandAnnotation annotates declarations of {@link MmCommand} by hardcoded configuration values.
@@ -32,6 +35,9 @@ public @interface MmCommandAnnotation {
 
   public MmCommand.MmCommandJsfDisabled jsfTagDisabled() default MmCommand.MmCommandJsfDisabled.SameAsEnabled;
 
-  public String targetOutcome() default MmConfigurationCommand.DEFAULT_TARGET_OUTCOME;
+  public String targetReferencePath() default MmConfigurationLink.DEFAULT_TARGET_REFERENCE_PATH;
 
+  public Class<? extends MmLeporello<?, ?>> targetLeporello() default MmVoidTarget.class;
+
+  public String submitParam() default MmConfigurationCommand.DEFAULT_SUBMIT_PARAM;
 }

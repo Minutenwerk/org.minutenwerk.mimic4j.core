@@ -1,7 +1,5 @@
 package org.minutenwerk.mimic4j.api;
 
-import java.net.URI;
-
 /**
  * MmExecutableMimic defines a mimic which controls execution of actions.
  *
@@ -10,17 +8,10 @@ import java.net.URI;
 public interface MmExecutableMimic extends MmMimic {
 
   /**
-   * Executes an action.
+   * Returns command button submit parameter.
    *
-   * @return  A control string, most times used as outcome string for JSF.
+   * @return  command button submit parameter.
    */
-  public String doMmIt();
-
-  /**
-   * Returns a target URI.
-   *
-   * @return  A reference to some target.
-   */
-  public URI getMmTargetReference();
+  public String getMmSubmitParam();
 
 }

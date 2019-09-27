@@ -1,24 +1,12 @@
 package org.minutenwerk.mimic4j.impl.command;
 
-import java.net.URI;
-
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmExecutableMimic;
-import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.command.MmCommand.MmCommandJsfTag;
 import org.minutenwerk.mimic4j.api.command.MmCommandAnnotation;
 import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeCommand;
-
-import org.springframework.web.util.UriComponents;
 
 /**
  * MmImplementationCommand is the specific class for the implementation part of command mimics.
@@ -28,9 +16,6 @@ import org.springframework.web.util.UriComponents;
 // TODO MmCommand needs a modelAccessor and an actionAccessor
 public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandDeclaration, MmConfigurationCommand, MmCommandAnnotation>
   implements MmExecutableMimic {
-
-  /** Logger of this class. */
-  private static final Logger LOGGER = LogManager.getLogger(MmImplementationCommand.class);
 
   /**
    * Creates a new MmImplementationCommand instance.
@@ -42,67 +27,25 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
   }
 
   /**
-   * Executes an action.
-   *
-   * @return  A control string, most times used as outcome string for JSF.
-   */
-  @Override
-  public String doMmIt() {
-    assureInitialization();
-
-    return declaration.callbackMmDoIt();
-  }
-
-  /**
    * Returns the current JSF tag of this mimic, dependent on enabled state and configuration.
    *
    * @return  The current JSF tag of this mimic.
-   *
-   * @throws  IllegalStateException  In case of callbackMmGetJsfTag doesn't return a value.
    */
   @Override
   public String getJsfTag() {
-    MmCommandJsfTag commandJsfTag = null;
-    if ((isMmEnabled() && !isMmReadOnly()) || getConfiguration().getJsfTagDisabled().equals("SameAsEnabled")) {
-      commandJsfTag = MmCommandJsfTag.valueOf(getConfiguration().getJsfTagEnabled());
-    } else {
-      commandJsfTag = MmCommandJsfTag.valueOf(getConfiguration().getJsfTagDisabled());
-    }
-
-    final MmCommandJsfTag callbackJsfTag = declaration.callbackMmGetJsfTag(commandJsfTag);
-    if (LOGGER.isDebugEnabled()) {
-      if (callbackJsfTag == null) {
-        throw new IllegalStateException("callbackMmGetJsfTag must return a value");
-      }
-    }
-    return callbackJsfTag.name();
+    return configuration.getJsfTagEnabled();
   }
 
   /**
-   * Returns a target URI.
+   * Returns command button submit parameter.
    *
-   * @return  A reference to some target.
+   * @return  command button submit parameter.
    */
   @Override
-  public URI getMmTargetReference() {
+  public String getMmSubmitParam() {
     assureInitialization();
 
-    URI           targetReference = null;
-    final MmMimic targetMimic     = declaration.callbackMmGetTargetMimic(null);
-
-    // if link references another mimic
-    if (targetMimic != null) {
-      targetReference = targetMimic.getMmSelfReference();
-
-      // if link references an URL
-    } else {
-      final UriComponents configurationOutcome  = configuration.getTargetOutcome();
-      final UriComponents callbackOutcome       = declaration.callbackMmGetTargetOutcome(configurationOutcome);
-      final List<String>  emptyList             = Collections.emptyList();
-      final List<String>  targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(emptyList, null);
-      targetReference = callbackOutcome.expand(targetReferenceParams).toUri();
-    }
-    return targetReference;
+    return declaration.callbackMmGetSubmitParam(configuration.getSubmitParam());
   }
 
   /**
