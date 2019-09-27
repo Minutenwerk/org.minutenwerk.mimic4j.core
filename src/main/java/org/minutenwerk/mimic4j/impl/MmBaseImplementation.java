@@ -662,7 +662,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     final Object   initialParams         = null;
     final Object[] longDescriptionParams = declaration.callbackMmGetLongDescriptionParams(initialParams);
-    final String   i18nLongDescription   = getMmI18nText(MmMessageType.LONG, longDescriptionParams);
+    final String   i18nLongDescription   = getMmI18nText(MmMessageType.LONG, (Object[])longDescriptionParams);
     final String   returnString          = declaration.callbackMmGetLongDescription(i18nLongDescription, longDescriptionParams);
     if (LOGGER.isDebugEnabled()) {
       if (returnString == null) {

@@ -55,6 +55,20 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   }
 
   /**
+   * Returns an array of message arguments for the long description.
+   *
+   * @param         pPassThroughValues  By default this parameter value will be returned.
+   *
+   * @return        An array of message arguments for the long description.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues) {
+    return pPassThroughValues;
+  }
+
+  /**
    * Returns a short description. The short description is evaluated from callback method
    * {@link MmBaseCallback#callbackMmGetShortDescription()}. If {@link MmCallback#callbackMmGetShortDescription())} returns null, the short
    * description is evaluated from configuration attribute {@link MmBaseConfiguration#shortDescription()}.
@@ -321,18 +335,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
       sb.append(implementation.toString());
     }
     return sb.toString();
-  }
-
-  /**
-   * Returns an array of message arguments for the long description.
-   *
-   * @param   pPassThroughValues  By default this parameter value will be returned.
-   *
-   * @return  An array of message arguments for the long description.
-   */
-  @Override
-  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues) {
-    return pPassThroughValues;
   }
 
   /**

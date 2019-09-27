@@ -534,8 +534,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
 
     // viewValueArray keeps an Object[], but as this is an Object as well, java still interprets it to be just one object
     // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-    final String i18nalizedViewValue = getMmI18nText(pMessageType, (Object[])viewValueArray);
-    return i18nalizedViewValue;
+    final String i18nViewValue = getMmI18nText(pMessageType, (Object[])viewValueArray);
+    return i18nViewValue;
   }
 
   /**
@@ -565,8 +565,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
       final String formattedViewModelValue = (String)formatViewModelValue(pViewValue, formatPattern);
 
       // i18nize view value
-      final String i18nalizedViewValue     = getMmI18nText(pMessageType, formattedViewModelValue);
-      return i18nalizedViewValue;
+      final String i18nViewValue           = getMmI18nText(pMessageType, formattedViewModelValue);
+      return i18nViewValue;
 
       // all other types just i18nize
     } else {
