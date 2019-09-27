@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.impl.link;
 
+import java.net.URI;
+
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
@@ -30,6 +32,17 @@ public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
   public MmModelAccessor<?, DATA_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor);
 
   /**
+   * Returns the target URL of this mimic.
+   *
+   * @param   pTargetReferencePath    The path of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
+   * @param   pDataModel              The data model, which delivers the target reference parameters.
+   * @param   pTargetReferenceParams  The parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
+   *
+   * @return  The target URL of this mimic.
+   */
+  public URI callbackMmGetTargetReference(UriComponents pTargetReferencePath, DATA_MODEL pDataModel, List<String> pTargetReferenceParams);
+
+  /**
    * Returns a mimic, which is the target reference of this link mimic.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
@@ -37,25 +50,6 @@ public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
    * @return  A mimic, which is the target reference of this link mimic.
    */
   public MmMimic callbackMmGetTargetReferenceMimic(MmMimic pPassThroughValue);
-
-  /**
-   * Returns the path part of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
-   *
-   * @param   pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return  The path part of the target URL.
-   */
-  public UriComponents callbackMmGetTargetReferencePath(UriComponents pPassThroughValue);
-
-  /**
-   * Returns a list of path or query parameter values of the target URL, like "123", "4711" in "city/123/person/4711/display".
-   *
-   * @param   pPassThroughValue  By default this parameter value will be returned.
-   * @param   pModel             The model data, which may control the query string.
-   *
-   * @return  A list of path or query parameter values of the target URL. Usually this is a list of ids starting by id of root dto.
-   */
-  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, DATA_MODEL pModel);
 
   /**
    * Returns the link's format pattern for displaying view value. It is used during conversion from view model to view value and vice versa.

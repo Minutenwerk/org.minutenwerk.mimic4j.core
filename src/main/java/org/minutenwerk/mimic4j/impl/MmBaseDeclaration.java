@@ -2,6 +2,7 @@ package org.minutenwerk.mimic4j.impl;
 
 import java.net.URI;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
@@ -13,6 +14,7 @@ import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 
 import org.springframework.context.MessageSource;
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmBaseDeclaration is the base class of the declaration part of all mimic classes.
@@ -66,6 +68,26 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   @Override
   public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues) {
     return pPassThroughValues;
+  }
+
+  /**
+   * Returns the self URL of this mimic.
+   *
+   * @param         pSelfReferencePath    The path of the self URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
+   * @param         pSelfReferenceParams  The parameters of the self URL, like "123", "4711" in "city/123/person/4711/display".
+   *
+   * @return        The self URL of this mimic.
+   *
+   * @jalopy.group  group-callback
+   */
+  public URI callbackMmGetSelfReference(UriComponents pSelfReferencePath, List<String> pSelfReferenceParams) {
+    if ((pSelfReferenceParams == null) || pSelfReferenceParams.isEmpty()) {
+      return pSelfReferencePath.toUri();
+    } else if (pSelfReferenceParams.size() == 1) {
+      return pSelfReferencePath.expand(pSelfReferenceParams.get(0)).toUri();
+    } else {
+      return pSelfReferencePath.expand(pSelfReferenceParams.toArray()).toUri();
+    }
   }
 
   /**

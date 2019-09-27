@@ -229,51 +229,35 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     final MmMimic    targetMimic = declaration.callbackMmGetTargetReferenceMimic(null);
 
     // retrieve data model, may be null
-    final DATA_MODEL model       = dataModelAccessor.get();
+    final DATA_MODEL dataModel   = dataModelAccessor.get();
 
     // if link references another mimic without a specified data model
-    if ((targetMimic != null) && (model == null)) {
+    if ((targetMimic != null) && (dataModel == null)) {
       return targetMimic.getMmSelfReference();
 
       // if link references another mimic for a specified referencable data model
-    } else if ((targetMimic != null) && (model != null) && (model instanceof MmReferencableModel)) {
-      return targetMimic.getMmSelfReferenceForModel((MmReferencableModel)model);
+    } else if ((targetMimic != null) && (dataModel != null) && (dataModel instanceof MmReferencableModel)) {
+      return targetMimic.getMmSelfReferenceForModel((MmReferencableModel)dataModel);
 
       // retrieve target reference path
     } else {
-      final UriComponents configTargetReferencePath = configuration.getTargetReferencePath();
-      final UriComponents targetReferencePath       = declaration.callbackMmGetTargetReferencePath(configTargetReferencePath);
+      final UriComponents targetReferencePath = configuration.getTargetReferencePath();
       if (targetReferencePath == null) {
         throw new IllegalArgumentException("no definition of target reference path for " + this);
       }
 
       // if link references an URI without a specified data model
-      if ((targetMimic == null) && (model == null)) {
-        final List<String> targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(Collections.emptyList(), null);
-        if (targetReferenceParams.size() == 1) {
-          return targetReferencePath.expand(targetReferenceParams.get(0)).toUri();
-        } else {
-          return targetReferencePath.expand(targetReferenceParams).toUri();
-        }
+      if ((targetMimic == null) && (dataModel == null)) {
+        return declaration.callbackMmGetTargetReference(targetReferencePath, null, Collections.emptyList());
 
         // if link references an URI for a specified referencable data model
-      } else if ((targetMimic == null) && (model != null) && (model instanceof MmReferencableModel)) {
-        final List<String> modelReferenceParams  = ((MmReferencableModel)model).getMmReferenceValues();
-        final List<String> targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(modelReferenceParams, model);
-        if (targetReferenceParams.size() == 1) {
-          return targetReferencePath.expand(targetReferenceParams.get(0)).toUri();
-        } else {
-          return targetReferencePath.expand(targetReferenceParams).toUri();
-        }
+      } else if ((targetMimic == null) && (dataModel != null) && (dataModel instanceof MmReferencableModel)) {
+        final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceValues();
+        return declaration.callbackMmGetTargetReference(targetReferencePath, dataModel, modelReferenceParams);
 
         // if link references an URI for a specified raw data model
-      } else if ((targetMimic == null) && (model != null)) {
-        final List<String> targetReferenceParams = declaration.callbackMmGetTargetReferenceValues(Collections.emptyList(), model);
-        if (targetReferenceParams.size() == 1) {
-          return targetReferencePath.expand(targetReferenceParams.get(0)).toUri();
-        } else {
-          return targetReferencePath.expand(targetReferenceParams).toUri();
-        }
+      } else if ((targetMimic == null) && (dataModel != null)) {
+        return declaration.callbackMmGetTargetReference(targetReferencePath, dataModel, Collections.emptyList());
 
         // in all other cases just use target reference path
       } else {

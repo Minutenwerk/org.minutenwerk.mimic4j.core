@@ -61,6 +61,30 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
+   * Returns the target URL of this mimic.
+   *
+   * @param         pTargetReferencePath    The path of the target URL like "city/{id0}/person/{id1}/display" in
+   *                                        "city/123/person/4711/display".
+   * @param         pDataModel              The data model, which delivers the target reference parameters.
+   * @param         pTargetReferenceParams  The parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
+   *
+   * @return        The target URL of this mimic.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public URI callbackMmGetTargetReference(UriComponents pTargetReferencePath, DATA_MODEL pDataModel, List<String> pTargetReferenceParams) {
+    // pDataModel is ignored here
+    if ((pTargetReferenceParams == null) || pTargetReferenceParams.isEmpty()) {
+      return pTargetReferencePath.toUri();
+    } else if (pTargetReferenceParams.size() == 1) {
+      return pTargetReferencePath.expand(pTargetReferenceParams.get(0)).toUri();
+    } else {
+      return pTargetReferencePath.expand(pTargetReferenceParams.toArray()).toUri();
+    }
+  }
+
+  /**
    * Returns a mimic, which is the target reference of this link mimic.
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
@@ -71,35 +95,6 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public MmMimic callbackMmGetTargetReferenceMimic(MmMimic pPassThroughValue) {
-    return pPassThroughValue;
-  }
-
-  /**
-   * Returns the path part of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   *
-   * @return        The path part of the target URL.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public UriComponents callbackMmGetTargetReferencePath(UriComponents pPassThroughValue) {
-    return pPassThroughValue;
-  }
-
-  /**
-   * Returns a list of path or query parameter values of the target URL, like "123", "4711" in "city/123/person/4711/display".
-   *
-   * @param         pPassThroughValue  By default this parameter value will be returned.
-   * @param         pModel             The model data, which may control the query string.
-   *
-   * @return        A list of path or query parameter values of the target URL. Usually this is a list of ids starting by id of root dto.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public List<String> callbackMmGetTargetReferenceValues(List<String> pPassThroughValue, DATA_MODEL pModel) {
     return pPassThroughValue;
   }
 

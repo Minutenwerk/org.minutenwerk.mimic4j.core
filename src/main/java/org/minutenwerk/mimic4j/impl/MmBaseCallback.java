@@ -1,5 +1,11 @@
 package org.minutenwerk.mimic4j.impl;
 
+import java.net.URI;
+
+import java.util.List;
+
+import org.springframework.web.util.UriComponents;
+
 /**
  * MmCallback defines a set of override-able methods common to all mimics. Callback methods are part of the declaration API of mimic models.
  * Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
@@ -30,6 +36,16 @@ public interface MmBaseCallback {
    * @return  An array of message arguments for the long description.
    */
   public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues);
+
+  /**
+   * Returns the self URL of this mimic.
+   *
+   * @param   pSelfReferencePath    The path of the self URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
+   * @param   pSelfReferenceParams  The parameters of the self URL, like "123", "4711" in "city/123/person/4711/display".
+   *
+   * @return  The self URL of this mimic.
+   */
+  public URI callbackMmGetSelfReference(UriComponents pSelfReferencePath, List<String> pSelfReferenceParams);
 
   /**
    * Returns a short description. The short description is evaluated from declaration method <code>callbackMmGetShortDescription</code>. If
