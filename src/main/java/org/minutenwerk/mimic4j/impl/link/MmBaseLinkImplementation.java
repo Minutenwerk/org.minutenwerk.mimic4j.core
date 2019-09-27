@@ -34,7 +34,6 @@ import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
-import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeImplementation;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
@@ -195,7 +194,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   public Class<DATA_MODEL> getMmModelType() {
     assureInitialization();
 
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_DATA_MODEL);
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseLinkImplementation.class, GENERIC_PARAMETER_INDEX_DATA_MODEL);
   }
 
   /**
@@ -305,7 +304,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   public Class<VIEW_MODEL> getMmViewModelType() {
     assureInitialization();
 
-    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_MODEL);
+    return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseLinkImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_MODEL);
   }
 
   /**

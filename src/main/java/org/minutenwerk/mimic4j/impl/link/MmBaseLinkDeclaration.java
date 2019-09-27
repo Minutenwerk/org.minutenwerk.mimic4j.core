@@ -49,14 +49,13 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    * @jalopy.group  group-callback
    */
   @Override
+  @SuppressWarnings("unchecked")
   public MmModelAccessor<?, DATA_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
-      @SuppressWarnings("unchecked")
-      MmModelAccessor<?, DATA_MODEL> modelAccessor = (MmModelAccessor<?, DATA_MODEL>)pParentAccessor;
-      return modelAccessor;
+      return (MmModelAccessor<?, DATA_MODEL>)pParentAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor
-        + " cannot be casted to modelAccessor. You must redefine callbackMmGetModelAccessor() for " + this);
+        + " cannot be casted to modelAccessor. callbackMmGetModelAccessor() must be defined for " + this);
     }
   }
 
@@ -74,9 +73,12 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public URI callbackMmGetTargetReference(UriComponents pTargetReferencePath, DATA_MODEL pDataModel, List<String> pTargetReferenceParams) {
-    // pDataModel is ignored here
     if ((pTargetReferenceParams == null) || pTargetReferenceParams.isEmpty()) {
-      return pTargetReferencePath.toUri();
+      if (pDataModel == null) {
+        return pTargetReferencePath.toUri();
+      } else {
+        return pTargetReferencePath.expand(pDataModel).toUri();
+      }
     } else if (pTargetReferenceParams.size() == 1) {
       return pTargetReferencePath.expand(pTargetReferenceParams.get(0)).toUri();
     } else {
@@ -121,20 +123,19 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    *
    * @return        The view model accessor.
    *
-   * @throws        ClassCastException  IllegalStateException In case of view model accessor is not defined.
+   * @throws        ClassCastException  In case of view model accessor is not defined.
    *
    * @jalopy.group  group-callback
    */
   @Override
-  // TODO get view model accessor from callbackMmGetModelAccessor
+  @SuppressWarnings("unchecked")
   public MmModelAccessor<?, VIEW_MODEL> callbackMmGetViewModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    MmModelAccessor<?, DATA_MODEL> dataModelAccessor = callbackMmGetModelAccessor(pParentAccessor);
     try {
-      @SuppressWarnings("unchecked")
-      MmModelAccessor<?, VIEW_MODEL> viewModelAccessor = (MmModelAccessor<?, VIEW_MODEL>)pParentAccessor;
-      return viewModelAccessor;
+      return (MmModelAccessor<?, VIEW_MODEL>)dataModelAccessor;
     } catch (ClassCastException e) {
-      throw new ClassCastException("Parent accessor " + pParentAccessor
-        + " cannot be casted to viewModelAccessor. You must redefine callbackMmGetViewModelAccessor() for " + this);
+      throw new ClassCastException("View model accessor cannot be derived from data model accessor." + dataModelAccessor
+        + " callbackMmGetViewModelAccessor() must be defined for " + this);
     }
   }
 

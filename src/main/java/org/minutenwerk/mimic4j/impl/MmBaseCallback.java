@@ -35,6 +35,7 @@ public interface MmBaseCallback {
    *
    * @return  An array of message arguments for the long description.
    */
+  @Deprecated
   public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues);
 
   /**
