@@ -15,6 +15,9 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  *                      group-long, group-style, group-model, group-reference
  */
 // TODO introduce model of mimic
+// TODO introduce getMmModelAccessor
+// TODO introduce getMmModelValue
+// TODO introduce getMmModelType
 public interface MmMimic {
 
   /**
@@ -59,8 +62,9 @@ public interface MmMimic {
   public boolean isMmRuntimeMimic();
 
   /**
-   * Returns <code>true</code>, if the mimic is visible. This mimic is visible, if its parent is visible and its callback method
-   * callbackMmIsVisible returns <code>true</code>.
+   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and
+   * callback method {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>
+   * visible</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is visible.
    *
@@ -72,13 +76,9 @@ public interface MmMimic {
   public boolean isMmVisible();
 
   /**
-   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). This mimic is readOnly, if its parent is readOnly
-   * and its callback method {@link MmBaseCallback#callbackMmIsReadOnly()} returns <code>true</code>. The callback method <code>
-   * callbackMmIsReadOnly()</code> can be redefined by the developer. The default implementation of <code>callbackMmIsReadOnly()</code>
-   * returns the value of the mimic's annotation attribute {@link MmBaseConfiguration#isReadOnly()}. If the annotation <code>
-   * MmConfiguration</code> or its attribute <code>readOnly</code> are not declared, the default implementation of <code>
-   * MmCallback.callbackMmIsReadOnly()</code> returns the default value of the default configuration <code>
-   * MmConfiguration.isReadOnly()</code>, which is <code>false</code>.
+   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readOnly and
+   * callback method {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>
+   * readOnly</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is read only.
    *
@@ -90,13 +90,9 @@ public interface MmMimic {
   public boolean isMmReadOnly();
 
   /**
-   * Returns <code>true</code>, if the mimic is enabled (default is <code>true</code>). This mimic is enabled, if its parent is enabled and
-   * its callback method {@link MmBaseCallback#callbackMmIsEnabled()} returns <code>true</code>. The callback method <code>
-   * callbackMmIsEnabled()</code> can be redefined by the developer. The default implementation of <code>callbackMmIsEnabled()</code>
-   * returns the value of the mimic's annotation attribute {@link MmBaseConfiguration#isEnabled()}. If the annotation <code>
-   * MmConfiguration</code> or its attribute <code>enabled</code> are not declared, the default implementation of <code>
-   * MmCallback.callbackMmIsEnabled()</code> returns the default value of the default configuration <code>
-   * MmConfiguration.isEnabled()</code>, which is <code>true</code>.
+   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and
+   * callback method {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>
+   * enabled</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is enabled.
    *
@@ -156,9 +152,6 @@ public interface MmMimic {
    *
    * @jalopy.group  group-model
    */
-  // TODO introduce getMmModelAccessor
-  // TODO introduce getMmModelValue
-  // TODO introduce getMmModelType
   public boolean isMmModelPresent();
 
   /**

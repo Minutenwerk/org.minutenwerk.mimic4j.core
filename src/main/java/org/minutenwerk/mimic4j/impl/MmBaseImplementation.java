@@ -789,8 +789,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is enabled. This mimic is enabled, if its parent is enabled and its declaration method
-   * callbackMmIsEnabled returns <code>true</code>.
+   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and
+   * callback method {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>
+   * enabled</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is enabled.
    *
@@ -808,8 +809,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is read only. This mimic is read only, if its parent is read only or its declaration method
-   * callbackMmIsReadOnly returns <code>true</code>.
+   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readonly and
+   * callback method {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>
+   * readonly</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is read only.
    *
@@ -840,8 +842,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is visible. This mimic is visible, if its parent is visible and its declaration method
-   * callbackMmIsVisible returns <code>true</code>.
+   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and
+   * callback method {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>
+   * visible</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is visible.
    *

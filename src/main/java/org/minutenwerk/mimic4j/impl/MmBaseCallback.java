@@ -69,8 +69,9 @@ public interface MmBaseCallback {
   public String callbackMmGetStyleClasses(String pPassThroughValue);
 
   /**
-   * Returns <code>true</code>, if the mimic shall be enabled. This mimic is enabled, if its parent is enabled and its callbackMm method
-   * callbackMmIsEnabled returns <code>true</code>.
+   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and
+   * callback method {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>
+   * enabled</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
@@ -79,8 +80,9 @@ public interface MmBaseCallback {
   public boolean callbackMmIsEnabled(boolean pPassThroughValue);
 
   /**
-   * Returns <code>true</code>, if the mimic shall be read only. This mimic is read only, if its parent is read only and its callbackMm
-   * method callbackMmIsReadOnly returns <code>true</code>.
+   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readonly and
+   * callback method {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>
+   * readonly</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
@@ -89,8 +91,9 @@ public interface MmBaseCallback {
   public boolean callbackMmIsReadOnly(boolean pPassThroughValue);
 
   /**
-   * Returns <code>true</code>, if the mimic shall be visible. This mimic is visible, if its parent is visible and its callbackMm method
-   * callbackMmIsVisible returns <code>true</code>.
+   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and
+   * callback method {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>
+   * visible</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
