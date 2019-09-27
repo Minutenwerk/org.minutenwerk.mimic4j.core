@@ -281,7 +281,7 @@ public abstract class MmJsfBridge<IMPLEMENTATION extends MmBaseImplementation<?,
    * @return  A self reference of this mimic.
    */
   public URI getReference() {
-    return implementation.getMmReference();
+    return implementation.getMmSelfReference();
   }
 
   /**

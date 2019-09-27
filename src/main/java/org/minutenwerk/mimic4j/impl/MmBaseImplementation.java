@@ -695,7 +695,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   @Override
-  public URI getMmReference() {
+  public URI getMmSelfReference() {
     assureInitialization();
 
     // if no referencable ancestor is available, no reference can be returned
@@ -724,7 +724,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-override
    */
   @Override
-  public URI getMmReference(MmReferencableModel pModel) {
+  public URI getMmSelfReferenceForModel(MmReferencableModel pModel) {
     assureInitialization();
 
     // if no referencable ancestor is available, no reference can be returned

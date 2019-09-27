@@ -233,11 +233,11 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
 
     // if link references another mimic without a specified data model
     if ((targetMimic != null) && (model == null)) {
-      return targetMimic.getMmReference();
+      return targetMimic.getMmSelfReference();
 
       // if link references another mimic for a specified referencable data model
     } else if ((targetMimic != null) && (model != null) && (model instanceof MmReferencableModel)) {
-      return targetMimic.getMmReference((MmReferencableModel)model);
+      return targetMimic.getMmSelfReferenceForModel((MmReferencableModel)model);
 
       // retrieve target reference path
     } else {

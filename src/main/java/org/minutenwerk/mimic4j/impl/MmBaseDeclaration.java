@@ -216,8 +216,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @jalopy.group  group-override
    */
   @Override
-  public final URI getMmReference() {
-    return implementation.getMmReference();
+  public final URI getMmSelfReference() {
+    return implementation.getMmSelfReference();
   }
 
   /**
@@ -230,8 +230,8 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @jalopy.group  group-override
    */
   @Override
-  public final URI getMmReference(MmReferencableModel pModel) {
-    return implementation.getMmReference(pModel);
+  public final URI getMmSelfReferenceForModel(MmReferencableModel pModel) {
+    return implementation.getMmSelfReferenceForModel(pModel);
   }
 
   /**

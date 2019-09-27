@@ -91,7 +91,7 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
 
     // if link references another mimic
     if (targetMimic != null) {
-      targetReference = targetMimic.getMmReference();
+      targetReference = targetMimic.getMmSelfReference();
 
       // if link references an URL
     } else {

@@ -170,8 +170,7 @@ public interface MmMimic {
    *
    * @jalopy.group  group-reference
    */
-  // TODO rename to getMmSelfReference ?
-  public URI getMmReference();
+  public URI getMmSelfReference();
 
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
@@ -182,7 +181,6 @@ public interface MmMimic {
    *
    * @jalopy.group  group-reference
    */
-  // TODO rename to getMmTargetReference ?
-  public URI getMmReference(MmReferencableModel pModel);
+  public URI getMmSelfReferenceForModel(MmReferencableModel pModel);
 
 }

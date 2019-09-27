@@ -62,7 +62,7 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * @jalopy.group  group-override
    */
   @Override
-  public URI getMmReference() {
+  public URI getMmSelfReference() {
     assureInitialization();
 
     if (cachedReference == null) {
@@ -81,7 +81,7 @@ public abstract class MmBaseReferencableImplementation<DECLARATION extends MmBas
    * @jalopy.group  group-override
    */
   @Override
-  public URI getMmReference(MmReferencableModel pModel) {
+  public URI getMmSelfReferenceForModel(MmReferencableModel pModel) {
     assureInitialization();
 
     @SuppressWarnings("unchecked")
