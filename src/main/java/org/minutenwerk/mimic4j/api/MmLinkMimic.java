@@ -38,13 +38,6 @@ public interface MmLinkMimic<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   public Class<DATA_MODEL> getMmModelType();
 
   /**
-   * Returns model accessor of link mimic parent, may be null.
-   *
-   * @return  The model accessor of link mimic parent, may be null.
-   */
-  public MmModelAccessor<?, ?> getMmParentAccessor();
-
-  /**
    * Returns URI of the link.
    *
    * @return  The URI of the link.

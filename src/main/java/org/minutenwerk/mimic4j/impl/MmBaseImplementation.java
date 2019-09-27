@@ -688,9 +688,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the self reference of this object for the current data model, or the fixed part if there is no current data model.
+   * Returns the self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is no
+   * current data model.
    *
-   * @return        The self reference of this object for the current data model, or the fixed part if there is no current data model.
+   * @return        The self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is
+   *                no current data model.
    *
    * @jalopy.group  group-override
    */
@@ -715,11 +717,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the self reference of this object for a specified data model.
+   * Returns the self reference (aka link) of this object for a specified data model.
    *
    * @param         pModel  The specified instance of a data model, which is referencable by an URL.
    *
-   * @return        The self reference of this object for a specified data model.
+   * @return        The self reference (aka link) of this object for a specified data model.
    *
    * @jalopy.group  group-override
    */

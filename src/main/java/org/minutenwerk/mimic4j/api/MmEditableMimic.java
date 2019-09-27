@@ -36,6 +36,7 @@ public interface MmEditableMimic extends MmMimic {
    *
    * @return  The accessor of model of parent container mimic, may be null.
    */
+  // TODO entfernen ?
   public MmModelAccessor<?, ?> getMmParentAccessor();
 
   /**

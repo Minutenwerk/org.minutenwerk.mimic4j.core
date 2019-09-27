@@ -123,7 +123,7 @@ public abstract class MmBaseContainerDeclaration<IMPLEMENTATION extends MmBaseCo
    * @return  The accessor of model of parent container mimic, may be null.
    */
   @Override
-  public MmModelAccessor<?, ?> getMmParentAccessor() {
+  public final MmModelAccessor<?, ?> getMmParentAccessor() {
     return implementation.getMmParentAccessor();
   }
 
@@ -133,7 +133,7 @@ public abstract class MmBaseContainerDeclaration<IMPLEMENTATION extends MmBaseCo
    * @return  The accessor of root component of model.
    */
   @Override
-  public MmRootAccessor<?> getMmRootAccessor() {
+  public final MmRootAccessor<?> getMmRootAccessor() {
     return implementation.getMmRootAccessor();
   }
 

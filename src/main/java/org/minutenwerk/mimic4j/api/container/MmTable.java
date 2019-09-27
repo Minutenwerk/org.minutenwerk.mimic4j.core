@@ -87,7 +87,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<MmIm
    * @return  The accessor of model.
    */
   @Override
-  public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> getMmModelAccessor() {
+  public final MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
   }
 

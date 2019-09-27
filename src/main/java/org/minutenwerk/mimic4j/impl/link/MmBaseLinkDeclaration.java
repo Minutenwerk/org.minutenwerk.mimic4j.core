@@ -176,18 +176,6 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns model accessor of link mimic parent, may be null.
-   *
-   * @return        The model accessor of link mimic parent, may be null.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public final MmModelAccessor<?, ?> getMmParentAccessor() {
-    return implementation.getMmParentAccessor();
-  }
-
-  /**
    * Returns URI of the link.
    *
    * @return        The URI of the link.

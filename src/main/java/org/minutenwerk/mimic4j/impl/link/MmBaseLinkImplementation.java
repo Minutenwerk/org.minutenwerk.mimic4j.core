@@ -64,9 +64,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   /** Logger of this class. */
   private static final Logger              LOGGER                             = LogManager.getLogger(MmBaseLinkImplementation.class);
 
-  /** Model accessor of link mimic parent, may be null. */
-  protected MmModelAccessor<?, ?>          parentAccessor;
-
   /** Accessor of data model. Data model delivers dynamic parts of URL. */
   protected MmModelAccessor<?, DATA_MODEL> dataModelAccessor;
 
@@ -95,7 +92,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     super.onInitialization();
 
     // initialize parentAccessor
-    parentAccessor    = onInitializeParentAccessor();
+    final MmModelAccessor<?, ?> parentAccessor = onInitializeParentAccessor();
 
     // initialize modelAccessor
     dataModelAccessor = declaration.callbackMmGetModelAccessor(parentAccessor);
@@ -195,20 +192,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     assureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseLinkImplementation.class, GENERIC_PARAMETER_INDEX_DATA_MODEL);
-  }
-
-  /**
-   * Returns model accessor of link mimic parent, may be null.
-   *
-   * @return        The model accessor of link mimic parent, may be null.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public MmModelAccessor<?, ?> getMmParentAccessor() {
-    assureInitialization();
-
-    return parentAccessor;
   }
 
   /**
