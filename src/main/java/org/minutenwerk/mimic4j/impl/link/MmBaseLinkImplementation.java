@@ -48,7 +48,7 @@ import org.springframework.web.util.UriComponents;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-initialization, group-override, group-i18n
+ * @jalopy.group-order  group-initialization, group-override, group-i18n, group-helper
  */
 public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<DATA_MODEL, VIEW_MODEL>,
   DATA_MODEL extends MmReferencableModel, VIEW_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
@@ -228,22 +228,13 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
         throw new IllegalArgumentException("no definition of target reference path for " + this);
       }
 
-      // if link references an URI without a specified data model
-      if ((targetMimic == null) && (dataModel == null)) {
-        return declaration.callbackMmGetTargetReference(targetReferencePath, null, Collections.emptyList());
-
-        // if link references an URI for a specified referencable data model
-      } else if ((targetMimic == null) && (dataModel != null) && (dataModel instanceof MmReferencableModel)) {
+      // if link references an URI for a specified referencable data model
+      if ((targetMimic == null) && (dataModel != null) && (dataModel instanceof MmReferencableModel)) {
         final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceValues();
         return declaration.callbackMmGetTargetReference(targetReferencePath, dataModel, modelReferenceParams);
 
-        // if link references an URI for a specified raw data model
-      } else if ((targetMimic == null) && (dataModel != null)) {
-        return declaration.callbackMmGetTargetReference(targetReferencePath, dataModel, Collections.emptyList());
-
-        // in all other cases just use target reference path
       } else {
-        return targetReferencePath.toUri();
+        return declaration.callbackMmGetTargetReference(targetReferencePath, dataModel, Collections.emptyList());
       }
     }
   }
@@ -328,6 +319,19 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
       LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
       return false;
     }
+  }
+
+  /**
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
+   * "city/123/person/4711/display".
+   *
+   * @return        The data model for self reference.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  protected MmReferencableModel getMmReferencableModel() {
+    return getMmModel();
   }
 
   /**

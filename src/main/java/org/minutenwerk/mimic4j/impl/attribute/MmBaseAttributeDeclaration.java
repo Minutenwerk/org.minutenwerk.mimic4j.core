@@ -227,16 +227,6 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns accessor of model of parent container mimic, may be null.
-   *
-   * @return  The accessor of model of parent container mimic, may be null.
-   */
-  @Override
-  public MmModelAccessor<?, ?> getMmParentAccessor() {
-    return implementation.getMmParentAccessor();
-  }
-
-  /**
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
    *
    * @return  The attribute's number of rows.

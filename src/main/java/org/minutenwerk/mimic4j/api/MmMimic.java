@@ -151,11 +151,9 @@ public interface MmMimic {
   public boolean isMmModelPresent();
 
   /**
-   * Returns the self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is no
-   * current data model.
+   * Returns the URI of this mimic for current data model, or a fixed URI if there is no current data model.
    *
-   * @return        The self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is
-   *                no current data model.
+   * @return        The URI of this mimic for current data model, or a fixed URI if there is no current data model.
    *
    * @jalopy.group  group-reference
    */
@@ -164,12 +162,12 @@ public interface MmMimic {
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
    *
-   * @param         pModel  The specified instance of a data model, which is referencable by an URL.
+   * @param         pDataModel  The specified instance of a data model, which is referencable by an URL.
    *
    * @return        The self reference (aka link) of this object for a specified data model.
    *
    * @jalopy.group  group-reference
    */
-  public URI getMmSelfReferenceForModel(MmReferencableModel pModel);
+  public URI getMmSelfReferenceForModel(MmReferencableModel pDataModel);
 
 }

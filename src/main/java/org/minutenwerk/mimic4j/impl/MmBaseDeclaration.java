@@ -74,15 +74,21 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * Returns the self URL of this mimic.
    *
    * @param         pSelfReferencePath    The path of the self URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
+   * @param         pDataModel            The data model, which delivers the target reference parameters.
    * @param         pSelfReferenceParams  The parameters of the self URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @return        The self URL of this mimic.
    *
    * @jalopy.group  group-callback
    */
-  public URI callbackMmGetSelfReference(UriComponents pSelfReferencePath, List<String> pSelfReferenceParams) {
+  public URI callbackMmGetSelfReference(UriComponents pSelfReferencePath, MmReferencableModel pDataModel,
+    List<String> pSelfReferenceParams) {
     if ((pSelfReferenceParams == null) || pSelfReferenceParams.isEmpty()) {
-      return pSelfReferencePath.toUri();
+      if (pDataModel == null) {
+        return pSelfReferencePath.toUri();
+      } else {
+        return pSelfReferencePath.expand(pDataModel).toUri();
+      }
     } else if (pSelfReferenceParams.size() == 1) {
       return pSelfReferencePath.expand(pSelfReferenceParams.get(0)).toUri();
     } else {
@@ -234,11 +240,9 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   }
 
   /**
-   * Returns the self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is no
-   * current data model.
+   * Returns the URI of this mimic for current data model, or a fixed URI if there is no current data model.
    *
-   * @return        The self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is
-   *                no current data model.
+   * @return        The URI of this mimic for current data model, or a fixed URI if there is no current data model.
    *
    * @jalopy.group  group-override
    */
@@ -250,15 +254,15 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
    *
-   * @param         pModel  The specified instance of a data model, which is referencable by an URL.
+   * @param         pDataModel  The specified instance of a data model, which is referencable by an URL.
    *
    * @return        The self reference (aka link) of this object for a specified data model.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public final URI getMmSelfReferenceForModel(MmReferencableModel pModel) {
-    return implementation.getMmSelfReferenceForModel(pModel);
+  public final URI getMmSelfReferenceForModel(MmReferencableModel pDataModel) {
+    return implementation.getMmSelfReferenceForModel(pDataModel);
   }
 
   /**

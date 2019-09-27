@@ -14,6 +14,7 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
@@ -126,9 +127,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /** The list of messages related to this attribute. */
   protected final MmMessageList                    messageList;
 
-  /** This attribute has a parent model. The parent model has a parent accessor. */
-  protected MmModelAccessor<?, ?>                  parentAccessor;
-
   /**
    * This attribute has a model of type ATTRIBUTE_TYPE. The model has a model accessor. Its first generic, the type of the parent model, is
    * undefined.
@@ -189,10 +187,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     super.onInitialization();
 
     // initialize parentAccessor
-    parentAccessor = onInitializeParentAccessor();
+    final MmModelAccessor<?, ?> parentAccessor = onInitializeParentAccessor();
 
     // initialize modelAccessor
-    modelAccessor  = declaration.callbackMmGetModelAccessor(parentAccessor);
+    modelAccessor = declaration.callbackMmGetModelAccessor(parentAccessor);
     if (modelAccessor == null) {
       LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
     }
@@ -575,20 +573,6 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns accessor of model of parent container mimic, may be null.
-   *
-   * @return        The accessor of model of parent container mimic, may be null.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public MmModelAccessor<?, ?> getMmParentAccessor() {
-    assureInitialization();
-
-    return parentAccessor;
-  }
-
-  /**
    * Returns the attribute's number of rows in case it is displayed as multi line text field.
    *
    * @return        The attribute's number of rows.
@@ -719,6 +703,20 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     assureInitialization();
 
     return valueState == MmValueState.VALID_VALUE_IN_DATA_MODEL;
+  }
+
+  /**
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
+   * "city/123/person/4711/display".
+   *
+   * @return        The data model for self reference.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  protected MmReferencableModel getMmReferencableModel() {
+    final Object dataModel = getMmModelAccessor().getParentAccessor().get();
+    return ((dataModel != null) && (dataModel instanceof MmReferencableModel)) ? (MmReferencableModel)dataModel : null;
   }
 
   /**

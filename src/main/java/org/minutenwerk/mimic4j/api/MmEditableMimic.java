@@ -32,14 +32,6 @@ public interface MmEditableMimic extends MmMimic {
   public MmModelAccessor<?, ?> getMmModelAccessor();
 
   /**
-   * Returns accessor of model of parent container mimic, may be null.
-   *
-   * @return  The accessor of model of parent container mimic, may be null.
-   */
-  // TODO entfernen ?
-  public MmModelAccessor<?, ?> getMmParentAccessor();
-
-  /**
    * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
    * are marked as being changed as well.
    *

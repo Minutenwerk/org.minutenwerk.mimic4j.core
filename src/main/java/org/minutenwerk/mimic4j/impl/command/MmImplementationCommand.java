@@ -13,6 +13,7 @@ import org.minutenwerk.mimic4j.api.MmExecutableMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.command.MmCommand.MmCommandJsfTag;
 import org.minutenwerk.mimic4j.api.command.MmCommandAnnotation;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeCommand;
@@ -127,6 +128,20 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
   @Override
   public final boolean isMmModelPresent() {
     return false;
+  }
+
+  /**
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
+   * "city/123/person/4711/display".
+   *
+   * @return        The data model for self reference.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  // TODO getMmReferencableModel
+  protected MmReferencableModel getMmReferencableModel() {
+    return null;
   }
 
   /**

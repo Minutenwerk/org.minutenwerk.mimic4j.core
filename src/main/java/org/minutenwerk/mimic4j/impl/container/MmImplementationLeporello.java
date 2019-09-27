@@ -5,8 +5,11 @@ import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloAnnotation;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
+import org.minutenwerk.mimic4j.api.reference.MmReferenceProvider;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporello;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmImplementationLeporello is the specific class for the implementation part of leporello mimics.
@@ -17,7 +20,8 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporello;
  * @author  Olaf Kossak
  */
 public class MmImplementationLeporello<MODEL, SUB_MODEL>
-  extends MmBaseContainerImplementation<MmLeporello<MODEL, SUB_MODEL>, MODEL, MmConfigurationLeporello, MmLeporelloAnnotation> {
+  extends MmBaseContainerImplementation<MmLeporello<MODEL, SUB_MODEL>, MODEL, MmConfigurationLeporello, MmLeporelloAnnotation>
+  implements MmReferenceProvider {
 
   /**
    * Creates a new MmImplementationLeporello instance.
@@ -37,6 +41,16 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
    */
   public MmImplementationLeporello(MmDeclarationMimic pParent, MmRootAccessor<MODEL> pRootAccessor) {
     super(pParent, pRootAccessor);
+  }
+
+  /**
+   * TODOC.
+   *
+   * @return  TODOC
+   */
+  @Override
+  public UriComponents getMmReferencePath() {
+    return declaration.getMmReferencePath();
   }
 
   /**

@@ -9,9 +9,12 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
+import org.minutenwerk.mimic4j.api.reference.MmReferenceProvider;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporello;
 import org.minutenwerk.mimic4j.impl.container.MmLeporelloCallback;
+
+import org.springframework.web.util.UriComponents;
 
 /**
  * MmLeporello is a container mimic to represent a leporello of panels.
@@ -22,7 +25,7 @@ import org.minutenwerk.mimic4j.impl.container.MmLeporelloCallback;
  * @author  Olaf Kossak
  */
 public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDeclaration<MmImplementationLeporello<MODEL, SUB_MODEL>, MODEL>
-  implements MmLeporelloCallback<MODEL, SUB_MODEL> {
+  implements MmLeporelloCallback<MODEL, SUB_MODEL>, MmReferenceProvider {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.
@@ -59,7 +62,7 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
    *
    * @return  Self reference path.
    */
-  public static String getMmReferencePath() {
+  public static String getMmStaticReferencePath() {
     return null;
   }
 
@@ -105,8 +108,14 @@ public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDecla
       super(null);
     }
 
-    public static String getMmReferencePath() {
+    public static String getMmStaticReferencePath() {
       return null;
     }
+
+    @Override
+    public final UriComponents getMmReferencePath() {
+      return null;
+    }
+
   }
 }

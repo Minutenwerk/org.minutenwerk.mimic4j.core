@@ -9,6 +9,7 @@ import java.lang.reflect.Type;
 import java.net.URI;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +35,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * MmBaseImplementation is the abstract base class for the implementation part of all mimic classes.
@@ -96,9 +98,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The MmJsfBridge of this mimic, which connects it to a JSF view component, is set in constructor phase. */
   protected final MmJsfBridge<?, ?, ?>                mmJsfBridge;
 
-  /** This or an ancestor mimic, which delivers a reference path, file and params. May be null. Is set in initialization phase. */
-  // TODO MmBaseImplementation referencableAncestor
-  protected MmReferenceProvider                       referencableAncestor;
+  /** This or an ancestor mimic, which delivers a reference path, may be null. Is set in initialization phase. */
+  protected final MmReferenceProvider                 referencableAncestor;
 
   /** The declaration part of this implementation is the declaration. Is set in postconstruct phase. */
   protected DECLARATION                               declaration;
@@ -109,7 +110,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The user's session context. */
   protected MmSessionContext                          sessionContext;
 
-  /** TODOC. */
+  /** The current locale. */
   protected Locale                                    locale;
 
   /** Iterator of fields of children of declaration part, is used only during constructor phase. */
@@ -688,11 +689,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is no
-   * current data model.
+   * Returns the URI of this mimic for current data model, or a fixed URI if there is no current data model.
    *
-   * @return        The self reference (aka link) of this object for the current data model, or the fixed part of the reference if there is
-   *                no current data model.
+   * @return        The URI of this mimic for current data model, or a fixed URI if there is no current data model.
+   *
+   * @throws        IllegalStateException  TODOC
    *
    * @jalopy.group  group-override
    */
@@ -700,48 +701,75 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public URI getMmSelfReference() {
     assureInitialization();
 
-    // if no referencable ancestor is available, no reference can be returned
+    // retrieve self reference path
     if (referencableAncestor == null) {
-      return null;
+      throw new IllegalStateException("no definition of referencable ancestor for " + this
+        + " This mimic or one of its parents must implement MmReferenceProvider");
+    }
 
-      // create an own reference from anchestor reference and own anchor
+    UriComponents selfReferencePath = referencableAncestor.getMmReferencePath();
+    if (selfReferencePath == null) {
+      throw new IllegalStateException("no definition of self reference path for " + this
+        + ", MmReferenceProvider of this mimic must provide self reference path.");
+    }
+
+    // add anchor to self reference path
+    if (configuration.id != "") {
+      selfReferencePath = UriComponentsBuilder.fromPath(selfReferencePath.getPath()).path("#" + configuration.id).build();
+    }
+
+    // retrieve data model, may be null
+    final MmReferencableModel dataModel = getMmReferencableModel();
+
+    // if self reference is an URI for a specified referencable data model
+    if ((dataModel != null) && (dataModel instanceof MmReferencableModel)) {
+      final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceValues();
+      return declaration.callbackMmGetSelfReference(selfReferencePath, dataModel, modelReferenceParams);
+
     } else {
-      final UriComponents ancestorReference = referencableAncestor.getMmReferencePath();
-
-      // TODO referenceValues of this
-      final List<String>  referenceValues   = null;
-      final String        anchor            = "#" + getMmId();
-      final URI           returnReference   = ancestorReference.expand(referenceValues).toUri();
-      return returnReference;
+      return declaration.callbackMmGetSelfReference(selfReferencePath, dataModel, Collections.emptyList());
     }
   }
 
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
    *
-   * @param         pModel  The specified instance of a data model, which is referencable by an URL.
+   * @param         pDataModel  The specified instance of a data model, which is referencable by an URL.
    *
    * @return        The self reference (aka link) of this object for a specified data model.
+   *
+   * @throws        IllegalStateException  TODOC
    *
    * @jalopy.group  group-override
    */
   @Override
-  public URI getMmSelfReferenceForModel(MmReferencableModel pModel) {
+  public URI getMmSelfReferenceForModel(MmReferencableModel pDataModel) {
     assureInitialization();
 
-    // if no referencable ancestor is available, no reference can be returned
+    // retrieve self reference path
     if (referencableAncestor == null) {
-      return null;
+      throw new IllegalStateException("no definition of referencable ancestor for " + this
+        + " This mimic or one of its parents must implement MmReferenceProvider");
+    }
 
-      // create an own reference from anchestor reference for specified model, and own anchor
+    UriComponents selfReferencePath = referencableAncestor.getMmReferencePath();
+    if (selfReferencePath == null) {
+      throw new IllegalStateException("no definition of self reference path for " + this
+        + ", MmReferenceProvider of this mimic must provide self reference path.");
+    }
+
+    // add anchor to self reference path
+    if (configuration.id != "") {
+      selfReferencePath = UriComponentsBuilder.fromPath(selfReferencePath.getPath()).path("#" + configuration.id).build();
+    }
+
+    // if self reference is an URI for a specified referencable data model
+    if ((pDataModel != null) && (pDataModel instanceof MmReferencableModel)) {
+      final List<String> modelReferenceParams = ((MmReferencableModel)pDataModel).getMmReferenceValues();
+      return declaration.callbackMmGetSelfReference(selfReferencePath, pDataModel, modelReferenceParams);
+
     } else {
-      final UriComponents ancestorReference = referencableAncestor.getMmReferencePath();
-
-      // TODO referenceValues from pModel
-      final List<String>  referenceValues   = null;
-      final String        anchor            = "#" + getMmId();
-      final URI           returnReference   = ancestorReference.expand(referenceValues).toUri();
-      return returnReference;
+      return declaration.callbackMmGetSelfReference(selfReferencePath, pDataModel, Collections.emptyList());
     }
   }
 
@@ -970,7 +998,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
    *                children.
    *
-   * @throws        IllegalArgumentException  TODOC
+   * @throws        IllegalArgumentException  In case of parameter is not a subclass of MmBaseDeclaration.
    *
    * @jalopy.group  group-helper
    */
@@ -993,7 +1021,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
    *                children.
    *
-   * @throws        IllegalArgumentException  TODOC
+   * @throws        IllegalArgumentException  In case of parameter is not a subclass of MmBaseImplementation.
    *
    * @jalopy.group  group-helper
    */
@@ -1204,6 +1232,16 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public boolean isMmThisTheRoot() {
     return false;
   }
+
+  /**
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
+   * "city/123/person/4711/display".
+   *
+   * @return        The data model for self reference.
+   *
+   * @jalopy.group  group-helper
+   */
+  protected abstract MmReferencableModel getMmReferencableModel();
 
   /**
    * Logs debug information about a specified mimic and subtree of all its children and runtime children.

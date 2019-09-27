@@ -45,9 +45,9 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
     Class<? extends MmLeporello<?, ?>> targetLeporello = pLinkAnnotation.targetLeporello();
     if (!targetLeporello.equals(MmLeporello.MmVoidTarget.class)) {
       try {
-        String targetReferencePath = (String)targetLeporello.getMethod("getMmReferencePath").invoke(null);
+        String targetReferencePath = (String)targetLeporello.getMethod("getMmStaticReferencePath").invoke(null);
         if (targetReferencePath == null) {
-          LOGGER.error("class " + targetLeporello.getSimpleName() + " must define 'public static String getMmReferencePath()'");
+          LOGGER.error("class " + targetLeporello.getSimpleName() + " must define 'public static String getMmStaticReferencePath()'");
         }
         setTargetReferencePath(targetReferencePath);
       } catch (Exception e) {

@@ -9,6 +9,7 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelChangeListener;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
+import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
@@ -61,9 +62,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
 
   /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
   protected final MmRootAccessor<?>   rootAccessor;
-
-  /** This component may have a parent model. A parent model has a parent accessor. */
-  protected MmModelAccessor<?, ?>     parentAccessor;
 
   /**
    * This component has a model of type MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
@@ -124,20 +122,6 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Returns accessor of model of parent container mimic, may be null.
-   *
-   * @return        The accessor of model of parent container mimic, may be null.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public MmModelAccessor<?, ?> getMmParentAccessor() {
-    assureInitialization();
-
-    return parentAccessor;
-  }
-
-  /**
    * Returns accessor of root component of model.
    *
    * @return        The accessor of root component of model.
@@ -166,6 +150,20 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
+   * "city/123/person/4711/display".
+   *
+   * @return        The data model for self reference.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  protected MmReferencableModel getMmReferencableModel() {
+    final MODEL dataModel = getMmModel();
+    return ((dataModel != null) && (dataModel instanceof MmReferencableModel)) ? (MmReferencableModel)dataModel : null;
+  }
+
+  /**
    * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
    * super.onInitialization()!
    *
@@ -180,10 +178,10 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
     if (modelAccessor == null) {
 
       // initialize parentAccessor
-      parentAccessor = onInitializeParentAccessor();
+      final MmModelAccessor<?, ?> parentAccessor = onInitializeParentAccessor();
 
       // initialize modelAccessor
-      modelAccessor  = declaration.callbackMmGetModelAccessor(parentAccessor);
+      modelAccessor = declaration.callbackMmGetModelAccessor(parentAccessor);
       if (modelAccessor == null) {
         throw new IllegalStateException("no definition of callbackMmGetModelAccessor() for " + parentPath + "." + name);
       }
