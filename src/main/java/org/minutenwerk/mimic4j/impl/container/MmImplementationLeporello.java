@@ -1,11 +1,11 @@
 package org.minutenwerk.mimic4j.impl.container;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloAnnotation;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
-import org.minutenwerk.mimic4j.api.reference.MmReferenceProvider;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporello;
 
@@ -21,7 +21,7 @@ import org.springframework.web.util.UriComponents;
  */
 public class MmImplementationLeporello<MODEL, SUB_MODEL>
   extends MmBaseContainerImplementation<MmLeporello<MODEL, SUB_MODEL>, MODEL, MmConfigurationLeporello, MmLeporelloAnnotation>
-  implements MmReferenceProvider {
+  implements MmReferencePathProvider {
 
   /**
    * Creates a new MmImplementationLeporello instance.
@@ -44,9 +44,9 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
   }
 
   /**
-   * TODOC.
+   * Returns the path part of the URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
    *
-   * @return  TODOC
+   * @return  The path part of the URL.
    */
   @Override
   public UriComponents getMmReferencePath() {

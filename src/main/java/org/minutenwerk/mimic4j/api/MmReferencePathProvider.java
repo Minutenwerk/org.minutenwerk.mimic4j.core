@@ -1,13 +1,13 @@
-package org.minutenwerk.mimic4j.api.reference;
+package org.minutenwerk.mimic4j.api;
 
 import org.springframework.web.util.UriComponents;
 
 /**
- * MmReferenceProvider provides a path part of an URL.
+ * MmReferencePathProvider provides the path part of an URL.
  *
  * @author  Olaf Kossak
  */
-public interface MmReferenceProvider {
+public interface MmReferencePathProvider {
 
   /**
    * Returns the path part of the URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".

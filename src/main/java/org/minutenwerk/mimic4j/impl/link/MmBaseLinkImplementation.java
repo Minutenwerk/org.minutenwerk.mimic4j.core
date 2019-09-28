@@ -26,12 +26,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmInformationable;
+import org.minutenwerk.mimic4j.api.MmInformationableModel;
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
-import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
@@ -145,8 +145,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     // retrieve view model
     final VIEW_MODEL viewModel = getMmViewModel();
 
-    if (viewModel instanceof MmInformationable) {
-      return getMmDescription((MmInformationable)viewModel, MmMessageType.LONG);
+    if (viewModel instanceof MmInformationableModel) {
+      return getMmDescription((MmInformationableModel)viewModel, MmMessageType.LONG);
     } else {
       return getMmDescription(viewModel, MmMessageType.LONG);
     }
@@ -230,7 +230,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
 
       // if link references an URI for a specified referencable data model
       if ((targetMimic == null) && (dataModel != null) && (dataModel instanceof MmReferencableModel)) {
-        final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceValues();
+        final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceParams();
         return declaration.callbackMmGetTargetReference(targetReferencePath, dataModel, modelReferenceParams);
 
       } else {
@@ -295,8 +295,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     // retrieve view model
     final VIEW_MODEL viewModel = getMmViewModel();
 
-    if (viewModel instanceof MmInformationable) {
-      return getMmDescription((MmInformationable)viewModel, MmMessageType.SHORT);
+    if (viewModel instanceof MmInformationableModel) {
+      return getMmDescription((MmInformationableModel)viewModel, MmMessageType.SHORT);
     } else {
       return getMmDescription(viewModel, MmMessageType.SHORT);
     }
@@ -477,18 +477,18 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Returns view text of the link for specified MmInformationable.
+   * Returns view text of the link for specified MmInformationableModel.
    *
-   * @param         pInformationable  The specified MmInformationable.
+   * @param         pInformationable  The specified MmInformationableModel.
    * @param         pMessageType      The specified pMessageType e.g. SHORT or LONG.
    *
    * @return        The view text of the link.
    *
    * @jalopy.group  group-i18n
    */
-  protected String getMmDescription(final MmInformationable pInformationable, final MmMessageType pMessageType) {
-    // if view value is MmInformationable, transform into an array of formatted objects
-    final Object[] viewValueArray     = ((MmInformationable)pInformationable).getInfo();
+  protected String getMmDescription(final MmInformationableModel pInformationable, final MmMessageType pMessageType) {
+    // if view value is MmInformationableModel, transform into an array of formatted objects
+    final Object[] viewValueArray     = ((MmInformationableModel)pInformationable).getMmInfo();
 
     // retrieve array of format patterns
     final String[] formatPatternArray = getMmFormatPattern().split("\\|");

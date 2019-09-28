@@ -7,14 +7,14 @@ import org.minutenwerk.mimic4j.impl.command.MmImplementationCommand;
  *
  * @author  Olaf Kossak
  */
-public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand, String, String> {
+public class MmJsfBridgeCommand extends MmJsfBridge<MmImplementationCommand<?>, String, String> {
 
   /**
    * Creates a new MmJsfBridgeCommand instance.
    *
    * @param  pDeclaration  The implementation part of connected mimic.
    */
-  public MmJsfBridgeCommand(MmImplementationCommand pDeclaration) {
+  public MmJsfBridgeCommand(MmImplementationCommand<?> pDeclaration) {
     super(pDeclaration);
   }
 

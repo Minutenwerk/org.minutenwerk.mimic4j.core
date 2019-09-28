@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.api.reference;
+package org.minutenwerk.mimic4j.api;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface MmReferencableModel {
    *
    * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.
    */
-  public List<String> getMmReferenceValues();
+  public List<String> getMmReferenceParams();
 
 }

@@ -1,16 +1,16 @@
-package org.minutenwerk.mimic4j.api.accessor;
+package org.minutenwerk.mimic4j.uncertain;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmInformationable;
-import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.MmInformationableModel;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
 
 /**
  * TODOC MmRootListModel.
  */
-public class MmRootListModel<MODEL extends MmReferencableModel> implements MmReferencableModel, MmInformationable {
+public class MmRootListModel<MODEL extends MmReferencableModel> implements MmReferencableModel, MmInformationableModel {
 
   /** TODOC. */
   private List<MODEL> modelList;
@@ -40,7 +40,7 @@ public class MmRootListModel<MODEL extends MmReferencableModel> implements MmRef
    * @return  TODOC
    */
   @Override
-  public Object[] getInfo() {
+  public Object[] getMmInfo() {
     final Object[] info = new Object[1];
     info[0] = getModelItemCount();
     return info;
@@ -52,7 +52,7 @@ public class MmRootListModel<MODEL extends MmReferencableModel> implements MmRef
    * @return  TODOC
    */
   @Override
-  public List<String> getMmReferenceValues() {
+  public List<String> getMmReferenceParams() {
     return Collections.emptyList();
   }
 

@@ -1,21 +1,24 @@
 package org.minutenwerk.mimic4j.impl.command;
 
+import org.minutenwerk.mimic4j.api.MmCommandMimic;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmExecutableMimic;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.command.MmCommand;
 import org.minutenwerk.mimic4j.api.command.MmCommandAnnotation;
-import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
-import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
+import org.minutenwerk.mimic4j.impl.link.MmBaseLinkImplementation;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeCommand;
 
 /**
  * MmImplementationCommand is the specific class for the implementation part of command mimics.
  *
+ * @param   <DATA_MODEL>  Data model delivers dynamic parts and view text label of link.
+ *
  * @author  Olaf Kossak
  */
-// TODO MmCommand needs a modelAccessor and an actionAccessor
-public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandDeclaration, MmConfigurationCommand, MmCommandAnnotation>
-  implements MmExecutableMimic {
+public class MmImplementationCommand<DATA_MODEL extends MmReferencableModel>
+  extends MmBaseLinkImplementation<MmCommand<DATA_MODEL>, DATA_MODEL, DATA_MODEL, MmConfigurationCommand, MmCommandAnnotation>
+  implements MmCommandMimic<DATA_MODEL> {
 
   /**
    * Creates a new MmImplementationCommand instance.
@@ -42,49 +45,11 @@ public class MmImplementationCommand extends MmBaseImplementation<MmBaseCommandD
    * @return  command button submit parameter.
    */
   @Override
+  @SuppressWarnings("unchecked")
   public String getMmSubmitParam() {
     assureInitialization();
 
-    return declaration.callbackMmGetSubmitParam(configuration.getSubmitParam());
-  }
-
-  /**
-   * Returns <code>true</code>, if the mimic is enabled. This mimic is enabled, if its declaration method callbackMmIsEnabled returns <code>
-   * true</code>.
-   *
-   * @return  <code>True</code>, if the mimic is enabled.
-   */
-  @Override
-  public boolean isMmEnabled() {
-    assureInitialization();
-
-    return declaration.callbackMmIsEnabled(configuration.isEnabled());
-  }
-
-  /**
-   * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
-   *
-   * @return        <code>True</code>, if a model instance is currently present.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public final boolean isMmModelPresent() {
-    return false;
-  }
-
-  /**
-   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
-   * "city/123/person/4711/display".
-   *
-   * @return        The data model for self reference.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  // TODO getMmReferencableModel
-  protected MmReferencableModel getMmReferencableModel() {
-    return null;
+    return ((MmCommandCallback<DATA_MODEL>)declaration).callbackMmGetSubmitParam(configuration.getSubmitParam());
   }
 
   /**

@@ -6,10 +6,10 @@ import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
+import org.minutenwerk.mimic4j.api.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
-import org.minutenwerk.mimic4j.api.reference.MmReferenceProvider;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationLeporello;
 import org.minutenwerk.mimic4j.impl.container.MmLeporelloCallback;
@@ -25,7 +25,7 @@ import org.springframework.web.util.UriComponents;
  * @author  Olaf Kossak
  */
 public abstract class MmLeporello<MODEL, SUB_MODEL> extends MmBaseContainerDeclaration<MmImplementationLeporello<MODEL, SUB_MODEL>, MODEL>
-  implements MmLeporelloCallback<MODEL, SUB_MODEL>, MmReferenceProvider {
+  implements MmLeporelloCallback<MODEL, SUB_MODEL>, MmReferencePathProvider {
 
   /**
    * Enumeration of possible JSF tags of attribute in enabled state.

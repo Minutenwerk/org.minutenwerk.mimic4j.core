@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
 import org.springframework.web.util.UriComponents;

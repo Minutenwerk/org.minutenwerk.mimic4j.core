@@ -4,7 +4,7 @@ import java.net.URI;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
 
 import org.springframework.web.util.UriComponents;
 
@@ -27,18 +27,6 @@ public interface MmBaseCallback {
    * @return  A long description.
    */
   public String callbackMmGetLongDescription(String pPassThroughValue, Object... pPassThroughArguments);
-
-  /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
-   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
-   * MmConfiguration.longDescription</code>.
-   *
-   * @param   pPassThroughValues  By default this parameter value will be returned.
-   *
-   * @return  An array of message arguments for the long description.
-   */
-  @Deprecated
-  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues);
 
   /**
    * /** Returns the self URL of this mimic.

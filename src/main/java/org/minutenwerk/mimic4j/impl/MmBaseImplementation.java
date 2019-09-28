@@ -21,10 +21,10 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
-import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
-import org.minutenwerk.mimic4j.api.reference.MmReferenceProvider;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
@@ -99,7 +99,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected final MmJsfBridge<?, ?, ?>                mmJsfBridge;
 
   /** This or an ancestor mimic, which delivers a reference path, may be null. Is set in initialization phase. */
-  protected final MmReferenceProvider                 referencableAncestor;
+  protected final MmReferencePathProvider             referencableAncestor;
 
   /** The declaration part of this implementation is the declaration. Is set in postconstruct phase. */
   protected DECLARATION                               declaration;
@@ -263,7 +263,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     runtimeDeclarationChildren    = new ArrayList<>();
 
     // evaluate ancestor for reference path, file and params
-    referencableAncestor          = getMmImplementationAncestorOfType(MmReferenceProvider.class);
+    referencableAncestor          = getMmImplementationAncestorOfType(MmReferencePathProvider.class);
 
     // evaluate bridge for jsf tags
     mmJsfBridge                   = onConstructJsfBridge();
@@ -661,10 +661,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public String getMmLongDescription() {
     assureInitialization();
 
-    final Object   initialParams         = null;
-    final Object[] longDescriptionParams = declaration.callbackMmGetLongDescriptionParams(initialParams);
-    final String   i18nLongDescription   = getMmI18nText(MmMessageType.LONG, (Object[])longDescriptionParams);
-    final String   returnString          = declaration.callbackMmGetLongDescription(i18nLongDescription, longDescriptionParams);
+    final String i18nLongDescription = getMmI18nText(MmMessageType.LONG);
+    final String returnString        = declaration.callbackMmGetLongDescription(i18nLongDescription);
     if (LOGGER.isDebugEnabled()) {
       if (returnString == null) {
         throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + this);
@@ -704,13 +702,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // retrieve self reference path
     if (referencableAncestor == null) {
       throw new IllegalStateException("no definition of referencable ancestor for " + this
-        + " This mimic or one of its parents must implement MmReferenceProvider");
+        + " This mimic or one of its parents must implement MmReferencePathProvider");
     }
 
     UriComponents selfReferencePath = referencableAncestor.getMmReferencePath();
     if (selfReferencePath == null) {
       throw new IllegalStateException("no definition of self reference path for " + this
-        + ", MmReferenceProvider of this mimic must provide self reference path.");
+        + ", MmReferencePathProvider of this mimic must provide self reference path.");
     }
 
     // add anchor to self reference path
@@ -723,7 +721,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // if self reference is an URI for a specified referencable data model
     if ((dataModel != null) && (dataModel instanceof MmReferencableModel)) {
-      final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceValues();
+      final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceParams();
       return declaration.callbackMmGetSelfReference(selfReferencePath, dataModel, modelReferenceParams);
 
     } else {
@@ -749,13 +747,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // retrieve self reference path
     if (referencableAncestor == null) {
       throw new IllegalStateException("no definition of referencable ancestor for " + this
-        + " This mimic or one of its parents must implement MmReferenceProvider");
+        + " This mimic or one of its parents must implement MmReferencePathProvider");
     }
 
     UriComponents selfReferencePath = referencableAncestor.getMmReferencePath();
     if (selfReferencePath == null) {
       throw new IllegalStateException("no definition of self reference path for " + this
-        + ", MmReferenceProvider of this mimic must provide self reference path.");
+        + ", MmReferencePathProvider of this mimic must provide self reference path.");
     }
 
     // add anchor to self reference path
@@ -765,7 +763,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // if self reference is an URI for a specified referencable data model
     if ((pDataModel != null) && (pDataModel instanceof MmReferencableModel)) {
-      final List<String> modelReferenceParams = ((MmReferencableModel)pDataModel).getMmReferenceValues();
+      final List<String> modelReferenceParams = ((MmReferencableModel)pDataModel).getMmReferenceParams();
       return declaration.callbackMmGetSelfReference(selfReferencePath, pDataModel, modelReferenceParams);
 
     } else {

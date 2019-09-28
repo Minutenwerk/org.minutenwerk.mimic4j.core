@@ -23,25 +23,25 @@ public class Mimic4jDialect extends AbstractProcessorDialect {
   /** TODOC. */
   public static final String MIMIC4J_DIALECT_PREFIX_MM          = "mm";
 
-  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.api.reference.MmReferencePath}. */
+  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.uncertain.MmReferencePath}. */
   public static final String MIMIC4J_DIALECT_POST_PARAM_ADD     = "add";
 
-  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.api.reference.MmReferencePath}. */
+  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.uncertain.MmReferencePath}. */
   public static final String MIMIC4J_DIALECT_POST_PARAM_CREATE  = "create";
 
-  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.api.reference.MmReferencePath}. */
+  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.uncertain.MmReferencePath}. */
   public static final String MIMIC4J_DIALECT_POST_PARAM_DELETE  = "delete";
 
-  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.api.reference.MmReferencePath}. */
+  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.uncertain.MmReferencePath}. */
   public static final String MIMIC4J_DIALECT_POST_PARAM_EDIT    = "edit";
 
-  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.api.reference.MmReferencePath}. */
+  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.uncertain.MmReferencePath}. */
   public static final String MIMIC4J_DIALECT_POST_PARAM_REMOVE  = "remove";
 
-  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.api.reference.MmReferencePath}. */
+  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.uncertain.MmReferencePath}. */
   public static final String MIMIC4J_DIALECT_POST_PARAM_REPLACE = "replace";
 
-  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.api.reference.MmReferencePath}. */
+  /** Request parameter for MmCommands, used in {@link org.minutenwerk.mimic4j.uncertain.MmReferencePath}. */
   public static final String MIMIC4J_DIALECT_POST_PARAM_SAVE    = "save";
 
   /**

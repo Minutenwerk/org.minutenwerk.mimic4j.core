@@ -7,8 +7,8 @@ import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
+import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
-import org.minutenwerk.mimic4j.api.reference.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
@@ -54,20 +54,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   @Override
   public String callbackMmGetLongDescription(String pPassThroughValue, Object... pPassThroughArguments) {
     return pPassThroughValue;
-  }
-
-  /**
-   * Returns an array of message arguments for the long description.
-   *
-   * @param         pPassThroughValues  By default this parameter value will be returned.
-   *
-   * @return        An array of message arguments for the long description.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Override
-  public Object[] callbackMmGetLongDescriptionParams(Object... pPassThroughValues) {
-    return pPassThroughValues;
   }
 
   /**
