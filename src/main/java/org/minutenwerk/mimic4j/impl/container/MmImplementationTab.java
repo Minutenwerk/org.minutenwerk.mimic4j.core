@@ -4,7 +4,6 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
-import org.minutenwerk.mimic4j.impl.link.MmImplementationLeporelloTab;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTab;
 
@@ -14,9 +13,6 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTab;
  * @author  Olaf Kossak
  */
 public class MmImplementationTab<MODEL> extends MmBaseContainerImplementation<MmTab<MODEL>, MODEL, MmConfigurationTab, MmTabAnnotation> {
-
-  /** The parent tab set this tab belongs to. */
-  protected MmImplementationLeporelloTab<?, ?> parentTabSet;
 
   /**
    * Creates a new MmImplementationTab instance.
