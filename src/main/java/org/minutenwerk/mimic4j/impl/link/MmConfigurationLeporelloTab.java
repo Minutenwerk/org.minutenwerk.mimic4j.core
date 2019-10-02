@@ -1,5 +1,9 @@
 package org.minutenwerk.mimic4j.impl.link;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab.MmLeporelloTabJsfTag;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTabAnnotation;
@@ -10,6 +14,9 @@ import org.minutenwerk.mimic4j.api.link.MmLeporelloTabAnnotation;
  * @author  Olaf Kossak
  */
 public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
+
+  /** Logger of this class. */
+  private static final Logger              LOGGER          = LogManager.getLogger(MmConfigurationLeporelloTab.class);
 
   /** Constant for default value of JSF tag in enabled state. Redundant to {@link MmLeporelloTabAnnotation.jsfTag()}. */
   public static final MmLeporelloTabJsfTag DEFAULT_JSF_TAG = MmLeporelloTabJsfTag.LeporelloTab;
@@ -34,6 +41,19 @@ public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
     super(pLeporelloTabAnnotation.id(), pLeporelloTabAnnotation.visible(), pLeporelloTabAnnotation.readOnly(),
       pLeporelloTabAnnotation.enabled(), pLeporelloTabAnnotation.targetReferencePath());
     jsfTag = pLeporelloTabAnnotation.jsfTag();
+
+    Class<? extends MmLeporello<?, ?>> targetLeporello = pLeporelloTabAnnotation.targetLeporello();
+    if (!targetLeporello.equals(MmLeporello.MmVoidTarget.class)) {
+      try {
+        String targetReferencePath = (String)targetLeporello.getMethod("getMmStaticReferencePath").invoke(null);
+        if (targetReferencePath == null) {
+          LOGGER.error("class " + targetLeporello.getSimpleName() + " must define 'public static String getMmStaticReferencePath()'");
+        }
+        setTargetReferencePath(targetReferencePath);
+      } catch (Exception e) {
+        LOGGER.error(e);
+      }
+    }
   }
 
   /**

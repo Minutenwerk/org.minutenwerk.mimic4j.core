@@ -1295,6 +1295,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param   pArguments    Optional list of message arguments.
    *
    * @return  The internationalized message.
+   *
+   * @throws  RuntimeException  TODOC
    */
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
     assureInitialization();
@@ -1307,8 +1309,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       try {
         return root.messageSource.getMessage(messageCode, pArguments, getMmLocale());
       } catch (NoSuchMessageException e) {
-        LOGGER.warn("no message for >" + messageCode + "< for locale " + getMmLocale());
-        return messageCode;
+        if ((pMessageType == MmMessageType.TEXT) || (pMessageType == MmMessageType.SHORT) || (pMessageType == MmMessageType.LONG)) {
+          LOGGER.warn("no message for >" + messageCode + "< for locale " + getMmLocale());
+          return messageCode;
+        } else {
+          throw new RuntimeException("no message for >" + messageCode + "< for locale " + getMmLocale());
+        }
       }
 
     } else {

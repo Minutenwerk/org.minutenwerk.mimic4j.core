@@ -70,8 +70,8 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
       {
         open(mmContext, "h3", "class", "panel-title");
         {
-          open(mmContext, "a", "data-toggle", "collapse", "data-parent", ".panel-group", "href", "#" + panel.getMmId() + "_bo");
-          mmContext.model.add(mmContext.factory.createText("some"));
+          open(mmContext, "a", "data-toggle", "collapse", "data-parent", ".panel-group", "title", panel.getMmLongDescription(), "href", "#" + panel.getMmId() + "_bo");
+          mmContext.model.add(mmContext.factory.createText(panel.getMmShortDescription()));
           closeSameLine(mmContext, "a");
         }
         close(mmContext, "h3");
@@ -107,8 +107,8 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
   protected void addLeporelloTab(final MmContext mmContext, final MmLeporelloTab<?, ?> tab) {
     open(mmContext, "li", "id", tab.getMmId());
     {
-      open(mmContext, "a", "href", "#");
-      mmContext.model.add(mmContext.factory.createText(tab.getMmShortDescription()));
+      open(mmContext, "a", "title", tab.getMmLongDescription(), "href", tab.getMmTargetReference().toString());
+      mmContext.model.add(mmContext.factory.createText(tab.getMmViewValue()));
       closeSameLine(mmContext, "a");
     }
     close(mmContext, "li");

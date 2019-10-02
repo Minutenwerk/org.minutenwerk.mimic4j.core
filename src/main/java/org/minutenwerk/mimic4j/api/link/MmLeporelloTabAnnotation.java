@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.minutenwerk.mimic4j.api.container.MmLeporello;
+import org.minutenwerk.mimic4j.api.container.MmLeporello.MmVoidTarget;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.link.MmConfigurationLeporelloTab;
 
@@ -29,5 +31,7 @@ public @interface MmLeporelloTabAnnotation {
   public MmLeporelloTab.MmLeporelloTabJsfTag jsfTag() default MmLeporelloTab.MmLeporelloTabJsfTag.LeporelloTab;
 
   public String targetReferencePath() default MmConfigurationLeporelloTab.DEFAULT_TARGET_REFERENCE_PATH;
+
+  public Class<? extends MmLeporello<?, ?>> targetLeporello() default MmVoidTarget.class;
 
 }
