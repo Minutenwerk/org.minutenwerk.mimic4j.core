@@ -2,10 +2,7 @@ package org.minutenwerk.mimic4j.impl.thymeleaf;
 
 import org.minutenwerk.mimic4j.api.container.MmTableColumn;
 
-import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.model.AttributeValueQuotes;
-import org.thymeleaf.model.IProcessableElementTag;
-import org.thymeleaf.processor.element.IElementTagStructureHandler;
 
 /**
  * Thymeleaf processor for {@code <th mm:tableColumn="${someMimic}">}.
@@ -24,41 +21,36 @@ public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn<?>> {
   /**
    * TODOC.
    *
-   * @param  context  TODOC
-   * @param  tag      TODOC
-   * @param  out      TODOC
+   * @param  mmContext  context TODOC
    */
   @Override
-  protected void doProcess(ITemplateContext context, IProcessableElementTag tag, IElementTagStructureHandler out) {
-    MmTableColumn<?> mimic = evaluateMimic(context, tag, out);
-    processId(mimic, context, tag, out);
+  protected void doProcess(final MmContext mmContext) {
+    MmTableColumn<?> mimic = mmContext.mimic;
+
+    processId(mmContext);
     LOGGER.info("table column id = " + mimic.getMmId());
 
-    processStyleClasses(mimic, context, tag, out);
-    out.setSelectionTarget(mimic);
-    out.removeAttribute(getPrefixedAttributeName());
+    processStyleClasses(mmContext);
+    mmContext.out.setSelectionTarget(mimic);
+    mmContext.out.removeAttribute(getPrefixedAttributeName());
   }
 
   /**
    * TODOC.
    *
-   * @param  mimic    TODOC
-   * @param  context  TODOC
-   * @param  tag      TODOC
-   * @param  out      TODOC
+   * @param  mmContext  mimic TODOC
    */
   @Override
-  protected void processStyleClasses(MmTableColumn<?> mimic, ITemplateContext context, IProcessableElementTag tag,
-    IElementTagStructureHandler out) {
+  protected void processStyleClasses(final MmContext mmContext) {
     // TODO merge style classes without duplicates
-    String outStyleClasses = mimic.getMmHeaderClasses();
-    if (tag.hasAttribute("class")) {
-      outStyleClasses = (tag.getAttributeValue("class") + " " + outStyleClasses).trim();
+    String outStyleClasses = mmContext.mimic.getMmHeaderClasses();
+    if (mmContext.tag.hasAttribute("class")) {
+      outStyleClasses = (mmContext.tag.getAttributeValue("class") + " " + outStyleClasses).trim();
     }
     if (outStyleClasses.isEmpty()) {
-      out.removeAttribute("class");
+      mmContext.out.removeAttribute("class");
     } else {
-      out.setAttribute("class", outStyleClasses, AttributeValueQuotes.DOUBLE);
+      mmContext.out.setAttribute("class", outStyleClasses, AttributeValueQuotes.DOUBLE);
     }
   }
 }

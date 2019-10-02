@@ -202,17 +202,21 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       // evaluate typeOfFirstGenericParameter
       typeOfFirstGenericParameter = null;
 
+      // evaluate annotation
+      final ANNOTATION annotation = null;
+      // TODO evaluate anntotation on class
+
       // evaluate configuration
-      configuration               = onConstructConfiguration(null);
+      configuration = onConstructConfiguration(annotation);
 
       // set name
-      name                        = "";
+      name          = "";
 
       // set parentPath
-      parentPath                  = "";
+      parentPath    = "";
 
-      // set id
-      configuration.setId("root");
+      // evaluate id
+      onConstructId(configuration, name, parentPath);
 
       // set reference to root to this
       root           = this;

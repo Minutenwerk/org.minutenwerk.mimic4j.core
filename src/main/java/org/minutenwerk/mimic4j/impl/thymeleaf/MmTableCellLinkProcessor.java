@@ -4,10 +4,7 @@ import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
-import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.model.AttributeValueQuotes;
-import org.thymeleaf.model.IProcessableElementTag;
-import org.thymeleaf.processor.element.IElementTagStructureHandler;
 
 /**
  * Thymeleaf processor for {@code <tr mm:tableRow="${someMimic}">}.
@@ -26,25 +23,24 @@ public class MmTableCellLinkProcessor extends MmBaseProcessor<MmBaseDeclaration<
   /**
    * TODOC.
    *
-   * @param  context  TODOC
-   * @param  tag      TODOC
-   * @param  out      TODOC
+   * @param  mmContext  context TODOC
    */
   @Override
-  protected void doProcess(ITemplateContext context, IProcessableElementTag tag, IElementTagStructureHandler out) {
-    MmBaseDeclaration<?, ?> mimic = evaluateMimic(context, tag, out);
-    processId(mimic, context, tag, out);
+  protected void doProcess(final MmContext mmContext) {
+    MmBaseDeclaration<?, ?> mimic = mmContext.mimic;
+
+    processId(mmContext);
     LOGGER.info("table cell id = " + mimic.getMmId());
 
-    processStyleClasses(mimic, context, tag, out);
-    out.setSelectionTarget(mimic.getToJsf());
+    processStyleClasses(mmContext);
+    mmContext.out.setSelectionTarget(mimic.getToJsf());
 
     if ((mimic instanceof MmAttributeMimic) || (mimic instanceof MmLinkMimic<?, ?>)) {
-      out.setAttribute("th:title", "*{title}", AttributeValueQuotes.DOUBLE);
-      out.setAttribute("th:text", "*{value}", AttributeValueQuotes.DOUBLE);
-      out.setAttribute("th:href", "@{*{targetReference}}", AttributeValueQuotes.DOUBLE);
+      mmContext.out.setAttribute("th:title", "*{title}", AttributeValueQuotes.DOUBLE);
+      mmContext.out.setAttribute("th:text", "*{value}", AttributeValueQuotes.DOUBLE);
+      mmContext.out.setAttribute("th:href", "@{*{targetReference}}", AttributeValueQuotes.DOUBLE);
     }
 
-    out.removeAttribute(getPrefixedAttributeName());
+    mmContext.out.removeAttribute(getPrefixedAttributeName());
   }
 }
