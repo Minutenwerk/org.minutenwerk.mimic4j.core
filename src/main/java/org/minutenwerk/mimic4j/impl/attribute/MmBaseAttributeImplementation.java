@@ -715,8 +715,24 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   protected MmReferencableModel getMmReferencableModel() {
-    final Object dataModel = getMmModelAccessor().getParentAccessor().get();
-    return ((dataModel != null) && (dataModel instanceof MmReferencableModel)) ? (MmReferencableModel)dataModel : null;
+    final MmAttributeAccessor<?, ATTRIBUTE_TYPE> modelAccessor = getMmModelAccessor();
+    if (modelAccessor == null) {
+      return null;
+    }
+
+    final MmModelAccessor<?, ?> parentAccessor = modelAccessor.getParentAccessor();
+    if (parentAccessor == null) {
+      return null;
+    }
+
+    final Object dataModel = parentAccessor.get();
+    if (dataModel == null) {
+      return null;
+    }
+    if (dataModel instanceof MmReferencableModel) {
+      return (MmReferencableModel)dataModel;
+    }
+    return null;
   }
 
   /**

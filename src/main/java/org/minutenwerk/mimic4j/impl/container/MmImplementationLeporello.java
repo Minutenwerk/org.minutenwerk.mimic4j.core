@@ -5,9 +5,6 @@ import org.minutenwerk.mimic4j.api.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloAnnotation;
-import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporello;
 
 import org.springframework.web.util.UriComponents;
 
@@ -54,17 +51,6 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
   }
 
   /**
-   * Returns the currently selected leporello tab, may be null.
-   *
-   * @return  the currently selected leporello tab, may be null.
-   */
-  public MmLeporelloTab<?, ?> getMmSelectedTab() {
-    assureInitialization();
-
-    return declaration.callbackMmGetSelectedTab();
-  }
-
-  /**
    * Returns configuration of this mimic, specified annotation may be null.
    *
    * @param   pAnnotation  The specified annotation, may be null.
@@ -79,15 +65,4 @@ public class MmImplementationLeporello<MODEL, SUB_MODEL>
       return new MmConfigurationLeporello();
     }
   }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeLeporello(this);
-  }
-
 }

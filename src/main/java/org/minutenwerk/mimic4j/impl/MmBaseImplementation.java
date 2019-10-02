@@ -6,7 +6,21 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import java.net.URI;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,11 +34,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmInformationableModel;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
@@ -42,7 +58,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-construction, group-postconstruct, group-initialization, group-override, group-helper
+ * @jalopy.group-order  group-construction, group-postconstruct, group-initialization, group-override, group-i18n, group-helper
  */
 public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration<?, ?>,
   CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation> implements MmMimic {
@@ -369,7 +385,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-construction
    */
-  protected abstract MmJsfBridge<?, ?, ?> onConstructJsfBridge();
+  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
+    return null;
+  }
 
   /**
    * Evaluates and returns the name of this mimic. The name is derived from the specified field, if the mimic is declared as a field of
@@ -665,14 +683,23 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public String getMmLongDescription() {
     assureInitialization();
 
-    final String i18nLongDescription = getMmI18nText(MmMessageType.LONG);
-    final String returnString        = declaration.callbackMmGetLongDescription(i18nLongDescription);
-    if (LOGGER.isDebugEnabled()) {
-      if (returnString == null) {
-        throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + this);
+    // retrieve referencable model
+    final MmReferencableModel dataModel = getMmReferencableModel();
+
+    if (dataModel instanceof MmInformationableModel) {
+      return getMmDescription((MmInformationableModel)dataModel, MmMessageType.LONG);
+    } else if (dataModel != null) {
+      return getMmDescription(dataModel, MmMessageType.LONG);
+    } else {
+      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG);
+      final String returnString        = declaration.callbackMmGetLongDescription(i18nLongDescription);
+      if (LOGGER.isDebugEnabled()) {
+        if (returnString == null) {
+          throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + this);
+        }
       }
+      return returnString;
     }
-    return returnString;
   }
 
   /**
@@ -790,14 +817,23 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public String getMmShortDescription() {
     assureInitialization();
 
-    final String i18nShortDescription = getMmI18nText(MmMessageType.SHORT);
-    final String returnString         = declaration.callbackMmGetShortDescription(i18nShortDescription);
-    if (LOGGER.isDebugEnabled()) {
-      if (returnString == null) {
-        throw new IllegalStateException("callbackMmGetShortDescription cannot return null");
+    // retrieve referencable model
+    final MmReferencableModel dataModel = getMmReferencableModel();
+
+    if (dataModel instanceof MmInformationableModel) {
+      return getMmDescription((MmInformationableModel)dataModel, MmMessageType.SHORT);
+    } else if (dataModel != null) {
+      return getMmDescription(dataModel, MmMessageType.SHORT);
+    } else {
+      final String i18nLongDescription = getMmI18nText(MmMessageType.SHORT);
+      final String returnString        = declaration.callbackMmGetShortDescription(i18nLongDescription);
+      if (LOGGER.isDebugEnabled()) {
+        if (returnString == null) {
+          throw new IllegalStateException("callbackMmGetShortDescription cannot return null for " + this);
+        }
       }
+      return returnString;
     }
-    return returnString;
   }
 
   /**
@@ -925,6 +961,285 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
     sb.append(")");
     return sb.toString();
+  }
+
+  /**
+   * Returns the format pattern for formatting data model value to description value.
+   *
+   * @return        The format pattern for formatting data model value to description value.
+   *
+   * @jalopy.group  group-i18n
+   */
+  public String getMmFormatPattern() {
+    return getMmI18nText(MmMessageType.FORMAT);
+  }
+
+  /**
+   * Returns an internationalized version of the message of this mimic for a specified message type.
+   *
+   * @param         pMessageType  The specified message type.
+   * @param         pArguments    Optional list of message arguments.
+   *
+   * @return        The internationalized version of a specified message.
+   *
+   * @jalopy.group  group-i18n
+   */
+  public String getMmI18nText(MmMessageType pMessageType, Object... pArguments) {
+    return getMmI18nText(getMmId(), pMessageType, pArguments);
+  }
+
+  /**
+   * Returns an internationalized version for a specified message id and type.
+   *
+   * @param         pMessageId    The specified id of the message to be internationalized.
+   * @param         pMessageType  The specified type of the message to be internationalized.
+   * @param         pArguments    Optional list of message arguments.
+   *
+   * @return        The internationalized message.
+   *
+   * @throws        RuntimeException  TODOC
+   *
+   * @jalopy.group  group-i18n
+   */
+  public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
+    assureInitialization();
+
+    if (root.messageSource != null) {
+      String messageCode = pMessageId;
+      if ((pMessageType != null) && (pMessageType != MmMessageType.TEXT)) {
+        messageCode = messageCode + "." + pMessageType.getSuffix();
+      }
+      try {
+        return root.messageSource.getMessage(messageCode, pArguments, getMmLocale());
+      } catch (NoSuchMessageException e) {
+        if ((pMessageType == MmMessageType.TEXT) || (pMessageType == MmMessageType.SHORT) || (pMessageType == MmMessageType.LONG)) {
+          LOGGER.warn("no message for >" + messageCode + "< for locale " + getMmLocale());
+          return messageCode;
+        } else {
+          throw new RuntimeException("no message for >" + messageCode + "< for locale " + getMmLocale());
+        }
+      }
+
+    } else {
+      LOGGER.warn("getMmI18nText: {}, {}: no root message source", pMessageId, pMessageType);
+
+      // for unit tests this root returns last part of message id
+      String returnString = pMessageId;
+      if (returnString.contains(".")) {
+        returnString = returnString.substring(returnString.lastIndexOf(".") + 1);
+      }
+      return returnString;
+    }
+  }
+
+  /**
+   * Returns the formatted specified view model value, formatted depending on its type, returns otherwise the unformatted view model value.
+   *
+   * @param         pViewModelValue  The specified view model value.
+   * @param         pFormatPattern   The specified format pattern.
+   *
+   * @return        The formatted view model value, formatted depending on its type.
+   *
+   * @throws        MmDataModelConverterException  In case of conversion fails.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected Object formatViewModelValue(Object pViewModelValue, String pFormatPattern) {
+    if (pViewModelValue == null) {
+      return null;
+
+    } else if (pViewModelValue instanceof String) {
+      return pViewModelValue;
+
+    } else if ((pViewModelValue instanceof Integer) || (pViewModelValue instanceof Long) || (pViewModelValue.getClass().equals(long.class))
+        || (pViewModelValue instanceof Float) || (pViewModelValue.getClass().equals(float.class)) || (pViewModelValue instanceof Double)
+        || (pViewModelValue.getClass().equals(double.class))) {
+      try {
+        final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, false);
+        return numberFormatter.format(pViewModelValue);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if ((pViewModelValue instanceof BigDecimal) || (pViewModelValue instanceof BigInteger)) {
+      try {
+        final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, true);
+        return numberFormatter.format(pViewModelValue);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof Duration) {
+      try {
+        return ((Duration)pViewModelValue).toString();
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof Instant) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return dateTimeFormatter.format((Instant)pViewModelValue);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof LocalTime) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return ((LocalTime)pViewModelValue).format(dateTimeFormatter);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof LocalDate) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return ((LocalDate)pViewModelValue).format(dateTimeFormatter);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof LocalDateTime) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return ((LocalDateTime)pViewModelValue).format(dateTimeFormatter);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof ZonedDateTime) {
+      try {
+        final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
+        return ((ZonedDateTime)pViewModelValue).format(dateTimeFormatter);
+      } catch (IllegalArgumentException e) {
+        throw new MmDataModelConverterException(this,
+          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+      }
+
+    } else if (pViewModelValue instanceof Enum<?>) {
+      final Enum<?> enumValue    = (Enum<?>)pViewModelValue;
+      final String  enumTypeName = enumValue.getClass().getSimpleName();
+      return root.getMmI18nText(enumTypeName + "." + enumValue.name(), MmMessageType.SHORT);
+
+    } else if ((pViewModelValue instanceof Boolean) || (pViewModelValue.getClass().equals(boolean.class))) {
+      if ((Boolean)pViewModelValue) {
+        return root.getMmI18nText(getMmId() + ".true", MmMessageType.SHORT);
+      } else {
+        return root.getMmI18nText(getMmId() + ".false", MmMessageType.SHORT);
+      }
+    } else {
+      return pViewModelValue;
+    }
+  }
+
+  /**
+   * Returns the initialized date formatter of this mimic for specified format pattern..
+   *
+   * @param         pFormatPattern  The specified format pattern.
+   *
+   * @return        The initialized date formatter of this mimic.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected DateTimeFormatter getMmDateTimeFormatter(final String pFormatPattern) {
+    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(pFormatPattern);
+    return returnDateFormatter;
+  }
+
+  /**
+   * Returns view text of the link for specified MmInformationableModel.
+   *
+   * @param         pInformationable  The specified MmInformationableModel.
+   * @param         pMessageType      The specified pMessageType e.g. SHORT or LONG.
+   *
+   * @return        The view text of the link.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected String getMmDescription(final MmInformationableModel pInformationable, final MmMessageType pMessageType) {
+    // if view value is MmInformationableModel, transform into an array of formatted objects
+    final Object[] viewValueArray     = ((MmInformationableModel)pInformationable).getMmInfo();
+
+    // retrieve array of format patterns
+    final String[] formatPatternArray = getMmFormatPattern().split("\\|");
+
+    // apply each format pattern to corresponding view value
+    for (int index = 0; index < ((Object[])viewValueArray).length; index++) {
+      final Object viewValue = ((Object[])viewValueArray)[index];
+      if ((viewValue != null) && !(viewValue instanceof String)) {
+        final String formatPattern = formatPatternArray[index];
+        viewValueArray[index] = formatViewModelValue(viewValue, formatPattern);
+      }
+    }
+
+    // viewValueArray keeps an Object[], but as this is an Object as well, java still interprets it to be just one object
+    // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
+    final String i18nViewValue = getMmI18nText(pMessageType, (Object[])viewValueArray);
+    return i18nViewValue;
+  }
+
+  /**
+   * Returns view text of the link for specified single object.
+   *
+   * @param         pViewValue    The specified single object.
+   * @param         pMessageType  The specified pMessageType e.g. SHORT or LONG.
+   *
+   * @return        The view text of the link.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected String getMmDescription(final Object pViewValue, final MmMessageType pMessageType) {
+    // if view value is a single object
+
+    // return empty String for null value
+    if (pViewValue == null) {
+      return "";
+
+      // format number, boolean, duration, date, time and enum values
+    } else if ((pViewValue instanceof Number) || (pViewValue instanceof Boolean) || (pViewValue instanceof Duration)
+        || (pViewValue instanceof Instant) || (pViewValue instanceof LocalTime) || (pViewValue instanceof LocalDate)
+        || (pViewValue instanceof LocalDateTime) || (pViewValue instanceof ZonedDateTime) || (pViewValue instanceof Enum<?>)) {
+
+      // retrieve format pattern and format view value
+      final String formatPattern           = getMmFormatPattern();
+      final String formattedViewModelValue = (String)formatViewModelValue(pViewValue, formatPattern);
+
+      // i18nize view value
+      final String i18nViewValue           = getMmI18nText(pMessageType, formattedViewModelValue);
+      return i18nViewValue;
+
+      // all other types just i18nize
+    } else {
+      final String i18nalizedViewValue = getMmI18nText(pMessageType, pViewValue);
+      return i18nalizedViewValue;
+    }
+  }
+
+  /**
+   * Returns the initialized number formatter of this mimic for specified format pattern.
+   *
+   * @param         pFormatPattern    The specified format pattern.
+   * @param         pParseBigDecimal  True, if
+   *
+   * @return        The initialized number formatter of this mimic.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected NumberFormat getMmNumberFormatter(final String pFormatPattern, boolean pParseBigDecimal) {
+    final Locale        locale                = root.getMmLocale();
+    final NumberFormat  numberFormat          = NumberFormat.getNumberInstance(locale);
+    final DecimalFormat returnNumberFormatter = (DecimalFormat)numberFormat;
+    returnNumberFormatter.setParseBigDecimal(pParseBigDecimal);
+    returnNumberFormatter.applyPattern(pFormatPattern);
+    return returnNumberFormatter;
   }
 
   /**
@@ -1164,20 +1479,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns an internationalized version of the message of this mimic for a specified message type.
-   *
-   * @param         pMessageType  The specified message type.
-   * @param         pArguments    Optional list of message arguments.
-   *
-   * @return        The internationalized version of a specified message.
-   *
-   * @jalopy.group  group-helper
-   */
-  public String getMmI18nText(MmMessageType pMessageType, Object... pArguments) {
-    return getMmI18nText(getMmId(), pMessageType, pArguments);
-  }
-
-  /**
    * Returns an ancestor of this mimic of specified type, if exists, otherwise null. This method may be called at any time, even in
    * constructor.
    *
@@ -1285,48 +1586,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       writer.append(child.toStringSubtree(pIndentation + "  "));
     }
     return writer.toString();
-  }
-
-  /**
-   * Returns an internationalized version for a specified message id and type.
-   *
-   * @param   pMessageId    The specified id of the message to be internationalized.
-   * @param   pMessageType  The specified type of the message to be internationalized.
-   * @param   pArguments    Optional list of message arguments.
-   *
-   * @return  The internationalized message.
-   *
-   * @throws  RuntimeException  TODOC
-   */
-  public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
-    assureInitialization();
-
-    if (root.messageSource != null) {
-      String messageCode = pMessageId;
-      if ((pMessageType != null) && (pMessageType != MmMessageType.TEXT)) {
-        messageCode = messageCode + "." + pMessageType.getSuffix();
-      }
-      try {
-        return root.messageSource.getMessage(messageCode, pArguments, getMmLocale());
-      } catch (NoSuchMessageException e) {
-        if ((pMessageType == MmMessageType.TEXT) || (pMessageType == MmMessageType.SHORT) || (pMessageType == MmMessageType.LONG)) {
-          LOGGER.warn("no message for >" + messageCode + "< for locale " + getMmLocale());
-          return messageCode;
-        } else {
-          throw new RuntimeException("no message for >" + messageCode + "< for locale " + getMmLocale());
-        }
-      }
-
-    } else {
-      LOGGER.warn("getMmI18nText: {}, {}: no root message source", pMessageId, pMessageType);
-
-      // for unit tests this root returns last part of message id
-      String returnString = pMessageId;
-      if (returnString.contains(".")) {
-        returnString = returnString.substring(returnString.lastIndexOf(".") + 1);
-      }
-      return returnString;
-    }
   }
 
   /**

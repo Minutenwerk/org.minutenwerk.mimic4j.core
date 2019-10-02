@@ -30,11 +30,7 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
   @Override
   protected void doProcess(final MmContext mmContext) {
     MmLeporello<?, ?> leporello = mmContext.mimic;
-
-    processId(mmContext);
-    LOGGER.info("leporello id = " + leporello.getMmId());
-
-    addLeporello(mmContext);
+    addLeporello(mmContext, leporello);
     mmContext.out.setBody(mmContext.model, true);
   }
 
@@ -42,13 +38,14 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
    * TODOC.
    *
    * @param         mmContext  TODOC
+   * @param         leporello  TODOC
    *
    * @jalopy.group  leporello
    */
-  protected void addLeporello(final MmContext mmContext) {
-    setAttributes(mmContext, "class", "panel-group");
+  protected void addLeporello(final MmContext mmContext, final MmLeporello<?, ?> leporello) {
+    setAttributes(mmContext, "id", leporello.getMmId(), "class", "panel-group " + leporello.getMmStyleClasses());
     {
-      for (MmLeporelloPanel<?> panel : mmContext.mimic.getMmLeporelloPanels()) {
+      for (MmLeporelloPanel<?> panel : leporello.getMmLeporelloPanels()) {
         addLeporelloPanel(mmContext, panel);
       }
     }
@@ -64,20 +61,21 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
    * @jalopy.group  panel
    */
   protected void addLeporelloPanel(final MmContext mmContext, final MmLeporelloPanel<?> panel) {
-    open(mmContext, "div", "id", panel.getMmId(), "class", "panel");
+    open(mmContext, "div", "id", panel.getMmId(), "class", "panel " + panel.getMmStyleClasses());
     {
       open(mmContext, "div", "id", panel.getMmId() + "_hd", "class", "panel-heading");
       {
         open(mmContext, "h3", "class", "panel-title");
         {
-          open(mmContext, "a", "data-toggle", "collapse", "data-parent", ".panel-group", "title", panel.getMmLongDescription(), "href", "#" + panel.getMmId() + "_bo");
+          open(mmContext, "a", "data-toggle", "collapse", "data-parent", ".panel-group", "title", panel.getMmLongDescription(), "href",
+            "#" + panel.getMmId() + "_bo");
           mmContext.model.add(mmContext.factory.createText(panel.getMmShortDescription()));
           closeSameLine(mmContext, "a");
         }
         close(mmContext, "h3");
       }
       close(mmContext, "div");
-      open(mmContext, "div", "id", panel.getMmId() + "_bo", "class", "panel-collapse collapse");
+      open(mmContext, "div", "id", panel.getMmId() + "_bo", "class", "panel-collapse collapse" + panel.getMmStyleInitiallyOpen());
       {
         open(mmContext, "div", "class", "panel-body");
         {
@@ -105,9 +103,9 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
    * @jalopy.group  tab
    */
   protected void addLeporelloTab(final MmContext mmContext, final MmLeporelloTab<?, ?> tab) {
-    open(mmContext, "li", "id", tab.getMmId());
+    open(mmContext, "li", "id", tab.getMmId() + "_li", "class", tab.getMmStyleClasses() + " " + tab.getMmStyleClassActive());
     {
-      open(mmContext, "a", "title", tab.getMmLongDescription(), "href", tab.getMmTargetReference().toString());
+      open(mmContext, "a", "id", tab.getMmId(), "title", tab.getMmLongDescription(), "href", tab.getMmTargetReference().toString());
       mmContext.model.add(mmContext.factory.createText(tab.getMmViewValue()));
       closeSameLine(mmContext, "a");
     }

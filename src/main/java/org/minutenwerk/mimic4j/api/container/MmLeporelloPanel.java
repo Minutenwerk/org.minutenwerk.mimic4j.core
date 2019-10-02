@@ -36,20 +36,11 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
   }
 
   /**
-   * Returns the parent leporello of this leporello panel.
-   *
-   * @return  The parent leporello of this leporello panel.
-   */
-  public final MmLeporello<?, ?> getMmLeporello() {
-    return (MmLeporello<?, ?>)MmRelationshipApi.getMmParent(this);
-  }
-
-  /**
    * Returns a list of all leporello tabs inside this leporello panel.
    *
    * @return  A list of all leporello tabs inside this leporello panel.
    */
-  public List<MmLeporelloTab<?, ?>> getMmLeporelloTabs() {
+  public final List<MmLeporelloTab<?, ?>> getMmLeporelloTabs() {
     final List<MmLeporelloTab<?, ?>> tabs = new ArrayList<>();
     for (MmMimic child : MmRelationshipApi.getMmChildren(this)) {
       if (child instanceof MmLeporelloTab) {
@@ -60,12 +51,11 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
   }
 
   /**
-   * Returns the leporello panel's view model value of type String.
+   * Returns the CSS style class for initial opening of leporello panel.
    *
-   * @return  The leporello panel's view model value of type String.
+   * @return  The CSS style class for initial opening of leporello panel.
    */
-  public String getMmViewModelValue() {
-    return implementation.getMmViewModelValue();
+  public final String getMmStyleInitiallyOpen() {
+    return implementation.getMmStyleInitiallyOpen();
   }
-
 }

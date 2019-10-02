@@ -158,6 +158,7 @@ public abstract class MmBaseProcessor<MIMIC extends MmBaseDeclaration<?, ?>> ext
         attributes.put(keyValues[i], keyValues[i + 1]);
       }
 
+      // TODO use of hash map produces random order of attributes
       IOpenElementTag tag = mmContext.factory.createOpenElementTag(elementName, attributes, AttributeValueQuotes.DOUBLE, false);
       mmContext.model.add(tag);
       return tag;

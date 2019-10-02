@@ -57,6 +57,15 @@ public class MmLeporelloTab<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   }
 
   /**
+   * Returns the CSS style class if this leporello tab is active.
+   *
+   * @return  The CSS style class if this leporello tab is active.
+   */
+  public final String getMmStyleClassActive() {
+    return implementation.getMmStyleClassActive();
+  }
+
+  /**
    * Returns true, if this leporello tab is selected or is a supertab of an active tab.
    *
    * @return  True, if this leporello tab is selected or is a supertab of an active tab.

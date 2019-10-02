@@ -1,13 +1,12 @@
 package org.minutenwerk.mimic4j.impl.container;
 
+import java.util.List;
+
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanelAnnotation;
-import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloPanel;
 
 /**
  * MmImplementationLeporelloPanel is the specific class for the implementation part of leporello mimics.
@@ -16,6 +15,9 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLeporelloPanel;
  */
 public class MmImplementationLeporelloPanel<MODEL>
   extends MmBaseContainerImplementation<MmLeporelloPanel<MODEL>, MODEL, MmConfigurationLeporelloPanel, MmLeporelloPanelAnnotation> {
+
+  /** Reverse index of this panel, last panel's index is 1, first panel's index is count of panels. */
+  protected Integer reverseIndex;
 
   /**
    * Creates a new MmImplementationLeporelloPanel instance.
@@ -28,15 +30,16 @@ public class MmImplementationLeporelloPanel<MODEL>
 
   /**
    * Returns CSS selector for data parents of leporello panel, like in (data-toggle="collapse" data-target="#target1,#target2,#target3"). If
-   * leporello contains panels (panel1, pnale2, panel3, panel4, panel5) this method returns all siblings without this panel and its
+   * leporello contains panels (panel1, panel2, panel3, panel4, panel5) this method returns all siblings without this panel and its
    * follower, e.g. for panel3 it will return "#panel1,#panel2,#panel5".
    *
    * @return  The CSS selector for data parents of leporello panel.
    */
+  // TODO is unused
   public String getMmDataParents() {
     String  returnString = "";
     boolean skipNext     = false;
-    for (MmMimic child : getMmImplementationLeporello().getMmChildren()) {
+    for (MmMimic child : ((MmImplementationLeporello<?, ?>)implementationParent).getMmChildren()) {
       if (child instanceof MmLeporelloPanel) {
         final MmLeporelloPanel<?> panel = (MmLeporelloPanel<?>)child;
         if (skipNext) {
@@ -67,13 +70,7 @@ public class MmImplementationLeporelloPanel<MODEL>
   public String getMmStyleClasses() {
     assureInitialization();
 
-    final int    reverseIndex = getReverseIndex();
-    final String returnString = declaration.callbackMmGetStyleClasses("leporello-panel-" + reverseIndex);
-    if (returnString == null) {
-      return "";
-    } else {
-      return returnString;
-    }
+    return declaration.callbackMmGetStyleClasses("leporello-panel-" + getReverseIndex());
   }
 
   /**
@@ -83,60 +80,27 @@ public class MmImplementationLeporelloPanel<MODEL>
    */
   public String getMmStyleInitiallyOpen() {
     assureInitialization();
-    if (getReverseIndex() <= 2) {
-      return "in";
-    } else {
-      return "";
-    }
+
+    return (getReverseIndex() <= 2) ? " in" : "";
   }
 
   /**
-   * Returns the leporello panel's view model value of type String.
+   * Returns reverse index of this panel, last panel's index is 1, first panel's index is count of panels.
    *
-   * @return  The leporello panel's view model value of type String.
-   */
-  public String getMmViewModelValue() {
-    // TODO MmImplementationLeporelloPanel.getMmViewModelValue()
-    return getMmShortDescription();
-  }
-
-  /**
-   * TODOC.
-   *
-   * @return  TODOC
-   */
-  protected MmImplementationLeporello<?, ?> getMmImplementationLeporello() {
-    return (MmImplementationLeporello<?, ?>)implementationParent;
-  }
-
-  /**
-   * Returns the reverse index of this panel, which means the last panel's index is 1, the first panel's index is the count of all panels.
-   *
-   * @return  The reverse index of this panel.
+   * @return  Reverse index of this panel, last panel's index is 1, first panel's index is count of panels.
    */
   protected int getReverseIndex() {
-    final MmLeporelloTab<?, ?> selectedTab   = getMmImplementationLeporello().getMmSelectedTab();
-    final MmLeporelloPanel<?>  selectedPanel = selectedTab.getMmLeporelloPanel();
-    int                        index         = 0;
-    int                        count         = 0;
-    boolean                    found         = false;
-    for (MmMimic mimic : getMmImplementationLeporello().getMmChildren()) {
-      if (mimic instanceof MmLeporelloPanel<?>) {
-        count++;
-        if (mimic == declaration) {
-          index++;
-          found = true;
-        }
-        if (!found) {
-          index++;
-        }
-        if (mimic == selectedPanel) {
-          break;
-        }
+    if (reverseIndex == null) {
+      @SuppressWarnings("rawtypes")
+      List<MmImplementationLeporelloPanel> panels    = ((MmImplementationLeporello<?, ?>)implementationParent)
+          .getDirectImplementationChildrenOfType(MmImplementationLeporelloPanel.class);
+      int                                  countDown = panels.size();
+      for (MmImplementationLeporelloPanel<?> panel : panels) {
+        panel.reverseIndex = countDown;
+        countDown--;
       }
     }
-
-    return count - index + 1;
+    return reverseIndex;
   }
 
   /**
@@ -154,15 +118,4 @@ public class MmImplementationLeporelloPanel<MODEL>
       return new MmConfigurationLeporelloPanel();
     }
   }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeLeporelloPanel(this);
-  }
-
 }
