@@ -526,6 +526,31 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
+   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * MmConfiguration.longDescription</code>.
+   *
+   * @return        A long description.
+   *
+   * @throws        IllegalStateException  In case of callbackMmGetLongDescription returns null.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public String getMmLongDescription() {
+    assureInitialization();
+
+    final String i18nLongDescription = getMmI18nText(MmMessageType.LONG);
+    final String returnString        = declaration.callbackMmGetLongDescription(i18nLongDescription);
+    if (LOGGER.isDebugEnabled()) {
+      if (returnString == null) {
+        throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + this);
+      }
+    }
+    return returnString;
+  }
+
+  /**
    * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
    *
    * @return        The data model value of the mimic.
@@ -593,13 +618,21 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        A short description.
    *
+   * @throws        IllegalStateException  TODOC
+   *
    * @jalopy.group  group-override
    */
   @Override
   public String getMmShortDescription() {
     assureInitialization();
 
-    String returnString = super.getMmShortDescription();
+    final String i18nShortDescription = getMmI18nText(MmMessageType.SHORT);
+    String       returnString         = declaration.callbackMmGetShortDescription(i18nShortDescription);
+    if (LOGGER.isDebugEnabled()) {
+      if (returnString == null) {
+        throw new IllegalStateException("callbackMmGetShortDescription cannot return null for " + this);
+      }
+    }
     if (isMmRequired()) {
       returnString = returnString + " *";
     }
@@ -725,7 +758,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
       return null;
     }
 
-    final Object dataModel = parentAccessor.get();
+    final Object dataModel = modelAccessor.get();
     if (dataModel == null) {
       return null;
     }

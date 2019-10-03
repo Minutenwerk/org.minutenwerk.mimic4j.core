@@ -825,8 +825,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     } else if (dataModel != null) {
       return getMmDescription(dataModel, MmMessageType.SHORT);
     } else {
-      final String i18nLongDescription = getMmI18nText(MmMessageType.SHORT);
-      final String returnString        = declaration.callbackMmGetShortDescription(i18nLongDescription);
+      final String i18nShortDescription = getMmI18nText(MmMessageType.SHORT);
+      final String returnString         = declaration.callbackMmGetShortDescription(i18nShortDescription);
       if (LOGGER.isDebugEnabled()) {
         if (returnString == null) {
           throw new IllegalStateException("callbackMmGetShortDescription cannot return null for " + this);

@@ -208,6 +208,16 @@ public abstract class MmBaseProcessor<MIMIC extends MmBaseDeclaration<?, ?>> ext
     }
   }
 
+  /**
+   * TODOC.
+   *
+   * @param  mmContext  TODOC
+   * @param  text       TODOC
+   */
+  protected void text(final MmContext mmContext, final String text) {
+    mmContext.model.add(mmContext.factory.createText(text));
+  }
+
   public class MmContext {
     public final ITemplateContext            context;
     public final IProcessableElementTag      tag;

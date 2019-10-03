@@ -51,6 +51,13 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
   }
 
   /**
+   * Returns leporello panel tab.
+   *
+   * @return  Leporello panel tab.
+   */
+  public abstract MmTab<?> getMmPanelTab();
+
+  /**
    * Returns the CSS style class for initial opening of leporello panel.
    *
    * @return  The CSS style class for initial opening of leporello panel.

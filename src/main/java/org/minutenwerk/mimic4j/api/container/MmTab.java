@@ -1,6 +1,9 @@
 package org.minutenwerk.mimic4j.api.container;
 
+import java.util.List;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationTab;
@@ -31,4 +34,14 @@ public class MmTab<MODEL> extends MmBaseContainerDeclaration<MmImplementationTab
   public MmTab(MmDeclarationMimic pParent, final MmRootAccessor<MODEL> pRootAccessor) {
     super(new MmImplementationTab<MODEL>(pParent, pRootAccessor));
   }
+
+  /**
+   * Returns the list of tab children mimics of this tab mimic.
+   *
+   * @return  The list of tab children mimics of this tab mimic.
+   */
+  public List<MmMimic> getMmTabChildren() {
+    return implementation.getMmChildren();
+  }
+
 }

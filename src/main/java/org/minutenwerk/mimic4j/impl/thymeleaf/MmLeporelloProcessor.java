@@ -1,7 +1,11 @@
 package org.minutenwerk.mimic4j.impl.thymeleaf;
 
+import org.minutenwerk.mimic4j.api.MmAttributeMimic;
+import org.minutenwerk.mimic4j.api.MmLinkMimic;
+import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
+import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
 
 /**
@@ -9,7 +13,7 @@ import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  process, leporello, panel, tab
+ * @jalopy.group-order  process, leporello, panel, tab, panelTab, attribute
  */
 public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
 
@@ -69,7 +73,7 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
         {
           open(mmContext, "a", "data-toggle", "collapse", "data-parent", ".panel-group", "title", panel.getMmLongDescription(), "href",
             "#" + panel.getMmId() + "_bo");
-          mmContext.model.add(mmContext.factory.createText(panel.getMmShortDescription()));
+          text(mmContext, panel.getMmShortDescription());
           closeSameLine(mmContext, "a");
         }
         close(mmContext, "h3");
@@ -87,6 +91,7 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
           }
           close(mmContext, "ul");
         }
+        addLeporelloPanelTab(mmContext, panel.getMmPanelTab());
         close(mmContext, "div");
       }
       close(mmContext, "div");
@@ -106,9 +111,88 @@ public class MmLeporelloProcessor extends MmBaseProcessor<MmLeporello<?, ?>> {
     open(mmContext, "li", "id", tab.getMmId() + "_li", "class", tab.getMmStyleClasses() + " " + tab.getMmStyleClassActive());
     {
       open(mmContext, "a", "id", tab.getMmId(), "title", tab.getMmLongDescription(), "href", tab.getMmTargetReference().toString());
-      mmContext.model.add(mmContext.factory.createText(tab.getMmViewValue()));
+      text(mmContext, tab.getMmViewValue());
       closeSameLine(mmContext, "a");
     }
     close(mmContext, "li");
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param         mmContext  TODOC
+   * @param         panelTab   TODOC
+   *
+   * @jalopy.group  panelTab
+   */
+  protected void addLeporelloPanelTab(final MmContext mmContext, final MmTab<?> panelTab) {
+    open(mmContext, "div", "id", panelTab.getMmId(), "class", panelTab.getMmStyleClasses());
+    {
+      for (MmMimic child : panelTab.getMmTabChildren()) {
+        if (child instanceof MmAttributeMimic<?, ?>) {
+          addLeporelloPanelTabAttribute(mmContext, (MmAttributeMimic<?, ?>)child);
+        } else if (child instanceof MmLinkMimic<?, ?>) {
+          addLeporelloPanelTabAttribute(mmContext, (MmLinkMimic<?, ?>)child);
+        }
+      }
+    }
+    close(mmContext, "div");
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param         mmContext    TODOC
+   * @param         mmAttribute  TODOC
+   *
+   * @jalopy.group  attribute
+   */
+  protected void addLeporelloPanelTabAttribute(final MmContext mmContext, final MmAttributeMimic<?, ?> mmAttribute) {
+    open(mmContext, "div", "class", "form-group");
+    {
+      open(mmContext, "label", "for", mmAttribute.getMmId(), "title", mmAttribute.getMmLongDescription(), "class",
+        "col-lg-2 control-label");
+      {
+        text(mmContext, mmAttribute.getMmShortDescription());
+      }
+      close(mmContext, "label");
+      open(mmContext, "div", "class", "col-lg-4");
+      {
+        open(mmContext, "input", "type", "text", "id", mmAttribute.getMmId(), "disabled", "disabled", "class", "form-control", "value",
+          (String)mmAttribute.getMmViewValue());
+        closeSameLine(mmContext, "input");
+      }
+      close(mmContext, "div");
+    }
+    close(mmContext, "div");
+  }
+
+  /**
+   * TODOC.
+   *
+   * @param         mmContext  TODOC
+   * @param         mmLink     TODOC
+   *
+   * @jalopy.group  attribute
+   */
+  protected void addLeporelloPanelTabAttribute(final MmContext mmContext, final MmLinkMimic<?, ?> mmLink) {
+    open(mmContext, "div", "class", "form-group");
+    {
+      open(mmContext, "label", "for", mmLink.getMmId(), "class", "col-lg-2 control-label");
+      {
+        text(mmContext, mmLink.getMmShortDescription());
+      }
+      close(mmContext, "label");
+      open(mmContext, "div", "class", "col-lg-4");
+      {
+        open(mmContext, "a", "id", mmLink.getMmId(), "title", mmLink.getMmLongDescription(), "class", "form-control");
+        {
+          text(mmContext, (String)mmLink.getMmViewValue());
+        }
+        closeSameLine(mmContext, "a");
+      }
+      close(mmContext, "div");
+    }
+    close(mmContext, "div");
   }
 }

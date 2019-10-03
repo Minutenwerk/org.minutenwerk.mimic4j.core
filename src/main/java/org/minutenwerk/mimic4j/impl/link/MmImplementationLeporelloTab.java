@@ -2,7 +2,6 @@ package org.minutenwerk.mimic4j.impl.link;
 
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
-import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTabAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
@@ -77,11 +76,7 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
   public String getMmStyleClassActive() {
     assureInitialization();
 
-    if (isMmActive()) {
-      return "active";
-    } else {
-      return "";
-    }
+    return isMmActive() ? "active" : "";
   }
 
   /**
@@ -95,23 +90,7 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
   public String getMmStyleClasses() {
     assureInitialization();
 
-    String styleClasses = super.getMmStyleClasses();
-    if (!isMmEnabled()) {
-      return "disabled " + styleClasses;
-    }
-    return styleClasses;
-  }
-
-  /**
-   * Returns the view tab of this leporello panel tab.
-   *
-   * @return  The view tab of this leporello panel tab.
-   */
-  public MmTab<?> getMmViewTab() {
-    assureInitialization();
-
-    // TODO MmImplementationLeporelloTab getMmViewTab
-    return null;
+    return isMmEnabled() ? super.getMmStyleClasses() : ("disabled " + super.getMmStyleClasses());
   }
 
   /**
@@ -119,23 +98,11 @@ public class MmImplementationLeporelloTab<DATA_MODEL extends MmReferencableModel
    *
    * @return  <code>True</code>, if the tab is active.
    */
+  // TODO isMmActive
   public boolean isMmActive() {
     assureInitialization();
 
-    if (isMmSelected()) {
-      return true;
-    }
-
-//    final MmLeporelloTab<?, ?> thisDeclaration = (MmLeporelloTab<?, ?>)declaration;   final MmLeporelloTab<?, ?> selectedTab     =
-// parentLeporello.getMmSelectedTab();   if (selectedTab == null) {     return false;   } else if (selectedTab == thisDeclaration) {
-//      return true;   } else {     final MmImplementationLeporelloTab<?, VIEW_MODEL> selectedTabImplementation =
-// MmBaseImplementation.getImplementation(selectedTab);     MmLeporelloTab<?, VIEW_MODEL>                     superTabOfSelected        =
-// selectedTabImplementation.superTab;     while (superTabOfSelected != null) {       if (thisDeclaration == superTabOfSelected) {
-//          return true;       }
-//
-//        final MmImplementationLeporelloTab<?, VIEW_MODEL> superTabOfSelectedImplementation = MmBaseImplementation.getImplementation(
-//            superTabOfSelected);       superTabOfSelected = superTabOfSelectedImplementation.superTab;     }   }
-    return false;
+    return isMmSelected();
   }
 
   /**

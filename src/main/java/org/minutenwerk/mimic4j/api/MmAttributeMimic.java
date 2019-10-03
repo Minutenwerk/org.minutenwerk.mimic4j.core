@@ -121,9 +121,9 @@ public interface MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmEditableM
   public Class<VIEW_TYPE> getMmViewType();
 
   /**
-   * Returns the attribute's view value of type VIEW_MODEL.
+   * Returns the attribute's view value of type VIEW_TYPE.
    *
-   * @return  The attribute's view value of type VIEW_MODEL.
+   * @return  The attribute's view value of type VIEW_TYPE.
    */
   public VIEW_TYPE getMmViewValue();
 

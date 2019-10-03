@@ -6,6 +6,7 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanelAnnotation;
+import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
 /**
@@ -56,6 +57,17 @@ public class MmImplementationLeporelloPanel<MODEL>
       }
     }
     return returnString;
+  }
+
+  /**
+   * Returns leporello panel tab.
+   *
+   * @return  leporello panel tab.
+   */
+  public MmTab<?> getMmPanelTab() {
+    assureInitialization();
+
+    return declaration.getMmPanelTab();
   }
 
   /**
