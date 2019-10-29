@@ -19,6 +19,9 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
   /** Function which defines the value model add or put method. */
   private final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder;
 
+  /** Optional function which defines the value model remove method. */
+  private final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueRemover;
+
   /**
    * Constructor of this immutable class.
    *
@@ -30,8 +33,24 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
   public MmCollectionAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
     final Function<PARENT_MODEL, COLLECTION_MODEL> componentGetter, final BiConsumer<PARENT_MODEL, COLLECTION_MODEL> componentSetter,
     final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
+    this(parentAccessor, componentGetter, componentSetter, valueAdder, null);
+  }
+
+  /**
+   * Constructor of this immutable class.
+   *
+   * @param  parentAccessor   TODOC
+   * @param  componentGetter  TODOC
+   * @param  componentSetter  TODOC
+   * @param  valueAdder       TODOC
+   * @param  valueRemover     TODOC
+   */
+  public MmCollectionAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
+    final Function<PARENT_MODEL, COLLECTION_MODEL> componentGetter, final BiConsumer<PARENT_MODEL, COLLECTION_MODEL> componentSetter,
+    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueRemover) {
     super(parentAccessor, componentGetter, componentSetter);
-    this.valueAdder = valueAdder;
+    this.valueAdder   = valueAdder;
+    this.valueRemover = valueRemover;
   }
 
   /**
@@ -79,7 +98,11 @@ public class MmCollectionAccessor<PARENT_MODEL, COLLECTION_MODEL extends Collect
    * @param  value  TODOC
    */
   public void remove(final VALUE_MODEL value) {
-    get().remove(value);
+    if (valueRemover != null) {
+      valueRemover.accept(getParentModel(), value);
+    } else {
+      get().remove(value);
+    }
   }
 
   /**

@@ -30,6 +30,21 @@ public class MmListAccessor<PARENT_MODEL, LIST_MODEL extends List<VALUE_MODEL>, 
   }
 
   /**
+   * Constructor of this immutable class.
+   *
+   * @param  parentAccessor   TODOC
+   * @param  componentGetter  TODOC
+   * @param  componentSetter  TODOC
+   * @param  valueAdder       TODOC
+   * @param  valueRemover     TODOC
+   */
+  public MmListAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, LIST_MODEL> componentGetter,
+    final BiConsumer<PARENT_MODEL, LIST_MODEL> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder,
+    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueRemover) {
+    super(parentAccessor, componentGetter, componentSetter, valueAdder, valueRemover);
+  }
+
+  /**
    * TODOC.
    *
    * @param   index  TODOC

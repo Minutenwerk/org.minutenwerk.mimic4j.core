@@ -28,4 +28,19 @@ public class MmSetAccessor<PARENT_MODEL, SET_MODEL extends Set<VALUE_MODEL>, VAL
     final BiConsumer<PARENT_MODEL, SET_MODEL> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
     super(parentAccessor, componentGetter, componentSetter, valueAdder);
   }
+
+  /**
+   * Constructor of this immutable class.
+   *
+   * @param  parentAccessor   TODOC
+   * @param  componentGetter  TODOC
+   * @param  componentSetter  TODOC
+   * @param  valueAdder       TODOC
+   * @param  valueRemover     TODOC
+   */
+  public MmSetAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, SET_MODEL> componentGetter,
+    final BiConsumer<PARENT_MODEL, SET_MODEL> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder,
+    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueRemover) {
+    super(parentAccessor, componentGetter, componentSetter, valueAdder, valueRemover);
+  }
 }
