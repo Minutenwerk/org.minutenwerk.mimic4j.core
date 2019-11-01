@@ -1,7 +1,5 @@
 package org.minutenwerk.mimic4j.table;
 
-import java.util.List;
-
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
@@ -12,7 +10,7 @@ public class TeamAccessor extends MmRootAccessor<Team> {
     return new MmAttributeAccessor<>(this, Team::getName, Team::setName);
   }
 
-  public MmListAccessor<Team, List<Person>, Person> personen() {
+  public MmListAccessor<Team, Person> personen() {
     return new MmListAccessor<>(this, Team::getPersonen, Team::setPersonen, Team::addPerson);
   }
 }

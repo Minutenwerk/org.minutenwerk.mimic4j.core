@@ -1,7 +1,5 @@
 package org.minutenwerk.mimic4j.api.container;
 
-import java.util.List;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
@@ -40,11 +38,10 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<M
    * @throws  ClassCastException  IllegalStateException In case of model accessor is not defined.
    */
   @Override
-  public MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmListEntryAccessor<ROW_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")
-      MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL> modelAccessor = (MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL>)
-        pParentAccessor;
+      MmListEntryAccessor<ROW_MODEL> modelAccessor = (MmListEntryAccessor<ROW_MODEL>)pParentAccessor;
       return modelAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor
@@ -58,7 +55,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<M
    * @return  The accessor of model.
    */
   @Override
-  public final MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL> getMmModelAccessor() {
+  public final MmListEntryAccessor<ROW_MODEL> getMmModelAccessor() {
     return implementation.getMmModelAccessor();
   }
 

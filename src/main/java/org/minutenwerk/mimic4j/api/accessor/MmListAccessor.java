@@ -8,13 +8,11 @@ import java.util.function.Function;
  * Immutable base class for accessor on lists of component models.
  *
  * @param   <PARENT_MODEL>  Type of parent model.
- * @param   <LIST_MODEL>    Type of list.
  * @param   <VALUE_MODEL>   Type of value model in list.
  *
  * @author  Olaf Kossak
  */
-public class MmListAccessor<PARENT_MODEL, LIST_MODEL extends List<VALUE_MODEL>, VALUE_MODEL>
-  extends MmCollectionAccessor<PARENT_MODEL, LIST_MODEL, VALUE_MODEL> {
+public class MmListAccessor<PARENT_MODEL, VALUE_MODEL> extends MmCollectionAccessor<PARENT_MODEL, List<VALUE_MODEL>, VALUE_MODEL> {
 
   /**
    * Constructor of this immutable class.
@@ -24,8 +22,9 @@ public class MmListAccessor<PARENT_MODEL, LIST_MODEL extends List<VALUE_MODEL>, 
    * @param  componentSetter  TODOC
    * @param  valueAdder       TODOC
    */
-  public MmListAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, LIST_MODEL> componentGetter,
-    final BiConsumer<PARENT_MODEL, LIST_MODEL> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
+  public MmListAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
+    final Function<PARENT_MODEL, List<VALUE_MODEL>> componentGetter, final BiConsumer<PARENT_MODEL, List<VALUE_MODEL>> componentSetter,
+    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
     super(parentAccessor, componentGetter, componentSetter, valueAdder);
   }
 
@@ -38,9 +37,9 @@ public class MmListAccessor<PARENT_MODEL, LIST_MODEL extends List<VALUE_MODEL>, 
    * @param  valueAdder       TODOC
    * @param  valueRemover     TODOC
    */
-  public MmListAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, LIST_MODEL> componentGetter,
-    final BiConsumer<PARENT_MODEL, LIST_MODEL> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder,
-    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueRemover) {
+  public MmListAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
+    final Function<PARENT_MODEL, List<VALUE_MODEL>> componentGetter, final BiConsumer<PARENT_MODEL, List<VALUE_MODEL>> componentSetter,
+    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueRemover) {
     super(parentAccessor, componentGetter, componentSetter, valueAdder, valueRemover);
   }
 

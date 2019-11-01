@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.function.Supplier;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
@@ -13,9 +12,9 @@ import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.table.Person.Gender;
 
-public class PersonAccessor extends MmListEntryAccessor<List<Person>, Person> {
+public class PersonAccessor extends MmListEntryAccessor<Person> {
 
-  public PersonAccessor(final MmListAccessor<?, List<Person>, Person> personAccessor,
+  public PersonAccessor(final MmListAccessor<?, Person> personAccessor,
       final Supplier<Integer> indexSupplier) {
     super(personAccessor, indexSupplier);
   }

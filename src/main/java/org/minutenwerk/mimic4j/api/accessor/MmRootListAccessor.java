@@ -10,7 +10,7 @@ import java.util.Optional;
  *
  * @author  Olaf Kossak
  */
-public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, List<VALUE_MODEL>, VALUE_MODEL> {
+public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, VALUE_MODEL> {
 
   /** The root model is stored in the root accessor. Root Accessors are the only accessor which hold a reference on a model. */
   private List<VALUE_MODEL> rootModel;

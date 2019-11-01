@@ -2,8 +2,6 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import java.lang.reflect.Field;
 
-import java.util.List;
-
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
@@ -42,10 +40,10 @@ public class MmImplementationTableRow<ROW_MODEL>
    */
   @Override
   @SuppressWarnings("unchecked")
-  public MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL> getMmModelAccessor() {
+  public MmListEntryAccessor<ROW_MODEL> getMmModelAccessor() {
     assureInitialization();
 
-    return (MmListEntryAccessor<? extends List<ROW_MODEL>, ROW_MODEL>)modelAccessor;
+    return (MmListEntryAccessor<ROW_MODEL>)modelAccessor;
   }
 
   /**

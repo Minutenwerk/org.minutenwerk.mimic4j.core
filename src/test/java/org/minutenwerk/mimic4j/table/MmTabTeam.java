@@ -1,7 +1,5 @@
 package org.minutenwerk.mimic4j.table;
 
-import java.util.List;
-
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
@@ -26,7 +24,7 @@ public class MmTabTeam extends MmTab<Team> {
   @MmTableAnnotation(id = "pt")
   public final MmTablePersonen personenTable = new MmTablePersonen(this) {
     @Override
-    public MmListAccessor<Team, List<Person>, Person> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    public MmListAccessor<Team, Person> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
       TeamAccessor team = (TeamAccessor) pParentAccessor;
       return team.personen();
     }

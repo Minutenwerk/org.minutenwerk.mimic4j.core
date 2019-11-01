@@ -1,7 +1,6 @@
 package org.minutenwerk.mimic4j.table;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmListAccessor;
@@ -72,9 +71,9 @@ public class MmTableRowPersonen extends MmTableRow<Person> {
   };
 
   @Override
-  public MmListEntryAccessor<? extends List<Person>, Person> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+  public MmListEntryAccessor<Person> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     @SuppressWarnings("unchecked")
-    MmListAccessor<Team, List<Person>, Person> personen = (MmListAccessor<Team, List<Person>, Person>) pParentAccessor;
+    MmListAccessor<Team, Person> personen = (MmListAccessor<Team, Person>) pParentAccessor;
     return new PersonAccessor(personen, () -> getMmRowIndex());
   }
 }
