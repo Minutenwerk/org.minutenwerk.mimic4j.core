@@ -26,7 +26,7 @@ public class MmTableProcessor extends MmBaseProcessor<MmTable<?>> {
     MmTable<?> mimic = mmContext.mimic;
 
     processId(mmContext);
-    LOGGER.info("table id = " + mimic.getMmId());
+    LOGGER.debug("table id = " + mimic.getMmId());
 
     processStyleClasses(mmContext);
     mmContext.out.setSelectionTarget(mimic);

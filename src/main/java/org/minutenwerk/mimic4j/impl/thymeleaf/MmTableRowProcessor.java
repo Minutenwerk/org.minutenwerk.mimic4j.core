@@ -42,10 +42,10 @@ public class MmTableRowProcessor extends MmBaseProcessor<MmTableRow<?>> {
    */
   @Override
   protected void processId(final MmContext mmContext) {
-    String externalId  = mmContext.tag.getAttributeValue("id");
-    String evaluatedId = mmContext.mimic.getToJsf().evalId(externalId);
+// String externalId  = mmContext.tag.getAttributeValue("id");
+// String evaluatedId = mmContext.mimic.getToJsf().evalId(externalId);
 
-    // evaluatedId = evaluatedId + mimic.getMmRowIndex();
+    String evaluatedId = mmContext.mimic.getMmId() + mmContext.mimic.getMmRowIndex();
     mmContext.out.setAttribute("id", evaluatedId, AttributeValueQuotes.DOUBLE);
   }
 

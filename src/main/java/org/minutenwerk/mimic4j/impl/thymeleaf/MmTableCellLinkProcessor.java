@@ -30,7 +30,7 @@ public class MmTableCellLinkProcessor extends MmBaseProcessor<MmBaseDeclaration<
     MmBaseDeclaration<?, ?> mimic = mmContext.mimic;
 
     processId(mmContext);
-    LOGGER.info("table cell id = " + mimic.getMmId());
+    LOGGER.debug("table cell id = " + mimic.getMmId());
 
     processStyleClasses(mmContext);
     mmContext.out.setSelectionTarget(mimic.getToJsf());

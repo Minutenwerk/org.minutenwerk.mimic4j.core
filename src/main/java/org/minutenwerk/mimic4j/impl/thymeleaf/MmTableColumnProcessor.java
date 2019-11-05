@@ -28,7 +28,7 @@ public class MmTableColumnProcessor extends MmBaseProcessor<MmTableColumn<?>> {
     MmTableColumn<?> mimic = mmContext.mimic;
 
     processId(mmContext);
-    LOGGER.info("table column id = " + mimic.getMmId());
+    LOGGER.debug("table column id = " + mimic.getMmId());
 
     processStyleClasses(mmContext);
     mmContext.out.setSelectionTarget(mimic);

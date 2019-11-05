@@ -30,7 +30,7 @@ public class MmTableCellTextProcessor extends MmBaseProcessor<MmBaseDeclaration<
     MmBaseDeclaration<?, ?> mimic = mmContext.mimic;
 
     processId(mmContext);
-    LOGGER.info("div id = " + mimic.getMmId());
+    LOGGER.debug("div id = " + mimic.getMmId());
 
     processStyleClasses(mmContext);
     mmContext.out.setSelectionTarget(mimic.getToJsf());

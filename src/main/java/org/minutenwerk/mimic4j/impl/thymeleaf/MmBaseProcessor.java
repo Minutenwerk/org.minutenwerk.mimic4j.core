@@ -171,9 +171,9 @@ public abstract class MmBaseProcessor<MIMIC extends MmBaseDeclaration<?, ?>> ext
    * @param  mmContext  mimic TODOC
    */
   protected void processId(final MmContext mmContext) {
-    String externalId  = mmContext.tag.getAttributeValue("id");
-    String evaluatedId = mmContext.mimic.getToJsf().evalId(externalId);
-    mmContext.out.setAttribute("id", evaluatedId, AttributeValueQuotes.DOUBLE);
+// String externalId  = mmContext.tag.getAttributeValue("id");
+// String evaluatedId = mmContext.mimic.getToJsf().evalId(externalId);
+    mmContext.out.setAttribute("id", mmContext.mimic.getMmId(), AttributeValueQuotes.DOUBLE);
   }
 
   /**
