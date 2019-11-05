@@ -1174,9 +1174,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // apply each format pattern to corresponding view value
     for (int index = 0; index < ((Object[])viewValueArray).length; index++) {
       final Object viewValue = ((Object[])viewValueArray)[index];
-      if ((viewValue != null) && !(viewValue instanceof String)) {
+      if ((viewValue != null) && !(viewValue instanceof String) && (index < formatPatternArray.length)) {
         final String formatPattern = formatPatternArray[index];
-        viewValueArray[index] = formatViewModelValue(viewValue, formatPattern);
+        if ((formatPattern != null) && !formatPattern.trim().isEmpty()) {
+          viewValueArray[index] = formatViewModelValue(viewValue, formatPattern);
+        }
       }
     }
 
