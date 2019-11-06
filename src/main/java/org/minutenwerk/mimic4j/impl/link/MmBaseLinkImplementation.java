@@ -300,7 +300,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     if (dataModelAccessor != null) {
       return dataModelAccessor.isPresent();
     } else {
-      LOGGER.warn("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
+      LOGGER.debug("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
       return false;
     }
   }
