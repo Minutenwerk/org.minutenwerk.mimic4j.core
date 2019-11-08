@@ -3,6 +3,7 @@ package org.minutenwerk.mimic4j.api.container;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.link.MmLeporelloTab;
@@ -55,7 +56,7 @@ public abstract class MmLeporelloPanel<MODEL> extends MmBaseContainerDeclaration
    *
    * @return  Leporello panel tab.
    */
-  public abstract MmTab<?> getMmPanelTab();
+  public abstract MmContainerMimic<?> getMmPanelTab();
 
   /**
    * Returns the CSS style class for initial opening of leporello panel.

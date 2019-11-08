@@ -2,11 +2,11 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import java.util.List;
 
+import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmLeporello;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanel;
 import org.minutenwerk.mimic4j.api.container.MmLeporelloPanelAnnotation;
-import org.minutenwerk.mimic4j.api.container.MmTab;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
 /**
@@ -64,7 +64,7 @@ public class MmImplementationLeporelloPanel<MODEL>
    *
    * @return  leporello panel tab.
    */
-  public MmTab<?> getMmPanelTab() {
+  public MmContainerMimic<?> getMmPanelTab() {
     assureInitialization();
 
     return declaration.getMmPanelTab();

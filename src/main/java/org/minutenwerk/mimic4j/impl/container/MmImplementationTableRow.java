@@ -2,7 +2,10 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import java.lang.reflect.Field;
 
+import java.util.List;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
@@ -56,6 +59,16 @@ public class MmImplementationTableRow<ROW_MODEL>
     assureInitialization();
 
     return getMmModelAccessor().getIndex();
+  }
+
+  /**
+   * Returns list of table row children.
+   *
+   * @return  The list of table row children.
+   */
+  @Override
+  public List<MmMimic> getMmTableCells() {
+    return getMmChildren();
   }
 
   /**

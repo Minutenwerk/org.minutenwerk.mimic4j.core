@@ -1,6 +1,9 @@
 package org.minutenwerk.mimic4j.api.container;
 
+import java.util.List;
+
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
@@ -67,6 +70,16 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<M
   @Override
   public int getMmRowIndex() {
     return implementation.getMmRowIndex();
+  }
+
+  /**
+   * Returns list of table row children.
+   *
+   * @return  The list of table row children.
+   */
+  @Override
+  public final List<MmMimic> getMmTableCells() {
+    return implementation.getMmTableCells();
   }
 
 }

@@ -1,5 +1,7 @@
 package org.minutenwerk.mimic4j.api;
 
+import java.util.List;
+
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 
 /**
@@ -23,5 +25,12 @@ public interface MmTableRowMimic<ROW_MODEL> extends MmContainerMimic<ROW_MODEL> 
    * @return  The table row index of this row.
    */
   public int getMmRowIndex();
+
+  /**
+   * Returns list of table row children.
+   *
+   * @return  The list of table row children.
+   */
+  public List<MmMimic> getMmTableCells();
 
 }
