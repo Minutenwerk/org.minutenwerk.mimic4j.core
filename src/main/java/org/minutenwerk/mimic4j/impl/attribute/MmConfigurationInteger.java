@@ -34,7 +34,7 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    * Creates a new MmConfigurationInteger instance of default values.
    */
   public MmConfigurationInteger() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     jsfTag          = DEFAULT_JSF_TAG;
     jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
@@ -47,7 +47,7 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    */
   public MmConfigurationInteger(MmIntegerAnnotation pIntegerAnnotation) {
     super(pIntegerAnnotation.id(), pIntegerAnnotation.visible(), pIntegerAnnotation.readOnly(), pIntegerAnnotation.enabled(),
-      pIntegerAnnotation.required());
+      pIntegerAnnotation.required(), pIntegerAnnotation.styleClasses());
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     jsfTag          = pIntegerAnnotation.jsfTag();
     jsfTagDisabled  = pIntegerAnnotation.jsfTagDisabled();

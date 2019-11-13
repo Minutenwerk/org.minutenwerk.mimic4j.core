@@ -27,6 +27,8 @@ public @interface MmLeporelloPanelAnnotation {
 
   public boolean enabled() default MmConfigurationLeporelloPanel.DEFAULT_IS_ENABLED;
 
+  public String styleClasses() default MmConfigurationLeporelloPanel.DEFAULT_STYLE_CLASSES;
+
   public MmLeporelloPanelJsfTag jsfTag() default MmLeporelloPanelJsfTag.LeporelloPanel;
 
 }

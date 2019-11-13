@@ -31,6 +31,8 @@ public @interface MmCommandAnnotation {
 
   public boolean enabled() default MmConfigurationCommand.DEFAULT_IS_ENABLED;
 
+  public String styleClasses() default MmConfigurationCommand.DEFAULT_STYLE_CLASSES;
+
   public MmCommand.MmCommandJsfTag jsfTag() default MmCommand.MmCommandJsfTag.CommandButton;
 
   public MmCommand.MmCommandJsfDisabled jsfTagDisabled() default MmCommand.MmCommandJsfDisabled.SameAsEnabled;

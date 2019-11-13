@@ -27,6 +27,8 @@ public @interface MmLeporelloAnnotation {
 
   public boolean enabled() default MmConfigurationLeporello.DEFAULT_IS_ENABLED;
 
+  public String styleClasses() default MmConfigurationLeporello.DEFAULT_STYLE_CLASSES;
+
   public MmLeporelloJsfTag jsfTag() default MmLeporelloJsfTag.Leporello;
 
 }

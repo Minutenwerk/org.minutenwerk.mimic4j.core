@@ -30,6 +30,8 @@ public @interface MmIntegerAnnotation {
 
   public boolean required() default MmConfigurationInteger.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationInteger.DEFAULT_STYLE_CLASSES;
+
   public int formatMaxLength() default MmConfigurationInteger.DEFAULT_FORMAT_MAX_LENGTH;
 
   public MmIntegerJsfTag jsfTag() default MmIntegerJsfTag.TextField;

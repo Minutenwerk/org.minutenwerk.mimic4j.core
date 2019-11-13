@@ -22,7 +22,7 @@ public class MmConfigurationLeporello extends MmBaseConfiguration {
    * Creates a new MmConfigurationLeporello instance of default values.
    */
   public MmConfigurationLeporello() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
     jsfTag = DEFAULT_JSF_TAG;
   }
 
@@ -32,7 +32,8 @@ public class MmConfigurationLeporello extends MmBaseConfiguration {
    * @param  pLeporelloAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationLeporello(MmLeporelloAnnotation pLeporelloAnnotation) {
-    super(pLeporelloAnnotation.id(), pLeporelloAnnotation.visible(), pLeporelloAnnotation.readOnly(), pLeporelloAnnotation.enabled());
+    super(pLeporelloAnnotation.id(), pLeporelloAnnotation.visible(), pLeporelloAnnotation.readOnly(), pLeporelloAnnotation.enabled(),
+      pLeporelloAnnotation.styleClasses());
     jsfTag = pLeporelloAnnotation.jsfTag();
   }
 

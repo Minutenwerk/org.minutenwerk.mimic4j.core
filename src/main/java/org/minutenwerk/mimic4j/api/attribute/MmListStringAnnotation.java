@@ -30,6 +30,8 @@ public @interface MmListStringAnnotation {
 
   public boolean required() default MmConfigurationListString.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationListString.DEFAULT_STYLE_CLASSES;
+
   public int size() default MmConfigurationListString.DEFAULT_SIZE;
 
   public MmListStringJsfTag jsfTag() default MmListStringJsfTag.SelectManyListbox;

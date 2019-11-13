@@ -28,7 +28,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
    * Creates a new MmConfigurationLink instance of default values.
    */
   public MmConfigurationLink() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
     jsfTag = DEFAULT_JSF_TAG;
   }
 
@@ -39,7 +39,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
    */
   public MmConfigurationLink(MmLinkAnnotation pLinkAnnotation) {
     super(pLinkAnnotation.id(), pLinkAnnotation.visible(), pLinkAnnotation.readOnly(), pLinkAnnotation.enabled(),
-      pLinkAnnotation.targetReferencePath());
+      pLinkAnnotation.targetReferencePath(), pLinkAnnotation.styleClasses());
     jsfTag = pLinkAnnotation.jsfTag();
 
     Class<? extends MmLeporello<?, ?>> targetLeporello = pLinkAnnotation.targetLeporello();

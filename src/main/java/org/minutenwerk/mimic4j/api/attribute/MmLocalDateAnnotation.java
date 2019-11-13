@@ -30,6 +30,8 @@ public @interface MmLocalDateAnnotation {
 
   public boolean required() default MmConfigurationLocalDate.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationLocalDate.DEFAULT_STYLE_CLASSES;
+
   public String formatPattern() default MmConfigurationLocalDate.DEFAULT_FORMAT_PATTERN;
 
   public int formatMaxLength() default MmConfigurationLocalDate.DEFAULT_FORMAT_MAX_LENGTH;

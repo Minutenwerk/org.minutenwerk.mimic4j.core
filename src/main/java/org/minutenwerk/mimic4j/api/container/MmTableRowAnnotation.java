@@ -26,4 +26,6 @@ public @interface MmTableRowAnnotation {
 
   public boolean enabled() default MmConfigurationTableRow.DEFAULT_IS_ENABLED;
 
+  public String styleClasses() default MmConfigurationTableRow.DEFAULT_STYLE_CLASSES;
+
 }

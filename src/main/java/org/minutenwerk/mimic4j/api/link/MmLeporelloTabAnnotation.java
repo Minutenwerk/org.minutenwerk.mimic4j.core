@@ -28,6 +28,8 @@ public @interface MmLeporelloTabAnnotation {
 
   public boolean enabled() default MmConfigurationLeporelloTab.DEFAULT_IS_ENABLED;
 
+  public String styleClasses() default MmConfigurationLeporelloTab.DEFAULT_STYLE_CLASSES;
+
   public MmLeporelloTab.MmLeporelloTabJsfTag jsfTag() default MmLeporelloTab.MmLeporelloTabJsfTag.LeporelloTab;
 
   public String targetReferencePath() default MmConfigurationLeporelloTab.DEFAULT_TARGET_REFERENCE_PATH;

@@ -42,7 +42,7 @@ public class MmConfigurationLocalTime extends MmBaseAttributeConfiguration<Local
    * Creates a new MmConfigurationLocalTime instance of default values.
    */
   public MmConfigurationLocalTime() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatPattern   = DEFAULT_FORMAT_PATTERN;
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     jsfTag          = DEFAULT_JSF_TAG;
@@ -56,7 +56,7 @@ public class MmConfigurationLocalTime extends MmBaseAttributeConfiguration<Local
    */
   public MmConfigurationLocalTime(MmLocalTimeAnnotation pTimeAnnotation) {
     super(pTimeAnnotation.id(), pTimeAnnotation.visible(), pTimeAnnotation.readOnly(), pTimeAnnotation.enabled(),
-      pTimeAnnotation.required());
+      pTimeAnnotation.required(), pTimeAnnotation.styleClasses());
     formatPattern   = pTimeAnnotation.formatPattern();
     formatMaxLength = pTimeAnnotation.formatMaxLength();
     jsfTag          = pTimeAnnotation.jsfTag();

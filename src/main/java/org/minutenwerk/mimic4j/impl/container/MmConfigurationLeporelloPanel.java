@@ -22,7 +22,7 @@ public class MmConfigurationLeporelloPanel extends MmBaseConfiguration {
    * Creates a new MmConfigurationLeporelloPanel instance of default values.
    */
   public MmConfigurationLeporelloPanel() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
     jsfTag = DEFAULT_JSF_TAG;
   }
 
@@ -33,7 +33,7 @@ public class MmConfigurationLeporelloPanel extends MmBaseConfiguration {
    */
   public MmConfigurationLeporelloPanel(MmLeporelloPanelAnnotation pLeporelloPanelAnnotation) {
     super(pLeporelloPanelAnnotation.id(), pLeporelloPanelAnnotation.visible(), pLeporelloPanelAnnotation.readOnly(),
-      pLeporelloPanelAnnotation.enabled());
+      pLeporelloPanelAnnotation.enabled(), pLeporelloPanelAnnotation.styleClasses());
     jsfTag = pLeporelloPanelAnnotation.jsfTag();
   }
 

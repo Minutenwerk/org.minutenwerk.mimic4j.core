@@ -36,7 +36,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    * Creates a new MmConfigurationListString instance of default values.
    */
   public MmConfigurationListString() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     size           = DEFAULT_SIZE;
     jsfTag         = DEFAULT_JSF_TAG;
     jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
@@ -49,7 +49,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    */
   public MmConfigurationListString(MmListStringAnnotation pListStringAnnotation) {
     super(pListStringAnnotation.id(), pListStringAnnotation.visible(), pListStringAnnotation.readOnly(), pListStringAnnotation.enabled(),
-      pListStringAnnotation.required());
+      pListStringAnnotation.required(), pListStringAnnotation.styleClasses());
     size           = pListStringAnnotation.size();
     jsfTag         = pListStringAnnotation.jsfTag();
     jsfTagDisabled = pListStringAnnotation.jsfTagDisabled();

@@ -32,6 +32,8 @@ public @interface MmStringAnnotation {
 
   public int formatMaxLength() default MmConfigurationString.DEFAULT_FORMAT_MAX_LENGTH;
 
+  public String styleClasses() default MmConfigurationString.DEFAULT_STYLE_CLASSES;
+
   public int cols() default MmConfigurationString.DEFAULT_COLS;
 
   public int rows() default MmConfigurationString.DEFAULT_ROWS;

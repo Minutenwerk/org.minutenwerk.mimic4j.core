@@ -34,7 +34,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    * Creates a new MmConfigurationLong instance of default values.
    */
   public MmConfigurationLong() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     jsfTag          = DEFAULT_JSF_TAG;
     jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
@@ -47,7 +47,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    */
   public MmConfigurationLong(MmLongAnnotation pLongAnnotation) {
     super(pLongAnnotation.id(), pLongAnnotation.visible(), pLongAnnotation.readOnly(), pLongAnnotation.enabled(),
-      pLongAnnotation.required());
+      pLongAnnotation.required(), pLongAnnotation.styleClasses());
     formatMaxLength = pLongAnnotation.formatMaxLength();
     jsfTag          = pLongAnnotation.jsfTag();
     jsfTagDisabled  = pLongAnnotation.jsfTagDisabled();

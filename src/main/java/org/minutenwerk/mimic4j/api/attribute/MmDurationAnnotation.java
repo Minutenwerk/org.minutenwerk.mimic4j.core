@@ -30,6 +30,8 @@ public @interface MmDurationAnnotation {
 
   public boolean required() default MmConfigurationDuration.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationDuration.DEFAULT_STYLE_CLASSES;
+
   public int formatMaxLength() default MmConfigurationDuration.DEFAULT_FORMAT_MAX_LENGTH;
 
   public MmDurationJsfTag jsfTag() default MmDurationJsfTag.TextField;

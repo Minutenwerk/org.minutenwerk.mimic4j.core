@@ -30,6 +30,8 @@ public @interface MmEnumAnnotation {
 
   public boolean required() default MmConfigurationEnum.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationEnum.DEFAULT_STYLE_CLASSES;
+
   public MmEnumJsfTag jsfTag() default MmEnumJsfTag.SelectOneMenu;
 
   public MmEnumJsfDisabled jsfTagDisabled() default MmEnumJsfDisabled.TextField;

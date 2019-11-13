@@ -34,7 +34,7 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Creates a new MmConfigurationFloat instance of default values.
    */
   public MmConfigurationFloat() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     jsfTag          = DEFAULT_JSF_TAG;
     jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
@@ -47,7 +47,7 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    */
   public MmConfigurationFloat(MmFloatAnnotation pFloatAnnotation) {
     super(pFloatAnnotation.id(), pFloatAnnotation.visible(), pFloatAnnotation.readOnly(), pFloatAnnotation.enabled(),
-      pFloatAnnotation.required());
+      pFloatAnnotation.required(), pFloatAnnotation.styleClasses());
 
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     jsfTag          = pFloatAnnotation.jsfTag();

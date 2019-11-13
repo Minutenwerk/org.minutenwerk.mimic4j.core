@@ -30,6 +30,8 @@ public @interface MmLongAnnotation {
 
   public boolean required() default MmConfigurationLong.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationLong.DEFAULT_STYLE_CLASSES;
+
   public int formatMaxLength() default MmConfigurationLong.DEFAULT_FORMAT_MAX_LENGTH;
 
   public MmLongJsfTag jsfTag() default MmLongJsfTag.TextField;

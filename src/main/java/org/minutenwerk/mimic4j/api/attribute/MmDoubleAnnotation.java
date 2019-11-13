@@ -30,6 +30,8 @@ public @interface MmDoubleAnnotation {
 
   public boolean required() default MmConfigurationDouble.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationDouble.DEFAULT_STYLE_CLASSES;
+
   public int formatMaxLength() default MmConfigurationDouble.DEFAULT_FORMAT_MAX_LENGTH;
 
   public MmDoubleJsfTag jsfTag() default MmDoubleJsfTag.TextField;

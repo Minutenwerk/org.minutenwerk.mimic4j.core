@@ -30,6 +30,8 @@ public @interface MmLocalTimeAnnotation {
 
   public boolean required() default MmConfigurationLocalTime.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationLocalTime.DEFAULT_STYLE_CLASSES;
+
   public String formatPattern() default MmConfigurationLocalTime.DEFAULT_FORMAT_PATTERN;
 
   public int formatMaxLength() default MmConfigurationLocalTime.DEFAULT_FORMAT_MAX_LENGTH;

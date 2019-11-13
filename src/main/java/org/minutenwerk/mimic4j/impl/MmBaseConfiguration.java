@@ -8,16 +8,19 @@ package org.minutenwerk.mimic4j.impl;
 public abstract class MmBaseConfiguration {
 
   /** Constant for undefined state. */
-  public static final String  UNDEFINED_ID        = "UNDEFINED-ID";
+  public static final String  UNDEFINED_ID          = "UNDEFINED-ID";
 
   /** Constant for default value of visible. */
-  public static final boolean DEFAULT_IS_VISIBLE  = true;
+  public static final boolean DEFAULT_IS_VISIBLE    = true;
 
   /** Constant for default value of readonly. */
-  public static final boolean DEFAULT_IS_READONLY = false;
+  public static final boolean DEFAULT_IS_READONLY   = false;
 
   /** Constant for default value of enabled. */
-  public static final boolean DEFAULT_IS_ENABLED  = true;
+  public static final boolean DEFAULT_IS_ENABLED    = true;
+
+  /** Constant for default value CSS style classes. */
+  public static final String  DEFAULT_STYLE_CLASSES = "";
 
   /** The HTML id of HTML tag. */
   protected String            id;
@@ -31,19 +34,24 @@ public abstract class MmBaseConfiguration {
   /** True, if HTML tag of mimic is rendered enabled. */
   protected boolean           enabled;
 
+  /** CSS style classes. */
+  protected String            styleClasses;
+
   /**
    * Creates a new MmBaseConfiguration instance.
    *
-   * @param  pId        The HTML id of HTML tag.
-   * @param  pVisible   True, if HTML tag of mimic is rendered visible.
-   * @param  pReadOnly  True, if HTML tag of mimic is rendered readonly.
-   * @param  pEnabled   True, if HTML tag of mimic is rendered enabled.
+   * @param  pId            The HTML id of HTML tag.
+   * @param  pVisible       True, if HTML tag of mimic is rendered visible.
+   * @param  pReadOnly      True, if HTML tag of mimic is rendered readonly.
+   * @param  pEnabled       True, if HTML tag of mimic is rendered enabled.
+   * @param  pStyleClasses  The CSS style classes, separated by blank.
    */
-  public MmBaseConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled) {
-    id       = pId;
-    visible  = pVisible;
-    readOnly = pReadOnly;
-    enabled  = pEnabled;
+  public MmBaseConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pStyleClasses) {
+    id           = pId;
+    visible      = pVisible;
+    readOnly     = pReadOnly;
+    enabled      = pEnabled;
+    styleClasses = pStyleClasses;
   }
 
   /**
@@ -68,6 +76,15 @@ public abstract class MmBaseConfiguration {
    * @return  The JSF tag type for this mimic in enabled state.
    */
   public abstract String getJsfTagEnabled();
+
+  /**
+   * Returns CSS style classes.
+   *
+   * @return  CSS style classes.
+   */
+  public String getStyleClasses() {
+    return styleClasses;
+  }
 
   /**
    * Returns true, if HTML tag of mimic is rendered enabled.
@@ -126,6 +143,15 @@ public abstract class MmBaseConfiguration {
    */
   public void setReadOnly(boolean pReadOnly) {
     readOnly = pReadOnly;
+  }
+
+  /**
+   * Sets specified CSS style classes, separated by blank.
+   *
+   * @param  pStyleClasses  The specified CSS style classes, separated by blank.
+   */
+  public void setStyleClasses(String pStyleClasses) {
+    styleClasses = pStyleClasses;
   }
 
   /**

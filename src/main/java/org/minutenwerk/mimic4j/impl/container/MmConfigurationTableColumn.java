@@ -50,7 +50,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Creates a new MmConfigurationTableColumn instance of default values.
    */
   public MmConfigurationTableColumn() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
     jsfTag        = DEFAULT_JSF_TAG;
     isRowHeader   = DEFAULT_IS_ROW_HEADER;
     styleClasses  = DEFAULT_STYLE_CLASSES;
@@ -65,7 +65,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    */
   public MmConfigurationTableColumn(MmTableColumnAnnotation pTableColumnAnnotation) {
     super(pTableColumnAnnotation.id(), pTableColumnAnnotation.visible(), pTableColumnAnnotation.readOnly(),
-      pTableColumnAnnotation.enabled());
+      pTableColumnAnnotation.enabled(), pTableColumnAnnotation.styleClasses());
     jsfTag        = pTableColumnAnnotation.jsfTag();
     isRowHeader   = pTableColumnAnnotation.isRowHeader();
     styleClasses  = pTableColumnAnnotation.styleClasses();

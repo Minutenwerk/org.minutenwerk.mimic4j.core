@@ -30,6 +30,8 @@ public @interface MmBigDecimalAnnotation {
 
   public boolean required() default MmConfigurationBigDecimal.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationBigDecimal.DEFAULT_STYLE_CLASSES;
+
   public int formatMaxLength() default MmConfigurationBigDecimal.DEFAULT_FORMAT_MAX_LENGTH;
 
   public MmBigDecimalJsfTag jsfTag() default MmBigDecimalJsfTag.TextField;

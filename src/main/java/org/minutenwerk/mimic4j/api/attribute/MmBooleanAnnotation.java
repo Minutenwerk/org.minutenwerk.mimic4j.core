@@ -31,6 +31,8 @@ public @interface MmBooleanAnnotation {
 
   public boolean required() default MmConfigurationBoolean.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationBoolean.DEFAULT_STYLE_CLASSES;
+
   public MmBooleanLayout layout() default MmBooleanLayout.PAGE_DIRECTION;
 
   public MmBooleanJsfTag jsfTag() default MmBooleanJsfTag.SelectOneCheckbox;

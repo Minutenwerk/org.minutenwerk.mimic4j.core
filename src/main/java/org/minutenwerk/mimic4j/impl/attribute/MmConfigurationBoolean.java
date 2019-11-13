@@ -35,7 +35,7 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Creates a new MmConfigurationBoolean instance of default values.
    */
   public MmConfigurationBoolean() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     layout         = DEFAULT_LAYOUT;
     jsfTag         = DEFAULT_JSF_TAG;
     jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
@@ -48,7 +48,7 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    */
   public MmConfigurationBoolean(MmBooleanAnnotation pBooleanAnnotation) {
     super(pBooleanAnnotation.id(), pBooleanAnnotation.visible(), pBooleanAnnotation.readOnly(), pBooleanAnnotation.enabled(),
-      pBooleanAnnotation.required());
+      pBooleanAnnotation.required(), pBooleanAnnotation.styleClasses());
     layout         = pBooleanAnnotation.layout();
     jsfTag         = pBooleanAnnotation.jsfTag();
     jsfTagDisabled = pBooleanAnnotation.jsfTagDisabled();

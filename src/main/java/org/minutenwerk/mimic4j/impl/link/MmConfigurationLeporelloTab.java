@@ -28,7 +28,7 @@ public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
    * Creates a new MmConfigurationLeporelloTab instance of default values.
    */
   public MmConfigurationLeporelloTab() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
     jsfTag = DEFAULT_JSF_TAG;
   }
 
@@ -39,7 +39,7 @@ public class MmConfigurationLeporelloTab extends MmBaseLinkConfiguration {
    */
   public MmConfigurationLeporelloTab(MmLeporelloTabAnnotation pLeporelloTabAnnotation) {
     super(pLeporelloTabAnnotation.id(), pLeporelloTabAnnotation.visible(), pLeporelloTabAnnotation.readOnly(),
-      pLeporelloTabAnnotation.enabled(), pLeporelloTabAnnotation.targetReferencePath());
+      pLeporelloTabAnnotation.enabled(), pLeporelloTabAnnotation.targetReferencePath(), pLeporelloTabAnnotation.styleClasses());
     jsfTag = pLeporelloTabAnnotation.jsfTag();
 
     Class<? extends MmLeporello<?, ?>> targetLeporello = pLeporelloTabAnnotation.targetLeporello();

@@ -42,7 +42,7 @@ public class MmConfigurationCommand extends MmBaseLinkConfiguration {
    * Creates a new MmConfigurationCommand instance of default values.
    */
   public MmConfigurationCommand() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
     ;
     jsfTag         = DEFAULT_JSF_TAG;
     jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
@@ -55,7 +55,7 @@ public class MmConfigurationCommand extends MmBaseLinkConfiguration {
    */
   public MmConfigurationCommand(MmCommandAnnotation pCommandAnnotation) {
     super(pCommandAnnotation.id(), pCommandAnnotation.visible(), pCommandAnnotation.readOnly(), pCommandAnnotation.enabled(),
-      pCommandAnnotation.targetReferencePath());
+      pCommandAnnotation.targetReferencePath(), pCommandAnnotation.styleClasses());
     submitParam    = DEFAULT_SUBMIT_PARAM;
     jsfTag         = pCommandAnnotation.jsfTag();
     jsfTagDisabled = pCommandAnnotation.jsfTagDisabled();

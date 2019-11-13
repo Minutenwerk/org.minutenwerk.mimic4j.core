@@ -18,7 +18,7 @@ public class MmConfigurationTableRow extends MmBaseConfiguration {
    * Creates a new MmConfigurationTableRow instance of default values.
    */
   public MmConfigurationTableRow() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -27,7 +27,8 @@ public class MmConfigurationTableRow extends MmBaseConfiguration {
    * @param  pTableRowAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationTableRow(MmTableRowAnnotation pTableRowAnnotation) {
-    super(pTableRowAnnotation.id(), pTableRowAnnotation.visible(), pTableRowAnnotation.readOnly(), pTableRowAnnotation.enabled());
+    super(pTableRowAnnotation.id(), pTableRowAnnotation.visible(), pTableRowAnnotation.readOnly(), pTableRowAnnotation.enabled(),
+      pTableRowAnnotation.styleClasses());
   }
 
   /**

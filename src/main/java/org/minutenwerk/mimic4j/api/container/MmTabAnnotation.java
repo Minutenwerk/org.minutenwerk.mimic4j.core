@@ -26,4 +26,6 @@ public @interface MmTabAnnotation {
 
   public boolean enabled() default MmConfigurationTab.DEFAULT_IS_ENABLED;
 
+  public String styleClasses() default MmConfigurationTab.DEFAULT_STYLE_CLASSES;
+
 }

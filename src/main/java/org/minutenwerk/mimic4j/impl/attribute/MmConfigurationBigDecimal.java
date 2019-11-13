@@ -36,7 +36,7 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    * Creates a new MmConfigurationBigDecimal instance of default values.
    */
   public MmConfigurationBigDecimal() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     jsfTag          = DEFAULT_JSF_TAG;
     jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
@@ -49,7 +49,7 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    */
   public MmConfigurationBigDecimal(MmBigDecimalAnnotation pBigDecimalAnnotation) {
     super(pBigDecimalAnnotation.id(), pBigDecimalAnnotation.visible(), pBigDecimalAnnotation.readOnly(), pBigDecimalAnnotation.enabled(),
-      pBigDecimalAnnotation.required());
+      pBigDecimalAnnotation.required(), pBigDecimalAnnotation.styleClasses());
 
     formatMaxLength = pBigDecimalAnnotation.formatMaxLength();
     jsfTag          = pBigDecimalAnnotation.jsfTag();

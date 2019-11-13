@@ -21,13 +21,14 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
   /**
    * Creates a new MmBaseLinkConfiguration instance from annotation.
    *
-   * @param  pId        The HTML id of HTML tag.
-   * @param  pVisible   True, if HTML tag of mimic is rendered visible.
-   * @param  pReadOnly  True, if HTML tag of mimic is rendered readonly.
-   * @param  pEnabled   True, if HTML tag of mimic is rendered enabled.
+   * @param  pId            The HTML id of HTML tag.
+   * @param  pVisible       True, if HTML tag of mimic is rendered visible.
+   * @param  pReadOnly      True, if HTML tag of mimic is rendered readonly.
+   * @param  pEnabled       True, if HTML tag of mimic is rendered enabled.
+   * @param  pStyleClasses  TODOC
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled) {
-    super(pId, pVisible, pReadOnly, pEnabled);
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pStyleClasses) {
+    super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
     targetReferencePath = null;
   }
 
@@ -39,9 +40,11 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * @param  pReadOnly             True, if HTML tag of mimic is rendered readonly.
    * @param  pEnabled              True, if HTML tag of mimic is rendered enabled.
    * @param  pTargetReferencePath  The path part of the target URL.
+   * @param  pStyleClasses         TODOC
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetReferencePath) {
-    super(pId, pVisible, pReadOnly, pEnabled);
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetReferencePath,
+    String pStyleClasses) {
+    super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
     setTargetReferencePath(pTargetReferencePath);
   }
 

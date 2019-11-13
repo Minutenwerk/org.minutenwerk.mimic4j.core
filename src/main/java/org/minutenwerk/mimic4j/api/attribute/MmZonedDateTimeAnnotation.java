@@ -30,6 +30,8 @@ public @interface MmZonedDateTimeAnnotation {
 
   public boolean required() default MmConfigurationZonedDateTime.DEFAULT_IS_REQUIRED;
 
+  public String styleClasses() default MmConfigurationZonedDateTime.DEFAULT_STYLE_CLASSES;
+
   public String formatPattern() default MmConfigurationZonedDateTime.DEFAULT_FORMAT_PATTERN;
 
   public int formatMaxLength() default MmConfigurationZonedDateTime.DEFAULT_FORMAT_MAX_LENGTH;

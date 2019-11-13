@@ -26,4 +26,6 @@ public @interface MmFormAnnotation {
 
   public boolean enabled() default MmConfigurationForm.DEFAULT_IS_ENABLED;
 
+  public String styleClasses() default MmConfigurationForm.DEFAULT_STYLE_CLASSES;
+
 }

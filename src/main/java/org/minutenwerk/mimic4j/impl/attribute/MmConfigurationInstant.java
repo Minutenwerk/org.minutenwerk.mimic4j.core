@@ -42,7 +42,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    * Creates a new MmConfigurationDate instance of default values.
    */
   public MmConfigurationInstant() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatPattern   = DEFAULT_FORMAT_PATTERN;
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     jsfTag          = DEFAULT_JSF_TAG;
@@ -56,7 +56,7 @@ public class MmConfigurationInstant extends MmBaseAttributeConfiguration<Instant
    */
   public MmConfigurationInstant(MmInstantAnnotation pDateAnnotation) {
     super(pDateAnnotation.id(), pDateAnnotation.visible(), pDateAnnotation.readOnly(), pDateAnnotation.enabled(),
-      pDateAnnotation.required());
+      pDateAnnotation.required(), pDateAnnotation.styleClasses());
     formatPattern   = pDateAnnotation.formatPattern();
     formatMaxLength = pDateAnnotation.formatMaxLength();
     jsfTag          = pDateAnnotation.jsfTag();

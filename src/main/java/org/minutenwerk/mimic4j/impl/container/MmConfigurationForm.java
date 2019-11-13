@@ -18,7 +18,7 @@ public class MmConfigurationForm extends MmBaseConfiguration {
    * Creates a new MmConfigurationForm instance of default values.
    */
   public MmConfigurationForm() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -27,7 +27,8 @@ public class MmConfigurationForm extends MmBaseConfiguration {
    * @param  pFormAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationForm(MmFormAnnotation pFormAnnotation) {
-    super(pFormAnnotation.id(), pFormAnnotation.visible(), pFormAnnotation.readOnly(), pFormAnnotation.enabled());
+    super(pFormAnnotation.id(), pFormAnnotation.visible(), pFormAnnotation.readOnly(), pFormAnnotation.enabled(),
+      pFormAnnotation.styleClasses());
   }
 
   /**

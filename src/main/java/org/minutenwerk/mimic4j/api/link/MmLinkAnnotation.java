@@ -29,6 +29,8 @@ public @interface MmLinkAnnotation {
 
   public boolean enabled() default MmConfigurationLink.DEFAULT_IS_ENABLED;
 
+  public String styleClasses() default MmConfigurationLink.DEFAULT_STYLE_CLASSES;
+
   public MmLinkJsfTag jsfTag() default MmLinkJsfTag.Link;
 
   public String targetReferencePath() default MmConfigurationLink.DEFAULT_TARGET_REFERENCE_PATH;
