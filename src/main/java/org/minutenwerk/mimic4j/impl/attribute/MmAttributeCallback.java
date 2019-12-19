@@ -10,9 +10,8 @@ import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
 /**
- * MmAttributeCallback defines a set of override-able methods common to all attribute mimics. Callback methods are part of the declaration
- * API of mimics. Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration
- * part.
+ * MmAttributeCallback defines a set of override-able methods common to all attribute mimics. Callback methods are part of the declaration API of mimics.
+ * Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
  * @author  Olaf Kossak
  */
@@ -41,8 +40,8 @@ public interface MmAttributeCallback<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmBaseCa
   public ATTRIBUTE_TYPE callbackMmConvertViewModelToDataModel(VIEW_TYPE pViewModelValue) throws MmViewModelConverterException;
 
   /**
-   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model value and vice
+   * versa. It is dependent on the user's locale.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
@@ -60,8 +59,7 @@ public interface MmAttributeCallback<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmBaseCa
   public int callbackMmGetMaxLength(int pPassThroughValue);
 
   /**
-   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
-   * accessor.
+   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component accessor.
    *
    * @param   pParentAccessor  The specified parent component accessor.
    *

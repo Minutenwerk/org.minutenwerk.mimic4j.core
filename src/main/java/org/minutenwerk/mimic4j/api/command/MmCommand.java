@@ -14,35 +14,8 @@ import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
  *
  * @author  Olaf Kossak
  */
-public class MmCommand<DATA_MODEL extends MmReferencableModel>
-  extends MmBaseLinkDeclaration<MmImplementationCommand<DATA_MODEL>, DATA_MODEL, DATA_MODEL> implements MmCommandMimic<DATA_MODEL>,
-    MmCommandCallback<DATA_MODEL> {
-
-  /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmCommandJsfDisabled {
-
-    SameAsEnabled,
-
-    TextOutput,
-
-    TextPlain;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmCommandJsfTag {
-
-    CommandButton,
-
-    Link;
-  }
+public class MmCommand<DATA_MODEL extends MmReferencableModel> extends MmBaseLinkDeclaration<MmImplementationCommand<DATA_MODEL>, DATA_MODEL, DATA_MODEL>
+  implements MmCommandMimic<DATA_MODEL>, MmCommandCallback<DATA_MODEL> {
 
   /**
    * Creates a new MmCommand instance.

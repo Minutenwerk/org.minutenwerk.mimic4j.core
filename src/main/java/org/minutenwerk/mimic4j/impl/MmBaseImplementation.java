@@ -23,6 +23,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -41,15 +42,13 @@ import org.minutenwerk.mimic4j.api.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
+import org.minutenwerk.mimic4j.api.site.MmTheme;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
+import org.minutenwerk.mimic4j.impl.container.MmImplementationPage;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
-import org.minutenwerk.mimic4j.impl.provided.MmSessionContext;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.NoSuchMessageException;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -69,8 +68,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** Logger of this class. */
   private static final Logger                         LOGGER                        = LogManager.getLogger(MmBaseImplementation.class);
 
-  /** Constant for default root locale in case of no session context. */
-  public static final Locale                          NO_SESSION_CONTEXT_LOCALE     = Locale.GERMAN;
+  /** Null parameter for name. */
+  protected static final String                       NULL_NAME                     = null;
+
+  /** Null parameter for parent. */
+  protected static final MmDeclarationMimic           NULL_PARENT                   = null;
+
+  /** Null parameter for runtime index. */
+  protected static final Integer                      NULL_RUNTIME_INDEX            = null;
 
   /** The state of initialization during constructor and initialization phase. */
   protected final MmInitialState                      initialState;
@@ -93,8 +98,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** The parentPath of this mimic is evaluated during initialization phase of its parent mimic. */
   protected final String                              parentPath;
 
-  /** The root ancestor of this mimic, is set in constructor phase. */
-  protected final MmBaseImplementation<?, ?, ?>       root;
+  /** The root page ancestor of this mimic, is set in constructor phase. */
+  protected final MmImplementationPage<?>             root;
 
   /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. Is set in constructor phase. */
   protected final boolean                             isRuntimeMimic;
@@ -111,23 +116,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** All runtime declaration children are of type <code>MmMimic</code>. Children are added at runtime. */
   protected final List<MmMimic>                       runtimeDeclarationChildren;
 
-  /** The MmJsfBridge of this mimic, which connects it to a JSF view component, is set in constructor phase. */
-  protected final MmJsfBridge<?, ?, ?>                mmJsfBridge;
-
   /** This or an ancestor mimic, which delivers a reference path, may be null. Is set in initialization phase. */
   protected final MmReferencePathProvider             referencableAncestor;
 
   /** The declaration part of this implementation is the declaration. Is set in postconstruct phase. */
   protected DECLARATION                               declaration;
-
-  /** Spring message provider with support for parameters and i18n. */
-  protected MessageSource                             messageSource;
-
-  /** The user's session context. */
-  protected MmSessionContext                          sessionContext;
-
-  /** The current locale. */
-  protected Locale                                    locale;
 
   /** Iterator of fields of children of declaration part, is used only during constructor phase. */
   private Iterator<Field>                             declarationChildrenFields;
@@ -138,7 +131,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @param  pDeclarationParent  The declaration part of the parent mimic.
    */
   public MmBaseImplementation(final MmDeclarationMimic pDeclarationParent) {
-    this(pDeclarationParent, null);
+    this(pDeclarationParent, NULL_NAME, NULL_RUNTIME_INDEX);
   }
 
   /**
@@ -158,11 +151,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *   <li>this mimic is added as implementationChildren of parent</li>
    *   <li>this mimic is added as declarationChildren of parent</li>
    *   <li>referencableAncestor is assigned</li>
-   *   <li>mmJsfBridge is assigned</li>
    * </ul>
    *
-   * <p>This constructor has been called by constructor of declaration part. After constructor the constructor of declaration part calls
-   * method onPostConstruct(), which assigns:</p>
+   * <p>This constructor has been called by constructor of declaration part. After constructor the constructor of declaration part calls method
+   * onPostConstruct(), which assigns:</p>
    *
    * <ul>
    *   <li>declaration is assigned</li>
@@ -185,12 +177,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * <p>Method initialize() calls method initialize() for all children:</p>
    *
    * @param   pDeclarationParent  The declaration part of the parent mimic.
+   * @param   pName               Specified name of this mimic.
    * @param   pRuntimeIndex       An integer index if this mimic is a runtime mimic, e.g. a {@link MmTableRow}.
    *
-   * @throws  IllegalStateException  in case of parameter pDeclarationParent does not have an implementation part, or root ancestor of
-   *                                 subtree is not of type {@link MmImplementationRoot}.
+   * @throws  IllegalStateException  in case of parameter pDeclarationParent does not have an implementation part, or root ancestor of subtree is not of type
+   *                                 {@link MmImplementationRoot}.
    */
-  public MmBaseImplementation(final MmDeclarationMimic pDeclarationParent, final Integer pRuntimeIndex) {
+  public MmBaseImplementation(final MmDeclarationMimic pDeclarationParent, final String pName, final Integer pRuntimeIndex) {
     initialState = new MmInitialState();
     if (LOGGER.isDebugEnabled()) {
       if (pDeclarationParent != null) {
@@ -209,6 +202,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     if (pDeclarationParent == null) {
 
       // if there is no parent, this is the root
+      if (!(this instanceof MmImplementationPage<?>)) {
+        throw new IllegalStateException("root ancestor must be of type MmPage");
+      }
+
       // set reference to declaration part of parent mimic to null
       declarationParent           = null;
 
@@ -226,7 +223,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       configuration = onConstructConfiguration(annotation);
 
       // set name
-      name          = "";
+      name          = onConstructPageName(pName);
 
       // set parentPath
       parentPath    = "";
@@ -235,7 +232,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       onConstructId(configuration, name, parentPath);
 
       // set reference to root to this
-      root           = this;
+      root           = (MmImplementationPage<?>)this;
 
       // root is compiletime mimic
       isRuntimeMimic = false;
@@ -255,7 +252,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       typeOfFirstGenericParameter = MmJavaHelper.getFirstGenericType(field);
 
       // evaluate annotation
-      final ANNOTATION annotation = onConstructAnnotation(field);
+      final ANNOTATION annotation = onConstructFieldAnnotation(field);
 
       // evaluate configuration
       configuration = onConstructConfiguration(annotation);
@@ -284,9 +281,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // evaluate ancestor for reference path, file and params
     referencableAncestor          = getMmImplementationAncestorOfType(MmReferencePathProvider.class);
-
-    // evaluate bridge for jsf tags
-    mmJsfBridge                   = onConstructJsfBridge();
   }
 
   /**
@@ -301,29 +295,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   @SuppressWarnings("unchecked")
   protected static <T extends MmBaseImplementation<?, ?, ?>> T getImplementation(MmBaseDeclaration<?, ?> pDeclaration) {
     return (T)pDeclaration.implementation;
-  }
-
-  /**
-   * Evaluates and returns the annotation on a specified mimic.
-   *
-   * @param         pField  The specified mimic.
-   *
-   * @return        The annotation.
-   *
-   * @jalopy.group  group-construction
-   */
-  @SuppressWarnings("unchecked")
-  protected ANNOTATION onConstructAnnotation(final Field pField) {
-    if (pField != null) {
-      for (Annotation annotation : pField.getAnnotations()) {
-        if (annotation.annotationType().isAnnotationPresent(MmMetaAnnotation.class)) {
-          return (ANNOTATION)annotation;
-        }
-      }
-    }
-
-    // TODO MmBaseImplementation find annotation on class!
-    return null;
   }
 
   /**
@@ -348,14 +319,35 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   protected Field onConstructField(final MmBaseImplementation<?, ?, ?> pImplementationParent) {
     if (pImplementationParent.declarationChildrenFields == null) {
-      pImplementationParent.declarationChildrenFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(
-          pImplementationParent.declaration.getClass()).iterator();
+      pImplementationParent.declarationChildrenFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(pImplementationParent.declaration.getClass())
+          .iterator();
     }
     if (pImplementationParent.declarationChildrenFields.hasNext()) {
       return pImplementationParent.declarationChildrenFields.next();
     } else {
       return null;
     }
+  }
+
+  /**
+   * Evaluates and returns the annotation on a specified mimic.
+   *
+   * @param         pField  The specified mimic.
+   *
+   * @return        The annotation.
+   *
+   * @jalopy.group  group-construction
+   */
+  @SuppressWarnings("unchecked")
+  protected ANNOTATION onConstructFieldAnnotation(final Field pField) {
+    if (pField != null) {
+      for (Annotation annotation : pField.getAnnotations()) {
+        if (annotation.annotationType().isAnnotationPresent(MmMetaAnnotation.class)) {
+          return (ANNOTATION)annotation;
+        }
+      }
+    }
+    return null;
   }
 
   /**
@@ -369,7 +361,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   protected void onConstructId(final MmBaseConfiguration pConfiguration, final String pName, final String pParentPath) {
     // if id is not defined yet, set id to full name
-    if (pConfiguration.getId().equals(MmBaseConfiguration.UNDEFINED_ID) && !pName.isEmpty()) {
+    if (pConfiguration.getId().equals(MmBaseConfiguration.UNDEFINED_ID) && (pName != null) && !pName.isEmpty()) {
       String newId = pName;
       if (!pParentPath.isEmpty()) {
         newId = pParentPath.replaceAll("\\.", "-") + "-" + pName;
@@ -379,19 +371,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Evaluates and returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return        A new MmJsfBridge for this mimic.
-   *
-   * @jalopy.group  group-construction
-   */
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return null;
-  }
-
-  /**
-   * Evaluates and returns the name of this mimic. The name is derived from the specified field, if the mimic is declared as a field of
-   * another mimic. If there is a runtime index, the name is derived from the index value. Otherwise the name is an empty string.
+   * Evaluates and returns the name of this mimic. The name is derived from the specified field, if the mimic is declared as a field of another mimic. If
+   * there is a runtime index, the name is derived from the index value. Otherwise the name is an empty string.
    *
    * @param         pField         The specified field, or null.
    * @param         pRuntimeIndex  The specified runtime index, or null.
@@ -407,6 +388,23 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       return "run" + pRuntimeIndex;
     } else {
       return "";
+    }
+  }
+
+  /**
+   * Evaluates and returns the name of this page mimic from specified page name. If the name is null or an empty string, it is set to "mmPage".
+   *
+   * @param         pPageName  The specified page name, or null.
+   *
+   * @return        The name of this page mimic.
+   *
+   * @jalopy.group  group-construction
+   */
+  protected String onConstructPageName(final String pPageName) {
+    if ((pPageName == null) || pPageName.trim().isEmpty()) {
+      return "mmPage";
+    } else {
+      return pPageName.trim();
     }
   }
 
@@ -438,7 +436,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-construction
    */
-  protected MmBaseImplementation<?, ?, ?> onConstructRoot(final MmBaseImplementation<?, ?, ?> pMm) {
+  protected MmImplementationPage<?> onConstructRoot(final MmBaseImplementation<?, ?, ?> pMm) {
     if (pMm.initialState.isNotInConstruction()) {
       throw new IllegalStateException("Initial state must be IN_CONSTRUCTION");
     }
@@ -446,18 +444,27 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     MmBaseImplementation<?, ?, ?> tempParent = pMm.implementationParent;
     MmBaseImplementation<?, ?, ?> tempRoot   = tempParent.root;
     if (tempRoot != null) {
-      return tempRoot;
+      if (!(tempRoot instanceof MmImplementationPage<?>)) {
+        throw new IllegalStateException("mimic must have root ancestor of type MmPage");
+      }
+      return (MmImplementationPage<?>)tempRoot;
     }
 
     while (tempParent.implementationParent != null) {
       tempParent = tempParent.implementationParent;
       tempRoot   = tempParent.root;
       if (tempRoot != null) {
-        return tempRoot;
+        if (!(tempRoot instanceof MmImplementationPage<?>)) {
+          throw new IllegalStateException("mimic must have root ancestor of type MmPage");
+        }
+        return (MmImplementationPage<?>)tempRoot;
       }
     }
 
-    return tempParent;
+    if (!(tempParent instanceof MmImplementationPage<?>)) {
+      throw new IllegalStateException("mimic must have root ancestor of type MmPage");
+    }
+    return (MmImplementationPage<?>)tempParent;
   }
 
   /**
@@ -523,14 +530,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Set declaration part of this mimic. This method onPostConstruct() is called from constructor of class {@link MmBaseDeclaration} after
-   * construction phase of implementation part is finished. This method transistions initialState from {@link IN_CONSTRUCTION} to
-   * {@link CONSTRUCTION_COMPLETE}. This method is <code>package final</code> so it can be not called or overridden from anywhere else.
+   * Set declaration part of this mimic. This method onPostConstruct() is called from constructor of class {@link MmBaseDeclaration} after construction phase
+   * of implementation part is finished. This method transistions initialState from {@link IN_CONSTRUCTION} to {@link CONSTRUCTION_COMPLETE}. This method is
+   * <code>package final</code> so it can be not called or overridden from anywhere else.
    *
    * @param         pDeclaration  The declaration part to be set.
    *
-   * @throws        IllegalStateException     in case of state is not in {@link IN_CONSTRUCTION}, or reference to declaration part is NOT
-   *                                          null.
+   * @throws        IllegalStateException     in case of state is not in {@link IN_CONSTRUCTION}, or reference to declaration part is NOT null.
    * @throws        IllegalArgumentException  in case of parameter pDeclaration is null, or reverse reference of declaration is not this.
    *
    * @jalopy.group  group-postconstruct
@@ -577,11 +583,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call
-   * super.initialize()!
+   * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call super.initialize()!
    *
-   * @throws        IllegalStateException  in case of initial state is not {@link CONSTRUCTION_COMPLETE} or reference to declaration part of
-   *                                       mimic is not defined.
+   * @throws        IllegalStateException  in case of initial state is not {@link CONSTRUCTION_COMPLETE} or reference to declaration part of mimic is not
+   *                                       defined.
    *
    * @jalopy.group  group-initialization
    */
@@ -626,8 +631,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
-   * super.onInitialization()!
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call super.onInitialization()!
    *
    * @jalopy.group  group-initialization
    */
@@ -635,9 +639,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty
-   * String if the full name is undefined. The full name is evaluated during initialization phase and derived from the field declaration
-   * name in its parent class.
+   * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty String if the full
+   * name is undefined. The full name is evaluated during initialization phase and derived from the field declaration name in its parent class.
    *
    * @return        The full name of this mimic.
    *
@@ -669,8 +672,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
-   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
+   * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
    * MmConfiguration.longDescription</code>.
    *
    * @return        A long description.
@@ -703,8 +706,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the name of this mimic, or an empty String if the name is undefined. The name is evaluated during initialization phase and
-   * derived from the field declaration name in its parent class.
+   * Returns the name of this mimic, or an empty String if the name is undefined. The name is evaluated during initialization phase and derived from the field
+   * declaration name in its parent class.
    *
    * @return        The name of this mimic.
    *
@@ -722,7 +725,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The URI of this mimic for current data model, or a fixed URI if there is no current data model.
    *
-   * @throws        IllegalStateException  TODOC
+   * @throws        IllegalStateException  In case of no definition of referencable ancestor or self reference path.
    *
    * @jalopy.group  group-override
    */
@@ -736,7 +739,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         + " This mimic or one of its parents must implement MmReferencePathProvider");
     }
 
-    UriComponents selfReferencePath = referencableAncestor.getMmReferencePath();
+    UriComponents selfReferencePath = referencableAncestor.getMmSelfReferencePath();
     if (selfReferencePath == null) {
       throw new IllegalStateException("no definition of self reference path for " + this
         + ", MmReferencePathProvider of this mimic must provide self reference path.");
@@ -767,7 +770,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The self reference (aka link) of this object for a specified data model.
    *
-   * @throws        IllegalStateException  TODOC
+   * @throws        IllegalStateException  In case of no definition of referencable ancestor or self reference path.
    *
    * @jalopy.group  group-override
    */
@@ -781,7 +784,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         + " This mimic or one of its parents must implement MmReferencePathProvider");
     }
 
-    UriComponents selfReferencePath = referencableAncestor.getMmReferencePath();
+    UriComponents selfReferencePath = referencableAncestor.getMmSelfReferencePath();
     if (selfReferencePath == null) {
       throw new IllegalStateException("no definition of self reference path for " + this
         + ", MmReferencePathProvider of this mimic must provide self reference path.");
@@ -803,8 +806,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns a short description. The short description is evaluated from declaration method <code>callbackMmGetShortDescription</code>. If
-   * <code>callbackMmGetShortDescription</code> is not overridden, the short description is evaluated from configuration attribute <code>
+   * Returns a short description. The short description is evaluated from declaration method <code>callbackMmGetShortDescription</code>. If <code>
+   * callbackMmGetShortDescription</code> is not overridden, the short description is evaluated from configuration attribute <code>
    * MmConfiguration.shortDescription</code>.
    *
    * @return        A short description.
@@ -848,7 +851,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public String getMmStyleClasses() {
     assureInitialization();
 
-    final String returnString = declaration.callbackMmGetStyleClasses("");
+    final String returnString = declaration.callbackMmGetStyleClasses(configuration.getStyleClasses());
     if (returnString == null) {
       return "";
     } else {
@@ -857,9 +860,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and
-   * callback method {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>
-   * enabled</code> on this mimic. Developer can configure annotation and can override callback method.
+   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and callback method
+   * {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>enabled</code> on this mimic. Developer
+   * can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is enabled.
    *
@@ -877,9 +880,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readonly and
-   * callback method {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>
-   * readonly</code> on this mimic. Developer can configure annotation and can override callback method.
+   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readonly and callback method
+   * {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>readonly</code> on this mimic.
+   * Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is read only.
    *
@@ -910,9 +913,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and
-   * callback method {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>
-   * visible</code> on this mimic. Developer can configure annotation and can override callback method.
+   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and callback method
+   * {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>visible</code> on this mimic. Developer
+   * can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is visible.
    *
@@ -930,8 +933,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change
-   * at any time.
+   * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change at any time.
    *
    * @return        Some information about this object for development purposes like debugging and logging.
    *
@@ -997,39 +999,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The internationalized message.
    *
-   * @throws        RuntimeException  TODOC
-   *
    * @jalopy.group  group-i18n
    */
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
     assureInitialization();
 
-    if (root.messageSource != null) {
-      String messageCode = pMessageId;
-      if ((pMessageType != null) && (pMessageType != MmMessageType.TEXT)) {
-        messageCode = messageCode + "." + pMessageType.getSuffix();
-      }
-      try {
-        return root.messageSource.getMessage(messageCode, pArguments, getMmLocale());
-      } catch (NoSuchMessageException e) {
-        if ((pMessageType == MmMessageType.TEXT) || (pMessageType == MmMessageType.SHORT) || (pMessageType == MmMessageType.LONG)) {
-          LOGGER.warn("no message for >" + messageCode + "< for locale " + getMmLocale());
-          return messageCode;
-        } else {
-          throw new RuntimeException("no message for >" + messageCode + "< for locale " + getMmLocale());
-        }
-      }
-
-    } else {
-      LOGGER.warn("getMmI18nText: {}, {}: no root message source", pMessageId, pMessageType);
-
-      // for unit tests this root returns last part of message id
-      String returnString = pMessageId;
-      if (returnString.contains(".")) {
-        returnString = returnString.substring(returnString.lastIndexOf(".") + 1);
-      }
-      return returnString;
-    }
+    return root.getMmI18nText(pMessageId, pMessageType, pArguments);
   }
 
   /**
@@ -1058,8 +1033,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, false);
         return numberFormatter.format(pViewModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
 
     } else if ((pViewModelValue instanceof BigDecimal) || (pViewModelValue instanceof BigInteger)) {
@@ -1067,16 +1041,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, true);
         return numberFormatter.format(pViewModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
 
     } else if (pViewModelValue instanceof Duration) {
       try {
         return ((Duration)pViewModelValue).toString();
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
 
     } else if (pViewModelValue instanceof Instant) {
@@ -1084,8 +1056,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return dateTimeFormatter.format((Instant)pViewModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
 
     } else if (pViewModelValue instanceof LocalTime) {
@@ -1093,8 +1064,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return ((LocalTime)pViewModelValue).format(dateTimeFormatter);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
 
     } else if (pViewModelValue instanceof LocalDate) {
@@ -1102,8 +1072,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return ((LocalDate)pViewModelValue).format(dateTimeFormatter);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
 
     } else if (pViewModelValue instanceof LocalDateTime) {
@@ -1111,8 +1080,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return ((LocalDateTime)pViewModelValue).format(dateTimeFormatter);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
 
     } else if (pViewModelValue instanceof ZonedDateTime) {
@@ -1120,8 +1088,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return ((ZonedDateTime)pViewModelValue).format(dateTimeFormatter);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
+        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
       }
 
     } else if (pViewModelValue instanceof Enum<?>) {
@@ -1206,13 +1173,24 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       return "";
 
       // format number, boolean, duration, date, time and enum values
-    } else if ((pViewValue instanceof Number) || (pViewValue instanceof Boolean) || (pViewValue instanceof Duration)
-        || (pViewValue instanceof Instant) || (pViewValue instanceof LocalTime) || (pViewValue instanceof LocalDate)
-        || (pViewValue instanceof LocalDateTime) || (pViewValue instanceof ZonedDateTime) || (pViewValue instanceof Enum<?>)) {
+    } else if ((pViewValue instanceof Number) || (pViewValue instanceof Boolean) || (pViewValue instanceof Duration) || (pViewValue instanceof Instant)
+        || (pViewValue instanceof LocalTime) || (pViewValue instanceof LocalDate) || (pViewValue instanceof LocalDateTime)
+        || (pViewValue instanceof ZonedDateTime) || (pViewValue instanceof Enum<?>)) {
 
       // retrieve format pattern and format view value
       final String formatPattern           = getMmFormatPattern();
       final String formattedViewModelValue = (String)formatViewModelValue(pViewValue, formatPattern);
+
+      // i18nize view value
+      final String i18nViewValue           = getMmI18nText(pMessageType, formattedViewModelValue);
+      return i18nViewValue;
+
+      // all other types just i18nize
+    } else if (pViewValue instanceof Collection<?>) {
+
+      // retrieve format pattern and format view value
+      final String formatPattern           = getMmFormatPattern();
+      final String formattedViewModelValue = (String)formatViewModelValue(((Collection<?>)pViewValue).size(), formatPattern);
 
       // i18nize view value
       final String i18nViewValue           = getMmI18nText(pMessageType, formattedViewModelValue);
@@ -1309,13 +1287,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseDeclaration</code>, including
-   * runtime children.
+   * Returns the list of all direct children of specified mimic, which are instances of class <code>MmBaseDeclaration</code>, including runtime children.
    *
    * @param         pDeclarationType  The specified mimic.
    *
-   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
-   *                children.
+   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime children.
    *
    * @throws        IllegalArgumentException  In case of parameter is not a subclass of MmBaseDeclaration.
    *
@@ -1332,13 +1308,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the list of all direct implementation children of specified mimic, which are instances of class <code>
-   * MmBaseImplementation</code>, including runtime children.
+   * Returns the list of all direct implementation children of specified mimic, which are instances of class <code>MmBaseImplementation</code>, including
+   * runtime children.
    *
    * @param         pImplementationType  The specified mimic.
    *
-   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime
-   *                children.
+   * @return        The list of all direct children of specified mimic of type <code>MmBaseImplementation</code>, including runtime children.
    *
    * @throws        IllegalArgumentException  In case of parameter is not a subclass of MmBaseImplementation.
    *
@@ -1352,32 +1327,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     return (List<T>)Stream.concat(implementationChildren.stream(), runtimeImplementationChildren.stream()) //
     .filter(child -> pImplementationType.isAssignableFrom(child.getClass())) //
     .collect(Collectors.toList());
-  }
-
-  /**
-   * Returns the MmJsfBridge of this mimic, which connects it to a JSF view component..
-   *
-   * @return        The MmJsfBridge of this mimic.
-   *
-   * @jalopy.group  group-helper
-   */
-  public MmJsfBridge<?, ?, ?> getJsfBridge() {
-    return mmJsfBridge;
-  }
-
-  /**
-   * Returns the current JSF tag of this mimic, dependent on enabled state and configuration.
-   *
-   * @return        The current JSF tag of this mimic.
-   *
-   * @jalopy.group  group-helper
-   */
-  public String getJsfTag() {
-    if ((isMmEnabled() && !isMmReadOnly()) || configuration.getJsfTagDisabled().equals("SameAsEnabled")) {
-      return configuration.getJsfTagEnabled();
-    } else {
-      return configuration.getJsfTagDisabled();
-    }
   }
 
   /**
@@ -1436,8 +1385,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns a descendant mimic of specified full name, or <code>null</code> if it doesn't exist. The name is a path of ancestors' names
-   * like <code>grandparent.parent.child</code>.
+   * Returns a descendant mimic of specified full name, or <code>null</code> if it doesn't exist. The name is a path of ancestors' names like <code>
+   * grandparent.parent.child</code>.
    *
    * @param         pFullName  The full name of the mimic to search for.
    *
@@ -1481,8 +1430,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns an ancestor of this mimic of specified type, if exists, otherwise null. This method may be called at any time, even in
-   * constructor.
+   * Returns an ancestor of this mimic of specified type, if exists, otherwise null. This method may be called at any time, even in constructor.
    *
    * @param         pType  The specified type.
    *
@@ -1501,6 +1449,19 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     } else {
       return null;
     }
+  }
+
+  /**
+   * Returns the {@link Locale} of this page.
+   *
+   * @return        The locale of this page.
+   *
+   * @jalopy.group  group-helper
+   */
+  public Locale getMmLocale() {
+    assureInitialization();
+
+    return root.getMmLocale();
   }
 
   /**
@@ -1523,8 +1484,21 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-helper
    */
-  public MmBaseImplementation<?, ?, ?> getMmRoot() {
+  public MmImplementationPage<?> getMmRoot() {
     return root;
+  }
+
+  /**
+   * Returns the {@link MmTheme} of this page.
+   *
+   * @return        The theme of this page.
+   *
+   * @jalopy.group  group-helper
+   */
+  public MmTheme getMmTheme() {
+    assureInitialization();
+
+    return root.getMmTheme();
   }
 
   /**
@@ -1535,12 +1509,24 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public boolean isMmThisTheRoot() {
-    return false;
+    return (implementationParent == null) && (this instanceof MmImplementationPage<?>) && (this == root);
   }
 
   /**
-   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
-   * "city/123/person/4711/display".
+   * Returns true, if the user's browser has enabled Javascript language.
+   *
+   * @return        True, if the user's browser has enabled Javascript language.
+   *
+   * @jalopy.group  group-helper
+   */
+  public boolean isMmUserAgentJavaScriptEnabled() {
+    assureInitialization();
+
+    return root.isMmUserAgentJavaScriptEnabled();
+  }
+
+  /**
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @return        The data model for self reference.
    *
@@ -1589,60 +1575,4 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
     return writer.toString();
   }
-
-  /**
-   * Returns the {@link Locale} of this root.
-   *
-   * @return  The locale of this root.
-   */
-  public Locale getMmLocale() {
-    assureInitialization();
-
-    if (root.locale == null) {
-      LOGGER.warn("getMmLocale: undefined root locale is set to " + NO_SESSION_CONTEXT_LOCALE);
-      root.locale = NO_SESSION_CONTEXT_LOCALE;
-    }
-    return root.locale;
-  }
-
-  /**
-   * Returns true, if the user's browser has enabled Javascript language.
-   *
-   * @return  True, if the user's browser has enabled Javascript language.
-   */
-  public boolean isMmJsEnabled() {
-    assureInitialization();
-
-    return root.sessionContext.isMmJsEnabled();
-  }
-
-  /**
-   * Set specified locale.
-   *
-   * @param  pLocale  The specified locale.
-   */
-  public void setMmLocale(Locale pLocale) {
-    assureInitialization();
-
-    root.locale = pLocale;
-  }
-
-  /**
-   * Sets specified message source.
-   *
-   * @param  pMessageSource  The specified message source.
-   */
-  public void setMmMessageSource(MessageSource pMessageSource) {
-    root.messageSource = pMessageSource;
-  }
-
-  /**
-   * Sets the {@link MmSessionContext} of this root, which provides information about the user's session.
-   *
-   * @param  pSessionContext  The session context to be set.
-   */
-  public void setSessionContext(MmSessionContext pSessionContext) {
-    root.sessionContext = pSessionContext;
-  }
-
 }

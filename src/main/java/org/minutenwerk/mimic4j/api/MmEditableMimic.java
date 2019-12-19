@@ -4,8 +4,8 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 
 /**
- * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from data model. Mimics of type
- * MmEditableMimic can be validated.
+ * MmEditableMimic is the basic interface of all mimic types containing data, which can be changed from data model. Mimics of type MmEditableMimic can be
+ * validated.
  *
  * @author  Olaf Kossak
  */
@@ -32,8 +32,8 @@ public interface MmEditableMimic extends MmMimic {
   public MmModelAccessor<?, ?> getMmModelAccessor();
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
-   * are marked as being changed as well.
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic are marked as
+   * being changed as well.
    *
    * @return  <code>True</code>, if mimic has been changed from view model.
    */

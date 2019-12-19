@@ -4,8 +4,8 @@ import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.link.MmLinkCallback;
 
 /**
- * MmCommandCallback defines a set of override-able methods common to all command mimics. Callback methods are part of the declaration API
- * of mimics. Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
+ * MmCommandCallback defines a set of override-able methods common to all command mimics. Callback methods are part of the declaration API of mimics. Callback
+ * methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
  * @param   <DATA_MODEL>  Data model delivers dynamic parts and view text label of link.
  *

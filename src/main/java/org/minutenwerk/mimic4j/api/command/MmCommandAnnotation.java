@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.container.MmLeporello;
-import org.minutenwerk.mimic4j.api.container.MmLeporello.MmVoidTarget;
+import org.minutenwerk.mimic4j.api.container.MmPage;
+import org.minutenwerk.mimic4j.api.container.MmPage.MmVoidTarget;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.command.MmConfigurationCommand;
 import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
@@ -18,7 +18,7 @@ import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmCommandAnnotation {
 
   public String id() default MmConfigurationCommand.UNDEFINED_ID;
@@ -33,13 +33,9 @@ public @interface MmCommandAnnotation {
 
   public String styleClasses() default MmConfigurationCommand.DEFAULT_STYLE_CLASSES;
 
-  public MmCommand.MmCommandJsfTag jsfTag() default MmCommand.MmCommandJsfTag.CommandButton;
-
-  public MmCommand.MmCommandJsfDisabled jsfTagDisabled() default MmCommand.MmCommandJsfDisabled.SameAsEnabled;
-
   public String targetReferencePath() default MmConfigurationLink.DEFAULT_TARGET_REFERENCE_PATH;
 
-  public Class<? extends MmLeporello<?, ?>> targetLeporello() default MmVoidTarget.class;
+  public Class<? extends MmPage<?>> targetPage() default MmVoidTarget.class;
 
   public String submitParam() default MmConfigurationCommand.DEFAULT_SUBMIT_PARAM;
 }

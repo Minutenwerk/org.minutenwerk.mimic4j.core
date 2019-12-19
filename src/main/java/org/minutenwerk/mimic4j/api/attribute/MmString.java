@@ -19,42 +19,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 public class MmString extends MmBaseAttributeDeclaration<MmImplementationString, String, String> {
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmStringJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmStringJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmString instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.

@@ -5,16 +5,13 @@ import java.time.Duration;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmDuration;
 import org.minutenwerk.mimic4j.api.attribute.MmDurationAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationDuration is the implementation part of a mimic for {@link Duration}.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationDuration
-  extends MmBaseAttributeImplementation<MmDuration, MmConfigurationDuration, MmDurationAnnotation, Duration, String> {
+public class MmImplementationDuration extends MmBaseAttributeImplementation<MmDuration, MmConfigurationDuration, MmDurationAnnotation, Duration, String> {
 
   /**
    * Creates a new MmImplementationDuration instance.
@@ -51,16 +48,6 @@ public class MmImplementationDuration
     } else {
       return new MmConfigurationDuration();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<String>(this);
   }
 
 }

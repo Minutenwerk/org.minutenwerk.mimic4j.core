@@ -5,8 +5,8 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 
 /**
- * MmTableCallback defines a set of override-able methods common to all table mimics. Callback methods are part of the declaration API of
- * mimics. Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
+ * MmTableCallback defines a set of override-able methods common to all table mimics. Callback methods are part of the declaration API of mimics. Callback
+ * methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
  * @author  Olaf Kossak
  */

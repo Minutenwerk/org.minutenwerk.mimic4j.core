@@ -29,8 +29,8 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    * @param  pAttributeGetter  The attribute model getter method.
    * @param  pAttributeSetter  The attribute model setter method.
    */
-  public MmAttributeAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
-    final Function<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeGetter, final BiConsumer<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeSetter) {
+  public MmAttributeAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeGetter,
+    final BiConsumer<PARENT_MODEL, ATTRIBUTE_MODEL> pAttributeSetter) {
     super(parentAccessor);
     attributeGetter = pAttributeGetter;
     attributeSetter = pAttributeSetter;

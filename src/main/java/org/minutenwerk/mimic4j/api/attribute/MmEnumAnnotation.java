@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmEnum.MmEnumJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmEnum.MmEnumJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationEnum;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationEnum;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmEnumAnnotation {
 
   public String id() default MmConfigurationEnum.UNDEFINED_ID;
@@ -31,9 +29,5 @@ public @interface MmEnumAnnotation {
   public boolean required() default MmConfigurationEnum.DEFAULT_IS_REQUIRED;
 
   public String styleClasses() default MmConfigurationEnum.DEFAULT_STYLE_CLASSES;
-
-  public MmEnumJsfTag jsfTag() default MmEnumJsfTag.SelectOneMenu;
-
-  public MmEnumJsfDisabled jsfTagDisabled() default MmEnumJsfDisabled.TextField;
 
 }

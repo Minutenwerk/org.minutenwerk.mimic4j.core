@@ -1,8 +1,7 @@
 package org.minutenwerk.mimic4j.api.container;
 
 /**
- * MmRowIdentifiable defines the interface of a table row which delivers information about its database record id and version, and table row
- * index.
+ * MmRowIdentifiable defines the interface of a table row which delivers information about its database record id and version, and table row index.
  *
  * @author  Olaf Kossak
  */

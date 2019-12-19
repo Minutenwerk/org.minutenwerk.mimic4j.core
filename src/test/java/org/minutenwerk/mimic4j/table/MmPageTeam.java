@@ -6,11 +6,12 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
-import org.minutenwerk.mimic4j.api.container.MmTab;
+import org.minutenwerk.mimic4j.api.container.MmPage;
 import org.minutenwerk.mimic4j.api.container.MmTableAnnotation;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
+import org.springframework.web.util.UriComponents;
 
-public class MmTabTeam extends MmTab<Team> {
+public class MmPageTeam extends MmPage<Team> {
 
   @MmStringAnnotation(id = "tn")
   public final MmString name = new MmString(this) {
@@ -30,7 +31,12 @@ public class MmTabTeam extends MmTab<Team> {
     }
   };
 
-  public MmTabTeam(MmBaseDeclaration<?, ?> pParent, MmRootAccessor<Team> pParentAccessor) {
-    super(pParent, pParentAccessor);
+  public MmPageTeam(MmBaseDeclaration<?, ?> pParent, MmRootAccessor<Team> pParentAccessor) {
+    super(null, "pgTeam", pParentAccessor);
+  }
+
+  @Override
+  public UriComponents getMmSelfReferencePath() {
+    return null;
   }
 }

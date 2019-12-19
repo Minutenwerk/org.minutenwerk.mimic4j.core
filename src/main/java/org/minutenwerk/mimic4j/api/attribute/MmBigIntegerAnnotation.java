@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmBigInteger.MmBigIntegerJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmBigInteger.MmBigIntegerJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigInteger;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigInteger;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmBigIntegerAnnotation {
 
   public String id() default MmConfigurationBigInteger.UNDEFINED_ID;
@@ -33,9 +31,5 @@ public @interface MmBigIntegerAnnotation {
   public String styleClasses() default MmConfigurationBigInteger.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationBigInteger.DEFAULT_FORMAT_MAX_LENGTH;
-
-  public MmBigIntegerJsfTag jsfTag() default MmBigIntegerJsfTag.TextField;
-
-  public MmBigIntegerJsfDisabled jsfTagDisabled() default MmBigIntegerJsfDisabled.SameAsEnabled;
 
 }

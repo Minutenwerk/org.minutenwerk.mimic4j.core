@@ -22,8 +22,7 @@ public class MmMapAccessor<PARENT_MODEL, KEY, VALUE_MODEL> extends MmAttributeAc
    * @param  componentGetter  TODOC
    * @param  componentSetter  TODOC
    */
-  public MmMapAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
-    final Function<PARENT_MODEL, Map<KEY, VALUE_MODEL>> componentGetter,
+  public MmMapAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, Map<KEY, VALUE_MODEL>> componentGetter,
     final BiConsumer<PARENT_MODEL, Map<KEY, VALUE_MODEL>> componentSetter) {
     super(parentAccessor, componentGetter, componentSetter);
   }

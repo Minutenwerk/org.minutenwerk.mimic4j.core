@@ -33,8 +33,8 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<MmIm
    * Creates a new MmTable instance.
    *
    * @param  pParent        The parent declaration mimic, containing a public final declaration of this mimic.
-   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
-   *                        has a root accessor.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root
+   *                        accessor.
    */
   public MmTable(MmDeclarationMimic pParent, final MmRootAccessor<List<ROW_MODEL>> pRootAccessor) {
     super(new MmImplementationTable<>(pParent, pRootAccessor));
@@ -53,8 +53,7 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<MmIm
   public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
     try {
       @SuppressWarnings("unchecked")
-      MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> modelAccessor = (MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL>)
-        pParentAccessor;
+      MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> modelAccessor = (MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL>)pParentAccessor;
       return modelAccessor;
     } catch (ClassCastException e) {
       throw new ClassCastException("Parent accessor " + pParentAccessor

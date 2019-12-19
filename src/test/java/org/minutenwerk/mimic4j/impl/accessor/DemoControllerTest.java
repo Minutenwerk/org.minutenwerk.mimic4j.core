@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.minutenwerk.mimic4j.api.container.MmTab;
+import org.minutenwerk.mimic4j.api.container.MmPage;
+import org.springframework.web.util.UriComponents;
 
 public class DemoControllerTest {
 
@@ -22,7 +23,12 @@ public class DemoControllerTest {
 
     // create controller
     DemoController controller = new DemoController();
-    new MmTab<>(null, controller.selectedBook());
+    new MmPage<Book>(null, "pgBook", controller.selectedBook()) {
+      @Override
+      public UriComponents getMmSelfReferencePath() {
+        return null;
+      }
+    };
 
     // let controller point to pojo
     // use accessors to set values and assert values

@@ -25,12 +25,12 @@ import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
-import org.minutenwerk.mimic4j.api.container.MmTab;
+import org.minutenwerk.mimic4j.api.container.MmPage;
 import org.minutenwerk.mimic4j.api.container.MmTabAnnotation;
 import org.minutenwerk.mimic4j.container.Person.Gender;
-import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
+import org.springframework.web.util.UriComponents;
 
-public class MmTabPerson extends MmTab<Person> {
+public class MmPagePerson extends MmPage<Person> {
 
   @MmStringAnnotation(id = "vn")
   public final MmString vorname = new MmString(this) {
@@ -123,7 +123,12 @@ public class MmTabPerson extends MmTab<Person> {
     }
   };
 
-  public MmTabPerson(MmBaseDeclaration<?, ?> pParent, MmRootAccessor<Person> pParentAccessor) {
-    super(pParent, pParentAccessor);
+  public MmPagePerson(MmRootAccessor<Person> pParentAccessor) {
+    super(null /* site service */, "pgPerson", pParentAccessor);
+  }
+
+  @Override
+  public UriComponents getMmSelfReferencePath() {
+    return null;
   }
 }

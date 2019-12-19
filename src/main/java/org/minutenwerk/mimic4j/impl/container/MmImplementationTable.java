@@ -12,8 +12,6 @@ import org.minutenwerk.mimic4j.api.container.MmTableAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
 
 /**
  * MmImplementationTable is the specific class for the implementation part of table mimics.
@@ -25,8 +23,7 @@ import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTable;
  * @jalopy.group-order  group-initialization, group-lifecycle, group-do, group-get
  */
 public class MmImplementationTable<ROW_MODEL>
-  extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable, MmTableAnnotation>
-  implements MmTableMimic<ROW_MODEL> {
+  extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable, MmTableAnnotation> implements MmTableMimic<ROW_MODEL> {
 
   /** The list of table columns of this table. */
   protected final List<MmTableColumn<?>> tableColumns;
@@ -45,11 +42,11 @@ public class MmImplementationTable<ROW_MODEL>
    * Creates a new MmImplementationTable instance.
    *
    * @param  pParent        The parent declaration mimic, containing a public final declaration of this mimic.
-   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
-   *                        has a root accessor.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root
+   *                        accessor.
    */
   public MmImplementationTable(MmDeclarationMimic pParent, MmRootAccessor<List<ROW_MODEL>> pRootAccessor) {
-    super(pParent, pRootAccessor);
+    super(pParent, NULL_NAME, pRootAccessor);
     tableColumns = new ArrayList<>();
   }
 
@@ -119,18 +116,6 @@ public class MmImplementationTable<ROW_MODEL>
     } else {
       return new MmConfigurationTable();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return        A new MmJsfBridge for this mimic.
-   *
-   * @jalopy.group  group-lifecycle
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeTable<ROW_MODEL>(this);
   }
 
   /**

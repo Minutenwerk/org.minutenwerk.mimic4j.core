@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime.MmDateTimeJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime.MmDateTimeJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationZonedDateTime;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationZonedDateTime;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmZonedDateTimeAnnotation {
 
   public String id() default MmConfigurationZonedDateTime.UNDEFINED_ID;
@@ -35,9 +33,5 @@ public @interface MmZonedDateTimeAnnotation {
   public String formatPattern() default MmConfigurationZonedDateTime.DEFAULT_FORMAT_PATTERN;
 
   public int formatMaxLength() default MmConfigurationZonedDateTime.DEFAULT_FORMAT_MAX_LENGTH;
-
-  public MmDateTimeJsfTag jsfTag() default MmDateTimeJsfTag.TextField;
-
-  public MmDateTimeJsfDisabled jsfTagDisabled() default MmDateTimeJsfDisabled.SameAsEnabled;
 
 }

@@ -22,9 +22,8 @@ public class MmSetAccessor<PARENT_MODEL, VALUE_MODEL> extends MmCollectionAccess
    * @param  componentSetter  TODOC
    * @param  valueAdder       TODOC
    */
-  public MmSetAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
-    final Function<PARENT_MODEL, Set<VALUE_MODEL>> componentGetter, final BiConsumer<PARENT_MODEL, Set<VALUE_MODEL>> componentSetter,
-    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
+  public MmSetAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, Set<VALUE_MODEL>> componentGetter,
+    final BiConsumer<PARENT_MODEL, Set<VALUE_MODEL>> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder) {
     super(parentAccessor, componentGetter, componentSetter, valueAdder);
   }
 
@@ -37,9 +36,9 @@ public class MmSetAccessor<PARENT_MODEL, VALUE_MODEL> extends MmCollectionAccess
    * @param  valueAdder       TODOC
    * @param  valueRemover     TODOC
    */
-  public MmSetAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor,
-    final Function<PARENT_MODEL, Set<VALUE_MODEL>> componentGetter, final BiConsumer<PARENT_MODEL, Set<VALUE_MODEL>> componentSetter,
-    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueRemover) {
+  public MmSetAccessor(final MmModelAccessor<?, PARENT_MODEL> parentAccessor, final Function<PARENT_MODEL, Set<VALUE_MODEL>> componentGetter,
+    final BiConsumer<PARENT_MODEL, Set<VALUE_MODEL>> componentSetter, final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueAdder,
+    final BiConsumer<PARENT_MODEL, VALUE_MODEL> valueRemover) {
     super(parentAccessor, componentGetter, componentSetter, valueAdder, valueRemover);
   }
 }

@@ -18,42 +18,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationDouble;
 public class MmDouble extends MmBaseAttributeDeclaration<MmImplementationDouble, Double, String> {
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmDoubleJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmDoubleJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmDouble instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -81,8 +45,7 @@ public class MmDouble extends MmBaseAttributeDeclaration<MmImplementationDouble,
         NumberFormat numberFormatter = getMmNumberFormatter();
         returnString = numberFormatter.format(pDataModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
+        throw new MmDataModelConverterException(this, "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
       }
     }
     return returnString;

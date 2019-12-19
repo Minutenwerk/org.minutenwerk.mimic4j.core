@@ -3,8 +3,6 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttributeEnum;
 
 /**
  * MmImplementationEnum is the implementation part of a mimic for enumerations.
@@ -61,16 +59,6 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
     } else {
       return new MmConfigurationEnum<ENUM_TYPE>();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttributeEnum<ENUM_TYPE>(this);
   }
 
 }

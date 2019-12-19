@@ -18,42 +18,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationFloat;
 public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, Float, String> {
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmFloatJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmFloatJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmFloat instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -81,8 +45,7 @@ public class MmFloat extends MmBaseAttributeDeclaration<MmImplementationFloat, F
         NumberFormat numberFormatter = getMmNumberFormatter();
         returnString = numberFormatter.format(pDataModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
+        throw new MmDataModelConverterException(this, "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
       }
     }
     return returnString;

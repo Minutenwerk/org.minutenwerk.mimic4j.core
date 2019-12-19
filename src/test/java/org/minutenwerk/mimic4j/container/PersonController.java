@@ -4,7 +4,7 @@ public class PersonController {
 
   private final PersonAccessor personAccessor = new PersonAccessor();
 
-  public final MmTabPerson tabPerson = new MmTabPerson(null, person());
+  public final MmPagePerson pagePerson = new MmPagePerson(person());
 
   /** root accessor. */
   public PersonAccessor person() {

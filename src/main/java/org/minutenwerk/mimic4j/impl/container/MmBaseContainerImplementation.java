@@ -26,19 +26,14 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageList;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-initialization, group-lifecycle, group-do, group-get, group-clear, group-changed-front, group-required,
- *                      group-valid
+ * @jalopy.group-order  group-initialization, group-lifecycle, group-do, group-get, group-clear, group-changed-front, group-required, group-valid
  */
 public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseContainerDeclaration<?, MODEL>,
-  MODEL, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation>
-  extends MmBaseImplementation<DECLARATION, CONFIGURATION, ANNOTATION> implements MmContainerMimic<MODEL>, MmEditableMimicImpl,
-    MmModelChangeListener {
+  MODEL, CONFIGURATION extends MmBaseConfiguration, ANNOTATION extends Annotation> extends MmBaseImplementation<DECLARATION, CONFIGURATION, ANNOTATION>
+  implements MmContainerMimic<MODEL>, MmEditableMimicImpl, MmModelChangeListener {
 
   /** Constant for index of generic type for model. */
-  public static final int GENERIC_PARAMETER_INDEX_MODEL         = 2;
-
-  /** Constant for index of generic type for configuration. */
-  public static final int GENERIC_PARAMETER_INDEX_CONFIGURATION = 3;
+  private static final int GENERIC_PARAMETER_INDEX_MODEL = 2;
 
   /**
    * MmContainerErrorState is an enumeration of values regarding an container's error state during conversion and validation.
@@ -63,10 +58,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   /** This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root accessor. */
   protected final MmRootAccessor<?>   rootAccessor;
 
-  /**
-   * This component has a model of type MODEL. The model has a model accessor. Its first generic, the type of the parent model, is
-   * undefined.
-   */
+  /** This component has a model of type MODEL. The model has a model accessor. Its first generic, the type of the parent model, is undefined. */
   protected MmModelAccessor<?, MODEL> modelAccessor;
 
   /**
@@ -75,7 +67,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent) {
-    this(pParent, (Integer)null);
+    this(pParent, NULL_RUNTIME_INDEX);
   }
 
   /**
@@ -85,7 +77,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @param  pRuntimeIndex  The index of this mimic when created at runtime.
    */
   public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final Integer pRuntimeIndex) {
-    super(pParent, pRuntimeIndex);
+    super(pParent, NULL_NAME, pRuntimeIndex);
     messageList  = new MmMessageList();
     errorstate   = MmContainerErrorState.SUCCESS;
     rootAccessor = onConstructRootAccessor();
@@ -95,12 +87,13 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * Creates a new MmBaseContainerImplementation instance.
    *
    * @param  pParent        The parent declaration mimic, containing a public final declaration of this mimic.
-   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
-   *                        has a root accessor.
+   * @param  pName          Specified name of this mimic.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root
+   *                        accessor.
    */
   @SuppressWarnings("unchecked")
-  public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final MmRootAccessor<MODEL> pRootAccessor) {
-    super(pParent, (Integer)null);
+  public MmBaseContainerImplementation(final MmDeclarationMimic pParent, final String pName, final MmRootAccessor<MODEL> pRootAccessor) {
+    super(pParent, pName, NULL_RUNTIME_INDEX);
     messageList   = new MmMessageList();
     errorstate    = MmContainerErrorState.SUCCESS;
     rootAccessor  = pRootAccessor;
@@ -150,8 +143,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
-   * "city/123/person/4711/display".
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @return        The data model for self reference.
    *
@@ -164,8 +156,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
-   * super.onInitialization()!
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call super.onInitialization()!
    *
    * @throws        IllegalStateException  In case of root accessor or model accessor is not defined.
    *
@@ -198,9 +189,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-initialization
    */
   private MmRootAccessor<?> onConstructRootAccessor() {
-    for (MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getMmImplementationAncestorOfType(
-            MmBaseContainerImplementation.class); containerAncestor != null;
-        containerAncestor = containerAncestor.getMmImplementationAncestorOfType(MmBaseContainerImplementation.class)) {
+    for (MmBaseContainerImplementation<?, ?, ?, ?> containerAncestor = getMmImplementationAncestorOfType(MmBaseContainerImplementation.class);
+        containerAncestor != null; containerAncestor = containerAncestor.getMmImplementationAncestorOfType(MmBaseContainerImplementation.class)) {
       if (containerAncestor.rootAccessor != null) {
         return containerAncestor.rootAccessor;
       }
@@ -374,8 +364,8 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
-   * are marked as being changed as well.
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic are marked as
+   * being changed as well.
    *
    * @return        <code>True</code>, if mimic has been changed from view model.
    *

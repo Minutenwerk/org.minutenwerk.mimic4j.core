@@ -124,8 +124,7 @@ public class MmSelectOption<OPTION_VALUE_TYPE> {
   }
 
   /**
-   * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change
-   * at any time.
+   * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change at any time.
    *
    * @return  Some information about this object for development purposes like debugging and logging.
    */

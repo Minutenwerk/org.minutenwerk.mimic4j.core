@@ -5,8 +5,6 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmListString;
 import org.minutenwerk.mimic4j.api.attribute.MmListStringAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationListString is the implementation part of a mimic for a list of {@link String}.
@@ -51,16 +49,6 @@ public class MmImplementationListString
     } else {
       return new MmConfigurationListString();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<List<String>>(this);
   }
 
 }

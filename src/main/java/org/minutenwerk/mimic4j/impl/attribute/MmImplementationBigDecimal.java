@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBigDecimal;
 import org.minutenwerk.mimic4j.api.attribute.MmBigDecimalAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationBigDecimal is the implementation part of a mimic for {@link BigDecimal}.
@@ -51,16 +49,6 @@ public class MmImplementationBigDecimal
     } else {
       return new MmConfigurationBigDecimal();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<String>(this);
   }
 
 }

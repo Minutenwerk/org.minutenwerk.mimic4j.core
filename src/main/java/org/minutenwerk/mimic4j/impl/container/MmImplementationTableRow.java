@@ -10,8 +10,6 @@ import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.container.MmTableRowAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeTableRow;
 
 /**
  * MmImplementationTableRow is the specific class for the implementation part of table row mimics.
@@ -88,18 +86,8 @@ public class MmImplementationTableRow<ROW_MODEL>
   }
 
   /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeTableRow(this);
-  }
-
-  /**
-   * Evaluates and returns the name of this mimic. The name is derived from the specified field, if the mimic is declared as a field of
-   * another mimic. If there is a runtime index, the name is derived from the index value. Otherwise the name is an empty string.
+   * Evaluates and returns the name of this mimic. The name is derived from the specified field, if the mimic is declared as a field of another mimic. If
+   * there is a runtime index, the name is derived from the index value. Otherwise the name is an empty string.
    *
    * @param         pField         The specified field, or null.
    * @param         pRuntimeIndex  The specified runtime index, or null.

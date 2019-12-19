@@ -9,8 +9,6 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalTime;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalTimeAnnotation;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationLocalTime is the implementation part of a mimic for {@link LocalTime}.
@@ -33,8 +31,8 @@ public class MmImplementationLocalTime
   }
 
   /**
-   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model value and vice
+   * versa. It is dependent on the user's locale.
    *
    * @return  The attribute's format pattern for displaying view value.
    *
@@ -84,16 +82,6 @@ public class MmImplementationLocalTime
     } else {
       return new MmConfigurationLocalTime();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<String>(this);
   }
 
 }

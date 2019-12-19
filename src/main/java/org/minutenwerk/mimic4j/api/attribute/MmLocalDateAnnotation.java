@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDate.MmDateJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDate.MmDateJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationLocalDate;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationLocalDate;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmLocalDateAnnotation {
 
   public String id() default MmConfigurationLocalDate.UNDEFINED_ID;
@@ -35,9 +33,5 @@ public @interface MmLocalDateAnnotation {
   public String formatPattern() default MmConfigurationLocalDate.DEFAULT_FORMAT_PATTERN;
 
   public int formatMaxLength() default MmConfigurationLocalDate.DEFAULT_FORMAT_MAX_LENGTH;
-
-  public MmDateJsfTag jsfTag() default MmDateJsfTag.TextField;
-
-  public MmDateJsfDisabled jsfTagDisabled() default MmDateJsfDisabled.SameAsEnabled;
 
 }

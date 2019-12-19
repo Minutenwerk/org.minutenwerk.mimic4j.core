@@ -29,42 +29,6 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationBigDecimal.class);
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmBigDecimalJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmBigDecimalJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmBigDecimal instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -92,8 +56,7 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
         NumberFormat numberFormatter = getMmNumberFormatter();
         returnString = numberFormatter.format(pDataModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
+        throw new MmDataModelConverterException(this, "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
       }
     }
     return returnString;
@@ -154,7 +117,7 @@ public class MmBigDecimal extends MmBaseAttributeDeclaration<MmImplementationBig
       }
     }
 
-    final Locale        locale                = getMmLocale();
+    final Locale        locale                = implementation.getMmLocale();
     final NumberFormat  numberFormat          = NumberFormat.getNumberInstance(locale);
     final DecimalFormat returnNumberFormatter = (DecimalFormat)numberFormat;
     returnNumberFormatter.setParseBigDecimal(true);

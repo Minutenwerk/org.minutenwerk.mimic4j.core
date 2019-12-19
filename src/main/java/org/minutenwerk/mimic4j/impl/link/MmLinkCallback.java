@@ -11,8 +11,8 @@ import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.springframework.web.util.UriComponents;
 
 /**
- * MmLinkCallback defines a set of override-able methods common to all link mimics. Callback methods are part of the declaration API of
- * mimics. Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
+ * MmLinkCallback defines a set of override-able methods common to all link mimics. Callback methods are part of the declaration API of mimics. Callback
+ * methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
  * @param   <DATA_MODEL>  Data model delivers dynamic parts of URL.
  * @param   <VIEW_MODEL>  View model delivers view text label of link.
@@ -22,8 +22,8 @@ import org.springframework.web.util.UriComponents;
 public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
 
   /**
-   * Returns the link's model accessor to corresponding data model. The data model delivers dynamic parts of URL. The data model accessor
-   * can be derived from specified parent component accessor.
+   * Returns the link's model accessor to corresponding data model. The data model delivers dynamic parts of URL. The data model accessor can be derived from
+   * specified parent component accessor.
    *
    * @param   pParentAccessor  The specified parent component accessor.
    *
@@ -52,8 +52,8 @@ public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
   public MmMimic callbackMmGetTargetReferenceMimic(MmMimic pPassThroughValue);
 
   /**
-   * Returns the link's format pattern for displaying view value. It is used during conversion from view model to view value and vice versa.
-   * It is dependent on the user's locale.
+   * Returns the link's format pattern for displaying view value. It is used during conversion from view model to view value and vice versa. It is dependent
+   * on the user's locale.
    *
    * @param   pPassThroughValue  By default this parameter value will be returned.
    *
@@ -62,8 +62,8 @@ public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
   public String callbackMmGetViewFormatPattern(String pPassThroughValue);
 
   /**
-   * Returns the link's model accessor to corresponding view model. The view model delivers dynamic parts of URL. The view model accessor
-   * can be derived from specified parent component accessor.
+   * Returns the link's model accessor to corresponding view model. The view model delivers dynamic parts of URL. The view model accessor can be derived from
+   * specified parent component accessor.
    *
    * @param   pParentAccessor  The specified parent component accessor.
    *

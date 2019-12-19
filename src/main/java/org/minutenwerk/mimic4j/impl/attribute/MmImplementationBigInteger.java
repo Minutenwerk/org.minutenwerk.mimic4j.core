@@ -5,8 +5,6 @@ import java.math.BigInteger;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBigInteger;
 import org.minutenwerk.mimic4j.api.attribute.MmBigIntegerAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationBigInteger is the implementation part of a mimic for {@link BigInteger}.
@@ -51,16 +49,6 @@ public class MmImplementationBigInteger
     } else {
       return new MmConfigurationBigInteger();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<String>(this);
   }
 
 }

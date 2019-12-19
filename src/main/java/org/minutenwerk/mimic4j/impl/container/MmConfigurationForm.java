@@ -11,9 +11,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  */
 public class MmConfigurationForm extends MmBaseConfiguration {
 
-  /** Constant for default value of JSF tag in enabled state. Redundant to {@link MmFormAnnotation.jsfTag()}. */
-  public static final String DEFAULT_JSF_TAG = "Form";
-
   /**
    * Creates a new MmConfigurationForm instance of default values.
    */
@@ -27,28 +24,7 @@ public class MmConfigurationForm extends MmBaseConfiguration {
    * @param  pFormAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationForm(MmFormAnnotation pFormAnnotation) {
-    super(pFormAnnotation.id(), pFormAnnotation.visible(), pFormAnnotation.readOnly(), pFormAnnotation.enabled(),
-      pFormAnnotation.styleClasses());
-  }
-
-  /**
-   * Returns the configuration of JSF tag in disabled state.
-   *
-   * @return  The configuration of JSF tag in disabled state.
-   */
-  @Override
-  public String getJsfTagDisabled() {
-    return DEFAULT_JSF_TAG;
-  }
-
-  /**
-   * Returns the configuration of JSF tag in enabled state.
-   *
-   * @return  The configuration of JSF tag in enabled state.
-   */
-  @Override
-  public String getJsfTagEnabled() {
-    return DEFAULT_JSF_TAG;
+    super(pFormAnnotation.id(), pFormAnnotation.visible(), pFormAnnotation.readOnly(), pFormAnnotation.enabled(), pFormAnnotation.styleClasses());
   }
 
 }

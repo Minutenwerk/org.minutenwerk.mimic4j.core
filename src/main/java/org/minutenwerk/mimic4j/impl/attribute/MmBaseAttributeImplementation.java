@@ -27,9 +27,9 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageSeverity;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**
- * MmBaseAttributeImplementation is the abstract base class for all mimics of editable attributes. This class implements the mimic of
- * setting a value into an attribute either by a attribute accessor on a model or from view model, converting the value between model and
- * view model type and vice versa, validating a value entered from view model and controlling change events and the mimic's state.
+ * MmBaseAttributeImplementation is the abstract base class for all mimics of editable attributes. This class implements the mimic of setting a value into an
+ * attribute either by a attribute accessor on a model or from view model, converting the value between model and view model type and vice versa, validating a
+ * value entered from view model and controlling change events and the mimic's state.
  *
  * @param               <CALLBACK>        Interface defining callback methods, extending {@link MmBaseCallback}.
  * @param               <CONFIGURATION>   Type of configuration, holding state of mimic configuration.
@@ -46,10 +46,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   extends MmBaseImplementation<MmBaseAttributeDeclaration<?, ATTRIBUTE_TYPE, VIEW_TYPE>, CONFIGURATION, ANNOTATION>
   implements MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE>, MmEditableMimicImpl {
 
-  /** Class internal constant to control index of generic type ATTRIBUTE_TYPE. */
+  /** Class internal constant to describe index of generic type ATTRIBUTE_TYPE. */
   private static final int    GENERIC_PARAMETER_INDEX_ATTRIBUTE_TYPE = 4;
 
-  /** Class internal constant to control index of generic type VIEW_TYPE. */
+  /** Class internal constant to describe index of generic type VIEW_TYPE. */
   private static final int    GENERIC_PARAMETER_INDEX_VIEW_TYPE      = 5;
 
   /** The logger of this class. */
@@ -78,8 +78,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     ERROR_INVALID_VALUE_IN_DATA_MODEL;
 
     /**
-     * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change
-     * at any time.
+     * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change at any time.
      *
      * @return  Some information about this object for development purposes like debugging and logging.
      */
@@ -90,8 +89,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * MmValueState is an enumeration of values regarding the state of an attribute's value. If validation fails, the attribute state remains
-   * unchanged, but the error state will be changed.
+   * MmValueState is an enumeration of values regarding the state of an attribute's value. If validation fails, the attribute state remains unchanged, but the
+   * error state will be changed.
    *
    * @author  Olaf Kossak
    */
@@ -113,8 +112,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     VALID_VALUE_IN_DATA_MODEL;
 
     /**
-     * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change
-     * at any time.
+     * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change at any time.
      *
      * @return  Some information about this object for development purposes like debugging and logging.
      */
@@ -127,10 +125,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   /** The list of messages related to this attribute. */
   protected final MmMessageList                    messageList;
 
-  /**
-   * This attribute has a model of type ATTRIBUTE_TYPE. The model has a model accessor. Its first generic, the type of the parent model, is
-   * undefined.
-   */
+  /** This attribute has a model of type ATTRIBUTE_TYPE. The model has a model accessor. Its first generic, the type of the parent model, is undefined. */
   protected MmAttributeAccessor<?, ATTRIBUTE_TYPE> modelAccessor;
 
   /** The attribute's view value of type VIEW_TYPE. */
@@ -177,8 +172,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
-   * super.onInitialization()!
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call super.onInitialization()!
    *
    * @jalopy.group  group-initialization
    */
@@ -308,8 +302,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     if (isMmRequired() && isMmEmpty()) {
       errorState = MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEW_TYPE;
 
-      MmMessage message = new MmMessage(MmErrorMessageType.BUSINESS_LOGIC_ERROR, MmMessageSeverity.USER_ERROR, this, getMmId(),
-          MmMessageType.ERROR_REQUIRED);
+      MmMessage message = new MmMessage(MmErrorMessageType.BUSINESS_LOGIC_ERROR, MmMessageSeverity.USER_ERROR, this, getMmId(), MmMessageType.ERROR_REQUIRED);
       messageList.addMessage(message);
 
     } else {
@@ -488,8 +481,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model value and vice
+   * versa. It is dependent on the user's locale.
    *
    * @return        The attribute's format pattern for displaying view value.
    *
@@ -512,22 +505,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns the attribute's layout direction in case the attribute is of subtype MmBoolean.
-   *
-   * @return        The attribute's layout direction.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public MmBooleanLayout getMmLayout() {
-    assureInitialization();
-
-    return MmBooleanLayout.PAGE_DIRECTION;
-  }
-
-  /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
-   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
+   * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
    * MmConfiguration.longDescription</code>.
    *
    * @return        A long description.
@@ -612,8 +591,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns a short description. The short description is evaluated from declaration method <code>callbackMmGetShortDescription</code>. If
-   * <code>callbackMmGetShortDescription</code> is not overridden, the short description is evaluated from configuration attribute <code>
+   * Returns a short description. The short description is evaluated from declaration method <code>callbackMmGetShortDescription</code>. If <code>
+   * callbackMmGetShortDescription</code> is not overridden, the short description is evaluated from configuration attribute <code>
    * MmConfiguration.shortDescription</code>.
    *
    * @return        A short description.
@@ -682,8 +661,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
-   * are marked as being changed as well.
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic are marked as
+   * being changed as well.
    *
    * @return        <code>True</code>, if mimic has been changed from view model.
    *
@@ -739,8 +718,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
-   * "city/123/person/4711/display".
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @return        The data model for self reference.
    *
@@ -753,19 +731,14 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
       return null;
     }
 
-    final MmModelAccessor<?, ?> parentAccessor = modelAccessor.getParentAccessor();
-    if (parentAccessor == null) {
-      return null;
-    }
-
     final Object dataModel = modelAccessor.get();
     if (dataModel == null) {
       return null;
     }
-    if (dataModel instanceof MmReferencableModel) {
-      return (MmReferencableModel)dataModel;
+    if (!(dataModel instanceof MmReferencableModel)) {
+      return null;
     }
-    return null;
+    return (MmReferencableModel)dataModel;
   }
 
   /**

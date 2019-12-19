@@ -3,9 +3,8 @@ package org.minutenwerk.mimic4j.impl.link;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.minutenwerk.mimic4j.api.container.MmLeporello;
+import org.minutenwerk.mimic4j.api.container.MmPage;
 import org.minutenwerk.mimic4j.api.link.MmLink;
-import org.minutenwerk.mimic4j.api.link.MmLink.MmLinkJsfTag;
 import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
 
 /**
@@ -16,63 +15,54 @@ import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
 public class MmConfigurationLink extends MmBaseLinkConfiguration {
 
   /** Logger of this class. */
-  private static final Logger      LOGGER          = LogManager.getLogger(MmConfigurationLink.class);
-
-  /** Constant for default value of JSF tag in enabled state. Redundant to {@link MmLinkAnnotation.jsfTag()}. */
-  public static final MmLinkJsfTag DEFAULT_JSF_TAG = MmLinkJsfTag.Link;
-
-  /** Constant for default value of JSF tag in enabled state. Redundant to {@link MmLinkAnnotation.jsfTag()}. */
-  protected MmLinkJsfTag           jsfTag;
+  private static final Logger LOGGER = LogManager.getLogger(MmConfigurationLink.class);
 
   /**
    * Creates a new MmConfigurationLink instance of default values.
    */
   public MmConfigurationLink() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
-    jsfTag = DEFAULT_JSF_TAG;
   }
 
   /**
    * Creates a new MmConfigurationLink instance from annotation.
    *
-   * @param  pLinkAnnotation  The annotation to create the configuration from.
+   * @param   pLinkAnnotation  The annotation to create the configuration from.
+   *
+   * @throws  IllegalArgumentException  TODOC
    */
   public MmConfigurationLink(MmLinkAnnotation pLinkAnnotation) {
-    super(pLinkAnnotation.id(), pLinkAnnotation.visible(), pLinkAnnotation.readOnly(), pLinkAnnotation.enabled(),
-      pLinkAnnotation.targetReferencePath(), pLinkAnnotation.styleClasses());
-    jsfTag = pLinkAnnotation.jsfTag();
+    super(pLinkAnnotation.id(), pLinkAnnotation.visible(), pLinkAnnotation.readOnly(), pLinkAnnotation.enabled(), pLinkAnnotation.targetReferencePath(),
+      pLinkAnnotation.styleClasses());
 
-    Class<? extends MmLeporello<?, ?>> targetLeporello = pLinkAnnotation.targetLeporello();
-    if (!targetLeporello.equals(MmLeporello.MmVoidTarget.class)) {
+    final Class<? extends MmPage<?>> targetPage              = pLinkAnnotation.targetPage();
+    final boolean                    targetPageIsDefined     = !targetPage.equals(MmPage.MmVoidTarget.class);
+    final Class<? extends MmPage<?>> targetPageMany          = pLinkAnnotation.targetPageMany();
+    final boolean                    targetPageManyIsDefined = !targetPageMany.equals(MmPage.MmVoidTarget.class);
+    if (targetPageIsDefined && targetPageManyIsDefined) {
+      throw new IllegalArgumentException("link can define either targetPage or targetPageMany");
+    }
+
+    if (targetPageIsDefined) {
       try {
-        String targetReferencePath = (String)targetLeporello.getMethod("getMmStaticReferencePath").invoke(null);
-        if (targetReferencePath == null) {
-          LOGGER.error("class " + targetLeporello.getSimpleName() + " must define 'public static String getMmStaticReferencePath()'");
+        String targetSelfReferencePath = (String)targetPage.getMethod("getMmStaticSelfReferencePath").invoke(null);
+        if (targetSelfReferencePath == null) {
+          LOGGER.error("class " + targetPage.getSimpleName() + " must define 'public static String getMmStaticSelfReferencePath()'");
         }
-        setTargetReferencePath(targetReferencePath);
+        setTargetReferencePath(targetSelfReferencePath);
+      } catch (Exception e) {
+        LOGGER.error(e);
+      }
+    } else if (targetPageManyIsDefined) {
+      try {
+        String targetReferencePathMany = (String)targetPageMany.getMethod("getMmStaticReferencePathMany").invoke(null);
+        if (targetReferencePathMany == null) {
+          LOGGER.error("class " + targetPage.getSimpleName() + " must define 'public static String getMmStaticReferencePathMany()'");
+        }
+        setTargetReferencePath(targetReferencePathMany);
       } catch (Exception e) {
         LOGGER.error(e);
       }
     }
-  }
-
-  /**
-   * Returns the configuration of JSF tag in disabled state.
-   *
-   * @return  The configuration of JSF tag in disabled state.
-   */
-  @Override
-  public String getJsfTagDisabled() {
-    return jsfTag.name();
-  }
-
-  /**
-   * Returns the configuration of JSF tag in enabled state.
-   *
-   * @return  The configuration of JSF tag in enabled state.
-   */
-  @Override
-  public String getJsfTagEnabled() {
-    return jsfTag.name();
   }
 }

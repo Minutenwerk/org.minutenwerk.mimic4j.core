@@ -3,8 +3,6 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmFloat;
 import org.minutenwerk.mimic4j.api.attribute.MmFloatAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationFloat is the implementation part of a mimic for {@link Float}.
@@ -48,16 +46,6 @@ public class MmImplementationFloat extends MmBaseAttributeImplementation<MmFloat
     } else {
       return new MmConfigurationFloat();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<String>(this);
   }
 
 }

@@ -13,8 +13,8 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.springframework.web.util.UriComponents;
 
 /**
- * MmBaseLinkDeclaration is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the
- * text label of the link. In most cases the two models are the same.
+ * MmBaseLinkDeclaration is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of the
+ * link. In most cases the two models are the same.
  *
  * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
  * @param               <VIEW_MODEL>  View model delivers view text label of link.
@@ -37,8 +37,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns the link's model accessor to corresponding data model. The data model delivers dynamic parts of URL. The data model accessor
-   * can be derived from specified parent component accessor.
+   * Returns the link's model accessor to corresponding data model. The data model delivers dynamic parts of URL. The data model accessor can be derived from
+   * specified parent component accessor.
    *
    * @param         pParentAccessor  The specified parent component accessor.
    *
@@ -62,27 +62,33 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   /**
    * Returns the target URL of this mimic.
    *
-   * @param         pTargetReferencePath    The path of the target URL like "city/{id0}/person/{id1}/display" in
-   *                                        "city/123/person/4711/display".
+   * @param         pTargetReferencePath    The path of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
    * @param         pDataModel              The data model, which delivers the target reference parameters.
    * @param         pTargetReferenceParams  The parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @return        The target URL of this mimic.
    *
+   * @throws        RuntimeException  TODOC
+   *
    * @jalopy.group  group-callback
    */
   @Override
   public URI callbackMmGetTargetReference(UriComponents pTargetReferencePath, DATA_MODEL pDataModel, List<String> pTargetReferenceParams) {
-    if ((pTargetReferenceParams == null) || pTargetReferenceParams.isEmpty()) {
-      if (pDataModel == null) {
-        return pTargetReferencePath.toUri();
+    try {
+      if ((pTargetReferenceParams == null) || pTargetReferenceParams.isEmpty()) {
+        if (pDataModel == null) {
+          return pTargetReferencePath.toUri();
+        } else {
+          return pTargetReferencePath.expand(pDataModel).toUri();
+        }
+      } else if (pTargetReferenceParams.size() == 1) {
+        return pTargetReferencePath.expand(pTargetReferenceParams.get(0)).toUri();
       } else {
-        return pTargetReferencePath.expand(pDataModel).toUri();
+        return pTargetReferencePath.expand(pTargetReferenceParams.toArray()).toUri();
       }
-    } else if (pTargetReferenceParams.size() == 1) {
-      return pTargetReferencePath.expand(pTargetReferenceParams.get(0)).toUri();
-    } else {
-      return pTargetReferencePath.expand(pTargetReferenceParams.toArray()).toUri();
+    } catch (IllegalArgumentException e) {
+      throw new RuntimeException("targetReferencePath: " + pTargetReferencePath + ", dataModel: " + pDataModel + ", targetReferenceParams: "
+        + pTargetReferenceParams, e);
     }
   }
 
@@ -101,8 +107,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns the link's format pattern for displaying view value. It is used during conversion from view model to view value and vice versa.
-   * It is dependent on the user's locale.
+   * Returns the link's format pattern for displaying view value. It is used during conversion from view model to view value and vice versa. It is dependent
+   * on the user's locale.
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
@@ -116,8 +122,8 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns the link's model accessor to corresponding view model. The view model delivers dynamic parts of URL. The view model accessor
-   * can be derived from specified parent component accessor.
+   * Returns the link's model accessor to corresponding view model. The view model delivers dynamic parts of URL. The view model accessor can be derived from
+   * specified parent component accessor.
    *
    * @param         pParentAccessor  The specified parent component accessor.
    *

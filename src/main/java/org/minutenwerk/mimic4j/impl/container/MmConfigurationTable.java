@@ -11,9 +11,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  */
 public class MmConfigurationTable extends MmBaseConfiguration {
 
-  /** Constant for default value of JSF tag in enabled state. Redundant to {@link MmTableAnnotation.jsfTag()}. */
-  public static final String DEFAULT_JSF_TAG = "Table";
-
   /**
    * Creates a new MmConfigurationTable instance of default values.
    */
@@ -27,28 +24,7 @@ public class MmConfigurationTable extends MmBaseConfiguration {
    * @param  pTableAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationTable(MmTableAnnotation pTableAnnotation) {
-    super(pTableAnnotation.id(), pTableAnnotation.visible(), pTableAnnotation.readOnly(), pTableAnnotation.enabled(),
-      pTableAnnotation.styleClasses());
-  }
-
-  /**
-   * Returns the configuration of JSF tag in disabled state.
-   *
-   * @return  The configuration of JSF tag in disabled state.
-   */
-  @Override
-  public String getJsfTagDisabled() {
-    return DEFAULT_JSF_TAG;
-  }
-
-  /**
-   * Returns the configuration of JSF tag in enabled state.
-   *
-   * @return  The configuration of JSF tag in enabled state.
-   */
-  @Override
-  public String getJsfTagEnabled() {
-    return DEFAULT_JSF_TAG;
+    super(pTableAnnotation.id(), pTableAnnotation.visible(), pTableAnnotation.readOnly(), pTableAnnotation.enabled(), pTableAnnotation.styleClasses());
   }
 
 }

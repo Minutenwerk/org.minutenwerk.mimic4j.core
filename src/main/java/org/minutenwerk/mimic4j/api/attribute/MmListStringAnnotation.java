@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmListString.MmListStringJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmListString.MmListStringJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationListString;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationListString;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmListStringAnnotation {
 
   public String id() default MmConfigurationListString.UNDEFINED_ID;
@@ -33,9 +31,5 @@ public @interface MmListStringAnnotation {
   public String styleClasses() default MmConfigurationListString.DEFAULT_STYLE_CLASSES;
 
   public int size() default MmConfigurationListString.DEFAULT_SIZE;
-
-  public MmListStringJsfTag jsfTag() default MmListStringJsfTag.SelectManyListbox;
-
-  public MmListStringJsfDisabled jsfTagDisabled() default MmListStringJsfDisabled.SameAsEnabled;
 
 }

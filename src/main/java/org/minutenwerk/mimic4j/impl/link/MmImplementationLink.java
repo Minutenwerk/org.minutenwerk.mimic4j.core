@@ -4,12 +4,10 @@ import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.link.MmLink;
 import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeLink;
 
 /**
- * MmImplementationLink is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the
- * text label of the link. In most cases the two models are the same.
+ * MmImplementationLink is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of the
+ * link. In most cases the two models are the same.
  *
  * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
  * @param               <VIEW_MODEL>  View model delivers view text label of link.
@@ -46,18 +44,6 @@ public class MmImplementationLink<DATA_MODEL extends MmReferencableModel, VIEW_M
     } else {
       return new MmConfigurationLink();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return        A new MmJsfBridge for this mimic.
-   *
-   * @jalopy.group  group-initialization
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeLink(this);
   }
 
 }

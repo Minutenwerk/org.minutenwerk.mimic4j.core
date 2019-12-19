@@ -25,42 +25,6 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationLocalTime.class);
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmTimeJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmTimeJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmTime instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -88,8 +52,7 @@ public class MmLocalTime extends MmBaseAttributeDeclaration<MmImplementationLoca
         return returnString;
       }
     } catch (Exception e) {
-      throw new MmDataModelConverterException(this,
-        "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
+      throw new MmDataModelConverterException(this, "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
     }
   }
 

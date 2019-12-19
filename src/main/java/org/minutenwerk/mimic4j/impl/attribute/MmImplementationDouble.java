@@ -3,16 +3,13 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmDouble;
 import org.minutenwerk.mimic4j.api.attribute.MmDoubleAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationDouble is the implementation part of a mimic for {@link Double}.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationDouble
-  extends MmBaseAttributeImplementation<MmDouble, MmConfigurationDouble, MmDoubleAnnotation, Double, String> {
+public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDouble, MmConfigurationDouble, MmDoubleAnnotation, Double, String> {
 
   /**
    * Creates a new MmImplementationDouble instance.
@@ -49,16 +46,6 @@ public class MmImplementationDouble
     } else {
       return new MmConfigurationDouble();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<String>(this);
   }
 
 }

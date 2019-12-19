@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmDouble.MmDoubleJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmDouble.MmDoubleJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationDouble;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationDouble;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmDoubleAnnotation {
 
   public String id() default MmConfigurationDouble.UNDEFINED_ID;
@@ -33,9 +31,5 @@ public @interface MmDoubleAnnotation {
   public String styleClasses() default MmConfigurationDouble.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationDouble.DEFAULT_FORMAT_MAX_LENGTH;
-
-  public MmDoubleJsfTag jsfTag() default MmDoubleJsfTag.TextField;
-
-  public MmDoubleJsfDisabled jsfTagDisabled() default MmDoubleJsfDisabled.SameAsEnabled;
 
 }

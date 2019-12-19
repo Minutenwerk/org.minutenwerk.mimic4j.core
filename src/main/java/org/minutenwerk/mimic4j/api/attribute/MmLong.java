@@ -18,42 +18,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationLong;
 public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Long, String> {
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmLongJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmLongJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmLong instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -81,8 +45,7 @@ public class MmLong extends MmBaseAttributeDeclaration<MmImplementationLong, Lon
         NumberFormat numberFormatter = getMmNumberFormatter();
         returnString = numberFormatter.format(pDataModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
+        throw new MmDataModelConverterException(this, "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
       }
     }
     return returnString;

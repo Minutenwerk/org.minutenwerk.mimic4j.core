@@ -27,42 +27,6 @@ public class MmZonedDateTime extends MmBaseAttributeDeclaration<MmImplementation
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationZonedDateTime.class);
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmDateTimeJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmDateTimeJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmDate instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -90,8 +54,7 @@ public class MmZonedDateTime extends MmBaseAttributeDeclaration<MmImplementation
         return returnString;
       }
     } catch (Exception e) {
-      throw new MmDataModelConverterException(this,
-        "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
+      throw new MmDataModelConverterException(this, "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
     }
   }
 

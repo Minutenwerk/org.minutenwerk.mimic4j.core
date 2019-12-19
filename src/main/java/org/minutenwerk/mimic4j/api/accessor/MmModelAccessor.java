@@ -3,7 +3,7 @@ package org.minutenwerk.mimic4j.api.accessor;
 import java.util.List;
 
 /**
- * TODOC.
+ * An accessor gives access on a model, the model can be changed or may be null, the accessor remains the same.
  *
  * @param   <PARENT_MODEL>  Type of parent model.
  * @param   <MODEL>         Type of model.
@@ -18,6 +18,13 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    * @return  The model value, may be null.
    */
   public MODEL get();
+
+  /**
+   * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
+   *
+   * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.
+   */
+  public List<String> getMmReferenceParams();
 
   /**
    * Returns list of accessors, root accessor first.
@@ -119,5 +126,4 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
    * @param  value  The specified model value, may be null.
    */
   public void set(MODEL value);
-
 }

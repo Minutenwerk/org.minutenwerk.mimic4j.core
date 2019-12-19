@@ -17,38 +17,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  *
  * @author  Olaf Kossak
  */
-public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
-  extends MmBaseAttributeDeclaration<MmImplementationEnum<ENUM_TYPE>, ENUM_TYPE, String> {
-
-  /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmEnumJsfDisabled {
-
-    TextOutput,
-
-    TextField,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmEnumJsfTag {
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
+public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBaseAttributeDeclaration<MmImplementationEnum<ENUM_TYPE>, ENUM_TYPE, String> {
 
   /**
    * Creates a new MmEnum instance.
@@ -78,7 +47,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
       } else {
         Class<ENUM_TYPE> enumType     = implementation.getMmEnumType();
         String           enumTypeName = enumType.getSimpleName();
-        String           enumLabel    = getMmI18nText(enumTypeName + "." + pDataModelValue.name(), MmMessageType.SHORT);
+        String           enumLabel    = implementation.getMmI18nText(enumTypeName + "." + pDataModelValue.name(), MmMessageType.SHORT);
         return enumLabel;
       }
     }
@@ -123,8 +92,8 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
     Class<ENUM_TYPE> enumType = implementation.getMmEnumType();
     for (ENUM_TYPE enumInstance : enumType.getEnumConstants()) {
       final String                    messageId       = enumType.getSimpleName() + "." + enumInstance.name();
-      final String                    enumLabel       = getMmI18nText(messageId, MmMessageType.SHORT);
-      final String                    enumDescription = getMmI18nText(messageId, MmMessageType.LONG);
+      final String                    enumLabel       = implementation.getMmI18nText(messageId, MmMessageType.SHORT);
+      final String                    enumDescription = implementation.getMmI18nText(messageId, MmMessageType.LONG);
       final MmSelectOption<ENUM_TYPE> option          = new MmSelectOption<>(enumInstance.name(), enumLabel, enumDescription, enumInstance);
       returnList.add(option);
     }

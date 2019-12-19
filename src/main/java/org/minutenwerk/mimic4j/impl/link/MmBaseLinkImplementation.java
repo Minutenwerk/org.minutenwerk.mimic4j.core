@@ -21,11 +21,9 @@ import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
-import org.springframework.web.util.UriComponents;
-
 /**
- * MmBaseLinkImplementation is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers
- * the text label of the link. In most cases the two models are the same.
+ * MmBaseLinkImplementation is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of
+ * the link. In most cases the two models are the same.
  *
  * @param               <DATA_MODEL>  Data model delivers dynamic parts of URL.
  * @param               <VIEW_MODEL>  View model delivers view text label of link.
@@ -36,13 +34,12 @@ import org.springframework.web.util.UriComponents;
  */
 public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<DATA_MODEL, VIEW_MODEL>,
   DATA_MODEL extends MmReferencableModel, VIEW_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
-  extends MmBaseImplementation<MmBaseLinkDeclaration<?, DATA_MODEL, VIEW_MODEL>, CONFIGURATION, ANNOTATION>
-  implements MmLinkMimic<DATA_MODEL, VIEW_MODEL> {
+  extends MmBaseImplementation<MmBaseLinkDeclaration<?, DATA_MODEL, VIEW_MODEL>, CONFIGURATION, ANNOTATION> implements MmLinkMimic<DATA_MODEL, VIEW_MODEL> {
 
-  /** Class internal constant to control index of generic type DATA_MODEL. */
+  /** Class internal constant to describe index of generic type DATA_MODEL. */
   private static final int                 GENERIC_PARAMETER_INDEX_DATA_MODEL = 2;
 
-  /** Class internal constant to control index of generic type VIEW_MODEL. */
+  /** Class internal constant to describe index of generic type VIEW_MODEL. */
   private static final int                 GENERIC_PARAMETER_INDEX_VIEW_MODEL = 3;
 
   /** Logger of this class. */
@@ -64,8 +61,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call
-   * super.onInitialization()!
+   * Initializes this mimic after constructor phase, calls super.onInitialization(), if you override this method, you must call super.onInitialization()!
    *
    * @throws        IllegalStateException  In case of root accessor or model accessor is not defined.
    *
@@ -114,8 +110,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
-   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
+   * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
    * MmConfiguration.longDescription</code>.
    *
    * @return        A long description.
@@ -192,33 +188,39 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     assureInitialization();
 
     // retrieve target mimic, may be null
-    final MmMimic    targetMimic = declaration.callbackMmGetTargetReferenceMimic(null);
+    final MmMimic      targetMimic          = declaration.callbackMmGetTargetReferenceMimic(null);
 
     // retrieve data model, may be null
-    final DATA_MODEL dataModel   = dataModelAccessor.get();
+    final DATA_MODEL   dataModel            = dataModelAccessor.get();
+
+    // retrieve data model reference parameters, may be null
+    final List<String> modelReferenceParams = dataModelAccessor.getMmReferenceParams();
 
     // if link references another mimic without a specified data model
     if ((targetMimic != null) && (dataModel == null)) {
       return targetMimic.getMmSelfReference();
 
       // if link references another mimic for a specified referencable data model
-    } else if ((targetMimic != null) && (dataModel != null) && (dataModel instanceof MmReferencableModel)) {
+    } else if ((targetMimic != null) && (!modelReferenceParams.isEmpty())) {
       return targetMimic.getMmSelfReferenceForModel((MmReferencableModel)dataModel);
 
       // retrieve target reference path
     } else {
-      final UriComponents targetReferencePath = configuration.getTargetReferencePath();
-      if (targetReferencePath == null) {
-        throw new IllegalArgumentException("no definition of target reference path for " + this);
-      }
 
       // if link references an URI for a specified referencable data model
-      if ((targetMimic == null) && (dataModel != null) && (dataModel instanceof MmReferencableModel)) {
-        final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceParams();
-        return declaration.callbackMmGetTargetReference(targetReferencePath, dataModel, modelReferenceParams);
+      if ((targetMimic == null) && (!modelReferenceParams.isEmpty())) {
+        final URI targetReferencePath = declaration.callbackMmGetTargetReference(configuration.getTargetReferencePath(), dataModel, modelReferenceParams);
+        if (targetReferencePath == null) {
+          throw new IllegalArgumentException("no definition of target reference path for " + this);
+        }
+        return targetReferencePath;
 
       } else {
-        return declaration.callbackMmGetTargetReference(targetReferencePath, dataModel, Collections.emptyList());
+        final URI targetReferencePath = declaration.callbackMmGetTargetReference(configuration.getTargetReferencePath(), dataModel, Collections.emptyList());
+        if (targetReferencePath == null) {
+          throw new IllegalArgumentException("no definition of target reference path for " + this);
+        }
+        return targetReferencePath;
       }
     }
   }
@@ -306,8 +308,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   }
 
   /**
-   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in
-   * "city/123/person/4711/display".
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @return        The data model for self reference.
    *
@@ -327,6 +328,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    *
    * @jalopy.group  group-i18n
    */
+  @Override
   public String getMmFormatPattern() {
     final String i18nFormatPattern     = getMmI18nText(MmMessageType.FORMAT);
     final String callbackFormatPattern = declaration.callbackMmGetViewFormatPattern(i18nFormatPattern);

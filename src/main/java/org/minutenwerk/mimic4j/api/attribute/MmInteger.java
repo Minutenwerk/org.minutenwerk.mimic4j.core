@@ -18,42 +18,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationInteger;
 public class MmInteger extends MmBaseAttributeDeclaration<MmImplementationInteger, Integer, String> {
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmIntegerJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmIntegerJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmInteger instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -81,8 +45,7 @@ public class MmInteger extends MmBaseAttributeDeclaration<MmImplementationIntege
         NumberFormat numberFormatter = getMmNumberFormatter();
         returnString = numberFormatter.format(pDataModelValue);
       } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this,
-          "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
+        throw new MmDataModelConverterException(this, "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
       }
     }
     return returnString;

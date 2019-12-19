@@ -3,16 +3,13 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationString is the implementation part of a mimic for {@link String}.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationString
-  extends MmBaseAttributeImplementation<MmString, MmConfigurationString, MmStringAnnotation, String, String> {
+public class MmImplementationString extends MmBaseAttributeImplementation<MmString, MmConfigurationString, MmStringAnnotation, String, String> {
 
   /**
    * Creates a new MmImplementationString instance.
@@ -73,16 +70,6 @@ public class MmImplementationString
     } else {
       return new MmConfigurationString();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<String>(this);
   }
 
 }

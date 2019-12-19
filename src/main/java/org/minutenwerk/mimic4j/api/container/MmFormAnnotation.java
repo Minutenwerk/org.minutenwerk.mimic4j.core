@@ -15,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.container.MmConfigurationForm;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmFormAnnotation {
 
   public String id() default MmConfigurationForm.UNDEFINED_ID;

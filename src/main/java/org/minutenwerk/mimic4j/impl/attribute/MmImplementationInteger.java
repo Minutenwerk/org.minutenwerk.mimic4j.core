@@ -3,16 +3,13 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmInteger;
 import org.minutenwerk.mimic4j.api.attribute.MmIntegerAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationInteger is the implementation part of a mimic for {@link Integer}.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationInteger
-  extends MmBaseAttributeImplementation<MmInteger, MmConfigurationInteger, MmIntegerAnnotation, Integer, String> {
+public class MmImplementationInteger extends MmBaseAttributeImplementation<MmInteger, MmConfigurationInteger, MmIntegerAnnotation, Integer, String> {
 
   /**
    * Creates a new MmImplementationInteger instance.
@@ -49,16 +46,6 @@ public class MmImplementationInteger
     } else {
       return new MmConfigurationInteger();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<String>(this);
   }
 
 }

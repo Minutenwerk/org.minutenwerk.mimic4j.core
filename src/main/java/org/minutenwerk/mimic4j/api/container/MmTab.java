@@ -28,8 +28,8 @@ public class MmTab<MODEL> extends MmBaseContainerDeclaration<MmImplementationTab
    * Creates a new MmTab instance.
    *
    * @param  pParent        The parent declaration mimic, containing a public final declaration of this mimic.
-   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model
-   *                        has a root accessor.
+   * @param  pRootAccessor  This component has a model. The model is part of a model tree. The model tree has a root model. The root model has a root
+   *                        accessor.
    */
   public MmTab(MmDeclarationMimic pParent, final MmRootAccessor<MODEL> pRootAccessor) {
     super(new MmImplementationTab<MODEL>(pParent, pRootAccessor));

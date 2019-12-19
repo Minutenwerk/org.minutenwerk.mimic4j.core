@@ -25,42 +25,6 @@ public class MmLocalDate extends MmBaseAttributeDeclaration<MmImplementationLoca
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationLocalDate.class);
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmDateJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmDateJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmDate instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.

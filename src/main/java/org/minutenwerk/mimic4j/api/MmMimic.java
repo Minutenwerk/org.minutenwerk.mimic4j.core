@@ -10,14 +10,13 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-ro, group-enabled, group-short,
- *                      group-long, group-style, group-model, group-reference
+ * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-ro, group-enabled, group-short, group-long, group-style,
+ *                      group-model, group-reference
  */
 public interface MmMimic {
 
   /**
-   * Returns id of this mimic. The id is unique within the subtree of a MmRoot. It is evaluated during initialization phase and cannot
-   * change.
+   * Returns id of this mimic. The id is unique within the subtree of a MmRoot. It is evaluated during initialization phase and cannot change.
    *
    * @return        The id of this mimic.
    *
@@ -26,8 +25,8 @@ public interface MmMimic {
   public String getMmId();
 
   /**
-   * Returns the name of this mimic, or an empty String if the name is undefined. It is evaluated during initialization phase and cannot
-   * change. The name is derived from the field declaration name in its parent class.
+   * Returns the name of this mimic, or an empty String if the name is undefined. It is evaluated during initialization phase and cannot change. The name is
+   * derived from the field declaration name in its parent class.
    *
    * @return        The name of this mimic.
    *
@@ -36,9 +35,9 @@ public interface MmMimic {
   public String getMmName();
 
   /**
-   * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty
-   * String if the full name is undefined. It is evaluated during initialization phase and cannot change. The full name is derived from the
-   * field declaration name in its parent class.
+   * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty String if the full
+   * name is undefined. It is evaluated during initialization phase and cannot change. The full name is derived from the field declaration name in its parent
+   * class.
    *
    * @return        The full name of this mimic.
    *
@@ -47,8 +46,8 @@ public interface MmMimic {
   public String getMmFullName();
 
   /**
-   * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}.
-   * It is evaluated during initialization phase and cannot change.
+   * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}. It is evaluated
+   * during initialization phase and cannot change.
    *
    * @return        <code>True</code>, if the mimic has been created at runtime.
    *
@@ -57,9 +56,9 @@ public interface MmMimic {
   public boolean isMmRuntimeMimic();
 
   /**
-   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and
-   * callback method {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>
-   * visible</code> on this mimic. Developer can configure annotation and can override callback method.
+   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and callback method
+   * {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>visible</code> on this mimic. Developer
+   * can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is visible.
    *
@@ -71,9 +70,9 @@ public interface MmMimic {
   public boolean isMmVisible();
 
   /**
-   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readOnly and
-   * callback method {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>
-   * readOnly</code> on this mimic. Developer can configure annotation and can override callback method.
+   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readOnly and callback method
+   * {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>readOnly</code> on this mimic.
+   * Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is read only.
    *
@@ -85,9 +84,9 @@ public interface MmMimic {
   public boolean isMmReadOnly();
 
   /**
-   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and
-   * callback method {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>
-   * enabled</code> on this mimic. Developer can configure annotation and can override callback method.
+   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and callback method
+   * {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>enabled</code> on this mimic. Developer
+   * can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is enabled.
    *
@@ -99,9 +98,9 @@ public interface MmMimic {
   public boolean isMmEnabled();
 
   /**
-   * Returns a short description. The short description is evaluated from callback method
-   * {@link MmBaseCallback#callbackMmGetShortDescription()}. If {@link MmCallback#callbackMmGetShortDescription())} returns null, the short
-   * description is evaluated from configuration attribute {@link MmBaseConfiguration#shortDescription()}.
+   * Returns a short description. The short description is evaluated from callback method {@link MmBaseCallback#callbackMmGetShortDescription()}. If
+   * {@link MmCallback#callbackMmGetShortDescription())} returns null, the short description is evaluated from configuration attribute
+   * {@link MmBaseConfiguration#shortDescription()}.
    *
    * @return        A short description.
    *
@@ -113,8 +112,8 @@ public interface MmMimic {
   public String getMmShortDescription();
 
   /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If
-   * <code>callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
+   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
+   * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
    * MmConfiguration.longDescription</code>.
    *
    * @return        A long description.
@@ -128,8 +127,8 @@ public interface MmMimic {
 
   /**
    * Returns a String containing space delimited <code>CSS</code> style classes. The style classes are evaluated from callback method
-   * {@link MmBaseCallback#callbackMmGetStyleClasses()}. If {@link MmBaseCallback#callbackMmGetStyleClasses()} returns null, the style
-   * classes are evaluated from configuration attribute {@link MmBaseConfiguration#styleClasses()}.
+   * {@link MmBaseCallback#callbackMmGetStyleClasses()}. If {@link MmBaseCallback#callbackMmGetStyleClasses()} returns null, the style classes are evaluated
+   * from configuration attribute {@link MmBaseConfiguration#styleClasses()}.
    *
    * @return        A String containing space delimited <code>CSS</code> style classes.
    *

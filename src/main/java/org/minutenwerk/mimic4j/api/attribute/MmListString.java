@@ -22,32 +22,6 @@ import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
 public class MmListString extends MmBaseAttributeDeclaration<MmImplementationListString, List<String>, List<String>> {
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmListStringJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmListStringJsfTag {
-
-    SelectManyListbox,
-
-    SelectManyCheckbox;
-  }
-
-  /**
    * Creates a new MmListString instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.

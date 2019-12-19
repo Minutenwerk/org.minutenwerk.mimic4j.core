@@ -42,8 +42,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * @param  pTargetReferencePath  The path part of the target URL.
    * @param  pStyleClasses         TODOC
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetReferencePath,
-    String pStyleClasses) {
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetReferencePath, String pStyleClasses) {
     super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
     setTargetReferencePath(pTargetReferencePath);
   }

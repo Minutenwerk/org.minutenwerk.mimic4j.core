@@ -3,8 +3,7 @@ package org.minutenwerk.mimic4j.api.exception;
 import org.minutenwerk.mimic4j.api.MmMimic;
 
 /**
- * MmViewModelConverterException is a checked exception which occurs if the conversion of a mimic's value between view model and data model
- * has failed.
+ * MmViewModelConverterException is a checked exception which occurs if the conversion of a mimic's value between view model and data model has failed.
  *
  * @author  Olaf Kossak
  */

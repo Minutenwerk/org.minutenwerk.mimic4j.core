@@ -1,8 +1,6 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
 import org.minutenwerk.mimic4j.api.attribute.MmString;
-import org.minutenwerk.mimic4j.api.attribute.MmString.MmStringJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmString.MmStringJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 
 /**
@@ -13,34 +11,22 @@ import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
 public class MmConfigurationString extends MmBaseAttributeConfiguration<String> {
 
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int                 DEFAULT_FORMAT_MAX_LENGTH = 255;
+  public static final int DEFAULT_FORMAT_MAX_LENGTH = 255;
 
   /** Constant for default value of columns of multi line text field. */
-  public static final int                 DEFAULT_COLS              = 85;
+  public static final int DEFAULT_COLS              = 85;
 
   /** Constant for default value of rows of multi line text field. */
-  public static final int                 DEFAULT_ROWS              = 3;
-
-  /** Redundant to {@link MmStringAnnotation.jsfTag()}. */
-  public static final MmStringJsfTag      DEFAULT_JSF_TAG           = MmStringJsfTag.TextField;
-
-  /** Redundant to {@link MmStringAnnotation.jsfTagDisabled()}. */
-  public static final MmStringJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmStringJsfDisabled.SameAsEnabled;
+  public static final int DEFAULT_ROWS              = 3;
 
   /** Maximum length of formatted input string. */
-  protected int                           formatMaxLength;
+  protected int           formatMaxLength;
 
   /** Columns of multi line text field. */
-  protected int                           cols;
+  protected int           cols;
 
   /** Rows of multi line text field. */
-  protected int                           rows;
-
-  /** The JSF tag in enabled state. */
-  protected MmStringJsfTag                jsfTag;
-
-  /** The JSF tag in disabled state. */
-  protected MmStringJsfDisabled           jsfTagDisabled;
+  protected int           rows;
 
   /**
    * Creates a new MmConfigurationString instance of default values.
@@ -50,8 +36,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     cols            = DEFAULT_COLS;
     rows            = DEFAULT_ROWS;
-    jsfTag          = DEFAULT_JSF_TAG;
-    jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -60,13 +44,11 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * @param  pStringAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationString(MmStringAnnotation pStringAnnotation) {
-    super(pStringAnnotation.id(), pStringAnnotation.visible(), pStringAnnotation.readOnly(), pStringAnnotation.enabled(),
-      pStringAnnotation.required(), pStringAnnotation.styleClasses());
+    super(pStringAnnotation.id(), pStringAnnotation.visible(), pStringAnnotation.readOnly(), pStringAnnotation.enabled(), pStringAnnotation.required(),
+      pStringAnnotation.styleClasses());
     formatMaxLength = pStringAnnotation.formatMaxLength();
     cols            = pStringAnnotation.cols();
     rows            = pStringAnnotation.rows();
-    jsfTag          = pStringAnnotation.jsfTag();
-    jsfTagDisabled  = pStringAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -85,26 +67,6 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    */
   public int getFormatMaxLength() {
     return formatMaxLength;
-  }
-
-  /**
-   * Returns the configuration of JSF tag in disabled state.
-   *
-   * @return  The configuration of JSF tag in disabled state.
-   */
-  @Override
-  public String getJsfTagDisabled() {
-    return jsfTagDisabled.name();
-  }
-
-  /**
-   * Returns the configuration of JSF tag in enabled state.
-   *
-   * @return  The configuration of JSF tag in enabled state.
-   */
-  @Override
-  public String getJsfTagEnabled() {
-    return jsfTag.name();
   }
 
   /**

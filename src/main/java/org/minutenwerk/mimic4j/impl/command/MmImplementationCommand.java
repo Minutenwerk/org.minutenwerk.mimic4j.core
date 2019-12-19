@@ -6,8 +6,6 @@ import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.command.MmCommand;
 import org.minutenwerk.mimic4j.api.command.MmCommandAnnotation;
 import org.minutenwerk.mimic4j.impl.link.MmBaseLinkImplementation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeCommand;
 
 /**
  * MmImplementationCommand is the specific class for the implementation part of command mimics.
@@ -27,16 +25,6 @@ public class MmImplementationCommand<DATA_MODEL extends MmReferencableModel>
    */
   public MmImplementationCommand(MmDeclarationMimic pParent) {
     super(pParent);
-  }
-
-  /**
-   * Returns the current JSF tag of this mimic, dependent on enabled state and configuration.
-   *
-   * @return  The current JSF tag of this mimic.
-   */
-  @Override
-  public String getJsfTag() {
-    return configuration.getJsfTagEnabled();
   }
 
   /**
@@ -66,16 +54,6 @@ public class MmImplementationCommand<DATA_MODEL extends MmReferencableModel>
     } else {
       return new MmConfigurationCommand();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeCommand(this);
   }
 
 }

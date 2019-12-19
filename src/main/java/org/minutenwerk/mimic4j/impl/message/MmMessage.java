@@ -6,14 +6,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
+import org.minutenwerk.mimic4j.api.MmPageMimic;
 import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
-import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
 /**
- * MmMessage is the base class for messages from the application to its users. Messages have a severity level and a message text. The
- * message text can be i18ned.
+ * MmMessage is the base class for messages from the application to its users. Messages have a severity level and a message text. The message text can be
+ * i18ned.
  *
  * @author  Olaf Kossak
  */
@@ -94,8 +94,7 @@ public class MmMessage {
    *
    * @throws  IllegalArgumentException  In case of an argument is null or MmRelationshipApi.getMmRoot(pOwnerMm) isn't defined.
    */
-  public MmMessage(MmErrorMessageType pType, MmMessageSeverity pSeverity, MmMimic pOwnerMm, String pMessageId, MmMessageType pMessageType,
-    Object... pArgs) {
+  public MmMessage(MmErrorMessageType pType, MmMessageSeverity pSeverity, MmMimic pOwnerMm, String pMessageId, MmMessageType pMessageType, Object... pArgs) {
     if (LOGGER.isDebugEnabled()) {
       if (pType == null) {
         throw new IllegalArgumentException("pType must be defined");
@@ -131,8 +130,7 @@ public class MmMessage {
   }
 
   /**
-   * Returns the type of this message, which indicates whether an error can be viewed as technical error or an error in execution of
-   * business logic.
+   * Returns the type of this message, which indicates whether an error can be viewed as technical error or an error in execution of business logic.
    *
    * @return  The type of this message.
    */
@@ -221,8 +219,9 @@ public class MmMessage {
    * @return  The message text.
    */
   public String getText() {
-    String returnMessage = ((MmBaseDeclaration<?, ?>)ownerMm).getMmI18nText(messageId, messageType);
-    String label         = ownerMm.getMmShortDescription();
+    final MmPageMimic<?> pageMimic     = MmRelationshipApi.getMmRoot(ownerMm);
+    String               returnMessage = pageMimic.getMmI18nText(messageId, messageType);
+    String               label         = ownerMm.getMmShortDescription();
     if (args == null) {
       returnMessage = MessageFormat.format(returnMessage, label);
     } else {
@@ -237,8 +236,7 @@ public class MmMessage {
   }
 
   /**
-   * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change
-   * at any time.
+   * Returns some information about this object for development purposes like debugging and logging. Doesn't have side effects. May change at any time.
    *
    * @return  Some information about this object for development purposes like debugging and logging.
    */

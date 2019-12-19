@@ -5,7 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.container.MmTableColumn.MmTableColumnJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.container.MmConfigurationTableColumn;
 
@@ -16,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.container.MmConfigurationTableColumn;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmTableColumnAnnotation {
 
   public String id() default MmConfigurationTableColumn.UNDEFINED_ID;
@@ -27,13 +26,9 @@ public @interface MmTableColumnAnnotation {
 
   public boolean enabled() default MmConfigurationTableColumn.DEFAULT_IS_ENABLED;
 
-  public MmTableColumnJsfTag jsfTag() default MmTableColumnJsfTag.TableColumn;
-
   public boolean isRowHeader() default MmConfigurationTableColumn.DEFAULT_IS_ROW_HEADER;
 
   public String styleClasses() default MmConfigurationTableColumn.DEFAULT_STYLE_CLASSES;
-
-  public String headerClasses() default MmConfigurationTableColumn.DEFAULT_HEADER_CLASSES;
 
   public String footerClasses() default MmConfigurationTableColumn.DEFAULT_FOOTER_CLASSES;
 

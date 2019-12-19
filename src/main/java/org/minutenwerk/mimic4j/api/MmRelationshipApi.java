@@ -56,8 +56,8 @@ public class MmRelationshipApi {
   }
 
   /**
-   * Returns a descendant mimic of specified full name, or <code>null</code> if it doesn't exist. The name is a path of ancestors' names
-   * like <code>grandparent.parent.child</code>.
+   * Returns a descendant mimic of specified full name, or <code>null</code> if it doesn't exist. The name is a path of ancestors' names like <code>
+   * grandparent.parent.child</code>.
    *
    * @param   pMimic     The specified mimic.
    * @param   pFullName  The full name of the mimic to search for.
@@ -100,7 +100,7 @@ public class MmRelationshipApi {
    *
    * @return  The <code>MmRoot</code> of this mimic.
    */
-  public static MmMimic getMmRoot(MmMimic pMimic) {
+  public static MmPageMimic<?> getMmRoot(MmMimic pMimic) {
     final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = MmInternal.getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmRoot();
   }

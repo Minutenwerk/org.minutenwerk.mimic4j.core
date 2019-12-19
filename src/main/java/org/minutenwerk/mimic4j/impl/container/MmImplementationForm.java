@@ -3,16 +3,13 @@ package org.minutenwerk.mimic4j.impl.container;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.container.MmForm;
 import org.minutenwerk.mimic4j.api.container.MmFormAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeForm;
 
 /**
  * MmImplementationForm is the specific class for the implementation part of form mimics.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationForm<MODEL>
-  extends MmBaseContainerImplementation<MmForm<MODEL>, MODEL, MmConfigurationForm, MmFormAnnotation> {
+public class MmImplementationForm<MODEL> extends MmBaseContainerImplementation<MmForm<MODEL>, MODEL, MmConfigurationForm, MmFormAnnotation> {
 
   /**
    * Creates a new MmImplementationForm instance.
@@ -37,16 +34,6 @@ public class MmImplementationForm<MODEL>
     } else {
       return new MmConfigurationForm();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeForm<MODEL>(this);
   }
 
 }

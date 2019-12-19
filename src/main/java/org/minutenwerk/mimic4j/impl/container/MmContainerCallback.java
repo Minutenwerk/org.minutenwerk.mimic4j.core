@@ -5,9 +5,8 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 
 /**
- * MmContainerCallback defines a set of override-able methods common to all container mimics. Callback methods are part of the declaration
- * API of mimics. Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration
- * part.
+ * MmContainerCallback defines a set of override-able methods common to all container mimics. Callback methods are part of the declaration API of mimics.
+ * Callback methods have a default implementation, but can be overridden by a customized implementation on the declaration part.
  *
  * @author  Olaf Kossak
  */

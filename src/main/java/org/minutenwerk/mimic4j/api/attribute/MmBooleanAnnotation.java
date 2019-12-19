@@ -5,9 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.MmAttributeMimic.MmBooleanLayout;
-import org.minutenwerk.mimic4j.api.attribute.MmBoolean.MmBooleanJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmBoolean.MmBooleanJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBoolean;
 
@@ -18,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBoolean;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmBooleanAnnotation {
 
   public String id() default MmConfigurationBoolean.UNDEFINED_ID;
@@ -32,11 +29,5 @@ public @interface MmBooleanAnnotation {
   public boolean required() default MmConfigurationBoolean.DEFAULT_IS_REQUIRED;
 
   public String styleClasses() default MmConfigurationBoolean.DEFAULT_STYLE_CLASSES;
-
-  public MmBooleanLayout layout() default MmBooleanLayout.PAGE_DIRECTION;
-
-  public MmBooleanJsfTag jsfTag() default MmBooleanJsfTag.SelectOneCheckbox;
-
-  public MmBooleanJsfDisabled jsfTagDisabled() default MmBooleanJsfDisabled.SameAsEnabled;
 
 }

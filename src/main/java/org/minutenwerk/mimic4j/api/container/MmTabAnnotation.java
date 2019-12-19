@@ -15,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.container.MmConfigurationTab;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmTabAnnotation {
 
   public String id() default MmConfigurationTab.UNDEFINED_ID;

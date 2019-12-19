@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmBigDecimal.MmBigDecimalJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmBigDecimal.MmBigDecimalJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigDecimal;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationBigDecimal;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmBigDecimalAnnotation {
 
   public String id() default MmConfigurationBigDecimal.UNDEFINED_ID;
@@ -33,9 +31,5 @@ public @interface MmBigDecimalAnnotation {
   public String styleClasses() default MmConfigurationBigDecimal.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationBigDecimal.DEFAULT_FORMAT_MAX_LENGTH;
-
-  public MmBigDecimalJsfTag jsfTag() default MmBigDecimalJsfTag.TextField;
-
-  public MmBigDecimalJsfDisabled jsfTagDisabled() default MmBigDecimalJsfDisabled.SameAsEnabled;
 
 }

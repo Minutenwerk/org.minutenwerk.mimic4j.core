@@ -9,8 +9,8 @@ import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 
 /**
- * MmBaseContainerDeclaration is the abstract base class for container declaration classes, where a container contains editable mimics like
- * attributes or other containers.
+ * MmBaseContainerDeclaration is the abstract base class for container declaration classes, where a container contains editable mimics like attributes or
+ * other containers.
  *
  * @param   <MODEL>           The type of the model, containing business data.
  * @param   <IMPLEMENTATION>  The type of the corresponding class implementing this declaration api.
@@ -18,8 +18,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessage;
  * @author  Olaf Kossak
  */
 public abstract class MmBaseContainerDeclaration<IMPLEMENTATION extends MmBaseContainerImplementation<?, MODEL, ?, ?>, MODEL>
-  extends MmBaseDeclaration<MmContainerMimic<MODEL>, IMPLEMENTATION> implements MmContainerMimic<MODEL>, MmContainerCallback<MODEL>,
-    MmModelChangeListener {
+  extends MmBaseDeclaration<MmContainerMimic<MODEL>, IMPLEMENTATION> implements MmContainerMimic<MODEL>, MmContainerCallback<MODEL>, MmModelChangeListener {
 
   /**
    * Creates a new MmBaseContainerDeclaration instance.
@@ -128,8 +127,8 @@ public abstract class MmBaseContainerDeclaration<IMPLEMENTATION extends MmBaseCo
   }
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
-   * are marked as being changed as well.
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic are marked as
+   * being changed as well.
    *
    * @return  <code>True</code>, if mimic has been changed from view model.
    */

@@ -24,40 +24,6 @@ public class MmBoolean extends MmBaseAttributeDeclaration<MmImplementationBoolea
   public static final Boolean ATTRIBUTE_BOOLEAN_VIEW_TYPE_NULL_VALUE = Boolean.FALSE;
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmBooleanJsfDisabled {
-
-    IconOutput,
-
-    TextOutput,
-
-    TextField,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmBooleanJsfTag {
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio,
-
-    SelectOneCheckbox;
-  }
-
-  /**
    * Creates a new MmBoolean instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.

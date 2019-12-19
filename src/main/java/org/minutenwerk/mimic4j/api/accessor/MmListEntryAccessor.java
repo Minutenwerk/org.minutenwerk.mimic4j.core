@@ -19,11 +19,19 @@ public class MmListEntryAccessor<ENTRY_MODEL> extends MmComponentAccessor<List<E
   /**
    * Constructor of this immutable class.
    *
-   * @param  pParentAccessor  TODOC
-   * @param  pIndexSupplier   TODOC
+   * @param   pParentAccessor  TODOC
+   * @param   pIndexSupplier   TODOC
+   *
+   * @throws  IllegalArgumentException  TODOC
    */
   public MmListEntryAccessor(final MmListAccessor<?, ENTRY_MODEL> pParentAccessor, final Supplier<Integer> pIndexSupplier) {
     super(pParentAccessor, null, List<ENTRY_MODEL>::add);
+    if (pParentAccessor == null) {
+      throw new IllegalArgumentException("list entry accessor must have parent accessor of type list accessor");
+    }
+    if (pIndexSupplier == null) {
+      throw new IllegalArgumentException("list entry accessor must have index supplier");
+    }
     indexSupplier = pIndexSupplier;
   }
 
@@ -45,9 +53,11 @@ public class MmListEntryAccessor<ENTRY_MODEL> extends MmComponentAccessor<List<E
   protected Optional<ENTRY_MODEL> getComponentOptional() {
     List<ENTRY_MODEL> parentList = getParentModel();
     if (parentList != null) {
-      return Optional.ofNullable(parentList.get(indexSupplier.get()));
-    } else {
-      return Optional.empty();
+      final Integer index = indexSupplier.get();
+      if (index != null) {
+        return Optional.ofNullable(parentList.get(index));
+      }
     }
+    return Optional.empty();
   }
 }

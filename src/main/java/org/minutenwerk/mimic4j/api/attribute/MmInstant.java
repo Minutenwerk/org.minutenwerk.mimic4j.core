@@ -31,42 +31,6 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
   private static final Logger LOGGER = LogManager.getLogger(MmImplementationInstant.class);
 
   /**
-   * Enumeration of possible JSF tags of attribute in disabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmInstantJsfDisabled {
-
-    TextOutput,
-
-    TextPlain,
-
-    SameAsEnabled;
-  }
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmInstantJsfTag {
-
-    TextField,
-
-    TextArea,
-
-    TextSecret,
-
-    TextHidden,
-
-    SelectOneListbox,
-
-    SelectOneMenu,
-
-    SelectOneRadio;
-  }
-
-  /**
    * Creates a new MmDate instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -95,8 +59,7 @@ public class MmInstant extends MmBaseAttributeDeclaration<MmImplementationInstan
         return returnString;
       }
     } catch (Exception e) {
-      throw new MmDataModelConverterException(this,
-        "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
+      throw new MmDataModelConverterException(this, "Cannot format data model value: " + pDataModelValue + " by pattern >" + getMmFormatPattern() + "<");
     }
   }
 

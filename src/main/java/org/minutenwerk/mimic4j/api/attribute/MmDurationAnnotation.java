@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmDuration.MmDurationJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmDuration.MmDurationJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationDuration;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationDuration;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmDurationAnnotation {
 
   public String id() default MmConfigurationDuration.UNDEFINED_ID;
@@ -33,9 +31,5 @@ public @interface MmDurationAnnotation {
   public String styleClasses() default MmConfigurationDuration.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationDuration.DEFAULT_FORMAT_MAX_LENGTH;
-
-  public MmDurationJsfTag jsfTag() default MmDurationJsfTag.TextField;
-
-  public MmDurationJsfDisabled jsfTagDisabled() default MmDurationJsfDisabled.SameAsEnabled;
 
 }

@@ -64,20 +64,6 @@ public abstract class MmBaseConfiguration {
   }
 
   /**
-   * Returns the JSF tag type for this mimic in disabled state.
-   *
-   * @return  The JSF tag type for this mimic in disabled state.
-   */
-  public abstract String getJsfTagDisabled();
-
-  /**
-   * Returns the JSF tag type for this mimic in enabled state.
-   *
-   * @return  The JSF tag type for this mimic in enabled state.
-   */
-  public abstract String getJsfTagEnabled();
-
-  /**
    * Returns CSS style classes.
    *
    * @return  CSS style classes.

@@ -26,16 +26,16 @@ public class TestContainer {
 
     // test
     controller.person().set(testPerson);
-    controller.tabPerson.onModelChange();
+    controller.pagePerson.onModelChange();
 
     // assert
-    Assert.assertEquals("John", controller.tabPerson.vorname.getMmViewValue());
-    Assert.assertEquals("Doe", controller.tabPerson.nachname.getMmViewValue());
-    Assert.assertEquals("MALE", controller.tabPerson.gender.getMmViewValue());
-    Assert.assertEquals("02.02.2018", controller.tabPerson.birthday.getMmViewValue());
-    Assert.assertNotNull(controller.tabPerson.adresse.getMmModel());
-    Assert.assertEquals("Hauptstraße", controller.tabPerson.adresse.street.getMmViewValue());
-    Assert.assertEquals("Hamburg", controller.tabPerson.adresse.city.getMmViewValue());
+    Assert.assertEquals("John", controller.pagePerson.vorname.getMmViewValue());
+    Assert.assertEquals("Doe", controller.pagePerson.nachname.getMmViewValue());
+    Assert.assertEquals("MALE", controller.pagePerson.gender.getMmViewValue());
+    Assert.assertEquals("02.02.2018", controller.pagePerson.birthday.getMmViewValue());
+    Assert.assertNotNull(controller.pagePerson.adresse.getMmModel());
+    Assert.assertEquals("Hauptstraße", controller.pagePerson.adresse.street.getMmViewValue());
+    Assert.assertEquals("Hamburg", controller.pagePerson.adresse.city.getMmViewValue());
   }
 
   @Test
@@ -49,15 +49,15 @@ public class TestContainer {
 
     // test
     controller.person().set(testPerson);
-    controller.tabPerson.onModelChange();
+    controller.pagePerson.onModelChange();
 
-    controller.tabPerson.vorname.setMmViewValue("Jane");
-    controller.tabPerson.nachname.setMmViewValue("Austen");
-    controller.tabPerson.gender.setMmViewValue("FEMALE");
-    controller.tabPerson.birthday.setMmViewValue("16.12.1775");
-    controller.tabPerson.adresse.street.setMmViewValue("Mansfield Park");
-    controller.tabPerson.adresse.city.setMmViewValue("Steventon");
-    controller.tabPerson.doMmValidate();
+    controller.pagePerson.vorname.setMmViewValue("Jane");
+    controller.pagePerson.nachname.setMmViewValue("Austen");
+    controller.pagePerson.gender.setMmViewValue("FEMALE");
+    controller.pagePerson.birthday.setMmViewValue("16.12.1775");
+    controller.pagePerson.adresse.street.setMmViewValue("Mansfield Park");
+    controller.pagePerson.adresse.city.setMmViewValue("Steventon");
+    controller.pagePerson.doMmValidate();
 
     // assert
     Assert.assertEquals("Jane", controller.person().vorname().get());

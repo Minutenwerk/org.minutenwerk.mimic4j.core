@@ -3,8 +3,6 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import java.time.LocalDate;
 
 import org.minutenwerk.mimic4j.api.attribute.MmLocalDate;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDate.MmDateJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmLocalDate.MmDateJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalDateAnnotation;
 
 /**
@@ -15,28 +13,16 @@ import org.minutenwerk.mimic4j.api.attribute.MmLocalDateAnnotation;
 public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<LocalDate> {
 
   /** Constant for default value of format pattern for parsing user input and formatting view value. */
-  public static final String            DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy";
+  public static final String DEFAULT_FORMAT_PATTERN    = "dd.MM.yyyy";
 
   /** Constant for default value of maximum length of formatted input string. */
-  public static final int               DEFAULT_FORMAT_MAX_LENGTH = 10;
-
-  /** Redundant to {@link MmDateAnnotation.jsfTag()}. */
-  public static final MmDateJsfTag      DEFAULT_JSF_TAG           = MmDateJsfTag.TextField;
-
-  /** Redundant to {@link MmDateAnnotation.jsfTagDisabled()}. */
-  public static final MmDateJsfDisabled DEFAULT_JSF_TAG_DISABLED  = MmDateJsfDisabled.SameAsEnabled;
+  public static final int    DEFAULT_FORMAT_MAX_LENGTH = 10;
 
   /** Format pattern for parsing user input and formatting view value. */
-  protected String                      formatPattern;
+  protected String           formatPattern;
 
   /** Maximum length of formatted input string. */
-  protected int                         formatMaxLength;
-
-  /** The JSF tag in enabled state. */
-  protected MmDateJsfTag                jsfTag;
-
-  /** The JSF tag in disabled state. */
-  protected MmDateJsfDisabled           jsfTagDisabled;
+  protected int              formatMaxLength;
 
   /**
    * Creates a new MmConfigurationDate instance of default values.
@@ -45,8 +31,6 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatPattern   = DEFAULT_FORMAT_PATTERN;
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
-    jsfTag          = DEFAULT_JSF_TAG;
-    jsfTagDisabled  = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -55,12 +39,10 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
    * @param  pDateAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationLocalDate(MmLocalDateAnnotation pDateAnnotation) {
-    super(pDateAnnotation.id(), pDateAnnotation.visible(), pDateAnnotation.readOnly(), pDateAnnotation.enabled(),
-      pDateAnnotation.required(), pDateAnnotation.styleClasses());
+    super(pDateAnnotation.id(), pDateAnnotation.visible(), pDateAnnotation.readOnly(), pDateAnnotation.enabled(), pDateAnnotation.required(),
+      pDateAnnotation.styleClasses());
     formatPattern   = pDateAnnotation.formatPattern();
     formatMaxLength = pDateAnnotation.formatMaxLength();
-    jsfTag          = pDateAnnotation.jsfTag();
-    jsfTagDisabled  = pDateAnnotation.jsfTagDisabled();
   }
 
   /**
@@ -82,26 +64,6 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
   }
 
   /**
-   * Returns the configuration of JSF tag in disabled state.
-   *
-   * @return  The configuration of JSF tag in disabled state.
-   */
-  @Override
-  public String getJsfTagDisabled() {
-    return jsfTagDisabled.name();
-  }
-
-  /**
-   * Returns the configuration of JSF tag in enabled state.
-   *
-   * @return  The configuration of JSF tag in enabled state.
-   */
-  @Override
-  public String getJsfTagEnabled() {
-    return jsfTag.name();
-  }
-
-  /**
    * Sets the configuration of maximum length of formatted input string.
    *
    * @param  pFormatMaxLength  The specified configuration of maximum length of formatted input string.
@@ -117,15 +79,6 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
    */
   public void setFormatPattern(String pFormatPattern) {
     formatPattern = pFormatPattern;
-  }
-
-  /**
-   * Sets the configuration of JSF tag in enabled state.
-   *
-   * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
-   */
-  public void setJsfTag(MmDateJsfTag pJsfTag) {
-    jsfTag = pJsfTag;
   }
 
 }

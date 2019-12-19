@@ -101,9 +101,7 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
    */
   protected COMPONENT_MODEL getComponent() throws NullPointerException {
     return getComponentOptional() //
-    .orElseThrow(() ->
-        new NullPointerException( //
-          "component supplier does not supply a component"));
+    .orElseThrow(() -> new NullPointerException("component supplier does not supply a component"));
   }
 
   /**

@@ -25,8 +25,7 @@ public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_TYPE> extends MmBas
    * @param  pRequired      True, if input is required.
    * @param  pStyleClasses  TODOC
    */
-  public MmBaseAttributeConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, boolean pRequired,
-    String pStyleClasses) {
+  public MmBaseAttributeConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, boolean pRequired, String pStyleClasses) {
     super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
     required = pRequired;
   }

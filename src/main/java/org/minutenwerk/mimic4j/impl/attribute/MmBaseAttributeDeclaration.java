@@ -48,8 +48,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model value and vice
+   * versa. It is dependent on the user's locale.
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
@@ -77,8 +77,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component
-   * accessor.
+   * Returns the attribute's accessor to corresponding model. The attribute accessor can be derived from specified parent component accessor.
    *
    * @param         pParentAccessor  The specified parent component accessor.
    *
@@ -176,24 +175,14 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model value and vice
+   * versa. It is dependent on the user's locale.
    *
    * @return  The attribute's format pattern for displaying view value.
    */
   @Override
   public final String getMmFormatPattern() {
     return implementation.getMmFormatPattern();
-  }
-
-  /**
-   * Returns the attribute's layout direction in case the attribute is of subtype MmBoolean.
-   *
-   * @return  The attribute's layout direction.
-   */
-  @Override
-  public final MmBooleanLayout getMmLayout() {
-    return implementation.getMmLayout();
   }
 
   /**
@@ -267,8 +256,8 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   }
 
   /**
-   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic
-   * are marked as being changed as well.
+   * Returns <code>true</code>, if the mimic has been changed from view model. If a mimic is changed, all ancestors of type MmEditableMimic are marked as
+   * being changed as well.
    *
    * @return  <code>True</code>, if mimic has been changed from view model.
    */
@@ -322,7 +311,7 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
       }
     }
 
-    final Locale        locale                = getMmLocale();
+    final Locale        locale                = implementation.getMmLocale();
     final NumberFormat  numberFormat          = NumberFormat.getNumberInstance(locale);
     final DecimalFormat returnNumberFormatter = (DecimalFormat)numberFormat;
     returnNumberFormatter.applyPattern(formatPattern);

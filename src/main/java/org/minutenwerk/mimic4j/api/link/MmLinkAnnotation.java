@@ -5,9 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.container.MmLeporello;
-import org.minutenwerk.mimic4j.api.container.MmLeporello.MmVoidTarget;
-import org.minutenwerk.mimic4j.api.link.MmLink.MmLinkJsfTag;
+import org.minutenwerk.mimic4j.api.container.MmPage;
+import org.minutenwerk.mimic4j.api.container.MmPage.MmVoidTarget;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
 
@@ -18,7 +17,7 @@ import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmLinkAnnotation {
 
   public String id() default MmConfigurationLink.UNDEFINED_ID;
@@ -31,10 +30,10 @@ public @interface MmLinkAnnotation {
 
   public String styleClasses() default MmConfigurationLink.DEFAULT_STYLE_CLASSES;
 
-  public MmLinkJsfTag jsfTag() default MmLinkJsfTag.Link;
-
   public String targetReferencePath() default MmConfigurationLink.DEFAULT_TARGET_REFERENCE_PATH;
 
-  public Class<? extends MmLeporello<?, ?>> targetLeporello() default MmVoidTarget.class;
+  public Class<? extends MmPage<?>> targetPage() default MmVoidTarget.class;
+
+  public Class<? extends MmPage<?>> targetPageMany() default MmVoidTarget.class;
 
 }

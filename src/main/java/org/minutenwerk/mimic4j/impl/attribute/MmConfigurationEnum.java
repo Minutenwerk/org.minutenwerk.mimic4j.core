@@ -1,8 +1,6 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
-import org.minutenwerk.mimic4j.api.attribute.MmEnum.MmEnumJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmEnum.MmEnumJsfTag;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
 
 /**
@@ -12,28 +10,11 @@ import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
  */
 public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBaseAttributeConfiguration<ENUM_TYPE> {
 
-  /** Redundant to {@link MmEnumAnnotation.jsfTag()}. */
-  public static final MmEnumJsfTag      DEFAULT_JSF_TAG                   = MmEnumJsfTag.SelectOneMenu;
-
-  /** Redundant to {@link MmEnumAnnotation.jsfTagDisabled()}. */
-  public static final MmEnumJsfDisabled DEFAULT_JSF_TAG_DISABLED          = MmEnumJsfDisabled.TextField;
-
-  /** Index of generic type of enumeration type. */
-  public static final int               GENERIC_PARAMETER_INDEX_ENUM_TYPE = 1;
-
-  /** The JSF tag in enabled state. */
-  protected MmEnumJsfTag                jsfTag;
-
-  /** The JSF tag in disabled state. */
-  protected MmEnumJsfDisabled           jsfTagDisabled;
-
   /**
    * Creates a new MmConfigurationEnum instance of default values.
    */
   public MmConfigurationEnum() {
     super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
-    jsfTag         = DEFAULT_JSF_TAG;
-    jsfTagDisabled = DEFAULT_JSF_TAG_DISABLED;
   }
 
   /**
@@ -43,40 +24,8 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    * @param  pEnumType        The enumeration class.
    */
   public MmConfigurationEnum(MmEnumAnnotation pEnumAnnotation, Class<ENUM_TYPE> pEnumType) {
-    super(pEnumAnnotation.id(), pEnumAnnotation.visible(), pEnumAnnotation.readOnly(), pEnumAnnotation.enabled(),
-      pEnumAnnotation.required(), pEnumAnnotation.styleClasses());
-
-    jsfTag         = pEnumAnnotation.jsfTag();
-    jsfTagDisabled = pEnumAnnotation.jsfTagDisabled();
-  }
-
-  /**
-   * Returns the configuration of JSF tag in disabled state.
-   *
-   * @return  The configuration of JSF tag in disabled state.
-   */
-  @Override
-  public String getJsfTagDisabled() {
-    return jsfTagDisabled.name();
-  }
-
-  /**
-   * Returns the configuration of JSF tag in enabled state.
-   *
-   * @return  The configuration of JSF tag in enabled state.
-   */
-  @Override
-  public String getJsfTagEnabled() {
-    return jsfTag.name();
-  }
-
-  /**
-   * Sets the configuration of JSF tag in enabled state.
-   *
-   * @param  pJsfTag  The specified configuration of JSF tag in enabled state.
-   */
-  public void setJsfTag(MmEnumJsfTag pJsfTag) {
-    jsfTag = pJsfTag;
+    super(pEnumAnnotation.id(), pEnumAnnotation.visible(), pEnumAnnotation.readOnly(), pEnumAnnotation.enabled(), pEnumAnnotation.required(),
+      pEnumAnnotation.styleClasses());
   }
 
 }

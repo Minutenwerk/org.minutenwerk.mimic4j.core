@@ -12,16 +12,6 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTableColumn;
 public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplementationTableColumn<MODEL>, MODEL> {
 
   /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmTableColumnJsfTag {
-
-    TableColumn;
-  }
-
-  /**
    * Creates a new MmTableColumn instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -37,15 +27,6 @@ public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplement
    */
   public final String getMmFooterClasses() {
     return implementation.getMmFooterClasses();
-  }
-
-  /**
-   * Returns a String of space delimited <code>CSS</code> style classes for the header of this column.
-   *
-   * @return  A String of space delimited <code>CSS</code> style classes for the header of this column.
-   */
-  public final String getMmHeaderClasses() {
-    return implementation.getMmHeaderClasses();
   }
 
   /**

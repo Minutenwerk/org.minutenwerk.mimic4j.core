@@ -6,8 +6,8 @@ import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
 import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
 
 /**
- * MmLink is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of
- * the link. In most cases the two models are the same.
+ * MmLink is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of the link. In most
+ * cases the two models are the same.
  *
  * @param   <DATA_MODEL>  Data model delivers dynamic parts of URL.
  * @param   <VIEW_MODEL>  View model delivers view text label of link.
@@ -16,16 +16,6 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
  */
 public class MmLink<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
   extends MmBaseLinkDeclaration<MmImplementationLink<DATA_MODEL, VIEW_MODEL>, DATA_MODEL, VIEW_MODEL> {
-
-  /**
-   * Enumeration of possible JSF tags of attribute in enabled state.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmLinkJsfTag {
-
-    Link;
-  }
 
   /**
    * Creates a new MmLink instance.

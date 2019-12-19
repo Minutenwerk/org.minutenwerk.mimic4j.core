@@ -3,16 +3,13 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridge;
-import org.minutenwerk.mimic4j.impl.view.MmJsfBridgeAttribute;
 
 /**
  * MmImplementationBoolean is the implementation part of a mimic for {@link Boolean}.
  *
  * @author  Olaf Kossak
  */
-public class MmImplementationBoolean
-  extends MmBaseAttributeImplementation<MmBoolean, MmConfigurationBoolean, MmBooleanAnnotation, Boolean, Boolean> {
+public class MmImplementationBoolean extends MmBaseAttributeImplementation<MmBoolean, MmConfigurationBoolean, MmBooleanAnnotation, Boolean, Boolean> {
 
   /**
    * Creates a new MmImplementationBoolean instance.
@@ -21,18 +18,6 @@ public class MmImplementationBoolean
    */
   public MmImplementationBoolean(final MmDeclarationMimic pParent) {
     super(pParent);
-  }
-
-  /**
-   * Returns the attribute's layout direction in case the attribute is of subtype MmBoolean.
-   *
-   * @return  The attribute's layout direction.
-   */
-  @Override
-  public MmBooleanLayout getMmLayout() {
-    assureInitialization();
-
-    return getConfiguration().getLayout();
   }
 
   /**
@@ -49,16 +34,6 @@ public class MmImplementationBoolean
     } else {
       return new MmConfigurationBoolean();
     }
-  }
-
-  /**
-   * Returns a new MmJsfBridge for this mimic, which connects it to a JSF view component.
-   *
-   * @return  A new MmJsfBridge for this mimic.
-   */
-  @Override
-  protected MmJsfBridge<?, ?, ?> onConstructJsfBridge() {
-    return new MmJsfBridgeAttribute<Boolean>(this);
   }
 
 }

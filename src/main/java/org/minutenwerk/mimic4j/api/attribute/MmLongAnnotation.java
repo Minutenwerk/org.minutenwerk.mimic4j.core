@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.minutenwerk.mimic4j.api.attribute.MmLong.MmLongJsfDisabled;
-import org.minutenwerk.mimic4j.api.attribute.MmLong.MmLongJsfTag;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationLong;
 
@@ -17,7 +15,7 @@ import org.minutenwerk.mimic4j.impl.attribute.MmConfigurationLong;
  */
 @MmMetaAnnotation
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.TYPE, ElementType.FIELD })
+@Target({ ElementType.FIELD })
 public @interface MmLongAnnotation {
 
   public String id() default MmConfigurationLong.UNDEFINED_ID;
@@ -33,9 +31,5 @@ public @interface MmLongAnnotation {
   public String styleClasses() default MmConfigurationLong.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationLong.DEFAULT_FORMAT_MAX_LENGTH;
-
-  public MmLongJsfTag jsfTag() default MmLongJsfTag.TextField;
-
-  public MmLongJsfDisabled jsfTagDisabled() default MmLongJsfDisabled.SameAsEnabled;
 
 }

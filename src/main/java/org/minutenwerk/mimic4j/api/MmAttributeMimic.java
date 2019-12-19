@@ -3,8 +3,8 @@ package org.minutenwerk.mimic4j.api;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 
 /**
- * MmAttributeMimic is the basic interface of all mimic types containing editable data, which can be changed from view model. Mimics of type
- * MmAttributeMimic can be set from data model and view model, and can be converted in both directions by means of format patterns.
+ * MmAttributeMimic is the basic interface of all mimic types containing editable data, which can be changed from view model. Mimics of type MmAttributeMimic
+ * can be set from data model and view model, and can be converted in both directions by means of format patterns.
  *
  * @param   <ATTRIBUTE_TYPE>  Type of attribute of model.
  * @param   <VIEW_TYPE>       Type of view value of attribute, passed to HTML tag, is either String or Boolean.
@@ -12,41 +12,6 @@ import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
  * @author  Olaf Kossak
  */
 public interface MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmEditableMimic {
-
-  /**
-   * MmBooleanLayout is an enumeration of layout directions for JSF tags of type checkbox.
-   *
-   * @author  Olaf Kossak
-   */
-  public enum MmBooleanLayout {
-
-    /** Layout direction is vertical. */
-    PAGE_DIRECTION("pageDirection"),
-
-    /** Layout direction is horizontal. */
-    LINE_DIRECTION("lineDirection");
-
-    /** Text value of HTML attribute. */
-    private final String value;
-
-    /**
-     * Creates a new MmBooleanLayout instance.
-     *
-     * @param  pValue  The text value of HTML attribute.
-     */
-    private MmBooleanLayout(String pValue) {
-      value = pValue;
-    }
-
-    /**
-     * Returns the text value of HTML attribute.
-     *
-     * @return  The text value of HTML attribute.
-     */
-    public String getValue() {
-      return value;
-    }
-  }
 
   /**
    * Returns the attribute's number of columns in case it is displayed as multi line text field.
@@ -63,19 +28,12 @@ public interface MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmEditableM
   public int getMmFormatMaxLength();
 
   /**
-   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model
-   * value and vice versa. It is dependent on the user's locale.
+   * Returns the attribute's format pattern for displaying view value in view. It is used during conversion from data model to view model value and vice
+   * versa. It is dependent on the user's locale.
    *
    * @return  The attribute's format pattern for displaying view value.
    */
   public String getMmFormatPattern();
-
-  /**
-   * Returns the attribute's layout direction in case the attribute is of subtype MmBoolean.
-   *
-   * @return  The attribute's layout direction.
-   */
-  public MmBooleanLayout getMmLayout();
 
   /**
    * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
