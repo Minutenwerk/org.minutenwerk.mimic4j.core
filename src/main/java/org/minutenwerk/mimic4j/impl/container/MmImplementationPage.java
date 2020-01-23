@@ -27,7 +27,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
   implements MmPageMimic<MODEL>, MmReferencePathProvider {
 
   /** The Spring mimic adapter of this page. */
-  private final MmSpringMimicAdapter<?> siteService;
+  private final MmSpringMimicAdapter<?> springMimicAdapter;
 
   /**
    * Creates a new MmImplementationPage instance.
@@ -39,7 +39,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
    */
   public MmImplementationPage(final MmSpringMimicAdapter<?> pSpringMimicAdapter, final String pName, final MmRootAccessor<MODEL> pRootAccessor) {
     super(NULL_PARENT, pName, pRootAccessor);
-    siteService = pSpringMimicAdapter;
+    springMimicAdapter = pSpringMimicAdapter;
   }
 
   /**
@@ -67,7 +67,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
     assureInitialization();
 
-    return siteService.getMmI18nText(pMessageId, pMessageType, pArguments);
+    return springMimicAdapter.getMmI18nText(pMessageId, pMessageType, pArguments);
   }
 
   /**
@@ -79,7 +79,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
   public Locale getMmLocale() {
     assureInitialization();
 
-    return siteService.getMmActiveSession().getMmLocale();
+    return springMimicAdapter.getMmActiveSession().getMmLocale();
   }
 
   /**
@@ -124,7 +124,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
   public <USER_DETAILS> MmSpringMimicAdapter<USER_DETAILS> getMmSite() {
     assureInitialization();
 
-    return (MmSpringMimicAdapter<USER_DETAILS>)siteService;
+    return (MmSpringMimicAdapter<USER_DETAILS>)springMimicAdapter;
   }
 
   /**
@@ -136,7 +136,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
   public MmTheme getMmTheme() {
     assureInitialization();
 
-    return siteService.getMmActiveSession().getMmTheme();
+    return springMimicAdapter.getMmActiveSession().getMmTheme();
   }
 
   /**
@@ -158,7 +158,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
   public boolean isMmUserAgentJavaScriptEnabled() {
     assureInitialization();
 
-    return siteService.getMmActiveSession().isMmUserAgentJavaScriptEnabled();
+    return springMimicAdapter.getMmActiveSession().isMmUserAgentJavaScriptEnabled();
   }
 
   /**
