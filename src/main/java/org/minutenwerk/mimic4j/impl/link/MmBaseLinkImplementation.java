@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmInformationableModel;
+import org.minutenwerk.mimic4j.api.MmInformationalModel;
 import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
@@ -125,8 +125,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     // retrieve view model
     final VIEW_MODEL viewModel = getMmViewModel();
 
-    if (viewModel instanceof MmInformationableModel) {
-      return getMmDescription((MmInformationableModel)viewModel, MmMessageType.LONG);
+    if (viewModel instanceof MmInformationalModel) {
+      return getMmDescription((MmInformationalModel)viewModel, MmMessageType.LONG);
     } else {
       return getMmDescription(viewModel, MmMessageType.LONG);
     }
@@ -281,8 +281,8 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     // retrieve view model
     final VIEW_MODEL viewModel = getMmViewModel();
 
-    if (viewModel instanceof MmInformationableModel) {
-      return getMmDescription((MmInformationableModel)viewModel, MmMessageType.SHORT);
+    if (viewModel instanceof MmInformationalModel) {
+      return getMmDescription((MmInformationalModel)viewModel, MmMessageType.SHORT);
     } else {
       return getMmDescription(viewModel, MmMessageType.SHORT);
     }

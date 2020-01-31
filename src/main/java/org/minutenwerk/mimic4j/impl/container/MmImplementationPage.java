@@ -121,7 +121,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <USER_DETAILS> MmSpringMimicAdapter<USER_DETAILS> getMmSite() {
+  public <USER_DETAILS> MmSpringMimicAdapter<USER_DETAILS> getMmSpringMimicAdapter() {
     assureInitialization();
 
     return (MmSpringMimicAdapter<USER_DETAILS>)springMimicAdapter;

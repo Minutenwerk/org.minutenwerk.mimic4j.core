@@ -16,7 +16,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 
 /**
- * Spring service implementation for mimic web site.
+ * Adapter between mimic4j and Spring.
  *
  * @param   <USER_DETAILS>  Details of user, a type outside of mimic4j.
  *

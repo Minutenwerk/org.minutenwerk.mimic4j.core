@@ -172,8 +172,8 @@ public abstract class MmPage<MODEL> extends MmBaseContainerDeclaration<MmImpleme
    * @return  web site of this page.
    */
   @Override
-  public final <USER_DETAILS> MmSpringMimicAdapter<USER_DETAILS> getMmSite() {
-    return implementation.getMmSite();
+  public final <USER_DETAILS> MmSpringMimicAdapter<USER_DETAILS> getMmSpringMimicAdapter() {
+    return implementation.getMmSpringMimicAdapter();
   }
 
   /**

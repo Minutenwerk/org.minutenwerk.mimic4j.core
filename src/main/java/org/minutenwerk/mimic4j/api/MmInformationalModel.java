@@ -5,7 +5,7 @@ package org.minutenwerk.mimic4j.api;
  *
  * @author  Olaf Kossak
  */
-public interface MmInformationableModel {
+public interface MmInformationalModel {
 
   /**
    * Returns an array of objects containing short information about this instance.

@@ -53,7 +53,7 @@ public interface MmPageMimic<MODEL> extends MmContainerMimic<MODEL> {
    *
    * @return  Spring mimic adapter of this page.
    */
-  public <USER_DETAILS> MmSpringMimicAdapter<USER_DETAILS> getMmSite();
+  public <USER_DETAILS> MmSpringMimicAdapter<USER_DETAILS> getMmSpringMimicAdapter();
 
   /**
    * Returns current session theme.

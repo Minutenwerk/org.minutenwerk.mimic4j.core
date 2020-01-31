@@ -35,7 +35,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmInformationableModel;
+import org.minutenwerk.mimic4j.api.MmInformationalModel;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.MmReferencePathProvider;
@@ -689,8 +689,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // retrieve referencable model
     final MmReferencableModel dataModel = getMmReferencableModel();
 
-    if (dataModel instanceof MmInformationableModel) {
-      return getMmDescription((MmInformationableModel)dataModel, MmMessageType.LONG);
+    if (dataModel instanceof MmInformationalModel) {
+      return getMmDescription((MmInformationalModel)dataModel, MmMessageType.LONG);
     } else if (dataModel != null) {
       return getMmDescription(dataModel, MmMessageType.LONG);
     } else {
@@ -823,8 +823,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     // retrieve referencable model
     final MmReferencableModel dataModel = getMmReferencableModel();
 
-    if (dataModel instanceof MmInformationableModel) {
-      return getMmDescription((MmInformationableModel)dataModel, MmMessageType.SHORT);
+    if (dataModel instanceof MmInformationalModel) {
+      return getMmDescription((MmInformationalModel)dataModel, MmMessageType.SHORT);
     } else if (dataModel != null) {
       return getMmDescription(dataModel, MmMessageType.SHORT);
     } else {
@@ -1131,9 +1131,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-i18n
    */
-  protected String getMmDescription(final MmInformationableModel pInformationable, final MmMessageType pMessageType) {
+  protected String getMmDescription(final MmInformationalModel pInformationable, final MmMessageType pMessageType) {
     // if view value is MmInformationableModel, transform into an array of formatted objects
-    final Object[] viewValueArray     = ((MmInformationableModel)pInformationable).getMmInfo();
+    final Object[] viewValueArray     = ((MmInformationalModel)pInformationable).getMmInfo();
 
     // retrieve array of format patterns
     final String[] formatPatternArray = getMmFormatPattern().split("\\|");
