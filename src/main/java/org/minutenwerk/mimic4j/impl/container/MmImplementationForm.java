@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.container.MmForm;
 import org.minutenwerk.mimic4j.api.container.MmFormAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationForm is the specific class for the implementation part of form mimics.

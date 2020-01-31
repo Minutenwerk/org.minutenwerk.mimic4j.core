@@ -1,7 +1,8 @@
-package org.minutenwerk.mimic4j.api;
+package org.minutenwerk.mimic4j.api.mimic;
 
 import java.util.List;
 
+import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 
 /**

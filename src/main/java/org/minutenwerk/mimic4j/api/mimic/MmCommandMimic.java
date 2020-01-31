@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.api;
+package org.minutenwerk.mimic4j.api.mimic;
 
 /**
  * MmCommandMimic defines a mimic which controls execution of actions.

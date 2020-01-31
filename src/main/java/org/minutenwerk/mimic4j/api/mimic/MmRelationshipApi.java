@@ -1,8 +1,9 @@
-package org.minutenwerk.mimic4j.api;
+package org.minutenwerk.mimic4j.api.mimic;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmInternal;

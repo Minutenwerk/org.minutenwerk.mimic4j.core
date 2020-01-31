@@ -2,9 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.math.BigInteger;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBigInteger;
 import org.minutenwerk.mimic4j.api.attribute.MmBigIntegerAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationBigInteger is the implementation part of a mimic for {@link BigInteger}.

@@ -1,9 +1,9 @@
 package org.minutenwerk.mimic4j.impl.link;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.link.MmLink;
 import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 
 /**
  * MmImplementationLink is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of the

@@ -4,10 +4,9 @@ import java.time.LocalTime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalTime;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalTimeAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**

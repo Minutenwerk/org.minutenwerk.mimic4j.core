@@ -4,8 +4,7 @@ import java.net.URI;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
-
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 import org.springframework.web.util.UriComponents;
 
 /**

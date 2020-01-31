@@ -3,14 +3,14 @@ package org.minutenwerk.mimic4j.impl.container;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmTableMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.container.MmTable;
 import org.minutenwerk.mimic4j.api.container.MmTableAnnotation;
 import org.minutenwerk.mimic4j.api.container.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmTableMimic;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
 
 /**

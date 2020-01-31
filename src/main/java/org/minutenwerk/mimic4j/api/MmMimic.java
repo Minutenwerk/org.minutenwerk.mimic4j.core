@@ -2,6 +2,7 @@ package org.minutenwerk.mimic4j.api;
 
 import java.net.URI;
 
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 

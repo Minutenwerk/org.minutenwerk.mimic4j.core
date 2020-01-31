@@ -6,10 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmPageMimic;
-import org.minutenwerk.mimic4j.api.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
+import org.minutenwerk.mimic4j.api.mimic.MmPageMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmRelationshipApi;
 
 /**
  * MmMessage is the base class for messages from the application to its users. Messages have a severity level and a message text. The message text can be

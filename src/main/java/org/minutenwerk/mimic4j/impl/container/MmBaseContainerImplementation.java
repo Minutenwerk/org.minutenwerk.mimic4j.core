@@ -2,14 +2,14 @@ package org.minutenwerk.mimic4j.impl.container;
 
 import java.lang.annotation.Annotation;
 
-import org.minutenwerk.mimic4j.api.MmContainerMimic;
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmEditableMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelChangeListener;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
+import org.minutenwerk.mimic4j.api.mimic.MmContainerMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmEditableMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;

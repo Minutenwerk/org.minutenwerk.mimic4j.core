@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmDouble;
 import org.minutenwerk.mimic4j.api.attribute.MmDoubleAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationDouble is the implementation part of a mimic for {@link Double}.

@@ -1,10 +1,10 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.minutenwerk.mimic4j.api.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelChangeListener;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
+import org.minutenwerk.mimic4j.api.mimic.MmContainerMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 import org.minutenwerk.mimic4j.impl.message.MmMessage;
 

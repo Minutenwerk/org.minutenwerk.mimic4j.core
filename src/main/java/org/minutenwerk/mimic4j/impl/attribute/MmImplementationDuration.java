@@ -2,9 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.time.Duration;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmDuration;
 import org.minutenwerk.mimic4j.api.attribute.MmDurationAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationDuration is the implementation part of a mimic for {@link Duration}.

@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmString;
 import org.minutenwerk.mimic4j.api.attribute.MmStringAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationString is the implementation part of a mimic for {@link String}.

@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmLong;
 import org.minutenwerk.mimic4j.api.attribute.MmLongAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationLong is the implementation part of a mimic for {@link Long}.

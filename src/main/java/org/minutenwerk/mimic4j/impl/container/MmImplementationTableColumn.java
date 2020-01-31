@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableColumn;
 import org.minutenwerk.mimic4j.api.container.MmTableColumnAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationTableColumn is the specific class for the implementation part of table column mimics.

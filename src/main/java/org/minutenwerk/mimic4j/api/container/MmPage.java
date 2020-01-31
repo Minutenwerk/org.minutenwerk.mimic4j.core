@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmPageMimic;
-import org.minutenwerk.mimic4j.api.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.api.mimic.MmPageMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.site.MmSpringMimicAdapter;
 import org.minutenwerk.mimic4j.api.site.MmTheme;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;

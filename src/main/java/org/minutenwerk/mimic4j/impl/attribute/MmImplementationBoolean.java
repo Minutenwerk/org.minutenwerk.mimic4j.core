@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBoolean;
 import org.minutenwerk.mimic4j.api.attribute.MmBooleanAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationBoolean is the implementation part of a mimic for {@link Boolean}.

@@ -9,13 +9,12 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmInformationalModel;
-import org.minutenwerk.mimic4j.api.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmInformationalModel;
+import org.minutenwerk.mimic4j.api.mimic.MmLinkMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;

@@ -2,9 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.math.BigDecimal;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmBigDecimal;
 import org.minutenwerk.mimic4j.api.attribute.MmBigDecimalAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationBigDecimal is the implementation part of a mimic for {@link BigDecimal}.

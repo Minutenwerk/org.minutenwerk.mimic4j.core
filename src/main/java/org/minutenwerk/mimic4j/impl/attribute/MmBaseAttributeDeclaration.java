@@ -8,10 +8,9 @@ import java.util.Locale;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.minutenwerk.mimic4j.api.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.mimic.MmAttributeMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
 /**

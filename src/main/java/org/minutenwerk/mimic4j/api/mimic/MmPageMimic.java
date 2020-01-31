@@ -1,8 +1,9 @@
-package org.minutenwerk.mimic4j.api;
+package org.minutenwerk.mimic4j.api.mimic;
 
 import java.util.List;
 import java.util.Locale;
 
+import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.site.MmSpringMimicAdapter;
 import org.minutenwerk.mimic4j.api.site.MmTheme;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;

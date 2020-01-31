@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationListString;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;

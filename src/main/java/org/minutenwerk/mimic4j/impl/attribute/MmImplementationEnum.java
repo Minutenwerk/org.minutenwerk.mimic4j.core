@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.impl.attribute;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationEnum is the implementation part of a mimic for enumerations.

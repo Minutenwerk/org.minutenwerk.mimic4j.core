@@ -4,10 +4,9 @@ import java.time.ZonedDateTime;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**

@@ -2,12 +2,12 @@ package org.minutenwerk.mimic4j.api.container;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmTableMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmCollectionAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmTableMimic;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationTable;
 import org.minutenwerk.mimic4j.impl.container.MmTableCallback;

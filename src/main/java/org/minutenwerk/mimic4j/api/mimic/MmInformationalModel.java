@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.api;
+package org.minutenwerk.mimic4j.api.mimic;
 
 /**
  * This object can return a short information about itself.

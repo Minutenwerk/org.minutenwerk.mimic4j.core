@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 
 /**
  * Abstract base class for model accessors.

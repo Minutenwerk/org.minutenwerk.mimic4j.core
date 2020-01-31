@@ -4,12 +4,12 @@ import java.lang.reflect.Field;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.MmMimic;
-import org.minutenwerk.mimic4j.api.MmTableRowMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.container.MmTableRowAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmTableRowMimic;
 
 /**
  * MmImplementationTableRow is the specific class for the implementation part of table row mimics.

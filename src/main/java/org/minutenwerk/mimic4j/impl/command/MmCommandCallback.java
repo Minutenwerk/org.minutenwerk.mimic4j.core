@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.impl.command;
 
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.link.MmLinkCallback;
 
 /**

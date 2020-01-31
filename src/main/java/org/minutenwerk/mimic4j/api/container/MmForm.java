@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.api.container;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationForm;
 

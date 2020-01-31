@@ -2,9 +2,9 @@ package org.minutenwerk.mimic4j.impl.attribute;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.attribute.MmListString;
 import org.minutenwerk.mimic4j.api.attribute.MmListStringAnnotation;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 
 /**
  * MmImplementationListString is the implementation part of a mimic for a list of {@link String}.

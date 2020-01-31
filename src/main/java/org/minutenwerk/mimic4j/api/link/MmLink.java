@@ -1,7 +1,7 @@
 package org.minutenwerk.mimic4j.api.link;
 
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
 import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
 

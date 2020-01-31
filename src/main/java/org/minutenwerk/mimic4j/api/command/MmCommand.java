@@ -1,8 +1,8 @@
 package org.minutenwerk.mimic4j.api.command;
 
-import org.minutenwerk.mimic4j.api.MmCommandMimic;
-import org.minutenwerk.mimic4j.api.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmCommandMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.command.MmCommandCallback;
 import org.minutenwerk.mimic4j.impl.command.MmImplementationCommand;
 import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;

@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.api;
+package org.minutenwerk.mimic4j.api.mimic;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 
