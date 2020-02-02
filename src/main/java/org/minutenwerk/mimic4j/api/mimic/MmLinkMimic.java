@@ -17,6 +17,20 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 public interface MmLinkMimic<DATA_MODEL extends MmReferencableModel, VIEW_MODEL> extends MmMimic {
 
   /**
+   * Returns icon after text.
+   *
+   * @return  The icon after text.
+   */
+  public String getIconAfter();
+
+  /**
+   * Returns icon before text.
+   *
+   * @return  The icon before text.
+   */
+  public String getIconBefore();
+
+  /**
    * Returns data model value.
    *
    * @return  The data model value.

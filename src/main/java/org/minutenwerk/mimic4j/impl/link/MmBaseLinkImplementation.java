@@ -340,4 +340,28 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     return callbackFormatPattern;
   }
 
+  /**
+   * Returns icon after text.
+   *
+   * @return  The icon after text.
+   */
+  @Override
+  public String getIconAfter() {
+    assureInitialization();
+
+    return configuration.getIconAfter();
+  }
+
+  /**
+   * Returns icon before text.
+   *
+   * @return  The icon before text.
+   */
+  @Override
+  public String getIconBefore() {
+    assureInitialization();
+
+    return configuration.getIconBefore();
+  }
+
 }

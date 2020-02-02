@@ -240,4 +240,24 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   public final String getMmViewValue() {
     return implementation.getMmViewValue();
   }
+
+  /**
+   * Returns icon after text.
+   *
+   * @return  The icon after text.
+   */
+  @Override
+  public final String getIconAfter() {
+    return implementation.getIconAfter();
+  }
+
+  /**
+   * Returns icon before text.
+   *
+   * @return  The icon before text.
+   */
+  @Override
+  public final String getIconBefore() {
+    return implementation.getIconBefore();
+  }
 }
