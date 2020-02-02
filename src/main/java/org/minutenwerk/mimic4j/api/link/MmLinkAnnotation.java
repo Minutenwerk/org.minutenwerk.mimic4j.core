@@ -30,6 +30,10 @@ public @interface MmLinkAnnotation {
 
   public String styleClasses() default MmConfigurationLink.DEFAULT_STYLE_CLASSES;
 
+  public String iconBefore() default MmConfigurationLink.DEFAULT_ICON_BEFORE;
+
+  public String iconAfter() default MmConfigurationLink.DEFAULT_ICON_AFTER;
+
   public String targetReferencePath() default MmConfigurationLink.DEFAULT_TARGET_REFERENCE_PATH;
 
   public Class<? extends MmPage<?>> targetPage() default MmVoidTarget.class;

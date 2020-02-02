@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.minutenwerk.mimic4j.api.attribute.MmInstant;
 import org.minutenwerk.mimic4j.api.attribute.MmInstantAnnotation;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;

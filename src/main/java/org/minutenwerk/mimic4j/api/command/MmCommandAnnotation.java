@@ -9,7 +9,6 @@ import org.minutenwerk.mimic4j.api.container.MmPage;
 import org.minutenwerk.mimic4j.api.container.MmPage.MmVoidTarget;
 import org.minutenwerk.mimic4j.impl.MmMetaAnnotation;
 import org.minutenwerk.mimic4j.impl.command.MmConfigurationCommand;
-import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
 
 /**
  * MmCommandAnnotation annotates declarations of {@link MmCommand} by hardcoded configuration values.
@@ -31,9 +30,13 @@ public @interface MmCommandAnnotation {
 
   public boolean enabled() default MmConfigurationCommand.DEFAULT_IS_ENABLED;
 
+  public String iconBefore() default MmConfigurationCommand.DEFAULT_ICON_BEFORE;
+
+  public String iconAfter() default MmConfigurationCommand.DEFAULT_ICON_AFTER;
+
   public String styleClasses() default MmConfigurationCommand.DEFAULT_STYLE_CLASSES;
 
-  public String targetReferencePath() default MmConfigurationLink.DEFAULT_TARGET_REFERENCE_PATH;
+  public String targetReferencePath() default MmConfigurationCommand.DEFAULT_TARGET_REFERENCE_PATH;
 
   public Class<? extends MmPage<?>> targetPage() default MmVoidTarget.class;
 

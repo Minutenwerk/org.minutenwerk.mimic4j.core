@@ -15,15 +15,6 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 public interface MmSpringMimicAdapter<USER_DETAILS> {
 
   /**
-   * Returns server path of deployed application.
-   *
-   * @return  The server path of deployed application.
-   * 
-   * @throws  IllegalStateException  In case of server path is not evaluated yet.
-   */
-  public String getMmServerPath() throws IllegalStateException;
-
-  /**
    * Returns a currently active session.
    *
    * @return  a currently active session.
@@ -54,5 +45,14 @@ public interface MmSpringMimicAdapter<USER_DETAILS> {
    * @return  The internationalized message.
    */
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments);
+
+  /**
+   * Returns server path of deployed application.
+   *
+   * @return  The server path of deployed application.
+   *
+   * @throws  IllegalStateException  In case of server path is not evaluated yet.
+   */
+  public String getMmServerPath() throws IllegalStateException;
 
 }

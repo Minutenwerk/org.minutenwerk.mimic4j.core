@@ -8,6 +8,7 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+
 import org.springframework.web.util.UriComponents;
 
 /**

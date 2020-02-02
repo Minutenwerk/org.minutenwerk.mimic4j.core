@@ -45,6 +45,15 @@ public class MmListEntryAccessor<ENTRY_MODEL> extends MmComponentAccessor<List<E
   }
 
   /**
+   * Returns supplier function of index of entry in parent list.
+   *
+   * @return  supplier function of index of entry in parent list.
+   */
+  public Supplier<Integer> getIndexSupplier() {
+    return indexSupplier;
+  }
+
+  /**
    * Returns {@link Optional} of entry model.
    *
    * @return  {@link Optional} of entry model.
@@ -59,12 +68,5 @@ public class MmListEntryAccessor<ENTRY_MODEL> extends MmComponentAccessor<List<E
       }
     }
     return Optional.empty();
-  }
-
-  /**
-   * Returns supplier function of index of entry in parent list.
-   */
-  public Supplier<Integer> getIndexSupplier() {
-    return indexSupplier;
   }
 }

@@ -12,8 +12,20 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
 
+  /** Constant for default value of icon before text. */
+  public static final String DEFAULT_ICON_BEFORE           = "";
+
+  /** Constant for default value of icon after text. */
+  public static final String DEFAULT_ICON_AFTER            = "";
+
   /** Constant for default value of target outcome of this mimic. */
   public static final String DEFAULT_TARGET_REFERENCE_PATH = "";
+
+  /** The icon before text. */
+  protected String           iconBefore;
+
+  /** The icon after text. */
+  protected String           iconAfter;
 
   /** The path part of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display". */
   protected UriComponents    targetReferencePath;
@@ -25,10 +37,15 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * @param  pVisible       True, if HTML tag of mimic is rendered visible.
    * @param  pReadOnly      True, if HTML tag of mimic is rendered readonly.
    * @param  pEnabled       True, if HTML tag of mimic is rendered enabled.
-   * @param  pStyleClasses  TODOC
+   * @param  pIconBefore    The icon before text.
+   * @param  pIconAfter     The icon after text.
+   * @param  pStyleClasses  The CSS style classes of this mimic.
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pStyleClasses) {
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pIconBefore, String pIconAfter,
+    String pStyleClasses) {
     super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
+    iconBefore          = pIconBefore;
+    iconAfter           = pIconAfter;
     targetReferencePath = null;
   }
 
@@ -39,12 +56,35 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    * @param  pVisible              True, if HTML tag of mimic is rendered visible.
    * @param  pReadOnly             True, if HTML tag of mimic is rendered readonly.
    * @param  pEnabled              True, if HTML tag of mimic is rendered enabled.
+   * @param  pIconBefore           The icon before text.
+   * @param  pIconAfter            The icon after text.
    * @param  pTargetReferencePath  The path part of the target URL.
-   * @param  pStyleClasses         TODOC
+   * @param  pStyleClasses         The CSS style classes of this mimic.
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pTargetReferencePath, String pStyleClasses) {
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pIconBefore, String pIconAfter,
+    String pTargetReferencePath, String pStyleClasses) {
     super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
+    iconBefore = pIconBefore;
+    iconAfter  = pIconAfter;
     setTargetReferencePath(pTargetReferencePath);
+  }
+
+  /**
+   * Returns icon after text.
+   *
+   * @return  The icon after text.
+   */
+  public String getIconAfter() {
+    return iconAfter;
+  }
+
+  /**
+   * Returns icon before text.
+   *
+   * @return  The icon before text.
+   */
+  public String getIconBefore() {
+    return iconBefore;
   }
 
   /**
@@ -66,4 +106,5 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
       targetReferencePath = UriComponentsBuilder.fromPath(pTargetReferencePath).build();
     }
   }
+
 }
