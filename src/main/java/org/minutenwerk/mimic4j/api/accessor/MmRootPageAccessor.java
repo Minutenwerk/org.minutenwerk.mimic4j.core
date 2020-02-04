@@ -48,7 +48,7 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    *
    * @return  Total index of last element in current page.
    */
-  public long getElementIndexUntil() {
+  public int getElementIndexUntil() {
     return ((pageable.getPageNumber() * pageable.getPageSize()) + numberOfElements);
   }
 
