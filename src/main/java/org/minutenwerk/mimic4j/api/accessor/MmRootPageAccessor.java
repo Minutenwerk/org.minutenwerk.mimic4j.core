@@ -30,15 +30,23 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
   public MmRootPageAccessor() {
     super();
   }
+
   /**
-   * Resets model and any other state information to null.
+   * Returns total index of first element in current page.
+   *
+   * @return  Total index of first element in current page.
    */
-  @Override
-  public void reset() {
-    super.reset();
-    pageable = null;
-    totalElements = 0;
-    totalPages = 0;
+  public long getElementIndexFrom() {
+    return ((pageable.getPageNumber() * pageable.getPageSize()) + 1);
+  }
+
+  /**
+   * Returns total index of last element in current page.
+   *
+   * @return  Total index of last element in current page.
+   */
+  public long getElementIndexUntil() {
+    return ((pageable.getPageNumber() * pageable.getPageSize()) + pageable.getPageSize());
   }
 
   /**
@@ -51,12 +59,12 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
   }
 
   /**
-   * Returns total amount of elements.
+   * Returns number of page, starts by 0.
    *
-   * @return  Total amount of elements.
+   * @return  Number of page
    */
-  public long getTotalElements() {
-    return totalElements;
+  public int getPageNumber() {
+    return pageable.getPageNumber();
   }
 
   /**
@@ -69,12 +77,12 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
   }
 
   /**
-   * Returns number of page, starts by 0.
+   * Returns total amount of elements.
    *
-   * @return  Number of page
+   * @return  Total amount of elements.
    */
-  public int getPageNumber() {
-    return pageable.getPageNumber();
+  public long getTotalElements() {
+    return totalElements;
   }
 
   /**
@@ -102,6 +110,17 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    */
   public boolean hasPreviousPage() {
     return (pageable.getPageNumber() > 0);
+  }
+
+  /**
+   * Resets model and any other state information to null.
+   */
+  @Override
+  public void reset() {
+    super.reset();
+    pageable      = null;
+    totalElements = 0;
+    totalPages    = 0;
   }
 
   /**

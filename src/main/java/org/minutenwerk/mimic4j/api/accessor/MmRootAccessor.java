@@ -15,15 +15,6 @@ public class MmRootAccessor<MODEL> extends MmBaseModelAccessor<Void, MODEL> {
   private MODEL rootModel;
 
   /**
-   * Resets model and any other state information to null.
-   */
-  @Override
-  public void reset() {
-    super.reset();
-    rootModel = null;
-  }
-
-  /**
    * Constructor of this mutable class.
    */
   public MmRootAccessor() {
@@ -68,6 +59,15 @@ public class MmRootAccessor<MODEL> extends MmBaseModelAccessor<Void, MODEL> {
   @Override
   public final boolean isRoot() {
     return true;
+  }
+
+  /**
+   * Resets model and any other state information to null.
+   */
+  @Override
+  public void reset() {
+    super.reset();
+    rootModel = null;
   }
 
   /**

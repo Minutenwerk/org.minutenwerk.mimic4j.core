@@ -30,13 +30,6 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
   }
 
   /**
-   * Resets model and any other state information to null.
-   */
-  @Override
-  public void reset() {
-  }
-
-  /**
    * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.
@@ -107,5 +100,12 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
   @SuppressWarnings("unchecked")
   public <R> R getRootModel() {
     return (R)getRootAccessor().get();
+  }
+
+  /**
+   * Resets model and any other state information to null.
+   */
+  @Override
+  public void reset() {
   }
 }
