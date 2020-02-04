@@ -81,10 +81,10 @@ public class MmImplementationTable<ROW_MODEL>
     if (rowModel != null) {
 
       // iterate over list of row models
-      for (int i = 0; i < rowModel.size(); i++) {
+      for (int accessorIndex = 0; accessorIndex < rowModel.size(); accessorIndex++) {
 
         // for each row model create a table row mimic and pass row model
-        MmTableRow<ROW_MODEL> tableRowMm = declaration.callbackMmCreateTableRow(i);
+        MmTableRow<ROW_MODEL> tableRowMm = declaration.callbackMmCreateTableRow(accessorIndex);
 
         if (tableRowMm == null) {
           throw new IllegalStateException("callbackMmCreateTableRow() must return new MmTableRow");

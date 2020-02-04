@@ -104,6 +104,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /** <code>True</code>, if the mimic has been created at runtime, e.g. a {@link MmTableRow}. Is set in constructor phase. */
   protected final boolean                             isRuntimeMimic;
 
+  /** Index of pagination. */
+  protected final Integer                             runtimeIndex;
+
   /** All direct children are of type <code>MmBaseImplementation</code>. */
   protected final List<MmBaseImplementation<?, ?, ?>> implementationChildren;
 
@@ -236,6 +239,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // root is compiletime mimic
       isRuntimeMimic = false;
+      runtimeIndex   = null;
 
     } else {
 
@@ -271,6 +275,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // evaluate is runtime
       isRuntimeMimic = onConstructRuntimeMimic(implementationParent, pRuntimeIndex);
+      runtimeIndex   = pRuntimeIndex;
     }
 
     // create lists for child mimics
@@ -1499,6 +1504,17 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     assureInitialization();
 
     return root.getMmTheme();
+  }
+
+  /**
+   * Returns index of pagination.
+   *
+   * @return        The index of pagination.
+   *
+   * @jalopy.group  group-helper
+   */
+  public Integer getRuntimeIndex() {
+    return runtimeIndex;
   }
 
   /**

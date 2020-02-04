@@ -53,6 +53,16 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<M
   }
 
   /**
+   * Returns the accessor index of this row.
+   *
+   * @return  The accessor index of this row.
+   */
+  @Override
+  public final int getMmAccessorIndex() {
+    return implementation.getMmAccessorIndex();
+  }
+
+  /**
    * Returns accessor of model.
    *
    * @return  The accessor of model.

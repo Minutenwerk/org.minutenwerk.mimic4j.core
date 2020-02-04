@@ -13,6 +13,13 @@ import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 public interface MmTableRowMimic<ROW_MODEL> extends MmContainerMimic<ROW_MODEL> {
 
   /**
+   * Returns the accessor index of this row.
+   *
+   * @return  The accessor index of this row.
+   */
+  public int getMmAccessorIndex();
+
+  /**
    * Returns accessor of model.
    *
    * @return  The accessor of model.

@@ -3,6 +3,7 @@ package org.minutenwerk.mimic4j.impl.container;
 import java.lang.reflect.Field;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
@@ -33,6 +34,18 @@ public class MmImplementationTableRow<ROW_MODEL>
   }
 
   /**
+   * Returns the accessor index of this row.
+   *
+   * @return  The accessor index of this row.
+   */
+  @Override
+  public int getMmAccessorIndex() {
+    assureInitialization();
+
+    return getMmModelAccessor().getIndex();
+  }
+
+  /**
    * Returns accessor of model.
    *
    * @return        The accessor of model.
@@ -56,7 +69,7 @@ public class MmImplementationTableRow<ROW_MODEL>
   public int getMmRowIndex() {
     assureInitialization();
 
-    return getMmModelAccessor().getIndex();
+    return Optional.of(getRuntimeIndex()).orElseThrow(() -> new UnsupportedOperationException("no runtime index provided for: " + this));
   }
 
   /**
