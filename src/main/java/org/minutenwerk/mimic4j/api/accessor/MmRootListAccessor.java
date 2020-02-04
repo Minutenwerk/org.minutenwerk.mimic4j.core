@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Model accessor on root list. Because a root does not have a parent, the parent model is Void.
+ * Model accessor on root list. Because a root does not have a parent, the parent model generic is Void.
  *
  * @param   <VALUE_MODEL>  Type of root model in list.
  *
