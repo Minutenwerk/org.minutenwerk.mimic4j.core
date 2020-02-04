@@ -24,6 +24,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
   /** Total amount of pages. */
   private int      totalPages;
 
+  /** Number of elements on current page. */
+  private int      numberOfElements;
+
   /**
    * Constructor of this mutable class.
    */
@@ -46,7 +49,16 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  Total index of last element in current page.
    */
   public long getElementIndexUntil() {
-    return ((pageable.getPageNumber() * pageable.getPageSize()) + pageable.getPageSize());
+    return ((pageable.getPageNumber() * pageable.getPageSize()) + numberOfElements);
+  }
+
+  /**
+   * Returns number of elements on current page.
+   *
+   * @return  Number of elements on current page.
+   */
+  public int getNumberOfElements() {
+    return numberOfElements;
   }
 
   /**
@@ -142,9 +154,10 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    */
   public void set(final Page<VALUE_MODEL> page) {
     super.set(page.getContent());
-    pageable      = page.getPageable();
-    totalElements = page.getTotalElements();
-    totalPages    = page.getTotalPages();
+    pageable         = page.getPageable();
+    totalElements    = page.getTotalElements();
+    totalPages       = page.getTotalPages();
+    numberOfElements = page.getNumberOfElements();
   }
 
 }
