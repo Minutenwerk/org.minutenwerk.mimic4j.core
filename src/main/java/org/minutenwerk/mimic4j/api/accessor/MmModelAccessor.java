@@ -20,6 +20,10 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
   public MODEL get();
 
   /**
+   * Resets model and any other state information to null.
+   */
+  public void reset();
+  /**
    * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
    *
    * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.

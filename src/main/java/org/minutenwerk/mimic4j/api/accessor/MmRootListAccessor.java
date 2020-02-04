@@ -21,6 +21,14 @@ public class MmRootListAccessor<VALUE_MODEL> extends MmListAccessor<Void, VALUE_
   public MmRootListAccessor() {
     super(null, null, null, null);
   }
+  /**
+   * Resets model and any other state information to null.
+   */
+  @Override
+  public void reset() {
+    super.reset();
+    rootModel = null;
+  }
 
   /**
    * TODOC.

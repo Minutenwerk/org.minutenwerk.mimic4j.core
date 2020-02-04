@@ -30,11 +30,21 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
   public MmRootPageAccessor() {
     super();
   }
+  /**
+   * Resets model and any other state information to null.
+   */
+  @Override
+  public void reset() {
+    super.reset();
+    pageable = null;
+    totalElements = 0;
+    totalPages = 0;
+  }
 
   /**
    * Returns pagination information containing page number, size, sort.
    *
-   * @return  pagination information containing page number, size, sort.
+   * @return  Pagination information containing page number, size, sort.
    */
   public Pageable getPageable() {
     return pageable;
@@ -43,16 +53,34 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
   /**
    * Returns total amount of elements.
    *
-   * @return  total amount of elements.
+   * @return  Total amount of elements.
    */
   public long getTotalElements() {
     return totalElements;
   }
 
   /**
+   * Returns size of page.
+   *
+   * @return  Size of page
+   */
+  public int getPageSize() {
+    return pageable.getPageSize();
+  }
+
+  /**
+   * Returns number of page, starts by 0.
+   *
+   * @return  Number of page
+   */
+  public int getPageNumber() {
+    return pageable.getPageNumber();
+  }
+
+  /**
    * Returns total amount of pages.
    *
-   * @return  total amount of pages.
+   * @return  Total amount of pages.
    */
   public int getTotalPages() {
     return totalPages;
@@ -61,10 +89,19 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
   /**
    * Returns true, if there is a next page.
    *
-   * @return  true, if there is a next page.
+   * @return  True, if there is a next page.
    */
   public boolean hasNextPage() {
     return (pageable.getPageNumber() + 1) < totalPages;
+  }
+
+  /**
+   * Returns true, if there is a previous page.
+   *
+   * @return  True, if there is a previous page.
+   */
+  public boolean hasPreviousPage() {
+    return (pageable.getPageNumber() > 0);
   }
 
   /**
