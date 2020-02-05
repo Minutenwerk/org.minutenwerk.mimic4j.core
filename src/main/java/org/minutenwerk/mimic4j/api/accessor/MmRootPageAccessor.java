@@ -40,7 +40,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  Total index of first element in current page.
    */
   public int getElementIndexFrom() {
-    return ((pageable.getPageNumber() * pageable.getPageSize()) + 1);
+    return (pageable != null) //
+    ? ((pageable.getPageNumber() * pageable.getPageSize()) + 1) //
+    : -1;
   }
 
   /**
@@ -49,7 +51,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  Total index of last element in current page.
    */
   public int getElementIndexUntil() {
-    return ((pageable.getPageNumber() * pageable.getPageSize()) + numberOfElements);
+    return (pageable != null) //
+    ? ((pageable.getPageNumber() * pageable.getPageSize()) + numberOfElements) //
+    : -1;
   }
 
   /**
@@ -58,7 +62,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  Number of elements on current page.
    */
   public int getNumberOfElements() {
-    return numberOfElements;
+    return (pageable != null) //
+    ? numberOfElements //
+    : -1;
   }
 
   /**
@@ -76,7 +82,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  Number of page
    */
   public int getPageNumber() {
-    return pageable.getPageNumber();
+    return (pageable != null) //
+    ? pageable.getPageNumber() //
+    : -1;
   }
 
   /**
@@ -85,7 +93,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  Size of page
    */
   public int getPageSize() {
-    return pageable.getPageSize();
+    return (pageable != null) //
+    ? pageable.getPageSize() //
+    : -1;
   }
 
   /**
@@ -94,7 +104,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  Total amount of elements.
    */
   public int getTotalElements() {
-    return totalElements;
+    return (pageable != null) //
+    ? totalElements //
+    : -1;
   }
 
   /**
@@ -103,7 +115,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  Total amount of pages.
    */
   public int getTotalPages() {
-    return totalPages;
+    return (pageable != null) //
+    ? totalPages //
+    : -1;
   }
 
   /**
@@ -112,7 +126,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  True, if there is a next page.
    */
   public boolean hasNextPage() {
-    return (pageable.getPageNumber() + 1) < totalPages;
+    return (pageable != null) //
+    ? ((pageable.getPageNumber() + 1) < totalPages) //
+    : false;
   }
 
   /**
@@ -121,7 +137,9 @@ public class MmRootPageAccessor<VALUE_MODEL> extends MmRootListAccessor<VALUE_MO
    * @return  True, if there is a previous page.
    */
   public boolean hasPreviousPage() {
-    return (pageable.getPageNumber() > 0);
+    return (pageable != null) //
+    ? (pageable.getPageNumber() > 0) //
+    : false;
   }
 
   /**
