@@ -75,6 +75,9 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   @Override
   public URI callbackMmGetTargetReference(UriComponents pTargetReferencePath, DATA_MODEL pDataModel, List<String> pTargetReferenceParams) {
     try {
+      if (pTargetReferencePath == null) {
+        throw new IllegalArgumentException();
+      }
       if ((pTargetReferenceParams == null) || pTargetReferenceParams.isEmpty()) {
         if (pDataModel == null) {
           return pTargetReferencePath.toUri();
