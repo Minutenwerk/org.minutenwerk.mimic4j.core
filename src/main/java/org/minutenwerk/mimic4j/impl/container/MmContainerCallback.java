@@ -15,19 +15,19 @@ public interface MmContainerCallback<MODEL> extends MmBaseCallback {
   /**
    * Returns the container's accessor to corresponding model, derived from specified parent accessor.
    *
-   * @param   pParentAccessor  The specified parent component accessor.
+   * @param   parentAccessor  The specified parent component accessor.
    *
    * @return  The container's accessor.
    */
-  public MmModelAccessor<?, MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor);
+  public MmModelAccessor<?, MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> parentAccessor);
 
   /**
    * Semantic validation of model.
    *
-   * @param   pModel  The model to be validated.
+   * @param   model  The model to be validated.
    *
    * @throws  MmValidatorException  In case of validation fails.
    */
-  public void callbackMmValidateModel(MODEL pModel) throws MmValidatorException;
+  public void callbackMmValidateModel(MODEL model) throws MmValidatorException;
 
 }

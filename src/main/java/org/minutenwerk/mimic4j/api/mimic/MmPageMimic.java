@@ -27,13 +27,13 @@ public interface MmPageMimic<MODEL> extends MmContainerMimic<MODEL> {
   /**
    * Returns an internationalized version for a specified message id and type.
    *
-   * @param   pMessageId    The specified id of the message to be internationalized.
-   * @param   pMessageType  The specified type of the message to be internationalized.
-   * @param   pArguments    Optional list of message arguments.
+   * @param   messageId    The specified id of the message to be internationalized.
+   * @param   messageType  The specified type of the message to be internationalized.
+   * @param   arguments    Optional list of message arguments.
    *
    * @return  The internationalized message.
    */
-  public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments);
+  public String getMmI18nText(String messageId, MmMessageType messageType, Object... arguments);
 
   /**
    * Returns current session locale.

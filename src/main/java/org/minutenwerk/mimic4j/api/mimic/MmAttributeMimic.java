@@ -95,8 +95,8 @@ public interface MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmEditableM
   /**
    * Sets view value of mimic to specified value.
    *
-   * @param  pViewModelValue  The specified value to be set.
+   * @param  viewModelValue  The specified value to be set.
    */
-  public void setMmViewValue(VIEW_TYPE pViewModelValue);
+  public void setMmViewValue(VIEW_TYPE viewModelValue);
 
 }

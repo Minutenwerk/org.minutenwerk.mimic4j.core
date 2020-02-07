@@ -51,19 +51,19 @@ public interface MmSession<USER_DETAILS> {
   /**
    * Sets specified locale for this session.
    *
-   * @param   pLocale  The specified locale.
+   * @param   locale  The specified locale.
    *
    * @return  This session.
    */
-  public MmSessionImpl<USER_DETAILS> setMmLocale(Locale pLocale);
+  public MmSessionImpl<USER_DETAILS> setMmLocale(Locale locale);
 
   /**
    * Sets specified theme for this session.
    *
-   * @param   pTheme  The specified theme.
+   * @param   theme  The specified theme.
    *
    * @return  This session.
    */
-  public MmSessionImpl<USER_DETAILS> setMmTheme(MmTheme pTheme);
+  public MmSessionImpl<USER_DETAILS> setMmTheme(MmTheme theme);
 
 }

@@ -15,10 +15,10 @@ public interface MmTableCallback<ROW_MODEL> extends MmContainerCallback<List<ROW
   /**
    * Returns a new table row mimic of type {@link MmTableRow}.
    *
-   * @param   pRowIndex  The table row index to be stored in new table row mimic.
+   * @param   rowIndex  The table row index to be stored in new table row mimic.
    *
    * @return  The new table row mimic.
    */
-  public MmTableRow<ROW_MODEL> callbackMmCreateTableRow(int pRowIndex);
+  public MmTableRow<ROW_MODEL> callbackMmCreateTableRow(int rowIndex);
 
 }

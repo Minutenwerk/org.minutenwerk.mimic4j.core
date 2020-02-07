@@ -161,12 +161,12 @@ public interface MmMimic {
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
    *
-   * @param         pDataModel  The specified instance of a data model, which is referencable by an URL.
+   * @param         dataModel  The specified instance of a data model, which is referencable by an URL.
    *
    * @return        The self reference (aka link) of this object for a specified data model.
    *
    * @jalopy.group  group-reference
    */
-  public URI getMmSelfReferenceForModel(MmReferencableModel pDataModel);
+  public URI getMmSelfReferenceForModel(MmReferencableModel dataModel);
 
 }

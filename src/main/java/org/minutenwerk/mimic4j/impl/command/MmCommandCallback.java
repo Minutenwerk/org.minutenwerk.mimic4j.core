@@ -16,10 +16,10 @@ public interface MmCommandCallback<DATA_MODEL extends MmReferencableModel> exten
   /**
    * Returns command button submit parameter.
    *
-   * @param   pPassThroughValue  By default this parameter value will be returned.
+   * @param   passThroughValue  By default this parameter value will be returned.
    *
    * @return  command button submit parameter.
    */
-  public String callbackMmGetSubmitParam(String pPassThroughValue);
+  public String callbackMmGetSubmitParam(String passThroughValue);
 
 }
