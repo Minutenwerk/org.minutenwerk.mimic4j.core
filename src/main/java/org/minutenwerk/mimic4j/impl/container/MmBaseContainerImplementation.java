@@ -109,7 +109,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public MmModelAccessor<?, MODEL> getMmModelAccessor() {
-    assureInitialization();
+    ensureInitialization();
 
     return modelAccessor;
   }
@@ -123,7 +123,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public MmRootAccessor<?> getMmRootAccessor() {
-    assureInitialization();
+    ensureInitialization();
 
     return rootAccessor;
   }
@@ -137,7 +137,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public final boolean isMmModelPresent() {
-    assureInitialization();
+    ensureInitialization();
 
     return modelAccessor.isPresent();
   }
@@ -235,7 +235,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public void doMmValidate() throws MmValidatorException {
-    assureInitialization();
+    ensureInitialization();
 
     clearMmMessageList();
     passViewModelToDataModel();
@@ -253,7 +253,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public void onModelChange() {
-    assureInitialization();
+    ensureInitialization();
 
     passDataModelToViewModel();
   }
@@ -317,7 +317,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-get
    */
   public MmMessageList getMmMessageList() {
-    assureInitialization();
+    ensureInitialization();
 
     return messageList;
   }
@@ -331,7 +331,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public MODEL getMmModel() {
-    assureInitialization();
+    ensureInitialization();
 
     return modelAccessor.get();
   }
@@ -345,7 +345,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public Class<MODEL> getMmModelType() {
-    assureInitialization();
+    ensureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseContainerImplementation.class, GENERIC_PARAMETER_INDEX_MODEL);
   }
@@ -373,7 +373,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public boolean isMmChangedFromView() {
-    assureInitialization();
+    ensureInitialization();
 
     // iterate over children of type MmEditableMimic
     for (MmEditableMimic child : getDirectImplementationChildrenOfType(MmEditableMimic.class)) {
@@ -393,7 +393,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public boolean isMmRequired() {
-    assureInitialization();
+    ensureInitialization();
 
     // iterate over children of type MmEditableMimic
     for (MmEditableMimic child : getDirectImplementationChildrenOfType(MmEditableMimic.class)) {
@@ -413,7 +413,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    */
   @Override
   public boolean isMmValid() {
-    assureInitialization();
+    ensureInitialization();
 
     // if this container is invalid, return immediately
     if (errorstate != MmContainerErrorState.SUCCESS) {

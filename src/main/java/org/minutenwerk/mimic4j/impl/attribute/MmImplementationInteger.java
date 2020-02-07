@@ -27,7 +27,7 @@ public class MmImplementationInteger extends MmBaseAttributeImplementation<MmInt
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

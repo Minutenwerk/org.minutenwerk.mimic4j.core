@@ -49,7 +49,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
    */
   @Override
   public List<MmMimic> getMmElements() {
-    assureInitialization();
+    ensureInitialization();
 
     return MmRelationshipApi.getMmChildren(declaration);
   }
@@ -65,7 +65,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
    */
   @Override
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
-    assureInitialization();
+    ensureInitialization();
 
     return springMimicAdapter.getMmI18nText(pMessageId, pMessageType, pArguments);
   }
@@ -77,7 +77,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
    */
   @Override
   public Locale getMmLocale() {
-    assureInitialization();
+    ensureInitialization();
 
     return springMimicAdapter.getMmActiveSession().getMmLocale();
   }
@@ -89,7 +89,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
    */
   @Override
   public String getMmPageTitle() {
-    assureInitialization();
+    ensureInitialization();
 
     return getMmShortDescription();
   }
@@ -122,7 +122,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
   @Override
   @SuppressWarnings("unchecked")
   public <USER_DETAILS> MmSpringMimicAdapter<USER_DETAILS> getMmSpringMimicAdapter() {
-    assureInitialization();
+    ensureInitialization();
 
     return (MmSpringMimicAdapter<USER_DETAILS>)springMimicAdapter;
   }
@@ -134,7 +134,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
    */
   @Override
   public MmTheme getMmTheme() {
-    assureInitialization();
+    ensureInitialization();
 
     return springMimicAdapter.getMmActiveSession().getMmTheme();
   }
@@ -156,7 +156,7 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
    */
   @Override
   public boolean isMmUserAgentJavaScriptEnabled() {
-    assureInitialization();
+    ensureInitialization();
 
     return springMimicAdapter.getMmActiveSession().isMmUserAgentJavaScriptEnabled();
   }

@@ -171,7 +171,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *   <li>children add themselves as declarationChildren of parent</li>
    * </ul>
    *
-   * <p>At first call of any mimic method, assureInitialization() calls method initialize(). After initialization:</p>
+   * <p>At first call of any mimic method, ensureInitialization() calls method initialize(). After initialization:</p>
    *
    * <ul>
    *   <li>initialState is INITIALIZED</li>
@@ -625,10 +625,10 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-initialization
    */
-  protected void assureInitialization() {
+  protected void ensureInitialization() {
     if (initialState.isNotInitialized()) {
       if ((implementationParent != null) && implementationParent.initialState.isNotInitialized()) {
-        implementationParent.assureInitialization();
+        implementationParent.ensureInitialization();
       } else {
         initialize();
       }
@@ -653,7 +653,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmFullName() {
-    assureInitialization();
+    ensureInitialization();
 
     if (parentPath.isEmpty()) {
       return name;
@@ -671,7 +671,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmId() {
-    assureInitialization();
+    ensureInitialization();
 
     return getConfiguration().getId();
   }
@@ -689,7 +689,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmLongDescription() {
-    assureInitialization();
+    ensureInitialization();
 
     // retrieve referencable model
     final MmReferencableModel dataModel = getMmReferencableModel();
@@ -720,7 +720,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmName() {
-    assureInitialization();
+    ensureInitialization();
 
     return name;
   }
@@ -736,7 +736,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public URI getMmSelfReference() {
-    assureInitialization();
+    ensureInitialization();
 
     // retrieve self reference path
     if (referencableAncestor == null) {
@@ -781,7 +781,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public URI getMmSelfReferenceForModel(MmReferencableModel pDataModel) {
-    assureInitialization();
+    ensureInitialization();
 
     // retrieve self reference path
     if (referencableAncestor == null) {
@@ -823,7 +823,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmShortDescription() {
-    assureInitialization();
+    ensureInitialization();
 
     // retrieve referencable model
     final MmReferencableModel dataModel = getMmReferencableModel();
@@ -854,7 +854,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public String getMmStyleClasses() {
-    assureInitialization();
+    ensureInitialization();
 
     final String returnString = declaration.callbackMmGetStyleClasses(configuration.getStyleClasses());
     if (returnString == null) {
@@ -875,7 +875,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmEnabled() {
-    assureInitialization();
+    ensureInitialization();
 
     if (implementationParent == null) {
       return declaration.callbackMmIsEnabled(configuration.isEnabled());
@@ -895,7 +895,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmReadOnly() {
-    assureInitialization();
+    ensureInitialization();
 
     if (implementationParent == null) {
       return declaration.callbackMmIsReadOnly(configuration.isReadOnly());
@@ -913,7 +913,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmRuntimeMimic() {
-    // do NOT insert assureInitialization() here, because this method isMmRuntimeMimic() is called during constructor phase.
+    // do NOT insert ensureInitialization() here, because this method isMmRuntimeMimic() is called during constructor phase.
     return isRuntimeMimic;
   }
 
@@ -928,7 +928,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   @Override
   public boolean isMmVisible() {
-    assureInitialization();
+    ensureInitialization();
 
     if (implementationParent == null) {
       return declaration.callbackMmIsVisible(configuration.isVisible());
@@ -1007,7 +1007,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-i18n
    */
   public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
-    assureInitialization();
+    ensureInitialization();
 
     return root.getMmI18nText(pMessageId, pMessageType, pArguments);
   }
@@ -1342,7 +1342,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public List<MmMimic> getMmAncestors() {
-    assureInitialization();
+    ensureInitialization();
 
     List<MmMimic> ancestors = new ArrayList<>();
     if ((implementationParent != null) && (implementationParent.declaration != null)) {
@@ -1362,7 +1362,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public MmMimic getMmChildByName(String pChildName) {
-    assureInitialization();
+    ensureInitialization();
 
     for (MmMimic child : getMmChildren()) {
       if (child.getMmName().equals(pChildName)) {
@@ -1380,7 +1380,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public List<MmMimic> getMmChildren() {
-    assureInitialization();
+    ensureInitialization();
 
     final int     size       = declarationChildren.size() + runtimeDeclarationChildren.size();
     List<MmMimic> returnList = new ArrayList<>(size);
@@ -1400,7 +1400,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public MmMimic getMmDescendantByFullName(String pFullName) {
-    assureInitialization();
+    ensureInitialization();
 
     final String fullName = getMmFullName();
     if (fullName.equals(pFullName)) {
@@ -1424,7 +1424,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public List<MmMimic> getMmDescendants() {
-    assureInitialization();
+    ensureInitialization();
 
     final List<MmMimic> descendants = new ArrayList<>();
     for (MmMimic child : getMmChildren()) {
@@ -1464,7 +1464,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public Locale getMmLocale() {
-    assureInitialization();
+    ensureInitialization();
 
     return root.getMmLocale();
   }
@@ -1477,7 +1477,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public MmMimic getMmParent() {
-    assureInitialization();
+    ensureInitialization();
 
     return implementationParent.declaration;
   }
@@ -1501,7 +1501,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public MmTheme getMmTheme() {
-    assureInitialization();
+    ensureInitialization();
 
     return root.getMmTheme();
   }
@@ -1536,7 +1536,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-helper
    */
   public boolean isMmUserAgentJavaScriptEnabled() {
-    assureInitialization();
+    ensureInitialization();
 
     return root.isMmUserAgentJavaScriptEnabled();
   }

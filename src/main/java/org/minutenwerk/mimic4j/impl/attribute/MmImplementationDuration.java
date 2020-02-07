@@ -29,7 +29,7 @@ public class MmImplementationDuration extends MmBaseAttributeImplementation<MmDu
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

@@ -40,7 +40,7 @@ public class MmImplementationTableRow<ROW_MODEL>
    */
   @Override
   public int getMmAccessorIndex() {
-    assureInitialization();
+    ensureInitialization();
 
     return getMmModelAccessor().getIndex();
   }
@@ -55,7 +55,7 @@ public class MmImplementationTableRow<ROW_MODEL>
   @Override
   @SuppressWarnings("unchecked")
   public MmListEntryAccessor<ROW_MODEL> getMmModelAccessor() {
-    assureInitialization();
+    ensureInitialization();
 
     return (MmListEntryAccessor<ROW_MODEL>)modelAccessor;
   }
@@ -67,7 +67,7 @@ public class MmImplementationTableRow<ROW_MODEL>
    */
   @Override
   public int getMmRowIndex() {
-    assureInitialization();
+    ensureInitialization();
 
     return Optional.of(getRuntimeIndex()).orElseThrow(() -> new UnsupportedOperationException("no runtime index provided for: " + this));
   }

@@ -60,7 +60,7 @@ public class MmImplementationTable<ROW_MODEL>
   @Override
   @SuppressWarnings("unchecked")
   public MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL> getMmModelAccessor() {
-    assureInitialization();
+    ensureInitialization();
 
     return (MmCollectionAccessor<?, List<ROW_MODEL>, ROW_MODEL>)modelAccessor;
   }
@@ -125,7 +125,7 @@ public class MmImplementationTable<ROW_MODEL>
    */
   @Override
   public void doMmClearTableRows() {
-    assureInitialization();
+    ensureInitialization();
 
     clearRuntimeChildrenList();
   }
@@ -139,7 +139,7 @@ public class MmImplementationTable<ROW_MODEL>
    */
   @Override
   public List<MmTableColumn<?>> getMmTableColumns() {
-    assureInitialization();
+    ensureInitialization();
 
     final List<MmTableColumn<?>> returnTableColumns = new ArrayList<>();
     getDirectDeclarationChildrenOfType(MmTableColumn.class).stream().forEach(returnTableColumns::add);
@@ -155,7 +155,7 @@ public class MmImplementationTable<ROW_MODEL>
    */
   @Override
   public <T extends MmTableRow<ROW_MODEL>> List<T> getMmTableRows() {
-    assureInitialization();
+    ensureInitialization();
 
     List<T> returnList = new ArrayList<>();
     for (MmTableRow<?> child : getDirectDeclarationChildrenOfType(MmTableRow.class)) {
@@ -175,7 +175,7 @@ public class MmImplementationTable<ROW_MODEL>
    */
   @Override
   public boolean isContainingRows() {
-    assureInitialization();
+    ensureInitialization();
 
     final List<?> rows = getMmTableRows();
     return (rows != null) && (rows.size() > 0);

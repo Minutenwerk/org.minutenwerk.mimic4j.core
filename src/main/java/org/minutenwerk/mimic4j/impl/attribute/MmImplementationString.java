@@ -27,7 +27,7 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    */
   @Override
   public int getMmCols() {
-    assureInitialization();
+    ensureInitialization();
 
     return configuration.getCols();
   }
@@ -39,7 +39,7 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    */
   @Override
   public int getMmRows() {
-    assureInitialization();
+    ensureInitialization();
 
     return configuration.getRows();
   }
@@ -51,7 +51,7 @@ public class MmImplementationString extends MmBaseAttributeImplementation<MmStri
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

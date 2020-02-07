@@ -39,7 +39,7 @@ public class MmImplementationInstant extends MmBaseAttributeImplementation<MmIns
    */
   @Override
   public String getMmFormatPattern() {
-    assureInitialization();
+    ensureInitialization();
 
     String formatPattern = configuration.getFormatPattern();
     if (formatPattern == null) {
@@ -62,7 +62,7 @@ public class MmImplementationInstant extends MmBaseAttributeImplementation<MmIns
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

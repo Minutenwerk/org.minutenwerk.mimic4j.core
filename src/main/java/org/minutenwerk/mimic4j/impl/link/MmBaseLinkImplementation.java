@@ -120,7 +120,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public String getMmLongDescription() {
-    assureInitialization();
+    ensureInitialization();
 
     // retrieve view model
     final VIEW_MODEL viewModel = getMmViewModel();
@@ -141,7 +141,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public DATA_MODEL getMmModel() {
-    assureInitialization();
+    ensureInitialization();
 
     return dataModelAccessor.get();
   }
@@ -155,7 +155,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public MmModelAccessor<?, DATA_MODEL> getMmModelAccessor() {
-    assureInitialization();
+    ensureInitialization();
 
     return dataModelAccessor;
   }
@@ -169,7 +169,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public Class<DATA_MODEL> getMmModelType() {
-    assureInitialization();
+    ensureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseLinkImplementation.class, GENERIC_PARAMETER_INDEX_DATA_MODEL);
   }
@@ -185,7 +185,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public URI getMmTargetReference() {
-    assureInitialization();
+    ensureInitialization();
 
     // retrieve target mimic, may be null
     final MmMimic      targetMimic          = declaration.callbackMmGetTargetReferenceMimic(null);
@@ -234,7 +234,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public VIEW_MODEL getMmViewModel() {
-    assureInitialization();
+    ensureInitialization();
 
     return viewModelAccessor.get();
   }
@@ -248,7 +248,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public MmModelAccessor<?, VIEW_MODEL> getMmViewModelAccessor() {
-    assureInitialization();
+    ensureInitialization();
 
     return viewModelAccessor;
   }
@@ -262,7 +262,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public Class<VIEW_MODEL> getMmViewModelType() {
-    assureInitialization();
+    ensureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseLinkImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_MODEL);
   }
@@ -276,7 +276,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public String getMmViewValue() {
-    assureInitialization();
+    ensureInitialization();
 
     // retrieve view model
     final VIEW_MODEL viewModel = getMmViewModel();
@@ -297,7 +297,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public boolean isMmModelPresent() {
-    assureInitialization();
+    ensureInitialization();
 
     if (dataModelAccessor != null) {
       return dataModelAccessor.isPresent();
@@ -347,7 +347,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public String getIconAfter() {
-    assureInitialization();
+    ensureInitialization();
 
     return configuration.getIconAfter();
   }
@@ -359,7 +359,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public String getIconBefore() {
-    assureInitialization();
+    ensureInitialization();
 
     return configuration.getIconBefore();
   }

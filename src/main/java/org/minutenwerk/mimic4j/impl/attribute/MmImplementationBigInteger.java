@@ -30,7 +30,7 @@ public class MmImplementationBigInteger
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

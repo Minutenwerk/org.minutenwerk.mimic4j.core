@@ -28,7 +28,7 @@ public class MmImplementationTableColumn<MODEL>
    * @return  A String of space delimited <code>CSS</code> style classes for the footer of this column.
    */
   public String getMmFooterClasses() {
-    assureInitialization();
+    ensureInitialization();
 
     return configuration.getFooterClasses();
   }
@@ -39,7 +39,7 @@ public class MmImplementationTableColumn<MODEL>
    * @return  True, if this row is a table row header.
    */
   public boolean isMmRowHeader() {
-    assureInitialization();
+    ensureInitialization();
 
     return configuration.isRowHeader();
   }

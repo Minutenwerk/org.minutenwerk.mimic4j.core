@@ -40,7 +40,7 @@ public class MmImplementationZonedDateTime
    */
   @Override
   public String getMmFormatPattern() {
-    assureInitialization();
+    ensureInitialization();
 
     String formatPattern = configuration.getFormatPattern();
     if (formatPattern == null) {
@@ -63,7 +63,7 @@ public class MmImplementationZonedDateTime
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

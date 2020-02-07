@@ -161,7 +161,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public final boolean isMmModelPresent() {
-    assureInitialization();
+    ensureInitialization();
 
     if (modelAccessor != null) {
       return modelAccessor.isPresent();
@@ -225,7 +225,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void doMmValidate() {
-    assureInitialization();
+    ensureInitialization();
 
     passViewModelToDataModel();
     validateDataModel();
@@ -251,7 +251,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void passDataModelToViewModel() {
-    assureInitialization();
+    ensureInitialization();
 
     String originalDebugState = toStringTraceState();
 
@@ -294,7 +294,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void passViewModelToDataModel() {
-    assureInitialization();
+    ensureInitialization();
 
     String originalDebugState = toStringTraceState();
 
@@ -340,7 +340,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void setMmViewValue(VIEW_TYPE pViewModelValue) {
-    assureInitialization();
+    ensureInitialization();
 
     String originalDebugState = toStringTraceState();
 
@@ -376,7 +376,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void validateDataModel() {
-    assureInitialization();
+    ensureInitialization();
 
     String originalDebugState = toStringTraceState();
 
@@ -411,7 +411,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-lifecycle
    */
   private boolean isValidationEnabled() {
-    assureInitialization();
+    ensureInitialization();
 
     switch (valueState) {
       case UNDEFINED: {
@@ -453,7 +453,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public int getMmCols() {
-    assureInitialization();
+    ensureInitialization();
 
     return 1;
   }
@@ -469,7 +469,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public int getMmFormatMaxLength() {
-    assureInitialization();
+    ensureInitialization();
 
     final int returnInt = declaration.callbackMmGetMaxLength(MmBaseAttributeDeclaration.EDITABLE_DEFAULT_MAX_LENGTH);
     if (LOGGER.isDebugEnabled()) {
@@ -492,7 +492,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public String getMmFormatPattern() {
-    assureInitialization();
+    ensureInitialization();
 
     final String i18nFormatPattern = getMmI18nText(MmMessageType.FORMAT);
     final String returnString      = declaration.callbackMmGetFormatPattern(i18nFormatPattern);
@@ -517,7 +517,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public String getMmLongDescription() {
-    assureInitialization();
+    ensureInitialization();
 
     final String i18nLongDescription = getMmI18nText(MmMessageType.LONG);
     final String returnString        = declaration.callbackMmGetLongDescription(i18nLongDescription);
@@ -538,7 +538,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public ATTRIBUTE_TYPE getMmModel() {
-    assureInitialization();
+    ensureInitialization();
 
     if (modelAccessor != null) {
       return modelAccessor.get();
@@ -557,7 +557,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public MmAttributeAccessor<?, ATTRIBUTE_TYPE> getMmModelAccessor() {
-    assureInitialization();
+    ensureInitialization();
 
     return modelAccessor;
   }
@@ -571,7 +571,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public Class<ATTRIBUTE_TYPE> getMmModelType() {
-    assureInitialization();
+    ensureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_ATTRIBUTE_TYPE);
   }
@@ -585,7 +585,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public int getMmRows() {
-    assureInitialization();
+    ensureInitialization();
 
     return 1;
   }
@@ -603,7 +603,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public String getMmShortDescription() {
-    assureInitialization();
+    ensureInitialization();
 
     final String i18nShortDescription = getMmI18nText(MmMessageType.SHORT);
     String       returnString         = declaration.callbackMmGetShortDescription(i18nShortDescription);
@@ -627,7 +627,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public int getMmSize() {
-    assureInitialization();
+    ensureInitialization();
 
     return 3;
   }
@@ -641,7 +641,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public Class<VIEW_TYPE> getMmViewType() {
-    assureInitialization();
+    ensureInitialization();
 
     return MmJavaHelper.findGenericsParameterType(getClass(), MmBaseAttributeImplementation.class, GENERIC_PARAMETER_INDEX_VIEW_TYPE);
   }
@@ -655,7 +655,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public VIEW_TYPE getMmViewValue() {
-    assureInitialization();
+    ensureInitialization();
 
     return viewModelValue;
   }
@@ -670,7 +670,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public final boolean isMmChangedFromView() {
-    assureInitialization();
+    ensureInitialization();
 
     return isChangedFromView;
   }
@@ -684,7 +684,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return viewModelValue == null;
   }
@@ -698,7 +698,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public boolean isMmRequired() {
-    assureInitialization();
+    ensureInitialization();
 
     return declaration.callbackMmIsRequired(configuration.isRequired());
   }
@@ -712,7 +712,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public boolean isMmValid() {
-    assureInitialization();
+    ensureInitialization();
 
     return valueState == MmValueState.VALID_VALUE_IN_DATA_MODEL;
   }
@@ -748,7 +748,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    */
   @Override
   public void clearMmMessageList() {
-    assureInitialization();
+    ensureInitialization();
 
     messageList.clear();
   }
@@ -761,7 +761,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-helper
    */
   public MmMessageSeverity getMmMaximumSeverity() {
-    assureInitialization();
+    ensureInitialization();
 
     return messageList.getMaximumSeverity();
   }
@@ -774,7 +774,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-helper
    */
   public List<MmMessage> getMmMessages() {
-    assureInitialization();
+    ensureInitialization();
 
     return messageList.getMessages();
   }
@@ -787,7 +787,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-helper
    */
   public List<MmSelectOption<Object>> getMmSelectOptions() {
-    assureInitialization();
+    ensureInitialization();
 
     return declaration.callbackMmGetSelectOptions();
   }

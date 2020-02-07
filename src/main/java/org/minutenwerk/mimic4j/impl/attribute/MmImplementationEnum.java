@@ -40,7 +40,7 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty() || viewModelValue.equals("UNDEFINED"));
   }

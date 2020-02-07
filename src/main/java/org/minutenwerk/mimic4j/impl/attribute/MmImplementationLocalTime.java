@@ -40,7 +40,7 @@ public class MmImplementationLocalTime
    */
   @Override
   public String getMmFormatPattern() {
-    assureInitialization();
+    ensureInitialization();
 
     String formatPattern = configuration.getFormatPattern();
     if (formatPattern == null) {
@@ -63,7 +63,7 @@ public class MmImplementationLocalTime
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

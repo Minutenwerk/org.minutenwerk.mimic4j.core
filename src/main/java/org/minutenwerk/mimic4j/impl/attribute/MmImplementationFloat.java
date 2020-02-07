@@ -27,7 +27,7 @@ public class MmImplementationFloat extends MmBaseAttributeImplementation<MmFloat
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

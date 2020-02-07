@@ -27,7 +27,7 @@ public class MmImplementationLong extends MmBaseAttributeImplementation<MmLong, 
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

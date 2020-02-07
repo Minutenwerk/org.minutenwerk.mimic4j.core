@@ -30,7 +30,7 @@ public class MmImplementationListString
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.isEmpty());
   }

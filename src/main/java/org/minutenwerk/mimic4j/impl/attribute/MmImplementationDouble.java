@@ -27,7 +27,7 @@ public class MmImplementationDouble extends MmBaseAttributeImplementation<MmDoub
    */
   @Override
   public boolean isMmEmpty() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((viewModelValue == null) || viewModelValue.trim().isEmpty());
   }

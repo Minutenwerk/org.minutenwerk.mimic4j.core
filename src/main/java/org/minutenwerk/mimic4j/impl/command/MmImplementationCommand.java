@@ -35,7 +35,7 @@ public class MmImplementationCommand<DATA_MODEL extends MmReferencableModel>
   @Override
   @SuppressWarnings("unchecked")
   public String getMmSubmitParam() {
-    assureInitialization();
+    ensureInitialization();
 
     return ((MmCommandCallback<DATA_MODEL>)declaration).callbackMmGetSubmitParam(configuration.getSubmitParam());
   }
