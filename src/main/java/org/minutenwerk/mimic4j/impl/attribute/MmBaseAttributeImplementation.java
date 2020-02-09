@@ -494,7 +494,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public String getMmFormatPattern() {
     ensureInitialization();
 
-    final String i18nFormatPattern = getMmI18nText(MmMessageType.FORMAT);
+    final String i18nFormatPattern = getMmThisI18nText(MmMessageType.FORMAT);
     final String returnString      = declaration.callbackMmGetFormatPattern(i18nFormatPattern);
     if (LOGGER.isDebugEnabled()) {
       if (returnString == null) {
@@ -519,7 +519,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public String getMmLongDescription() {
     ensureInitialization();
 
-    final String i18nLongDescription = getMmI18nText(MmMessageType.LONG);
+    final String i18nLongDescription = getMmThisI18nText(MmMessageType.LONG);
     final String returnString        = declaration.callbackMmGetLongDescription(i18nLongDescription);
     if (LOGGER.isDebugEnabled()) {
       if (returnString == null) {
@@ -605,7 +605,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   public String getMmShortDescription() {
     ensureInitialization();
 
-    final String i18nShortDescription = getMmI18nText(MmMessageType.SHORT);
+    final String i18nShortDescription = getMmThisI18nText(MmMessageType.SHORT);
     String       returnString         = declaration.callbackMmGetShortDescription(i18nShortDescription);
     if (LOGGER.isDebugEnabled()) {
       if (returnString == null) {
@@ -739,6 +739,20 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
       return null;
     }
     return (MmReferencableModel)dataModel;
+  }
+
+  /**
+   * Returns view model value.
+   *
+   * @return        The view model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  protected VIEW_TYPE getMmViewModel() {
+    ensureInitialization();
+
+    return getMmViewValue();
   }
 
   /**

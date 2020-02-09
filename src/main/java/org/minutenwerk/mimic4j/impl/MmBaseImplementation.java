@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.net.URI;
 
 import java.text.DecimalFormat;
+import java.text.MessageFormat;
 import java.text.NumberFormat;
 
 import java.time.Duration;
@@ -36,7 +37,6 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
-import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmInformationalModel;
 import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
@@ -677,13 +677,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
-   * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
-   * MmConfiguration.longDescription</code>.
+   * Returns a long description.
    *
    * @return        A long description.
    *
-   * @throws        IllegalStateException  In case of callbackMmGetLongDescription returns null.
+   * @throws        IllegalArgumentException  In case of callbackMmGetLongDescription returns null.
    *
    * @jalopy.group  group-override
    */
@@ -691,23 +689,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public String getMmLongDescription() {
     ensureInitialization();
 
-    // retrieve referencable model
-    final MmReferencableModel dataModel = getMmReferencableModel();
-
-    if (dataModel instanceof MmInformationalModel) {
-      return getMmDescription((MmInformationalModel)dataModel, MmMessageType.LONG);
-    } else if (dataModel != null) {
-      return getMmDescription(dataModel, MmMessageType.LONG);
-    } else {
-      final String i18nLongDescription = getMmI18nText(MmMessageType.LONG);
-      final String returnString        = declaration.callbackMmGetLongDescription(i18nLongDescription);
-      if (LOGGER.isDebugEnabled()) {
-        if (returnString == null) {
-          throw new IllegalStateException("callbackMmGetLongDescription cannot return null for " + this);
-        }
-      }
-      return returnString;
+    // retrieve unformatted i18n long description (e.g. "Person {0} wurde am {1} geboren")
+    final String i18nDescriptionPattern = declaration.callbackMmGetLongDescription(getMmThisI18nText(MmMessageType.LONG));
+    if (i18nDescriptionPattern == null) {
+      throw new IllegalArgumentException("callbackMmGetLongDescription cannot return null for " + this);
     }
+
+    // evaluate arguments and argument format pattern and return i18n formatted message
+    return getMmI18nDescription(i18nDescriptionPattern);
   }
 
   /**
@@ -811,13 +800,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns a short description. The short description is evaluated from declaration method <code>callbackMmGetShortDescription</code>. If <code>
-   * callbackMmGetShortDescription</code> is not overridden, the short description is evaluated from configuration attribute <code>
-   * MmConfiguration.shortDescription</code>.
+   * Returns a short description.
    *
    * @return        A short description.
    *
-   * @throws        IllegalStateException  In case of callbackMmGetShortDescription returns null.
+   * @throws        IllegalArgumentException  In case of callbackMmGetShortDescription returns null.
    *
    * @jalopy.group  group-override
    */
@@ -825,23 +812,14 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   public String getMmShortDescription() {
     ensureInitialization();
 
-    // retrieve referencable model
-    final MmReferencableModel dataModel = getMmReferencableModel();
-
-    if (dataModel instanceof MmInformationalModel) {
-      return getMmDescription((MmInformationalModel)dataModel, MmMessageType.SHORT);
-    } else if (dataModel != null) {
-      return getMmDescription(dataModel, MmMessageType.SHORT);
-    } else {
-      final String i18nShortDescription = getMmI18nText(MmMessageType.SHORT);
-      final String returnString         = declaration.callbackMmGetShortDescription(i18nShortDescription);
-      if (LOGGER.isDebugEnabled()) {
-        if (returnString == null) {
-          throw new IllegalStateException("callbackMmGetShortDescription cannot return null for " + this);
-        }
-      }
-      return returnString;
+    // retrieve i18n description pattern for short description (e.g. "Person {0} is born at {1}")
+    final String i18nDescriptionPattern = declaration.callbackMmGetShortDescription(getMmThisI18nText(MmMessageType.SHORT));
+    if (i18nDescriptionPattern == null) {
+      throw new IllegalArgumentException("callbackMmGetShortDescription cannot return null for " + this);
     }
+
+    // evaluate arguments and argument format pattern and return i18n formatted message
+    return getMmI18nDescription(i18nDescriptionPattern);
   }
 
   /**
@@ -978,21 +956,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-i18n
    */
   public String getMmFormatPattern() {
-    return getMmI18nText(MmMessageType.FORMAT);
-  }
-
-  /**
-   * Returns an internationalized version of the message of this mimic for a specified message type.
-   *
-   * @param         pMessageType  The specified message type.
-   * @param         pArguments    Optional list of message arguments.
-   *
-   * @return        The internationalized version of a specified message.
-   *
-   * @jalopy.group  group-i18n
-   */
-  public String getMmI18nText(MmMessageType pMessageType, Object... pArguments) {
-    return getMmI18nText(getMmId(), pMessageType, pArguments);
+    return getMmThisI18nText(MmMessageType.FORMAT);
   }
 
   /**
@@ -1013,102 +977,212 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns the formatted specified view model value, formatted depending on its type, returns otherwise the unformatted view model value.
+   * Formats value of specified duration, e.g. "2 days, 3 hours", "4 Minuten, 5 Sekunden", "6,78 Sekunden".
+   *
+   * @param         pDuration  Specified duration.
+   *
+   * @return        Formatted value.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected String formatDuration(final Duration pDuration) {
+    final long totalSeconds = Math.abs(pDuration.getSeconds());
+
+    final long years        = totalSeconds / (60 * 60 * 24 * 365);
+    if (years > 0) {
+      final long months = (totalSeconds % (60 * 60 * 24 * 365)) / (60 * 60 * 24 * 30);
+      if ((years == 1) && (months == 0)) {
+        return getMmI18nText("duration.year", MmMessageType.TEXT, 1);
+      } else if ((years == 1) && (months == 1)) {
+        return getMmI18nText("duration.year.month", MmMessageType.TEXT, 1, 1);
+      } else if (years == 1) {
+        return getMmI18nText("duration.year.months", MmMessageType.TEXT, 1, months);
+      } else if (months == 0) {
+        return getMmI18nText("duration.years", MmMessageType.TEXT, years);
+      } else if (months == 1) {
+        return getMmI18nText("duration.years.month", MmMessageType.TEXT, years, 1);
+      } else {
+        return getMmI18nText("duration.years.months", MmMessageType.TEXT, years, months);
+      }
+    }
+
+    final long months = totalSeconds / (60 * 60 * 24 * 30);
+    if (months > 0) {
+      final long weeks = (totalSeconds % (60 * 60 * 24 * 30)) / (60 * 60 * 24 * 7);
+      if ((months == 1) && (weeks == 0)) {
+        return getMmI18nText("duration.month", MmMessageType.TEXT, 1);
+      } else if ((months == 1) && (weeks == 1)) {
+        return getMmI18nText("duration.month.week", MmMessageType.TEXT, 1, 1);
+      } else if (months == 1) {
+        return getMmI18nText("duration.month.weeks", MmMessageType.TEXT, 1, weeks);
+      } else if (weeks == 0) {
+        return getMmI18nText("duration.months", MmMessageType.TEXT, months);
+      } else if (weeks == 1) {
+        return getMmI18nText("duration.months.week", MmMessageType.TEXT, months, 1);
+      } else {
+        return getMmI18nText("duration.months.weeks", MmMessageType.TEXT, months, weeks);
+      }
+    }
+
+    final long weeks = totalSeconds / (60 * 60 * 24 * 7);
+    if (weeks > 0) {
+      final long days = (totalSeconds % (60 * 60 * 24 * 7)) / (60 * 60 * 24);
+      if ((weeks == 1) && (days == 0)) {
+        return getMmI18nText("duration.week", MmMessageType.TEXT, 1);
+      } else if ((weeks == 1) && (days == 1)) {
+        return getMmI18nText("duration.week.day", MmMessageType.TEXT, 1, 1);
+      } else if (weeks == 1) {
+        return getMmI18nText("duration.week.days", MmMessageType.TEXT, 1, days);
+      } else if (days == 0) {
+        return getMmI18nText("duration.weeks", MmMessageType.TEXT, weeks);
+      } else if (days == 1) {
+        return getMmI18nText("duration.weeks.day", MmMessageType.TEXT, weeks, 1);
+      } else {
+        return getMmI18nText("duration.weeks.days", MmMessageType.TEXT, weeks, days);
+      }
+    }
+
+    final long days = totalSeconds / (60 * 60 * 24);
+    if (days > 0) {
+      final long hours = (totalSeconds % (60 * 60 * 24)) / (60 * 60);
+      if ((days == 1) && (hours == 0)) {
+        return getMmI18nText("duration.day", MmMessageType.TEXT, 1);
+      } else if ((days == 1) && (hours == 1)) {
+        return getMmI18nText("duration.day.hour", MmMessageType.TEXT, 1, 1);
+      } else if (days == 1) {
+        return getMmI18nText("duration.day.hours", MmMessageType.TEXT, 1, hours);
+      } else if (hours == 0) {
+        return getMmI18nText("duration.days", MmMessageType.TEXT, days);
+      } else if (hours == 1) {
+        return getMmI18nText("duration.days.hour", MmMessageType.TEXT, days, 1);
+      } else {
+        return getMmI18nText("duration.days.hours", MmMessageType.TEXT, days, hours);
+      }
+    }
+
+    final long hours = totalSeconds / (60 * 60);
+    if (hours > 0) {
+      final long minutes = (totalSeconds % (60 * 60)) / (60);
+      if ((hours == 1) && (minutes == 0)) {
+        return getMmI18nText("duration.hour", MmMessageType.TEXT, 1);
+      } else if ((hours == 1) && (minutes == 1)) {
+        return getMmI18nText("duration.hour.minute", MmMessageType.TEXT, 1, 1);
+      } else if (hours == 1) {
+        return getMmI18nText("duration.hour.minutes", MmMessageType.TEXT, 1, minutes);
+      } else if (minutes == 0) {
+        return getMmI18nText("duration.hours", MmMessageType.TEXT, hours);
+      } else if (minutes == 1) {
+        return getMmI18nText("duration.hours.minute", MmMessageType.TEXT, hours, 1);
+      } else {
+        return getMmI18nText("duration.hours.minutes", MmMessageType.TEXT, hours, minutes);
+      }
+    }
+
+    final long minutes = totalSeconds / (60);
+    if (minutes > 0) {
+      final long seconds = (totalSeconds % 60);
+      if ((minutes == 1) && (seconds == 0)) {
+        return getMmI18nText("duration.minute", MmMessageType.TEXT, 1);
+      } else if ((minutes == 1) && (seconds == 1)) {
+        return getMmI18nText("duration.minute.second", MmMessageType.TEXT, 1, 1);
+      } else if (minutes == 1) {
+        return getMmI18nText("duration.minute.seconds", MmMessageType.TEXT, 1, seconds);
+      } else if (seconds == 0) {
+        return getMmI18nText("duration.minutes", MmMessageType.TEXT, minutes);
+      } else if (seconds == 1) {
+        return getMmI18nText("duration.minutes.second", MmMessageType.TEXT, minutes, 1);
+      } else {
+        return getMmI18nText("duration.minutes.seconds", MmMessageType.TEXT, minutes, seconds);
+      }
+    }
+
+    final int nanoSeconds = pDuration.getNano();
+    if ((totalSeconds > 0) || (nanoSeconds > 1000000)) {
+      if (nanoSeconds == 0) {
+        return getMmI18nText("duration.seconds", MmMessageType.TEXT, totalSeconds);
+      } else {
+        final String value = getMmNumberFormatter("#.000#", true).format(new BigDecimal(totalSeconds + "." + nanoSeconds));
+        return getMmI18nText("duration.seconds", MmMessageType.TEXT, value);
+      }
+    } else {
+      final String value = getMmNumberFormatter("#.#", true).format(new BigDecimal(nanoSeconds * 1000));
+      return getMmI18nText("duration.milliseconds", MmMessageType.TEXT, value);
+    }
+  }
+
+  /**
+   * Returns a single formatted specified view model value, formatted depending on its type, returns otherwise the unformatted view model value.
    *
    * @param         pViewModelValue  The specified view model value.
    * @param         pFormatPattern   The specified format pattern.
    *
    * @return        The formatted view model value, formatted depending on its type.
    *
-   * @throws        MmDataModelConverterException  In case of conversion fails.
-   *
    * @jalopy.group  group-i18n
    */
-  protected Object formatViewModelValue(Object pViewModelValue, String pFormatPattern) {
-    if (pViewModelValue == null) {
-      return null;
+  protected String formatMmI18nSingleViewModelValue(final Object pViewModelValue, final String pFormatPattern) {
+    try {
+      if (pViewModelValue == null) {
+        return "";
 
-    } else if (pViewModelValue instanceof String) {
-      return pViewModelValue;
+      } else if (pViewModelValue instanceof String) {
+        return (String)pViewModelValue;
 
-    } else if ((pViewModelValue instanceof Integer) || (pViewModelValue instanceof Long) || (pViewModelValue.getClass().equals(long.class))
-        || (pViewModelValue instanceof Float) || (pViewModelValue.getClass().equals(float.class)) || (pViewModelValue instanceof Double)
-        || (pViewModelValue.getClass().equals(double.class))) {
-      try {
+      } else if ((pViewModelValue instanceof Integer) || (pViewModelValue instanceof Long) || (pViewModelValue.getClass().equals(long.class))
+          || (pViewModelValue instanceof Float) || (pViewModelValue.getClass().equals(float.class)) || (pViewModelValue instanceof Double)
+          || (pViewModelValue.getClass().equals(double.class))) {
         final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, false);
         return numberFormatter.format(pViewModelValue);
-      } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
-      }
 
-    } else if ((pViewModelValue instanceof BigDecimal) || (pViewModelValue instanceof BigInteger)) {
-      try {
+      } else if ((pViewModelValue instanceof BigDecimal) || (pViewModelValue instanceof BigInteger)) {
         final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, true);
         return numberFormatter.format(pViewModelValue);
-      } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
-      }
 
-    } else if (pViewModelValue instanceof Duration) {
-      try {
+      } else if (pViewModelValue instanceof Duration) {
         return ((Duration)pViewModelValue).toString();
-      } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
-      }
 
-    } else if (pViewModelValue instanceof Instant) {
-      try {
+      } else if (pViewModelValue instanceof Instant) {
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return dateTimeFormatter.format((Instant)pViewModelValue);
-      } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
-      }
 
-    } else if (pViewModelValue instanceof LocalTime) {
-      try {
+      } else if (pViewModelValue instanceof LocalTime) {
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return ((LocalTime)pViewModelValue).format(dateTimeFormatter);
-      } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
-      }
 
-    } else if (pViewModelValue instanceof LocalDate) {
-      try {
+      } else if (pViewModelValue instanceof LocalDate) {
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return ((LocalDate)pViewModelValue).format(dateTimeFormatter);
-      } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
-      }
 
-    } else if (pViewModelValue instanceof LocalDateTime) {
-      try {
+      } else if (pViewModelValue instanceof LocalDateTime) {
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return ((LocalDateTime)pViewModelValue).format(dateTimeFormatter);
-      } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
-      }
 
-    } else if (pViewModelValue instanceof ZonedDateTime) {
-      try {
+      } else if (pViewModelValue instanceof ZonedDateTime) {
         final DateTimeFormatter dateTimeFormatter = getMmDateTimeFormatter(pFormatPattern);
         return ((ZonedDateTime)pViewModelValue).format(dateTimeFormatter);
-      } catch (IllegalArgumentException e) {
-        throw new MmDataModelConverterException(this, "Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "<");
-      }
 
-    } else if (pViewModelValue instanceof Enum<?>) {
-      final Enum<?> enumValue    = (Enum<?>)pViewModelValue;
-      final String  enumTypeName = enumValue.getClass().getSimpleName();
-      return root.getMmI18nText(enumTypeName + "." + enumValue.name(), MmMessageType.SHORT);
+      } else if (pViewModelValue instanceof Enum<?>) {
+        final Enum<?> enumValue    = (Enum<?>)pViewModelValue;
+        final String  enumTypeName = enumValue.getClass().getSimpleName();
+        return root.getMmI18nText(enumTypeName + "." + enumValue.name(), MmMessageType.SHORT);
 
-    } else if ((pViewModelValue instanceof Boolean) || (pViewModelValue.getClass().equals(boolean.class))) {
-      if ((Boolean)pViewModelValue) {
-        return root.getMmI18nText(getMmId() + ".true", MmMessageType.SHORT);
+      } else if ((pViewModelValue instanceof Boolean) || (pViewModelValue.getClass().equals(boolean.class))) {
+        if ((Boolean)pViewModelValue) {
+          return root.getMmI18nText(getMmId() + ".true", MmMessageType.SHORT);
+        } else {
+          return root.getMmI18nText(getMmId() + ".false", MmMessageType.SHORT);
+        }
+
+      } else if (pViewModelValue instanceof Collection<?>) {
+        final NumberFormat numberFormatter = getMmNumberFormatter(pFormatPattern, false);
+        return numberFormatter.format(((Collection<?>)pViewModelValue).size());
+
       } else {
-        return root.getMmI18nText(getMmId() + ".false", MmMessageType.SHORT);
+        return pViewModelValue.toString();
       }
-    } else {
-      return pViewModelValue;
+    } catch (Exception e) {
+      LOGGER.error("Cannot format view model value: " + pViewModelValue + " by pattern >" + pFormatPattern + "< for mimic: " + this);
+      return pViewModelValue.toString();
     }
   }
 
@@ -1127,85 +1201,71 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns view text of the link for specified MmInformationableModel.
+   * Formats specified description pattern (e.g. "Person [0} wurde am {1] geboren") by active locale of current user. Evaluates arguments and format pattern
+   * and returns an i18n formatted description. Evaluated format pattern may be null, evaluated arguments (e.g. ["John Doe", 1976.07.04]) may be null. The
+   * method tries everything to format the description. It iterates over the array of arguments and tries to format each by its own format pattern. The format
+   * patterns are derived from method getMmFormatPattern (e.g. [|dd.MM.yyyy]) by splitting it by discriminator character | into an array. If there is no
+   * format pattern or the formatting by specified pattern fails, a formatter corresponding to data type and locale is being used. If formatting fails again,
+   * the toString value is used.
    *
-   * @param         pInformationable  The specified MmInformationableModel.
-   * @param         pMessageType      The specified pMessageType e.g. SHORT or LONG.
+   * @param         pDescriptionPattern  Specified description pattern (e.g. "Person [0} wurde am {1] geboren").
    *
-   * @return        The view text of the link.
+   * @return        Formats specified description by active Locale of current user (e.g. "Person John Doe wurde am 04.07.1976 geboren").
    *
    * @jalopy.group  group-i18n
    */
-  protected String getMmDescription(final MmInformationalModel pInformationable, final MmMessageType pMessageType) {
-    // if view value is MmInformationableModel, transform into an array of formatted objects
-    final Object[] viewValueArray     = ((MmInformationalModel)pInformationable).getMmInfo();
+  protected String getMmI18nDescription(final String pDescriptionPattern) {
+    // evaluate whether description pattern contains text variables (e.g. {0} or {1})
+    final boolean containsVariable = pDescriptionPattern.matches(".*\\{[0-9]*\\}.*");
 
-    // retrieve array of format patterns
-    final String[] formatPatternArray = getMmFormatPattern().split("\\|");
+    // if description pattern does not contain text variables, just return the description pattern
+    if (!containsVariable) {
+      return pDescriptionPattern;
+    }
+
+    // retrieve view model (e.g. PersonDto or PersonDto.name or PersonDto.birthday)
+    final Object viewModel     = getMmViewModel();
+
+    // evaluate i18n arguments
+    Object[]     i18nArguments;
+
+    // if the view model is an informational model, the i18n arguments are the view model's info objects (e.g. ["John Doe", 1976.07.04])
+    if (viewModel instanceof MmInformationalModel) {
+      i18nArguments = ((MmInformationalModel)viewModel).getMmInfo();
+
+      // the info objects can be changed by callback method
+      i18nArguments = declaration.callbackMmGetDescriptionArguments(i18nArguments);
+
+      // if the view model is not an informational model, the callback method might deliver i18n arguments
+    } else {
+      i18nArguments = declaration.callbackMmGetDescriptionArguments(viewModel);
+    }
+
+    // if there are no i18n arguments, just return the description pattern
+    if (i18nArguments == null) {
+      LOGGER.warn("i18n description without arguments: " + getMmId() + ": " + pDescriptionPattern);
+      return pDescriptionPattern;
+    }
+
+    // evaluate i18n arguments format pattern, it might be a String containing several patterns (e.g. [|"dd.MM.yyyy"])
+    final String   i18nArgumentFormatPattern  = declaration.callbackMmGetFormatPattern(getMmFormatPattern());
+
+    // retrieve array of argument format patterns
+    final String[] argumentFormatPatternArray = i18nArgumentFormatPattern.split("\\|");
+
+    final Object[] formattedArguments         = new Object[i18nArguments.length];
 
     // apply each format pattern to corresponding view value
-    for (int index = 0; index < ((Object[])viewValueArray).length; index++) {
-      final Object viewValue = ((Object[])viewValueArray)[index];
-      if ((viewValue != null) && !(viewValue instanceof String) && (index < formatPatternArray.length)) {
-        final String formatPattern = formatPatternArray[index];
-        if ((formatPattern != null) && !formatPattern.trim().isEmpty()) {
-          viewValueArray[index] = formatViewModelValue(viewValue, formatPattern);
-        }
-      }
+    for (int index = 0; index < ((Object[])i18nArguments).length; index++) {
+      final Object viewValue     = ((Object[])i18nArguments)[index];
+      final String formatPattern = (index < argumentFormatPatternArray.length) ? argumentFormatPatternArray[index] : null;
+      formattedArguments[index] = formatMmI18nSingleViewModelValue(viewValue, formatPattern);
     }
 
-    // viewValueArray keeps an Object[], but as this is an Object as well, java still interprets it to be just one object
-    // so to put an array of objects into varargs method parameter, there must be an explicit cast to Object[]
-    final String i18nViewValue = getMmI18nText(pMessageType, (Object[])viewValueArray);
-    return i18nViewValue;
-  }
-
-  /**
-   * Returns view text of the link for specified single object.
-   *
-   * @param         pViewValue    The specified single object.
-   * @param         pMessageType  The specified pMessageType e.g. SHORT or LONG.
-   *
-   * @return        The view text of the link.
-   *
-   * @jalopy.group  group-i18n
-   */
-  protected String getMmDescription(final Object pViewValue, final MmMessageType pMessageType) {
-    // if view value is a single object
-
-    // return empty String for null value
-    if (pViewValue == null) {
-      return "";
-
-      // format number, boolean, duration, date, time and enum values
-    } else if ((pViewValue instanceof Number) || (pViewValue instanceof Boolean) || (pViewValue instanceof Duration) || (pViewValue instanceof Instant)
-        || (pViewValue instanceof LocalTime) || (pViewValue instanceof LocalDate) || (pViewValue instanceof LocalDateTime)
-        || (pViewValue instanceof ZonedDateTime) || (pViewValue instanceof Enum<?>)) {
-
-      // retrieve format pattern and format view value
-      final String formatPattern           = getMmFormatPattern();
-      final String formattedViewModelValue = (String)formatViewModelValue(pViewValue, formatPattern);
-
-      // i18nize view value
-      final String i18nViewValue           = getMmI18nText(pMessageType, formattedViewModelValue);
-      return i18nViewValue;
-
-      // all other types just i18nize
-    } else if (pViewValue instanceof Collection<?>) {
-
-      // retrieve format pattern and format view value
-      final String formatPattern           = getMmFormatPattern();
-      final String formattedViewModelValue = (String)formatViewModelValue(((Collection<?>)pViewValue).size(), formatPattern);
-
-      // i18nize view value
-      final String i18nViewValue           = getMmI18nText(pMessageType, formattedViewModelValue);
-      return i18nViewValue;
-
-      // all other types just i18nize
-    } else {
-      final String i18nalizedViewValue = getMmI18nText(pMessageType, pViewValue);
-      return i18nalizedViewValue;
-    }
+    // formattedArguments keeps an Object[], but as an array is an Object itself, java still interprets it to be a single object,
+    // so to put an array of objects into a varargs method parameter, there must be an explicit cast to Object[]
+    // Return formatted message (e.g. "Person John Doe wurde am 04.07.1976 geboren")
+    return MessageFormat.format(pDescriptionPattern, ((Object[])formattedArguments));
   }
 
   /**
@@ -1225,6 +1285,40 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     returnNumberFormatter.setParseBigDecimal(pParseBigDecimal);
     returnNumberFormatter.applyPattern(pFormatPattern);
     return returnNumberFormatter;
+  }
+
+  /**
+   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
+   *
+   * @return        The data model for self reference.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected abstract MmReferencableModel getMmReferencableModel();
+
+  /**
+   * Returns an internationalized version of the message of this mimic for a specified message type.
+   *
+   * @param         pMessageType  The specified message type.
+   * @param         pArguments    Optional list of message arguments.
+   *
+   * @return        The internationalized version of a specified message.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected String getMmThisI18nText(MmMessageType pMessageType, Object... pArguments) {
+    return getMmI18nText(getMmId(), pMessageType, pArguments);
+  }
+
+  /**
+   * Returns view model value.
+   *
+   * @return        The view model value.
+   *
+   * @jalopy.group  group-i18n
+   */
+  protected Object getMmViewModel() {
+    return getMmReferencableModel();
   }
 
   /**
@@ -1540,15 +1634,6 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     return root.isMmUserAgentJavaScriptEnabled();
   }
-
-  /**
-   * Returns data model for self reference. The data model delivers parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
-   *
-   * @return        The data model for self reference.
-   *
-   * @jalopy.group  group-helper
-   */
-  protected abstract MmReferencableModel getMmReferencableModel();
 
   /**
    * Logs debug information about a specified mimic and subtree of all its children and runtime children.

@@ -35,6 +35,48 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   }
 
   /**
+   * Returns optional unformatted arguments for short and long description.
+   *
+   * @param         pPassThroughValues  Optional message arguments.
+   *
+   * @return        Optional message arguments.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public Object[] callbackMmGetDescriptionArguments(Object... pPassThroughValues) {
+    return pPassThroughValues;
+  }
+
+  /**
+   * Returns a format pattern for long and short description.
+   *
+   * @param         pPassThroughValue  By default this parameter value will be returned.
+   *
+   * @return        A format pattern.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public String callbackMmGetFormatPattern(String pPassThroughValue) {
+    return pPassThroughValue;
+  }
+
+  /**
+   * Returns an unformatted long description.
+   *
+   * @param         pPassThroughValue  By default this parameter value will be returned.
+   *
+   * @return        An unformatted long description.
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public String callbackMmGetLongDescription(String pPassThroughValue) {
+    return pPassThroughValue;
+  }
+
+  /**
    * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
    * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
    * MmConfiguration.longDescription</code>.
@@ -46,6 +88,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    *
    * @jalopy.group  group-callback
    */
+  @Deprecated
   @Override
   public String callbackMmGetLongDescription(String pPassThroughValue, Object... pPassThroughArguments) {
     return pPassThroughValue;
@@ -78,13 +121,11 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   }
 
   /**
-   * Returns a short description. The short description is evaluated from callback method {@link MmBaseCallback#callbackMmGetShortDescription()}. If
-   * {@link MmCallback#callbackMmGetShortDescription())} returns null, the short description is evaluated from configuration attribute
-   * {@link MmBaseConfiguration#shortDescription()}.
+   * Returns an unformatted short description.
    *
    * @param         pPassThroughValue  By default this parameter value will be returned.
    *
-   * @return        A short description.
+   * @return        An unformatted short description.
    *
    * @jalopy.group  group-callback
    */

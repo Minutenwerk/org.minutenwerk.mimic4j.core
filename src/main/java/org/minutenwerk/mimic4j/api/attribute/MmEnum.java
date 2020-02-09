@@ -10,7 +10,6 @@ import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.impl.attribute.MmBaseAttributeDeclaration;
 import org.minutenwerk.mimic4j.impl.attribute.MmImplementationEnum;
 import org.minutenwerk.mimic4j.impl.attribute.MmSelectOption;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**
  * MmEnum is a mimic for an editable attribute of type {@link Enum}.
@@ -45,10 +44,7 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBaseAttributeDe
       if (isMmEnabled()) {
         return pDataModelValue.name();
       } else {
-        Class<ENUM_TYPE> enumType     = implementation.getMmEnumType();
-        String           enumTypeName = enumType.getSimpleName();
-        String           enumLabel    = implementation.getMmI18nText(enumTypeName + "." + pDataModelValue.name(), MmMessageType.SHORT);
-        return enumLabel;
+        return implementation.getMmI18nEnumShortDescription(pDataModelValue);
       }
     }
   }
@@ -91,11 +87,8 @@ public class MmEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBaseAttributeDe
 
     Class<ENUM_TYPE> enumType = implementation.getMmEnumType();
     for (ENUM_TYPE enumInstance : enumType.getEnumConstants()) {
-      final String                    messageId       = enumType.getSimpleName() + "." + enumInstance.name();
-      final String                    enumLabel       = implementation.getMmI18nText(messageId, MmMessageType.SHORT);
-      final String                    enumDescription = implementation.getMmI18nText(messageId, MmMessageType.LONG);
-      final MmSelectOption<ENUM_TYPE> option          = new MmSelectOption<>(enumInstance.name(), enumLabel, enumDescription, enumInstance);
-      returnList.add(option);
+      returnList.add(new MmSelectOption<>(enumInstance.name(), implementation.getMmI18nEnumShortDescription(enumInstance),
+          implementation.getMmI18nEnumLongDescription(enumInstance), enumInstance));
     }
     return returnList;
   }

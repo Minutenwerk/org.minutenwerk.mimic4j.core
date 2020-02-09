@@ -3,6 +3,7 @@ package org.minutenwerk.mimic4j.impl.attribute;
 import org.minutenwerk.mimic4j.api.attribute.MmEnum;
 import org.minutenwerk.mimic4j.api.attribute.MmEnumAnnotation;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**
  * MmImplementationEnum is the implementation part of a mimic for enumerations.
@@ -31,6 +32,30 @@ public class MmImplementationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>>
   @SuppressWarnings("unchecked")
   public Class<ENUM_TYPE> getMmEnumType() {
     return (Class<ENUM_TYPE>)typeOfFirstGenericParameter;
+  }
+
+  /**
+   * Returns i18n long description of specified enum value.
+   *
+   * @param   pEnumValue  Specified enum value.
+   *
+   * @return  I18n long description of specified enum value.
+   */
+  public String getMmI18nEnumLongDescription(final ENUM_TYPE pEnumValue) {
+    final String enumTypeName = pEnumValue.getClass().getSimpleName();
+    return root.getMmI18nText(enumTypeName + "." + pEnumValue.name(), MmMessageType.LONG);
+  }
+
+  /**
+   * Returns i18n short description of specified enum value.
+   *
+   * @param   pEnumValue  Specified enum value.
+   *
+   * @return  I18n short description of specified enum value.
+   */
+  public String getMmI18nEnumShortDescription(final ENUM_TYPE pEnumValue) {
+    final String enumTypeName = pEnumValue.getClass().getSimpleName();
+    return root.getMmI18nText(enumTypeName + "." + pEnumValue.name(), MmMessageType.SHORT);
   }
 
   /**

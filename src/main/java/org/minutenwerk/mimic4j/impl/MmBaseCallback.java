@@ -17,15 +17,41 @@ import org.springframework.web.util.UriComponents;
 public interface MmBaseCallback {
 
   /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
-   * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
-   * MmConfiguration.longDescription</code>.
+   * Returns optional unformatted arguments for short and long description.
+   *
+   * @param   passThroughValues  Optional message arguments.
+   *
+   * @return  Optional message arguments.
+   */
+  public Object[] callbackMmGetDescriptionArguments(Object... passThroughValues);
+
+  /**
+   * Returns a format pattern for long and short description.
+   *
+   * @param   passThroughValue  By default this parameter value will be returned.
+   *
+   * @return  A format pattern.
+   */
+  public String callbackMmGetFormatPattern(String passThroughValue);
+
+  /**
+   * Returns an unformatted long description.
+   *
+   * @param   passThroughValue  By default this parameter value will be returned.
+   *
+   * @return  An unformatted long description.
+   */
+  public String callbackMmGetLongDescription(String passThroughValue);
+
+  /**
+   * Returns a long description.
    *
    * @param   passThroughValue      By default this parameter value will be returned.
    * @param   passThroughArguments  Optional list of message arguments.
    *
    * @return  A long description.
    */
+  @Deprecated
   public String callbackMmGetLongDescription(String passThroughValue, Object... passThroughArguments);
 
   /**
@@ -40,13 +66,11 @@ public interface MmBaseCallback {
   public URI callbackMmGetSelfReference(UriComponents selfReferencePath, MmReferencableModel dataModel, List<String> selfReferenceParams);
 
   /**
-   * Returns a short description. The short description is evaluated from declaration method <code>callbackMmGetShortDescription</code>. If <code>
-   * callbackMmGetShortDescription</code> is not overridden, the short description is evaluated from configuration attribute <code>
-   * MmConfiguration.shortDescription</code>.
+   * Returns an unformatted short description.
    *
    * @param   passThroughValue  By default this parameter value will be returned.
    *
-   * @return  A short description.
+   * @return  An unformatted short description.
    */
   public String callbackMmGetShortDescription(String passThroughValue);
 

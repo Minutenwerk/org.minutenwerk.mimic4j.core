@@ -44,7 +44,7 @@ public class MmImplementationZonedDateTime
 
     String formatPattern = configuration.getFormatPattern();
     if (formatPattern == null) {
-      formatPattern = getMmI18nText(MmMessageType.FORMAT);
+      formatPattern = getMmThisI18nText(MmMessageType.FORMAT);
     }
 
     final String returnString = declaration.callbackMmGetFormatPattern(formatPattern);

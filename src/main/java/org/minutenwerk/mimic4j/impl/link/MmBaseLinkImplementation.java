@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmInformationalModel;
 import org.minutenwerk.mimic4j.api.mimic.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
@@ -106,29 +105,6 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
         throw new IllegalStateException("no definition of parentAccessor for " + this);
       }
       return containerAccessor;
-    }
-  }
-
-  /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
-   * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
-   * MmConfiguration.longDescription</code>.
-   *
-   * @return        A long description.
-   *
-   * @jalopy.group  group-override
-   */
-  @Override
-  public String getMmLongDescription() {
-    ensureInitialization();
-
-    // retrieve view model
-    final VIEW_MODEL viewModel = getMmViewModel();
-
-    if (viewModel instanceof MmInformationalModel) {
-      return getMmDescription((MmInformationalModel)viewModel, MmMessageType.LONG);
-    } else {
-      return getMmDescription(viewModel, MmMessageType.LONG);
     }
   }
 
@@ -278,14 +254,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
   public String getMmViewValue() {
     ensureInitialization();
 
-    // retrieve view model
-    final VIEW_MODEL viewModel = getMmViewModel();
-
-    if (viewModel instanceof MmInformationalModel) {
-      return getMmDescription((MmInformationalModel)viewModel, MmMessageType.SHORT);
-    } else {
-      return getMmDescription(viewModel, MmMessageType.SHORT);
-    }
+    return getMmShortDescription();
   }
 
   /**
@@ -330,7 +299,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    */
   @Override
   public String getMmFormatPattern() {
-    final String i18nFormatPattern     = getMmI18nText(MmMessageType.FORMAT);
+    final String i18nFormatPattern     = getMmThisI18nText(MmMessageType.FORMAT);
     final String callbackFormatPattern = declaration.callbackMmGetViewFormatPattern(i18nFormatPattern);
     if (LOGGER.isDebugEnabled()) {
       if (callbackFormatPattern == null) {
