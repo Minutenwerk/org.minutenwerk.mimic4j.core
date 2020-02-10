@@ -129,6 +129,20 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
+   * Returns view model value.
+   *
+   * @return        The view model value.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public MODEL getMmViewModel() {
+    ensureInitialization();
+
+    return getMmModel();
+  }
+
+  /**
    * Returns <code>true</code>, if the mimic has a model, which delivers data for this model, and a model instance is currently present.
    *
    * @return        <code>True</code>, if a model instance is currently present.

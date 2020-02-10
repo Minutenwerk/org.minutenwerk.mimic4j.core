@@ -1215,57 +1215,86 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-i18n
    */
   protected String getMmI18nDescription(final String pDescriptionPattern) {
-    // evaluate whether description pattern contains text variables (e.g. {0} or {1})
-    final boolean containsVariable = pDescriptionPattern.matches(".*\\{[0-9]*\\}.*");
+    try {
 
-    // if description pattern does not contain text variables, just return the description pattern
-    if (!containsVariable) {
+      // evaluate whether description pattern contains text variables (e.g. {0} or {1})
+      final boolean containsVariable = pDescriptionPattern.matches(".*\\{[0-9]*\\}.*");
+
+      // evaluate whether description pattern contains several choices dependening on count
+      // (e.g. "{0,choice,0#No wolves|1#{1} wolf|1<{1} wolves}")
+      final boolean containsChoice   = pDescriptionPattern.startsWith("{0,choice,");
+
+      // if description pattern does not contain text variables, just return the description pattern
+      if (!containsVariable) {
+        return pDescriptionPattern;
+      }
+
+      // retrieve view model (e.g. PersonDto or PersonDto.name or PersonDto.birthday)
+      final Object viewModel     = getMmViewModel();
+
+      // evaluate i18n arguments
+      Object[]     i18nArguments;
+
+      // if the view model is an informational model, the i18n arguments are the view model's info objects (e.g. ["John Doe", 1976.07.04])
+      if (viewModel instanceof MmInformationalModel) {
+        i18nArguments = ((MmInformationalModel)viewModel).getMmInfo();
+
+        // the info objects can be changed by callback method
+        i18nArguments = declaration.callbackMmGetDescriptionArguments(i18nArguments);
+
+        // if the view model is not an informational model, the callback method might deliver i18n arguments
+      } else {
+        i18nArguments = declaration.callbackMmGetDescriptionArguments(viewModel);
+      }
+
+      // if there are no i18n arguments, just return the description pattern
+      if (i18nArguments == null) {
+        LOGGER.warn("i18n description without arguments: " + getMmId() + ": " + pDescriptionPattern);
+        return pDescriptionPattern;
+      }
+
+      // evaluate i18n arguments format pattern, it might be a String containing several patterns (e.g. [|"dd.MM.yyyy"])
+      final String   i18nArgumentFormatPattern  = declaration.callbackMmGetFormatPattern(getMmFormatPattern());
+
+      // retrieve array of argument format patterns
+      final String[] argumentFormatPatternArray = i18nArgumentFormatPattern.split("\\|");
+
+      // if the description patterns contains a choice, the first argument is the choice control number
+      Object[]       formattedArguments;
+      if (containsChoice) {
+        formattedArguments    = new Object[i18nArguments.length + 1];
+        formattedArguments[0] = //
+          (i18nArguments[0] == null) //
+          ? 0 //
+          : ((i18nArguments[0] instanceof Collection<?>) //
+            ? ((Collection<?>)i18nArguments[0]).size() //
+            : i18nArguments[0]);
+
+        // apply each format pattern to corresponding view value
+        for (int index = 0; index < ((Object[])i18nArguments).length; index++) {
+          final Object viewValue        = ((Object[])i18nArguments)[index];
+          final String formatPattern    = (index < argumentFormatPatternArray.length) ? argumentFormatPatternArray[index] : null;
+          formattedArguments[index + 1] = formatMmI18nSingleViewModelValue(viewValue, formatPattern);
+        }
+      } else {
+        formattedArguments = new Object[i18nArguments.length];
+
+        // apply each format pattern to corresponding view value
+        for (int index = 0; index < ((Object[])i18nArguments).length; index++) {
+          final Object viewValue     = ((Object[])i18nArguments)[index];
+          final String formatPattern = (index < argumentFormatPatternArray.length) ? argumentFormatPatternArray[index] : null;
+          formattedArguments[index] = formatMmI18nSingleViewModelValue(viewValue, formatPattern);
+        }
+      }
+
+      // formattedArguments keeps an Object[], but as an array is an Object itself, java still interprets it to be a single object,
+      // so to put an array of objects into a varargs method parameter, there must be an explicit cast to Object[]
+      // Return formatted message (e.g. "Person John Doe wurde am 04.07.1976 geboren")
+      return MessageFormat.format(pDescriptionPattern, ((Object[])formattedArguments));
+    } catch (Exception e) {
+      LOGGER.error("Cannot format " + getMmId() + " " + pDescriptionPattern + ": " + e.getMessage());
       return pDescriptionPattern;
     }
-
-    // retrieve view model (e.g. PersonDto or PersonDto.name or PersonDto.birthday)
-    final Object viewModel     = getMmViewModel();
-
-    // evaluate i18n arguments
-    Object[]     i18nArguments;
-
-    // if the view model is an informational model, the i18n arguments are the view model's info objects (e.g. ["John Doe", 1976.07.04])
-    if (viewModel instanceof MmInformationalModel) {
-      i18nArguments = ((MmInformationalModel)viewModel).getMmInfo();
-
-      // the info objects can be changed by callback method
-      i18nArguments = declaration.callbackMmGetDescriptionArguments(i18nArguments);
-
-      // if the view model is not an informational model, the callback method might deliver i18n arguments
-    } else {
-      i18nArguments = declaration.callbackMmGetDescriptionArguments(viewModel);
-    }
-
-    // if there are no i18n arguments, just return the description pattern
-    if (i18nArguments == null) {
-      LOGGER.warn("i18n description without arguments: " + getMmId() + ": " + pDescriptionPattern);
-      return pDescriptionPattern;
-    }
-
-    // evaluate i18n arguments format pattern, it might be a String containing several patterns (e.g. [|"dd.MM.yyyy"])
-    final String   i18nArgumentFormatPattern  = declaration.callbackMmGetFormatPattern(getMmFormatPattern());
-
-    // retrieve array of argument format patterns
-    final String[] argumentFormatPatternArray = i18nArgumentFormatPattern.split("\\|");
-
-    final Object[] formattedArguments         = new Object[i18nArguments.length];
-
-    // apply each format pattern to corresponding view value
-    for (int index = 0; index < ((Object[])i18nArguments).length; index++) {
-      final Object viewValue     = ((Object[])i18nArguments)[index];
-      final String formatPattern = (index < argumentFormatPatternArray.length) ? argumentFormatPatternArray[index] : null;
-      formattedArguments[index] = formatMmI18nSingleViewModelValue(viewValue, formatPattern);
-    }
-
-    // formattedArguments keeps an Object[], but as an array is an Object itself, java still interprets it to be a single object,
-    // so to put an array of objects into a varargs method parameter, there must be an explicit cast to Object[]
-    // Return formatted message (e.g. "Person John Doe wurde am 04.07.1976 geboren")
-    return MessageFormat.format(pDescriptionPattern, ((Object[])formattedArguments));
   }
 
   /**
@@ -1317,9 +1346,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-i18n
    */
-  protected Object getMmViewModel() {
-    return getMmReferencableModel();
-  }
+  protected abstract Object getMmViewModel();
 
   /**
    * Adds a specified child to runtime children, e.g. a MmTableRow.
