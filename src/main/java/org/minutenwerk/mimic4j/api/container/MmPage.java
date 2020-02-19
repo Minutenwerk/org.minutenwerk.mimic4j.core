@@ -28,7 +28,7 @@ import org.springframework.web.util.UriComponents;
 
      @Override
      public final UriComponents getMmSelfReferencePath() {
-       return UriComponentsBuilder.fromPath(getMmStaticSelfReferencePath()).build();
+       return UriComponentsBuilder.fromUriString(getMmStaticSelfReferencePath()).build();
      }
    </pre>
  *

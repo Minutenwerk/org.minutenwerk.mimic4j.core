@@ -103,7 +103,7 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    */
   public void setTargetReferencePath(String pTargetReferencePath) {
     if ((pTargetReferencePath != null) && !pTargetReferencePath.isEmpty()) {
-      targetReferencePath = UriComponentsBuilder.fromPath(pTargetReferencePath).build();
+      targetReferencePath = UriComponentsBuilder.fromUriString(pTargetReferencePath).build();
     }
   }
 

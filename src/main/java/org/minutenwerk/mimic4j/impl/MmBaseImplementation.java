@@ -741,7 +741,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // add anchor to self reference path
     if (configuration.id != "") {
-      selfReferencePath = UriComponentsBuilder.fromPath(selfReferencePath.getPath()).path("#" + configuration.id).build();
+      selfReferencePath = UriComponentsBuilder.fromUriString(selfReferencePath.getPath()).path("#" + configuration.id).build();
     }
 
     // retrieve data model, may be null
@@ -786,7 +786,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // add anchor to self reference path
     if (configuration.id != "") {
-      selfReferencePath = UriComponentsBuilder.fromPath(selfReferencePath.getPath()).path("#" + configuration.id).build();
+      selfReferencePath = UriComponentsBuilder.fromUriString(selfReferencePath.getPath()).path("#" + configuration.id).build();
     }
 
     // if self reference is an URI for a specified referencable data model
