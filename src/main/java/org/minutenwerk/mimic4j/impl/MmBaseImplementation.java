@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -1196,7 +1197,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    * @jalopy.group  group-i18n
    */
   protected DateTimeFormatter getMmDateTimeFormatter(final String pFormatPattern) {
-    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(pFormatPattern);
+    // TODO
+    final DateTimeFormatter returnDateFormatter = DateTimeFormatter.ofPattern(pFormatPattern).withZone(ZoneId.of("Europe/Berlin"));
     return returnDateFormatter;
   }
 
