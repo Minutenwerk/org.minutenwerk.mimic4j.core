@@ -77,24 +77,6 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   }
 
   /**
-   * Returns a long description. The long description is evaluated from declaration method <code>callbackMmGetLongDescription</code>. If <code>
-   * callbackMmGetLongDescription</code> is not overridden, the long description is evaluated from configuration attribute <code>
-   * MmConfiguration.longDescription</code>.
-   *
-   * @param         pPassThroughValue      By default this parameter value will be returned.
-   * @param         pPassThroughArguments  Optional list of message arguments.
-   *
-   * @return        A long description.
-   *
-   * @jalopy.group  group-callback
-   */
-  @Deprecated
-  @Override
-  public String callbackMmGetLongDescription(String pPassThroughValue, Object... pPassThroughArguments) {
-    return pPassThroughValue;
-  }
-
-  /**
    * Returns the self URL of this mimic.
    *
    * @param         pSelfReferencePath    The path of the self URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".

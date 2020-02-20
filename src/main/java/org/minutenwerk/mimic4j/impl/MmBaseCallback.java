@@ -44,17 +44,6 @@ public interface MmBaseCallback {
   public String callbackMmGetLongDescription(String passThroughValue);
 
   /**
-   * Returns a long description.
-   *
-   * @param   passThroughValue      By default this parameter value will be returned.
-   * @param   passThroughArguments  Optional list of message arguments.
-   *
-   * @return  A long description.
-   */
-  @Deprecated
-  public String callbackMmGetLongDescription(String passThroughValue, Object... passThroughArguments);
-
-  /**
    * /** Returns the self URL of this mimic.
    *
    * @param   selfReferencePath    The path of the self URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
