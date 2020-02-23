@@ -1226,8 +1226,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       // (e.g. "{0,choice,0#No wolves|1#{1} wolf|1<{1} wolves}")
       final boolean containsChoice   = pDescriptionPattern.startsWith("{0,choice,");
 
-      // if description pattern does not contain text variables, just return the description pattern
-      if (!containsVariable) {
+      // if description pattern does contain neither text variables nor choice, just return the description pattern
+      if (!containsVariable && !containsChoice) {
         return pDescriptionPattern;
       }
 
