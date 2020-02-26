@@ -57,7 +57,7 @@ public interface MmMimic {
   public boolean isMmRuntimeMimic();
 
   /**
-   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and callback method
+   * Returns <code>true</code>, if the mimic is visible (default is <code>true</code>). Is controlled by parents state of visible and callback method
    * {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>visible</code> on this mimic. Developer
    * can configure annotation and can override callback method.
    *
@@ -85,7 +85,7 @@ public interface MmMimic {
   public boolean isMmReadOnly();
 
   /**
-   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and callback method
+   * Returns <code>true</code>, if the mimic is enabled (default is <code>true</code>). Is controlled by parents state of enabled and callback method
    * {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>enabled</code> on this mimic. Developer
    * can configure annotation and can override callback method.
    *

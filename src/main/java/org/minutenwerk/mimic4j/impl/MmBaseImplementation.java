@@ -844,7 +844,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is enabled (default is <code>false</code>). Is controlled by parents state of enabled and callback method
+   * Returns <code>true</code>, if the mimic is enabled (default is <code>true</code>). Is controlled by parents state of enabled and callback method
    * {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>enabled</code> on this mimic. Developer
    * can configure annotation and can override callback method.
    *
@@ -859,13 +859,13 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     if (implementationParent == null) {
       return declaration.callbackMmIsEnabled(configuration.isEnabled());
     } else {
-      return implementationParent.isMmEnabled() && declaration.callbackMmIsEnabled(configuration.isEnabled());
+      return declaration.callbackMmIsEnabled(implementationParent.isMmEnabled() && configuration.isEnabled());
     }
   }
 
   /**
    * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readonly and callback method
-   * {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>readonly</code> on this mimic.
+   * {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>readOnly</code> on this mimic.
    * Developer can configure annotation and can override callback method.
    *
    * @return        <code>True</code>, if the mimic is read only.
@@ -879,7 +879,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     if (implementationParent == null) {
       return declaration.callbackMmIsReadOnly(configuration.isReadOnly());
     } else {
-      return implementationParent.isMmReadOnly() || declaration.callbackMmIsReadOnly(configuration.isReadOnly());
+      return declaration.callbackMmIsReadOnly(implementationParent.isMmReadOnly() || configuration.isReadOnly());
     }
   }
 
@@ -897,7 +897,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is visible (default is <code>false</code>). Is controlled by parents state of visible and callback method
+   * Returns <code>true</code>, if the mimic is visible (default is <code>true</code>). Is controlled by parents state of visible and callback method
    * {@link MmBaseCallback#callbackMmIsVisible()}. Callback method returns configuration of annotation attribute <code>visible</code> on this mimic. Developer
    * can configure annotation and can override callback method.
    *
@@ -912,7 +912,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     if (implementationParent == null) {
       return declaration.callbackMmIsVisible(configuration.isVisible());
     } else {
-      return implementationParent.isMmVisible() && declaration.callbackMmIsVisible(configuration.isVisible());
+      return declaration.callbackMmIsVisible(implementationParent.isMmVisible() && configuration.isVisible());
     }
   }
 
