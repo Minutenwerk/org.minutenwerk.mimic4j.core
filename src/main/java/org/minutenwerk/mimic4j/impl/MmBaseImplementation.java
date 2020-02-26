@@ -927,7 +927,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     if (implementationParent == null) {
       return declaration.callbackMmIsReferenceEnabled(configuration.isReferenceEnabled());
     } else {
-      return declaration.callbackMmIsReferenceEnabled(implementationParent.isMmReferenceEnabled() || configuration.isReferenceEnabled());
+      return declaration.callbackMmIsReferenceEnabled(implementationParent.isMmReferenceEnabled() && configuration.isReferenceEnabled());
     }
   }
 
