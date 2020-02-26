@@ -28,7 +28,7 @@ public class MmConfigurationCommand extends MmBaseLinkConfiguration {
    * Creates a new MmConfigurationCommand instance of default values.
    */
   public MmConfigurationCommand() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_ICON_BEFORE, DEFAULT_ICON_AFTER, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_ICON_BEFORE, DEFAULT_ICON_AFTER, DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -37,8 +37,8 @@ public class MmConfigurationCommand extends MmBaseLinkConfiguration {
    * @param  pCommandAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationCommand(MmCommandAnnotation pCommandAnnotation) {
-    super(pCommandAnnotation.id(), pCommandAnnotation.visible(), pCommandAnnotation.readOnly(), pCommandAnnotation.enabled(), pCommandAnnotation.iconBefore(),
-      pCommandAnnotation.iconAfter(), pCommandAnnotation.targetReferencePath(), pCommandAnnotation.styleClasses());
+    super(pCommandAnnotation.id(), pCommandAnnotation.visible(), pCommandAnnotation.referenceEnabled(), pCommandAnnotation.enabled(),
+      pCommandAnnotation.iconBefore(), pCommandAnnotation.iconAfter(), pCommandAnnotation.targetReferencePath(), pCommandAnnotation.styleClasses());
     submitParam = DEFAULT_SUBMIT_PARAM;
 
     Class<? extends MmPage<?>> targetPage = pCommandAnnotation.targetPage();

@@ -18,15 +18,15 @@ public abstract class MmBaseAttributeConfiguration<ATTRIBUTE_TYPE> extends MmBas
   /**
    * Creates a new MmBaseAttributeConfiguration instance from annotation.
    *
-   * @param  pId            The HTML id of HTML tag.
-   * @param  pVisible       True, if HTML tag of mimic is rendered visible.
-   * @param  pReadOnly      True, if HTML tag of mimic is rendered readonly.
-   * @param  pEnabled       True, if HTML tag of mimic is rendered enabled.
-   * @param  pRequired      True, if input is required.
-   * @param  pStyleClasses  TODOC
+   * @param  pId                The HTML id of HTML tag.
+   * @param  pVisible           True, if HTML tag of mimic is rendered visible.
+   * @param  pReferenceEnabled  True, if HTML tag of mimic is rendered reference enabled.
+   * @param  pEnabled           True, if HTML tag of mimic is rendered enabled.
+   * @param  pRequired          True, if input is required.
+   * @param  pStyleClasses      TODOC
    */
-  public MmBaseAttributeConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, boolean pRequired, String pStyleClasses) {
-    super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
+  public MmBaseAttributeConfiguration(String pId, boolean pVisible, boolean pReferenceEnabled, boolean pEnabled, boolean pRequired, String pStyleClasses) {
+    super(pId, pVisible, pReferenceEnabled, pEnabled, pStyleClasses);
     required = pRequired;
   }
 

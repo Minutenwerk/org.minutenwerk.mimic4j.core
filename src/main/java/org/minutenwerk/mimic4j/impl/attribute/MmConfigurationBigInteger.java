@@ -22,7 +22,7 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * Creates a new MmConfigurationBigInteger instance of default values.
    */
   public MmConfigurationBigInteger() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
 
@@ -32,7 +32,7 @@ public class MmConfigurationBigInteger extends MmBaseAttributeConfiguration<BigI
    * @param  pBigIntegerAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationBigInteger(MmBigIntegerAnnotation pBigIntegerAnnotation) {
-    super(pBigIntegerAnnotation.id(), pBigIntegerAnnotation.visible(), pBigIntegerAnnotation.readOnly(), pBigIntegerAnnotation.enabled(),
+    super(pBigIntegerAnnotation.id(), pBigIntegerAnnotation.visible(), pBigIntegerAnnotation.referenceEnabled(), pBigIntegerAnnotation.enabled(),
       pBigIntegerAnnotation.required(), pBigIntegerAnnotation.styleClasses());
 
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;

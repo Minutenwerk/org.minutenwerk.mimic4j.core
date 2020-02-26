@@ -22,7 +22,7 @@ public @interface MmTableColumnAnnotation {
 
   public boolean visible() default MmConfigurationTableColumn.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationTableColumn.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationTableColumn.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationTableColumn.DEFAULT_IS_ENABLED;
 

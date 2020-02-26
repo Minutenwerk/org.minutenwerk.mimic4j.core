@@ -22,7 +22,7 @@ public @interface MmLongAnnotation {
 
   public boolean visible() default MmConfigurationLong.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationLong.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationLong.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationLong.DEFAULT_IS_ENABLED;
 

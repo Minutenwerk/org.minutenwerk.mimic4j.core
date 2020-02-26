@@ -22,7 +22,7 @@ public @interface MmZonedDateTimeAnnotation {
 
   public boolean visible() default MmConfigurationZonedDateTime.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationZonedDateTime.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationZonedDateTime.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationZonedDateTime.DEFAULT_IS_ENABLED;
 

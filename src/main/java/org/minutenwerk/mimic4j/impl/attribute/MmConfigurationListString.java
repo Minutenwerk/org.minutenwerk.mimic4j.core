@@ -22,7 +22,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    * Creates a new MmConfigurationListString instance of default values.
    */
   public MmConfigurationListString() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     size = DEFAULT_SIZE;
   }
 
@@ -32,7 +32,7 @@ public class MmConfigurationListString extends MmBaseAttributeConfiguration<List
    * @param  pListStringAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationListString(MmListStringAnnotation pListStringAnnotation) {
-    super(pListStringAnnotation.id(), pListStringAnnotation.visible(), pListStringAnnotation.readOnly(), pListStringAnnotation.enabled(),
+    super(pListStringAnnotation.id(), pListStringAnnotation.visible(), pListStringAnnotation.referenceEnabled(), pListStringAnnotation.enabled(),
       pListStringAnnotation.required(), pListStringAnnotation.styleClasses());
     size = pListStringAnnotation.size();
   }

@@ -22,7 +22,7 @@ public @interface MmTableAnnotation {
 
   public boolean visible() default MmConfigurationTable.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationTable.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationTable.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationTable.DEFAULT_IS_ENABLED;
 

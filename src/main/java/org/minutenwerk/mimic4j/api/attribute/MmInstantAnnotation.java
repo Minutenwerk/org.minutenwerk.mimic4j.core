@@ -22,7 +22,7 @@ public @interface MmInstantAnnotation {
 
   public boolean visible() default MmConfigurationInstant.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationInstant.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationInstant.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationInstant.DEFAULT_IS_ENABLED;
 

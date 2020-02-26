@@ -20,7 +20,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    * Creates a new MmConfigurationLong instance of default values.
    */
   public MmConfigurationLong() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
 
@@ -30,7 +30,7 @@ public class MmConfigurationLong extends MmBaseAttributeConfiguration<Long> {
    * @param  pLongAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationLong(MmLongAnnotation pLongAnnotation) {
-    super(pLongAnnotation.id(), pLongAnnotation.visible(), pLongAnnotation.readOnly(), pLongAnnotation.enabled(), pLongAnnotation.required(),
+    super(pLongAnnotation.id(), pLongAnnotation.visible(), pLongAnnotation.referenceEnabled(), pLongAnnotation.enabled(), pLongAnnotation.required(),
       pLongAnnotation.styleClasses());
     formatMaxLength = pLongAnnotation.formatMaxLength();
   }

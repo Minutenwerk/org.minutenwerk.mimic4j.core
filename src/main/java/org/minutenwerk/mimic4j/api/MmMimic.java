@@ -11,8 +11,8 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-ro, group-enabled, group-short, group-long, group-style,
- *                      group-model, group-reference
+ * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-enabled, group-short, group-long, group-style, group-model,
+ *                      group-reference
  */
 public interface MmMimic {
 
@@ -71,20 +71,6 @@ public interface MmMimic {
   public boolean isMmVisible();
 
   /**
-   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readOnly and callback method
-   * {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>readOnly</code> on this mimic.
-   * Developer can configure annotation and can override callback method.
-   *
-   * @return        <code>True</code>, if the mimic is read only.
-   *
-   * @see           {@link MmBaseCallback#callbackMmIsReadOnly()}
-   * @see           {@link MmBaseConfiguration#isReadOnly()}
-   *
-   * @jalopy.group  group-ro
-   */
-  public boolean isMmReadOnly();
-
-  /**
    * Returns <code>true</code>, if the mimic is enabled (default is <code>true</code>). Is controlled by parents state of enabled and callback method
    * {@link MmBaseCallback#callbackMmIsEnabled()}. Callback method returns configuration of annotation attribute <code>enabled</code> on this mimic. Developer
    * can configure annotation and can override callback method.
@@ -97,6 +83,56 @@ public interface MmMimic {
    * @jalopy.group  group-enabled
    */
   public boolean isMmEnabled();
+
+  /**
+   * Returns <code>true</code>, if input of the mimic is disabled and links are disabled.
+   *
+   * @return        <code>True</code>, if input of the mimic is disabled and links are disabled.
+   *
+   * @jalopy.group  group-enabled
+   */
+  public boolean isMmInputDisabledAndReferenceDisabled();
+
+  /**
+   * Returns <code>true</code>, if input of the mimic is disabled but links can be followed.
+   *
+   * @return        <code>True</code>, if input of the mimic is disabled but links can be followed.
+   *
+   * @jalopy.group  group-enabled
+   */
+  public boolean isMmInputDisabledButReferenceEnabled();
+
+  /**
+   * Returns <code>true</code>, if input of the mimic is enabled and links can be followed.
+   *
+   * @return        <code>True</code>, if input of the mimic is enabled and links can be followed.
+   *
+   * @jalopy.group  group-enabled
+   */
+  public boolean isMmInputEnabledAndReferenceEnabled();
+
+  /**
+   * Returns <code>true</code>, if input of the mimic is enabled but links are disabled.
+   *
+   * @return        <code>True</code>, if input of the mimic is enabled but links are disabled.
+   *
+   * @jalopy.group  group-enabled
+   */
+  public boolean isMmInputEnabledButReferenceDisabled();
+
+  /**
+   * Returns <code>true</code>, if the mimic is referenceEnabled (default is <code>true</code>). Is controlled by parents state of referenceEnabled and
+   * callback method {@link MmBaseCallback#callbackMmIsReferenceEnabled()}. Callback method returns configuration of annotation attribute <code>
+   * referenceEnabled</code> on this mimic. Developer can configure annotation and can override callback method.
+   *
+   * @return        <code>True</code>, if the mimic is reference enabled.
+   *
+   * @see           {@link MmBaseCallback#callbackMmIsReferenceEnabled()}
+   * @see           {@link MmBaseConfiguration#isReferenceEnabled()}
+   *
+   * @jalopy.group  group-enabled
+   */
+  public boolean isMmReferenceEnabled();
 
   /**
    * Returns a short description. The short description is evaluated from callback method {@link MmBaseCallback#callbackMmGetShortDescription()}. If

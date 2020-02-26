@@ -22,7 +22,7 @@ public @interface MmListStringAnnotation {
 
   public boolean visible() default MmConfigurationListString.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationListString.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationListString.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationListString.DEFAULT_IS_ENABLED;
 

@@ -15,7 +15,7 @@ public class MmConfigurationTable extends MmBaseConfiguration {
    * Creates a new MmConfigurationTable instance of default values.
    */
   public MmConfigurationTable() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -24,7 +24,8 @@ public class MmConfigurationTable extends MmBaseConfiguration {
    * @param  pTableAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationTable(MmTableAnnotation pTableAnnotation) {
-    super(pTableAnnotation.id(), pTableAnnotation.visible(), pTableAnnotation.readOnly(), pTableAnnotation.enabled(), pTableAnnotation.styleClasses());
+    super(pTableAnnotation.id(), pTableAnnotation.visible(), pTableAnnotation.referenceEnabled(), pTableAnnotation.enabled(),
+      pTableAnnotation.styleClasses());
   }
 
 }

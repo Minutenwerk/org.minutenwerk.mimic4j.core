@@ -22,7 +22,7 @@ public @interface MmFormAnnotation {
 
   public boolean visible() default MmConfigurationForm.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationForm.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationForm.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationForm.DEFAULT_IS_ENABLED;
 

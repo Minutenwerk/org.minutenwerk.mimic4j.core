@@ -15,7 +15,7 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    * Creates a new MmConfigurationPage instance of default values.
    */
   public MmConfigurationPage() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -24,7 +24,7 @@ public class MmConfigurationPage extends MmBaseConfiguration {
    * @param  pPageAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationPage(MmPageAnnotation pPageAnnotation) {
-    super(pPageAnnotation.id(), pPageAnnotation.visible(), pPageAnnotation.readOnly(), pPageAnnotation.enabled(), pPageAnnotation.styleClasses());
+    super(pPageAnnotation.id(), pPageAnnotation.visible(), pPageAnnotation.referenceEnabled(), pPageAnnotation.enabled(), pPageAnnotation.styleClasses());
   }
 
 }

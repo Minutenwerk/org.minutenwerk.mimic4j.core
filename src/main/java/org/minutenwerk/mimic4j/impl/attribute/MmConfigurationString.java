@@ -32,7 +32,7 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * Creates a new MmConfigurationString instance of default values.
    */
   public MmConfigurationString() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
     cols            = DEFAULT_COLS;
     rows            = DEFAULT_ROWS;
@@ -44,8 +44,8 @@ public class MmConfigurationString extends MmBaseAttributeConfiguration<String> 
    * @param  pStringAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationString(MmStringAnnotation pStringAnnotation) {
-    super(pStringAnnotation.id(), pStringAnnotation.visible(), pStringAnnotation.readOnly(), pStringAnnotation.enabled(), pStringAnnotation.required(),
-      pStringAnnotation.styleClasses());
+    super(pStringAnnotation.id(), pStringAnnotation.visible(), pStringAnnotation.referenceEnabled(), pStringAnnotation.enabled(),
+      pStringAnnotation.required(), pStringAnnotation.styleClasses());
     formatMaxLength = pStringAnnotation.formatMaxLength();
     cols            = pStringAnnotation.cols();
     rows            = pStringAnnotation.rows();

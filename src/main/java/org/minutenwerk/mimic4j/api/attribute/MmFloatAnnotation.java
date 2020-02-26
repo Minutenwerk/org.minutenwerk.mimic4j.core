@@ -22,7 +22,7 @@ public @interface MmFloatAnnotation {
 
   public boolean visible() default MmConfigurationFloat.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationFloat.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationFloat.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationFloat.DEFAULT_IS_ENABLED;
 

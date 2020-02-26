@@ -21,7 +21,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
    * Creates a new MmConfigurationLink instance of default values.
    */
   public MmConfigurationLink() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_ICON_BEFORE, DEFAULT_ICON_AFTER, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_ICON_BEFORE, DEFAULT_ICON_AFTER, DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -32,7 +32,7 @@ public class MmConfigurationLink extends MmBaseLinkConfiguration {
    * @throws  IllegalArgumentException  In case of link defines neither targetPage nor targetPageMany.
    */
   public MmConfigurationLink(MmLinkAnnotation pLinkAnnotation) {
-    super(pLinkAnnotation.id(), pLinkAnnotation.visible(), pLinkAnnotation.readOnly(), pLinkAnnotation.enabled(), pLinkAnnotation.iconBefore(),
+    super(pLinkAnnotation.id(), pLinkAnnotation.visible(), pLinkAnnotation.referenceEnabled(), pLinkAnnotation.enabled(), pLinkAnnotation.iconBefore(),
       pLinkAnnotation.iconAfter(), pLinkAnnotation.targetReferencePath(), pLinkAnnotation.styleClasses());
 
     final Class<? extends MmPage<?>> targetPage              = pLinkAnnotation.targetPage();

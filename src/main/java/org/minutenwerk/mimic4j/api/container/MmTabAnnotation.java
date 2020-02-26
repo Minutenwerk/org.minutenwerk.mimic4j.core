@@ -22,7 +22,7 @@ public @interface MmTabAnnotation {
 
   public boolean visible() default MmConfigurationTab.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationTab.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationTab.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationTab.DEFAULT_IS_ENABLED;
 

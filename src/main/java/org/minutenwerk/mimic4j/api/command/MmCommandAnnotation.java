@@ -26,7 +26,7 @@ public @interface MmCommandAnnotation {
 
   public boolean visible() default MmConfigurationCommand.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationCommand.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationCommand.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationCommand.DEFAULT_IS_ENABLED;
 

@@ -15,7 +15,7 @@ public class MmConfigurationTab extends MmBaseConfiguration {
    * Creates a new MmConfigurationTab instance of default values.
    */
   public MmConfigurationTab() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -24,7 +24,7 @@ public class MmConfigurationTab extends MmBaseConfiguration {
    * @param  pTabAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationTab(MmTabAnnotation pTabAnnotation) {
-    super(pTabAnnotation.id(), pTabAnnotation.visible(), pTabAnnotation.readOnly(), pTabAnnotation.enabled(), pTabAnnotation.styleClasses());
+    super(pTabAnnotation.id(), pTabAnnotation.visible(), pTabAnnotation.referenceEnabled(), pTabAnnotation.enabled(), pTabAnnotation.styleClasses());
   }
 
 }

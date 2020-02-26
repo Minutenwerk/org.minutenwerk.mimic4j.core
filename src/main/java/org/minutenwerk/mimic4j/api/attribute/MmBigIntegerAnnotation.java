@@ -22,7 +22,7 @@ public @interface MmBigIntegerAnnotation {
 
   public boolean visible() default MmConfigurationBigInteger.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationBigInteger.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationBigInteger.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationBigInteger.DEFAULT_IS_ENABLED;
 

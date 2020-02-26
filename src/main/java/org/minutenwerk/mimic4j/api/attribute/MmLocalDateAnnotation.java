@@ -22,7 +22,7 @@ public @interface MmLocalDateAnnotation {
 
   public boolean visible() default MmConfigurationLocalDate.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationLocalDate.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationLocalDate.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationLocalDate.DEFAULT_IS_ENABLED;
 

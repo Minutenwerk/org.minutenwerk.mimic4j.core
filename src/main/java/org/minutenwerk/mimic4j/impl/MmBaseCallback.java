@@ -85,15 +85,15 @@ public interface MmBaseCallback {
   public boolean callbackMmIsEnabled(boolean passThroughValue);
 
   /**
-   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readonly and callback method
-   * {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>readOnly</code> on this mimic.
-   * Developer can configure annotation and can override callback method.
+   * Returns <code>true</code>, if the mimic is referenceEnabled (default is <code>true</code>). Is controlled by parents state of reference enabled and
+   * callback method {@link MmBaseCallback#callbackMmIsReferenceEnabled()}. Callback method returns configuration of annotation attribute <code>
+   * referenceEnabled</code> on this mimic. Developer can configure annotation and can override callback method.
    *
    * @param   passThroughValue  By default this parameter value will be returned.
    *
-   * @return  <code>True</code>, if the mimic shall be read only.
+   * @return  <code>True</code>, if the mimic shall be reference enabled.
    */
-  public boolean callbackMmIsReadOnly(boolean passThroughValue);
+  public boolean callbackMmIsReferenceEnabled(boolean passThroughValue);
 
   /**
    * Returns <code>true</code>, if the mimic is visible (default is <code>true</code>). Is controlled by parents state of visible and callback method

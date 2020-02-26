@@ -8,19 +8,19 @@ package org.minutenwerk.mimic4j.impl;
 public abstract class MmBaseConfiguration {
 
   /** Constant for undefined state. */
-  public static final String  UNDEFINED_ID          = "UNDEFINED-ID";
+  public static final String  UNDEFINED_ID                 = "UNDEFINED-ID";
 
   /** Constant for default value of visible. */
-  public static final boolean DEFAULT_IS_VISIBLE    = true;
+  public static final boolean DEFAULT_IS_VISIBLE           = true;
 
-  /** Constant for default value of readonly. */
-  public static final boolean DEFAULT_IS_READONLY   = false;
+  /** Constant for default value of reference enabled. */
+  public static final boolean DEFAULT_IS_REFERENCE_ENABLED = true;
 
   /** Constant for default value of enabled. */
-  public static final boolean DEFAULT_IS_ENABLED    = true;
+  public static final boolean DEFAULT_IS_ENABLED           = true;
 
   /** Constant for default value CSS style classes. */
-  public static final String  DEFAULT_STYLE_CLASSES = "";
+  public static final String  DEFAULT_STYLE_CLASSES        = "";
 
   /** The HTML id of HTML tag. */
   protected String            id;
@@ -28,8 +28,8 @@ public abstract class MmBaseConfiguration {
   /** True, if HTML tag of mimic is rendered visible. */
   protected boolean           visible;
 
-  /** True, if HTML tag of mimic is rendered readonly. */
-  protected boolean           readOnly;
+  /** True, if HTML tag of mimic is rendered reference enabled. */
+  protected boolean           referenceEnabled;
 
   /** True, if HTML tag of mimic is rendered enabled. */
   protected boolean           enabled;
@@ -40,18 +40,18 @@ public abstract class MmBaseConfiguration {
   /**
    * Creates a new MmBaseConfiguration instance.
    *
-   * @param  pId            The HTML id of HTML tag.
-   * @param  pVisible       True, if HTML tag of mimic is rendered visible.
-   * @param  pReadOnly      True, if HTML tag of mimic is rendered readonly.
-   * @param  pEnabled       True, if HTML tag of mimic is rendered enabled.
-   * @param  pStyleClasses  The CSS style classes, separated by blank.
+   * @param  pId                The HTML id of HTML tag.
+   * @param  pVisible           True, if HTML tag of mimic is rendered visible.
+   * @param  pReferenceEnabled  True, if HTML tag of mimic is rendered reference enabled.
+   * @param  pEnabled           True, if HTML tag of mimic is rendered enabled.
+   * @param  pStyleClasses      The CSS style classes, separated by blank.
    */
-  public MmBaseConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pStyleClasses) {
-    id           = pId;
-    visible      = pVisible;
-    readOnly     = pReadOnly;
-    enabled      = pEnabled;
-    styleClasses = pStyleClasses;
+  public MmBaseConfiguration(String pId, boolean pVisible, boolean pReferenceEnabled, boolean pEnabled, String pStyleClasses) {
+    id               = pId;
+    visible          = pVisible;
+    referenceEnabled = pReferenceEnabled;
+    enabled          = pEnabled;
+    styleClasses     = pStyleClasses;
   }
 
   /**
@@ -82,12 +82,12 @@ public abstract class MmBaseConfiguration {
   }
 
   /**
-   * Returns true, if HTML tag of mimic is rendered readonly.
+   * Returns true, if HTML tag of mimic is rendered reference enabled.
    *
-   * @return  True, if HTML tag of mimic is rendered readonly.
+   * @return  True, if HTML tag of mimic is rendered reference enabled.
    */
-  public boolean isReadOnly() {
-    return readOnly;
+  public boolean isReferenceEnabled() {
+    return referenceEnabled;
   }
 
   /**
@@ -123,12 +123,12 @@ public abstract class MmBaseConfiguration {
   }
 
   /**
-   * Set configuration for mimic, whether HTML tag of mimic is rendered readonly.
+   * Set configuration for mimic, whether HTML tag of mimic is rendered reference enabled.
    *
-   * @param  pReadOnly  True, if HTML tag of mimic is rendered readonly.
+   * @param  pReferenceEnabled  True, if HTML tag of mimic is rendered reference enabled.
    */
-  public void setReadOnly(boolean pReadOnly) {
-    readOnly = pReadOnly;
+  public void setReferenceEnabled(boolean pReferenceEnabled) {
+    referenceEnabled = pReferenceEnabled;
   }
 
   /**

@@ -22,7 +22,7 @@ public @interface MmBooleanAnnotation {
 
   public boolean visible() default MmConfigurationBoolean.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationBoolean.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationBoolean.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationBoolean.DEFAULT_IS_ENABLED;
 

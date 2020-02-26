@@ -22,7 +22,7 @@ public @interface MmDurationAnnotation {
 
   public boolean visible() default MmConfigurationDuration.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationDuration.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationDuration.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationDuration.DEFAULT_IS_ENABLED;
 

@@ -22,7 +22,7 @@ public @interface MmDoubleAnnotation {
 
   public boolean visible() default MmConfigurationDouble.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationDouble.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationDouble.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationDouble.DEFAULT_IS_ENABLED;
 

@@ -22,7 +22,7 @@ public @interface MmEnumAnnotation {
 
   public boolean visible() default MmConfigurationEnum.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationEnum.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationEnum.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationEnum.DEFAULT_IS_ENABLED;
 

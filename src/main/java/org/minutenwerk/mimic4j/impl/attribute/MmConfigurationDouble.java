@@ -20,7 +20,7 @@ public class MmConfigurationDouble extends MmBaseAttributeConfiguration<Double> 
    * Creates a new MmConfigurationDouble instance of default values.
    */
   public MmConfigurationDouble() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
 
@@ -30,8 +30,8 @@ public class MmConfigurationDouble extends MmBaseAttributeConfiguration<Double> 
    * @param  pDoubleAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationDouble(MmDoubleAnnotation pDoubleAnnotation) {
-    super(pDoubleAnnotation.id(), pDoubleAnnotation.visible(), pDoubleAnnotation.readOnly(), pDoubleAnnotation.enabled(), pDoubleAnnotation.required(),
-      pDoubleAnnotation.styleClasses());
+    super(pDoubleAnnotation.id(), pDoubleAnnotation.visible(), pDoubleAnnotation.referenceEnabled(), pDoubleAnnotation.enabled(),
+      pDoubleAnnotation.required(), pDoubleAnnotation.styleClasses());
 
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }

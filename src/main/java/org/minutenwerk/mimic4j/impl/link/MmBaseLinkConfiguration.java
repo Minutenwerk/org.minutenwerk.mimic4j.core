@@ -33,17 +33,17 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
   /**
    * Creates a new MmBaseLinkConfiguration instance from annotation.
    *
-   * @param  pId            The HTML id of HTML tag.
-   * @param  pVisible       True, if HTML tag of mimic is rendered visible.
-   * @param  pReadOnly      True, if HTML tag of mimic is rendered readonly.
-   * @param  pEnabled       True, if HTML tag of mimic is rendered enabled.
-   * @param  pIconBefore    The icon before text.
-   * @param  pIconAfter     The icon after text.
-   * @param  pStyleClasses  The CSS style classes of this mimic.
+   * @param  pId                The HTML id of HTML tag.
+   * @param  pVisible           True, if HTML tag of mimic is rendered visible.
+   * @param  pReferenceEnabled  True, if HTML tag of mimic is rendered reference enabled.
+   * @param  pEnabled           True, if HTML tag of mimic is rendered enabled.
+   * @param  pIconBefore        The icon before text.
+   * @param  pIconAfter         The icon after text.
+   * @param  pStyleClasses      The CSS style classes of this mimic.
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pIconBefore, String pIconAfter,
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReferenceEnabled, boolean pEnabled, String pIconBefore, String pIconAfter,
     String pStyleClasses) {
-    super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
+    super(pId, pVisible, pReferenceEnabled, pEnabled, pStyleClasses);
     iconBefore          = pIconBefore;
     iconAfter           = pIconAfter;
     targetReferencePath = null;
@@ -54,16 +54,16 @@ public abstract class MmBaseLinkConfiguration extends MmBaseConfiguration {
    *
    * @param  pId                   The HTML id of HTML tag.
    * @param  pVisible              True, if HTML tag of mimic is rendered visible.
-   * @param  pReadOnly             True, if HTML tag of mimic is rendered readonly.
+   * @param  pReferenceEnabled     True, if HTML tag of mimic is rendered reference enabled.
    * @param  pEnabled              True, if HTML tag of mimic is rendered enabled.
    * @param  pIconBefore           The icon before text.
    * @param  pIconAfter            The icon after text.
    * @param  pTargetReferencePath  The path part of the target URL.
    * @param  pStyleClasses         The CSS style classes of this mimic.
    */
-  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReadOnly, boolean pEnabled, String pIconBefore, String pIconAfter,
+  public MmBaseLinkConfiguration(String pId, boolean pVisible, boolean pReferenceEnabled, boolean pEnabled, String pIconBefore, String pIconAfter,
     String pTargetReferencePath, String pStyleClasses) {
-    super(pId, pVisible, pReadOnly, pEnabled, pStyleClasses);
+    super(pId, pVisible, pReferenceEnabled, pEnabled, pStyleClasses);
     iconBefore = pIconBefore;
     iconAfter  = pIconAfter;
     setTargetReferencePath(pTargetReferencePath);

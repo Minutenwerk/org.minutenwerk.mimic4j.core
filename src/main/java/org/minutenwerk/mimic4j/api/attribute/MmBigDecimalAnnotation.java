@@ -22,7 +22,7 @@ public @interface MmBigDecimalAnnotation {
 
   public boolean visible() default MmConfigurationBigDecimal.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationBigDecimal.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationBigDecimal.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationBigDecimal.DEFAULT_IS_ENABLED;
 

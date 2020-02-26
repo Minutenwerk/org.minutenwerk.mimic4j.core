@@ -864,22 +864,70 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Returns <code>true</code>, if the mimic is readOnly (default is <code>false</code>). Is controlled by parents state of readonly and callback method
-   * {@link MmBaseCallback#callbackMmIsReadOnly()}. Callback method returns configuration of annotation attribute <code>readOnly</code> on this mimic.
-   * Developer can configure annotation and can override callback method.
+   * Returns <code>true</code>, if input of the mimic is disabled and links are disabled.
    *
-   * @return        <code>True</code>, if the mimic is read only.
+   * @return        <code>True</code>, if input of the mimic is disabled and links are disabled.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public boolean isMmReadOnly() {
+  public boolean isMmInputDisabledAndReferenceDisabled() {
+    return !isMmEnabled() && !isMmReferenceEnabled();
+  }
+
+  /**
+   * Returns <code>true</code>, if input of the mimic is disabled but links can be followed.
+   *
+   * @return        <code>True</code>, if input of the mimic is disabled but links can be followed.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public boolean isMmInputDisabledButReferenceEnabled() {
+    return !isMmEnabled() && isMmReferenceEnabled();
+  }
+
+  /**
+   * Returns <code>true</code>, if input of the mimic is enabled and links can be followed.
+   *
+   * @return        <code>True</code>, if input of the mimic is enabled and links can be followed.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public boolean isMmInputEnabledAndReferenceEnabled() {
+    return isMmEnabled() && isMmReferenceEnabled();
+  }
+
+  /**
+   * Returns <code>true</code>, if input of the mimic is enabled but links are disabled.
+   *
+   * @return        <code>True</code>, if input of the mimic is enabled but links are disabled.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public boolean isMmInputEnabledButReferenceDisabled() {
+    return isMmEnabled() && !isMmReferenceEnabled();
+  }
+
+  /**
+   * Returns <code>true</code>, if the mimic is referenceEnabled (default is <code>true</code>). Is controlled by parents state of reference enabled and
+   * callback method {@link MmBaseCallback#callbackMmIsReferenceEnabled()}. Callback method returns configuration of annotation attribute <code>
+   * referenceEnabled</code> on this mimic. Developer can configure annotation and can override callback method.
+   *
+   * @return        <code>True</code>, if the mimic is reference enabled.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public boolean isMmReferenceEnabled() {
     ensureInitialization();
 
     if (implementationParent == null) {
-      return declaration.callbackMmIsReadOnly(configuration.isReadOnly());
+      return declaration.callbackMmIsReferenceEnabled(configuration.isReferenceEnabled());
     } else {
-      return declaration.callbackMmIsReadOnly(implementationParent.isMmReadOnly() || configuration.isReadOnly());
+      return declaration.callbackMmIsReferenceEnabled(implementationParent.isMmReferenceEnabled() || configuration.isReferenceEnabled());
     }
   }
 

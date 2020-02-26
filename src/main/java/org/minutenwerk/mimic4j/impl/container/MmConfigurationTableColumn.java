@@ -37,7 +37,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * Creates a new MmConfigurationTableColumn instance of default values.
    */
   public MmConfigurationTableColumn() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_STYLE_CLASSES);
     isRowHeader   = DEFAULT_IS_ROW_HEADER;
     styleClasses  = DEFAULT_STYLE_CLASSES;
     footerClasses = DEFAULT_FOOTER_CLASSES;
@@ -49,7 +49,7 @@ public class MmConfigurationTableColumn extends MmBaseConfiguration {
    * @param  pTableColumnAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationTableColumn(MmTableColumnAnnotation pTableColumnAnnotation) {
-    super(pTableColumnAnnotation.id(), pTableColumnAnnotation.visible(), pTableColumnAnnotation.readOnly(), pTableColumnAnnotation.enabled(),
+    super(pTableColumnAnnotation.id(), pTableColumnAnnotation.visible(), pTableColumnAnnotation.referenceEnabled(), pTableColumnAnnotation.enabled(),
       pTableColumnAnnotation.styleClasses());
     isRowHeader   = pTableColumnAnnotation.isRowHeader();
     styleClasses  = pTableColumnAnnotation.styleClasses();

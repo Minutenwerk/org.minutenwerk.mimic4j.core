@@ -22,7 +22,7 @@ public @interface MmIntegerAnnotation {
 
   public boolean visible() default MmConfigurationInteger.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationInteger.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationInteger.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationInteger.DEFAULT_IS_ENABLED;
 

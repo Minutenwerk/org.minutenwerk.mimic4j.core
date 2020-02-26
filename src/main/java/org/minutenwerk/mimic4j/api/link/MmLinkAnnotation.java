@@ -24,7 +24,7 @@ public @interface MmLinkAnnotation {
 
   public boolean visible() default MmConfigurationLink.DEFAULT_IS_VISIBLE;
 
-  public boolean readOnly() default MmConfigurationLink.DEFAULT_IS_READONLY;
+  public boolean referenceEnabled() default MmConfigurationLink.DEFAULT_IS_REFERENCE_ENABLED;
 
   public boolean enabled() default MmConfigurationLink.DEFAULT_IS_ENABLED;
 

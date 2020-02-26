@@ -28,7 +28,7 @@ public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<Z
    * Creates a new MmConfigurationDateTime instance of default values.
    */
   public MmConfigurationZonedDateTime() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatPattern   = DEFAULT_FORMAT_PATTERN;
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
@@ -39,7 +39,7 @@ public class MmConfigurationZonedDateTime extends MmBaseAttributeConfiguration<Z
    * @param  pDateTimeAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationZonedDateTime(MmZonedDateTimeAnnotation pDateTimeAnnotation) {
-    super(pDateTimeAnnotation.id(), pDateTimeAnnotation.visible(), pDateTimeAnnotation.readOnly(), pDateTimeAnnotation.enabled(),
+    super(pDateTimeAnnotation.id(), pDateTimeAnnotation.visible(), pDateTimeAnnotation.referenceEnabled(), pDateTimeAnnotation.enabled(),
       pDateTimeAnnotation.required(), pDateTimeAnnotation.styleClasses());
     formatPattern   = pDateTimeAnnotation.formatPattern();
     formatMaxLength = pDateTimeAnnotation.formatMaxLength();

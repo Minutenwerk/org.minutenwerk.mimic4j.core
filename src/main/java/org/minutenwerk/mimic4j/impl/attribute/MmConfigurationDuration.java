@@ -22,7 +22,7 @@ public class MmConfigurationDuration extends MmBaseAttributeConfiguration<Durati
    * Creates a new MmConfigurationDuration instance of default values.
    */
   public MmConfigurationDuration() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_READONLY, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
 
@@ -32,7 +32,7 @@ public class MmConfigurationDuration extends MmBaseAttributeConfiguration<Durati
    * @param  pDurationAnnotation  The annotation to create the configuration from.
    */
   public MmConfigurationDuration(MmDurationAnnotation pDurationAnnotation) {
-    super(pDurationAnnotation.id(), pDurationAnnotation.visible(), pDurationAnnotation.readOnly(), pDurationAnnotation.enabled(),
+    super(pDurationAnnotation.id(), pDurationAnnotation.visible(), pDurationAnnotation.referenceEnabled(), pDurationAnnotation.enabled(),
       pDurationAnnotation.required(), pDurationAnnotation.styleClasses());
 
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
