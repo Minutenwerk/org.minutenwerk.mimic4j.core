@@ -1289,7 +1289,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       if (viewModel instanceof MmInformationalModel) {
         i18nArguments = ((MmInformationalModel)viewModel).getMmInfo();
 
-        // the info objects can be changed by callback method
+        // the info objects can be overriden by callback method
         i18nArguments = declaration.callbackMmGetDescriptionArguments(i18nArguments);
 
         // if the view model is not an informational model, the callback method might deliver i18n arguments
@@ -1309,7 +1309,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       // retrieve array of argument format patterns
       final String[] argumentFormatPatternArray = i18nArgumentFormatPattern.split("\\|");
 
-      // if the description patterns contains a choice, the first argument is the choice control number
+      // if the description pattern contains a choice, the first argument is the choice control number
       Object[]       formattedArguments;
       if (containsChoice) {
         formattedArguments    = new Object[i18nArguments.length + 1];
@@ -1339,7 +1339,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       // formattedArguments keeps an Object[], but as an array is an Object itself, java still interprets it to be a single object,
       // so to put an array of objects into a varargs method parameter, there must be an explicit cast to Object[]
-      // Return formatted message (e.g. "Person John Doe wurde am 04.07.1976 geboren")
+      // Return formatted i18n message (e.g. "Person John Doe wurde am 04.07.1976 geboren")
       return MessageFormat.format(pDescriptionPattern, ((Object[])formattedArguments));
     } catch (Exception e) {
       LOGGER.error("Cannot format " + getMmId() + " " + pDescriptionPattern + ": " + e.getMessage());
