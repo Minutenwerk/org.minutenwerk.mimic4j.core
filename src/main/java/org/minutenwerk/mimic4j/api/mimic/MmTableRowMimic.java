@@ -28,6 +28,13 @@ public interface MmTableRowMimic<ROW_MODEL> extends MmContainerMimic<ROW_MODEL> 
   public MmListEntryAccessor<ROW_MODEL> getMmModelAccessor();
 
   /**
+   * Returns table mimic of this row.
+   *
+   * @return  The table mimic of this row.
+   */
+  public <T extends MmTableMimic<ROW_MODEL>> T getMmParentTable();
+
+  /**
    * Returns the table row index of this row.
    *
    * @return  The table row index of this row.

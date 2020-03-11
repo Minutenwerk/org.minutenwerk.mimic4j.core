@@ -19,6 +19,24 @@ public interface MmTableMimic<ROW_MODEL> extends MmContainerMimic<List<ROW_MODEL
   public void doMmClearTableRows();
 
   /**
+   * Returns the table column index of specified column.
+   *
+   * @param   pTableColumn  TODOC
+   *
+   * @return  The table column index of specified column.
+   */
+  public int getMmColumnIndex(MmTableColumn<?> pTableColumn);
+
+  /**
+   * Returns the table column of specified column index.
+   *
+   * @param   pTableColumnIndex  Specified column index.
+   *
+   * @return  The table column of specified column index.
+   */
+  public MmTableColumn<?> getMmColumnOfIndex(int pTableColumnIndex);
+
+  /**
    * Returns accessor of model.
    *
    * @return  The accessor of model.

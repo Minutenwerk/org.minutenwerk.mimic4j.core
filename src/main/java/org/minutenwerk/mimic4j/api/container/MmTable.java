@@ -81,6 +81,30 @@ public abstract class MmTable<ROW_MODEL> extends MmBaseContainerDeclaration<MmIm
   }
 
   /**
+   * Returns the table column index of specified column.
+   *
+   * @param   pTableColumn  TODOC
+   *
+   * @return  The table column index of specified column.
+   */
+  @Override
+  public final int getMmColumnIndex(MmTableColumn<?> pTableColumn) {
+    return implementation.getMmColumnIndex(pTableColumn);
+  }
+
+  /**
+   * Returns the table column of specified column index.
+   *
+   * @param   pTableColumnIndex  Specified column index.
+   *
+   * @return  The table column of specified column index.
+   */
+  @Override
+  public final MmTableColumn<?> getMmColumnOfIndex(int pTableColumnIndex) {
+    return implementation.getMmColumnOfIndex(pTableColumnIndex);
+  }
+
+  /**
    * Returns accessor of model.
    *
    * @return  The accessor of model.

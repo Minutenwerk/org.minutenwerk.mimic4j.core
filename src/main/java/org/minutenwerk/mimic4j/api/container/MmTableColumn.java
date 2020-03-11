@@ -1,6 +1,9 @@
 package org.minutenwerk.mimic4j.api.container;
 
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmRelationshipApi;
+import org.minutenwerk.mimic4j.api.mimic.MmTableColumnMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmTableMimic;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationTableColumn;
 
@@ -9,7 +12,7 @@ import org.minutenwerk.mimic4j.impl.container.MmImplementationTableColumn;
  *
  * @author  Olaf Kossak
  */
-public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplementationTableColumn<MODEL>, MODEL> {
+public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplementationTableColumn<MODEL>, MODEL> implements MmTableColumnMimic<MODEL> {
 
   /**
    * Creates a new MmTableColumn instance.
@@ -18,6 +21,16 @@ public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplement
    */
   public MmTableColumn(MmDeclarationMimic pParent) {
     super(new MmImplementationTableColumn<>(pParent));
+  }
+
+  /**
+   * Returns the table column index of this column.
+   *
+   * @return  The table column index of this column.
+   */
+  @Override
+  public final int getMmColumnIndex() {
+    return implementation.getMmColumnIndex();
   }
 
   /**
@@ -30,6 +43,17 @@ public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplement
   }
 
   /**
+   * Returns table mimic of this column.
+   *
+   * @return  The table mimic of this column.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public final <T extends MmTableMimic<?>> T getMmParentTable() {
+    return (T)MmRelationshipApi.getMmParent(this);
+  }
+
+  /**
    * Returns true, if this row is a table row header.
    *
    * @return  True, if this row is a table row header.
@@ -37,5 +61,4 @@ public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplement
   public final boolean isMmRowHeader() {
     return implementation.isMmRowHeader();
   }
-
 }

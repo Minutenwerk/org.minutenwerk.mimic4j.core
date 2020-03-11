@@ -10,6 +10,7 @@ import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.container.MmTableRowAnnotation;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmTableMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmTableRowMimic;
 
 /**
@@ -58,6 +59,19 @@ public class MmImplementationTableRow<ROW_MODEL>
     ensureInitialization();
 
     return (MmListEntryAccessor<ROW_MODEL>)modelAccessor;
+  }
+
+  /**
+   * Returns table mimic of this row.
+   *
+   * @return  The table mimic of this row.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends MmTableMimic<ROW_MODEL>> T getMmParentTable() {
+    ensureInitialization();
+
+    return (T)implementationParent;
   }
 
   /**

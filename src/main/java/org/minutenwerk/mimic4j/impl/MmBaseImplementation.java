@@ -325,8 +325,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    */
   protected Field onConstructField(final MmBaseImplementation<?, ?, ?> pImplementationParent) {
     if (pImplementationParent.declarationChildrenFields == null) {
-      pImplementationParent.declarationChildrenFields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(pImplementationParent.declaration.getClass())
-          .iterator();
+      pImplementationParent.declarationChildrenFields = //
+        MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(pImplementationParent.declaration.getClass()).iterator();
     }
     if (pImplementationParent.declarationChildrenFields.hasNext()) {
       return pImplementationParent.declarationChildrenFields.next();
@@ -516,8 +516,8 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
       if (pChild.isMmRuntimeMimic()) {
 
-        // if child not in list yet, add child to list of
-        // runtime declarationChildren and list of runtime implementationChildren
+        // if child not in list yet, add child to list of runtimeDeclarationChildren
+        // and list of runtimeImplementationChildren
         if (!implementationParent.runtimeDeclarationChildren.contains(pChild)) {
           implementationParent.runtimeDeclarationChildren.add(pChild);
           implementationParent.runtimeImplementationChildren.add(childImplementation);
@@ -589,7 +589,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
-   * Initializes this mimic after constructor phase, calls super.initialize(), if you override this method, you must call super.initialize()!
+   * Initializes this mimic after constructor phase.
    *
    * @throws        IllegalStateException  in case of initial state is not {@link CONSTRUCTION_COMPLETE} or reference to declaration part of mimic is not
    *                                       defined.
@@ -1561,6 +1561,30 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Returns an declaration ancestor of this mimic of specified type, if exists, otherwise null.
+   *
+   * @param         pAncestorType  The specified type.
+   *
+   * @return        An ancestor of this mimic of specified type, if exists, otherwise null.
+   *
+   * @jalopy.group  group-helper
+   */
+  @SuppressWarnings("unchecked")
+  public <T> T getMmDeclarationAncestorOfType(Class<T> pAncestorType) {
+    ensureInitialization();
+
+    if (declarationParent != null) {
+      if (pAncestorType.isAssignableFrom(declarationParent.getClass())) {
+        return (T)declarationParent;
+      } else {
+        return implementationParent.getMmDeclarationAncestorOfType(pAncestorType);
+      }
+    } else {
+      return null;
+    }
+  }
+
+  /**
    * Returns a descendant mimic of specified full name, or <code>null</code> if it doesn't exist. The name is a path of ancestors' names like <code>
    * grandparent.parent.child</code>.
    *
@@ -1608,19 +1632,19 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Returns an ancestor of this mimic of specified type, if exists, otherwise null. This method may be called at any time, even in constructor.
    *
-   * @param         pType  The specified type.
+   * @param         pAncestorType  The specified type.
    *
    * @return        An ancestor of this mimic of specified type, if exists, otherwise null.
    *
    * @jalopy.group  group-helper
    */
   @SuppressWarnings("unchecked")
-  public <T> T getMmImplementationAncestorOfType(Class<T> pType) {
+  public <T> T getMmImplementationAncestorOfType(Class<T> pAncestorType) {
     if (implementationParent != null) {
-      if (pType.isAssignableFrom(implementationParent.getClass())) {
+      if (pAncestorType.isAssignableFrom(implementationParent.getClass())) {
         return (T)implementationParent;
       } else {
-        return implementationParent.getMmImplementationAncestorOfType(pType);
+        return implementationParent.getMmImplementationAncestorOfType(pAncestorType);
       }
     } else {
       return null;

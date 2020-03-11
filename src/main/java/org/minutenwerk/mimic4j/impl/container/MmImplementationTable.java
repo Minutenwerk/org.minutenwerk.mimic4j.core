@@ -26,7 +26,7 @@ public class MmImplementationTable<ROW_MODEL>
   extends MmBaseContainerImplementation<MmTable<ROW_MODEL>, List<ROW_MODEL>, MmConfigurationTable, MmTableAnnotation> implements MmTableMimic<ROW_MODEL> {
 
   /** The list of table columns of this table. */
-  protected final List<MmTableColumn<?>> tableColumns;
+  private final List<MmTableColumn<?>> tableColumns;
 
   /**
    * Creates a new MmImplementationTable instance.
@@ -34,8 +34,7 @@ public class MmImplementationTable<ROW_MODEL>
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
    */
   public MmImplementationTable(MmDeclarationMimic pParent) {
-    super(pParent);
-    tableColumns = new ArrayList<>();
+    this(pParent, null);
   }
 
   /**
@@ -141,9 +140,10 @@ public class MmImplementationTable<ROW_MODEL>
   public List<MmTableColumn<?>> getMmTableColumns() {
     ensureInitialization();
 
-    final List<MmTableColumn<?>> returnTableColumns = new ArrayList<>();
-    getDirectDeclarationChildrenOfType(MmTableColumn.class).stream().forEach(returnTableColumns::add);
-    return returnTableColumns;
+    if (tableColumns.isEmpty()) {
+      getDirectDeclarationChildrenOfType(MmTableColumn.class).stream().forEach(tableColumns::add);
+    }
+    return tableColumns;
   }
 
   /**
@@ -179,6 +179,47 @@ public class MmImplementationTable<ROW_MODEL>
 
     final List<?> rows = getMmTableRows();
     return (rows != null) && (rows.size() > 0);
+  }
+
+  /**
+   * Returns the table column index of specified column.
+   *
+   * @param   pTableColumn  TODOC
+   *
+   * @return  The table column index of specified column.
+   *
+   * @throws  IllegalArgumentException  In case of specified column is not a column of this table.
+   */
+  @Override
+  public int getMmColumnIndex(final MmTableColumn<?> pTableColumn) {
+    ensureInitialization();
+
+    final int index = getMmTableColumns().indexOf(pTableColumn);
+    if (index >= 0) {
+      return index;
+    } else {
+      throw new IllegalArgumentException("Specified column " + pTableColumn + " is not a column of table " + this);
+    }
+  }
+
+  /**
+   * Returns the table column of specified column index.
+   *
+   * @param   pTableColumnIndex  Specified column index.
+   *
+   * @return  The table column of specified column index.
+   *
+   * @throws  IllegalArgumentException  In case of specified column does not exist.
+   */
+  @Override
+  public final MmTableColumn<?> getMmColumnOfIndex(int pTableColumnIndex) {
+    ensureInitialization();
+
+    try {
+      return getMmTableColumns().get(pTableColumnIndex);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Specified column of index " + pTableColumnIndex + " does not exist for table " + this);
+    }
   }
 
 }
