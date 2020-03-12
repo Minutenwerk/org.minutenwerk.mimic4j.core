@@ -28,7 +28,7 @@ public class MmJavaHelper {
    *
    * @param   pClassToAnalyze  The class to analyze.
    * @param   pGenericRawType  The class containing the generic.
-   * @param   pParameterIndex  The parameter position index. Starts with One for the first parameter.
+   * @param   pParameterIndex  The parameter position index. Starts by 1 for the first parameter.
    *
    * @return  The found Java-Generics parameter. <code>null</code> if none was found.
    */
