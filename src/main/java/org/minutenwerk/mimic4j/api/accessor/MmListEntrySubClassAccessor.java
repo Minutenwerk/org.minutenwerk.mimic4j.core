@@ -4,17 +4,26 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import org.minutenwerk.mimic4j.impl.MmJavaHelper;
+
 /**
  * Immutable base class for accessor on entries of list models.
  *
  * @param   <ENTRY_MODEL>  Type of entry model in list.
+ * @param   <SUB_CLASS>    Type of entry model in entry accessor.
  *
  * @author  Olaf Kossak
  */
-public class MmListEntryAccessor<ENTRY_MODEL> extends MmComponentAccessor<List<ENTRY_MODEL>, ENTRY_MODEL> {
+public class MmListEntrySubClassAccessor<ENTRY_MODEL, SUB_CLASS extends ENTRY_MODEL> extends MmComponentAccessor<List<ENTRY_MODEL>, SUB_CLASS> {
+
+  /** Class internal constant to describe index of generic type SUB_CLASS. */
+  private static final int          GENERIC_PARAMETER_INDEX_SUB_CLASS = 2;
 
   /** Supplier function of index of entry in parent list. */
-  private final Supplier<Integer> indexSupplier;
+  protected final Supplier<Integer> indexSupplier;
+
+  /** Type of generic parameter for subclass. */
+  private final Class<SUB_CLASS>    subClass;
 
   /**
    * Constructor of this immutable class.
@@ -24,7 +33,7 @@ public class MmListEntryAccessor<ENTRY_MODEL> extends MmComponentAccessor<List<E
    *
    * @throws  IllegalArgumentException  In case of arguments are null.
    */
-  public MmListEntryAccessor(final MmListAccessor<?, ENTRY_MODEL> pParentAccessor, final Supplier<Integer> pIndexSupplier) {
+  public MmListEntrySubClassAccessor(final MmListAccessor<?, ENTRY_MODEL> pParentAccessor, final Supplier<Integer> pIndexSupplier) {
     super(pParentAccessor, null, List<ENTRY_MODEL>::add);
     if (pParentAccessor == null) {
       throw new IllegalArgumentException("list entry accessor must have parent accessor of type list accessor");
@@ -33,6 +42,7 @@ public class MmListEntryAccessor<ENTRY_MODEL> extends MmComponentAccessor<List<E
       throw new IllegalArgumentException("list entry accessor must have index supplier");
     }
     indexSupplier = pIndexSupplier;
+    subClass      = MmJavaHelper.findGenericsParameterType(getClass(), MmListEntrySubClassAccessor.class, GENERIC_PARAMETER_INDEX_SUB_CLASS);
   }
 
   /**
@@ -59,12 +69,18 @@ public class MmListEntryAccessor<ENTRY_MODEL> extends MmComponentAccessor<List<E
    * @return  {@link Optional} of entry model.
    */
   @Override
-  protected Optional<ENTRY_MODEL> getComponentOptional() {
+  @SuppressWarnings("unchecked")
+  protected Optional<SUB_CLASS> getComponentOptional() {
     List<ENTRY_MODEL> parentList = getParentModel();
     if (parentList != null) {
       final Integer index = indexSupplier.get();
       if (index != null) {
-        return Optional.ofNullable(parentList.get(index));
+        final ENTRY_MODEL entryModel = parentList.get(index);
+        if (entryModel != null) {
+          if (subClass.isAssignableFrom(entryModel.getClass())) {
+            return Optional.of((SUB_CLASS)entryModel);
+          }
+        }
       }
     }
     return Optional.empty();
