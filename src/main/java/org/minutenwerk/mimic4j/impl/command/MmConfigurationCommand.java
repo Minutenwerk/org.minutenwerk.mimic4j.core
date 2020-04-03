@@ -39,7 +39,7 @@ public class MmConfigurationCommand extends MmBaseLinkConfiguration {
   public MmConfigurationCommand(MmCommandAnnotation pCommandAnnotation) {
     super(pCommandAnnotation.id(), pCommandAnnotation.visible(), pCommandAnnotation.referenceEnabled(), pCommandAnnotation.enabled(),
       pCommandAnnotation.iconBefore(), pCommandAnnotation.iconAfter(), pCommandAnnotation.targetReferencePath(), pCommandAnnotation.styleClasses());
-    submitParam = DEFAULT_SUBMIT_PARAM;
+    submitParam = pCommandAnnotation.submitParam();
 
     Class<? extends MmPage<?>> targetPage = pCommandAnnotation.targetPage();
     if (!targetPage.equals(MmPage.MmVoidTarget.class)) {

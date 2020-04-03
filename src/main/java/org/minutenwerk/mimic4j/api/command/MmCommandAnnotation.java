@@ -22,8 +22,6 @@ public @interface MmCommandAnnotation {
 
   public String id() default MmConfigurationCommand.UNDEFINED_ID;
 
-  public String longDescription() default "";
-
   public boolean visible() default MmConfigurationCommand.DEFAULT_IS_VISIBLE;
 
   public boolean referenceEnabled() default MmConfigurationCommand.DEFAULT_IS_REFERENCE_ENABLED;
