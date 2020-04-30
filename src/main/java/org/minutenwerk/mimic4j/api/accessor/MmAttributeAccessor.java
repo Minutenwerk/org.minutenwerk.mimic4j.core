@@ -45,7 +45,11 @@ public class MmAttributeAccessor<PARENT_MODEL, ATTRIBUTE_MODEL> extends MmBaseMo
    */
   @Override
   public ATTRIBUTE_MODEL get() throws NullPointerException {
-    return getParentOptional().map(attributeGetter).orElse(null);
+    try {
+      return getParentOptional().map(attributeGetter).orElse(null);
+    } catch (ClassCastException e) {
+      return null;
+    }
   }
 
   /**

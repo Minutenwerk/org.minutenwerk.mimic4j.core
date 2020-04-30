@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import org.minutenwerk.mimic4j.impl.MmJavaHelper;
-
 /**
  * Immutable base class for accessor on entries of list models.
  *
@@ -16,14 +14,8 @@ import org.minutenwerk.mimic4j.impl.MmJavaHelper;
  */
 public class MmListEntrySubClassAccessor<ENTRY_MODEL, SUB_CLASS extends ENTRY_MODEL> extends MmComponentAccessor<List<ENTRY_MODEL>, SUB_CLASS> {
 
-  /** Class internal constant to describe index of generic type SUB_CLASS. */
-  private static final int          GENERIC_PARAMETER_INDEX_SUB_CLASS = 2;
-
   /** Supplier function of index of entry in parent list. */
   protected final Supplier<Integer> indexSupplier;
-
-  /** Type of generic parameter for subclass. */
-  private final Class<SUB_CLASS>    subClass;
 
   /**
    * Constructor of this immutable class.
@@ -42,7 +34,6 @@ public class MmListEntrySubClassAccessor<ENTRY_MODEL, SUB_CLASS extends ENTRY_MO
       throw new IllegalArgumentException("list entry accessor must have index supplier");
     }
     indexSupplier = pIndexSupplier;
-    subClass      = MmJavaHelper.findGenericsParameterType(getClass(), MmListEntrySubClassAccessor.class, GENERIC_PARAMETER_INDEX_SUB_CLASS);
   }
 
   /**
@@ -71,17 +62,19 @@ public class MmListEntrySubClassAccessor<ENTRY_MODEL, SUB_CLASS extends ENTRY_MO
   @Override
   @SuppressWarnings("unchecked")
   protected Optional<SUB_CLASS> getComponentOptional() {
-    List<ENTRY_MODEL> parentList = getParentModel();
-    if (parentList != null) {
-      final Integer index = indexSupplier.get();
-      if (index != null) {
-        final ENTRY_MODEL entryModel = parentList.get(index);
-        if (entryModel != null) {
-          if (subClass.isAssignableFrom(entryModel.getClass())) {
+    try {
+      List<ENTRY_MODEL> parentList = getParentModel();
+      if (parentList != null) {
+        final Integer index = indexSupplier.get();
+        if (index != null) {
+          final ENTRY_MODEL entryModel = parentList.get(index);
+          if (entryModel != null) {
             return Optional.of((SUB_CLASS)entryModel);
           }
         }
       }
+    } catch (Exception e) {
+      return Optional.empty();
     }
     return Optional.empty();
   }
