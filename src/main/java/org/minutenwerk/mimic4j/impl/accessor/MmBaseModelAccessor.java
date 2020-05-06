@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 
 /**
  * Abstract base class for model accessors.
@@ -37,8 +37,8 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
   @Override
   public List<String> getMmReferenceParams() {
     MODEL model = get();
-    if ((model != null) && (model instanceof MmReferencableModel)) {
-      return ((MmReferencableModel)model).getMmReferenceParams();
+    if ((model != null) && (model instanceof MmReferenceableModel)) {
+      return ((MmReferenceableModel)model).getMmReferenceParams();
     }
     return Collections.emptyList();
   }

@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmLinkMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
@@ -32,7 +32,7 @@ import org.minutenwerk.mimic4j.impl.message.MmMessageType;
  * @jalopy.group-order  group-initialization, group-override, group-i18n, group-helper
  */
 public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<DATA_MODEL, VIEW_MODEL>,
-  DATA_MODEL extends MmReferencableModel, VIEW_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
+  DATA_MODEL extends MmReferenceableModel, VIEW_MODEL, CONFIGURATION extends MmBaseLinkConfiguration, ANNOTATION extends Annotation>
   extends MmBaseImplementation<MmBaseLinkDeclaration<?, DATA_MODEL, VIEW_MODEL>, CONFIGURATION, ANNOTATION> implements MmLinkMimic<DATA_MODEL, VIEW_MODEL> {
 
   /** Class internal constant to describe index of generic type DATA_MODEL. */
@@ -176,14 +176,14 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     if ((targetMimic != null) && (dataModel == null)) {
       return targetMimic.getMmSelfReference();
 
-      // if link references another mimic for a specified referencable data model
+      // if link references another mimic for a specified referenceable data model
     } else if ((targetMimic != null) && (!modelReferenceParams.isEmpty())) {
-      return targetMimic.getMmSelfReferenceForModel((MmReferencableModel)dataModel);
+      return targetMimic.getMmSelfReferenceForModel((MmReferenceableModel)dataModel);
 
       // retrieve target reference path
     } else {
 
-      // if link references an URI for a specified referencable data model
+      // if link references an URI for a specified referenceable data model
       if ((targetMimic == null) && (!modelReferenceParams.isEmpty())) {
         final URI targetReferencePath = declaration.callbackMmGetTargetReference(configuration.getTargetReferencePath(), dataModel, modelReferenceParams);
         if (targetReferencePath == null) {
@@ -284,7 +284,7 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
    * @jalopy.group  group-override
    */
   @Override
-  protected MmReferencableModel getMmReferencableModel() {
+  protected MmReferenceableModel getMmReferenceableModel() {
     return getMmModel();
   }
 

@@ -7,7 +7,7 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 
 import org.springframework.web.util.UriComponents;
 
@@ -88,7 +88,7 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
    * @jalopy.group  group-callback
    */
   @Override
-  public URI callbackMmGetSelfReference(UriComponents pSelfReferencePath, MmReferencableModel pDataModel, List<String> pSelfReferenceParams) {
+  public URI callbackMmGetSelfReference(UriComponents pSelfReferencePath, MmReferenceableModel pDataModel, List<String> pSelfReferenceParams) {
     if ((pSelfReferenceParams == null) || pSelfReferenceParams.isEmpty()) {
       if (pDataModel == null) {
         return pSelfReferencePath.toUri();
@@ -257,14 +257,14 @@ public abstract class MmBaseDeclaration<DEFINITION extends MmMimic, IMPLEMENTATI
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
    *
-   * @param         pDataModel  The specified instance of a data model, which is referencable by an URL.
+   * @param         pDataModel  The specified instance of a data model, which is referenceable by an URL.
    *
    * @return        The self reference (aka link) of this object for a specified data model.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public final URI getMmSelfReferenceForModel(MmReferencableModel pDataModel) {
+  public final URI getMmSelfReferenceForModel(MmReferenceableModel pDataModel) {
     return implementation.getMmSelfReferenceForModel(pDataModel);
   }
 

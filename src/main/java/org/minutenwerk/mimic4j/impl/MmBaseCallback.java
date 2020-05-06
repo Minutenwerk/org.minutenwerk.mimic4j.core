@@ -4,7 +4,7 @@ import java.net.URI;
 
 import java.util.List;
 
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 
 import org.springframework.web.util.UriComponents;
 
@@ -52,7 +52,7 @@ public interface MmBaseCallback {
    *
    * @return  The self URL of this mimic.
    */
-  public URI callbackMmGetSelfReference(UriComponents selfReferencePath, MmReferencableModel dataModel, List<String> selfReferenceParams);
+  public URI callbackMmGetSelfReference(UriComponents selfReferencePath, MmReferenceableModel dataModel, List<String> selfReferenceParams);
 
   /**
    * Returns an unformatted short description.

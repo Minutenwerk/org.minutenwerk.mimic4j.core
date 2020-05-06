@@ -2,7 +2,7 @@ package org.minutenwerk.mimic4j.api.command;
 
 import org.minutenwerk.mimic4j.api.mimic.MmCommandMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.command.MmCommandCallback;
 import org.minutenwerk.mimic4j.impl.command.MmImplementationCommand;
 import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
  *
  * @author  Olaf Kossak
  */
-public class MmCommand<DATA_MODEL extends MmReferencableModel> extends MmBaseLinkDeclaration<MmImplementationCommand<DATA_MODEL>, DATA_MODEL, DATA_MODEL>
+public class MmCommand<DATA_MODEL extends MmReferenceableModel> extends MmBaseLinkDeclaration<MmImplementationCommand<DATA_MODEL>, DATA_MODEL, DATA_MODEL>
   implements MmCommandMimic<DATA_MODEL>, MmCommandCallback<DATA_MODEL> {
 
   /**

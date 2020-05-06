@@ -1,7 +1,7 @@
 package org.minutenwerk.mimic4j.api.link;
 
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.link.MmBaseLinkDeclaration;
 import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
 
@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.impl.link.MmImplementationLink;
  *
  * @author  Olaf Kossak
  */
-public class MmLink<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
+public class MmLink<DATA_MODEL extends MmReferenceableModel, VIEW_MODEL>
   extends MmBaseLinkDeclaration<MmImplementationLink<DATA_MODEL, VIEW_MODEL>, DATA_MODEL, VIEW_MODEL> {
 
   /**

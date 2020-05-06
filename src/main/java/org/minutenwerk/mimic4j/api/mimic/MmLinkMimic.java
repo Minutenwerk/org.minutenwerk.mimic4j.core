@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
  *
  * @author  Olaf Kossak
  */
-public interface MmLinkMimic<DATA_MODEL extends MmReferencableModel, VIEW_MODEL> extends MmMimic {
+public interface MmLinkMimic<DATA_MODEL extends MmReferenceableModel, VIEW_MODEL> extends MmMimic {
 
   /**
    * Returns icon after text.

@@ -1,6 +1,6 @@
 package org.minutenwerk.mimic4j.impl.command;
 
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.link.MmLinkCallback;
 
 /**
@@ -11,7 +11,7 @@ import org.minutenwerk.mimic4j.impl.link.MmLinkCallback;
  *
  * @author  Olaf Kossak
  */
-public interface MmCommandCallback<DATA_MODEL extends MmReferencableModel> extends MmLinkCallback<DATA_MODEL, DATA_MODEL> {
+public interface MmCommandCallback<DATA_MODEL extends MmReferenceableModel> extends MmLinkCallback<DATA_MODEL, DATA_MODEL> {
 
   /**
    * Returns command button submit parameter.

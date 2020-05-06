@@ -9,7 +9,7 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.mimic.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmEditableMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
@@ -164,9 +164,9 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
    * @jalopy.group  group-override
    */
   @Override
-  protected MmReferencableModel getMmReferencableModel() {
+  protected MmReferenceableModel getMmReferenceableModel() {
     final MODEL dataModel = getMmModel();
-    return ((dataModel != null) && (dataModel instanceof MmReferencableModel)) ? (MmReferencableModel)dataModel : null;
+    return ((dataModel != null) && (dataModel instanceof MmReferenceableModel)) ? (MmReferenceableModel)dataModel : null;
   }
 
   /**

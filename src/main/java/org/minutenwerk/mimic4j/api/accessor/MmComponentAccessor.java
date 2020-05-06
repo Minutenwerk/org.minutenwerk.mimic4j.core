@@ -112,7 +112,12 @@ public class MmComponentAccessor<PARENT_MODEL, COMPONENT_MODEL> extends MmBaseMo
   protected Optional<COMPONENT_MODEL> getComponentOptional() {
     PARENT_MODEL parentModel = getParentModel();
     if (parentModel != null) {
-      return Optional.ofNullable(componentGetter.apply(parentModel));
+      try {
+        return Optional.ofNullable(componentGetter.apply(parentModel));
+        // TODO catch (ClassCastException e)
+      } catch (ClassCastException e) {
+        return Optional.empty();
+      }
     } else {
       return Optional.empty();
     }

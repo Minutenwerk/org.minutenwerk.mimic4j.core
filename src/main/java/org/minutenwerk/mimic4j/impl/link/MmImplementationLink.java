@@ -3,7 +3,7 @@ package org.minutenwerk.mimic4j.impl.link;
 import org.minutenwerk.mimic4j.api.link.MmLink;
 import org.minutenwerk.mimic4j.api.link.MmLinkAnnotation;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 
 /**
  * MmImplementationLink is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of the
@@ -16,7 +16,7 @@ import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
  *
  * @jalopy.group-order  group-initialization
  */
-public class MmImplementationLink<DATA_MODEL extends MmReferencableModel, VIEW_MODEL>
+public class MmImplementationLink<DATA_MODEL extends MmReferenceableModel, VIEW_MODEL>
   extends MmBaseLinkImplementation<MmLink<DATA_MODEL, VIEW_MODEL>, DATA_MODEL, VIEW_MODEL, MmConfigurationLink, MmLinkAnnotation> {
 
   /**

@@ -7,7 +7,7 @@ import java.util.List;
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.mimic.MmLinkMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
 import org.springframework.web.util.UriComponents;
@@ -24,7 +24,7 @@ import org.springframework.web.util.UriComponents;
  * @jalopy.group-order  group-callback, group-override
  */
 public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImplementation<?, DATA_MODEL, VIEW_MODEL, ?, ?>,
-  DATA_MODEL extends MmReferencableModel, VIEW_MODEL> extends MmBaseDeclaration<MmLinkMimic<DATA_MODEL, VIEW_MODEL>, IMPLEMENTATION>
+  DATA_MODEL extends MmReferenceableModel, VIEW_MODEL> extends MmBaseDeclaration<MmLinkMimic<DATA_MODEL, VIEW_MODEL>, IMPLEMENTATION>
   implements MmLinkMimic<DATA_MODEL, VIEW_MODEL>, MmLinkCallback<DATA_MODEL, VIEW_MODEL> {
 
   /**

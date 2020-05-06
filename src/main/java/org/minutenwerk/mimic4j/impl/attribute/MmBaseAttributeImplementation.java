@@ -14,7 +14,7 @@ import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
 import org.minutenwerk.mimic4j.api.mimic.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
@@ -725,7 +725,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    * @jalopy.group  group-override
    */
   @Override
-  protected MmReferencableModel getMmReferencableModel() {
+  protected MmReferenceableModel getMmReferenceableModel() {
     final MmAttributeAccessor<?, ATTRIBUTE_TYPE> modelAccessor = getMmModelAccessor();
     if (modelAccessor == null) {
       return null;
@@ -735,10 +735,10 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     if (dataModel == null) {
       return null;
     }
-    if (!(dataModel instanceof MmReferencableModel)) {
+    if (!(dataModel instanceof MmReferenceableModel)) {
       return null;
     }
-    return (MmReferencableModel)dataModel;
+    return (MmReferenceableModel)dataModel;
   }
 
   /**

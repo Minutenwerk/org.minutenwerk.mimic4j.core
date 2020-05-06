@@ -7,7 +7,7 @@ package org.minutenwerk.mimic4j.api.mimic;
  *
  * @author  Olaf Kossak
  */
-public interface MmCommandMimic<DATA_MODEL extends MmReferencableModel> extends MmLinkMimic<DATA_MODEL, DATA_MODEL> {
+public interface MmCommandMimic<DATA_MODEL extends MmReferenceableModel> extends MmLinkMimic<DATA_MODEL, DATA_MODEL> {
 
   /**
    * Returns command button submit parameter.

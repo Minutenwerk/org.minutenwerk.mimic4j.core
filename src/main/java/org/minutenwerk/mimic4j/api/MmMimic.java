@@ -2,7 +2,7 @@ package org.minutenwerk.mimic4j.api;
 
 import java.net.URI;
 
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 
@@ -197,12 +197,12 @@ public interface MmMimic {
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
    *
-   * @param         dataModel  The specified instance of a data model, which is referencable by an URL.
+   * @param         dataModel  The specified instance of a data model, which is referenceable by an URL.
    *
    * @return        The self reference (aka link) of this object for a specified data model.
    *
    * @jalopy.group  group-reference
    */
-  public URI getMmSelfReferenceForModel(MmReferencableModel dataModel);
+  public URI getMmSelfReferenceForModel(MmReferenceableModel dataModel);
 
 }

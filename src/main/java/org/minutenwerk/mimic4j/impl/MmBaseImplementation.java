@@ -40,7 +40,7 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmInformationalModel;
-import org.minutenwerk.mimic4j.api.mimic.MmReferencableModel;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.api.mimic.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.mimic.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.site.MmTheme;
@@ -121,7 +121,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected final List<MmMimic>                       runtimeDeclarationChildren;
 
   /** This or an ancestor mimic, which delivers a reference path, may be null. Is set in initialization phase. */
-  protected final MmReferencePathProvider             referencableAncestor;
+  protected final MmReferencePathProvider             referenceableAncestor;
 
   /** The declaration part of this implementation is the declaration. Is set in postconstruct phase. */
   protected DECLARATION                               declaration;
@@ -154,7 +154,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *   <li>isRuntimeMimic is assigned</li>
    *   <li>this mimic is added as implementationChildren of parent</li>
    *   <li>this mimic is added as declarationChildren of parent</li>
-   *   <li>referencableAncestor is assigned</li>
+   *   <li>referenceableAncestor is assigned</li>
    * </ul>
    *
    * <p>This constructor has been called by constructor of declaration part. After constructor the constructor of declaration part calls method
@@ -286,7 +286,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     runtimeDeclarationChildren    = new ArrayList<>();
 
     // evaluate ancestor for reference path, file and params
-    referencableAncestor          = getMmImplementationAncestorOfType(MmReferencePathProvider.class);
+    referenceableAncestor          = getMmImplementationAncestorOfType(MmReferencePathProvider.class);
   }
 
   /**
@@ -720,7 +720,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @return        The URI of this mimic for current data model, or a fixed URI if there is no current data model.
    *
-   * @throws        IllegalStateException  In case of no definition of referencable ancestor or self reference path.
+   * @throws        IllegalStateException  In case of no definition of referenceable ancestor or self reference path.
    *
    * @jalopy.group  group-override
    */
@@ -729,12 +729,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     ensureInitialization();
 
     // retrieve self reference path
-    if (referencableAncestor == null) {
-      throw new IllegalStateException("no definition of referencable ancestor for " + this
+    if (referenceableAncestor == null) {
+      throw new IllegalStateException("no definition of referenceable ancestor for " + this
         + " This mimic or one of its parents must implement MmReferencePathProvider");
     }
 
-    UriComponents selfReferencePath = referencableAncestor.getMmSelfReferencePath();
+    UriComponents selfReferencePath = referenceableAncestor.getMmSelfReferencePath();
     if (selfReferencePath == null) {
       throw new IllegalStateException("no definition of self reference path for " + this
         + ", MmReferencePathProvider of this mimic must provide self reference path.");
@@ -746,11 +746,11 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     }
 
     // retrieve data model, may be null
-    final MmReferencableModel dataModel = getMmReferencableModel();
+    final MmReferenceableModel dataModel = getMmReferenceableModel();
 
-    // if self reference is an URI for a specified referencable data model
-    if ((dataModel != null) && (dataModel instanceof MmReferencableModel)) {
-      final List<String> modelReferenceParams = ((MmReferencableModel)dataModel).getMmReferenceParams();
+    // if self reference is an URI for a specified referenceable data model
+    if ((dataModel != null) && (dataModel instanceof MmReferenceableModel)) {
+      final List<String> modelReferenceParams = ((MmReferenceableModel)dataModel).getMmReferenceParams();
       return declaration.callbackMmGetSelfReference(selfReferencePath, dataModel, modelReferenceParams);
 
     } else {
@@ -761,25 +761,25 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   /**
    * Returns the self reference (aka link) of this object for a specified data model.
    *
-   * @param         pDataModel  The specified instance of a data model, which is referencable by an URL.
+   * @param         pDataModel  The specified instance of a data model, which is referenceable by an URL.
    *
    * @return        The self reference (aka link) of this object for a specified data model.
    *
-   * @throws        IllegalStateException  In case of no definition of referencable ancestor or self reference path.
+   * @throws        IllegalStateException  In case of no definition of referenceable ancestor or self reference path.
    *
    * @jalopy.group  group-override
    */
   @Override
-  public URI getMmSelfReferenceForModel(MmReferencableModel pDataModel) {
+  public URI getMmSelfReferenceForModel(MmReferenceableModel pDataModel) {
     ensureInitialization();
 
     // retrieve self reference path
-    if (referencableAncestor == null) {
-      throw new IllegalStateException("no definition of referencable ancestor for " + this
+    if (referenceableAncestor == null) {
+      throw new IllegalStateException("no definition of referenceable ancestor for " + this
         + " This mimic or one of its parents must implement MmReferencePathProvider");
     }
 
-    UriComponents selfReferencePath = referencableAncestor.getMmSelfReferencePath();
+    UriComponents selfReferencePath = referenceableAncestor.getMmSelfReferencePath();
     if (selfReferencePath == null) {
       throw new IllegalStateException("no definition of self reference path for " + this
         + ", MmReferencePathProvider of this mimic must provide self reference path.");
@@ -790,9 +790,9 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       selfReferencePath = UriComponentsBuilder.fromUriString(selfReferencePath.getPath()).path("#" + configuration.id).build();
     }
 
-    // if self reference is an URI for a specified referencable data model
-    if ((pDataModel != null) && (pDataModel instanceof MmReferencableModel)) {
-      final List<String> modelReferenceParams = ((MmReferencableModel)pDataModel).getMmReferenceParams();
+    // if self reference is an URI for a specified referenceable data model
+    if ((pDataModel != null) && (pDataModel instanceof MmReferenceableModel)) {
+      final List<String> modelReferenceParams = ((MmReferenceableModel)pDataModel).getMmReferenceParams();
       return declaration.callbackMmGetSelfReference(selfReferencePath, pDataModel, modelReferenceParams);
 
     } else {
@@ -1373,7 +1373,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-i18n
    */
-  protected abstract MmReferencableModel getMmReferencableModel();
+  protected abstract MmReferenceableModel getMmReferenceableModel();
 
   /**
    * Returns an internationalized version of the message of this mimic for a specified message type.

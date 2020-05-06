@@ -3,11 +3,11 @@ package org.minutenwerk.mimic4j.api.mimic;
 import java.util.List;
 
 /**
- * MmReferencableModel is a model being referencable by an url.
+ * MmReferenceableModel is a model being referenceable by an url.
  *
  * @author  Olaf Kossak
  */
-public interface MmReferencableModel {
+public interface MmReferenceableModel {
 
   /**
    * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
