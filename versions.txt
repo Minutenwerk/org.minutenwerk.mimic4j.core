@@ -1,19 +1,16 @@
 
 
-    <build-helper-maven-plugin>3.1.0</build-helper-maven-plugin>
-
-    <com.google.code.maven-replacer-plugin.version>1.5.2</com.google.code.maven-replacer-plugin.version>
-
+    <build.helper.maven.plugin.version>3.1.0</build.helper.maven.plugin.version>
+    <com.google.code.maven.replacer.plugin.version>1.5.2</com.google.code.maven.replacer.plugin.version>
     <exec-maven-plugin>1.6.0</exec-maven-plugin>
-
-    <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
-    
-    <maven-clean-plugin>3.1.0</maven-clean-plugin>
-
-    <maven-eclipse-plugin-version>2.10</maven-eclipse-plugin-version>
-
-    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-
+    <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+    <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
+    <maven.eclipse.plugin.version>2.10</maven.eclipse.plugin.version>
+    <maven.failsafe.plugin.version>3.0.0-M4</maven.failsafe.plugin.version>
+    <maven.javadoc.plugin.version>3.2.0</maven.javadoc.plugin.version>
+    <maven.resources.plugin.version>3.1.0</maven.resources.plugin.version>
+    <maven.source.plugin.version>3.2.0</maven.source.plugin.version>
+    <maven.surefire.plugin.version>3.0.0-M4</maven.surefire.plugin.version>
     <triemax.jalopy.maven.version>1.10-551</triemax.jalopy.maven.version>
 
 
@@ -29,11 +26,19 @@
 
     <de.minutenwerk.tools.resources.version>1.0-SNAPSHOT</de.minutenwerk.tools.resources.version>
 
+    <glassfish.el.version>2.2.6</glassfish.el.version>
+
     <hibernate.jpa.api.version>1.0.0.Final</hibernate.jpa.api.version>
 
     <hibernate.version>5.4.4.Final</hibernate.version>
 
+    <hibernate.validator.version>6.0.10.Final</hibernate.validator.version>
+
     <hsqldb.version>2.5.0</hsqldb.version>
+
+    <javax.el.api.version>3.0.1-b06</javax.el.api.version>
+
+    <javax.validation.api.version>2.0.0.Final</javax.validation.api.version>
 
     <javax.servlet.version>3.1.0</javax.servlet.version>
 
@@ -43,11 +48,21 @@
 
     <log4j.version>2.13.2</log4j.version>
 
+    <maven.embedder.version>3.5.4</maven.embedder.version>
+
     <mimic4j.version>2.0-SNAPSHOT</mimic4j.version>
 
     <mockito.version>2.23.4</mockito.version>
 
     <mysql.version>5.1.45</mysql.version>
+
+    <org.apache.maven.wagon.http.lightweight.version>3.1.0</org.apache.maven.wagon.http.lightweight.version>
+
+    <org.apache.maven.wagon.provider.api.version>3.1.0</org.apache.maven.wagon.provider.api.version>
+
+    <org.eclipse.aether.connector.basic.version>1.1.0</org.eclipse.aether.connector.basic.version>
+
+    <org.eclipse.aether.transport.wagon.version>1.1.0</org.eclipse.aether.transport.wagon.version>
 
     <org.eclipse.equinox.common.fixed.version>3.10.0</org.eclipse.equinox.common.fixed.version>
 

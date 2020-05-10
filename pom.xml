@@ -38,10 +38,10 @@
     <source.status>approval</source.status>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
-    <maven-clean-plugin>3.1.0</maven-clean-plugin>
-    <maven-eclipse-plugin-version>2.10</maven-eclipse-plugin-version>
-    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+    <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+    <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
+    <maven.eclipse.plugin.version>2.10</maven.eclipse.plugin.version>
+    <maven.resources.plugin.version>3.1.0</maven.resources.plugin.version>
     <triemax.jalopy.maven.version>1.10-551</triemax.jalopy.maven.version>
 
     <de.minutenwerk.tools.resources.version>1.0-SNAPSHOT</de.minutenwerk.tools.resources.version>
@@ -69,7 +69,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin}</version>
+        <version>${maven.compiler.plugin.version}</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -82,7 +82,7 @@
 
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven-resources-plugin.version}</version>
+        <version>${maven.resources.plugin.version}</version>
         <configuration>
           <encoding>UTF-8</encoding>
         </configuration>
@@ -90,7 +90,7 @@
 
       <plugin>
         <artifactId>maven-eclipse-plugin</artifactId>
-        <version>${maven-eclipse-plugin-version}</version>
+        <version>${maven.eclipse.plugin.version}</version>
         <configuration>
           <useProjectReferences>false</useProjectReferences>
           <downloadSources>true</downloadSources>
