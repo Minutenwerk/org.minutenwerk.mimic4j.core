@@ -1,0 +1,74 @@
+
+
+    <build-helper-maven-plugin>3.0.0</build-helper-maven-plugin>
+
+    <com.google.code.maven-replacer-plugin.version>1.5.2</com.google.code.maven-replacer-plugin.version>
+
+    <exec-maven-plugin>1.6.0</exec-maven-plugin>
+
+    <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
+    
+    <maven-clean-plugin>3.0.0</maven-clean-plugin>
+
+    <maven-eclipse-plugin-version>2.10</maven-eclipse-plugin-version>
+
+    <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+
+    <triemax.jalopy.maven.version>1.10-551</triemax.jalopy.maven.version>
+
+
+
+
+    <assertj.version>3.11.1</assertj.version>
+
+    <com.google.inject.guice.version>4.2.0</com.google.inject.guice.version>
+      
+    <commons-cli.version>1.4</commons-cli.version>
+      
+    <cglib.version>3.2.5</cglib.version>
+
+    <de.minutenwerk.tools.resources.version>1.0-SNAPSHOT</de.minutenwerk.tools.resources.version>
+
+    <hibernate.jpa.api.version>1.0.0.Final</hibernate.jpa.api.version>
+
+    <hibernate.version>5.4.4.Final</hibernate.version>
+
+    <hsqldb.version>2.5.0</hsqldb.version>
+
+    <javax.servlet.version>3.1.0</javax.servlet.version>
+
+    <junit.version>4.13</junit.version>
+
+    <logback.version>1.2.3</logback.version>
+
+    <log4j.version>2.13.2</log4j.version>
+
+    <mimic4j.version>2.0-SNAPSHOT</mimic4j.version>
+
+    <mockito.version>2.23.4</mockito.version>
+
+    <mysql.version>5.1.45</mysql.version>
+
+    <org.eclipse.equinox.common.fixed.version>3.10.0</org.eclipse.equinox.common.fixed.version>
+
+    <org.eclipse.xtext.xtext.fixed.version>2.10.0</org.eclipse.xtext.xtext.fixed.version>
+
+    <org.hamcrest.core.version>1.3</org.hamcrest.core.version>
+
+    <saturn.version>2.0.0-SNAPSHOT</saturn.version>
+
+    <slf4j.version>1.7.25</slf4j.version>
+
+    <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
+
+    <spring.data.version>2.1.10.RELEASE</spring.data.version>
+
+    <spring.framework.version>5.2.6.RELEASE</spring.framework.version>
+
+    <spring.security.version>4.2.3.RELEASE</spring.security.version>
+
+    <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+
+    <xtext.version>2.18.0.M1</xtext.version>
+
+    
