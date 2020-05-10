@@ -39,9 +39,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
-    <maven-clean-plugin>3.0.0</maven-clean-plugin>
+    <maven-clean-plugin>3.1.0</maven-clean-plugin>
     <maven-eclipse-plugin-version>2.10</maven-eclipse-plugin-version>
-    <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
     <triemax.jalopy.maven.version>1.10-551</triemax.jalopy.maven.version>
 
     <de.minutenwerk.tools.resources.version>1.0-SNAPSHOT</de.minutenwerk.tools.resources.version>

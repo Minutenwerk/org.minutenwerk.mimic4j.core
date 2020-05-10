@@ -1,6 +1,6 @@
 
 
-    <build-helper-maven-plugin>3.0.0</build-helper-maven-plugin>
+    <build-helper-maven-plugin>3.1.0</build-helper-maven-plugin>
 
     <com.google.code.maven-replacer-plugin.version>1.5.2</com.google.code.maven-replacer-plugin.version>
 
@@ -8,11 +8,11 @@
 
     <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
     
-    <maven-clean-plugin>3.0.0</maven-clean-plugin>
+    <maven-clean-plugin>3.1.0</maven-clean-plugin>
 
     <maven-eclipse-plugin-version>2.10</maven-eclipse-plugin-version>
 
-    <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
 
     <triemax.jalopy.maven.version>1.10-551</triemax.jalopy.maven.version>
 
