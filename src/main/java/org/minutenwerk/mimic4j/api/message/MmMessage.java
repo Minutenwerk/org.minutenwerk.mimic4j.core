@@ -20,25 +20,22 @@ import org.minutenwerk.mimic4j.api.mimic.MmRelationshipApi;
 public class MmMessage {
 
   /** Logger of this class. */
-  private static final Logger        LOGGER           = LogManager.getLogger(MmMessage.class);
-
-  /** The type indicates whether an error can be viewed as technical error or an error in execution of business logic. */
-  protected final MmErrorMessageType errorMessageType;
+  private static final Logger       LOGGER      = LogManager.getLogger(MmMessage.class);
 
   /** The severity indicates whether it is an information, a warning or an error message. */
-  protected final MmMessageSeverity  severity;
+  protected final MmMessageSeverity severity;
 
   /** The mimic which this message relates to. */
-  protected final MmMimic            ownerMm;
+  protected final MmMimic           ownerMm;
 
   /** The id of message text. */
-  protected final String             messageId;
+  protected final String            messageId;
 
   /** The specified message type. */
-  protected final MmMessageType      messageType;
+  protected final MmMessageType     messageType;
 
   /** An array of arguments to be inserted into message text. */
-  protected final Object[]           args;
+  protected final Object[]          args;
 
   /**
    * Creates a new MmMessage instance from MmValidatorException.
@@ -53,12 +50,11 @@ public class MmMessage {
         throw new IllegalArgumentException("pException must be defined");
       }
     }
-    errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
-    severity         = MmMessageSeverity.USER_ERROR;
-    ownerMm          = pValidatorException.getMimic();
-    messageId        = ownerMm.getMmId();
-    messageType      = MmMessageType.ERROR_VALIDATION;
-    args             = pValidatorException.getArgs();
+    severity    = MmMessageSeverity.USER_ERROR;
+    ownerMm     = pValidatorException.getMimic();
+    messageId   = ownerMm.getMmId();
+    messageType = MmMessageType.ERROR_VALIDATION;
+    args        = pValidatorException.getArgs();
   }
 
   /**
@@ -74,18 +70,16 @@ public class MmMessage {
         throw new IllegalArgumentException("pException must be defined");
       }
     }
-    errorMessageType = MmErrorMessageType.BUSINESS_LOGIC_ERROR;
-    severity         = MmMessageSeverity.USER_ERROR;
-    ownerMm          = pViewModelConverterException.getMimic();
-    messageId        = ownerMm.getMmId();
-    messageType      = MmMessageType.ERROR_CONVERSION_VIEW;
-    args             = pViewModelConverterException.getArgs();
+    severity    = MmMessageSeverity.USER_ERROR;
+    ownerMm     = pViewModelConverterException.getMimic();
+    messageId   = ownerMm.getMmId();
+    messageType = MmMessageType.ERROR_CONVERSION_VIEW;
+    args        = pViewModelConverterException.getArgs();
   }
 
   /**
    * Creates a new instance of MmMessage.
    *
-   * @param   pType         The type indicates whether an error can be viewed as technical error or an error in execution of business logic.
    * @param   pSeverity     The severity indicates whether it is an information, a warning or an error message.
    * @param   pOwnerMm      The mimic which this message relates to.
    * @param   pMessageId    The message id.
@@ -94,11 +88,8 @@ public class MmMessage {
    *
    * @throws  IllegalArgumentException  In case of an argument is null or MmRelationshipApi.getMmRoot(pOwnerMm) isn't defined.
    */
-  public MmMessage(MmErrorMessageType pType, MmMessageSeverity pSeverity, MmMimic pOwnerMm, String pMessageId, MmMessageType pMessageType, Object... pArgs) {
+  public MmMessage(MmMessageSeverity pSeverity, MmMimic pOwnerMm, String pMessageId, MmMessageType pMessageType, Object... pArgs) {
     if (LOGGER.isDebugEnabled()) {
-      if (pType == null) {
-        throw new IllegalArgumentException("pType must be defined");
-      }
       if (pSeverity == null) {
         throw new IllegalArgumentException("pSeverity must be defined");
       }
@@ -112,12 +103,11 @@ public class MmMessage {
         throw new IllegalArgumentException("MmRelationshipApi.getMmRoot(pOwnerMm) must be defined");
       }
     }
-    errorMessageType = pType;
-    severity         = pSeverity;
-    ownerMm          = pOwnerMm;
-    messageId        = pMessageId;
-    messageType      = pMessageType;
-    args             = pArgs;
+    severity    = pSeverity;
+    ownerMm     = pOwnerMm;
+    messageId   = pMessageId;
+    messageType = pMessageType;
+    args        = pArgs;
   }
 
   /**
@@ -127,15 +117,6 @@ public class MmMessage {
    */
   public Object[] getArgs() {
     return args;
-  }
-
-  /**
-   * Returns the type of this message, which indicates whether an error can be viewed as technical error or an error in execution of business logic.
-   *
-   * @return  The type of this message.
-   */
-  public MmErrorMessageType getErrorMessageType() {
-    return errorMessageType;
   }
 
   /**
@@ -252,8 +233,6 @@ public class MmMessage {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append(errorMessageType.name());
-    sb.append("/ ");
     sb.append(severity.name());
     if (ownerMm != null) {
       sb.append("/ ");

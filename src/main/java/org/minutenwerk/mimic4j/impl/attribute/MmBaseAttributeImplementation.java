@@ -12,7 +12,6 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
-import org.minutenwerk.mimic4j.api.message.MmErrorMessageType;
 import org.minutenwerk.mimic4j.api.message.MmMessage;
 import org.minutenwerk.mimic4j.api.message.MmMessageList;
 import org.minutenwerk.mimic4j.api.message.MmMessageSeverity;
@@ -303,7 +302,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     if (isMmRequired() && isMmEmpty()) {
       errorState = MmAttributeErrorState.ERROR_REQUIRED_VALUE_IN_VIEW_TYPE;
 
-      MmMessage message = new MmMessage(MmErrorMessageType.BUSINESS_LOGIC_ERROR, MmMessageSeverity.USER_ERROR, this, getMmId(), MmMessageType.ERROR_REQUIRED);
+      MmMessage message = new MmMessage(MmMessageSeverity.USER_ERROR, this, getMmId(), MmMessageType.ERROR_REQUIRED);
       messageList.addMessage(message);
 
     } else {

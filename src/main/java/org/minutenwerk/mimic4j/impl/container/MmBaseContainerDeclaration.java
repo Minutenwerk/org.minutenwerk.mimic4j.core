@@ -36,7 +36,7 @@ public abstract class MmBaseContainerDeclaration<IMPLEMENTATION extends MmBaseCo
    * @param  pMessage  The specified message to add.
    */
   public void addMmMessage(MmMessage pMessage) {
-    implementation.getMmMessageList().addMessage(pMessage);
+    implementation.messageList.addMessage(pMessage);
   }
 
   /**
