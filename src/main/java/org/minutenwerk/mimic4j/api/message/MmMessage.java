@@ -190,7 +190,7 @@ public class MmMessage {
         return "alert-info";
       }
       case SUCCESS: {
-        return "alert-success";
+        return "fadeout-success";
       }
       case WARNING: {
         return "alert-warning";
