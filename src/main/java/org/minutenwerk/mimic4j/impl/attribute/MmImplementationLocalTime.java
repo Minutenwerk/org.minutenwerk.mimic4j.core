@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.attribute.MmLocalTime;
 import org.minutenwerk.mimic4j.api.attribute.MmLocalTimeAnnotation;
+import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**
  * MmImplementationLocalTime is the implementation part of a mimic for {@link LocalTime}.

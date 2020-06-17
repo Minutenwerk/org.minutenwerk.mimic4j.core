@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
+import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmPageMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmReferencePathProvider;
 import org.minutenwerk.mimic4j.api.site.MmSpringMimicAdapter;
@@ -12,7 +13,6 @@ import org.minutenwerk.mimic4j.api.site.MmTheme;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationPage;
 import org.minutenwerk.mimic4j.impl.link.MmConfigurationLink;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 import org.springframework.web.util.UriComponents;
 

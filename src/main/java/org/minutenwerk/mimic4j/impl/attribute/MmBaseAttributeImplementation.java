@@ -12,6 +12,11 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
+import org.minutenwerk.mimic4j.api.message.MmErrorMessageType;
+import org.minutenwerk.mimic4j.api.message.MmMessage;
+import org.minutenwerk.mimic4j.api.message.MmMessageList;
+import org.minutenwerk.mimic4j.api.message.MmMessageSeverity;
+import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmAttributeMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
@@ -20,11 +25,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
-import org.minutenwerk.mimic4j.impl.message.MmErrorMessageType;
-import org.minutenwerk.mimic4j.impl.message.MmMessage;
-import org.minutenwerk.mimic4j.impl.message.MmMessageList;
-import org.minutenwerk.mimic4j.impl.message.MmMessageSeverity;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**
  * MmBaseAttributeImplementation is the abstract base class for all mimics of editable attributes. This class implements the mimic of setting a value into an
@@ -232,7 +232,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Converts and passes data model value of type ATTRIBUTE_TYPE to view value of type VIEW_TYPE. If conversion succeeds:
+   * Converts and formats data from data model to view model type and transfers converted data into view model. If conversion succeeds:
    *
    * <ul>
    *   <li>valueState is {@link MmValueState.CONVERTED_DATA_MODEL_TO_VIEW_TYPE}</li>
@@ -274,7 +274,8 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Validates syntactically, converts and passes view value of type VIEW_TYPE to data model value of type ATTRIBUTE_TYPE.
+   * Validates and converts data from view model to data model type and transfers converted data into data model. Validates syntactically, converts and passes
+   * view value of type VIEW_TYPE to data model value of type ATTRIBUTE_TYPE.
    *
    * <ul>
    *   <li>valueState is {@link MmValueState.CONVERTED_VIEW_TYPE_TO_DATA_MODEL}</li>
@@ -530,6 +531,20 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
+   * Returns message list of this attribute.
+   *
+   * @return        The message list of this attribute.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public MmMessageList getMmMessageList() {
+    ensureInitialization();
+
+    return messageList;
+  }
+
+  /**
    * Returns the data model value of the mimic. The data model value is exchanged between model and mimic.
    *
    * @return        The data model value of the mimic.
@@ -756,7 +771,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
   }
 
   /**
-   * Clears list of messages of this mimic.
+   * Clears message lists of specified mimic.
    *
    * @jalopy.group  group-helper
    */

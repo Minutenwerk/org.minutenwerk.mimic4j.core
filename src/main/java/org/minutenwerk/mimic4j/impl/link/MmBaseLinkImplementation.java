@@ -12,13 +12,13 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmLinkMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**
  * MmBaseLinkImplementation is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of

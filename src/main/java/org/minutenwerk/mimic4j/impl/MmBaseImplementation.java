@@ -38,17 +38,17 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmInformationalModel;
-import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.api.mimic.MmReferencePathProvider;
+import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.api.mimic.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.site.MmTheme;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.CONSTRUCTION_COMPLETE;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.INITIALIZED;
 import static org.minutenwerk.mimic4j.impl.MmInitialState.MmState.IN_CONSTRUCTION;
 import org.minutenwerk.mimic4j.impl.container.MmImplementationPage;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -286,7 +286,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     runtimeDeclarationChildren    = new ArrayList<>();
 
     // evaluate ancestor for reference path, file and params
-    referenceableAncestor          = getMmImplementationAncestorOfType(MmReferencePathProvider.class);
+    referenceableAncestor         = getMmImplementationAncestorOfType(MmReferencePathProvider.class);
   }
 
   /**

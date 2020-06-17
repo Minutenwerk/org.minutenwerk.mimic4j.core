@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.message.MmMessageList;
 import org.minutenwerk.mimic4j.api.mimic.MmAttributeMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
 
@@ -183,6 +184,16 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final String getMmFormatPattern() {
     return implementation.getMmFormatPattern();
+  }
+
+  /**
+   * Returns message list of this attribute.
+   *
+   * @return  The message list of this attribute.
+   */
+  @Override
+  public final MmMessageList getMmMessageList() {
+    return implementation.getMmMessageList();
   }
 
   /**

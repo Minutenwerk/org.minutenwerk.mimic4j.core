@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTime;
 import org.minutenwerk.mimic4j.api.attribute.MmZonedDateTimeAnnotation;
+import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 /**
  * MmImplementationDateTime is the implementation part of a mimic for {@link ZonedDateTime}.

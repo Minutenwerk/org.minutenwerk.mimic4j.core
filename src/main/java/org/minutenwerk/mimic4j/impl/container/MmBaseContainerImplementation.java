@@ -6,6 +6,8 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelChangeListener;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
+import org.minutenwerk.mimic4j.api.message.MmMessage;
+import org.minutenwerk.mimic4j.api.message.MmMessageList;
 import org.minutenwerk.mimic4j.api.mimic.MmContainerMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmEditableMimic;
@@ -14,8 +16,6 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
 import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmEditableMimicImpl;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
-import org.minutenwerk.mimic4j.impl.message.MmMessage;
-import org.minutenwerk.mimic4j.impl.message.MmMessageList;
 
 /**
  * MmBaseContainerImplementation is the abstract base class for the implementation part of all container mimic classes.
@@ -273,7 +273,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * TODOC.
+   * Converts and formats data from data model to view model type and transfers converted data into view model.
    *
    * @jalopy.group  group-lifecycle
    */
@@ -285,7 +285,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * TODOC.
+   * Validates and converts data from view model to data model type and transfers converted data into data model.
    *
    * @jalopy.group  group-lifecycle
    */
@@ -297,7 +297,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * TODOC.
+   * Semantic validation of data model value.
    *
    * @jalopy.group  group-lifecycle
    */
@@ -314,7 +314,7 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
       errorstate = MmContainerErrorState.ERROR_IN_SEMANTIC_VALIDATION;
 
       MmMessage message = new MmMessage(validatorException);
-      getMmMessageList().addMessage(message);
+      messageList.addMessage(message);
     }
 
     // validate all children of type MmEditableMimicImpl
@@ -324,16 +324,23 @@ public abstract class MmBaseContainerImplementation<DECLARATION extends MmBaseCo
   }
 
   /**
-   * Returns message list of this container.
+   * Returns message list of this container and all descendants of type attribute or container.
    *
-   * @return        The message list of this container.
+   * @return        The message list of this container and all descendants of type attribute or container.
    *
    * @jalopy.group  group-get
    */
+  @Override
   public MmMessageList getMmMessageList() {
     ensureInitialization();
 
-    return messageList;
+    MmMessageList returnMessageList = new MmMessageList();
+    returnMessageList.addMessages(messageList);
+
+    for (MmEditableMimicImpl child : getDirectImplementationChildrenOfType(MmEditableMimicImpl.class)) {
+      returnMessageList.addMessages(child.getMmMessageList());
+    }
+    return returnMessageList;
   }
 
   /**

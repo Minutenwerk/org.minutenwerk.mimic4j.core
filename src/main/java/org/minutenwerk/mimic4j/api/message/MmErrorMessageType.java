@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.impl.message;
+package org.minutenwerk.mimic4j.api.message;
 
 /**
  * MmErrorMessageType indicates whether an error can be viewed as technical error or an error in execution of business logic.

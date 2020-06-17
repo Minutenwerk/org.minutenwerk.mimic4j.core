@@ -7,10 +7,10 @@ import java.util.Locale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.site.MmSession;
 import org.minutenwerk.mimic4j.api.site.MmSpringMimicAdapter;
 import org.minutenwerk.mimic4j.api.site.MmTheme;
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;

@@ -65,7 +65,7 @@ public class MmImplementationTable<ROW_MODEL>
   }
 
   /**
-   * TODOC.
+   * Converts and formats data from data model to view model type and transfers converted data into view model.
    *
    * @throws        IllegalStateException  In case of callbackMmCreateTableRow doesn't return a MmTableRow.
    *

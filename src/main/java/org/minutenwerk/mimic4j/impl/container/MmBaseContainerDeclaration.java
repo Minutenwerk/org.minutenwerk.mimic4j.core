@@ -4,9 +4,10 @@ import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelChangeListener;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
+import org.minutenwerk.mimic4j.api.message.MmMessage;
+import org.minutenwerk.mimic4j.api.message.MmMessageList;
 import org.minutenwerk.mimic4j.api.mimic.MmContainerMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
-import org.minutenwerk.mimic4j.impl.message.MmMessage;
 
 /**
  * MmBaseContainerDeclaration is the abstract base class for container declaration classes, where a container contains editable mimics like attributes or
@@ -84,6 +85,16 @@ public abstract class MmBaseContainerDeclaration<IMPLEMENTATION extends MmBaseCo
   @Override
   public final void doMmValidate() throws MmValidatorException {
     implementation.doMmValidate();
+  }
+
+  /**
+   * Returns message list of this container and all descendants of type attribute or container.
+   *
+   * @return  The message list of this container and all descendants of type attribute or container.
+   */
+  @Override
+  public final MmMessageList getMmMessageList() {
+    return implementation.getMmMessageList();
   }
 
   /**

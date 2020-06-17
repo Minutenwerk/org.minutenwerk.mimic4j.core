@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.impl.message;
+package org.minutenwerk.mimic4j.api.message;
 
 /**
  * MmMessageType is an enumeration of all types of messages in mimic4j.
@@ -31,22 +31,22 @@ public enum MmMessageType {
   /** Message in case of error in validation of data model value. */
   ERROR_VALIDATION      ("error_validation");
 
-  /** TODOC. */
+  /** Suffix of message key. */
   private final String suffix;
 
   /**
    * Creates a new MmMessageType instance.
    *
-   * @param  pSuffix  TODOC
+   * @param  pSuffix  Suffix of message key
    */
   private MmMessageType(String pSuffix) {
     suffix = pSuffix;
   }
 
   /**
-   * TODOC.
+   * Returns suffix of message key.
    *
-   * @return  TODOC
+   * @return  Suffix of message key
    */
   public String getSuffix() {
     return suffix;

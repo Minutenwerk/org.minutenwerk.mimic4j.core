@@ -1,9 +1,12 @@
-package org.minutenwerk.mimic4j.impl.message;
+package org.minutenwerk.mimic4j.api.message;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import org.minutenwerk.mimic4j.api.mimic.MmAttributeMimic;
+import org.minutenwerk.mimic4j.api.mimic.MmContainerMimic;
 
 /**
  * MmMessageList is a list of messages of type {@link MmMessage}.
@@ -39,6 +42,18 @@ public class MmMessageList {
   }
 
   /**
+   * Adds a specified message list to this message list, and returns this message list.
+   *
+   * @param   mmMessageList  The specified message list.
+   *
+   * @return  The message list after adding the specified message list.
+   */
+  public MmMessageList addMessages(MmMessageList mmMessageList) {
+    messages.addAll(mmMessageList.getMessages());
+    return this;
+  }
+
+  /**
    * Clears the message list.
    *
    * @return  The empty message list.
@@ -54,13 +69,7 @@ public class MmMessageList {
    * @return  The highest severity of error message of this mimic.
    */
   public MmMessageSeverity getMaximumSeverity() {
-    MmMessageSeverity returnSeverity = null;
-    for (MmMessage message : messages) {
-      if ((returnSeverity == null) || (message.getSeverity().ordinal() > returnSeverity.ordinal())) {
-        returnSeverity = message.getSeverity();
-      }
-    }
-    return returnSeverity;
+    return messages.stream().filter(m -> m.getSeverity() != null).max(Comparator.comparing(MmMessage::getSeverity)).get().getSeverity();
   }
 
   /**
@@ -79,8 +88,16 @@ public class MmMessageList {
 
     @Override
     public int compare(MmMessage pMessage1, MmMessage pMessage2) {
-      return pMessage1.severity.ordinal() - pMessage2.severity.ordinal();
+      int diff = pMessage1.severity.ordinal() - pMessage2.severity.ordinal();
+      if (diff != 0) {
+        return diff;
+      }
+      if ((pMessage1.ownerMm instanceof MmContainerMimic<?>) && (pMessage2.ownerMm instanceof MmAttributeMimic<?, ?>)) {
+        return -1;
+      } else if ((pMessage1.ownerMm instanceof MmAttributeMimic<?, ?>) && (pMessage2.ownerMm instanceof MmContainerMimic<?>)) {
+        return 1;
+      }
+      return pMessage1.ownerMm.getMmId().compareTo(pMessage2.ownerMm.getMmId());
     }
   }
-
 }

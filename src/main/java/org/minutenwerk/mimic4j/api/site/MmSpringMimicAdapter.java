@@ -3,7 +3,7 @@ package org.minutenwerk.mimic4j.api.site;
 import java.util.List;
 import java.util.Locale;
 
-import org.minutenwerk.mimic4j.impl.message.MmMessageType;
+import org.minutenwerk.mimic4j.api.message.MmMessageType;
 
 /**
  * Spring service definition for mimic web site.

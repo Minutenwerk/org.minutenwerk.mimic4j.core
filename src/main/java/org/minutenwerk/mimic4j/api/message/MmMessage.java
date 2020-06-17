@@ -1,4 +1,4 @@
-package org.minutenwerk.mimic4j.impl.message;
+package org.minutenwerk.mimic4j.api.message;
 
 import java.text.MessageFormat;
 
