@@ -38,6 +38,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.container.MmTableRow;
+import org.minutenwerk.mimic4j.api.message.MmMessage;
 import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmInformationalModel;
@@ -1009,6 +1010,21 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Returns an internationalized version for a specified MmMessage.
+   *
+   * @param         pMmMessage  The specified MmMessage to be internationalized.
+   *
+   * @return        The internationalized message.
+   *
+   * @jalopy.group  group-i18n
+   */
+  public String getMmI18nText(final MmMessage pMmMessage) {
+    ensureInitialization();
+
+    return getMmI18nText(pMmMessage.getMessageId(), pMmMessage.getMessageType(), pMmMessage.getArgs());
+  }
+
+  /**
    * Returns an internationalized version for a specified message id and type.
    *
    * @param         pMessageId    The specified id of the message to be internationalized.
@@ -1019,7 +1035,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
    *
    * @jalopy.group  group-i18n
    */
-  public String getMmI18nText(String pMessageId, MmMessageType pMessageType, Object... pArguments) {
+  public String getMmI18nText(final String pMessageId, final MmMessageType pMessageType, final Object... pArguments) {
     ensureInitialization();
 
     return root.getMmI18nText(pMessageId, pMessageType, pArguments);

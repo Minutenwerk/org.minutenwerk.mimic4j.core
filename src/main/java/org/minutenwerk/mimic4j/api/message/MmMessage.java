@@ -163,6 +163,15 @@ public class MmMessage {
   }
 
   /**
+   * Returns the id of message text.
+   *
+   * @return  The id of message text.
+   */
+  public String getMessageId() {
+    return messageId;
+  }
+
+  /**
    * Returns the message type.
    *
    * @return  The message type.
@@ -196,18 +205,18 @@ public class MmMessage {
    */
   public String getStyleClass() {
     switch (severity) {
-      case USER_ERROR:
-      case SYSTEM_ERROR: {
-        return "alert-danger";
-      }
-      case WARNING: {
-        return "alert-warning";
-      }
       case INFO: {
         return "alert-info";
       }
       case SUCCESS: {
         return "alert-success";
+      }
+      case WARNING: {
+        return "alert-warning";
+      }
+      case USER_ERROR:
+      case SYSTEM_ERROR: {
+        return "alert-danger";
       }
     }
     return "";

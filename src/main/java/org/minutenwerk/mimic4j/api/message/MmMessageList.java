@@ -15,18 +15,17 @@ import org.minutenwerk.mimic4j.api.mimic.MmContainerMimic;
  */
 public class MmMessageList {
 
-  /** The list of messages. */
-  protected final List<MmMessage>   messages;
-
   /** The comparator of messages. */
-  protected final MessageComparator comparator;
+  protected static final MessageComparator COMPARATOR = new MessageComparator();
+
+  /** The list of messages. */
+  protected final List<MmMessage>          messages;
 
   /**
    * Creates a new MmMessageList instance.
    */
   public MmMessageList() {
-    messages   = new ArrayList<>();
-    comparator = new MessageComparator();
+    messages = new ArrayList<>();
   }
 
   /**
@@ -69,7 +68,11 @@ public class MmMessageList {
    * @return  The highest severity of error message of this mimic.
    */
   public MmMessageSeverity getMaximumSeverity() {
-    return messages.stream().filter(m -> m.getSeverity() != null).max(Comparator.comparing(MmMessage::getSeverity)).get().getSeverity();
+    if (messages.isEmpty()) {
+      return MmMessageSeverity.INFO;
+    } else {
+      return messages.stream().map(MmMessage::getSeverity).max(Comparator.comparingInt(MmMessageSeverity::ordinal)).get();
+    }
   }
 
   /**
@@ -78,13 +81,31 @@ public class MmMessageList {
    * @return  The list of all messages of this mimic, sorted by severity.
    */
   public List<MmMessage> getMessages() {
-    Collections.sort(messages, comparator);
+    Collections.sort(messages, COMPARATOR);
 
     List<MmMessage> returnMessages = Collections.unmodifiableList(messages);
     return returnMessages;
   }
 
-  public class MessageComparator implements Comparator<MmMessage> {
+  /**
+   * Returns true, if message list contains messages.
+   *
+   * @return  True, if message list contains messages.
+   */
+  public boolean hasMessages() {
+    return !isEmpty();
+  }
+
+  /**
+   * Returns true, if message list is empty.
+   *
+   * @return  True, if message list is empty.
+   */
+  public boolean isEmpty() {
+    return messages.isEmpty();
+  }
+
+  public static final class MessageComparator implements Comparator<MmMessage> {
 
     @Override
     public int compare(MmMessage pMessage1, MmMessage pMessage2) {
