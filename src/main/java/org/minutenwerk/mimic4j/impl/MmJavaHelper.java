@@ -68,7 +68,7 @@ public class MmJavaHelper {
    *
    * @return  All found fields.
    */
-  public static List<Field> findPublicStaticFinalBaseDeclarationFields(Class<?> pClassToAnalyze) {
+  public static List<Field> findPublicNotStaticFinalBaseDeclarationFields(Class<?> pClassToAnalyze) {
     List<Field>    allFields = new ArrayList<>();
     List<Class<?>> classes   = new ArrayList<>();
     Class<?>       c         = pClassToAnalyze;

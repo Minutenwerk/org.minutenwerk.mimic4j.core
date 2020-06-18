@@ -327,7 +327,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   protected Field onConstructField(final MmBaseImplementation<?, ?, ?> pImplementationParent) {
     if (pImplementationParent.declarationChildrenFields == null) {
       pImplementationParent.declarationChildrenFields = //
-        MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(pImplementationParent.declaration.getClass()).iterator();
+        MmJavaHelper.findPublicNotStaticFinalBaseDeclarationFields(pImplementationParent.declaration.getClass()).iterator();
     }
     if (pImplementationParent.declarationChildrenFields.hasNext()) {
       return pImplementationParent.declarationChildrenFields.next();

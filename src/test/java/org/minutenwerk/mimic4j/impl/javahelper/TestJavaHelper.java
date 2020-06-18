@@ -15,7 +15,7 @@ public class TestJavaHelper {
   @Test
   public void testJavaHelperGetFields() {
     // test
-    List<Field> fields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(MmTabHelperPerson.class);
+    List<Field> fields = MmJavaHelper.findPublicNotStaticFinalBaseDeclarationFields(MmTabHelperPerson.class);
 
     // assert
     Assert.assertNotNull(fields);
@@ -25,7 +25,7 @@ public class TestJavaHelper {
   @Test
   public void testJavaHelperGetEnumGeneric() {
     // test
-    List<Field> fields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(MmTabHelperPerson.class);
+    List<Field> fields = MmJavaHelper.findPublicNotStaticFinalBaseDeclarationFields(MmTabHelperPerson.class);
     Type type = MmJavaHelper.getFirstGenericType(fields.get(7));
 
     // assert
@@ -36,7 +36,7 @@ public class TestJavaHelper {
   @Ignore
   public void testJavaHelperGetTabGeneric() {
     // test
-    List<Field> fields = MmJavaHelper.findPublicStaticFinalBaseDeclarationFields(MmTabHelperPerson.class);
+    List<Field> fields = MmJavaHelper.findPublicNotStaticFinalBaseDeclarationFields(MmTabHelperPerson.class);
     Type type = MmJavaHelper.getFirstGenericType(fields.get(9));
 
     // assert
