@@ -4,7 +4,7 @@
 
   <Appenders>
     <Appender type="Console" name="RootConsoleAppender">
-      <Layout type="PatternLayout" pattern="%d{mm:ss} %-5.-5level (%file:%line\) %message%n" />
+      <Layout type="PatternLayout" pattern="%d{hh:mm:ss} %-5.-5level (%file:%line\) %message%n" />
     </Appender>
   </Appenders>
 
