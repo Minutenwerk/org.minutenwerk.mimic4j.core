@@ -193,11 +193,11 @@ public class MmMessage {
         return "fadeout-success";
       }
       case WARNING: {
-        return "alert-warning";
+        return "fadeout-error";
       }
       case USER_ERROR:
       case SYSTEM_ERROR: {
-        return "alert-danger";
+        return "fadeout-error";
       }
     }
     return "";
