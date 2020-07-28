@@ -76,7 +76,7 @@ public class MmImage extends MmBaseAttributeDeclaration<MmImplementationImage, S
    * @return  source URI of image as String.
    */
   public String getMmSrc() {
-    return getMmViewValue();
+    return implementation.getMmSrc();
   }
 
 }

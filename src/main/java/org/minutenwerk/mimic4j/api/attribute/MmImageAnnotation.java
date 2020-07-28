@@ -31,4 +31,6 @@ public @interface MmImageAnnotation {
   public int formatMaxLength() default MmConfigurationImage.DEFAULT_FORMAT_MAX_LENGTH;
 
   public String styleClasses() default MmConfigurationImage.DEFAULT_STYLE_CLASSES;
+
+  public String fixedSrc() default MmConfigurationImage.DEFAULT_FIXED_SRC;
 }

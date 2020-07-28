@@ -21,6 +21,21 @@ public class MmImplementationImage extends MmBaseAttributeImplementation<MmImage
   }
 
   /**
+   * Returns source URI of image as String.
+   *
+   * @return  source URI of image as String.
+   */
+  public String getMmSrc() {
+    ensureInitialization();
+
+    if (!configuration.getFixedSrc().isEmpty()) {
+      return configuration.getFixedSrc();
+    } else {
+      return getMmViewValue();
+    }
+  }
+
+  /**
    * Returns <code>true</code> if the view value of this mimic is empty.
    *
    * @return  <code>True</code> if the view value of this mimic is empty.
