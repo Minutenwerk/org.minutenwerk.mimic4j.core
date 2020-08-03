@@ -28,6 +28,8 @@ public @interface MmLocalDateTimeAnnotation {
 
   public boolean required() default MmConfigurationLocalDateTime.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationLocalDateTime.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationLocalDateTime.DEFAULT_STYLE_CLASSES;
 
   public String formatPattern() default MmConfigurationLocalDateTime.DEFAULT_FORMAT_PATTERN;

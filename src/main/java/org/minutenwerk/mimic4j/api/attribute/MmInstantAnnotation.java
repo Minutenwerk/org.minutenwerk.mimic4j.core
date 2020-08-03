@@ -28,6 +28,8 @@ public @interface MmInstantAnnotation {
 
   public boolean required() default MmConfigurationInstant.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationInstant.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationInstant.DEFAULT_STYLE_CLASSES;
 
   public String formatPattern() default MmConfigurationInstant.DEFAULT_FORMAT_PATTERN;

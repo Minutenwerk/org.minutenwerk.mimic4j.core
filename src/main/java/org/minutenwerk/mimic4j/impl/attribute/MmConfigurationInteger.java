@@ -20,7 +20,8 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    * Creates a new MmConfigurationInteger instance of default values.
    */
   public MmConfigurationInteger() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_IS_TRANSIENT_DATA_MODEL,
+      DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
 
@@ -31,7 +32,7 @@ public class MmConfigurationInteger extends MmBaseAttributeConfiguration<Integer
    */
   public MmConfigurationInteger(MmIntegerAnnotation pIntegerAnnotation) {
     super(pIntegerAnnotation.id(), pIntegerAnnotation.visible(), pIntegerAnnotation.referenceEnabled(), pIntegerAnnotation.enabled(),
-      pIntegerAnnotation.required(), pIntegerAnnotation.styleClasses());
+      pIntegerAnnotation.required(), pIntegerAnnotation.transientDataModel(), pIntegerAnnotation.styleClasses());
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
 

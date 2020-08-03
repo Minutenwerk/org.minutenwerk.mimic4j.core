@@ -93,6 +93,16 @@ public interface MmAttributeMimic<ATTRIBUTE_TYPE, VIEW_TYPE> extends MmEditableM
   public boolean isMmEmpty();
 
   /**
+   * Sets data model value of mimic to specified value, ONLY ALLOWED if mimic is configured by annotation field transientDataModel = true to switch of use of
+   * model accessor.
+   *
+   * @param   transientDataModelValue  Specified transient data model value to be set.
+   *
+   * @throws  IllegalStateException  In case of operation is called for mimic using model accessor.
+   */
+  public void setMmTransientDataModel(ATTRIBUTE_TYPE transientDataModelValue) throws IllegalStateException;
+
+  /**
    * Sets view value of mimic to specified value.
    *
    * @param  viewModelValue  The specified value to be set.

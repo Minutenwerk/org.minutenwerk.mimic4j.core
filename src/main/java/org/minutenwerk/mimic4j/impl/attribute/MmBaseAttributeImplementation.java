@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.minutenwerk.mimic4j.api.accessor.MmAttributeAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
+import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.exception.MmDataModelConverterException;
 import org.minutenwerk.mimic4j.api.exception.MmValidatorException;
 import org.minutenwerk.mimic4j.api.exception.MmViewModelConverterException;
@@ -183,9 +184,13 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     final MmModelAccessor<?, ?> parentAccessor = onInitializeParentAccessor();
 
     // initialize modelAccessor
-    modelAccessor = declaration.callbackMmGetModelAccessor(parentAccessor);
-    if (modelAccessor == null) {
-      LOGGER.debug("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
+    if (configuration.isTransientDataModel()) {
+      modelAccessor = new MmTransientDataModelAccessor();
+    } else {
+      modelAccessor = declaration.callbackMmGetModelAccessor(parentAccessor);
+      if (modelAccessor == null) {
+        LOGGER.debug("no definition of callbackMmGetModelAccessor() for {}.{}.", parentPath, name);
+      }
     }
   }
 
@@ -611,7 +616,7 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
    *
    * @return        A short description.
    *
-   * @throws        IllegalStateException  TODOC
+   * @throws        IllegalStateException  In case of return value is null.
    *
    * @jalopy.group  group-override
    */
@@ -729,6 +734,28 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
     ensureInitialization();
 
     return valueState == MmValueState.VALID_VALUE_IN_DATA_MODEL;
+  }
+
+  /**
+   * Sets data model value of mimic to specified value, ONLY ALLOWED if mimic is configured by annotation field transientDataModel = true to switch of use of
+   * model accessor.
+   *
+   * @param         pTransientDataModelValue  Specified transient data model value to be set.
+   *
+   * @throws        IllegalStateException  In case of operation is called for mimic using model accessor.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public final void setMmTransientDataModel(ATTRIBUTE_TYPE pTransientDataModelValue) throws IllegalStateException {
+    ensureInitialization();
+
+    if (configuration.isTransientDataModel()) {
+      modelAccessor.set(pTransientDataModelValue);
+    } else {
+      throw new IllegalStateException("illecal call of setMmTransientDataModel() for " + parentPath + "." + name
+        + " . ONLY ALLOWED if mimic is configured by annotation field transientDataModel = true to switch of use of model accessor");
+    }
   }
 
   /**
@@ -916,6 +943,30 @@ public abstract class MmBaseAttributeImplementation<CALLBACK extends MmBaseCallb
       return toStringState();
     } else {
       return "";
+    }
+  }
+
+  private class MmTransientDataModelAccessor extends MmAttributeAccessor<TransientDataModel, ATTRIBUTE_TYPE> {
+
+    private MmTransientDataModelAccessor() {
+      super(new MmRootAccessor<TransientDataModel>(), TransientDataModel::getTransientValue, TransientDataModel::setTransientValue);
+      getParentAccessor().set(new TransientDataModel());
+    }
+  }
+
+  private class TransientDataModel {
+
+    private ATTRIBUTE_TYPE transientValue;
+
+    private TransientDataModel() {
+    }
+
+    public ATTRIBUTE_TYPE getTransientValue() {
+      return transientValue;
+    }
+
+    public void setTransientValue(final ATTRIBUTE_TYPE pTransientValue) {
+      transientValue = pTransientValue;
     }
   }
 

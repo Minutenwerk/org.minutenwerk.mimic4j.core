@@ -14,7 +14,8 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    * Creates a new MmConfigurationBoolean instance of default values.
    */
   public MmConfigurationBoolean() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_IS_TRANSIENT_DATA_MODEL,
+      DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -24,7 +25,7 @@ public class MmConfigurationBoolean extends MmBaseAttributeConfiguration<Boolean
    */
   public MmConfigurationBoolean(MmBooleanAnnotation pBooleanAnnotation) {
     super(pBooleanAnnotation.id(), pBooleanAnnotation.visible(), pBooleanAnnotation.referenceEnabled(), pBooleanAnnotation.enabled(),
-      pBooleanAnnotation.required(), pBooleanAnnotation.styleClasses());
+      pBooleanAnnotation.required(), pBooleanAnnotation.transientDataModel(), pBooleanAnnotation.styleClasses());
   }
 
 }

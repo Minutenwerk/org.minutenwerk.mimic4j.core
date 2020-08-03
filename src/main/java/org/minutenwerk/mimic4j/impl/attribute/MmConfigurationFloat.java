@@ -20,7 +20,8 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    * Creates a new MmConfigurationFloat instance of default values.
    */
   public MmConfigurationFloat() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_IS_TRANSIENT_DATA_MODEL,
+      DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
 
@@ -31,7 +32,7 @@ public class MmConfigurationFloat extends MmBaseAttributeConfiguration<Float> {
    */
   public MmConfigurationFloat(MmFloatAnnotation pFloatAnnotation) {
     super(pFloatAnnotation.id(), pFloatAnnotation.visible(), pFloatAnnotation.referenceEnabled(), pFloatAnnotation.enabled(), pFloatAnnotation.required(),
-      pFloatAnnotation.styleClasses());
+      pFloatAnnotation.transientDataModel(), pFloatAnnotation.styleClasses());
 
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }

@@ -28,9 +28,13 @@ public @interface MmImageAnnotation {
 
   public boolean required() default MmConfigurationImage.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationImage.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public int formatMaxLength() default MmConfigurationImage.DEFAULT_FORMAT_MAX_LENGTH;
 
   public String styleClasses() default MmConfigurationImage.DEFAULT_STYLE_CLASSES;
 
   public String fixedSrc() default MmConfigurationImage.DEFAULT_FIXED_SRC;
+
+  public MmImage.MmImageType imageType() default MmImage.MmImageType.PNG_FILE;
 }

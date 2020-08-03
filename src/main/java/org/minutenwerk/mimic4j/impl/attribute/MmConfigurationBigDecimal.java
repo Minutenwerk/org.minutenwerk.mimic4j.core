@@ -22,7 +22,8 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    * Creates a new MmConfigurationBigDecimal instance of default values.
    */
   public MmConfigurationBigDecimal() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_IS_TRANSIENT_DATA_MODEL,
+      DEFAULT_STYLE_CLASSES);
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
 
@@ -33,7 +34,7 @@ public class MmConfigurationBigDecimal extends MmBaseAttributeConfiguration<BigD
    */
   public MmConfigurationBigDecimal(MmBigDecimalAnnotation pBigDecimalAnnotation) {
     super(pBigDecimalAnnotation.id(), pBigDecimalAnnotation.visible(), pBigDecimalAnnotation.referenceEnabled(), pBigDecimalAnnotation.enabled(),
-      pBigDecimalAnnotation.required(), pBigDecimalAnnotation.styleClasses());
+      pBigDecimalAnnotation.required(), pBigDecimalAnnotation.transientDataModel(), pBigDecimalAnnotation.styleClasses());
 
     formatMaxLength = pBigDecimalAnnotation.formatMaxLength();
   }

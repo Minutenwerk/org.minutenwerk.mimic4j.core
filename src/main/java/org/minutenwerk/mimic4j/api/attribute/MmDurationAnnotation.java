@@ -28,6 +28,8 @@ public @interface MmDurationAnnotation {
 
   public boolean required() default MmConfigurationDuration.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationDuration.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationDuration.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationDuration.DEFAULT_FORMAT_MAX_LENGTH;

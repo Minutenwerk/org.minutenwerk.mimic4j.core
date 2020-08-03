@@ -28,6 +28,8 @@ public @interface MmEnumAnnotation {
 
   public boolean required() default MmConfigurationEnum.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationEnum.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationEnum.DEFAULT_STYLE_CLASSES;
 
 }

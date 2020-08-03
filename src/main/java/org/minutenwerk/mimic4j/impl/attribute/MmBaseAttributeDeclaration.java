@@ -84,12 +84,17 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
    *
    * @return        The attribute's accessor.
    *
-   * @throws        ClassCastException  IllegalStateException In case of model accessor is not defined.
+   * @throws        IllegalStateException  TODOC
+   * @throws        ClassCastException     IllegalStateException In case of model accessor is not defined.
    *
    * @jalopy.group  group-callback
    */
   @Override
   public MmAttributeAccessor<?, ATTRIBUTE_TYPE> callbackMmGetModelAccessor(MmModelAccessor<?, ?> pParentAccessor) {
+    if (implementation.getConfiguration().isTransientDataModel()) {
+      throw new IllegalStateException("illegal call of setMmTransientDataModel() for "
+        + " . ONLY ALLOWED if mimic is configured by annotation field transientDataModel = true to switch of use of model accessor");
+    }
     try {
       @SuppressWarnings("unchecked")
       MmAttributeAccessor<?, ATTRIBUTE_TYPE> modelAccessor = (MmAttributeAccessor<?, ATTRIBUTE_TYPE>)pParentAccessor;
@@ -305,6 +310,19 @@ public abstract class MmBaseAttributeDeclaration<IMPLEMENTATION extends MmBaseAt
   @Override
   public final boolean isMmValid() {
     return implementation.isMmValid();
+  }
+
+  /**
+   * Sets data model value of mimic to specified value, ONLY ALLOWED if mimic is configured by annotation field transientDataModel = true to switch of use of
+   * model accessor.
+   *
+   * @param   pTransientDataModelValue  Specified transient data model value to be set.
+   *
+   * @throws  IllegalStateException  In case of operation is called for mimic using model accessor.
+   */
+  @Override
+  public final void setMmTransientDataModel(ATTRIBUTE_TYPE pTransientDataModelValue) throws IllegalStateException {
+    implementation.setMmTransientDataModel(pTransientDataModelValue);
   }
 
   /**

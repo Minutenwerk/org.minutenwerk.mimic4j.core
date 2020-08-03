@@ -14,7 +14,8 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    * Creates a new MmConfigurationEnum instance of default values.
    */
   public MmConfigurationEnum() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_IS_TRANSIENT_DATA_MODEL,
+      DEFAULT_STYLE_CLASSES);
   }
 
   /**
@@ -25,7 +26,7 @@ public class MmConfigurationEnum<ENUM_TYPE extends Enum<ENUM_TYPE>> extends MmBa
    */
   public MmConfigurationEnum(MmEnumAnnotation pEnumAnnotation, Class<ENUM_TYPE> pEnumType) {
     super(pEnumAnnotation.id(), pEnumAnnotation.visible(), pEnumAnnotation.referenceEnabled(), pEnumAnnotation.enabled(), pEnumAnnotation.required(),
-      pEnumAnnotation.styleClasses());
+      pEnumAnnotation.transientDataModel(), pEnumAnnotation.styleClasses());
   }
 
 }

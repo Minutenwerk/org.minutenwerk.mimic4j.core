@@ -15,6 +15,15 @@ import org.minutenwerk.mimic4j.impl.attribute.MmImplementationImage;
 public class MmImage extends MmBaseAttributeDeclaration<MmImplementationImage, String, String> {
 
   /**
+   * Type of image.
+   */
+  public enum MmImageType {
+    PNG_FILE,
+    SVG_FILE,
+    SVG_INLINE
+  }
+
+  /**
    * Creates a new MmImage instance.
    *
    * @param  pParent  The parent declaration mimic, containing a public final declaration of this mimic.
@@ -68,6 +77,15 @@ public class MmImage extends MmBaseAttributeDeclaration<MmImplementationImage, S
    */
   @Override
   public void callbackMmValidateDataModel(String pDataModelValue) throws MmValidatorException {
+  }
+
+  /**
+   * Returns type of image.
+   *
+   * @return  type of image.
+   */
+  public MmImage.MmImageType getMmImageType() {
+    return implementation.getMmImageType();
   }
 
   /**

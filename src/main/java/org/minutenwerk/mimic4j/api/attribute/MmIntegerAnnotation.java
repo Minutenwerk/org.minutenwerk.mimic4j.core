@@ -28,6 +28,8 @@ public @interface MmIntegerAnnotation {
 
   public boolean required() default MmConfigurationInteger.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationInteger.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationInteger.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationInteger.DEFAULT_FORMAT_MAX_LENGTH;

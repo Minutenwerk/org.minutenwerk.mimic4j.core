@@ -28,7 +28,8 @@ public class MmConfigurationLocalTime extends MmBaseAttributeConfiguration<Local
    * Creates a new MmConfigurationLocalTime instance of default values.
    */
   public MmConfigurationLocalTime() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_IS_TRANSIENT_DATA_MODEL,
+      DEFAULT_STYLE_CLASSES);
     formatPattern   = DEFAULT_FORMAT_PATTERN;
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
@@ -40,7 +41,7 @@ public class MmConfigurationLocalTime extends MmBaseAttributeConfiguration<Local
    */
   public MmConfigurationLocalTime(MmLocalTimeAnnotation pTimeAnnotation) {
     super(pTimeAnnotation.id(), pTimeAnnotation.visible(), pTimeAnnotation.referenceEnabled(), pTimeAnnotation.enabled(), pTimeAnnotation.required(),
-      pTimeAnnotation.styleClasses());
+      pTimeAnnotation.transientDataModel(), pTimeAnnotation.styleClasses());
     formatPattern   = pTimeAnnotation.formatPattern();
     formatMaxLength = pTimeAnnotation.formatMaxLength();
   }

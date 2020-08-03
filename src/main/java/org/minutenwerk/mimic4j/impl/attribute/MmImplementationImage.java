@@ -21,6 +21,17 @@ public class MmImplementationImage extends MmBaseAttributeImplementation<MmImage
   }
 
   /**
+   * Returns type of image.
+   *
+   * @return  type of image.
+   */
+  public MmImage.MmImageType getMmImageType() {
+    ensureInitialization();
+
+    return configuration.getMmImageType();
+  }
+
+  /**
    * Returns source URI of image as String.
    *
    * @return  source URI of image as String.

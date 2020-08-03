@@ -28,6 +28,8 @@ public @interface MmBigDecimalAnnotation {
 
   public boolean required() default MmConfigurationBigDecimal.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationBigDecimal.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationBigDecimal.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationBigDecimal.DEFAULT_FORMAT_MAX_LENGTH;

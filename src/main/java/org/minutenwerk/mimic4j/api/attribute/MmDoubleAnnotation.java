@@ -28,6 +28,8 @@ public @interface MmDoubleAnnotation {
 
   public boolean required() default MmConfigurationDouble.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationDouble.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationDouble.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationDouble.DEFAULT_FORMAT_MAX_LENGTH;

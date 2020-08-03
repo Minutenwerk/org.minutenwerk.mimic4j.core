@@ -28,6 +28,8 @@ public @interface MmFloatAnnotation {
 
   public boolean required() default MmConfigurationFloat.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationFloat.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationFloat.DEFAULT_STYLE_CLASSES;
 
   public int formatMaxLength() default MmConfigurationFloat.DEFAULT_FORMAT_MAX_LENGTH;

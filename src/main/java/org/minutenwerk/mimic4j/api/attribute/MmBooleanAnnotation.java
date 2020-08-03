@@ -28,6 +28,8 @@ public @interface MmBooleanAnnotation {
 
   public boolean required() default MmConfigurationBoolean.DEFAULT_IS_REQUIRED;
 
+  public boolean transientDataModel() default MmConfigurationBoolean.DEFAULT_IS_TRANSIENT_DATA_MODEL;
+
   public String styleClasses() default MmConfigurationBoolean.DEFAULT_STYLE_CLASSES;
 
 }

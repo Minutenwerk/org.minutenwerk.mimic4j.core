@@ -28,7 +28,8 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
    * Creates a new MmConfigurationDate instance of default values.
    */
   public MmConfigurationLocalDate() {
-    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_STYLE_CLASSES);
+    super(UNDEFINED_ID, DEFAULT_IS_VISIBLE, DEFAULT_IS_REFERENCE_ENABLED, DEFAULT_IS_ENABLED, DEFAULT_IS_REQUIRED, DEFAULT_IS_TRANSIENT_DATA_MODEL,
+      DEFAULT_STYLE_CLASSES);
     formatPattern   = DEFAULT_FORMAT_PATTERN;
     formatMaxLength = DEFAULT_FORMAT_MAX_LENGTH;
   }
@@ -40,7 +41,7 @@ public class MmConfigurationLocalDate extends MmBaseAttributeConfiguration<Local
    */
   public MmConfigurationLocalDate(MmLocalDateAnnotation pDateAnnotation) {
     super(pDateAnnotation.id(), pDateAnnotation.visible(), pDateAnnotation.referenceEnabled(), pDateAnnotation.enabled(), pDateAnnotation.required(),
-      pDateAnnotation.styleClasses());
+      pDateAnnotation.transientDataModel(), pDateAnnotation.styleClasses());
     formatPattern   = pDateAnnotation.formatPattern();
     formatMaxLength = pDateAnnotation.formatMaxLength();
   }
