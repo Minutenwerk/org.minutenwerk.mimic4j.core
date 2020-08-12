@@ -20,6 +20,8 @@ import org.minutenwerk.mimic4j.impl.MmBaseImplementation;
 import org.minutenwerk.mimic4j.impl.MmJavaHelper;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerImplementation;
 
+import org.springframework.web.util.UriComponents;
+
 /**
  * MmBaseLinkImplementation is a mimic with two models, the data model delivers the value for dynamic parts of URL, the view model delivers the text label of
  * the link. In most cases the two models are the same.
@@ -164,39 +166,44 @@ public abstract class MmBaseLinkImplementation<CALLBACK extends MmLinkCallback<D
     ensureInitialization();
 
     // retrieve target mimic, may be null
-    final MmMimic      targetMimic          = declaration.callbackMmGetTargetReferenceMimic(null);
+    final MmMimic    targetMimic = declaration.callbackMmGetTargetReferenceMimic(null);
 
     // retrieve data model, may be null
-    final DATA_MODEL   dataModel            = dataModelAccessor.get();
-
-    // retrieve data model reference parameters, may be null
-    final List<String> modelReferenceParams = dataModelAccessor.getMmReferenceParams();
+    final DATA_MODEL dataModel   = dataModelAccessor.get();
 
     // if link references another mimic without a specified data model
     if ((targetMimic != null) && (dataModel == null)) {
       return targetMimic.getMmSelfReference();
 
       // if link references another mimic for a specified referenceable data model
-    } else if ((targetMimic != null) && (!modelReferenceParams.isEmpty())) {
-      return targetMimic.getMmSelfReferenceForModel((MmReferenceableModel)dataModel);
+    } else if ((targetMimic != null) && (dataModel != null)) {
+      return targetMimic.getMmSelfReferenceForModel(dataModel);
 
-      // retrieve target reference path
     } else {
 
-      // if link references an URI for a specified referenceable data model
-      if ((targetMimic == null) && (!modelReferenceParams.isEmpty())) {
-        final URI targetReferencePath = declaration.callbackMmGetTargetReference(configuration.getTargetReferencePath(), dataModel, modelReferenceParams);
-        if (targetReferencePath == null) {
-          throw new IllegalArgumentException("no definition of target reference path for " + this);
-        }
-        return targetReferencePath;
+      // retrieve target reference path like "city/{id0}/person/{id1}/display" or "city/{id0}/mayor/{id1}/display"
+      final UriComponents evaluatedTargetReferencePath = declaration.callbackMmGetTargetReferencePath(configuration.getTargetReferencePath(), dataModel);
+      if (evaluatedTargetReferencePath == null) {
+        throw new IllegalArgumentException("no definition of target reference path for " + this);
+
+        // if target is a fixed uri, return immediately
+      } else if (!evaluatedTargetReferencePath.toString().contains("{")) {
+        return evaluatedTargetReferencePath.toUri();
 
       } else {
-        final URI targetReferencePath = declaration.callbackMmGetTargetReference(configuration.getTargetReferencePath(), dataModel, Collections.emptyList());
-        if (targetReferencePath == null) {
-          throw new IllegalArgumentException("no definition of target reference path for " + this);
+
+        // retrieve data model reference parameters, may be an empty list. Throws exception, if specified target reference path doesn't exist
+        final List<String> evaluatedReferenceParams = (dataModel != null) //
+          ? dataModel.getMmReferenceParams(evaluatedTargetReferencePath) //
+          : Collections.emptyList();
+
+        // retrieve target reference by expanding, like
+        final URI          targetReference          = declaration.callbackMmGetTargetReference(evaluatedTargetReferencePath, dataModel,
+            evaluatedReferenceParams);
+        if (targetReference == null) {
+          throw new IllegalArgumentException("no definition of target reference for " + this);
         }
-        return targetReferencePath;
+        return targetReference;
       }
     }
   }

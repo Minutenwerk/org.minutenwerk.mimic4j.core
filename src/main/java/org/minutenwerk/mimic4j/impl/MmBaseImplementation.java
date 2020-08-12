@@ -751,7 +751,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // if self reference is an URI for a specified referenceable data model
     if ((dataModel != null) && (dataModel instanceof MmReferenceableModel)) {
-      final List<String> modelReferenceParams = ((MmReferenceableModel)dataModel).getMmReferenceParams();
+      final List<String> modelReferenceParams = ((MmReferenceableModel)dataModel).getMmReferenceParams(selfReferencePath);
       return declaration.callbackMmGetSelfReference(selfReferencePath, dataModel, modelReferenceParams);
 
     } else {
@@ -793,7 +793,7 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
 
     // if self reference is an URI for a specified referenceable data model
     if ((pDataModel != null) && (pDataModel instanceof MmReferenceableModel)) {
-      final List<String> modelReferenceParams = ((MmReferenceableModel)pDataModel).getMmReferenceParams();
+      final List<String> modelReferenceParams = ((MmReferenceableModel)pDataModel).getMmReferenceParams(selfReferencePath);
       return declaration.callbackMmGetSelfReference(selfReferencePath, pDataModel, modelReferenceParams);
 
     } else {

@@ -32,15 +32,15 @@ public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
   public MmModelAccessor<?, DATA_MODEL> callbackMmGetModelAccessor(MmModelAccessor<?, ?> parentAccessor);
 
   /**
-   * Returns the target URL of this mimic.
+   * Returns the expanded target URL of this mimic, city/123/person/4711/display".
    *
-   * @param   targetReferencePath    The path of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
-   * @param   dataModel              The data model, which delivers the target reference parameters.
-   * @param   targetReferenceParams  The parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
+   * @param   evaluatedTargetReferencePath  The evaluated target reference path of this mimic, like "city/{id0}/person/{id1}/display".
+   * @param   dataModel                     The data model, which evaluated target reference path and parameters.
+   * @param   evaluatedReferenceParams      The evaluated parameters of the target URL, like {"123", "4711" }.
    *
-   * @return  The target URL of this mimic.
+   * @return  The expanded target URL of this mimic, city/123/person/4711/display".
    */
-  public URI callbackMmGetTargetReference(UriComponents targetReferencePath, DATA_MODEL dataModel, List<String> targetReferenceParams);
+  public URI callbackMmGetTargetReference(UriComponents evaluatedTargetReferencePath, DATA_MODEL dataModel, List<String> evaluatedReferenceParams);
 
   /**
    * Returns a mimic, which is the target reference of this link mimic.
@@ -50,6 +50,17 @@ public interface MmLinkCallback<DATA_MODEL, VIEW_MODEL> extends MmBaseCallback {
    * @return  A mimic, which is the target reference of this link mimic.
    */
   public MmMimic callbackMmGetTargetReferenceMimic(MmMimic passThroughValue);
+
+  /**
+   * Returns the evaluated target reference path of this mimic, like "city/{id0}/person/{id1}/display".
+   *
+   * @param   configuredTargetReferencePath  The configured path of the target URL like "city/{id0}/person/{id1}/display".
+   * @param   dataModel                      The returned target reference path might depend on the data model, e.g. the data model "person" is a "mayor", the
+   *                                         reference path is changed to "city/{id0}/mayor/{id1}/display".
+   *
+   * @return  The evaluated target reference path of this mimic, like "city/{id0}/person/{id1}/display" or "city/{id0}/mayor/{id1}/display".
+   */
+  public UriComponents callbackMmGetTargetReferencePath(UriComponents configuredTargetReferencePath, DATA_MODEL dataModel);
 
   /**
    * Returns the link's format pattern for displaying view value. It is used during conversion from view model to view value and vice versa. It is dependent

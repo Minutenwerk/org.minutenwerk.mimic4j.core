@@ -2,6 +2,8 @@ package org.minutenwerk.mimic4j.api.mimic;
 
 import java.util.List;
 
+import org.springframework.web.util.UriComponents;
+
 /**
  * MmReferenceableModel is a model being referenceable by an url.
  *
@@ -10,10 +12,13 @@ import java.util.List;
 public interface MmReferenceableModel {
 
   /**
-   * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
+   * Returns a list of URL parameter values for a specified target reference path, like {"123", "4711" } for "city/123/person/4711/display". Usually this is a
+   * list of ids starting by id of root dto.
    *
-   * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.
+   * @param   pTargetReferencePath  Specified target reference path.
+   *
+   * @return  A list of URL parameter values for a specified target reference path.
    */
-  public List<String> getMmReferenceParams();
+  public List<String> getMmReferenceParams(UriComponents pTargetReferencePath);
 
 }

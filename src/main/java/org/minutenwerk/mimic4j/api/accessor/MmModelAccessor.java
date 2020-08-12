@@ -20,13 +20,6 @@ public interface MmModelAccessor<PARENT_MODEL, MODEL> {
   public MODEL get();
 
   /**
-   * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
-   *
-   * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.
-   */
-  public List<String> getMmReferenceParams();
-
-  /**
    * Returns list of accessors, root accessor first.
    *
    * @return  List of accessors, root accessor first.

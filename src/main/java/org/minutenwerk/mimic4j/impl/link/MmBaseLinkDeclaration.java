@@ -60,38 +60,35 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
   }
 
   /**
-   * Returns the target URL of this mimic.
+   * Returns the expanded target URL of this mimic, city/123/person/4711/display".
    *
-   * @param         pTargetReferencePath    The path of the target URL like "city/{id0}/person/{id1}/display" in "city/123/person/4711/display".
-   * @param         pDataModel              The data model, which delivers the target reference parameters.
-   * @param         pTargetReferenceParams  The parameters of the target URL, like "123", "4711" in "city/123/person/4711/display".
+   * @param         pEvaluatedTargetReferencePath  The evaluated target reference path of this mimic, like "city/{id0}/person/{id1}/display".
+   * @param         pDataModel                     The data model, which evaluated target reference path and parameters.
+   * @param         pEvaluatedReferenceParams      The evaluated parameters of the target URL, like {"123", "4711" }.
    *
-   * @return        The target URL of this mimic.
+   * @return        The expanded target URL of this mimic, city/123/person/4711/display".
    *
-   * @throws        RuntimeException  TODOC
+   * @throws        RuntimeException  In case of expand failed.
    *
    * @jalopy.group  group-callback
    */
   @Override
-  public URI callbackMmGetTargetReference(UriComponents pTargetReferencePath, DATA_MODEL pDataModel, List<String> pTargetReferenceParams) {
+  public URI callbackMmGetTargetReference(UriComponents pEvaluatedTargetReferencePath, DATA_MODEL pDataModel, List<String> pEvaluatedReferenceParams) {
     try {
-      if (pTargetReferencePath == null) {
-        throw new IllegalArgumentException();
-      }
-      if ((pTargetReferenceParams == null) || pTargetReferenceParams.isEmpty()) {
+      if (pEvaluatedReferenceParams.isEmpty()) {
         if (pDataModel == null) {
-          return pTargetReferencePath.toUri();
+          return pEvaluatedTargetReferencePath.toUri();
         } else {
-          return pTargetReferencePath.expand(pDataModel).toUri();
+          return pEvaluatedTargetReferencePath.expand(pDataModel).toUri();
         }
-      } else if (pTargetReferenceParams.size() == 1) {
-        return pTargetReferencePath.expand(pTargetReferenceParams.get(0)).toUri();
+      } else if (pEvaluatedReferenceParams.size() == 1) {
+        return pEvaluatedTargetReferencePath.expand(pEvaluatedReferenceParams.get(0)).toUri();
       } else {
-        return pTargetReferencePath.expand(pTargetReferenceParams.toArray()).toUri();
+        return pEvaluatedTargetReferencePath.expand(pEvaluatedReferenceParams.toArray()).toUri();
       }
     } catch (IllegalArgumentException e) {
-      throw new RuntimeException("targetReferencePath: " + pTargetReferencePath + ", dataModel: " + pDataModel + ", targetReferenceParams: "
-        + pTargetReferenceParams, e);
+      throw new RuntimeException("targetReferencePath: " + pEvaluatedTargetReferencePath + ", dataModel: " + pDataModel + ", targetReferenceParams: "
+        + pEvaluatedReferenceParams, e);
     }
   }
 
@@ -106,6 +103,22 @@ public abstract class MmBaseLinkDeclaration<IMPLEMENTATION extends MmBaseLinkImp
    */
   @Override
   public MmMimic callbackMmGetTargetReferenceMimic(MmMimic pPassThroughValue) {
+    return pPassThroughValue;
+  }
+
+  /**
+   * Returns the evaluated target reference path of this mimic, like "city/{id0}/person/{id1}/display".
+   *
+   * @param         pPassThroughValue  The configured path of the target URL like "city/{id0}/person/{id1}/display".
+   * @param         pDataModel         The returned target reference path might depend on the data model, e.g. the data model "person" is a "mayor", the
+   *                                   reference path is changed to "city/{id0}/mayor/{id1}/display".
+   *
+   * @return        The evaluated target reference path of this mimic, like "city/{id0}/person/{id1}/display" or "city/{id0}/mayor/{id1}/display".
+   *
+   * @jalopy.group  group-callback
+   */
+  @Override
+  public UriComponents callbackMmGetTargetReferencePath(UriComponents pPassThroughValue, DATA_MODEL pDataModel) {
     return pPassThroughValue;
   }
 

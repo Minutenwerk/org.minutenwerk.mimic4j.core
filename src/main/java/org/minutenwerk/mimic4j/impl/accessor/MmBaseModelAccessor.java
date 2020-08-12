@@ -1,11 +1,9 @@
 package org.minutenwerk.mimic4j.impl.accessor;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
-import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 
 /**
  * Abstract base class for model accessors.
@@ -27,20 +25,6 @@ public abstract class MmBaseModelAccessor<PARENT_MODEL, MODEL> implements MmMode
    */
   public MmBaseModelAccessor(final MmModelAccessor<?, PARENT_MODEL> pParentAccessor) {
     parentAccessor = pParentAccessor;
-  }
-
-  /**
-   * Returns a list of path or query parameter values of the URL, like "123", "4711" in "city/123/person/4711/display".
-   *
-   * @return  A list of path or query parameter values of the URL. Usually this is a list of ids starting by id of root dto.
-   */
-  @Override
-  public List<String> getMmReferenceParams() {
-    MODEL model = get();
-    if ((model != null) && (model instanceof MmReferenceableModel)) {
-      return ((MmReferenceableModel)model).getMmReferenceParams();
-    }
-    return Collections.emptyList();
   }
 
   /**
