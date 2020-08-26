@@ -1618,10 +1618,12 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
       return this;
     }
 
-    for (MmMimic child : getMmChildren()) {
-      MmMimic found = MmRelationshipApi.getMmDescendantByFullName(child, pFullName);
-      if (found != null) {
-        return found;
+    if (pFullName.startsWith(fullName)) {
+      for (MmMimic child : getMmChildren()) {
+        MmMimic found = MmRelationshipApi.getMmDescendantByFullName(child, pFullName);
+        if (found != null) {
+          return found;
+        }
       }
     }
     return null;
