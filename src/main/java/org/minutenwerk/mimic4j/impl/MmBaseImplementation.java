@@ -646,6 +646,20 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
   }
 
   /**
+   * Returns list of children mimics, might be empty.
+   *
+   * @return        List of children mimics, might be empty.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public List<MmMimic> getMmChildrenMimics() {
+    ensureInitialization();
+
+    return (List<MmMimic>)Stream.concat(declarationChildren.stream(), runtimeDeclarationChildren.stream()).collect(Collectors.toList());
+  }
+
+  /**
    * Returns the full name of this mimic including the path of its ancestors' names like <code>grandparent.parent.child</code>, or an empty String if the full
    * name is undefined. The full name is evaluated during initialization phase and derived from the field declaration name in its parent class.
    *
@@ -714,6 +728,20 @@ public abstract class MmBaseImplementation<DECLARATION extends MmBaseDeclaration
     ensureInitialization();
 
     return name;
+  }
+
+  /**
+   * Returns parent mimic, if exists, otherwise null.
+   *
+   * @return        Parent mimic, if exists, otherwise null.
+   *
+   * @jalopy.group  group-override
+   */
+  @Override
+  public MmMimic getMmParentMimic() {
+    ensureInitialization();
+
+    return declarationParent;
   }
 
   /**

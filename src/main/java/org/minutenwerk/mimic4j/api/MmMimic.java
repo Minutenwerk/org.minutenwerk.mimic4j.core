@@ -2,6 +2,8 @@ package org.minutenwerk.mimic4j.api;
 
 import java.net.URI;
 
+import java.util.List;
+
 import org.minutenwerk.mimic4j.api.mimic.MmReferenceableModel;
 import org.minutenwerk.mimic4j.impl.MmBaseCallback;
 import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
@@ -11,7 +13,7 @@ import org.minutenwerk.mimic4j.impl.MmBaseConfiguration;
  *
  * @author              Olaf Kossak
  *
- * @jalopy.group-order  group-id, group-name, group-fullname, group-runtime, group-visible, group-enabled, group-short, group-long, group-style, group-model,
+ * @jalopy.group-order  group-id, group-name, group-fullname, group-family, group-visible, group-enabled, group-short, group-long, group-style, group-model,
  *                      group-reference
  */
 public interface MmMimic {
@@ -47,12 +49,30 @@ public interface MmMimic {
   public String getMmFullName();
 
   /**
+   * Returns list of children mimics, might be empty.
+   *
+   * @return        List of children mimics, might be empty.
+   *
+   * @jalopy.group  group-family
+   */
+  public List<MmMimic> getMmChildrenMimics();
+
+  /**
+   * Returns parent mimic, if exists, otherwise null.
+   *
+   * @return        Parent mimic, if exists, otherwise null.
+   *
+   * @jalopy.group  group-family
+   */
+  public MmMimic getMmParentMimic();
+
+  /**
    * Returns <code>true</code>, if the mimic has been created at runtime, e.g. a {@link org.minutenwerk.mimic4j.api.container.MmTableRow}. It is evaluated
    * during initialization phase and cannot change.
    *
    * @return        <code>True</code>, if the mimic has been created at runtime.
    *
-   * @jalopy.group  group-runtime
+   * @jalopy.group  group-family
    */
   public boolean isMmRuntimeMimic();
 
