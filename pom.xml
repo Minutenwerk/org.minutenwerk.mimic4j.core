@@ -55,12 +55,12 @@
   <distributionManagement>
     <repository>
       <id>repo-for-deployment-of-releases</id>
-      <url>http://http://mw-8358241.jelastic.dogado.eu/artifactory/repo-for-deployment-of-releases</url>
+      <url>http://mw-8358241.jelastic.dogado.eu/artifactory/repo-for-deployment-of-releases</url>
     </repository>
 
     <snapshotRepository>
       <id>repo-for-deployment-of-snapshots</id>
-      <url>http://http://mw-8358241.jelastic.dogado.eu/artifactory/repo-for-deployment-of-snapshots</url>
+      <url>http://mw-8358241.jelastic.dogado.eu/artifactory/repo-for-deployment-of-snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
