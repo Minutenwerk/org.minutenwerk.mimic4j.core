@@ -35,9 +35,9 @@ public abstract class MmRelationshipImpl {
     if (!pDeclarationType.isInterface() && !(MmBaseDeclaration.class.isAssignableFrom(pDeclarationType))) {
       throw new IllegalArgumentException("Class " + pDeclarationType.getSimpleName() + " is not a subclass of MmBaseDeclaration");
     }
-    return (List<T>)(getMmChildren(pMimic).stream() //
-      .filter(child -> pDeclarationType.isAssignableFrom(child.getClass())) //
-      .collect(Collectors.toList()));
+    return (List<T>)pMimic.getMmChildrenMimics().stream() //
+    .filter(child -> pDeclarationType.isAssignableFrom(child.getClass())) //
+    .collect(Collectors.toList());
   }
 
   /**
@@ -85,18 +85,6 @@ public abstract class MmRelationshipImpl {
   }
 
   /**
-   * Returns a list of all direct child mimics of this mimic.
-   *
-   * @param   pMimic  The specified mimic.
-   *
-   * @return  A list of all direct child mimics of this mimic.
-   */
-  public static List<MmMimic> getMmChildren(MmMimic pMimic) {
-    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = getMmImplementation(pMimic);
-    return implementationPartOfMimic.getMmChildren();
-  }
-
-  /**
    * Returns a descendant mimic of specified full name, or <code>null</code> if it doesn't exist. The name is a path of ancestors' names like <code>
    * grandparent.parent.child</code>.
    *
@@ -120,18 +108,6 @@ public abstract class MmRelationshipImpl {
   public static List<MmMimic> getMmDescendants(MmMimic pMimic) {
     final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = getMmImplementation(pMimic);
     return implementationPartOfMimic.getMmDescendants();
-  }
-
-  /**
-   * Returns the parent mimic of this mimic, may be null in case of <code>MmRoot</code>.
-   *
-   * @param   pMimic  The specified mimic.
-   *
-   * @return  The parent mimic of this mimic, may be null.
-   */
-  public static MmMimic getMmParent(MmMimic pMimic) {
-    final MmBaseImplementation<?, ?, ?> implementationPartOfMimic = getMmImplementation(pMimic);
-    return implementationPartOfMimic.getMmParent();
   }
 
   /**

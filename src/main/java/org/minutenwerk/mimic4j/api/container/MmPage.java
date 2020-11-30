@@ -1,9 +1,7 @@
 package org.minutenwerk.mimic4j.api.container;
 
-import java.util.List;
 import java.util.Locale;
 
-import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmPageMimic;
@@ -110,16 +108,6 @@ public abstract class MmPage<MODEL> extends MmBaseContainerDeclaration<MmImpleme
    */
   public static String getMmStaticSelfReferencePath() {
     return null;
-  }
-
-  /**
-   * Returns a list of direct mimic children of this page.
-   *
-   * @return  a list of direct mimic children of this page.
-   */
-  @Override
-  public final List<MmMimic> getMmElements() {
-    return implementation.getMmChildren();
   }
 
   /**

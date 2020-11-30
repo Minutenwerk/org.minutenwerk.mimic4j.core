@@ -1,7 +1,6 @@
 package org.minutenwerk.mimic4j.api.container;
 
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.mimic.MmTableColumnMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmTableMimic;
 import org.minutenwerk.mimic4j.impl.container.MmBaseContainerDeclaration;
@@ -50,7 +49,7 @@ public class MmTableColumn<MODEL> extends MmBaseContainerDeclaration<MmImplement
   @Override
   @SuppressWarnings("unchecked")
   public final <T extends MmTableMimic<?>> T getMmParentTable() {
-    return (T)MmRelationshipApi.getMmParent(this);
+    return (T)getMmParentMimic();
   }
 
   /**

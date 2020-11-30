@@ -21,7 +21,7 @@ public interface MmTableMimic<ROW_MODEL> extends MmContainerMimic<List<ROW_MODEL
   /**
    * Returns the table column index of specified column.
    *
-   * @param   pTableColumn  TODOC
+   * @param   pTableColumn  Specified column.
    *
    * @return  The table column index of specified column.
    */

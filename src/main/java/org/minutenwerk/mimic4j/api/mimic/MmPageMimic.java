@@ -1,9 +1,7 @@
 package org.minutenwerk.mimic4j.api.mimic;
 
-import java.util.List;
 import java.util.Locale;
 
-import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.site.MmSpringMimicAdapter;
 import org.minutenwerk.mimic4j.api.site.MmTheme;
@@ -16,13 +14,6 @@ import org.minutenwerk.mimic4j.api.site.MmTheme;
  * @author  Olaf Kossak
  */
 public interface MmPageMimic<MODEL> extends MmContainerMimic<MODEL> {
-
-  /**
-   * Returns a list of direct mimic children of this page.
-   *
-   * @return  a list of direct mimic children of this page.
-   */
-  public List<MmMimic> getMmElements();
 
   /**
    * Returns an internationalized version for a specified message id and type.

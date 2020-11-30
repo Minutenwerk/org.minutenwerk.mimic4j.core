@@ -6,7 +6,6 @@ import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmListEntryAccessor;
 import org.minutenwerk.mimic4j.api.accessor.MmModelAccessor;
 import org.minutenwerk.mimic4j.api.mimic.MmDeclarationMimic;
-import org.minutenwerk.mimic4j.api.mimic.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.mimic.MmTableMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmTableRowMimic;
 import org.minutenwerk.mimic4j.impl.MmBaseDeclaration;
@@ -82,7 +81,7 @@ public abstract class MmTableRow<ROW_MODEL> extends MmBaseContainerDeclaration<M
   @Override
   @SuppressWarnings("unchecked")
   public final <T extends MmTableMimic<ROW_MODEL>> T getMmParentTable() {
-    return (T)MmRelationshipApi.getMmParent(this);
+    return (T)getMmParentMimic();
   }
 
   /**

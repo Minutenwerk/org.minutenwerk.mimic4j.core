@@ -1,16 +1,13 @@
 package org.minutenwerk.mimic4j.impl.container;
 
-import java.util.List;
 import java.util.Locale;
 
-import org.minutenwerk.mimic4j.api.MmMimic;
 import org.minutenwerk.mimic4j.api.accessor.MmRootAccessor;
 import org.minutenwerk.mimic4j.api.container.MmPage;
 import org.minutenwerk.mimic4j.api.container.MmPageAnnotation;
 import org.minutenwerk.mimic4j.api.message.MmMessageType;
 import org.minutenwerk.mimic4j.api.mimic.MmPageMimic;
 import org.minutenwerk.mimic4j.api.mimic.MmReferencePathProvider;
-import org.minutenwerk.mimic4j.api.mimic.MmRelationshipApi;
 import org.minutenwerk.mimic4j.api.site.MmSpringMimicAdapter;
 import org.minutenwerk.mimic4j.api.site.MmTheme;
 
@@ -40,18 +37,6 @@ public class MmImplementationPage<MODEL> extends MmBaseContainerImplementation<M
   public MmImplementationPage(final MmSpringMimicAdapter<?> pSpringMimicAdapter, final String pName, final MmRootAccessor<MODEL> pRootAccessor) {
     super(NULL_PARENT, pName, pRootAccessor);
     springMimicAdapter = pSpringMimicAdapter;
-  }
-
-  /**
-   * Returns a list of direct mimic children of this page.
-   *
-   * @return  a list of direct mimic children of this page.
-   */
-  @Override
-  public List<MmMimic> getMmElements() {
-    ensureInitialization();
-
-    return MmRelationshipApi.getMmChildren(declaration);
   }
 
   /**
