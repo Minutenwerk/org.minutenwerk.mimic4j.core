@@ -10,7 +10,7 @@ import org.springframework.web.util.UriComponents;
 public interface MmReferencePathProvider {
 
   /**
-   * Returns the path part of a many items URL like "city/{id0}/person/{id1}/friemds" in "city/123/person/{id1}/friends".
+   * Returns the path part of a many items URL like "city/{id0}/person/{id1}/friends" in "city/123/person/{id1}/friends".
    *
    * @return  The path part of a many items URL.
    */
